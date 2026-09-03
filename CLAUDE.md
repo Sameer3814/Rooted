@@ -71,9 +71,16 @@ has to be rewritten:
   parsed corpus, attached topics/character links by hand, wrote
   `starter-pack.json`.
 
-User data (verses/characters the user adds, and all practice progress) is
-stored separately via the in-app persistence API (`window.storage`,
-personal/non-shared) — never mixed into the seed/starter-pack files.
+User data is stored separately via the in-app persistence API
+(`window.storage`, personal/non-shared), under two keys, never mixed into
+the seed files:
+- `rooted-content` — verses/topics/characters the user adds or edits, as an
+  overlay merged over the seed by id at load. Only written once the user
+  changes something.
+- `rooted-progress` — a `verseId → VerseProgress` map (status, review
+  schedule, practice history).
+A pre-split `rooted-app-data` blob (content + progress together) is
+migrated once on first boot, then ignored. See DATA_MODEL.md §5, §7, §8.1.
 
 ## Translation and copyright — important, don't undo this
 
@@ -140,28 +147,28 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. Split content from user-state in storage, and drop the `progress` stub
-   from the seed files (`DATA_MODEL.md` §8.1). Currently everything is one
-   `rooted-app-data` blob.
-2. More challenge types beyond fill-in-blank — first factor the existing
+1. More challenge types beyond fill-in-blank — first factor the existing
    one into the pluggable ChallengeType interface (`DATA_MODEL.md` §3),
    then add scramble / progressive reveal / matching / ordering.
-3. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
+2. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
    `book`/`chapter`/`verse` fields to the Verse schema.
-4. Wiring the full `verses.json` corpus into the app (needs search/browse
+3. Wiring the full `verses.json` corpus into the app (needs search/browse
    UI, since dumping ~4,000 verses into one list is not usable as-is).
-5. Topic tagging at scale for the full corpus (currently only the 17
+4. Topic tagging at scale for the full corpus (currently only the 17
    starter verses are tagged).
-6. `Story` / `Era` / `LifeEvent` entities — needed for the character
+5. `Story` / `Era` / `LifeEvent` entities — needed for the character
    timeline/"highlights of their life" feature and parallel-story
    connections.
-7. The generic `Connection` entity (Design philosophy #4) — migrate
+6. The generic `Connection` entity (Design philosophy #4) — migrate
    `Character.relationships[]` to it first.
-8. Real character portrait illustrations in the warm-storybook style
+7. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-9. Expanding character/relationship data beyond Genesis to other OT books.
-10. `data/characters.json` is currently dead weight (duplicates the
-    characters embedded in `starter-pack.json`) — wire it in or delete it.
+8. Expanding character/relationship data beyond Genesis to other OT books.
+9. `data/characters.json` is currently dead weight (duplicates the
+   characters embedded in `starter-pack.json`) — wire it in or delete it.
+
+**Done:** content/user-state storage split + `progress` removed from seed
+files (`DATA_MODEL.md` §8.1, 2026-09-03).
 
 ## Source data provenance
 

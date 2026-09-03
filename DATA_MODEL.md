@@ -35,7 +35,6 @@ data merge without collisions).
 | Media         | `media_`      | `media_char_david_portrait`      |
 | Connection    | `conn_`       | `conn_isaac_child_of_abraham`    |
 | Challenge type| `challenge_`  | `challenge_fill_blank`           |
-| Verse progress| `prog_`       | `prog_verse_genesis_1_1`         |
 | Practice session | `session_` | `session_20260903_0912`          |
 | Journal entry | `journal_`    | `journal_20260903_1030`          |
 
@@ -88,9 +87,8 @@ not be able to delete a verse. See §7.
 - `translation` stays a string. WEB is the only value today; do not hardcode
   that assumption anywhere. See §9.
 - `storyIds` / `motifIds` / `depthTags` are **new**, all optional, default `[]`.
-- **No `progress` field.** The seed files currently carry a `progress` stub —
-  that is scheduled for removal (see §11). Progress lives in user state keyed by
-  verse id.
+- **No `progress` field.** Progress lives in user state (`rooted-progress`),
+  keyed by verse id — see §7. (Done 2026-09-03; §8.1.)
 
 ### Topic — *live*
 ```json
@@ -135,7 +133,7 @@ not be able to delete a verse. See §7.
 - `relationships[]` (currently embedded on the character) **moves to
   Connection**. This is the textbook case for the generic entity: the links are
   typed ("son of"), directional, browsable in their own right, and will grow
-  notes. See §11 for migration.
+  notes. See §8.4 for migration.
 - `verseIds` / `storyIds` / `lifeEventIds` / `mediaIds` stay as embedded id
   arrays — they're cheap, stable, and drive lookups the UI does constantly.
 
@@ -340,14 +338,18 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `data/motifs.json` | *planned* | Motif seed |
 | `data/connections.json` | *planned* | Connection seed (incl. migrated character relationships) |
 | `media/` | *planned* | illustration assets referenced by Media entities |
-| `window.storage: rooted-content` | user-added verses/characters/etc. | merged over seed by id at load |
-| `window.storage: rooted-progress` | map of `verseId → VerseProgress` | §7 |
-| `window.storage: rooted-sessions` | practice session log | optional / trimmable |
-| `window.storage: rooted-journal` | discovery journal entries | §7 |
-| `window.storage: rooted-settings` | active depth, preferences | §7 |
+| `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
+| `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
+| `window.storage: rooted-sessions` | practice session log | planned — optional / trimmable |
+| `window.storage: rooted-journal` | discovery journal entries | planned — §7 |
+| `window.storage: rooted-settings` | active depth, preferences | planned — §7 |
+| `window.storage: rooted-app-data` | pre-split single blob | legacy — migrated once on boot by `migrateLegacy`, then ignored |
 
-> Today the app stores everything under one key `rooted-app-data` (content and
-> progress together). Splitting it per the table above is migration work (§11).
+> The content/progress split (§8.1) is implemented. On first boot after the
+> split, an existing `rooted-app-data` blob is read once: entities not in the
+> seed become the `rooted-content` overlay, per-verse `progress` sub-objects
+> become the `rooted-progress` map, and the old key is left in place but no
+> longer read.
 
 Seed vs. user data merge rule: **seed files are the source of truth for seed
 ids.** User edits to a seed entity are stored as an overlay in `rooted-content`
@@ -434,9 +436,13 @@ note).
 
 ## 8. Current state → target: migration checklist
 
-1. **Drop `progress` from seed files.** Move to `rooted-progress` map keyed by
+1. ~~**Drop `progress` from seed files.** Move to `rooted-progress` map keyed by
    verse id. Update `boot()` / `scheduleSave` to split content vs. progress
-   instead of one `rooted-app-data` blob.
+   instead of one `rooted-app-data` blob.~~ **Done (2026-09-03).** Seed files
+   carry no `progress`. `index.html` now has `content` (overlay → `rooted-content`),
+   `progress` (map → `rooted-progress`), and `data` (seed + overlay, rendered).
+   `scheduleNext` → `recordPractice(verseId, correct, challengeTypeId)`, which
+   also appends a `history` entry. `migrateLegacy` handles the old blob.
 2. **Add structured `book` / `chapter` / `verse`** to the Verse schema and the
    parser output; backfill existing seed verses.
 3. **`Character.era` (string) → `eraId` (ref).** Create `era_*` entities; add

@@ -183,41 +183,97 @@
 </nav>
 
 <script>
-/* ---------- storage ---------- */
-const STORE_KEY = 'rooted-app-data';
-let saveTimer = null;
-function scheduleSave(){
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(async ()=>{
-    try{ await window.storage.set(STORE_KEY, JSON.stringify(data), false); }
-    catch(e){ console.error('save failed', e); }
+/* ---------- storage ----------
+   Content (verses/topics/characters) and user state (practice progress) are
+   stored under separate keys so resetting progress can never destroy content.
+   See DATA_MODEL.md §5, §7.
+   - rooted-content  : user overlay { verses, topics, characters } merged
+                       over the seed by id at load. Seed is source of truth
+                       for seed ids; the overlay adds new ids and patches
+                       existing ones.
+   - rooted-progress : map of verseId -> VerseProgress
+*/
+const CONTENT_KEY  = 'rooted-content';
+const PROGRESS_KEY = 'rooted-progress';
+const LEGACY_KEY   = 'rooted-app-data';  // pre-split single blob; migrated once
+
+let contentTimer = null, progressTimer = null;
+function saveContent(){
+  clearTimeout(contentTimer);
+  contentTimer = setTimeout(async ()=>{
+    try{ await window.storage.set(CONTENT_KEY, JSON.stringify(content), false); }
+    catch(e){ console.error('content save failed', e); }
   }, 250);
 }
-async function loadData(){
+function saveProgress(){
+  clearTimeout(progressTimer);
+  progressTimer = setTimeout(async ()=>{
+    try{ await window.storage.set(PROGRESS_KEY, JSON.stringify(progress), false); }
+    catch(e){ console.error('progress save failed', e); }
+  }, 250);
+}
+async function loadStored(key){
   try{
-    const res = await window.storage.get(STORE_KEY, false);
+    const res = await window.storage.get(key, false);
     if(res && res.value) return JSON.parse(res.value);
-  }catch(e){ /* no data yet */ }
+  }catch(e){ /* not present / no storage API */ }
   return null;
 }
-async function loadStarterPack(){
+async function loadSeed(){
   try{
     const res = await fetch('./data/starter-pack.json');
     if(res.ok) return await res.json();
-  }catch(e){ /* fall back below */ }
-  return null;
+  }catch(e){ /* fall back to built-in seed */ }
+  return seedData();
+}
+
+function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
+
+/* seed + user overlay -> the in-memory content the app renders */
+function mergeContent(seed, overlay){
+  const merge = (base, over)=>{
+    const byId = new Map((base||[]).map(e=>[e.id, e]));
+    for(const e of (over||[])) byId.set(e.id, {...(byId.get(e.id)||{}), ...e});
+    return [...byId.values()].map(stripProgress);
+  };
+  return {
+    schemaVersion: seed.schemaVersion || 2,
+    verses:     merge(seed.verses,     overlay.verses),
+    topics:     merge(seed.topics,     overlay.topics),
+    characters: merge(seed.characters, overlay.characters)
+  };
+}
+function stripProgress(entity){
+  if(entity && 'progress' in entity){ const {progress, ...rest} = entity; return rest; }
+  return entity;
+}
+
+/* ---------- practice progress ---------- */
+function defaultProgress(){
+  return {status:'new', timesReviewed:0, lastScore:null, lastPracticedAt:null, nextReview:null, history:[]};
+}
+function getProgress(verseId){ return progress[verseId] || defaultProgress(); }
+function normalizeProgress(p){
+  return {
+    status: p.status || 'new',
+    timesReviewed: p.timesReviewed || 0,
+    lastScore: (p.lastScore === undefined ? null : p.lastScore),
+    lastPracticedAt: p.lastPracticedAt || null,
+    nextReview: p.nextReview || null,
+    history: Array.isArray(p.history) ? p.history : []
+  };
 }
 
 /* ---------- seed content ---------- */
 function seedData(){
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     verses: [
-      {id:'verse_ps23_1', reference:'Psalm 23:1', text:'Yahweh is my shepherd: I shall lack nothing.', translation:'WEB', topicIds:['topic_peace','topic_trust'], characterIds:['char_david'], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
-      {id:'verse_phil4_13', reference:'Philippians 4:13', text:'I can do all things through Christ, who strengthens me.', translation:'WEB', topicIds:['topic_strength'], characterIds:['char_paul'], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
-      {id:'verse_prov3_5', reference:'Proverbs 3:5', text:'Trust in Yahweh with all your heart, and don\'t lean on your own understanding.', translation:'WEB', topicIds:['topic_trust'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
-      {id:'verse_jn3_16', reference:'John 3:16', text:'For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.', translation:'WEB', topicIds:['topic_love'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
-      {id:'verse_james1_19', reference:'James 1:19', text:'So, then, my beloved brothers, let every man be swift to hear, slow to speak, and slow to anger;', translation:'WEB', topicIds:['topic_anger'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}}
+      {id:'verse_ps23_1', reference:'Psalm 23:1', text:'Yahweh is my shepherd: I shall lack nothing.', translation:'WEB', topicIds:['topic_peace','topic_trust'], characterIds:['char_david']},
+      {id:'verse_phil4_13', reference:'Philippians 4:13', text:'I can do all things through Christ, who strengthens me.', translation:'WEB', topicIds:['topic_strength'], characterIds:['char_paul']},
+      {id:'verse_prov3_5', reference:'Proverbs 3:5', text:'Trust in Yahweh with all your heart, and don\'t lean on your own understanding.', translation:'WEB', topicIds:['topic_trust'], characterIds:[]},
+      {id:'verse_jn3_16', reference:'John 3:16', text:'For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.', translation:'WEB', topicIds:['topic_love'], characterIds:[]},
+      {id:'verse_james1_19', reference:'James 1:19', text:'So, then, my beloved brothers, let every man be swift to hear, slow to speak, and slow to anger;', translation:'WEB', topicIds:['topic_anger'], characterIds:[]}
     ],
     topics: [
       {id:'topic_anger', name:'Anger', description:'Verses on responding to anger and conflict.', relatedTopicIds:['topic_peace']},
@@ -233,7 +289,10 @@ function seedData(){
   };
 }
 
-let data = null;
+let seed = null;               // raw seed content (starter-pack.json or seedData())
+let content = emptyOverlay();  // user overlay, persisted to rooted-content
+let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
+let data = null;               // seed + overlay, what the app renders
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
 
@@ -243,8 +302,9 @@ function findTopic(id){ return data.topics.find(t=>t.id===id); }
 function findChar(id){ return data.characters.find(c=>c.id===id); }
 function topicVerseCount(id){ return data.verses.filter(v=>v.topicIds.includes(id)).length; }
 function isDue(v){
-  if(!v.progress.nextReview) return true;
-  return new Date(v.progress.nextReview) <= new Date();
+  const nr = getProgress(v.id).nextReview;
+  if(!nr) return true;
+  return new Date(nr) <= new Date();
 }
 function dueVerses(){ return data.verses.filter(isDue); }
 function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -258,11 +318,12 @@ function charIcon(roles){
 }
 
 /* ---------- spaced repetition (simple) ---------- */
-function scheduleNext(verse, correct){
-  const p = verse.progress;
+function recordPractice(verseId, correct, challengeTypeId){
+  const p = progress[verseId] || defaultProgress();
+  const now = new Date().toISOString();
   p.timesReviewed += 1;
   p.lastScore = correct;
-  const daysMap = {new:1, learning:3, review:7, mastered:14};
+  p.lastPracticedAt = now;
   let nextDays;
   if(!correct){ p.status='learning'; nextDays=1; }
   else if(p.status==='new'){ p.status='learning'; nextDays=3; }
@@ -271,6 +332,9 @@ function scheduleNext(verse, correct){
   else { nextDays=21; }
   const d = new Date(); d.setDate(d.getDate()+nextDays);
   p.nextReview = d.toISOString();
+  p.history.push({at:now, challengeTypeId: challengeTypeId || null, score: correct ? 1 : 0});
+  progress[verseId] = p;
+  saveProgress();
 }
 
 /* ---------- render root ---------- */
@@ -297,7 +361,7 @@ function go(screen, params={}){ view = {screen, params}; window.scrollTo(0,0); r
 /* ---------- HOME ---------- */
 function renderHome(){
   const due = dueVerses();
-  const mastered = data.verses.filter(v=>v.progress.status==='mastered').length;
+  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
   return `
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
@@ -313,7 +377,7 @@ function renderHome(){
   `;
 }
 function renderVerseCard(v){
-  const statusTag = v.progress.status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');
+  const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');
   return `
     <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
       <div class="ref">${esc(v.reference)}</div>
@@ -341,7 +405,7 @@ function renderVerseDetail(id){
   if(!v) return renderHome();
   const topics = v.topicIds.map(findTopic).filter(Boolean);
   const chars = (v.characterIds||[]).map(findChar).filter(Boolean);
-  const p = v.progress;
+  const p = getProgress(v.id);
   const next = fmtDate(p.nextReview);
   const statusLabel = {new:'Not started', learning:'Learning', review:'Reviewing', mastered:'Mastered'}[p.status] || p.status;
   return `
@@ -574,15 +638,17 @@ function saveVerse(){
     topicsRaw.split(',').map(s=>s.trim()).filter(Boolean).forEach(name=>{
       let t = data.topics.find(t=>t.name.toLowerCase()===name.toLowerCase());
       if(!t){
-        t = {id:'topic_'+name.toLowerCase().replace(/[^a-z0-9]+/g,'_'), name: name.charAt(0).toUpperCase()+name.slice(1), description:'', relatedTopicIds:[]};
+        t = {id:'topic_'+name.toLowerCase().replace(/[^a-z0-9]+/g,'_'), name: name.charAt(0).toUpperCase()+name.slice(1), description:'', relatedTopicIds:[], metadata:{}};
+        content.topics.push(t);
         data.topics.push(t);
       }
       topicIds.push(t.id);
     });
   }
-  const id = 'verse_'+Date.now();
-  data.verses.push({id, reference:ref, text, translation:'', topicIds, characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}});
-  scheduleSave();
+  const verse = {id:'verse_'+Date.now(), reference:ref, text, translation:'', topicIds, characterIds:[], metadata:{}};
+  content.verses.push(verse);
+  data.verses.push(verse);
+  saveContent();
   go('home');
 }
 function saveCharacter(){
@@ -593,9 +659,10 @@ function saveCharacter(){
   const errEl = document.getElementById('cform-err');
   if(!name){ errEl.textContent = 'Enter a name.'; return; }
   const roles = rolesRaw ? rolesRaw.split(',').map(s=>s.trim()).filter(Boolean) : [];
-  const id = 'char_'+Date.now();
-  data.characters.push({id, name, roles, era, summary, verseIds:[]});
-  scheduleSave();
+  const character = {id:'char_'+Date.now(), name, roles, era, summary, verseIds:[], metadata:{}};
+  content.characters.push(character);
+  data.characters.push(character);
+  saveContent();
   go('home');
 }
 
@@ -646,8 +713,7 @@ function checkPractice(){
   item.correctFlags = correctFlags;
   item.allCorrect = allCorrect;
   if(allCorrect) session.correctCount++;
-  scheduleNext(v, allCorrect);
-  scheduleSave();
+  recordPractice(v.id, allCorrect, 'challenge_fill_blank');
   render();
 }
 
@@ -656,17 +722,48 @@ document.querySelectorAll('.navitem').forEach(b=>{
   b.addEventListener('click', ()=>{ session=null; go(b.dataset.nav); });
 });
 
+/* one-time migration from the pre-split single blob (rooted-app-data) */
+async function migrateLegacy(seedContent){
+  const legacy = await loadStored(LEGACY_KEY);
+  if(!legacy || !Array.isArray(legacy.verses)) return null;
+  const seedIds = t => new Set((seedContent[t]||[]).map(e=>e.id));
+  const vIds = seedIds('verses'), tIds = seedIds('topics'), cIds = seedIds('characters');
+  const overlay = {
+    verses:     legacy.verses.filter(v=>!vIds.has(v.id)).map(stripProgress),
+    topics:     (legacy.topics||[]).filter(t=>!tIds.has(t.id)),
+    characters: (legacy.characters||[]).filter(c=>!cIds.has(c.id))
+  };
+  const prog = {};
+  for(const v of legacy.verses){
+    const p = v.progress;
+    if(p && (p.timesReviewed || p.nextReview || p.status && p.status!=='new')){
+      prog[v.id] = normalizeProgress(p);
+    }
+  }
+  try{
+    await window.storage.set(CONTENT_KEY, JSON.stringify(overlay), false);
+    await window.storage.set(PROGRESS_KEY, JSON.stringify(prog), false);
+  }catch(e){ console.error('legacy migration save failed', e); }
+  return {overlay, prog};
+}
+
 /* ---------- boot ---------- */
 (async function boot(){
   document.getElementById('app').innerHTML = `<div class="empty" style="padding-top:80px;"><i class="ti ti-leaf"></i><p>Loading...</p></div>`;
-  const loaded = await loadData();
-  if(loaded){
-    data = loaded;
-  } else {
-    const starter = await loadStarterPack();
-    data = starter || seedData();
-    scheduleSave();
+  seed = await loadSeed();
+  let storedContent = await loadStored(CONTENT_KEY);
+  let storedProgress = await loadStored(PROGRESS_KEY);
+
+  if(!storedContent && !storedProgress){
+    const migrated = await migrateLegacy(seed);
+    if(migrated){ storedContent = migrated.overlay; storedProgress = migrated.prog; }
   }
+
+  content = Object.assign(emptyOverlay(), storedContent || {});
+  progress = {};
+  for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
+
+  data = mergeContent(seed, content);
   render();
 })();
 
