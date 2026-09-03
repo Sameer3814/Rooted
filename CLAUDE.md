@@ -44,8 +44,8 @@ The schema was deliberately designed so all of the above can be added
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire app (vanilla JS, no framework, no build step).
   Screens: Home, Verse detail, Topics, Topic detail, Characters,
-  Character detail, Add Verse, Add Character, Practice (fill-in-blank
-  only so far).
+  Character detail, Add Verse, Add Character, Practice (two challenge
+  types so far: fill-in-blank and scramble).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -147,10 +147,10 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types beyond fill-in-blank. The pluggable ChallengeType
-   interface now exists (`DATA_MODEL.md` §3, `CHALLENGE_TYPES` in
-   `index.html`) — next is adding `challenge_scramble`, then progressive
-   reveal / matching / ordering, then a picker UI to choose one.
+1. More challenge types. Pluggable interface + fill-in-blank + scramble are
+   built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
+   Home picker persisted to `rooted-settings`. Next: progressive reveal
+   (`challenge_first_letters`), then matching / ordering.
 2. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
    `book`/`chapter`/`verse` fields to the Verse schema.
 3. Wiring the full `verses.json` corpus into the app (needs search/browse
@@ -170,7 +170,9 @@ hand-curate all the content before building.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); pluggable ChallengeType
-interface, fill-in-blank factored into it (§8.2).
+interface + fill-in-blank factored in + `challenge_scramble` added, with a
+persisted Home picker (§8.2, §8.5); `window.storage`→localStorage fallback
+for local dev.
 
 ## Source data provenance
 

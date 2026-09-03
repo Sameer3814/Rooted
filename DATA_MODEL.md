@@ -278,14 +278,14 @@ Rules:
 
 ---
 
-## 3. Challenge system — *partial* (interface built; fill-in-blank is the only type)
+## 3. Challenge system — *partial* (interface + 2 types: fill-in-blank, scramble)
 
 Challenge types are **data-described and pluggable**, not a hardcoded switch
 (design philosophy #5). Implemented in `index.html` as the `CHALLENGE_TYPES`
-registry (2026-09-03, §8.2).
+registry (§8.2, §8.5).
 
 ### ChallengeType
-Each entry is `config` data + four methods:
+Each entry is `config` data + methods:
 ```js
 challenge_fill_blank: {
   id: 'challenge_fill_blank',
@@ -293,7 +293,7 @@ challenge_fill_blank: {
   appliesToEntityTypes: ['verse'],
   config: { blankRatio: 0.3, maxBlanks: 4, minWordLength: 4 },
   enabled: true,
-  build, render, check, score      // the interface below
+  build, render, check, score, /* interact? */   // the interface below
 }
 ```
 
@@ -305,18 +305,26 @@ Every type implements the same contract, so `startPractice` / `renderPractice` /
 |--------|----------|
 | `build(entity, config)` | → opaque `state` object; holds everything render/check need. Called once per queue item at `startPractice`. Must init `checked:false`. |
 | `render(state)` | → HTML string. Reads `state.checked` to switch between the input view and the graded view. Must preserve what the user entered once `checked`. |
-| `check(state)` | reads its own DOM (it knows its input selectors), **mutates** `state` (`checked=true`, per-item results, `allCorrect`), returns `{ allCorrect, correctCount, total }`. |
+| `check(state)` | reads its own DOM (it knows its selectors), **mutates** `state` (`checked=true`, per-item results, `allCorrect`), returns `{ allCorrect, correctCount, total }`. |
 | `score(state)` | → number 0..1 (fraction correct). Called after `check`. |
+| `interact(state, ds)` | *optional.* Handles a tap on an element the type rendered with `data-action="practice-interact"` (`ds` = that element's `dataset`). Mutates `state`; the flow re-renders. Used by scramble for tap-to-place; unused by fill-in-blank (native inputs). |
 
 Session shape: `{ challengeTypeId, queue:[{verseId, state}], index, results:[{verseId, allCorrect, score}] }`.
 `startPractice(verseIds, challengeTypeId)` — `challengeTypeId` defaults to
-`challenge_fill_blank`. No challenge-picker UI yet.
+`settings.challengeTypeId` (persisted to `rooted-settings`; chosen via the
+segmented picker on Home, shown whenever ≥2 verse types are `enabled`).
+
+**challenge_scramble** — words become tappable chips; tap to place in order,
+tap a placed chip to return it. For verses longer than `config.maxWords` (14)
+only a random contiguous window is scrambled and the rest shown as fixed
+context, so long verses stay playable.
 
 Planned types (all `appliesToEntityTypes: ["verse"]` unless noted):
-`challenge_fill_blank` (built), `challenge_scramble`, `challenge_first_letters`
-(progressive reveal), `challenge_type_it_out`, `challenge_reference_match`,
-`challenge_story_order` (`["story"]`), `challenge_character_match`
-(`["character"]`). Adding one = a new registry entry, nothing else.
+`challenge_fill_blank` (built), `challenge_scramble` (built),
+`challenge_first_letters` (progressive reveal), `challenge_type_it_out`,
+`challenge_reference_match`, `challenge_story_order` (`["story"]`),
+`challenge_character_match` (`["character"]`). Adding one = a new registry
+entry, nothing else.
 
 ---
 
@@ -345,7 +353,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
 | `window.storage: rooted-sessions` | practice session log | planned — optional / trimmable |
 | `window.storage: rooted-journal` | discovery journal entries | planned — §7 |
-| `window.storage: rooted-settings` | active depth, preferences | planned — §7 |
+| `window.storage: rooted-settings` | preferences (`challengeTypeId` so far; depth, goals planned) | *partial* — §7, `saveSettings()` |
 | `window.storage: rooted-app-data` | pre-split single blob | legacy — migrated once on boot by `migrateLegacy`, then ignored |
 
 > The content/progress split (§8.1) is implemented. On first boot after the
@@ -436,10 +444,12 @@ note).
 }
 ```
 
-### Settings
+### Settings — *partial*
 ```json
-{ "activeDepth": "standard", "dailyGoal": 5 }
+{ "challengeTypeId": "challenge_scramble", "activeDepth": "standard", "dailyGoal": 5 }
 ```
+`challengeTypeId` is live (default `challenge_fill_blank`, falls back to it if
+the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
 
 ---
 
@@ -463,7 +473,10 @@ note).
    scramble.~~ **Done (2026-09-03).** `CHALLENGE_TYPES` registry;
    `buildBlanks`/hardcoded practice flow replaced by `build/render/check/score`.
    Also fixed: typed answers no longer vanish from the blanks after "Check".
-   Next: add `challenge_scramble` as a second registry entry.
+   Then **`challenge_scramble` added** as a second registry entry (2026-09-03)
+   — validated the interface: only new code was the registry entry, the
+   optional `interact` hook, a `set-challenge` action, and the Home picker.
+   Introduced `rooted-settings` (§7) for the persisted type choice.
 6. **Wire `data/characters.json` in or delete it** — right now it's dead weight
    duplicating the characters inside `starter-pack.json`.
 7. Rebuild the `pipeline/` scripts (§6).

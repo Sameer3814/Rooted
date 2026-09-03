@@ -165,6 +165,32 @@
   .result-banner.good{background:var(--sage-wash);color:var(--sage-deep);}
   .result-banner.bad{background:#F6E4DD;color:var(--danger);}
 
+  /* scramble challenge */
+  .chip{
+    display:inline-block;font-family:'Fraunces',serif;font-size:16px;line-height:1.2;
+    padding:7px 13px;border:1px solid var(--line);border-radius:100px;
+    background:var(--paper);color:var(--ink);
+  }
+  .chip.picked{background:var(--gold-wash);border-color:var(--gold);color:var(--gold-deep);}
+  .chip.chip-correct{background:var(--sage-wash);border-color:var(--sage);color:var(--sage-deep);}
+  .chip.chip-wrong{background:#F6E4DD;border-color:var(--danger);color:var(--danger);}
+  .scramble-build{
+    min-height:46px;padding:9px 10px;margin-bottom:12px;
+    border:1px dashed var(--line);border-radius:var(--radius-ctl);
+    line-height:2.4;
+  }
+  .scramble-pool{line-height:2.6;}
+  .scramble-fixed{color:var(--ink-soft);font-family:'Fraunces',serif;font-size:16px;margin:6px 0;}
+  .scramble-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
+
+  /* segmented control (practice mode picker) */
+  .segmented{display:flex;gap:4px;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-ctl);padding:4px;margin-bottom:12px;}
+  .segmented button{
+    flex:1;border:none;background:transparent;color:var(--ink-soft);
+    font-size:13px;font-weight:500;padding:8px 6px;border-radius:9px;
+  }
+  .segmented button.active{background:var(--gold-wash);color:var(--gold-deep);}
+
   /* header w/ back */
   .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
   .back-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--paper-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -214,9 +240,10 @@ if(!window.storage){
 */
 const CONTENT_KEY  = 'rooted-content';
 const PROGRESS_KEY = 'rooted-progress';
+const SETTINGS_KEY = 'rooted-settings';  // per-user preferences (DATA_MODEL.md §7)
 const LEGACY_KEY   = 'rooted-app-data';  // pre-split single blob; migrated once
 
-let contentTimer = null, progressTimer = null;
+let contentTimer = null, progressTimer = null, settingsTimer = null;
 function saveContent(){
   clearTimeout(contentTimer);
   contentTimer = setTimeout(async ()=>{
@@ -229,6 +256,13 @@ function saveProgress(){
   progressTimer = setTimeout(async ()=>{
     try{ await window.storage.set(PROGRESS_KEY, JSON.stringify(progress), false); }
     catch(e){ console.error('progress save failed', e); }
+  }, 250);
+}
+function saveSettings(){
+  clearTimeout(settingsTimer);
+  settingsTimer = setTimeout(async ()=>{
+    try{ await window.storage.set(SETTINGS_KEY, JSON.stringify(settings), false); }
+    catch(e){ console.error('settings save failed', e); }
   }, 250);
 }
 async function loadStored(key){
@@ -311,6 +345,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
+let settings = {challengeTypeId:'challenge_fill_blank'};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
@@ -390,10 +425,20 @@ function renderHome(){
       <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
       <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
     </div>
-    ${due.length ? `<button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${due.length} due verse${due.length>1?'s':''}</button>` : ''}
+    ${due.length ? `
+      ${renderChallengePicker()}
+      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${due.length} due verse${due.length>1?'s':''}</button>
+    ` : ''}
     <div class="section-label">Your verses</div>
     ${data.verses.length ? data.verses.map(renderVerseCard).join('') : renderEmptyVerses()}
   `;
+}
+function renderChallengePicker(){
+  const types = verseChallengeTypes();
+  if(types.length < 2) return '';
+  return `<div class="segmented">${types.map(t=>
+    `<button data-action="set-challenge" data-id="${t.id}" class="${t.id===settings.challengeTypeId?'active':''}">${esc(t.name)}</button>`
+  ).join('')}</div>`;
 }
 function renderVerseCard(v){
   const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');
@@ -579,13 +624,16 @@ function renderAddCharacter(){
 /* ---------- PRACTICE ----------
    Challenge types are pluggable and data-described (DATA_MODEL.md §3), not a
    hardcoded switch. Each type in CHALLENGE_TYPES implements:
-     build(entity, config) -> state   opaque per-attempt state
+     build(entity, config)  -> state   opaque per-attempt state
      render(state)          -> html    reads state.checked for the graded view
      check(state)           -> { allCorrect, correctCount, total }
                                        reads its own DOM, mutates state
      score(state)           -> 0..1
-   Adding scramble / progressive reveal / matching = another entry here, no
-   changes to startPractice / renderPractice / checkPractice.
+     interact(state, ds)    optional; handle a tap on an element the type
+                            rendered with data-action="practice-interact"
+                            (ds = that element's dataset). Mutates state.
+   Adding progressive reveal / matching = another entry here, no changes to
+   startPractice / renderPractice / checkPractice.
 */
 const CHALLENGE_TYPES = {
   challenge_fill_blank: {
@@ -636,14 +684,96 @@ const CHALLENGE_TYPES = {
       if(!state.results.length) return 0;
       return state.results.filter(Boolean).length / state.results.length;
     }
+  },
+
+  challenge_scramble: {
+    id: 'challenge_scramble',
+    name: 'Unscramble',
+    appliesToEntityTypes: ['verse'],
+    config: { maxWords: 14 },
+    enabled: true,
+    build(verse, config){
+      const words = verse.text.split(' ');
+      // For a long verse, scramble only a contiguous window and keep the rest
+      // as fixed context so the task stays doable.
+      let start = 0, len = words.length;
+      if(words.length > config.maxWords){
+        len = config.maxWords;
+        start = Math.floor(Math.random() * (words.length - len + 1));
+      }
+      const pool = [];
+      for(let i = start; i < start + len; i++) pool.push(i);
+      for(let i = pool.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      // avoid handing back an already-sorted "scramble"
+      if(len > 1 && pool.every((wi, k) => wi === start + k)) pool.reverse();
+      return { words, start, len, pool, picked:[], checked:false, results:[], allCorrect:false };
+    },
+    interact(state, ds){
+      if(ds.pick !== undefined && ds.pick !== ''){
+        const p = +ds.pick;
+        state.picked.push(state.pool[p]);
+        state.pool.splice(p, 1);
+      }else if(ds.unpick !== undefined && ds.unpick !== ''){
+        const p = +ds.unpick;
+        state.pool.push(state.picked[p]);
+        state.picked.splice(p, 1);
+      }
+    },
+    render(state){
+      const {words, start, len} = state;
+      const prefix = words.slice(0, start).join(' ');
+      const suffix = words.slice(start + len).join(' ');
+      if(state.checked){
+        const seq = [];
+        for(let i = 0; i < len; i++){
+          const wi = state.picked[i];
+          const cls = state.results[i] ? 'chip-correct' : 'chip-wrong';
+          seq.push(`<span class="chip ${cls}">${esc(wi === undefined ? '—' : words[wi])}</span>`);
+        }
+        return `${prefix ? `<span class="scramble-fixed">${esc(prefix)} </span>` : ''}${seq.join(' ')}${suffix ? `<span class="scramble-fixed"> ${esc(suffix)}</span>` : ''}`;
+      }
+      const built = state.picked
+        .map((wi, pi) => `<button class="chip picked" data-action="practice-interact" data-unpick="${pi}">${esc(words[wi])}</button>`)
+        .join(' ');
+      const pool = state.pool
+        .map((wi, pi) => `<button class="chip" data-action="practice-interact" data-pick="${pi}">${esc(words[wi])}</button>`)
+        .join(' ');
+      return `
+        ${prefix ? `<div class="scramble-fixed">${esc(prefix)} …</div>` : ''}
+        <div class="scramble-build">${built || '<span class="scramble-hint">tap the words below in order</span>'}</div>
+        <div class="scramble-pool">${pool || '<span class="scramble-hint">all words placed — tap Check</span>'}</div>
+        ${suffix ? `<div class="scramble-fixed">… ${esc(suffix)}</div>` : ''}
+      `;
+    },
+    check(state){
+      const {words, start, len} = state;
+      const results = [];
+      for(let i = 0; i < len; i++){
+        const wi = state.picked[i];
+        results[i] = wi !== undefined && words[wi] === words[start + i];
+      }
+      const allCorrect = state.picked.length === len && results.every(Boolean);
+      state.results = results;
+      state.checked = true;
+      state.allCorrect = allCorrect;
+      return { allCorrect, correctCount: results.filter(Boolean).length, total: len };
+    },
+    score(state){
+      if(!state.len) return 0;
+      return state.results.filter(Boolean).length / state.len;
+    }
   }
 };
 function challengeType(id){ return CHALLENGE_TYPES[id] || CHALLENGE_TYPES.challenge_fill_blank; }
+function verseChallengeTypes(){ return Object.values(CHALLENGE_TYPES).filter(t => t.enabled && t.appliesToEntityTypes.includes('verse')); }
 
 function startPractice(verseIds, challengeTypeId){
   const ids = (verseIds || []).filter(id => findVerse(id));
   if(!ids.length) return;
-  const type = challengeType(challengeTypeId);
+  const type = challengeType(challengeTypeId || settings.challengeTypeId);
   session = {
     challengeTypeId: type.id,
     queue: ids.map(id => ({ verseId: id, state: type.build(findVerse(id), type.config) })),
@@ -760,6 +890,16 @@ function onAction(e){
   else if(action==='exit-practice'){ session=null; go('home'); }
   else if(action==='check-practice') checkPractice();
   else if(action==='next-practice'){ if(session) session.index++; render(); }
+  else if(action==='practice-interact') practiceInteract(el);
+  else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
+}
+function practiceInteract(el){
+  if(!session) return;
+  const type = challengeType(session.challengeTypeId);
+  const item = session.queue[session.index];
+  if(item.state.checked || !type.interact) return;
+  type.interact(item.state, el.dataset);
+  render();
 }
 function checkPractice(){
   if(!session) return;
@@ -821,6 +961,10 @@ async function migrateLegacy(seedContent){
   content = Object.assign(emptyOverlay(), storedContent || {});
   progress = {};
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
+
+  const storedSettings = await loadStored(SETTINGS_KEY);
+  settings = Object.assign({challengeTypeId:'challenge_fill_blank'}, storedSettings || {});
+  if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
 
   data = mergeContent(seed, content);
   render();
