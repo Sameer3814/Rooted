@@ -278,42 +278,45 @@ Rules:
 
 ---
 
-## 3. Challenge system — *partial* (fill-in-blank only, hardcoded)
+## 3. Challenge system — *partial* (interface built; fill-in-blank is the only type)
 
 Challenge types are **data-described and pluggable**, not a hardcoded switch
-(design philosophy #5).
+(design philosophy #5). Implemented in `index.html` as the `CHALLENGE_TYPES`
+registry (2026-09-03, §8.2).
 
 ### ChallengeType
-```json
-{
-  "id": "challenge_fill_blank",
-  "name": "Fill in the blank",
-  "appliesToEntityTypes": ["verse"],
-  "config": { "blankRatio": 0.3, "maxBlanks": 4, "minWordLength": 4 },
-  "enabled": true
+Each entry is `config` data + four methods:
+```js
+challenge_fill_blank: {
+  id: 'challenge_fill_blank',
+  name: 'Fill in the blank',
+  appliesToEntityTypes: ['verse'],
+  config: { blankRatio: 0.3, maxBlanks: 4, minWordLength: 4 },
+  enabled: true,
+  build, render, check, score      // the interface below
 }
 ```
 
 ### Shared generator interface
-Every challenge type implements the same contract, so `renderPractice` /
-`checkPractice` stop caring which type is running:
+Every type implements the same contract, so `startPractice` / `renderPractice` /
+`checkPractice` never branch on the type:
 
-| Function | Input | Output |
-|----------|-------|--------|
-| `build(entity, config)` | the verse/story/etc. + type config | opaque `challengeState` |
-| `render(state, checked)` | challenge state | HTML string |
-| `check(state, userInput)` | state + DOM input | `{ perItem: bool[], allCorrect: bool }` |
-| `score(state)` | checked state | number 0..1 |
+| Method | Contract |
+|--------|----------|
+| `build(entity, config)` | → opaque `state` object; holds everything render/check need. Called once per queue item at `startPractice`. Must init `checked:false`. |
+| `render(state)` | → HTML string. Reads `state.checked` to switch between the input view and the graded view. Must preserve what the user entered once `checked`. |
+| `check(state)` | reads its own DOM (it knows its input selectors), **mutates** `state` (`checked=true`, per-item results, `allCorrect`), returns `{ allCorrect, correctCount, total }`. |
+| `score(state)` | → number 0..1 (fraction correct). Called after `check`. |
+
+Session shape: `{ challengeTypeId, queue:[{verseId, state}], index, results:[{verseId, allCorrect, score}] }`.
+`startPractice(verseIds, challengeTypeId)` — `challengeTypeId` defaults to
+`challenge_fill_blank`. No challenge-picker UI yet.
 
 Planned types (all `appliesToEntityTypes: ["verse"]` unless noted):
-`challenge_fill_blank` (live), `challenge_scramble`, `challenge_first_letters`
+`challenge_fill_blank` (built), `challenge_scramble`, `challenge_first_letters`
 (progressive reveal), `challenge_type_it_out`, `challenge_reference_match`,
 `challenge_story_order` (`["story"]`), `challenge_character_match`
-(`["character"]`).
-
-The current code in `index.html` (`buildBlanks` / `renderPractice` /
-`checkPractice`) is fill-in-blank's implementation of this interface, just not
-yet factored out. Extracting it is the first step of adding type #2.
+(`["character"]`). Adding one = a new registry entry, nothing else.
 
 ---
 
@@ -450,8 +453,11 @@ note).
 4. **`Character.relationships[]` → Connection.** Create `data/connections.json`,
    move the ~20 embedded edges, add `symmetric` / `inverse`. Update the
    character detail screen to read Connections.
-5. **Factor fill-in-blank into the ChallengeType interface** (§3) before adding
-   scramble.
+5. ~~**Factor fill-in-blank into the ChallengeType interface** (§3) before adding
+   scramble.~~ **Done (2026-09-03).** `CHALLENGE_TYPES` registry;
+   `buildBlanks`/hardcoded practice flow replaced by `build/render/check/score`.
+   Also fixed: typed answers no longer vanish from the blanks after "Check".
+   Next: add `challenge_scramble` as a second registry entry.
 6. **Wire `data/characters.json` in or delete it** — right now it's dead weight
    duplicating the characters inside `starter-pack.json`.
 7. Rebuild the `pipeline/` scripts (§6).

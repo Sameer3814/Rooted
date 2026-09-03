@@ -557,35 +557,87 @@ function renderAddCharacter(){
   `;
 }
 
-/* ---------- PRACTICE ---------- */
-function buildBlanks(text){
-  const words = text.split(' ');
-  const eligible = words.map((w,i)=>i).filter(i=>words[i].replace(/[^a-zA-Z]/g,'').length>3);
-  const blankCount = Math.max(1, Math.min(4, Math.round(eligible.length*0.3)));
-  const chosen = [];
-  const pool = [...eligible];
-  while(chosen.length<blankCount && pool.length){
-    const idx = Math.floor(Math.random()*pool.length);
-    chosen.push(pool.splice(idx,1)[0]);
+/* ---------- PRACTICE ----------
+   Challenge types are pluggable and data-described (DATA_MODEL.md §3), not a
+   hardcoded switch. Each type in CHALLENGE_TYPES implements:
+     build(entity, config) -> state   opaque per-attempt state
+     render(state)          -> html    reads state.checked for the graded view
+     check(state)           -> { allCorrect, correctCount, total }
+                                       reads its own DOM, mutates state
+     score(state)           -> 0..1
+   Adding scramble / progressive reveal / matching = another entry here, no
+   changes to startPractice / renderPractice / checkPractice.
+*/
+const CHALLENGE_TYPES = {
+  challenge_fill_blank: {
+    id: 'challenge_fill_blank',
+    name: 'Fill in the blank',
+    appliesToEntityTypes: ['verse'],
+    config: { blankRatio: 0.3, maxBlanks: 4, minWordLength: 4 },
+    enabled: true,
+    build(verse, config){
+      const words = verse.text.split(' ');
+      const eligible = words.map((w,i)=>i)
+        .filter(i => words[i].replace(/[^a-zA-Z]/g,'').length >= config.minWordLength);
+      const count = Math.max(1, Math.min(config.maxBlanks, Math.round(eligible.length * config.blankRatio)));
+      const pool = [...eligible];
+      const blanks = [];
+      while(blanks.length < count && pool.length){
+        blanks.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+      }
+      blanks.sort((a,b)=>a-b);
+      return { words, blanks, checked:false, given:[], results:[], allCorrect:false };
+    },
+    render(state){
+      return state.words.map((w,i)=>{
+        const bi = state.blanks.indexOf(i);
+        if(bi === -1) return esc(w);
+        const cls = state.checked ? (state.results[bi] ? 'correct' : 'wrong') : '';
+        const size = Math.max(3, w.replace(/[^a-zA-Z]/g,'').length);
+        const val = state.checked ? ` value="${esc(state.given[bi] || '')}"` : '';
+        return `<span class="blank ${cls}"><input type="text" data-blank="${i}"${val} ${state.checked?'readonly':''} style="width:${size*13}px" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></span>`;
+      }).join(' ');
+    },
+    check(state){
+      const norm = s => s.trim().toLowerCase().replace(/[^a-z0-9']/g,'');
+      let allCorrect = true;
+      state.blanks.forEach((wi, bi)=>{
+        const input = document.querySelector(`[data-blank="${wi}"]`);
+        const raw = input ? (input.value || '') : '';
+        const ok = norm(raw) === norm(state.words[wi]);
+        state.given[bi] = raw;
+        state.results[bi] = ok;
+        if(!ok) allCorrect = false;
+      });
+      state.checked = true;
+      state.allCorrect = allCorrect;
+      return { allCorrect, correctCount: state.results.filter(Boolean).length, total: state.blanks.length };
+    },
+    score(state){
+      if(!state.results.length) return 0;
+      return state.results.filter(Boolean).length / state.results.length;
+    }
   }
-  return chosen.sort((a,b)=>a-b);
-}
-function startPractice(verseIds){
-  if(!verseIds.length) return;
+};
+function challengeType(id){ return CHALLENGE_TYPES[id] || CHALLENGE_TYPES.challenge_fill_blank; }
+
+function startPractice(verseIds, challengeTypeId){
+  const ids = (verseIds || []).filter(id => findVerse(id));
+  if(!ids.length) return;
+  const type = challengeType(challengeTypeId);
   session = {
-    queue: verseIds.map(id=>{
-      const v = findVerse(id);
-      return {verseId:id, blanks: buildBlanks(v.text), checked:false};
-    }),
+    challengeTypeId: type.id,
+    queue: ids.map(id => ({ verseId: id, state: type.build(findVerse(id), type.config) })),
     index: 0,
-    correctCount: 0
+    results: []
   };
   go('practice');
 }
 function renderPractice(){
   if(!session || session.index >= session.queue.length){
-    const total = session ? session.queue.length : 0;
-    const correct = session ? session.correctCount : 0;
+    const results = session ? session.results : [];
+    const total = results.length;
+    const correct = results.filter(r => r.allCorrect).length;
     session = null;
     return `
       <div class="topbar"><h1>Session complete</h1></div>
@@ -597,31 +649,25 @@ function renderPractice(){
       </div>
     `;
   }
+  const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
   const v = findVerse(item.verseId);
-  const words = v.text.split(' ');
-  const html = words.map((w,i)=>{
-    if(item.blanks.includes(i)){
-      const cls = item.checked ? (item.correctFlags[item.blanks.indexOf(i)] ? 'correct':'wrong') : '';
-      const size = Math.max(3, w.replace(/[^a-zA-Z]/g,'').length);
-      return `<span class="blank ${cls}"><input type="text" data-blank="${i}" ${item.checked?'readonly':''} style="width:${size*13}px" autocomplete="off" autocapitalize="off"></span>`;
-    }
-    return esc(w);
-  }).join(' ');
-  const progressPct = Math.round((session.index/session.queue.length)*100);
+  const st = item.state;
+  const progressPct = Math.round((session.index / session.queue.length) * 100);
+  const lastOne = session.index + 1 >= session.queue.length;
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
       <h2>Practice</h2>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
-    ${item.checked ? `<div class="result-banner ${item.allCorrect?'good':'bad'}"><i class="ti ${item.allCorrect?'ti-check':'ti-refresh'}"></i>${item.allCorrect? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
+    ${st.checked ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
     <div class="card">
-      <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)}</div>
-      <div class="practice-verse">${html}</div>
+      <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>
+      <div class="practice-verse">${type.render(st)}</div>
     </div>
-    ${item.checked
-      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> Continue</button>`
+    ${st.checked
+      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
       : `<button class="btn primary block" data-action="check-practice">Check</button>`}
   `;
 }
@@ -694,26 +740,20 @@ function onAction(e){
   else if(action==='start-practice-topic') startPractice(data.verses.filter(v=>v.topicIds.includes(id)).map(v=>v.id));
   else if(action==='exit-practice'){ session=null; go('home'); }
   else if(action==='check-practice') checkPractice();
-  else if(action==='next-practice'){ session.index++; render(); }
+  else if(action==='next-practice'){ if(session) session.index++; render(); }
 }
 function checkPractice(){
+  if(!session) return;
+  const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
-  const v = findVerse(item.verseId);
-  const words = v.text.split(' ');
-  let allCorrect = true;
-  const correctFlags = item.blanks.map(i=>{
-    const input = document.querySelector(`[data-blank="${i}"]`);
-    const given = (input.value||'').trim().toLowerCase().replace(/[^a-z']/g,'');
-    const actual = words[i].toLowerCase().replace(/[^a-z']/g,'');
-    const ok = given === actual;
-    if(!ok) allCorrect = false;
-    return ok;
+  if(item.state.checked) return;
+  const summary = type.check(item.state);
+  session.results.push({
+    verseId: item.verseId,
+    allCorrect: summary.allCorrect,
+    score: type.score(item.state)
   });
-  item.checked = true;
-  item.correctFlags = correctFlags;
-  item.allCorrect = allCorrect;
-  if(allCorrect) session.correctCount++;
-  recordPractice(v.id, allCorrect, 'challenge_fill_blank');
+  recordPractice(item.verseId, summary.allCorrect, session.challengeTypeId);
   render();
 }
 

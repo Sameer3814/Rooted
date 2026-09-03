@@ -147,9 +147,10 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types beyond fill-in-blank — first factor the existing
-   one into the pluggable ChallengeType interface (`DATA_MODEL.md` §3),
-   then add scramble / progressive reveal / matching / ordering.
+1. More challenge types beyond fill-in-blank. The pluggable ChallengeType
+   interface now exists (`DATA_MODEL.md` §3, `CHALLENGE_TYPES` in
+   `index.html`) — next is adding `challenge_scramble`, then progressive
+   reveal / matching / ordering, then a picker UI to choose one.
 2. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
    `book`/`chapter`/`verse` fields to the Verse schema.
 3. Wiring the full `verses.json` corpus into the app (needs search/browse
@@ -167,8 +168,9 @@ hand-curate all the content before building.
 9. `data/characters.json` is currently dead weight (duplicates the
    characters embedded in `starter-pack.json`) — wire it in or delete it.
 
-**Done:** content/user-state storage split + `progress` removed from seed
-files (`DATA_MODEL.md` §8.1, 2026-09-03).
+**Done (2026-09-03):** content/user-state storage split + `progress`
+removed from seed files (`DATA_MODEL.md` §8.1); pluggable ChallengeType
+interface, fill-in-blank factored into it (§8.2).
 
 ## Source data provenance
 
