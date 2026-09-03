@@ -354,6 +354,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 > become the `rooted-progress` map, and the old key is left in place but no
 > longer read.
 
+> **Local dev:** `window.storage` is a Claude-runtime API. When the page is
+> opened from a plain web server, `index.html` installs a `localStorage`-backed
+> fallback with the same shape (top of the `<script>`, `if(!window.storage)`).
+> So data persists per-browser during local testing. Reset it with
+> `localStorage.clear()` in the console.
+
 Seed vs. user data merge rule: **seed files are the source of truth for seed
 ids.** User edits to a seed entity are stored as an overlay in `rooted-content`
 and re-applied on load, so pulling a new seed pack doesn't silently clobber the

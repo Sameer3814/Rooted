@@ -183,6 +183,25 @@
 </nav>
 
 <script>
+/* ---------- local-dev storage fallback ----------
+   The app persists through window.storage, provided by the Claude runtime.
+   When the page is opened from a plain web server / browser that API is
+   absent, so fall back to localStorage with the same shape (same origin,
+   survives reload, per-browser). Inert inside the Claude runtime. */
+if(!window.storage){
+  console.info('Rooted: window.storage not found — using localStorage (local dev).');
+  window.storage = {
+    async get(key){
+      try{ const v = localStorage.getItem(key); return v === null ? null : {value:v}; }
+      catch(e){ return null; }
+    },
+    async set(key, value){
+      try{ localStorage.setItem(key, value); }
+      catch(e){ console.warn('Rooted: localStorage set failed', e); }
+    }
+  };
+}
+
 /* ---------- storage ----------
    Content (verses/topics/characters) and user state (practice progress) are
    stored under separate keys so resetting progress can never destroy content.
