@@ -362,7 +362,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_fill_blank'};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
@@ -376,6 +376,7 @@ let corpusStatus = 'idle';  // idle | loading | ready | error
 let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
 const SEARCH_LIMIT = 60;
+let homeLimit = 25;   // Home lists this many verses before "Show all"
 
 /* ---------- helpers ---------- */
 function findVerse(id){ return data.verses.find(v=>v.id===id); }
@@ -387,7 +388,23 @@ function isDue(v){
   if(!nr) return true;
   return new Date(nr) <= new Date();
 }
-function dueVerses(){ return data.verses.filter(isDue); }
+/* Due verses, most-overdue first, then ones already in progress, then new.
+   Finishing what you've started beats piling on more. */
+function dueVerses(){
+  return data.verses.filter(isDue).sort((a,b)=>{
+    const pa = getProgress(a.id), pb = getProgress(b.id);
+    if(pa.nextReview && pb.nextReview) return new Date(pa.nextReview) - new Date(pb.nextReview);
+    if(pa.nextReview) return -1;
+    if(pb.nextReview) return 1;
+    return 0;
+  });
+}
+/* A day's worth, not the whole backlog — 230 seed verses would otherwise all
+   come due at once on a fresh install. */
+function practiceQueue(verses){
+  const goal = settings.dailyGoal || 10;
+  return verses.slice(0, goal).map(v=>v.id);
+}
 function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function charIcon(roles){
   const r = (roles||[]).join(' ');
@@ -443,6 +460,7 @@ function go(screen, params={}){ view = {screen, params}; window.scrollTo(0,0); r
 /* ---------- HOME ---------- */
 function renderHome(){
   const due = dueVerses();
+  const session_size = Math.min(due.length, settings.dailyGoal || 10);
   const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
   return `
     <div class="topbar">
@@ -455,10 +473,15 @@ function renderHome(){
     </div>
     ${due.length ? `
       ${renderChallengePicker()}
-      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${due.length} due verse${due.length>1?'s':''}</button>
+      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
     ` : ''}
-    <div class="section-label">Your verses</div>
-    ${data.verses.length ? data.verses.map(renderVerseCard).join('') : renderEmptyVerses()}
+    <div class="section-label">Your verses <span style="color:var(--ink-faint);">${data.verses.length}</span></div>
+    ${data.verses.length
+      ? data.verses.slice(0, homeLimit).map(renderVerseCard).join('') +
+        (data.verses.length > homeLimit
+          ? `<button class="btn block" data-action="show-all-verses">Show all ${data.verses.length}</button>`
+          : '')
+      : renderEmptyVerses()}
   `;
 }
 /* ---------- BROWSE (full corpus) ---------- */
@@ -1070,8 +1093,9 @@ function onAction(e){
   else if(action==='back-to-topics') go('topics');
   else if(action==='open-character') go('characterDetail', {id});
   else if(action==='back-to-characters') go('characters');
-  else if(action==='start-practice') startPractice(dueVerses().map(v=>v.id));
-  else if(action==='start-practice-topic') startPractice(data.verses.filter(v=>v.topicIds.includes(id)).map(v=>v.id));
+  else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
+  else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
+  else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
   else if(action==='exit-practice'){ session=null; go('home'); }
   else if(action==='check-practice') checkPractice();
   else if(action==='next-practice'){ if(session) session.index++; render(); }
@@ -1157,7 +1181,7 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_fill_blank'}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
 
   data = mergeContent(seed, content);

@@ -343,7 +343,9 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 17 verses + 15 topics + 11 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 230 verses + 27 topics + 11 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
+| `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
 | `data/stories.json` | *planned* | Story + Era + LifeEvent seed |
@@ -395,8 +397,19 @@ Everything in `data/` is generated. **Never hand-edit `data/*.json`.**
   cross-reference; dangling ids are a hard error. Emits **no `progress` field**.
   `--check` verifies without writing.
 
+- **`pipeline/tag_verses.py`** — a curation *aid* that writes nothing. Reads
+  `curation/topic_lexicon.json` (keyword hints per topic) and prints ranked
+  candidate verses for a human to hand-pick, ranked by keyword hits then
+  memorisable length. `--report` shows per-topic coverage.
+
 Verse text lives **only** in the corpus — the curation file holds selection and
 links, never a copy of the text. Rebuilding reproduces the shipped data exactly.
+
+**Topic tagging is hand-curated, not generated.** Auto-tagging the whole corpus
+was considered and rejected: keyword matching can't read metaphor or context
+("fear of Yahweh" is reverence, not anxiety), and for practice you want 10–30
+strong verses per topic rather than thousands of noisy ones. The lexicon
+surfaces candidates; a person picks.
 
 Re-verify the source is still public domain before reproducing verse text in
 bulk. This does **not** extend to copyrighted translations (see CLAUDE.md NIV
@@ -455,10 +468,14 @@ note).
 
 ### Settings — *partial*
 ```json
-{ "challengeTypeId": "challenge_scramble", "activeDepth": "standard", "dailyGoal": 5 }
+{ "challengeTypeId": "challenge_scramble", "dailyGoal": 10, "activeDepth": "standard" }
 ```
-`challengeTypeId` is live (default `challenge_fill_blank`, falls back to it if
-the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
+- `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
+  the stored id is unknown.
+- `dailyGoal` — live. Default 10. Caps how many due verses a practice session
+  pulls (`practiceQueue`), so the 230-verse seed doesn't all come due at once on
+  a fresh install. No UI to change it yet; Home shows "Practice 10 of 230 due".
+- `activeDepth` — planned (§4).
 
 ---
 
@@ -507,6 +524,14 @@ the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
    (`loadCorpus`), never at boot, and not precached by the service worker.
    Adding a verse copies it into the user's `rooted-content` overlay, so it
    immediately joins the practice rotation. See §11.
+
+9. **Topic tagging at scale.** **Done (2026-09-03).** Seed grew from 17 verses /
+   15 topics to **230 verses / 27 topics / 270 tag assignments**, every topic
+   carrying 6–14 hand-picked verses, every Topic now with a real `description`
+   and populated `relatedTopicIds` (the topic-to-topic graph the vision asks
+   for). Approach: `tag_verses.py` surfaces candidates from a keyword lexicon,
+   a human picks — see §6. Genesis verses also gained `characterIds`, so
+   character detail pages went from 0–2 verses to up to 18.
 
 ### Corpus vs. library
 An important distinction the UI depends on:

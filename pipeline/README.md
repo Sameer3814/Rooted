@@ -42,6 +42,34 @@ Every cross-reference is validated — a verse pointing at a topic that doesn't
 exist, a character related to a missing character, a topic linked to an unknown
 topic — and dangling ids are a hard error, not a warning.
 
+### `tag_verses.py` — curation aid, writes nothing
+Surfaces *candidate* verses for a topic so a human can pick the good ones. It
+reads `curation/topic_lexicon.json` (keyword hints per topic), scans the corpus,
+and prints ranked candidates — more keyword hits first, then a memorisable
+length (~8–30 words), then shorter.
+
+```sh
+py pipeline/tag_verses.py --report                  # coverage for every topic
+py pipeline/tag_verses.py --topic topic_fear        # candidates to pick from
+py pipeline/tag_verses.py --topic topic_fear --limit 40 --include-tagged
+py pipeline/tag_verses.py --untagged-topics
+```
+
+**It never writes tags.** Keyword matching can't read metaphor or context —
+"fear of Yahweh" is reverence, not anxiety, which is why `topic_fear` carries an
+`exclude` list. The human pass is the whole point; auto-tagging the corpus was
+considered and deliberately rejected in favour of a smaller curated set.
+
+## Starting a new topic
+
+1. Add a lexicon entry in `curation/topic_lexicon.json` with `terms` (and
+   `exclude` for predictable false positives).
+2. `py pipeline/tag_verses.py --topic topic_yourthing --limit 30`
+3. Hand-pick the ones that genuinely teach on it; add them to the verse records
+   in `curation/starter_pack.json` (a verse can carry several topics).
+4. Add the Topic record itself — `name`, `description`, `relatedTopicIds`.
+5. `py pipeline/build_starter_pack.py`
+
 ## Adding to the starter pack
 
 1. Make sure the book is parsed into `data/verses.json` (`parse_books.py --books ...`).

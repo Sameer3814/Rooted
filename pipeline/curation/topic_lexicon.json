@@ -1,0 +1,319 @@
+{
+  "_comment": "Keyword hints used by tag_verses.py to SURFACE candidate verses for hand-curation. These are not tags and are never written to data/. 'terms' match whole words (multi-word entries match as a phrase, case-insensitive); 'exclude' drops a verse from the candidate list entirely. Tuned for the World English Bible, which uses 'Yahweh' and 'loving kindness'. Adding an entry here is the first step to starting a new topic: add the terms, run tag_verses.py --topic <id>, hand-pick, then add the topic record to starter_pack.json.",
+  "topic_creation": {
+    "terms": [
+      "created",
+      "creator",
+      "heavens and the earth",
+      "formed",
+      "made the",
+      "foundations",
+      "work of your fingers",
+      "you made",
+      "breath of life"
+    ]
+  },
+  "topic_identity": {
+    "terms": [
+      "in his own image",
+      "fearfully and wonderfully",
+      "knit me",
+      "formed my",
+      "your works",
+      "my frame",
+      "before I was born",
+      "you know me",
+      "searched me"
+    ]
+  },
+  "topic_faith": {
+    "terms": [
+      "believed",
+      "believe",
+      "faith",
+      "did as",
+      "obeyed",
+      "by faith"
+    ]
+  },
+  "topic_trust": {
+    "terms": [
+      "trust",
+      "trusted",
+      "rely",
+      "commit your way",
+      "lean"
+    ],
+    "exclude": [
+      "trusted in their riches"
+    ]
+  },
+  "topic_refuge": {
+    "terms": [
+      "refuge",
+      "fortress",
+      "stronghold",
+      "shield",
+      "hiding place",
+      "my rock",
+      "shadow of your wings",
+      "shelter",
+      "deliverer"
+    ]
+  },
+  "topic_fear": {
+    "terms": [
+      "afraid",
+      "fear no",
+      "will not fear",
+      "terror",
+      "dread",
+      "tremble",
+      "anxious",
+      "dismayed"
+    ],
+    "exclude": [
+      "fear Yahweh",
+      "fear of Yahweh",
+      "fear the Lord",
+      "who fear him",
+      "those who fear"
+    ]
+  },
+  "topic_peace": {
+    "terms": [
+      "peace",
+      "quiet",
+      "still",
+      "rest",
+      "safety",
+      "safely",
+      "at ease"
+    ]
+  },
+  "topic_forgiveness": {
+    "terms": [
+      "forgive",
+      "forgiven",
+      "pardon",
+      "blot out",
+      "cleanse",
+      "wash me",
+      "covered"
+    ]
+  },
+  "topic_repentance": {
+    "terms": [
+      "confess",
+      "confessed",
+      "contrite",
+      "broken spirit",
+      "I have sinned",
+      "my sin",
+      "my transgressions",
+      "return to"
+    ]
+  },
+  "topic_worship": {
+    "terms": [
+      "praise",
+      "sing",
+      "exalt",
+      "magnify",
+      "glorify",
+      "bow down",
+      "worship",
+      "hallelujah",
+      "make a joyful noise"
+    ]
+  },
+  "topic_thanksgiving": {
+    "terms": [
+      "give thanks",
+      "thanksgiving",
+      "thank"
+    ]
+  },
+  "topic_wisdom": {
+    "terms": [
+      "wisdom",
+      "wise",
+      "understanding",
+      "instruct",
+      "discern",
+      "folly",
+      "fool",
+      "teach me"
+    ]
+  },
+  "topic_scripture": {
+    "terms": [
+      "your law",
+      "your word",
+      "your words",
+      "precepts",
+      "statutes",
+      "commandments",
+      "your testimonies",
+      "ordinances"
+    ]
+  },
+  "topic_guidance": {
+    "terms": [
+      "guide",
+      "lead me",
+      "leads me",
+      "my path",
+      "the way",
+      "direct",
+      "counsel",
+      "make straight",
+      "shows"
+    ]
+  },
+  "topic_faithfulness": {
+    "terms": [
+      "loving kindness",
+      "faithfulness",
+      "faithful",
+      "endures forever",
+      "steadfast",
+      "never forsake",
+      "keeps covenant"
+    ]
+  },
+  "topic_presence": {
+    "terms": [
+      "with you",
+      "with me",
+      "your presence",
+      "near to",
+      "dwell",
+      "your face",
+      "I am with",
+      "abide"
+    ]
+  },
+  "topic_calling": {
+    "terms": [
+      "called",
+      "go from",
+      "get out of",
+      "I will send",
+      "chosen",
+      "set apart",
+      "appointed"
+    ]
+  },
+  "topic_covenant": {
+    "terms": [
+      "covenant",
+      "I will make",
+      "promised",
+      "swore",
+      "oath",
+      "for a sign"
+    ]
+  },
+  "topic_blessing": {
+    "terms": [
+      "bless",
+      "blessed",
+      "blessing",
+      "fruitful",
+      "multiply"
+    ]
+  },
+  "topic_waiting": {
+    "terms": [
+      "wait",
+      "waited",
+      "how long",
+      "patiently",
+      "hope in"
+    ]
+  },
+  "topic_sorrow": {
+    "terms": [
+      "sorrow",
+      "mourn",
+      "weep",
+      "wept",
+      "tears",
+      "grief",
+      "groaning",
+      "distress",
+      "my soul is",
+      "downcast",
+      "trouble"
+    ]
+  },
+  "topic_justice": {
+    "terms": [
+      "justice",
+      "judge",
+      "righteous judgment",
+      "oppressed",
+      "needy",
+      "the fatherless",
+      "vindicate",
+      "plead my cause"
+    ]
+  },
+  "topic_humility": {
+    "terms": [
+      "humble",
+      "lowly",
+      "proud",
+      "pride",
+      "haughty",
+      "arrogant",
+      "boast"
+    ]
+  },
+  "topic_provision": {
+    "terms": [
+      "provide",
+      "satisfy",
+      "satisfies",
+      "shepherd",
+      "I shall lack",
+      "feeds",
+      "bread",
+      "green pastures",
+      "cup"
+    ]
+  },
+  "topic_temptation": {
+    "terms": [
+      "desired",
+      "delight to the eyes",
+      "serpent",
+      "deceived",
+      "you shall not eat",
+      "crouching at the door",
+      "entice"
+    ]
+  },
+  "topic_betrayal": {
+    "terms": [
+      "sold",
+      "conspired",
+      "betray",
+      "deceived",
+      "against his brother",
+      "plotted",
+      "slay him"
+    ]
+  },
+  "topic_strength": {
+    "terms": [
+      "strength",
+      "strong",
+      "strengthen",
+      "power",
+      "mighty",
+      "my help"
+    ]
+  }
+}

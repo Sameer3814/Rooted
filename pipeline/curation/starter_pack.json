@@ -10,12 +10,49 @@
       "characterIds": []
     },
     {
+      "id": "verse_genesis_1_3",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
       "id": "verse_genesis_1_27",
       "topicIds": [
         "topic_creation",
         "topic_identity"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_genesis_1_28",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_1_31",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_2_7",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_3_1",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_eve"
+      ]
     },
     {
       "id": "verse_genesis_3_6",
@@ -28,9 +65,111 @@
       ]
     },
     {
+      "id": "verse_genesis_4_7",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_6_22",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_noah"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_13",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_noah"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_16",
+      "topicIds": [
+        "topic_covenant",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_noah"
+      ]
+    },
+    {
       "id": "verse_genesis_12_1",
       "topicIds": [
-        "topic_faith",
+        "topic_calling",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_12_2",
+      "topicIds": [
+        "topic_blessing",
+        "topic_calling",
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_12_3",
+      "topicIds": [
+        "topic_blessing",
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_12_4",
+      "topicIds": [
+        "topic_calling",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_15_1",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_15_6",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_15_18",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_17_1",
+      "topicIds": [
         "topic_calling"
       ],
       "characterIds": [
@@ -38,9 +177,47 @@
       ]
     },
     {
+      "id": "verse_genesis_17_7",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_18_25",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_18_27",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_22_2",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_abraham",
+        "char_isaac"
+      ]
+    },
+    {
       "id": "verse_genesis_22_8",
       "topicIds": [
         "topic_faith",
+        "topic_provision",
         "topic_trust"
       ],
       "characterIds": [
@@ -49,19 +226,179 @@
       ]
     },
     {
-      "id": "verse_genesis_28_15",
+      "id": "verse_genesis_22_12",
       "topicIds": [
-        "topic_trust",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_abraham",
+        "char_isaac"
+      ]
+    },
+    {
+      "id": "verse_genesis_22_14",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_abraham",
+        "char_isaac"
+      ]
+    },
+    {
+      "id": "verse_genesis_22_17",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_23_2",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_abraham",
+        "char_sarah"
+      ]
+    },
+    {
+      "id": "verse_genesis_24_27",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": [
+        "char_abraham",
+        "char_rebekah"
+      ]
+    },
+    {
+      "id": "verse_genesis_26_24",
+      "topicIds": [
+        "topic_fear",
         "topic_presence"
+      ],
+      "characterIds": [
+        "char_isaac"
+      ]
+    },
+    {
+      "id": "verse_genesis_27_35",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_isaac",
+        "char_jacob",
+        "char_esau"
+      ]
+    },
+    {
+      "id": "verse_genesis_28_14",
+      "topicIds": [
+        "topic_covenant"
       ],
       "characterIds": [
         "char_jacob"
       ]
     },
     {
+      "id": "verse_genesis_28_15",
+      "topicIds": [
+        "topic_presence",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jacob"
+      ]
+    },
+    {
+      "id": "verse_genesis_32_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jacob"
+      ]
+    },
+    {
+      "id": "verse_genesis_32_26",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jacob"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_4",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_18",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
       "id": "verse_genesis_37_28",
       "topicIds": [
         "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_2",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_9",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_45_5",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_25",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jacob"
+      ]
+    },
+    {
+      "id": "verse_genesis_50_19",
+      "topicIds": [
+        "topic_fear"
       ],
       "characterIds": [
         "char_joseph"
@@ -80,7 +417,170 @@
     {
       "id": "verse_psalms_1_1",
       "topicIds": [
+        "topic_blessing",
         "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_1_2",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_4_5",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_4_8",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_6_6",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_8_3",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_8_4",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_8_5",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_9_1",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_9_9",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_9_10",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_10_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_10_14",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_13_5",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_16_1",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_16_11",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_18_1",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_18_2",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_18_27",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_19_1",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_19_7",
+      "topicIds": [
+        "topic_scripture",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_19_8",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_19_13",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_22_4",
+      "topicIds": [
+        "topic_trust"
       ],
       "characterIds": []
     },
@@ -88,45 +588,1019 @@
       "id": "verse_psalms_23_1",
       "topicIds": [
         "topic_peace",
+        "topic_provision",
         "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_23_2",
+      "topicIds": [
+        "topic_peace",
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_23_3",
+      "topicIds": [
+        "topic_guidance"
       ],
       "characterIds": []
     },
     {
       "id": "verse_psalms_23_4",
       "topicIds": [
+        "topic_fear",
         "topic_peace",
-        "topic_fear"
+        "topic_presence"
       ],
       "characterIds": []
     },
     {
-      "id": "verse_psalms_46_1",
+      "id": "verse_psalms_23_5",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_25_4",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_25_5",
+      "topicIds": [
+        "topic_guidance",
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_25_9",
+      "topicIds": [
+        "topic_humility",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_27_1",
+      "topicIds": [
+        "topic_fear",
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_27_5",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_27_13",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_27_14",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_28_7",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_29_2",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_29_11",
       "topicIds": [
         "topic_peace",
-        "topic_fear"
+        "topic_strength"
       ],
       "characterIds": []
     },
     {
-      "id": "verse_psalms_51_10",
+      "id": "verse_psalms_30_5",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_30_12",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_31_9",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_31_14",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_32_1",
       "topicIds": [
         "topic_forgiveness"
       ],
       "characterIds": []
     },
     {
-      "id": "verse_psalms_100_5",
+      "id": "verse_psalms_32_5",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_32_7",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_32_8",
+      "topicIds": [
+        "topic_guidance",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_33_5",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_33_6",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_33_20",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_4",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_8",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_10",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_14",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_34_18",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_36_5",
       "topicIds": [
         "topic_faithfulness"
       ],
       "characterIds": []
     },
     {
+      "id": "verse_psalms_36_7",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_3",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_5",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_7",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_23",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_25",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_37_28",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_38_18",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_39_7",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_40_1",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_40_8",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_41_9",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_42_3",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_42_5",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_46_1",
+      "topicIds": [
+        "topic_fear",
+        "topic_peace",
+        "topic_refuge",
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_48_14",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_1",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_2",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_3",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_6",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_7",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_10",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_51_17",
+      "topicIds": [
+        "topic_humility",
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_55_12",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_55_13",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_56_3",
+      "topicIds": [
+        "topic_fear",
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_56_4",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_56_8",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_57_1",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_61_4",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_62_1",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_62_2",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_62_5",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_62_8",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_67_1",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_73_23",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_73_24",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_73_26",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_82_3",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_84_10",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_85_10",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_86_5",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_89_1",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_89_2",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_89_14",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_89_34",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_90_12",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_91_1",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_91_2",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_91_4",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_91_5",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_92_1",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_95_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_95_6",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_96_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_100_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_100_2",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_100_3",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_100_4",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_100_5",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_103_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_103_6",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_103_12",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_103_17",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_104_14",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_104_24",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_105_8",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_107_1",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_107_9",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_111_10",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_112_7",
+      "topicIds": [
+        "topic_fear",
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_116_7",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_116_17",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_117_2",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_118_1",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_118_6",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_118_14",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_9",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_11",
+      "topicIds": [
+        "topic_scripture",
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_16",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_28",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_89",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_90",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_99",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_103",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
       "id": "verse_psalms_119_105",
       "topicIds": [
-        "topic_wisdom",
-        "topic_guidance"
+        "topic_guidance",
+        "topic_scripture",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_114",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_130",
+      "topicIds": [
+        "topic_scripture",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_160",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_119_165",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_121_1",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_121_2",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_126_5",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_128_1",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_130_3",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_130_4",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_130_5",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_130_6",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_131_1",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_131_2",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_131_3",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_133_1",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_136_1",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_138_3",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_138_6",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_1",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_7",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_8",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_13",
+      "topicIds": [
+        "topic_creation",
+        "topic_identity"
       ],
       "characterIds": []
     },
@@ -134,6 +1608,125 @@
       "id": "verse_psalms_139_14",
       "topicIds": [
         "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_16",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_23",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_139_24",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_140_12",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_141_4",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_143_8",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_145_3",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_145_13",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_145_15",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_145_16",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_145_18",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_146_7",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_147_3",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_147_6",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_148_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_149_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_psalms_150_1",
+      "topicIds": [
+        "topic_worship"
       ],
       "characterIds": []
     },
@@ -149,92 +1742,275 @@
     {
       "id": "topic_betrayal",
       "name": "Betrayal",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Being wronged by the people closest to you — and what God does with it.",
+      "relatedTopicIds": [
+        "topic_forgiveness",
+        "topic_sorrow",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "topic_blessing",
+      "name": "Blessing",
+      "description": "Favor given by God, and passed on to others.",
+      "relatedTopicIds": [
+        "topic_covenant",
+        "topic_faithfulness",
+        "topic_provision"
+      ]
     },
     {
       "id": "topic_calling",
       "name": "Calling",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Being sent, and going before you can see where.",
+      "relatedTopicIds": [
+        "topic_faith",
+        "topic_guidance",
+        "topic_covenant"
+      ]
+    },
+    {
+      "id": "topic_covenant",
+      "name": "Covenant",
+      "description": "The promises God binds himself to keep.",
+      "relatedTopicIds": [
+        "topic_faithfulness",
+        "topic_blessing",
+        "topic_calling"
+      ]
     },
     {
       "id": "topic_creation",
       "name": "Creation",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "God making the world, and calling it good.",
+      "relatedTopicIds": [
+        "topic_identity",
+        "topic_worship",
+        "topic_provision"
+      ]
     },
     {
       "id": "topic_faith",
       "name": "Faith",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Acting on what God said before you can see it.",
+      "relatedTopicIds": [
+        "topic_trust",
+        "topic_calling",
+        "topic_waiting"
+      ]
     },
     {
       "id": "topic_faithfulness",
-      "name": "Faithfulness",
-      "description": "",
-      "relatedTopicIds": []
+      "name": "God's faithfulness",
+      "description": "Loving kindness that outlasts every generation.",
+      "relatedTopicIds": [
+        "topic_covenant",
+        "topic_trust",
+        "topic_thanksgiving"
+      ]
     },
     {
       "id": "topic_fear",
       "name": "Fear",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "What to hold onto when you're afraid.",
+      "relatedTopicIds": [
+        "topic_refuge",
+        "topic_trust",
+        "topic_peace",
+        "topic_strength"
+      ]
     },
     {
       "id": "topic_forgiveness",
       "name": "Forgiveness",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Being forgiven, and forgiving.",
+      "relatedTopicIds": [
+        "topic_repentance",
+        "topic_betrayal",
+        "topic_faithfulness"
+      ]
     },
     {
       "id": "topic_guidance",
       "name": "Guidance",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Asking God which way to go.",
+      "relatedTopicIds": [
+        "topic_wisdom",
+        "topic_scripture",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "topic_humility",
+      "name": "Humility",
+      "description": "Seeing yourself at true size before God.",
+      "relatedTopicIds": [
+        "topic_repentance",
+        "topic_wisdom",
+        "topic_justice"
+      ]
     },
     {
       "id": "topic_identity",
       "name": "Identity",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Who you are because of who made you.",
+      "relatedTopicIds": [
+        "topic_creation",
+        "topic_presence",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "topic_justice",
+      "name": "Justice",
+      "description": "God's care for the oppressed — and ours.",
+      "relatedTopicIds": [
+        "topic_humility",
+        "topic_sorrow",
+        "topic_faithfulness"
+      ]
     },
     {
       "id": "topic_peace",
       "name": "Peace",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Rest that doesn't depend on circumstances.",
+      "relatedTopicIds": [
+        "topic_trust",
+        "topic_refuge",
+        "topic_fear"
+      ]
     },
     {
       "id": "topic_presence",
       "name": "God's presence",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "He is with you, and there is nowhere he isn't.",
+      "relatedTopicIds": [
+        "topic_refuge",
+        "topic_peace",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "topic_provision",
+      "name": "Provision",
+      "description": "God supplying what you actually need.",
+      "relatedTopicIds": [
+        "topic_trust",
+        "topic_creation",
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "topic_refuge",
+      "name": "Refuge",
+      "description": "God as shelter when you're under threat.",
+      "relatedTopicIds": [
+        "topic_fear",
+        "topic_peace",
+        "topic_strength",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "topic_repentance",
+      "name": "Repentance",
+      "description": "Turning back, and being honest on the way.",
+      "relatedTopicIds": [
+        "topic_forgiveness",
+        "topic_humility",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "topic_scripture",
+      "name": "God's word",
+      "description": "Loving, memorizing, and living by what he said.",
+      "relatedTopicIds": [
+        "topic_wisdom",
+        "topic_guidance",
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "topic_sorrow",
+      "name": "Sorrow",
+      "description": "Grief brought honestly to God.",
+      "relatedTopicIds": [
+        "topic_waiting",
+        "topic_presence",
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "topic_strength",
+      "name": "Strength",
+      "description": "Borrowed strength for when yours runs out.",
+      "relatedTopicIds": [
+        "topic_refuge",
+        "topic_fear",
+        "topic_waiting"
+      ]
     },
     {
       "id": "topic_temptation",
       "name": "Temptation",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "The pull toward what will harm you.",
+      "relatedTopicIds": [
+        "topic_scripture",
+        "topic_repentance",
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "topic_thanksgiving",
+      "name": "Thanksgiving",
+      "description": "Naming what God has actually done.",
+      "relatedTopicIds": [
+        "topic_worship",
+        "topic_faithfulness",
+        "topic_provision"
+      ]
     },
     {
       "id": "topic_trust",
       "name": "Trust",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Leaning on God rather than on yourself.",
+      "relatedTopicIds": [
+        "topic_faith",
+        "topic_refuge",
+        "topic_waiting",
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "topic_waiting",
+      "name": "Waiting",
+      "description": "The long gap between promise and fulfillment.",
+      "relatedTopicIds": [
+        "topic_trust",
+        "topic_sorrow",
+        "topic_faith"
+      ]
     },
     {
       "id": "topic_wisdom",
       "name": "Wisdom",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Learning to live well.",
+      "relatedTopicIds": [
+        "topic_scripture",
+        "topic_guidance",
+        "topic_humility"
+      ]
     },
     {
       "id": "topic_worship",
       "name": "Worship",
-      "description": "",
-      "relatedTopicIds": []
+      "description": "Giving God what he is worth.",
+      "relatedTopicIds": [
+        "topic_thanksgiving",
+        "topic_creation",
+        "topic_presence"
+      ]
     }
   ],
   "characters": [
@@ -271,6 +2047,7 @@
         }
       ],
       "verseIds": [
+        "verse_genesis_3_1",
         "verse_genesis_3_6"
       ]
     },
@@ -284,7 +2061,11 @@
       "era": "Flood",
       "summary": "A righteous man in a corrupt generation, instructed by God to build an ark to save his family and pairs of every animal from a great flood.",
       "relationships": [],
-      "verseIds": []
+      "verseIds": [
+        "verse_genesis_6_22",
+        "verse_genesis_9_13",
+        "verse_genesis_9_16"
+      ]
     },
     {
       "id": "char_abraham",
@@ -310,7 +2091,23 @@
       ],
       "verseIds": [
         "verse_genesis_12_1",
-        "verse_genesis_22_8"
+        "verse_genesis_12_2",
+        "verse_genesis_12_3",
+        "verse_genesis_12_4",
+        "verse_genesis_15_1",
+        "verse_genesis_15_6",
+        "verse_genesis_15_18",
+        "verse_genesis_17_1",
+        "verse_genesis_17_7",
+        "verse_genesis_18_25",
+        "verse_genesis_18_27",
+        "verse_genesis_22_2",
+        "verse_genesis_22_8",
+        "verse_genesis_22_12",
+        "verse_genesis_22_14",
+        "verse_genesis_22_17",
+        "verse_genesis_23_2",
+        "verse_genesis_24_27"
       ]
     },
     {
@@ -331,7 +2128,9 @@
           "type": "mother of"
         }
       ],
-      "verseIds": []
+      "verseIds": [
+        "verse_genesis_23_2"
+      ]
     },
     {
       "id": "char_ishmael",
@@ -389,7 +2188,12 @@
         }
       ],
       "verseIds": [
-        "verse_genesis_22_8"
+        "verse_genesis_22_2",
+        "verse_genesis_22_8",
+        "verse_genesis_22_12",
+        "verse_genesis_22_14",
+        "verse_genesis_26_24",
+        "verse_genesis_27_35"
       ]
     },
     {
@@ -414,7 +2218,9 @@
           "type": "mother of"
         }
       ],
-      "verseIds": []
+      "verseIds": [
+        "verse_genesis_24_27"
+      ]
     },
     {
       "id": "char_jacob",
@@ -443,7 +2249,12 @@
         }
       ],
       "verseIds": [
-        "verse_genesis_28_15"
+        "verse_genesis_27_35",
+        "verse_genesis_28_14",
+        "verse_genesis_28_15",
+        "verse_genesis_32_10",
+        "verse_genesis_32_26",
+        "verse_genesis_49_25"
       ]
     },
     {
@@ -468,7 +2279,9 @@
           "type": "brother of"
         }
       ],
-      "verseIds": []
+      "verseIds": [
+        "verse_genesis_27_35"
+      ]
     },
     {
       "id": "char_joseph",
@@ -486,7 +2299,13 @@
         }
       ],
       "verseIds": [
+        "verse_genesis_37_4",
+        "verse_genesis_37_18",
         "verse_genesis_37_28",
+        "verse_genesis_39_2",
+        "verse_genesis_39_9",
+        "verse_genesis_45_5",
+        "verse_genesis_50_19",
         "verse_genesis_50_20"
       ]
     }

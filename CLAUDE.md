@@ -51,9 +51,10 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: 17 verses (Genesis + Psalms, WEB translation) tagged with
-  topics and linked to characters, plus 11 Genesis characters with real
-  relationships (father of, wife of, brother of, etc.).
+  first run: **230 verses** (Genesis + Psalms, WEB translation) across
+  **27 topics** (270 tag assignments, 6–14 verses per topic, topics linked
+  to related topics), plus 11 Genesis characters with real relationships
+  (father of, wife of, brother of, etc.).
 - `data/characters.json` — the same 11 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed Genesis + Psalms corpus (3,994
@@ -71,6 +72,11 @@ The schema was deliberately designed so all of the above can be added
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
     `data/characters.json`. Validates every cross-reference.
+  - `tag_verses.py` — curation aid that **writes nothing**: surfaces
+    candidate verses per topic from `curation/topic_lexicon.json` so a
+    human can hand-pick. Topic tags are curated, never generated —
+    auto-tagging the corpus was considered and rejected (keyword matching
+    can't read metaphor; "fear of Yahweh" is reverence, not anxiety).
 
 **`data/*.json` is generated — never hand-edit it.** Verse text lives only
 in the corpus; the curation file holds selection and links, not a copy of
@@ -156,18 +162,17 @@ hand-curate all the content before building.
    built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
    Home picker persisted to `rooted-settings`. Next: progressive reveal
    (`challenge_first_letters`), then matching / ordering.
-2. Topic tagging at scale for the full corpus (currently only the 17
-   starter verses are tagged) — this is now the main thing blocking
-   "practice by topic" from feeling real.
-3. `Story` / `Era` / `LifeEvent` entities — needed for the character
+2. `Story` / `Era` / `LifeEvent` entities — needed for the character
    timeline/"highlights of their life" feature and parallel-story
-   connections.
-4. The generic `Connection` entity (Design philosophy #4) — migrate
+   connections. **Agreed with the owner (2026-09-03) as the next thing
+   after topic tagging.**
+3. The generic `Connection` entity (Design philosophy #4) — migrate
    `Character.relationships[]` to it first.
-5. Real character portrait illustrations in the warm-storybook style
+4. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-6. Expanding character/relationship data beyond Genesis to other OT books
+5. Expanding character/relationship data beyond Genesis to other OT books
    (`parse_books.py --all` makes the text side trivial now).
+6. A UI for `settings.dailyGoal` (currently a fixed default of 10).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
@@ -175,7 +180,8 @@ removed from seed files (`DATA_MODEL.md` §8.1); structured
 fill-in-blank factored in + `challenge_scramble` added, with a persisted
 Home picker (§8.5); `window.storage`→localStorage fallback for local dev;
 `pipeline/` rebuilt (§8.7); Browse screen wiring the full corpus into the
-app (§8.8).
+app (§8.8); topic tagging at scale — 17→230 seed verses, 15→27 topics
+(§8.9).
 
 ## Source data provenance
 
