@@ -8,6 +8,11 @@ characters, stories, topics, and cultural context connect to each other.
 This file is context for whoever (human or Claude) picks this project up
 next. Read it before making structural changes.
 
+**`DATA_MODEL.md`** holds the full schema for every entity — including the
+vision features not yet built. Read it before changing any data shape, and
+update it in the same pass as any schema/data change (this applies to all
+`.md` docs: keep them in sync with the code).
+
 ## The vision (long-term, bigger than current code)
 
 The owner's goal isn't just verse memorization — it's a study companion:
@@ -35,6 +40,8 @@ The schema was deliberately designed so all of the above can be added
 
 ## Current state (what's actually built)
 
+- `DATA_MODEL.md` — the full entity schema (design pass; covers built and
+  not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire app (vanilla JS, no framework, no build step).
   Screens: Home, Verse detail, Topics, Topic detail, Characters,
   Character detail, Add Verse, Add Character, Practice (fill-in-blank
@@ -84,7 +91,9 @@ personal/non-shared) — never mixed into the seed/starter-pack files.
 ## Design philosophy (read before changing the data model)
 
 Decided deliberately, in order to make future features additive rather
-than requiring rewrites:
+than requiring rewrites. `DATA_MODEL.md` turns these principles into
+concrete per-entity schemas — this section is the "why," that file is
+the "what."
 
 1. **Open strings over hardcoded enums.** `Character.roles`,
    relationship `type` strings, etc. are free-form data, not fixed code
@@ -125,20 +134,34 @@ explicitly rejected in favor of this one.
 
 ## Known gaps / not-yet-built (in likely priority order)
 
-1. More challenge types beyond fill-in-blank (scramble, speed recall,
-   progressive reveal, character/story matching and ordering).
-2. Wiring the full `verses.json` corpus into the app (needs search/browse
+The full schema for all of the below (including the not-yet-built
+entities) is designed in `DATA_MODEL.md`; §8 there is the current→target
+migration checklist. Approach agreed with the owner (2026-09-03): design
+the whole data model up front, then build in vertical slices — do **not**
+hand-curate all the content before building.
+
+1. Split content from user-state in storage, and drop the `progress` stub
+   from the seed files (`DATA_MODEL.md` §8.1). Currently everything is one
+   `rooted-app-data` blob.
+2. More challenge types beyond fill-in-blank — first factor the existing
+   one into the pluggable ChallengeType interface (`DATA_MODEL.md` §3),
+   then add scramble / progressive reveal / matching / ordering.
+3. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
+   `book`/`chapter`/`verse` fields to the Verse schema.
+4. Wiring the full `verses.json` corpus into the app (needs search/browse
    UI, since dumping ~4,000 verses into one list is not usable as-is).
-3. Topic tagging at scale for the full corpus (currently only the 17
+5. Topic tagging at scale for the full corpus (currently only the 17
    starter verses are tagged).
-4. `Story` and `Era`/`LifeEvent` entities (planned in schema discussion,
-   not yet implemented) — needed for the character timeline/"highlights
-   of their life" search feature and for parallel-story connections.
-5. Real character portrait illustrations in the warm-storybook style
-   (currently icon placeholders).
-6. Expanding character/relationship data beyond Genesis to other OT books.
-7. The generic `Connection` entity (see Design philosophy #4) — not
-   implemented; character relationships are still embedded arrays.
+6. `Story` / `Era` / `LifeEvent` entities — needed for the character
+   timeline/"highlights of their life" feature and parallel-story
+   connections.
+7. The generic `Connection` entity (Design philosophy #4) — migrate
+   `Character.relationships[]` to it first.
+8. Real character portrait illustrations in the warm-storybook style
+   (currently icon placeholders); `Media` entity designed, not built.
+9. Expanding character/relationship data beyond Genesis to other OT books.
+10. `data/characters.json` is currently dead weight (duplicates the
+    characters embedded in `starter-pack.json`) — wire it in or delete it.
 
 ## Source data provenance
 
