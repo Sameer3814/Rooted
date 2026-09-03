@@ -299,11 +299,27 @@ async function loadSeed(){
 
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
 
+/* Link arrays where an empty overlay value must not blank out richer seed data. */
+const LINK_FIELDS = ['topicIds', 'characterIds', 'verseIds', 'relatedTopicIds', 'storyIds', 'motifIds'];
+
 /* seed + user overlay -> the in-memory content the app renders */
 function mergeContent(seed, overlay){
+  const mergeEntity = (base, over)=>{
+    const out = {...base, ...over};
+    // A verse added from the corpus is stored in the overlay with empty link
+    // arrays. When a later starter pack gains that same id — with topics and
+    // characters attached — those empty arrays must not win, or the user would
+    // silently lose the seed's tags. Seed links fill in; real user links win.
+    for(const key of LINK_FIELDS){
+      if(Array.isArray(out[key]) && !out[key].length && Array.isArray(base[key]) && base[key].length){
+        out[key] = base[key];
+      }
+    }
+    return out;
+  };
   const merge = (base, over)=>{
     const byId = new Map((base||[]).map(e=>[e.id, e]));
-    for(const e of (over||[])) byId.set(e.id, {...(byId.get(e.id)||{}), ...e});
+    for(const e of (over||[])) byId.set(e.id, mergeEntity(byId.get(e.id) || {}, e));
     return [...byId.values()].map(stripProgress);
   };
   return {

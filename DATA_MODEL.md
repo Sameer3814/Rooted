@@ -376,6 +376,14 @@ ids.** User edits to a seed entity are stored as an overlay in `rooted-content`
 and re-applied on load, so pulling a new seed pack doesn't silently clobber the
 user, and doesn't silently lose their edits either.
 
+One refinement (`mergeEntity`, `LINK_FIELDS`): an **empty** link array in the
+overlay never blanks out a non-empty one from the seed. A verse added from
+Browse is stored with `topicIds: []`; when a later starter pack ships that same
+id *with* topics and characters attached, the seed's links fill in rather than
+being erased. Non-empty user links still win. This matters on the normal path,
+not just as an edge case — every starter-pack expansion adds content for ids
+some users already hold.
+
 ---
 
 ## 6. Full-corpus pipeline — *live* (`pipeline/`, see `pipeline/README.md`)
