@@ -344,7 +344,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | Path / key | Contents | Notes |
 |------------|----------|-------|
 | `data/starter-pack.json` | curated first-run seed: 17 verses + 15 topics + 11 characters | loaded on first run; **generated** by `build_starter_pack.py` |
-| `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; not wired into the app yet — needs browse UI + tagging |
+| `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
 | `data/stories.json` | *planned* | Story + Era + LifeEvent seed |
 | `data/motifs.json` | *planned* | Motif seed |
@@ -500,8 +500,25 @@ the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
    cross-reference validation also caught a pre-existing dangling id —
    `char_abraham` → `char_ishmael`, a character that didn't exist — fixed by
    adding Ishmael (characters: 10 → 11).
-8. **Wire the full corpus into the app** — needs verse search/browse UI, since
-   3,994 verses can't go in one list. *(Next.)*
+8. ~~**Wire the full corpus into the app** — needs verse search/browse UI, since
+   3,994 verses can't go in one list.~~ **Done (2026-09-03).** New Browse
+   screen (5th nav item): search across all verses by text or reference, or
+   drill book → chapter → verse. Corpus is lazily fetched on first open
+   (`loadCorpus`), never at boot, and not precached by the service worker.
+   Adding a verse copies it into the user's `rooted-content` overlay, so it
+   immediately joins the practice rotation. See §11.
+
+### Corpus vs. library
+An important distinction the UI depends on:
+- **Corpus** (`corpus`, from `data/verses.json`) — reference material. Read-only,
+  lazily loaded, never persisted to user storage, not in `data.verses`.
+- **Library** (`data.verses`) — the seed pack plus whatever the user added.
+  This is what Home lists, what topics filter, and what practice draws from.
+
+`findVerse` only ever looks at the library. Browse results are rendered from the
+corpus and marked "in your verses" when `findVerse(id)` hits — the same stable
+id (`verse_genesis_1_3`) means adding is idempotent and a re-parse of the corpus
+can never duplicate a verse the user already has.
 
 ---
 

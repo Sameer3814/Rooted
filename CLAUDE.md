@@ -43,9 +43,10 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire app (vanilla JS, no framework, no build step).
-  Screens: Home, Verse detail, Topics, Topic detail, Characters,
-  Character detail, Add Verse, Add Character, Practice (two challenge
-  types so far: fill-in-blank and scramble).
+  Screens: Home, Browse (search/drill the full corpus), Verse detail,
+  Topics, Topic detail, Characters, Character detail, Add Verse,
+  Add Character, Practice (two challenge types so far: fill-in-blank
+  and scramble).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -56,8 +57,10 @@ The schema was deliberately designed so all of the above can be added
 - `data/characters.json` — the same 11 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed Genesis + Psalms corpus (3,994
-  verses, WEB translation, public domain). Not loaded into the app yet —
-  waiting on browse/search UI and topic tagging at that scale.
+  verses, WEB translation, public domain). Lazily fetched by the Browse
+  screen the first time it's opened, never at boot. It is *reference
+  material*, kept separate from the user's library — adding a verse from
+  Browse copies it into the user's overlay. Still untagged by topic.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
@@ -153,18 +156,17 @@ hand-curate all the content before building.
    built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
    Home picker persisted to `rooted-settings`. Next: progressive reveal
    (`challenge_first_letters`), then matching / ordering.
-2. Wiring the full `verses.json` corpus into the app (needs search/browse
-   UI, since dumping ~4,000 verses into one list is not usable as-is).
-3. Topic tagging at scale for the full corpus (currently only the 17
-   starter verses are tagged).
-4. `Story` / `Era` / `LifeEvent` entities — needed for the character
+2. Topic tagging at scale for the full corpus (currently only the 17
+   starter verses are tagged) — this is now the main thing blocking
+   "practice by topic" from feeling real.
+3. `Story` / `Era` / `LifeEvent` entities — needed for the character
    timeline/"highlights of their life" feature and parallel-story
    connections.
-5. The generic `Connection` entity (Design philosophy #4) — migrate
+4. The generic `Connection` entity (Design philosophy #4) — migrate
    `Character.relationships[]` to it first.
-6. Real character portrait illustrations in the warm-storybook style
+5. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-7. Expanding character/relationship data beyond Genesis to other OT books
+6. Expanding character/relationship data beyond Genesis to other OT books
    (`parse_books.py --all` makes the text side trivial now).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
@@ -172,7 +174,8 @@ removed from seed files (`DATA_MODEL.md` §8.1); structured
 `book`/`chapter`/`verse` fields (§8.2); pluggable ChallengeType interface +
 fill-in-blank factored in + `challenge_scramble` added, with a persisted
 Home picker (§8.5); `window.storage`→localStorage fallback for local dev;
-`pipeline/` rebuilt (§8.7).
+`pipeline/` rebuilt (§8.7); Browse screen wiring the full corpus into the
+app (§8.8).
 
 ## Source data provenance
 

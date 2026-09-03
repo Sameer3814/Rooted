@@ -191,6 +191,22 @@
   }
   .segmented button.active{background:var(--gold-wash);color:var(--gold-deep);}
 
+  /* browse / search */
+  .search-wrap{position:relative;margin-bottom:14px;}
+  .search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-faint);font-size:18px;}
+  .search-wrap input{padding-left:38px;}
+  .crumbs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft);margin-bottom:12px;}
+  .crumbs button{border:none;background:none;color:var(--gold-deep);font-size:13px;font-weight:500;padding:0;}
+  .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;}
+  .chapter-cell{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-ctl);
+    padding:12px 4px;font-family:'Fraunces',serif;font-size:16px;color:var(--ink);
+  }
+  .chapter-cell:active{border-color:var(--gold);}
+  .result-count{font-size:12px;color:var(--ink-faint);margin-bottom:10px;}
+  .card-actions{display:flex;justify-content:flex-end;margin-top:10px;}
+  .in-library{font-size:12px;color:var(--sage-deep);display:inline-flex;align-items:center;gap:4px;}
+
   /* header w/ back */
   .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
   .back-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--paper-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -203,6 +219,7 @@
 
 <nav class="navbar">
   <button class="navitem" data-nav="home"><i class="ti ti-home-2"></i><span>Home</span></button>
+  <button class="navitem" data-nav="browse"><i class="ti ti-search"></i><span>Browse</span></button>
   <button class="navitem" data-nav="topics"><i class="ti ti-tags"></i><span>Topics</span></button>
   <button class="navitem" data-nav="characters"><i class="ti ti-users"></i><span>People</span></button>
   <button class="navitem" data-nav="add"><i class="ti ti-plus"></i><span>Add</span></button>
@@ -350,6 +367,16 @@ let data = null;               // seed + overlay, what the app renders
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
 
+/* The full WEB corpus (data/verses.json, ~3,994 verses) is reference material,
+   not the user's library — it's lazily fetched the first time Browse is opened
+   so it never slows the initial load, then kept in memory. Adding a verse from
+   it copies that verse into the user's own content overlay. */
+let corpus = null;          // null = not loaded yet
+let corpusStatus = 'idle';  // idle | loading | ready | error
+let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
+let browse = {q:'', book:null, chapter:null};
+const SEARCH_LIMIT = 60;
+
 /* ---------- helpers ---------- */
 function findVerse(id){ return data.verses.find(v=>v.id===id); }
 function findTopic(id){ return data.topics.find(t=>t.id===id); }
@@ -395,9 +422,10 @@ function recordPractice(verseId, correct, challengeTypeId){
 function render(){
   const app = document.getElementById('app');
   document.querySelectorAll('.navitem').forEach(b=>{
-    b.classList.toggle('active', b.dataset.nav === (['home','topics','characters','add'].includes(view.screen)?view.screen:''));
+    b.classList.toggle('active', b.dataset.nav === (['home','browse','topics','characters','add'].includes(view.screen)?view.screen:''));
   });
   if(view.screen==='home') app.innerHTML = renderHome();
+  else if(view.screen==='browse') app.innerHTML = renderBrowse();
   else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
   else if(view.screen==='topics') app.innerHTML = renderTopics();
   else if(view.screen==='topicDetail') app.innerHTML = renderTopicDetail(view.params.id);
@@ -433,6 +461,132 @@ function renderHome(){
     ${data.verses.length ? data.verses.map(renderVerseCard).join('') : renderEmptyVerses()}
   `;
 }
+/* ---------- BROWSE (full corpus) ---------- */
+async function loadCorpus(){
+  if(corpusStatus === 'loading' || corpusStatus === 'ready') return;
+  corpusStatus = 'loading';
+  render();
+  try{
+    const res = await fetch('./data/verses.json');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    corpus = await res.json();
+    corpusIndex = buildCorpusIndex(corpus);
+    corpusStatus = 'ready';
+  }catch(e){
+    console.error('corpus load failed', e);
+    corpusStatus = 'error';
+  }
+  render();
+}
+function buildCorpusIndex(verses){
+  const books = new Map();
+  for(const v of verses){
+    if(!books.has(v.book)) books.set(v.book, {book:v.book, count:0, chapterMap:new Map()});
+    const b = books.get(v.book);
+    b.count++;
+    b.chapterMap.set(v.chapter, (b.chapterMap.get(v.chapter) || 0) + 1);
+  }
+  return [...books.values()].map(b => ({
+    book: b.book,
+    count: b.count,
+    chapters: [...b.chapterMap.entries()].sort((a,c)=>a[0]-c[0]).map(([n,count])=>({n, count}))
+  }));
+}
+function searchCorpus(query){
+  const needle = query.trim().toLowerCase();
+  const hits = [];
+  let total = 0;
+  for(const v of corpus){
+    if(v.text.toLowerCase().includes(needle) || v.reference.toLowerCase().includes(needle)){
+      total++;
+      if(hits.length < SEARCH_LIMIT) hits.push(v);
+    }
+  }
+  return {hits, total};
+}
+function renderBrowse(){
+  return `
+    <div class="topbar"><h1>Browse</h1></div>
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="browse-search" value="${esc(browse.q)}" placeholder="Search all ${corpus ? corpus.length.toLocaleString() : ''} verses..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="browse-results">${renderBrowseResults()}</div>
+  `;
+}
+function renderBrowseResults(){
+  if(corpusStatus === 'error') return `<div class="empty"><i class="ti ti-alert-triangle"></i><p>Couldn't load the verse library.</p><button class="btn cta" data-action="retry-corpus">Try again</button></div>`;
+  if(corpusStatus !== 'ready') return `<div class="empty"><i class="ti ti-loader"></i><p>Loading the verse library...</p></div>`;
+
+  if(browse.q.trim()){
+    const {hits, total} = searchCorpus(browse.q);
+    if(!total) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No verses match "${esc(browse.q)}".</p></div>`;
+    return `
+      <div class="result-count">${total > hits.length ? `showing ${hits.length} of ${total.toLocaleString()} matches` : `${total} match${total===1?'':'es'}`}</div>
+      ${hits.map(renderCorpusVerseCard).join('')}
+    `;
+  }
+
+  if(browse.book && browse.chapter){
+    const verses = corpus.filter(v => v.book===browse.book && v.chapter===browse.chapter);
+    return `
+      ${renderCrumbs()}
+      ${verses.map(renderCorpusVerseCard).join('')}
+    `;
+  }
+
+  if(browse.book){
+    const entry = corpusIndex.find(b => b.book===browse.book);
+    return `
+      ${renderCrumbs()}
+      <div class="chapter-grid">
+        ${entry.chapters.map(c=>`<button class="chapter-cell" data-action="browse-chapter" data-n="${c.n}">${c.n}</button>`).join('')}
+      </div>
+    `;
+  }
+
+  return corpusIndex.map(b=>`
+    <div class="card tap" data-action="browse-book" data-id="${esc(b.book)}">
+      <div class="char-row" style="justify-content:space-between;">
+        <div><h3>${esc(b.book)}</h3><div class="meta">${b.chapters.length} chapters</div></div>
+        <span class="tag">${b.count.toLocaleString()} verses</span>
+      </div>
+    </div>`).join('');
+}
+function renderCrumbs(){
+  return `<div class="crumbs">
+    <button data-action="browse-root">All books</button>
+    ${browse.book ? `<span>›</span>${browse.chapter ? `<button data-action="browse-book" data-id="${esc(browse.book)}">${esc(browse.book)}</button><span>›</span><span>Chapter ${browse.chapter}</span>` : `<span>${esc(browse.book)}</span>`}` : ''}
+  </div>`;
+}
+function renderCorpusVerseCard(v){
+  const inLibrary = !!findVerse(v.id);
+  return `
+    <div class="card verse-card">
+      <div class="ref">${esc(v.reference)}</div>
+      <div class="text">${esc(v.text)}</div>
+      <div class="card-actions">
+        ${inLibrary
+          ? `<span class="in-library"><i class="ti ti-check"></i> in your verses</span>`
+          : `<button class="btn" data-action="add-from-corpus" data-id="${v.id}"><i class="ti ti-plus"></i> Add</button>`}
+      </div>
+    </div>`;
+}
+function addFromCorpus(id){
+  if(!corpus || findVerse(id)) return;
+  const src = corpus.find(v => v.id===id);
+  if(!src) return;
+  const verse = {
+    id: src.id, reference: src.reference, book: src.book, chapter: src.chapter,
+    verse: src.verse, text: src.text, translation: src.translation,
+    topicIds: [], characterIds: [], metadata: {}
+  };
+  content.verses.push(verse);
+  data.verses.push(verse);
+  saveContent();
+  refreshBrowseResults();
+}
+
 function renderChallengePicker(){
   const types = verseChallengeTypes();
   if(types.length < 2) return '';
@@ -574,8 +728,11 @@ function renderCharacterDetail(id){
 function renderAddMenu(){
   return `
     <div class="topbar"><h1>Add</h1></div>
+    <div class="card tap" data-action="go-browse">
+      <div class="char-row"><div class="avatar"><i class="ti ti-search"></i></div><div><h3>Find a verse</h3><p class="field-hint">Search or browse the full Bible and add it to your verses.</p></div></div>
+    </div>
     <div class="card tap" data-action="go-add-verse">
-      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Add a verse and tag its topics or characters.</p></div></div>
+      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Type a verse in yourself and tag its topics.</p></div></div>
     </div>
     <div class="card tap" data-action="go-add-character">
       <div class="char-row"><div class="avatar"><i class="ti ti-user-plus"></i></div><div><h3>New person</h3><p class="field-hint">Add a biblical character to explore later.</p></div></div>
@@ -862,20 +1019,48 @@ function saveCharacter(){
 }
 
 /* ---------- events ---------- */
-function bindEvents(){
-  document.querySelectorAll('[data-action]').forEach(el=>{
+let searchTimer = null;
+function bindEvents(root){
+  (root || document).querySelectorAll('[data-action]').forEach(el=>{
     el.addEventListener('click', onAction);
   });
+  // A partial re-render only needs its own subtree wired up; the rest of the
+  // page still has its listeners and would otherwise get duplicates.
+  if(root) return;
+
   const vf = document.getElementById('verse-form');
   if(vf) vf.addEventListener('submit', e=>{ e.preventDefault(); saveVerse(); });
   const cf = document.getElementById('char-form');
   if(cf) cf.addEventListener('submit', e=>{ e.preventDefault(); saveCharacter(); });
+
+  // Search updates only the results container, so the input keeps focus and
+  // the caret doesn't jump while typing.
+  const search = document.getElementById('browse-search');
+  if(search) search.addEventListener('input', ()=>{
+    browse.q = search.value;
+    browse.book = null;
+    browse.chapter = null;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(()=>{
+      const results = document.getElementById('browse-results');
+      if(!results) return;
+      results.innerHTML = renderBrowseResults();
+      bindEvents(results);
+    }, 140);
+  });
+}
+function refreshBrowseResults(){
+  const results = document.getElementById('browse-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderBrowseResults();
+  bindEvents(results);
 }
 function onAction(e){
   const el = e.currentTarget;
   const action = el.dataset.action;
   const id = el.dataset.id;
   if(action==='go-home') go('home');
+  else if(action==='go-browse'){ go('browse'); loadCorpus(); }
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
   else if(action==='open-verse') go('verseDetail', {id, from: view});
@@ -892,6 +1077,11 @@ function onAction(e){
   else if(action==='next-practice'){ if(session) session.index++; render(); }
   else if(action==='practice-interact') practiceInteract(el);
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
+  else if(action==='browse-book'){ browse.book = id; browse.chapter = null; refreshBrowseResults(); }
+  else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; refreshBrowseResults(); }
+  else if(action==='browse-root'){ browse.book = null; browse.chapter = null; refreshBrowseResults(); }
+  else if(action==='add-from-corpus') addFromCorpus(id);
+  else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
 }
 function practiceInteract(el){
   if(!session) return;
@@ -918,7 +1108,11 @@ function checkPractice(){
 
 /* nav bar */
 document.querySelectorAll('.navitem').forEach(b=>{
-  b.addEventListener('click', ()=>{ session=null; go(b.dataset.nav); });
+  b.addEventListener('click', ()=>{
+    session = null;
+    go(b.dataset.nav);
+    if(b.dataset.nav === 'browse') loadCorpus();  // no-op once loaded
+  });
 });
 
 /* one-time migration from the pre-split single blob (rooted-app-data) */
