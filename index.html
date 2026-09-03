@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rooted — Scripture Memory</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EC">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  :root{
+    --paper:#FAF6EC;
+    --paper-raised:#FFFDF7;
+    --ink:#3A2E22;
+    --ink-soft:#7A6A55;
+    --ink-faint:#B4A488;
+    --line:#E7D9BC;
+    --gold:#D9A02C;
+    --gold-deep:#8A5F13;
+    --gold-wash:#F6E7C4;
+    --sage:#6E8F4E;
+    --sage-deep:#3E5A28;
+    --sage-wash:#E4EEDA;
+    --plum:#6B3F5C;
+    --plum-deep:#432840;
+    --plum-wash:#EDE1EA;
+    --danger:#B3492F;
+    --radius-card:18px;
+    --radius-ctl:12px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:78px;
+  }
+  h1,h2,h3,.headline{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);margin:0;}
+  h1{font-size:26px;}
+  h2{font-size:20px;}
+  h3{font-size:16px;}
+  p{margin:0;line-height:1.55;}
+  button{font-family:'Inter',sans-serif;cursor:pointer;}
+  .app{max-width:480px;margin:0 auto;padding:20px 18px 8px;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .topbar .brand{display:flex;align-items:center;gap:8px;}
+  .topbar .brand i{font-size:22px;color:var(--gold-deep);}
+  .stat-row{display:flex;gap:10px;margin-bottom:20px;}
+  .stat-card{flex:1;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-card);padding:14px;}
+  .stat-card .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;}
+  .stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .section-label{font-size:13px;color:var(--ink-soft);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between;}
+  .card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:var(--radius-card);
+    padding:16px;
+    margin-bottom:12px;
+  }
+  .card.tap{cursor:pointer;transition:border-color .15s ease;}
+  .card.tap:active{border-color:var(--gold);}
+  .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
+  .verse-card .text{font-family:'Fraunces',serif;font-size:17px;line-height:1.5;color:var(--ink);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .tag{font-size:12px;padding:3px 10px;border-radius:100px;background:var(--sage-wash);color:var(--sage-deep);}
+  .tag.plum{background:var(--plum-wash);color:var(--plum-deep);}
+  .empty{text-align:center;padding:40px 20px;color:var(--ink-soft);}
+  .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
+  .empty .cta{margin-top:14px;}
+
+  /* buttons */
+  .btn{
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    color:var(--ink);
+    border-radius:var(--radius-ctl);
+    padding:11px 16px;
+    font-size:14px;
+    font-weight:500;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .btn.primary{background:var(--gold);border-color:var(--gold);color:#3A2400;}
+  .btn.primary:active{background:var(--gold-deep);}
+  .btn.ghost{background:transparent;border-color:transparent;color:var(--ink-soft);}
+  .btn.block{width:100%;justify-content:center;padding:13px;}
+  .btn.sage{background:var(--sage);border-color:var(--sage);color:#fff;}
+  .btn:disabled{opacity:.45;}
+
+  /* forms */
+  label{font-size:13px;color:var(--ink-soft);display:block;margin:14px 0 6px;}
+  label:first-child{margin-top:0;}
+  input[type=text],textarea,select{
+    width:100%;
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:var(--radius-ctl);
+    padding:11px 12px;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+  }
+  textarea{min-height:80px;resize:vertical;font-family:'Fraunces',serif;font-size:16px;line-height:1.5;}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  /* nav */
+  .navbar{
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--paper-raised);
+    border-top:1px solid var(--line);
+    display:flex;
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    z-index:10;
+  }
+  .navbar .navitem{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+    background:none;border:none;color:var(--ink-faint);padding:6px 0;border-radius:10px;
+  }
+  .navbar .navitem i{font-size:21px;}
+  .navbar .navitem span{font-size:11px;}
+  .navbar .navitem.active{color:var(--gold-deep);}
+
+  /* avatar */
+  .avatar{
+    width:46px;height:46px;border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--plum-wash);color:var(--plum-deep);font-size:22px;flex-shrink:0;
+  }
+  .char-row{display:flex;align-items:center;gap:12px;}
+  .char-row .meta{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  /* practice */
+  .practice-verse{
+    font-family:'Fraunces',serif;font-size:19px;line-height:1.65;color:var(--ink);
+  }
+  .blank{
+    display:inline-block;
+    min-width:64px;
+    border-bottom:2px solid var(--gold);
+    padding:0 2px;
+  }
+  .blank input{
+    border:none;background:transparent;font-family:'Fraunces',serif;font-size:19px;
+    width:100%;padding:0;color:var(--gold-deep);text-align:center;outline:none;
+  }
+  .blank.correct{border-color:var(--sage);}
+  .blank.correct input{color:var(--sage-deep);}
+  .blank.wrong{border-color:var(--danger);}
+  .blank.wrong input{color:var(--danger);}
+  .progress-track{height:5px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:22px;}
+  .progress-fill{height:100%;background:var(--gold);border-radius:4px;transition:width .3s ease;}
+  .result-banner{
+    display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius-ctl);margin-bottom:16px;font-size:14px;
+  }
+  .result-banner.good{background:var(--sage-wash);color:var(--sage-deep);}
+  .result-banner.bad{background:#F6E4DD;color:var(--danger);}
+
+  /* header w/ back */
+  .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .back-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--paper-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .err{color:var(--danger);font-size:13px;margin-top:6px;}
+  .field-hint{font-size:12px;color:var(--ink-faint);margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<nav class="navbar">
+  <button class="navitem" data-nav="home"><i class="ti ti-home-2"></i><span>Home</span></button>
+  <button class="navitem" data-nav="topics"><i class="ti ti-tags"></i><span>Topics</span></button>
+  <button class="navitem" data-nav="characters"><i class="ti ti-users"></i><span>People</span></button>
+  <button class="navitem" data-nav="add"><i class="ti ti-plus"></i><span>Add</span></button>
+</nav>
+
+<script>
+/* ---------- storage ---------- */
+const STORE_KEY = 'rooted-app-data';
+let saveTimer = null;
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    try{ await window.storage.set(STORE_KEY, JSON.stringify(data), false); }
+    catch(e){ console.error('save failed', e); }
+  }, 250);
+}
+async function loadData(){
+  try{
+    const res = await window.storage.get(STORE_KEY, false);
+    if(res && res.value) return JSON.parse(res.value);
+  }catch(e){ /* no data yet */ }
+  return null;
+}
+async function loadStarterPack(){
+  try{
+    const res = await fetch('./data/starter-pack.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* fall back below */ }
+  return null;
+}
+
+/* ---------- seed content ---------- */
+function seedData(){
+  return {
+    schemaVersion: 1,
+    verses: [
+      {id:'verse_ps23_1', reference:'Psalm 23:1', text:'Yahweh is my shepherd: I shall lack nothing.', translation:'WEB', topicIds:['topic_peace','topic_trust'], characterIds:['char_david'], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
+      {id:'verse_phil4_13', reference:'Philippians 4:13', text:'I can do all things through Christ, who strengthens me.', translation:'WEB', topicIds:['topic_strength'], characterIds:['char_paul'], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
+      {id:'verse_prov3_5', reference:'Proverbs 3:5', text:'Trust in Yahweh with all your heart, and don\'t lean on your own understanding.', translation:'WEB', topicIds:['topic_trust'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
+      {id:'verse_jn3_16', reference:'John 3:16', text:'For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.', translation:'WEB', topicIds:['topic_love'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}},
+      {id:'verse_james1_19', reference:'James 1:19', text:'So, then, my beloved brothers, let every man be swift to hear, slow to speak, and slow to anger;', translation:'WEB', topicIds:['topic_anger'], characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}}
+    ],
+    topics: [
+      {id:'topic_anger', name:'Anger', description:'Verses on responding to anger and conflict.', relatedTopicIds:['topic_peace']},
+      {id:'topic_peace', name:'Peace', description:'Verses on peace and rest.', relatedTopicIds:['topic_anger','topic_trust']},
+      {id:'topic_trust', name:'Trust', description:'Verses on trusting God over self.', relatedTopicIds:['topic_peace']},
+      {id:'topic_strength', name:'Strength', description:'Verses on strength in hardship.', relatedTopicIds:[]},
+      {id:'topic_love', name:'Love', description:'Verses on God\'s love.', relatedTopicIds:[]}
+    ],
+    characters: [
+      {id:'char_david', name:'David', roles:['shepherd','king','psalmist'], era:'United Kingdom', summary:'Youngest son of Jesse, anointed king while still a shepherd, wrote many of the Psalms.', verseIds:['verse_ps23_1']},
+      {id:'char_paul', name:'Paul', roles:['apostle','missionary'], era:'Early Church', summary:'Former persecutor of the church turned apostle, wrote much of the New Testament.', verseIds:['verse_phil4_13']}
+    ]
+  };
+}
+
+let data = null;
+let view = {screen:'home', params:{}};
+let session = null; // active practice session
+
+/* ---------- helpers ---------- */
+function findVerse(id){ return data.verses.find(v=>v.id===id); }
+function findTopic(id){ return data.topics.find(t=>t.id===id); }
+function findChar(id){ return data.characters.find(c=>c.id===id); }
+function topicVerseCount(id){ return data.verses.filter(v=>v.topicIds.includes(id)).length; }
+function isDue(v){
+  if(!v.progress.nextReview) return true;
+  return new Date(v.progress.nextReview) <= new Date();
+}
+function dueVerses(){ return data.verses.filter(isDue); }
+function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function charIcon(roles){
+  const r = (roles||[]).join(' ');
+  if(/king/.test(r)) return 'ti-crown';
+  if(/prophet/.test(r)) return 'ti-feather';
+  if(/apostle|missionary/.test(r)) return 'ti-map-2';
+  if(/shepherd/.test(r)) return 'ti-mountain';
+  return 'ti-user';
+}
+
+/* ---------- spaced repetition (simple) ---------- */
+function scheduleNext(verse, correct){
+  const p = verse.progress;
+  p.timesReviewed += 1;
+  p.lastScore = correct;
+  const daysMap = {new:1, learning:3, review:7, mastered:14};
+  let nextDays;
+  if(!correct){ p.status='learning'; nextDays=1; }
+  else if(p.status==='new'){ p.status='learning'; nextDays=3; }
+  else if(p.status==='learning'){ p.status='review'; nextDays=7; }
+  else if(p.status==='review'){ p.status='mastered'; nextDays=14; }
+  else { nextDays=21; }
+  const d = new Date(); d.setDate(d.getDate()+nextDays);
+  p.nextReview = d.toISOString();
+}
+
+/* ---------- render root ---------- */
+function render(){
+  const app = document.getElementById('app');
+  document.querySelectorAll('.navitem').forEach(b=>{
+    b.classList.toggle('active', b.dataset.nav === (['home','topics','characters','add'].includes(view.screen)?view.screen:''));
+  });
+  if(view.screen==='home') app.innerHTML = renderHome();
+  else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
+  else if(view.screen==='topics') app.innerHTML = renderTopics();
+  else if(view.screen==='topicDetail') app.innerHTML = renderTopicDetail(view.params.id);
+  else if(view.screen==='characters') app.innerHTML = renderCharacters();
+  else if(view.screen==='characterDetail') app.innerHTML = renderCharacterDetail(view.params.id);
+  else if(view.screen==='add') app.innerHTML = renderAddMenu();
+  else if(view.screen==='addVerse') app.innerHTML = renderAddVerse();
+  else if(view.screen==='addCharacter') app.innerHTML = renderAddCharacter();
+  else if(view.screen==='practice') app.innerHTML = renderPractice();
+  bindEvents();
+}
+
+function go(screen, params={}){ view = {screen, params}; window.scrollTo(0,0); render(); }
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const due = dueVerses();
+  const mastered = data.verses.filter(v=>v.progress.status==='mastered').length;
+  return `
+    <div class="topbar">
+      <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
+      <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
+      <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
+    </div>
+    ${due.length ? `<button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${due.length} due verse${due.length>1?'s':''}</button>` : ''}
+    <div class="section-label">Your verses</div>
+    ${data.verses.length ? data.verses.map(renderVerseCard).join('') : renderEmptyVerses()}
+  `;
+}
+function renderVerseCard(v){
+  const statusTag = v.progress.status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');
+  return `
+    <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
+      <div class="ref">${esc(v.reference)}</div>
+      <div class="text">${esc(v.text)}</div>
+      <div class="tag-row">
+        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag">${esc(t.name)}</span>`:'';}).join('')}
+        ${statusTag}
+      </div>
+    </div>`;
+}
+function renderEmptyVerses(){
+  return `<div class="empty"><i class="ti ti-book-2"></i><p>No verses yet.</p>
+    <button class="btn primary cta" data-action="go-add-verse">Add your first verse</button></div>`;
+}
+
+/* ---------- VERSE DETAIL ---------- */
+function fmtDate(iso){
+  if(!iso) return null;
+  const d = new Date(iso);
+  if(isNaN(d)) return null;
+  return d.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
+}
+function renderVerseDetail(id){
+  const v = findVerse(id);
+  if(!v) return renderHome();
+  const topics = v.topicIds.map(findTopic).filter(Boolean);
+  const chars = (v.characterIds||[]).map(findChar).filter(Boolean);
+  const p = v.progress;
+  const next = fmtDate(p.nextReview);
+  const statusLabel = {new:'Not started', learning:'Learning', review:'Reviewing', mastered:'Mastered'}[p.status] || p.status;
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
+      <h2>Verse</h2>
+    </div>
+    <div class="card verse-card">
+      <div class="ref">${esc(v.reference)}${v.translation? ' · '+esc(v.translation):''}</div>
+      <div class="text" style="font-size:20px;line-height:1.55;">${esc(v.text)}</div>
+      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+    </div>
+    <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}"><i class="ti ti-swords"></i> Practice this verse</button>
+    <div class="section-label">Progress</div>
+    <div class="card">
+      <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
+      <div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Times reviewed</span><span>${p.timesReviewed}</span></div>
+      ${next ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Next review</span><span>${esc(next)}</span></div>` : ''}
+    </div>
+    ${chars.length ? `<div class="section-label">People</div>${chars.map(c=>`
+      <div class="card tap" data-action="open-character" data-id="${c.id}">
+        <div class="char-row"><div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div><div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div></div></div>
+      </div>`).join('')}` : ''}
+  `;
+}
+
+/* ---------- TOPICS ---------- */
+function renderTopics(){
+  return `
+    <div class="topbar"><h1>Topics</h1></div>
+    ${data.topics.length ? data.topics.map(t=>`
+      <div class="card tap" data-action="open-topic" data-id="${t.id}">
+        <h3>${esc(t.name)}</h3>
+        <p class="field-hint" style="margin-top:4px;">${esc(t.description||'')}</p>
+        <div class="tag-row"><span class="tag">${topicVerseCount(t.id)} verse${topicVerseCount(t.id)===1?'':'s'}</span></div>
+      </div>`).join('') : `<div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`}
+  `;
+}
+function renderTopicDetail(id){
+  const t = findTopic(id);
+  if(!t) return renderTopics();
+  const verses = data.verses.filter(v=>v.topicIds.includes(id));
+  const related = (t.relatedTopicIds||[]).map(findTopic).filter(Boolean);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="back-to-topics"><i class="ti ti-arrow-left"></i></button>
+      <h2>${esc(t.name)}</h2>
+    </div>
+    <p style="color:var(--ink-soft);margin-bottom:16px;">${esc(t.description||'')}</p>
+    ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}"><i class="ti ti-swords"></i> Practice this topic</button>` : ''}
+    <div class="section-label">Verses</div>
+    ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
+    ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag plum tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
+  `;
+}
+
+/* ---------- CHARACTERS ---------- */
+function renderCharacters(){
+  return `
+    <div class="topbar"><h1>People</h1></div>
+    ${data.characters.length ? data.characters.map(c=>`
+      <div class="card tap" data-action="open-character" data-id="${c.id}">
+        <div class="char-row">
+          <div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
+          <div>
+            <h3>${esc(c.name)}</h3>
+            <div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div>
+          </div>
+        </div>
+      </div>`).join('') : `<div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`}
+  `;
+}
+function renderCharacterDetail(id){
+  const c = findChar(id);
+  if(!c) return renderCharacters();
+  const verses = data.verses.filter(v=>v.characterIds && v.characterIds.includes(id));
+  const contemporaries = data.characters.filter(o=>o.id!==id && o.era===c.era);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
+      <h2>${esc(c.name)}</h2>
+    </div>
+    <div class="card">
+      <div class="char-row" style="margin-bottom:10px;">
+        <div class="avatar" style="width:56px;height:56px;font-size:26px;"><i class="ti ${charIcon(c.roles)}"></i></div>
+        <div>
+          <div class="tag-row" style="margin-top:0;">${(c.roles||[]).map(r=>`<span class="tag plum">${esc(r)}</span>`).join('')}</div>
+          ${c.era? `<div class="meta" style="margin-top:6px;"><i class="ti ti-clock" style="font-size:13px;vertical-align:-1px;"></i> ${esc(c.era)}</div>`:''}
+        </div>
+      </div>
+      <p>${esc(c.summary||'')}</p>
+    </div>
+    ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+    ${contemporaries.length ? `<div class="section-label">Same era (${esc(c.era)})</div>${contemporaries.map(o=>`
+      <div class="card tap" data-action="open-character" data-id="${o.id}">
+        <div class="char-row"><div class="avatar"><i class="ti ${charIcon(o.roles)}"></i></div><div><h3>${esc(o.name)}</h3><div class="meta">${esc((o.roles||[]).join(', '))}</div></div></div>
+      </div>`).join('')}` : ''}
+  `;
+}
+
+/* ---------- ADD ---------- */
+function renderAddMenu(){
+  return `
+    <div class="topbar"><h1>Add</h1></div>
+    <div class="card tap" data-action="go-add-verse">
+      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Add a verse and tag its topics or characters.</p></div></div>
+    </div>
+    <div class="card tap" data-action="go-add-character">
+      <div class="char-row"><div class="avatar"><i class="ti ti-user-plus"></i></div><div><h3>New person</h3><p class="field-hint">Add a biblical character to explore later.</p></div></div>
+    </div>
+  `;
+}
+function renderAddVerse(){
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+      <h2>New verse</h2>
+    </div>
+    <form id="verse-form">
+      <label for="f-ref">Reference</label>
+      <input type="text" id="f-ref" placeholder="Psalm 23:1">
+      <label for="f-text">Verse text</label>
+      <textarea id="f-text" placeholder="The Lord is my shepherd..."></textarea>
+      <label for="f-topics">Topics <span class="field-hint">(comma separated)</span></label>
+      <input type="text" id="f-topics" placeholder="peace, trust">
+      <div id="form-err" class="err"></div>
+      <button type="submit" class="btn primary block" style="margin-top:18px;">Save verse</button>
+    </form>
+  `;
+}
+function renderAddCharacter(){
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+      <h2>New person</h2>
+    </div>
+    <form id="char-form">
+      <label for="c-name">Name</label>
+      <input type="text" id="c-name" placeholder="Deborah">
+      <label for="c-roles">Roles <span class="field-hint">(comma separated)</span></label>
+      <input type="text" id="c-roles" placeholder="judge, prophetess">
+      <label for="c-era">Era</label>
+      <input type="text" id="c-era" placeholder="Judges">
+      <label for="c-summary">Summary</label>
+      <textarea id="c-summary" placeholder="What they're known for..."></textarea>
+      <div id="cform-err" class="err"></div>
+      <button type="submit" class="btn primary block" style="margin-top:18px;">Save person</button>
+    </form>
+  `;
+}
+
+/* ---------- PRACTICE ---------- */
+function buildBlanks(text){
+  const words = text.split(' ');
+  const eligible = words.map((w,i)=>i).filter(i=>words[i].replace(/[^a-zA-Z]/g,'').length>3);
+  const blankCount = Math.max(1, Math.min(4, Math.round(eligible.length*0.3)));
+  const chosen = [];
+  const pool = [...eligible];
+  while(chosen.length<blankCount && pool.length){
+    const idx = Math.floor(Math.random()*pool.length);
+    chosen.push(pool.splice(idx,1)[0]);
+  }
+  return chosen.sort((a,b)=>a-b);
+}
+function startPractice(verseIds){
+  if(!verseIds.length) return;
+  session = {
+    queue: verseIds.map(id=>{
+      const v = findVerse(id);
+      return {verseId:id, blanks: buildBlanks(v.text), checked:false};
+    }),
+    index: 0,
+    correctCount: 0
+  };
+  go('practice');
+}
+function renderPractice(){
+  if(!session || session.index >= session.queue.length){
+    const total = session ? session.queue.length : 0;
+    const correct = session ? session.correctCount : 0;
+    session = null;
+    return `
+      <div class="topbar"><h1>Session complete</h1></div>
+      <div class="card" style="text-align:center;padding:28px 16px;">
+        <i class="ti ti-confetti" style="font-size:36px;color:var(--gold-deep);"></i>
+        <h2 style="margin-top:10px;">${correct} / ${total} correct</h2>
+        <p style="color:var(--ink-soft);margin-top:6px;">Next review dates have been updated.</p>
+        <button class="btn primary" style="margin-top:18px;" data-action="go-home">Done</button>
+      </div>
+    `;
+  }
+  const item = session.queue[session.index];
+  const v = findVerse(item.verseId);
+  const words = v.text.split(' ');
+  const html = words.map((w,i)=>{
+    if(item.blanks.includes(i)){
+      const cls = item.checked ? (item.correctFlags[item.blanks.indexOf(i)] ? 'correct':'wrong') : '';
+      const size = Math.max(3, w.replace(/[^a-zA-Z]/g,'').length);
+      return `<span class="blank ${cls}"><input type="text" data-blank="${i}" ${item.checked?'readonly':''} style="width:${size*13}px" autocomplete="off" autocapitalize="off"></span>`;
+    }
+    return esc(w);
+  }).join(' ');
+  const progressPct = Math.round((session.index/session.queue.length)*100);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
+      <h2>Practice</h2>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
+    ${item.checked ? `<div class="result-banner ${item.allCorrect?'good':'bad'}"><i class="ti ${item.allCorrect?'ti-check':'ti-refresh'}"></i>${item.allCorrect? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
+    <div class="card">
+      <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)}</div>
+      <div class="practice-verse">${html}</div>
+    </div>
+    ${item.checked
+      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> Continue</button>`
+      : `<button class="btn primary block" data-action="check-practice">Check</button>`}
+  `;
+}
+
+/* ---------- form save handlers ---------- */
+function saveVerse(){
+  const ref = document.getElementById('f-ref').value.trim();
+  const text = document.getElementById('f-text').value.trim();
+  const topicsRaw = document.getElementById('f-topics').value.trim();
+  const errEl = document.getElementById('form-err');
+  if(!ref || !text){ errEl.textContent = 'Enter a reference and verse text.'; return; }
+  const topicIds = [];
+  if(topicsRaw){
+    topicsRaw.split(',').map(s=>s.trim()).filter(Boolean).forEach(name=>{
+      let t = data.topics.find(t=>t.name.toLowerCase()===name.toLowerCase());
+      if(!t){
+        t = {id:'topic_'+name.toLowerCase().replace(/[^a-z0-9]+/g,'_'), name: name.charAt(0).toUpperCase()+name.slice(1), description:'', relatedTopicIds:[]};
+        data.topics.push(t);
+      }
+      topicIds.push(t.id);
+    });
+  }
+  const id = 'verse_'+Date.now();
+  data.verses.push({id, reference:ref, text, translation:'', topicIds, characterIds:[], progress:{status:'new', timesReviewed:0, lastScore:null, nextReview:null}});
+  scheduleSave();
+  go('home');
+}
+function saveCharacter(){
+  const name = document.getElementById('c-name').value.trim();
+  const rolesRaw = document.getElementById('c-roles').value.trim();
+  const era = document.getElementById('c-era').value.trim();
+  const summary = document.getElementById('c-summary').value.trim();
+  const errEl = document.getElementById('cform-err');
+  if(!name){ errEl.textContent = 'Enter a name.'; return; }
+  const roles = rolesRaw ? rolesRaw.split(',').map(s=>s.trim()).filter(Boolean) : [];
+  const id = 'char_'+Date.now();
+  data.characters.push({id, name, roles, era, summary, verseIds:[]});
+  scheduleSave();
+  go('home');
+}
+
+/* ---------- events ---------- */
+function bindEvents(){
+  document.querySelectorAll('[data-action]').forEach(el=>{
+    el.addEventListener('click', onAction);
+  });
+  const vf = document.getElementById('verse-form');
+  if(vf) vf.addEventListener('submit', e=>{ e.preventDefault(); saveVerse(); });
+  const cf = document.getElementById('char-form');
+  if(cf) cf.addEventListener('submit', e=>{ e.preventDefault(); saveCharacter(); });
+}
+function onAction(e){
+  const el = e.currentTarget;
+  const action = el.dataset.action;
+  const id = el.dataset.id;
+  if(action==='go-home') go('home');
+  else if(action==='go-add-verse') go('addVerse');
+  else if(action==='go-add-character') go('addCharacter');
+  else if(action==='open-verse') go('verseDetail', {id, from: view});
+  else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
+  else if(action==='start-practice-verse') startPractice([id]);
+  else if(action==='open-topic') go('topicDetail', {id});
+  else if(action==='back-to-topics') go('topics');
+  else if(action==='open-character') go('characterDetail', {id});
+  else if(action==='back-to-characters') go('characters');
+  else if(action==='start-practice') startPractice(dueVerses().map(v=>v.id));
+  else if(action==='start-practice-topic') startPractice(data.verses.filter(v=>v.topicIds.includes(id)).map(v=>v.id));
+  else if(action==='exit-practice'){ session=null; go('home'); }
+  else if(action==='check-practice') checkPractice();
+  else if(action==='next-practice'){ session.index++; render(); }
+}
+function checkPractice(){
+  const item = session.queue[session.index];
+  const v = findVerse(item.verseId);
+  const words = v.text.split(' ');
+  let allCorrect = true;
+  const correctFlags = item.blanks.map(i=>{
+    const input = document.querySelector(`[data-blank="${i}"]`);
+    const given = (input.value||'').trim().toLowerCase().replace(/[^a-z']/g,'');
+    const actual = words[i].toLowerCase().replace(/[^a-z']/g,'');
+    const ok = given === actual;
+    if(!ok) allCorrect = false;
+    return ok;
+  });
+  item.checked = true;
+  item.correctFlags = correctFlags;
+  item.allCorrect = allCorrect;
+  if(allCorrect) session.correctCount++;
+  scheduleNext(v, allCorrect);
+  scheduleSave();
+  render();
+}
+
+/* nav bar */
+document.querySelectorAll('.navitem').forEach(b=>{
+  b.addEventListener('click', ()=>{ session=null; go(b.dataset.nav); });
+});
+
+/* ---------- boot ---------- */
+(async function boot(){
+  document.getElementById('app').innerHTML = `<div class="empty" style="padding-top:80px;"><i class="ti ti-leaf"></i><p>Loading...</p></div>`;
+  const loaded = await loadData();
+  if(loaded){
+    data = loaded;
+  } else {
+    const starter = await loadStarterPack();
+    data = starter || seedData();
+    scheduleSave();
+  }
+  render();
+})();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
