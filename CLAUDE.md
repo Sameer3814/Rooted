@@ -51,25 +51,27 @@ The schema was deliberately designed so all of the above can be added
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
   first run: 17 verses (Genesis + Psalms, WEB translation) tagged with
-  topics and linked to characters, plus 10 Genesis characters with real
+  topics and linked to characters, plus 11 Genesis characters with real
   relationships (father of, wife of, brother of, etc.).
-- `data/characters.json` — same 10 Genesis characters, standalone.
-- `data/verses.json` — the **full** parsed Genesis + Psalms corpus (~3,994
-  verses, WEB translation, public domain). This is NOT loaded into the app
-  yet — it's proof the import pipeline scales, waiting on topic tagging,
-  UI for browsing at that scale (search/pagination), before it's wired in.
-The import pipeline that produced `verses.json` and `starter-pack.json` is
-**not currently in the repo** (`pipeline/parse_books.py` +
-`pipeline/build_starter_pack.py` existed at one point but were never
-committed). If the corpus needs regenerating or extending, the pipeline
-has to be rewritten:
-- `parse_books.py` — parsed raw WEB Bible JSON (from the
-  `TehShrike/world-english-bible` GitHub repo, public domain / CC0) into
-  our verse schema. Handled both prose books (Genesis-style "paragraph
-  text") and poetic books (Psalms-style "line text" grouped by verse).
-- `build_starter_pack.py` — picked specific verse IDs out of the full
-  parsed corpus, attached topics/character links by hand, wrote
-  `starter-pack.json`.
+- `data/characters.json` — the same 11 characters, standalone. Generated
+  from the same curation as the starter pack, but not read by the app.
+- `data/verses.json` — the **full** parsed Genesis + Psalms corpus (3,994
+  verses, WEB translation, public domain). Not loaded into the app yet —
+  waiting on browse/search UI and topic tagging at that scale.
+- `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
+  - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
+    public domain / CC0) → `data/verses.json`. Handles prose books
+    (Genesis-style "paragraph text") and poetic books (Psalms-style "line
+    text" grouped by verse). Knows all 66 book slugs; `--all` does the
+    whole Bible.
+  - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
+    (hand-picked verse ids + topic/character links + the Topic and
+    Character records) against the corpus → `data/starter-pack.json` and
+    `data/characters.json`. Validates every cross-reference.
+
+**`data/*.json` is generated — never hand-edit it.** Verse text lives only
+in the corpus; the curation file holds selection and links, not a copy of
+the text.
 
 User data is stored separately via the in-app persistence API
 (`window.storage`, personal/non-shared), under two keys, never mixed into
@@ -151,28 +153,26 @@ hand-curate all the content before building.
    built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
    Home picker persisted to `rooted-settings`. Next: progressive reveal
    (`challenge_first_letters`), then matching / ordering.
-2. Rebuild the `pipeline/` scripts (gone from the repo) and add structured
-   `book`/`chapter`/`verse` fields to the Verse schema.
-3. Wiring the full `verses.json` corpus into the app (needs search/browse
+2. Wiring the full `verses.json` corpus into the app (needs search/browse
    UI, since dumping ~4,000 verses into one list is not usable as-is).
-4. Topic tagging at scale for the full corpus (currently only the 17
+3. Topic tagging at scale for the full corpus (currently only the 17
    starter verses are tagged).
-5. `Story` / `Era` / `LifeEvent` entities — needed for the character
+4. `Story` / `Era` / `LifeEvent` entities — needed for the character
    timeline/"highlights of their life" feature and parallel-story
    connections.
-6. The generic `Connection` entity (Design philosophy #4) — migrate
+5. The generic `Connection` entity (Design philosophy #4) — migrate
    `Character.relationships[]` to it first.
-7. Real character portrait illustrations in the warm-storybook style
+6. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-8. Expanding character/relationship data beyond Genesis to other OT books.
-9. `data/characters.json` is currently dead weight (duplicates the
-   characters embedded in `starter-pack.json`) — wire it in or delete it.
+7. Expanding character/relationship data beyond Genesis to other OT books
+   (`parse_books.py --all` makes the text side trivial now).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
-removed from seed files (`DATA_MODEL.md` §8.1); pluggable ChallengeType
-interface + fill-in-blank factored in + `challenge_scramble` added, with a
-persisted Home picker (§8.2, §8.5); `window.storage`→localStorage fallback
-for local dev.
+removed from seed files (`DATA_MODEL.md` §8.1); structured
+`book`/`chapter`/`verse` fields (§8.2); pluggable ChallengeType interface +
+fill-in-blank factored in + `challenge_scramble` added, with a persisted
+Home picker (§8.5); `window.storage`→localStorage fallback for local dev;
+`pipeline/` rebuilt (§8.7).
 
 ## Source data provenance
 

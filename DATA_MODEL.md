@@ -81,9 +81,10 @@ not be able to delete a verse. See §7.
   "metadata": {}
 }
 ```
-- `book` / `chapter` / `verse` are **new** structured fields (currently only the
-  display `reference` string exists). Needed for sorting, range queries, and the
-  browse UI over the full corpus. Parser should emit them.
+- `book` / `chapter` / `verse` are structured fields alongside the display
+  `reference` string — needed for sorting, range queries, and the browse UI over
+  the full corpus. Emitted by `pipeline/parse_books.py`. *(Live since
+  2026-09-03; §8.2.)*
 - `translation` stays a string. WEB is the only value today; do not hardcode
   that assumption anywhere. See §9.
 - `storyIds` / `motifIds` / `depthTags` are **new**, all optional, default `[]`.
@@ -342,9 +343,9 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: ~17 verses + topics + characters | loaded on first run |
-| `data/verses.json` | full parsed WEB corpus (~3,994 verses, Genesis + Psalms) | **not wired** — needs browse UI + tagging |
-| `data/characters.json` | standalone Genesis characters | currently unused by the app |
+| `data/starter-pack.json` | curated first-run seed: 17 verses + 15 topics + 11 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; not wired into the app yet — needs browse UI + tagging |
+| `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
 | `data/stories.json` | *planned* | Story + Era + LifeEvent seed |
 | `data/motifs.json` | *planned* | Motif seed |
 | `data/connections.json` | *planned* | Connection seed (incl. migrated character relationships) |
@@ -375,19 +376,27 @@ user, and doesn't silently lose their edits either.
 
 ---
 
-## 6. Full-corpus parser (pipeline) — *not in repo*
+## 6. Full-corpus pipeline — *live* (`pipeline/`, see `pipeline/README.md`)
 
-`verses.json` and `starter-pack.json` were produced by `pipeline/parse_books.py`
-+ `pipeline/build_starter_pack.py`, which were never committed and are gone. Any
-data-first work depends on rebuilding them:
+Everything in `data/` is generated. **Never hand-edit `data/*.json`.**
 
-- **parse_books.py** — WEB Bible JSON (`TehShrike/world-english-bible`, CC0) →
-  our Verse schema. Handles prose books (paragraph text) and poetic books
-  (line text grouped by verse). Must now also emit the structured
-  `book` / `chapter` / `verse` fields (§2 Verse).
-- **build_starter_pack.py** — selects verse ids from the parsed corpus, attaches
-  topic/character/story links by hand, writes `starter-pack.json` with **no
-  progress fields**.
+- **`pipeline/parse_books.py`** — WEB Bible JSON
+  (`TehShrike/world-english-bible`, CC0) → `data/verses.json`. Handles prose
+  books (`paragraph text`) and poetic books (`line text`), grouping entries by
+  chapter+verse and joining in `sectionNumber` order; skips Psalm
+  superscriptions (`header`, no verse number). Normalises smart quotes to ASCII
+  and collapses whitespace; keeps em dashes. Emits `book`/`chapter`/`verse`.
+  Knows all 66 book slugs; `--all` parses the whole Bible. Downloads cached in
+  `pipeline/.cache/` (git-ignored).
+- **`pipeline/build_starter_pack.py`** — `pipeline/curation/starter_pack.json`
+  (verse ids + topic/character links + the full Topic and Character records)
+  joined against the corpus → `data/starter-pack.json` **and**
+  `data/characters.json` (same source, so they can't drift). Validates every
+  cross-reference; dangling ids are a hard error. Emits **no `progress` field**.
+  `--check` verifies without writing.
+
+Verse text lives **only** in the corpus — the curation file holds selection and
+links, never a copy of the text. Rebuilding reproduces the shipped data exactly.
 
 Re-verify the source is still public domain before reproducing verse text in
 bulk. This does **not** extend to copyrighted translations (see CLAUDE.md NIV
@@ -462,8 +471,10 @@ the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
    `progress` (map → `rooted-progress`), and `data` (seed + overlay, rendered).
    `scheduleNext` → `recordPractice(verseId, correct, challengeTypeId)`, which
    also appends a `history` entry. `migrateLegacy` handles the old blob.
-2. **Add structured `book` / `chapter` / `verse`** to the Verse schema and the
-   parser output; backfill existing seed verses.
+2. ~~**Add structured `book` / `chapter` / `verse`** to the Verse schema and the
+   parser output; backfill existing seed verses.~~ **Done (2026-09-03)**, as
+   part of rebuilding the pipeline (item 7). All 3,994 corpus verses and all 17
+   starter verses carry them.
 3. **`Character.era` (string) → `eraId` (ref).** Create `era_*` entities; add
    `data/stories.json` (or an eras file).
 4. **`Character.relationships[]` → Connection.** Create `data/connections.json`,
@@ -477,9 +488,20 @@ the stored id is unknown). `activeDepth` / `dailyGoal` are planned (§4).
    — validated the interface: only new code was the registry entry, the
    optional `interact` hook, a `set-challenge` action, and the Home picker.
    Introduced `rooted-settings` (§7) for the persisted type choice.
-6. **Wire `data/characters.json` in or delete it** — right now it's dead weight
-   duplicating the characters inside `starter-pack.json`.
-7. Rebuild the `pipeline/` scripts (§6).
+6. ~~**Wire `data/characters.json` in or delete it** — right now it's dead weight
+   duplicating the characters inside `starter-pack.json`.~~ **Resolved
+   (2026-09-03).** Still not read by the app, but it's now *generated* from the
+   same curation as the starter pack, so the duplicate can't drift. Wire it in
+   or drop it whenever there's a reason to.
+7. ~~Rebuild the `pipeline/` scripts (§6).~~ **Done (2026-09-03).**
+   `parse_books.py` + `build_starter_pack.py` + `curation/starter_pack.json` +
+   `pipeline/README.md`. Verified to reproduce the shipped corpus and starter
+   pack byte-for-byte (plus the new structured fields). The rebuild's
+   cross-reference validation also caught a pre-existing dangling id —
+   `char_abraham` → `char_ishmael`, a character that didn't exist — fixed by
+   adding Ishmael (characters: 10 → 11).
+8. **Wire the full corpus into the app** — needs verse search/browse UI, since
+   3,994 verses can't go in one list. *(Next.)*
 
 ---
 
