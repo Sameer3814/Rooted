@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (17 Genesis characters)
+### Character — *live* (23 characters: 17 Genesis, 6 Exodus)
 ```json
 {
   "id": "char_jacob",
@@ -374,14 +374,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 230 verses + 27 topics + 11 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 247 verses + 28 topics + 23 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (5,207 verses: Genesis, Psalms, Exodus) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 3 eras, 32 stories, 85 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 4 eras, 36 stories, 105 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | *planned* | Motif seed |
-| `data/connections.json` | 26 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 34 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -523,8 +523,8 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 230-verse seed doesn't all come due at once on
-  a fresh install. No UI to change it yet; Home shows "Practice 10 of 230 due".
+  pulls (`practiceQueue`), so the 247-verse seed doesn't all come due at once on
+  a fresh install. No UI to change it yet; Home shows "Practice 10 of 247 due".
 - `activeDepth` — planned (§4).
 
 ---
@@ -584,13 +584,6 @@ note).
    Adding a verse copies it into the user's `rooted-content` overlay, so it
    immediately joins the practice rotation. See §9.
 
-10. ~~**`Story` / `Era` / `LifeEvent` entities.**~~ **Done (2026-09-04).**
-    3 eras, 32 stories, 85 life events. Character detail now leads with a
-    **timeline** ("Their life"), then Family (the `relationships[]` data, which
-    had never been rendered), Stories, Key verses, "Appears alongside"
-    (co-occurrence) and "Also in <era>". New Story detail screen and a Stories
-    list grouped by era, reached from People. See §9.
-
 9. **Topic tagging at scale.** **Done (2026-09-03).** Seed grew from 17 verses /
    15 topics to **230 verses / 27 topics / 270 tag assignments**, every topic
    carrying 6–14 hand-picked verses, every Topic now with a real `description`
@@ -598,6 +591,20 @@ note).
    for). Approach: `tag_verses.py` surfaces candidates from a keyword lexicon,
    a human picks — see §6. Genesis verses also gained `characterIds`, so
    character detail pages went from 0–2 verses to up to 18.
+10. ~~**`Story` / `Era` / `LifeEvent` entities.**~~ **Done (2026-09-04).**
+    3 eras, 32 stories, 85 life events. Character detail now leads with a
+    **timeline** ("Their life"), then Family (the `relationships[]` data, which
+    had never been rendered), Stories, Key verses, "Appears alongside"
+    (co-occurrence) and "Also in <era>". New Story detail screen and a Stories
+    list grouped by era, reached from People. See §9.
+11. **Expand beyond Genesis.** **Started (2026-09-04)** with Moses' early life
+    (Exodus 2–4): `era_exodus`, 6 characters (Moses, Jochebed, Miriam, Aaron,
+    Pharaoh's Daughter, Zipporah), 4 stories, 20 life events, 8 connections,
+    17 curated verses, 1 new topic (`topic_deliverance`). `parse_books.py`
+    now ships Exodus in the corpus too (5,207 verses total). The pipeline made
+    the *text* side trivial (`--books exodus`); the curation/content side —
+    picking verses, writing stories and life events, tagging — is still real
+    work per book, and is what actually took the time here.
 
 ---
 

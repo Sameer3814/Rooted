@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact

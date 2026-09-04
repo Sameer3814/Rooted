@@ -1736,6 +1736,155 @@
         "topic_worship"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_exodus_2_3",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_jochebed"
+      ]
+    },
+    {
+      "id": "verse_exodus_2_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_pharaohs_daughter"
+      ]
+    },
+    {
+      "id": "verse_exodus_2_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_pharaohs_daughter"
+      ]
+    },
+    {
+      "id": "verse_exodus_2_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_2_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_zipporah"
+      ]
+    },
+    {
+      "id": "verse_exodus_2_24",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_3_4",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_3_6",
+      "topicIds": [
+        "topic_worship",
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_3_10",
+      "topicIds": [
+        "topic_calling",
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_3_11",
+      "topicIds": [
+        "topic_humility",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_3_12",
+      "topicIds": [
+        "topic_presence",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_3_14",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_4_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_4_12",
+      "topicIds": [
+        "topic_guidance",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_4_27",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_4_31",
+      "topicIds": [
+        "topic_worship",
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_20_2",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -1766,7 +1915,8 @@
       "relatedTopicIds": [
         "topic_faith",
         "topic_guidance",
-        "topic_covenant"
+        "topic_covenant",
+        "topic_deliverance"
       ]
     },
     {
@@ -1806,7 +1956,8 @@
       "relatedTopicIds": [
         "topic_covenant",
         "topic_trust",
-        "topic_thanksgiving"
+        "topic_thanksgiving",
+        "topic_deliverance"
       ]
     },
     {
@@ -2010,6 +2161,16 @@
         "topic_thanksgiving",
         "topic_creation",
         "topic_presence"
+      ]
+    },
+    {
+      "id": "topic_deliverance",
+      "name": "Deliverance",
+      "description": "God hearing the cry of the oppressed, and acting to bring them out.",
+      "relatedTopicIds": [
+        "topic_calling",
+        "topic_faithfulness",
+        "topic_trust"
       ]
     }
   ],
@@ -2258,6 +2419,72 @@
         "verse_genesis_50_19",
         "verse_genesis_50_20"
       ]
+    },
+    {
+      "id": "char_moses",
+      "name": "Moses",
+      "roles": [
+        "drawn from the water",
+        "called from the burning bush"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Born under a death sentence and hidden in a basket on the Nile, raised in Pharaoh's own household, and forty years later called by name out of a bush that would not burn out. He would lead Israel out of Egypt.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jochebed",
+      "name": "Jochebed",
+      "roles": [
+        "hid her son in defiance of Pharaoh",
+        "mother of Moses, Aaron and Miriam"
+      ],
+      "eraId": "era_exodus",
+      "summary": "A Hebrew woman who hid her infant son three months, then risked the river rather than Pharaoh's decree — and was hired, without Pharaoh's daughter ever knowing who she was, to nurse her own child.",
+      "verseIds": []
+    },
+    {
+      "id": "char_miriam",
+      "name": "Miriam",
+      "roles": [
+        "watched over the basket",
+        "sister of Moses and Aaron"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Moses' older sister, who watched from a distance as the basket drifted, then stepped forward with exactly the right question to put her own mother at her brother's side.",
+      "verseIds": []
+    },
+    {
+      "id": "char_aaron",
+      "name": "Aaron",
+      "roles": [
+        "sent to meet his brother",
+        "spoke for Moses"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Moses' elder brother, sent by God into the wilderness to meet him and become the voice of a man who called himself slow of speech.",
+      "verseIds": []
+    },
+    {
+      "id": "char_pharaohs_daughter",
+      "name": "Pharaoh's Daughter",
+      "roles": [
+        "drew him from the river",
+        "raised him as her own"
+      ],
+      "eraId": "era_exodus",
+      "summary": "An Egyptian princess who found a Hebrew baby in the reeds, had compassion on him despite knowing exactly who he was, and raised her own people's intended victim in the palace itself.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zipporah",
+      "name": "Zipporah",
+      "roles": [
+        "met at a well in Midian",
+        "wife of Moses"
+      ],
+      "eraId": "era_exodus",
+      "summary": "A priest of Midian's daughter, one of seven sisters Moses defended at a well. She became his wife during his forty years in exile, and bore him a son.",
+      "verseIds": []
     }
   ]
 }

@@ -1,35 +1,312 @@
 {
   "_comment": "Hand-curated Connection records (DATA_MODEL.md §2 Connection) — the generic {fromType, fromId, relationship, toType, toId} edge that replaces embedded relationship arrays. Built into data/connections.json by pipeline/build_connections.py, which validates every reference and derives the reverse view from `inverse` (or `symmetric`) so each fact is stored once. Currently all character↔character; the same shape will carry story→story links (foreshadows, parallels) and motif instances once those exist — that's the point of making it generic now rather than a Character-only relationships array.",
-
   "connections": [
-    { "id": "conn_adam_husband_of_eve", "fromType": "character", "fromId": "char_adam", "relationship": "husband of", "toType": "character", "toId": "char_eve", "inverse": "wife of" },
-    { "id": "conn_adam_father_of_cain", "fromType": "character", "fromId": "char_adam", "relationship": "father of", "toType": "character", "toId": "char_cain", "inverse": "son of" },
-    { "id": "conn_adam_father_of_abel", "fromType": "character", "fromId": "char_adam", "relationship": "father of", "toType": "character", "toId": "char_abel", "inverse": "son of" },
-    { "id": "conn_eve_mother_of_cain", "fromType": "character", "fromId": "char_eve", "relationship": "mother of", "toType": "character", "toId": "char_cain", "inverse": "son of" },
-    { "id": "conn_eve_mother_of_abel", "fromType": "character", "fromId": "char_eve", "relationship": "mother of", "toType": "character", "toId": "char_abel", "inverse": "son of" },
-    { "id": "conn_cain_brother_of_abel", "fromType": "character", "fromId": "char_cain", "relationship": "brother of", "toType": "character", "toId": "char_abel", "symmetric": true },
-
-    { "id": "conn_abraham_husband_of_sarah", "fromType": "character", "fromId": "char_abraham", "relationship": "husband of", "toType": "character", "toId": "char_sarah", "inverse": "wife of" },
-    { "id": "conn_abraham_husband_of_hagar", "fromType": "character", "fromId": "char_abraham", "relationship": "husband of", "toType": "character", "toId": "char_hagar", "inverse": "wife of", "notes": "Given to Abraham as a wife by Sarah (Genesis 16:3); the text also calls her Sarah's servant." },
-    { "id": "conn_abraham_father_of_isaac", "fromType": "character", "fromId": "char_abraham", "relationship": "father of", "toType": "character", "toId": "char_isaac", "inverse": "son of" },
-    { "id": "conn_abraham_father_of_ishmael", "fromType": "character", "fromId": "char_abraham", "relationship": "father of", "toType": "character", "toId": "char_ishmael", "inverse": "son of" },
-    { "id": "conn_abraham_uncle_of_lot", "fromType": "character", "fromId": "char_abraham", "relationship": "uncle of", "toType": "character", "toId": "char_lot", "inverse": "nephew of" },
-    { "id": "conn_sarah_mistress_of_hagar", "fromType": "character", "fromId": "char_sarah", "relationship": "mistress of", "toType": "character", "toId": "char_hagar", "inverse": "servant of" },
-    { "id": "conn_sarah_mother_of_isaac", "fromType": "character", "fromId": "char_sarah", "relationship": "mother of", "toType": "character", "toId": "char_isaac", "inverse": "son of" },
-    { "id": "conn_hagar_mother_of_ishmael", "fromType": "character", "fromId": "char_hagar", "relationship": "mother of", "toType": "character", "toId": "char_ishmael", "inverse": "son of" },
-    { "id": "conn_ishmael_halfbrother_isaac", "fromType": "character", "fromId": "char_ishmael", "relationship": "half-brother of", "toType": "character", "toId": "char_isaac", "symmetric": true },
-
-    { "id": "conn_isaac_husband_of_rebekah", "fromType": "character", "fromId": "char_isaac", "relationship": "husband of", "toType": "character", "toId": "char_rebekah", "inverse": "wife of" },
-    { "id": "conn_isaac_father_of_jacob", "fromType": "character", "fromId": "char_isaac", "relationship": "father of", "toType": "character", "toId": "char_jacob", "inverse": "son of" },
-    { "id": "conn_isaac_father_of_esau", "fromType": "character", "fromId": "char_isaac", "relationship": "father of", "toType": "character", "toId": "char_esau", "inverse": "son of" },
-    { "id": "conn_rebekah_mother_of_jacob", "fromType": "character", "fromId": "char_rebekah", "relationship": "mother of", "toType": "character", "toId": "char_jacob", "inverse": "son of" },
-    { "id": "conn_rebekah_mother_of_esau", "fromType": "character", "fromId": "char_rebekah", "relationship": "mother of", "toType": "character", "toId": "char_esau", "inverse": "son of" },
-    { "id": "conn_esau_brother_of_jacob", "fromType": "character", "fromId": "char_esau", "relationship": "brother of", "toType": "character", "toId": "char_jacob", "symmetric": true },
-
-    { "id": "conn_jacob_father_of_joseph", "fromType": "character", "fromId": "char_jacob", "relationship": "father of", "toType": "character", "toId": "char_joseph", "inverse": "son of" },
-    { "id": "conn_jacob_husband_of_rachel", "fromType": "character", "fromId": "char_jacob", "relationship": "husband of", "toType": "character", "toId": "char_rachel", "inverse": "wife of" },
-    { "id": "conn_jacob_husband_of_leah", "fromType": "character", "fromId": "char_jacob", "relationship": "husband of", "toType": "character", "toId": "char_leah", "inverse": "wife of" },
-    { "id": "conn_rachel_sister_of_leah", "fromType": "character", "fromId": "char_rachel", "relationship": "sister of", "toType": "character", "toId": "char_leah", "symmetric": true },
-    { "id": "conn_rachel_mother_of_joseph", "fromType": "character", "fromId": "char_rachel", "relationship": "mother of", "toType": "character", "toId": "char_joseph", "inverse": "son of" }
+    {
+      "id": "conn_adam_husband_of_eve",
+      "fromType": "character",
+      "fromId": "char_adam",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_eve",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_adam_father_of_cain",
+      "fromType": "character",
+      "fromId": "char_adam",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_cain",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_adam_father_of_abel",
+      "fromType": "character",
+      "fromId": "char_adam",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_abel",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_eve_mother_of_cain",
+      "fromType": "character",
+      "fromId": "char_eve",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_cain",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_eve_mother_of_abel",
+      "fromType": "character",
+      "fromId": "char_eve",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_abel",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_cain_brother_of_abel",
+      "fromType": "character",
+      "fromId": "char_cain",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_abel",
+      "symmetric": true
+    },
+    {
+      "id": "conn_abraham_husband_of_sarah",
+      "fromType": "character",
+      "fromId": "char_abraham",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_sarah",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_abraham_husband_of_hagar",
+      "fromType": "character",
+      "fromId": "char_abraham",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_hagar",
+      "inverse": "wife of",
+      "notes": "Given to Abraham as a wife by Sarah (Genesis 16:3); the text also calls her Sarah's servant."
+    },
+    {
+      "id": "conn_abraham_father_of_isaac",
+      "fromType": "character",
+      "fromId": "char_abraham",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_isaac",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_abraham_father_of_ishmael",
+      "fromType": "character",
+      "fromId": "char_abraham",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_ishmael",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_abraham_uncle_of_lot",
+      "fromType": "character",
+      "fromId": "char_abraham",
+      "relationship": "uncle of",
+      "toType": "character",
+      "toId": "char_lot",
+      "inverse": "nephew of"
+    },
+    {
+      "id": "conn_sarah_mistress_of_hagar",
+      "fromType": "character",
+      "fromId": "char_sarah",
+      "relationship": "mistress of",
+      "toType": "character",
+      "toId": "char_hagar",
+      "inverse": "servant of"
+    },
+    {
+      "id": "conn_sarah_mother_of_isaac",
+      "fromType": "character",
+      "fromId": "char_sarah",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_isaac",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_hagar_mother_of_ishmael",
+      "fromType": "character",
+      "fromId": "char_hagar",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_ishmael",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_ishmael_halfbrother_isaac",
+      "fromType": "character",
+      "fromId": "char_ishmael",
+      "relationship": "half-brother of",
+      "toType": "character",
+      "toId": "char_isaac",
+      "symmetric": true
+    },
+    {
+      "id": "conn_isaac_husband_of_rebekah",
+      "fromType": "character",
+      "fromId": "char_isaac",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_rebekah",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_isaac_father_of_jacob",
+      "fromType": "character",
+      "fromId": "char_isaac",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_jacob",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_isaac_father_of_esau",
+      "fromType": "character",
+      "fromId": "char_isaac",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_esau",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_rebekah_mother_of_jacob",
+      "fromType": "character",
+      "fromId": "char_rebekah",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_jacob",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_rebekah_mother_of_esau",
+      "fromType": "character",
+      "fromId": "char_rebekah",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_esau",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_esau_brother_of_jacob",
+      "fromType": "character",
+      "fromId": "char_esau",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_jacob",
+      "symmetric": true
+    },
+    {
+      "id": "conn_jacob_father_of_joseph",
+      "fromType": "character",
+      "fromId": "char_jacob",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_joseph",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_jacob_husband_of_rachel",
+      "fromType": "character",
+      "fromId": "char_jacob",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_rachel",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_jacob_husband_of_leah",
+      "fromType": "character",
+      "fromId": "char_jacob",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_leah",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_rachel_sister_of_leah",
+      "fromType": "character",
+      "fromId": "char_rachel",
+      "relationship": "sister of",
+      "toType": "character",
+      "toId": "char_leah",
+      "symmetric": true
+    },
+    {
+      "id": "conn_rachel_mother_of_joseph",
+      "fromType": "character",
+      "fromId": "char_rachel",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_joseph",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_jochebed_mother_of_moses",
+      "fromType": "character",
+      "fromId": "char_jochebed",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_moses",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_jochebed_mother_of_miriam",
+      "fromType": "character",
+      "fromId": "char_jochebed",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_miriam",
+      "inverse": "daughter of"
+    },
+    {
+      "id": "conn_jochebed_mother_of_aaron",
+      "fromType": "character",
+      "fromId": "char_jochebed",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_aaron",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_moses_brother_of_aaron",
+      "fromType": "character",
+      "fromId": "char_moses",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_aaron",
+      "symmetric": true
+    },
+    {
+      "id": "conn_moses_brother_of_miriam",
+      "fromType": "character",
+      "fromId": "char_moses",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_miriam",
+      "inverse": "sister of"
+    },
+    {
+      "id": "conn_aaron_brother_of_miriam",
+      "fromType": "character",
+      "fromId": "char_aaron",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_miriam",
+      "inverse": "sister of"
+    },
+    {
+      "id": "conn_moses_husband_of_zipporah",
+      "fromType": "character",
+      "fromId": "char_moses",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_zipporah",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_pd_adoptive_mother_of_moses",
+      "fromType": "character",
+      "fromId": "char_pharaohs_daughter",
+      "relationship": "adoptive mother of",
+      "toType": "character",
+      "toId": "char_moses",
+      "inverse": "adopted son of"
+    }
   ]
 }

@@ -52,21 +52,24 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **230 verses** (Genesis + Psalms, WEB translation) across
-  **27 topics** (270 tag assignments, 6–14 verses per topic, topics linked
-  to related topics), plus 17 Genesis characters with real relationships
-  (father of, wife of, brother of, etc.).
-- `data/characters.json` — the same 17 characters, standalone. Generated
+  first run: **247 verses** (Genesis, Psalms and Exodus 2-4, WEB
+  translation) across **28 topics** (topics linked to related topics),
+  plus **23 characters** (17 Genesis, 6 early Exodus) with real
+  relationships (father of, wife of, brother of, etc. — see Connection,
+  below).
+- `data/characters.json` — the same 23 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed Genesis + Psalms corpus (3,994
-  verses, WEB translation, public domain). Lazily fetched by the Browse
-  screen the first time it's opened, never at boot. It is *reference
-  material*, kept separate from the user's library — adding a verse from
-  Browse copies it into the user's overlay. Still untagged by topic.
-- `data/stories.json` — 3 eras, 32 Genesis stories and 85 life events.
-  Loaded at boot (it's small). Drives the character life timeline, the
-  Stories screens, People-grouped-by-era, and "appears alongside".
-- `data/connections.json` — 26 generic Connection edges (Design philosophy
+- `data/verses.json` — the **full** parsed corpus: Genesis, Psalms, and
+  Exodus (5,207 verses, WEB translation, public domain). Lazily fetched by
+  the Browse screen the first time it's opened, never at boot. It is
+  *reference material*, kept separate from the user's library — adding a
+  verse from Browse copies it into the user's overlay. Only the 247 seed
+  verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 4 eras, 36 stories and 105 life events (Genesis
+  plus Moses' early life in Exodus). Loaded at boot (it's small). Drives
+  the character life timeline, the Stories screens, People-grouped-by-era,
+  and "appears alongside".
+- `data/connections.json` — 34 generic Connection edges (Design philosophy
   #4). Replaces the old embedded `Character.relationships[]`; loaded at
   boot. Drives the Family section on character pages.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
@@ -179,8 +182,12 @@ hand-curate all the content before building.
    (`challenge_first_letters`), then matching / ordering.
 2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-3. Expanding character/relationship data beyond Genesis to other OT books
-   (`parse_books.py --all` makes the text side trivial now).
+3. ~~Expanding character/relationship data beyond Genesis to other OT
+   books.~~ **Started (2026-09-04).** Moses' early life (Exodus 2-4): era,
+   6 characters, 4 stories, 20 life events, 8 connections, 17 verses,
+   1 new topic (`topic_deliverance`). `parse_books.py --all` makes the
+   text side trivial for any further book; the curation/content side is
+   still real work per book.
 4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
 5. `Motif` entity, and story→story Connections (foreshadows/parallels) —
    the generic entity exists now, nothing populates these yet.
@@ -194,15 +201,18 @@ Home picker (§8.5); `window.storage`→localStorage fallback for local dev;
 app (§8.8); topic tagging at scale — 17→230 seed verses, 15→27 topics
 (§8.9).
 
-**Done (2026-09-04):** `Story`/`Era`/`LifeEvent` — 3 eras, 32 stories,
-85 life events, character life timelines, Story screens, People grouped
-by era, `Character.era`→`eraId` (§8.3, §8.10). `Character.roles` rewritten
-so they actually distinguish people — three men all reading "patriarch"
-told the reader nothing. The generic `Connection` entity (§8.4) — 26
-connections replace 51 embedded `relationships[]` entries (most facts had
+**Done (2026-09-04):** `Story`/`Era`/`LifeEvent` — eras, stories, life
+events, character life timelines, Story screens, People grouped by era,
+`Character.era`→`eraId` (§8.3, §8.10). `Character.roles` rewritten so they
+actually distinguish people — three men all reading "patriarch" told the
+reader nothing. The generic `Connection` entity (§8.4) — replaced 51
+embedded `relationships[]` entries with directed edges (most facts had
 been stored twice, once per direction); the migration's validation also
 caught a real gap in the old data (Abraham→Hagar had no reverse entry) and
-fixed it for free.
+fixed it for free. Content expanded beyond Genesis for the first time —
+Moses' early life (Exodus 2-4): new era, 6 characters, 4 stories, 20 life
+events, 8 connections, 17 verses, 1 new topic (`topic_deliverance`); the
+full corpus now also includes Exodus (5,207 verses total).
 
 ## Source data provenance
 

@@ -1,4 +1,4 @@
-const CACHE = 'rooted-v5';
+const CACHE = 'rooted-v6';
 // data/verses.json (~1.1MB) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then.
 // starter-pack.json, stories.json and connections.json all load at boot, so

@@ -315,5 +315,23 @@
       "mighty",
       "my help"
     ]
+  },
+  "topic_deliverance": {
+    "terms": [
+      "deliver",
+      "delivered",
+      "deliverance",
+      "rescue",
+      "rescued",
+      "bring you out",
+      "brought them out",
+      "redeem",
+      "redeemed",
+      "set free",
+      "house of bondage",
+      "out of Egypt",
+      "out of the land of Egypt"
+    ],
+    "exclude": []
   }
 }
