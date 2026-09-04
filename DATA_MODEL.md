@@ -194,6 +194,15 @@ A broad period, used for the timeline and "who else lived then."
 - `order` — integer, sequences the eras.
 - `approxRange` — free string; scholarship varies and we don't want to imply
   false precision.
+- **An era's display text can go stale as content accumulates under its id.**
+  `era_exodus` was named "The Exodus begins" / "in Egypt" when it only held
+  the plagues and Sinai; by the time Leviticus, Numbers, and Deuteronomy (40
+  years later, at the Jordan) had all been folded into the same id, the name
+  no longer honestly described most of what was in it. Fixed (2026-09-04,
+  §8.17) by rewriting `name`/`summary`/`approxRange` to span the whole
+  wilderness period — the `id` never changes, so no character's `eraId`
+  reference needed touching. Worth rereading an era's display text each time
+  a book that extends it is added, not just its id.
 
 ### LifeEvent — *live*
 One dated-ish moment in a person's life. The unit behind the character timeline
@@ -399,14 +408,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 347 verses + 31 topics + 36 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 366 verses + 31 topics + 36 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (7,439 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (8,398 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 5 eras, 61 stories, 175 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 5 eras, 63 stories, 179 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 9 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 71 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 73 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -725,6 +734,26 @@ note).
     Required bumping Ruth's `canonicalOrder` block (700-740 → 800-840) to make
     room for Numbers' 7 stories, which sit earlier in the timeline — see the
     Story `canonicalOrder` note above.
+17. **Deuteronomy.** **Done (2026-09-04).** Almost entirely Moses' three
+    farewell speeches, so — reusing the §8.15 decision again, as anticipated —
+    the lighter Leviticus-style pass: verses and topics throughout, Story
+    treatment for its only two genuine narrative beats. `story_moses_
+    commissions_joshua` (31:1-8, 34:9 — Moses lays hands on Joshua before all
+    Israel) and `story_moses_views_and_dies` (34:1-12 — Nebo, the land he
+    won't enter, his death at 120, the eulogy that no prophet like him has
+    arisen since). No new characters or topics — both Moses and Joshua already
+    existed, and the existing 31 topics covered everything, including the
+    Shema (6:4-5) and "man does not live by bread alone" (8:3). One new
+    Connection kind: `"successor of"` (Joshua → Moses, `inverse: "predecessor
+    of"`). `motif_gods_reassurance` picked up a 4th instance, directly on a
+    verse rather than a story: Deuteronomy 31:23, God's "I will be with you"
+    at Joshua's commissioning — the same words Isaac and Jacob heard
+    generations earlier, now said to a successor at a leadership handoff.
+
+    Also corrected `era_exodus`'s display text (see the Era section above) —
+    stale since it still read "The Exodus begins" / "in Egypt" after three
+    more books' worth of content, spanning 40 years and ending at the Jordan,
+    had been folded into the same era id.
 
 ---
 

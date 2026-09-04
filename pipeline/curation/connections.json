@@ -642,6 +642,24 @@
       "toType": "story",
       "toId": "story_korahs_rebellion",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_joshua_successor_of_moses",
+      "fromType": "character",
+      "fromId": "char_joshua",
+      "relationship": "successor of",
+      "toType": "character",
+      "toId": "char_moses",
+      "inverse": "predecessor of"
+    },
+    {
+      "id": "conn_reassurance_instance_deut_31_23",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_deuteronomy_31_23",
+      "inverse": "has motif"
     }
   ]
 }

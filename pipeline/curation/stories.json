@@ -24,10 +24,10 @@
     },
     {
       "id": "era_exodus",
-      "name": "The Exodus begins",
-      "summary": "Generations after Joseph, a new king in Egypt enslaves Israel and orders Hebrew infant boys killed. One survives, is raised in Pharaoh's own house, and is called by God to lead his people out.",
+      "name": "The Exodus",
+      "summary": "Israel is enslaved in Egypt, delivered through the plagues and the Red Sea, receives the law at Sinai, and spends forty years in the wilderness before arriving at the plains of Moab, ready to cross into the promised land.",
       "order": 4,
-      "approxRange": "generations after the patriarchs, in Egypt"
+      "approxRange": "roughly 40 years, from slavery in Egypt to the plains of Moab"
     },
     {
       "id": "era_judges",
@@ -1301,6 +1301,48 @@
       ],
       "topicIds": [
         "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_moses_commissions_joshua",
+      "title": "Moses commissions Joshua",
+      "summary": "In front of all Israel, Moses tells Joshua to be strong and courageous — he will lead the people into the land Yahweh swore to their fathers. Moses lays his hands on him, and Joshua is filled with the spirit of wisdom.",
+      "primaryReference": "Deuteronomy 31:1-8, 31:14-23, 34:9",
+      "eraId": "era_exodus",
+      "canonicalOrder": 725,
+      "verseIds": [
+        "verse_deuteronomy_31_7",
+        "verse_deuteronomy_31_23",
+        "verse_deuteronomy_34_9"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_moses_views_and_dies",
+      "title": "Moses views the land, and dies",
+      "summary": "From Mount Nebo, Yahweh shows Moses the whole land he swore to Abraham, Isaac, and Jacob — and tells him he will not cross over into it himself. Moses dies there at a hundred twenty, his eye undimmed and his strength unspent, and no prophet like him has risen in Israel since.",
+      "primaryReference": "Deuteronomy 34:1-12",
+      "eraId": "era_exodus",
+      "canonicalOrder": 730,
+      "verseIds": [
+        "verse_deuteronomy_34_1",
+        "verse_deuteronomy_34_4",
+        "verse_deuteronomy_34_5",
+        "verse_deuteronomy_34_7",
+        "verse_deuteronomy_34_10"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_presence"
       ]
     }
   ],
@@ -3345,6 +3387,48 @@
       "reference": "Numbers 23:1-24:25",
       "storyId": "story_balaams_donkey",
       "sequenceInLife": 30
+    },
+    {
+      "id": "event_moses_commissions_joshua",
+      "characterId": "char_moses",
+      "title": "Commissions Joshua as his successor",
+      "description": "He lays his hands on Joshua in front of all Israel and tells him to be strong and courageous.",
+      "reference": "Deuteronomy 31:1-8, 34:9",
+      "storyId": "story_moses_commissions_joshua",
+      "participantIds": [
+        "char_joshua"
+      ],
+      "sequenceInLife": 260
+    },
+    {
+      "id": "event_moses_views_land",
+      "characterId": "char_moses",
+      "title": "Views the promised land from Mount Nebo",
+      "description": "Yahweh shows him all of it, and tells him he will not cross over.",
+      "reference": "Deuteronomy 34:1-4",
+      "storyId": "story_moses_views_and_dies",
+      "sequenceInLife": 270
+    },
+    {
+      "id": "event_moses_dies",
+      "characterId": "char_moses",
+      "title": "Dies in the land of Moab",
+      "description": "At a hundred twenty years old, his eye not dim nor his strength gone. No prophet like him has arisen in Israel since.",
+      "reference": "Deuteronomy 34:5-12",
+      "storyId": "story_moses_views_and_dies",
+      "sequenceInLife": 280
+    },
+    {
+      "id": "event_joshua_commissioned",
+      "characterId": "char_joshua",
+      "title": "Commissioned by Moses",
+      "description": "Moses lays hands on him before all Israel; he is filled with the spirit of wisdom.",
+      "reference": "Deuteronomy 31:1-8, 34:9",
+      "storyId": "story_moses_commissions_joshua",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 40
     }
   ]
 }

@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -168,8 +168,17 @@ Worth knowing:
   treatment only for its handful of genuine narrative incidents (ordination
   of Aaron, Nadab and Abihu, the blasphemer — three in 27 chapters). Numbers
   mixed both: real narrative (the spies, Korah, Balaam...) got Stories, its
-  long census/law stretches got the lighter verses-only pass. Deuteronomy is
-  almost entirely Moses' speeches — expect it to need the lighter pass too.
+  long census/law stretches got the lighter verses-only pass. Deuteronomy —
+  almost entirely Moses' three farewell speeches — got the lighter pass too,
+  same as predicted: verses/topics throughout, Stories only for its two real
+  narrative beats (Moses commissioning Joshua; Moses viewing the land and
+  dying on Nebo). Joshua (the book) should be narrative again.
+- **Reread an era's `name`/`summary`/`approxRange` each time a new book
+  extends it, not just its `id`.** `era_exodus` still read "The Exodus
+  begins" / "in Egypt" after Leviticus, Numbers, and Deuteronomy — 40 years
+  later, at the Jordan — had all been folded into it. The `id` never needs to
+  change (nothing references the display text), but the display text can go
+  quietly stale exactly the way `Character.era` free-strings used to.
 - **Leave a bigger `canonicalOrder` gap between books than feels necessary.**
   Ruth's block was placed right after Exodus/Leviticus with only room for a
   few more stories; adding Numbers (which sits chronologically *before* Ruth)

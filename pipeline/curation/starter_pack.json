@@ -2685,6 +2685,151 @@
       "characterIds": [
         "char_balaam"
       ]
+    },
+    {
+      "id": "verse_deuteronomy_6_4",
+      "topicIds": [
+        "topic_worship",
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_6_5",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_6_6",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_6_7",
+      "topicIds": [
+        "topic_scripture",
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_8_3",
+      "topicIds": [
+        "topic_scripture",
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_10_12",
+      "topicIds": [
+        "topic_love",
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_18_15",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_28_1",
+      "topicIds": [
+        "topic_covenant",
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_30_19",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_30_20",
+      "topicIds": [
+        "topic_love",
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_31_6",
+      "topicIds": [
+        "topic_trust",
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_deuteronomy_31_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_31_23",
+      "topicIds": [
+        "topic_calling",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_4",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua",
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_deuteronomy_34_10",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
     }
   ],
   "topics": [
