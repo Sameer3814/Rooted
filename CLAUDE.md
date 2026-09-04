@@ -53,39 +53,39 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **247 verses** (Genesis, Psalms and Exodus 2-4, WEB
-  translation) across **28 topics** (topics linked to related topics),
-  plus **23 characters** (17 Genesis, 6 early Exodus) with real
-  relationships (father of, wife of, brother of, etc. — see Connection,
-  below).
-- `data/characters.json` — the same 23 characters, standalone. Generated
+  first run: **266 verses** (Genesis, Psalms, Exodus 2-4, and the whole
+  book of Ruth, WEB translation) across **29 topics** (topics linked to
+  related topics), plus **28 characters** (17 Genesis, 6 early Exodus,
+  5 Ruth) with real relationships (father of, wife of, brother of, etc. —
+  see Connection, below).
+- `data/characters.json` — the same 28 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed corpus: Genesis, Psalms, and
-  Exodus (5,207 verses, WEB translation, public domain). Lazily fetched by
-  the Browse screen the first time it's opened, never at boot. It is
-  *reference material*, kept separate from the user's library — adding a
-  verse from Browse copies it into the user's overlay. Only the 247 seed
-  verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 4 eras, 36 stories and 105 life events (Genesis
-  plus Moses' early life in Exodus). Loaded at boot (it's small). Drives
-  the character life timeline, the Stories screens, People-grouped-by-era,
-  and "appears alongside".
-- `data/motifs.json` — 5 recurring biblical patterns (younger son chosen,
+- `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
+  Exodus, and Ruth (5,292 verses, WEB translation, public domain). Lazily
+  fetched by the Browse screen the first time it's opened, never at boot.
+  It is *reference material*, kept separate from the user's library —
+  adding a verse from Browse copies it into the user's overlay. Only the
+  266 seed verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 5 eras, 41 stories and 126 life events (Genesis,
+  Moses' early life in Exodus, and the whole book of Ruth). Loaded at boot
+  (it's small). Drives the character life timeline, the Stories screens,
+  People-grouped-by-era, and "appears alongside".
+- `data/motifs.json` — 6 recurring biblical patterns (younger son chosen,
   meeting a spouse at a well, "I am with you", the deceiver deceived, a
-  child's life threatened and delivered), each with 3 real instances in
-  the current content — not force-fit onto single occurrences. Loaded at
-  boot. Drives the Patterns screens and the "Pattern" badges on Character
-  and Story pages.
-- `data/connections.json` — 50 generic Connection edges (Design philosophy
+  child's life threatened and delivered, famine driving them to a foreign
+  land), each with real instances in the current content — not force-fit
+  onto single occurrences. Loaded at boot. Drives the Patterns screens and
+  the "Pattern" badges on Character and Story pages.
+- `data/connections.json` — 58 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
-  `character` / `verse`), and the first story↔story link (`"parallels"`).
-  Loaded at boot.
+  `character` / `verse`), and story↔story links (`"parallels"`). Loaded
+  at boot.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible.
+    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -197,11 +197,15 @@ hand-curate all the content before building.
 2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
 3. ~~Expanding character/relationship data beyond Genesis to other OT
-   books.~~ **Started (2026-09-04).** Moses' early life (Exodus 2-4): era,
-   6 characters, 4 stories, 20 life events, 8 connections, 17 verses,
-   1 new topic (`topic_deliverance`). `parse_books.py --all` makes the
-   text side trivial for any further book; the curation/content side is
-   still real work per book.
+   books.~~ **Started (2026-09-04)** with Moses' early life (Exodus 2-4),
+   **continued (2026-09-04)** with the whole book of Ruth: `era_judges`,
+   5 characters, 5 stories, 19 life events, 8 connections, 19 verses,
+   1 new topic (`topic_loyalty`), 1 new motif tying it back to Genesis
+   (`motif_famine_and_a_foreign_land`, linking Ruth 1 to Jacob's move to
+   Egypt). `parse_books.py --all` makes the text side trivial for any
+   further book; the curation/content side is still real work per book,
+   repeatable in roughly the same shape each time now (era → characters
+   → stories/events → verses/topics → connections/motifs).
 4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
 5. ~~`Motif` entity, and story→story Connections (foreshadows/parallels).~~
    **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
@@ -238,7 +242,11 @@ and scramble share. Then the `Motif` entity — 5 patterns, each with 3 real
 instances (not force-fit onto single occurrences; the builder rejects
 motifs with fewer), plus the first story↔story Connection. Both fell out
 of `connectionsFor()` with zero new query machinery, which is exactly what
-making Connection generic back on 2026-09-04 was for.
+making Connection generic back on 2026-09-04 was for. Then the book of
+Ruth: `era_judges`, 5 characters, 5 stories, 19 life events, 19 verses,
+1 topic (`topic_loyalty`), and a 6th motif that reaches back into Genesis
+(`motif_famine_and_a_foreign_land` — Jacob's move to Egypt and Naomi's to
+Moab are the same shape).
 
 ## Source data provenance
 

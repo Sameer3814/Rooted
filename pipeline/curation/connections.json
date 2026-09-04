@@ -452,6 +452,78 @@
       "toId": "story_stolen_blessing",
       "symmetric": true,
       "notes": "Jacob deceived his father with animal skins to steal a blessing; his own sons later deceive him with animal blood on a coat."
+    },
+    {
+      "id": "conn_naomi_wife_of_elimelech",
+      "fromType": "character",
+      "fromId": "char_naomi",
+      "relationship": "wife of",
+      "toType": "character",
+      "toId": "char_elimelech",
+      "inverse": "husband of"
+    },
+    {
+      "id": "conn_naomi_motherinlaw_ruth",
+      "fromType": "character",
+      "fromId": "char_naomi",
+      "relationship": "mother-in-law of",
+      "toType": "character",
+      "toId": "char_ruth",
+      "inverse": "daughter-in-law of"
+    },
+    {
+      "id": "conn_naomi_motherinlaw_orpah",
+      "fromType": "character",
+      "fromId": "char_naomi",
+      "relationship": "mother-in-law of",
+      "toType": "character",
+      "toId": "char_orpah",
+      "inverse": "daughter-in-law of"
+    },
+    {
+      "id": "conn_ruth_sisterinlaw_orpah",
+      "fromType": "character",
+      "fromId": "char_ruth",
+      "relationship": "sister-in-law of",
+      "toType": "character",
+      "toId": "char_orpah",
+      "symmetric": true
+    },
+    {
+      "id": "conn_boaz_husband_of_ruth",
+      "fromType": "character",
+      "fromId": "char_boaz",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_ruth",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_boaz_kinsman_of_elimelech",
+      "fromType": "character",
+      "fromId": "char_boaz",
+      "relationship": "kinsman of",
+      "toType": "character",
+      "toId": "char_elimelech",
+      "symmetric": true
+    },
+    {
+      "id": "conn_famine_instance_jacob_to_egypt",
+      "fromType": "motif",
+      "fromId": "motif_famine_and_a_foreign_land",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_jacob_to_egypt",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_famine_instance_famine_to_moab",
+      "fromType": "motif",
+      "fromId": "motif_famine_and_a_foreign_land",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_famine_to_moab",
+      "inverse": "has motif"
     }
   ]
 }

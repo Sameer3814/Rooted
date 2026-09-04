@@ -1885,6 +1885,177 @@
         "topic_deliverance"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_ruth_1_1",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ruth_1_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_elimelech",
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_ruth",
+        "char_orpah"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_ruth",
+        "char_orpah",
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_16",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_ruth",
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_17",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_20",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_1_21",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_2_2",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_ruth",
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_2_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_ruth",
+        "char_boaz"
+      ]
+    },
+    {
+      "id": "verse_ruth_2_11",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_2_12",
+      "topicIds": [
+        "topic_refuge",
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_3_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_ruth",
+        "char_boaz"
+      ]
+    },
+    {
+      "id": "verse_ruth_3_10",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_3_11",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_4_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_4_14",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_naomi"
+      ]
+    },
+    {
+      "id": "verse_ruth_4_15",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_naomi",
+        "char_ruth"
+      ]
+    },
+    {
+      "id": "verse_ruth_4_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_naomi"
+      ]
     }
   ],
   "topics": [
@@ -1926,7 +2097,8 @@
       "relatedTopicIds": [
         "topic_faithfulness",
         "topic_blessing",
-        "topic_calling"
+        "topic_calling",
+        "topic_loyalty"
       ]
     },
     {
@@ -1957,7 +2129,8 @@
         "topic_covenant",
         "topic_trust",
         "topic_thanksgiving",
-        "topic_deliverance"
+        "topic_deliverance",
+        "topic_loyalty"
       ]
     },
     {
@@ -2171,6 +2344,15 @@
         "topic_calling",
         "topic_faithfulness",
         "topic_trust"
+      ]
+    },
+    {
+      "id": "topic_loyalty",
+      "name": "Loyalty",
+      "description": "Steadfast love and commitment that stays when it would be easier to leave.",
+      "relatedTopicIds": [
+        "topic_faithfulness",
+        "topic_covenant"
       ]
     }
   ],
@@ -2484,6 +2666,60 @@
       ],
       "eraId": "era_exodus",
       "summary": "A priest of Midian's daughter, one of seven sisters Moses defended at a well. She became his wife during his forty years in exile, and bore him a son.",
+      "verseIds": []
+    },
+    {
+      "id": "char_naomi",
+      "name": "Naomi",
+      "roles": [
+        "lost everything, then found fullness again",
+        "Ruth's mother-in-law"
+      ],
+      "eraId": "era_judges",
+      "summary": "Widowed and left childless in Moab, she returned to Bethlehem calling herself Mara — bitter — and left it again a grandmother, in the family line of David.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ruth",
+      "name": "Ruth",
+      "roles": [
+        "stayed when she could have gone home",
+        "great-grandmother of David"
+      ],
+      "eraId": "era_judges",
+      "summary": "A Moabite widow who refused to leave her mother-in-law, gleaned in a stranger's field to keep them both alive, and asked for redemption rather than charity. Her line runs to David, and further.",
+      "verseIds": []
+    },
+    {
+      "id": "char_boaz",
+      "name": "Boaz",
+      "roles": [
+        "kinsman-redeemer",
+        "great-grandfather of David"
+      ],
+      "eraId": "era_judges",
+      "summary": "A prosperous relative of Naomi's dead husband, who noticed a foreign gleaner in his field, protected her, and redeemed her family's inheritance and her future when a nearer relative would not.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elimelech",
+      "name": "Elimelech",
+      "roles": [
+        "led his family to Moab",
+        "died before the story's turn"
+      ],
+      "eraId": "era_judges",
+      "summary": "Naomi's husband, who took his family from Bethlehem to Moab to escape a famine, and died there before ever seeing them return.",
+      "verseIds": []
+    },
+    {
+      "id": "char_orpah",
+      "name": "Orpah",
+      "roles": [
+        "went back to her people"
+      ],
+      "eraId": "era_judges",
+      "summary": "Naomi's other daughter-in-law, who loved her enough to weep at their parting, but chose — reasonably, and without condemnation in the text — to return to her own people and gods rather than follow her into an uncertain future.",
       "verseIds": []
     }
   ]

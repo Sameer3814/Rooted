@@ -28,6 +28,13 @@
       "summary": "Generations after Joseph, a new king in Egypt enslaves Israel and orders Hebrew infant boys killed. One survives, is raised in Pharaoh's own house, and is called by God to lead his people out.",
       "order": 4,
       "approxRange": "generations after the patriarchs, in Egypt"
+    },
+    {
+      "id": "era_judges",
+      "name": "The Judges",
+      "summary": "Centuries after the Exodus, a chaotic period where everyone did what was right in their own eyes. Ruth's is a quiet story of loyalty inside it -- and it ends by naming David's great-grandparents.",
+      "order": 5,
+      "approxRange": "centuries after the Exodus, before Israel's kings"
     }
   ],
   "stories": [
@@ -744,6 +751,123 @@
       "topicIds": [
         "topic_worship",
         "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_famine_to_moab",
+      "title": "Famine drives them to Moab",
+      "summary": "A famine sends Elimelech, Naomi, and their two sons from Bethlehem to Moab. The sons marry Moabite women, Ruth and Orpah. Then all three men die, leaving Naomi with her daughters-in-law and nothing else.",
+      "primaryReference": "Ruth 1:1-5",
+      "eraId": "era_judges",
+      "canonicalOrder": 700,
+      "verseIds": [
+        "verse_ruth_1_1",
+        "verse_ruth_1_3",
+        "verse_ruth_1_4"
+      ],
+      "characterIds": [
+        "char_elimelech",
+        "char_naomi",
+        "char_ruth",
+        "char_orpah"
+      ],
+      "topicIds": [
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_ruth_clings_to_naomi",
+      "title": "\"Where you go, I will go\"",
+      "summary": "Naomi urges her daughters-in-law to go home to Moab and remarry. Orpah, weeping, does. Ruth refuses to leave, binding herself to Naomi's people and Naomi's God. They arrive in Bethlehem with nothing, at the start of the barley harvest.",
+      "primaryReference": "Ruth 1:6-22",
+      "eraId": "era_judges",
+      "canonicalOrder": 710,
+      "verseIds": [
+        "verse_ruth_1_14",
+        "verse_ruth_1_16",
+        "verse_ruth_1_17",
+        "verse_ruth_1_20",
+        "verse_ruth_1_21"
+      ],
+      "characterIds": [
+        "char_naomi",
+        "char_ruth",
+        "char_orpah"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_ruth_gleans_for_boaz",
+      "title": "Ruth gleans in Boaz's field",
+      "summary": "Ruth goes out to gather leftover grain to feed herself and Naomi, and happens into the field of Boaz, a relative of Naomi's dead husband. He has noticed everything she has done for Naomi, and tells his workers to leave extra for her on purpose.",
+      "primaryReference": "Ruth 2:1-23",
+      "eraId": "era_judges",
+      "canonicalOrder": 720,
+      "verseIds": [
+        "verse_ruth_2_2",
+        "verse_ruth_2_10",
+        "verse_ruth_2_11",
+        "verse_ruth_2_12"
+      ],
+      "characterIds": [
+        "char_ruth",
+        "char_boaz",
+        "char_naomi"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_provision",
+        "topic_refuge",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_ruth_at_the_threshing_floor",
+      "title": "Ruth asks for redemption",
+      "summary": "Naomi sends Ruth to Boaz at the threshing floor at night to ask him, as a near kinsman, to spread his garment over her — a claim of protection and marriage, not scandal. Boaz agrees, but names a closer relative who has first right to redeem her.",
+      "primaryReference": "Ruth 3:1-18",
+      "eraId": "era_judges",
+      "canonicalOrder": 730,
+      "verseIds": [
+        "verse_ruth_3_9",
+        "verse_ruth_3_10",
+        "verse_ruth_3_11"
+      ],
+      "characterIds": [
+        "char_ruth",
+        "char_boaz",
+        "char_naomi"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_boaz_redeems_ruth",
+      "title": "Boaz redeems Ruth",
+      "summary": "At the town gate, the nearer kinsman declines to redeem Elimelech's field once he learns it comes with Ruth. Boaz redeems it himself and marries her. She bears a son, Obed — the grandfather of Jesse, the father of David.",
+      "primaryReference": "Ruth 4:1-17",
+      "eraId": "era_judges",
+      "canonicalOrder": 740,
+      "verseIds": [
+        "verse_ruth_4_13",
+        "verse_ruth_4_14",
+        "verse_ruth_4_15",
+        "verse_ruth_4_17"
+      ],
+      "characterIds": [
+        "char_boaz",
+        "char_ruth",
+        "char_naomi"
+      ],
+      "topicIds": [
+        "topic_blessing",
+        "topic_faithfulness",
+        "topic_provision"
       ]
     }
   ],
@@ -1962,6 +2086,259 @@
         "char_moses"
       ],
       "sequenceInLife": 30
+    },
+    {
+      "id": "event_naomi_leaves",
+      "characterId": "char_naomi",
+      "title": "Leaves Bethlehem for Moab",
+      "description": "Famine drives her, her husband, and their two sons to Moabite country.",
+      "reference": "Ruth 1:1-2",
+      "storyId": "story_famine_to_moab",
+      "participantIds": [
+        "char_elimelech"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_naomi_bereaved",
+      "characterId": "char_naomi",
+      "title": "Loses her husband and both sons",
+      "description": "Elimelech dies, then ten years later both her sons — leaving her with only her two daughters-in-law.",
+      "reference": "Ruth 1:3-5",
+      "storyId": "story_famine_to_moab",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_naomi_sends_them_home",
+      "characterId": "char_naomi",
+      "title": "Urges Ruth and Orpah to go home",
+      "description": "With nothing left to offer them, she tells her daughters-in-law to return to their mothers' houses and remarry.",
+      "reference": "Ruth 1:6-13",
+      "storyId": "story_ruth_clings_to_naomi",
+      "participantIds": [
+        "char_ruth",
+        "char_orpah"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_naomi_returns_bitter",
+      "characterId": "char_naomi",
+      "title": "Returns to Bethlehem, calling herself Mara",
+      "description": "\"I went out full, and Yahweh has brought me home again empty.\"",
+      "reference": "Ruth 1:19-22",
+      "storyId": "story_ruth_clings_to_naomi",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_naomi_directs_ruth",
+      "characterId": "char_naomi",
+      "title": "Sends Ruth to Boaz's field, then to the threshing floor",
+      "description": "She recognises Boaz as a near kinsman and coaches Ruth on how to ask him for redemption.",
+      "reference": "Ruth 2:20-3:4",
+      "storyId": "story_ruth_at_the_threshing_floor",
+      "participantIds": [
+        "char_ruth",
+        "char_boaz"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_naomi_nurses_obed",
+      "characterId": "char_naomi",
+      "title": "Nurses her grandson Obed",
+      "description": "The women of Bethlehem tell her a son has been born to her, and name him Obed.",
+      "reference": "Ruth 4:14-17",
+      "storyId": "story_boaz_redeems_ruth",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_ruth_widowed",
+      "characterId": "char_ruth",
+      "title": "Marries into Naomi's family, then is widowed",
+      "description": "She marries one of Naomi's sons; ten years later he is dead along with his father and brother.",
+      "reference": "Ruth 1:4-5",
+      "storyId": "story_famine_to_moab",
+      "participantIds": [
+        "char_naomi",
+        "char_orpah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ruth_clings",
+      "characterId": "char_ruth",
+      "title": "Refuses to leave Naomi",
+      "description": "\"Where you go, I will go... your people will be my people, and your God my God.\"",
+      "reference": "Ruth 1:14-18",
+      "storyId": "story_ruth_clings_to_naomi",
+      "participantIds": [
+        "char_naomi",
+        "char_orpah"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ruth_gleans",
+      "characterId": "char_ruth",
+      "title": "Gleans in Boaz's field",
+      "description": "She asks to gather leftover grain, and happens into the field of a man who already knows what she has done for Naomi.",
+      "reference": "Ruth 2:2-17",
+      "storyId": "story_ruth_gleans_for_boaz",
+      "participantIds": [
+        "char_boaz"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_ruth_threshing_floor",
+      "characterId": "char_ruth",
+      "title": "Asks Boaz for redemption",
+      "description": "At the threshing floor at night, she asks him to spread his garment over her as a near kinsman.",
+      "reference": "Ruth 3:1-9",
+      "storyId": "story_ruth_at_the_threshing_floor",
+      "participantIds": [
+        "char_boaz",
+        "char_naomi"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_ruth_married",
+      "characterId": "char_ruth",
+      "title": "Redeemed and married by Boaz",
+      "description": "He takes her as his wife at the town gate, before the elders of the city.",
+      "reference": "Ruth 4:9-13",
+      "storyId": "story_boaz_redeems_ruth",
+      "participantIds": [
+        "char_boaz"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_ruth_bears_obed",
+      "characterId": "char_ruth",
+      "title": "Bears a son, Obed",
+      "description": "Her son becomes the grandfather of Jesse, the father of David.",
+      "reference": "Ruth 4:13-17",
+      "storyId": "story_boaz_redeems_ruth",
+      "participantIds": [
+        "char_naomi"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_boaz_notices_ruth",
+      "characterId": "char_boaz",
+      "title": "Notices Ruth gleaning",
+      "description": "He has already heard what she did for Naomi, and tells his workers to leave extra grain for her on purpose.",
+      "reference": "Ruth 2:5-16",
+      "storyId": "story_ruth_gleans_for_boaz",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_boaz_blesses_ruth",
+      "characterId": "char_boaz",
+      "title": "Praises her loyalty",
+      "description": "\"May Yahweh repay your work... under whose wings you have come to take refuge.\"",
+      "reference": "Ruth 2:11-12",
+      "storyId": "story_ruth_gleans_for_boaz",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_boaz_agrees",
+      "characterId": "char_boaz",
+      "title": "Agrees to redeem her, if the nearer kinsman won't",
+      "description": "He tells her to stay until morning, and names the one relative with a prior claim.",
+      "reference": "Ruth 3:10-13",
+      "storyId": "story_ruth_at_the_threshing_floor",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_boaz_redeems",
+      "characterId": "char_boaz",
+      "title": "Redeems the field and Ruth at the gate",
+      "description": "The nearer kinsman declines; Boaz redeems Elimelech's inheritance and takes Ruth as his wife.",
+      "reference": "Ruth 4:1-10",
+      "storyId": "story_boaz_redeems_ruth",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_boaz_fathers_obed",
+      "characterId": "char_boaz",
+      "title": "Fathers Obed",
+      "description": "His son with Ruth becomes the grandfather of Jesse, the father of David.",
+      "reference": "Ruth 4:13",
+      "storyId": "story_boaz_redeems_ruth",
+      "participantIds": [
+        "char_ruth"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_elimelech_leads_family",
+      "characterId": "char_elimelech",
+      "title": "Leads his family to Moab",
+      "description": "He takes his wife and two sons from Bethlehem to Moab to escape a famine.",
+      "reference": "Ruth 1:1-2",
+      "storyId": "story_famine_to_moab",
+      "participantIds": [
+        "char_naomi"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elimelech_dies",
+      "characterId": "char_elimelech",
+      "title": "Dies in Moab",
+      "description": "He never sees his family return to Bethlehem.",
+      "reference": "Ruth 1:3",
+      "storyId": "story_famine_to_moab",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_orpah_widowed",
+      "characterId": "char_orpah",
+      "title": "Marries into Naomi's family, then is widowed",
+      "description": "She marries one of Naomi's sons and is left a widow with Ruth and Naomi.",
+      "reference": "Ruth 1:4-5",
+      "storyId": "story_famine_to_moab",
+      "participantIds": [
+        "char_naomi",
+        "char_ruth"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_orpah_returns",
+      "characterId": "char_orpah",
+      "title": "Returns to her own people",
+      "description": "She weeps and kisses Naomi goodbye, and goes back to Moab — a choice the text never condemns.",
+      "reference": "Ruth 1:14",
+      "storyId": "story_ruth_clings_to_naomi",
+      "participantIds": [
+        "char_naomi",
+        "char_ruth"
+      ],
+      "sequenceInLife": 20
     }
   ]
 }

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (23 characters: 17 Genesis, 6 Exodus)
+### Character — *live* (28 characters: 17 Genesis, 6 Exodus, 5 Ruth)
 ```json
 {
   "id": "char_jacob",
@@ -223,7 +223,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (5 motifs)
+### Motif — *live* (6 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -245,8 +245,8 @@ barren-woman-given-a-child, water-in-the-wilderness…).
 - **`build_motifs.py` requires ≥2 `exampleReferences`.** A "motif" with one
   occurrence is just a fact about that one story — not curated as a motif
   until a genuine second instance exists in the content. (Done 2026-09-04,
-  §8.12): 5 motifs, all with 3 real instances each in the current Genesis +
-  early-Exodus content — not force-fit onto single occurrences.
+  §8.12): 6 motifs, each with real instances in the current content — not
+  force-fit onto single occurrences.
 
 ### Media — *planned*
 Illustrations, maps, decorative art. A **separate linked entity** so art style,
@@ -392,14 +392,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 247 verses + 28 topics + 23 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 266 verses + 29 topics + 28 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (5,207 verses: Genesis, Psalms, Exodus) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (5,292 verses: Genesis, Psalms, Exodus, Ruth) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 4 eras, 36 stories, 105 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 5 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 50 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 5 eras, 41 stories, 126 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 6 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 58 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -644,6 +644,19 @@ note).
     `relatedStories()` all fall straight out of the existing `connectionsFor()`
     — no new query machinery, which is exactly what making Connection generic
     back in §8.4 was for.
+13. **Expand beyond Genesis, continued: the whole book of Ruth.** **Done
+    (2026-09-04).** `era_judges` (order 5, after `era_exodus`); 5 characters
+    (Ruth, Naomi, Boaz, Elimelech, Orpah); 5 stories covering all 4 chapters;
+    19 life events; 19 curated verses; 1 new topic (`topic_loyalty` — human
+    steadfastness, distinct from `topic_faithfulness`'s framing around *God's*
+    loving-kindness); 8 new connections including a levirate-marriage-shaped
+    family (mother-in-law/daughter-in-law, sister-in-law, kinsman); and a 6th
+    motif, `motif_famine_and_a_foreign_land`, whose two instances are
+    `story_jacob_to_egypt` (Genesis) and the new `story_famine_to_moab` (Ruth)
+    — the first motif to span two different books, which is exactly the kind
+    of connection this whole schema exists to make visible. Same repeatable
+    shape as the Exodus expansion: parse the book, pick verses, write stories
+    and events, tag, then look for what it echoes in what's already there.
 
 ---
 
