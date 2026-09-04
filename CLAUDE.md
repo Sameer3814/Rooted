@@ -44,24 +44,28 @@ The schema was deliberately designed so all of the above can be added
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire app (vanilla JS, no framework, no build step).
   Screens: Home, Browse (search/drill the full corpus), Verse detail,
-  Topics, Topic detail, Characters, Character detail, Add Verse,
-  Add Character, Practice (two challenge types so far: fill-in-blank
-  and scramble).
+  Topics, Topic detail, People (grouped by era), Character detail
+  (life timeline, family, stories), Stories list, Story detail,
+  Add Verse, Add Character, Practice (two challenge types so far:
+  fill-in-blank and scramble).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
   first run: **230 verses** (Genesis + Psalms, WEB translation) across
   **27 topics** (270 tag assignments, 6–14 verses per topic, topics linked
-  to related topics), plus 11 Genesis characters with real relationships
+  to related topics), plus 17 Genesis characters with real relationships
   (father of, wife of, brother of, etc.).
-- `data/characters.json` — the same 11 characters, standalone. Generated
+- `data/characters.json` — the same 17 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed Genesis + Psalms corpus (3,994
   verses, WEB translation, public domain). Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse from
   Browse copies it into the user's overlay. Still untagged by topic.
+- `data/stories.json` — 3 eras, 32 Genesis stories and 85 life events.
+  Loaded at boot (it's small). Drives the character life timeline, the
+  Stories screens, People-grouped-by-era, and "appears alongside".
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
@@ -72,6 +76,9 @@ The schema was deliberately designed so all of the above can be added
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
     `data/characters.json`. Validates every cross-reference.
+  - `build_stories.py` — `pipeline/curation/stories.json` →
+    `data/stories.json`. Validates every era/story/character/participant/
+    topic/verse reference and every `sequenceInLife`.
   - `tag_verses.py` — curation aid that **writes nothing**: surfaces
     candidate verses per topic from `curation/topic_lexicon.json` so a
     human can hand-pick. Topic tags are curated, never generated —
@@ -162,17 +169,16 @@ hand-curate all the content before building.
    built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
    Home picker persisted to `rooted-settings`. Next: progressive reveal
    (`challenge_first_letters`), then matching / ordering.
-2. `Story` / `Era` / `LifeEvent` entities — needed for the character
-   timeline/"highlights of their life" feature and parallel-story
-   connections. **Agreed with the owner (2026-09-03) as the next thing
-   after topic tagging.**
-3. The generic `Connection` entity (Design philosophy #4) — migrate
-   `Character.relationships[]` to it first.
-4. Real character portrait illustrations in the warm-storybook style
+2. The generic `Connection` entity (Design philosophy #4) — migrate
+   `Character.relationships[]` to it first. More valuable now that stories
+   exist: it would also carry story→story links (foreshadows, parallels)
+   and motif instances, neither of which is built.
+3. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-5. Expanding character/relationship data beyond Genesis to other OT books
+4. Expanding character/relationship data beyond Genesis to other OT books
    (`parse_books.py --all` makes the text side trivial now).
-6. A UI for `settings.dailyGoal` (currently a fixed default of 10).
+5. A UI for `settings.dailyGoal` (currently a fixed default of 10).
+6. `Motif` entity — recurring biblical patterns. Designed, not built.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
@@ -182,6 +188,13 @@ Home picker (§8.5); `window.storage`→localStorage fallback for local dev;
 `pipeline/` rebuilt (§8.7); Browse screen wiring the full corpus into the
 app (§8.8); topic tagging at scale — 17→230 seed verses, 15→27 topics
 (§8.9).
+
+**Done (2026-09-04):** `Story`/`Era`/`LifeEvent` — 3 eras, 32 stories,
+85 life events, character life timelines, Story screens, People grouped
+by era, `Character.era`→`eraId` (§8.3, §8.10). `Character.roles` rewritten
+so they actually distinguish people — three men all reading "patriarch"
+told the reader nothing. The `relationships[]` data, present since the
+first commit but never rendered, now shows as a Family section.
 
 ## Source data provenance
 

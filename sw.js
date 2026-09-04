@@ -1,7 +1,9 @@
-const CACHE = 'rooted-v3';
-// data/verses.json (~1.2MB) is deliberately NOT precached — it's fetched lazily
+const CACHE = 'rooted-v4';
+// data/verses.json (~1.1MB) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then.
-const ASSETS = ['./', './index.html', './manifest.json', './icon.png', './data/starter-pack.json'];
+// starter-pack.json and stories.json load at boot, so they belong here.
+const ASSETS = ['./', './index.html', './manifest.json', './icon.png',
+                './data/starter-pack.json', './data/stories.json'];
 
 self.addEventListener('install', e=>{
   e.waitUntil(

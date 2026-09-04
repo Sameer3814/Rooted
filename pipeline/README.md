@@ -42,6 +42,23 @@ Every cross-reference is validated — a verse pointing at a topic that doesn't
 exist, a character related to a missing character, a topic linked to an unknown
 topic — and dangling ids are a hard error, not a warning.
 
+### `build_stories.py` — curation → `data/stories.json`
+Emits the Era, Story and LifeEvent seed from `curation/stories.json`.
+
+```sh
+py pipeline/build_stories.py
+py pipeline/build_stories.py --check
+```
+
+Validates every era, story, character, participant, topic and verse reference;
+rejects duplicate `sequenceInLife` within one character; and requires every
+character to have at least one life event and every story at least one character
+or verse (a record nothing links to is usually a mistake). Story `verseIds` must
+be verses that ship in the starter pack, so a story page can always render them.
+
+It also normalises: each event's subject is prepended to `participantIds`
+automatically, and an event inherits `eraId` from its story when omitted.
+
 ### `tag_verses.py` — curation aid, writes nothing
 Surfaces *candidate* verses for a topic so a human can pick the good ones. It
 reads `curation/topic_lexicon.json` (keyword hints per topic), scans the corpus,
@@ -83,6 +100,23 @@ considered and deliberately rejected in favour of a smaller curated set.
 **Never edit `data/*.json` by hand** — it is generated and will be overwritten.
 Verse text lives only in the corpus; the curation file holds selection and
 links, never a copy of the text.
+
+## Adding a character, story or life event
+
+Characters live in `curation/starter_pack.json`; eras, stories and life events
+live in `curation/stories.json`. Then run **both** builders — characters are
+validated against eras, and stories against verses:
+
+```sh
+py pipeline/build_starter_pack.py && py pipeline/build_stories.py
+```
+
+Two things worth knowing:
+- **`roles` should distinguish the person.** They're what the People list shows
+  under each name, so "called out of Ur" earns its place and "patriarch" does
+  not — three men carrying the same label tells the reader nothing.
+- **Give every character at least one life event.** The builder enforces it; a
+  character with an empty timeline looks broken in the app.
 
 ## Copyright
 

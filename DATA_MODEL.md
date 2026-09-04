@@ -86,7 +86,7 @@ not be able to delete a verse. See §7.
   the full corpus. Emitted by `pipeline/parse_books.py`. *(Live since
   2026-09-03; §8.2.)*
 - `translation` stays a string. WEB is the only value today; do not hardcode
-  that assumption anywhere. See §9.
+  that assumption anywhere. See §10.
 - `storyIds` / `motifIds` / `depthTags` are **new**, all optional, default `[]`.
 - **No `progress` field.** Progress lives in user state (`rooted-progress`),
   keyed by verse id — see §7. (Done 2026-09-03; §8.1.)
@@ -109,36 +109,44 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *partial* (10 Genesis characters)
+### Character — *live* (17 Genesis characters)
 ```json
 {
   "id": "char_jacob",
   "name": "Jacob",
   "alsoKnownAs": ["Israel"],
-  "roles": ["patriarch"],
+  "roles": ["renamed Israel", "father of the twelve tribes"],
   "eraId": "era_patriarchs",
   "summary": "Isaac and Rebekah's younger twin...",
+  "relationships": [{ "characterId": "char_esau", "type": "brother of" }],
   "verseIds": ["verse_genesis_28_15"],
-  "storyIds": ["story_jacobs_ladder", "story_jacob_wrestles_god"],
-  "lifeEventIds": ["event_jacob_ladder", "event_jacob_wrestles"],
   "mediaIds": ["media_char_jacob_portrait"],
   "depthTags": [],
   "metadata": {}
 }
 ```
-- `eraId` replaces the current free-string `era` (`"Patriarchs"`) with a
-  reference to an **Era** entity. Migration: map existing strings to `era_*`
-  ids. Keep the old `era` string in `metadata.legacyEra` during transition if
-  useful.
-- `alsoKnownAs` is **new** — needed for search (Abram/Abraham, Saul/Paul).
-- `relationships[]` (currently embedded on the character) **moves to
-  Connection**. This is the textbook case for the generic entity: the links are
+- `eraId` replaced the old free-string `era` (`"Patriarchs"`) — *(done
+  2026-09-04; §8.3)*.
+- **`roles` must distinguish the person.** Three men all tagged `"patriarch"`
+  told the reader nothing; roles are what the People list shows under each name,
+  so they should be the phrase you'd use to place someone — `"called out of
+  Ur"`, `"the promised son"`, `"sold his birthright"`. Free strings
+  (philosophy #1); `charIcon()` pattern-matches a few known words for an icon
+  and falls back to a generic one.
+- `alsoKnownAs` is **planned** — for search (Abram/Abraham, Saul/Paul).
+- `relationships[]` is still an embedded array; it **moves to Connection**
+  eventually. This is the textbook case for the generic entity: the links are
   typed ("son of"), directional, browsable in their own right, and will grow
-  notes. See §8.4 for migration.
-- `verseIds` / `storyIds` / `lifeEventIds` / `mediaIds` stay as embedded id
-  arrays — they're cheap, stable, and drive lookups the UI does constantly.
+  notes. See §8.4.
+- **No `storyIds` / `lifeEventIds` on Character.** Those point the other way —
+  `Story.characterIds` and `LifeEvent.characterId` / `participantIds` — and the
+  app derives a character's stories and timeline from them
+  (`characterStories`, `characterTimeline`). One direction only, so the two
+  can't disagree.
+- `verseIds` / `mediaIds` stay as embedded id arrays — cheap, stable, and drive
+  lookups the UI does constantly.
 
-### Story — *planned*
+### Story — *live*
 A narrative unit — one episode. Bigger than a verse, smaller than a book.
 ```json
 {
@@ -157,12 +165,15 @@ A narrative unit — one episode. Bigger than a verse, smaller than a book.
 }
 ```
 - `canonicalOrder` — an integer for rough chronological/narrative sorting across
-  the whole OT. Sparse on purpose (leave gaps: 1201, 1202 …) so stories can be
+  the whole OT. Sparse on purpose (leave gaps: 100, 110, 120 …) so stories can be
   inserted without renumbering. Not a claim about exact dates.
+- `verseIds` must be verses that **ship in the starter pack**, so a story page
+  can always render them as cards; `build_stories.py` enforces this. The full
+  span always lives in `primaryReference`, which is a display string, not ids.
 - Story-to-story links (foreshadows / parallels / fulfilled-by) are
-  **Connections**, not an embedded array.
+  **Connections**, not an embedded array. Not built yet.
 
-### Era — *planned*
+### Era — *live*
 A broad period, used for the timeline and "who else lived then."
 ```json
 {
@@ -178,7 +189,7 @@ A broad period, used for the timeline and "who else lived then."
 - `approxRange` — free string; scholarship varies and we don't want to imply
   false precision.
 
-### LifeEvent — *planned*
+### LifeEvent — *live*
 One dated-ish moment in a person's life. The unit behind the character timeline
 ("highlights of their life").
 ```json
@@ -196,13 +207,22 @@ One dated-ish moment in a person's life. The unit behind the character timeline
   "metadata": {}
 }
 ```
-- `characterId` is the primary subject; `participantIds` is everyone involved
-  (drives "this event also appears on Sarah's timeline").
-- `sequenceInLife` — integer ordering within that character's life. Sparse.
-- `ageApprox` — optional; only when the text gives it.
-- "Parallel events / stories happening at the same time" are computed two ways:
-  (a) same `eraId` + nearby `canonicalOrder`, (b) explicit Connection with a
-  relationship like `"contemporary of"` or `"parallels"`.
+- `characterId` is the primary subject — the person whose timeline this event
+  belongs to. `participantIds` is everyone in the scene; the build script
+  **prepends the subject automatically**, so curation only lists the others.
+- `sequenceInLife` — integer ordering within that character's life. Sparse
+  (10, 20, 30 …); `build_stories.py` rejects duplicates per character.
+- `ageApprox` — optional; only when the text actually gives it.
+- `eraId` is inherited from the event's story when omitted.
+- `storyId` is optional — a few events (Abraham's death, Rachel's death) belong
+  to no curated story. In the app those timeline entries simply aren't tappable.
+**"Who else was around then"** is deliberately computed from real co-occurrence
+rather than from an era label. `sharesScenesWith(charId)` collects everyone who
+appears in the same life events or stories — that's evidence, not a guess. Era
+grouping is shown separately and labelled honestly ("Also in The Patriarchs"),
+because an era spanning four generations does *not* make Abraham and Joseph
+contemporaries. Genuine parallel-story links will be **Connections**
+(`"contemporary of"`, `"parallels"`) when that's built.
 
 ### Motif — *planned*
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
@@ -348,7 +368,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus (3,994 verses, Genesis + Psalms) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | *planned* | Story + Era + LifeEvent seed |
+| `data/stories.json` | 3 eras, 32 stories, 85 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | *planned* | Motif seed |
 | `data/connections.json` | *planned* | Connection seed (incl. migrated character relationships) |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -405,6 +425,12 @@ Everything in `data/` is generated. **Never hand-edit `data/*.json`.**
   cross-reference; dangling ids are a hard error. Emits **no `progress` field**.
   `--check` verifies without writing.
 
+- **`pipeline/build_stories.py`** — `pipeline/curation/stories.json` →
+  `data/stories.json` (eras, stories, life events). Validates every era / story /
+  character / participant / topic / verse reference, rejects duplicate
+  `sequenceInLife` per character, and requires every character to have at least
+  one life event and every story at least one character or verse. Prepends each
+  event's subject to `participantIds` and inherits `eraId` from the story.
 - **`pipeline/tag_verses.py`** — a curation *aid* that writes nothing. Reads
   `curation/topic_lexicon.json` (keyword hints per topic) and prints ranked
   candidate verses for a human to hand-pick, ranked by keyword hits then
@@ -500,8 +526,11 @@ note).
    parser output; backfill existing seed verses.~~ **Done (2026-09-03)**, as
    part of rebuilding the pipeline (item 7). All 3,994 corpus verses and all 17
    starter verses carry them.
-3. **`Character.era` (string) → `eraId` (ref).** Create `era_*` entities; add
-   `data/stories.json` (or an eras file).
+3. ~~**`Character.era` (string) → `eraId` (ref).** Create `era_*` entities; add
+   `data/stories.json` (or an eras file).~~ **Done (2026-09-04).** 3 eras;
+   `data/stories.json` carries eras, stories and life events. People are grouped
+   by era, and `Character.roles` were rewritten to actually distinguish people
+   (three men reading "patriarch" told the reader nothing).
 4. **`Character.relationships[]` → Connection.** Create `data/connections.json`,
    move the ~20 embedded edges, add `symmetric` / `inverse`. Update the
    character detail screen to read Connections.
@@ -531,7 +560,14 @@ note).
    drill book → chapter → verse. Corpus is lazily fetched on first open
    (`loadCorpus`), never at boot, and not precached by the service worker.
    Adding a verse copies it into the user's `rooted-content` overlay, so it
-   immediately joins the practice rotation. See §11.
+   immediately joins the practice rotation. See §9.
+
+10. ~~**`Story` / `Era` / `LifeEvent` entities.**~~ **Done (2026-09-04).**
+    3 eras, 32 stories, 85 life events. Character detail now leads with a
+    **timeline** ("Their life"), then Family (the `relationships[]` data, which
+    had never been rendered), Stories, Key verses, "Appears alongside"
+    (co-occurrence) and "Also in <era>". New Story detail screen and a Stories
+    list grouped by era, reached from People. See §9.
 
 9. **Topic tagging at scale.** **Done (2026-09-03).** Seed grew from 17 verses /
    15 topics to **230 verses / 27 topics / 270 tag assignments**, every topic
@@ -540,6 +576,10 @@ note).
    for). Approach: `tag_verses.py` surfaces candidates from a keyword lexicon,
    a human picks — see §6. Genesis verses also gained `characterIds`, so
    character detail pages went from 0–2 verses to up to 18.
+
+---
+
+## 9. How the app reads this data
 
 ### Corpus vs. library
 An important distinction the UI depends on:
@@ -553,9 +593,22 @@ corpus and marked "in your verses" when `findVerse(id)` hits — the same stable
 id (`verse_genesis_1_3`) means adding is idempotent and a re-parse of the corpus
 can never duplicate a verse the user already has.
 
+### Derived, never stored twice
+Several things the UI shows are computed at render time rather than kept as
+fields, so two copies can never disagree:
+
+| Shown | Derived from |
+|-------|--------------|
+| A character's timeline | `LifeEvent.characterId`, ordered by `sequenceInLife` |
+| A character's stories | `Story.characterIds` |
+| "Appears alongside" | shared `LifeEvent.participantIds` / `Story.characterIds` — real co-occurrence, not an era guess |
+| "Also in <era>" | `Character.eraId`, and only for people *not* already listed above |
+| A topic's verses | `Verse.topicIds` |
+| Verses due today | `rooted-progress` + `isDue`, capped by `settings.dailyGoal` |
+
 ---
 
-## 9. Translations
+## 10. Translations
 
 `Verse.translation` is a per-verse string. WEB is the only value now and is
 public domain. Rules:
@@ -569,7 +622,7 @@ public domain. Rules:
 
 ---
 
-## 10. Open questions
+## 11. Open questions
 
 - Granularity of `canonicalOrder` / cross-OT event ordering — how precise do we
   actually want to be given genuine scholarly disagreement?

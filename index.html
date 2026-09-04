@@ -191,6 +191,21 @@
   }
   .segmented button.active{background:var(--gold-wash);color:var(--gold-deep);}
 
+  /* timeline */
+  .timeline{position:relative;padding-left:24px;margin-bottom:6px;}
+  .timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:var(--line);border-radius:2px;}
+  .tl-item{position:relative;margin-bottom:18px;}
+  .tl-item::before{
+    content:'';position:absolute;left:-24px;top:4px;width:12px;height:12px;
+    border-radius:50%;background:var(--paper);border:2px solid var(--gold);
+  }
+  .tl-item.tap{cursor:pointer;}
+  .tl-item.tap:active .tl-title{color:var(--gold-deep);}
+  .tl-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink);line-height:1.35;}
+  .tl-ref{font-size:11px;color:var(--gold-deep);font-weight:600;margin-top:2px;letter-spacing:.02em;}
+  .tl-age{color:var(--ink-faint);font-weight:400;}
+  .tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.5;margin-top:5px;}
+
   /* browse / search */
   .search-wrap{position:relative;margin-bottom:14px;}
   .search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-faint);font-size:18px;}
@@ -296,6 +311,16 @@ async function loadSeed(){
   }catch(e){ /* fall back to built-in seed */ }
   return seedData();
 }
+/* Eras, stories and life events. Seed-only for now (nothing here is user
+   editable), so it stays outside the content overlay. Small enough to load
+   at boot, unlike the corpus. */
+async function loadStories(){
+  try{
+    const res = await fetch('./data/stories.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* the app works without them; timeline sections just don't render */ }
+  return {eras:[], stories:[], lifeEvents:[]};
+}
 
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
 
@@ -380,6 +405,7 @@ let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
 let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
+let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
 
@@ -423,12 +449,53 @@ function practiceQueue(verses){
 }
 function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function charIcon(roles){
-  const r = (roles||[]).join(' ');
-  if(/king/.test(r)) return 'ti-crown';
+  const r = (roles||[]).join(' ').toLowerCase();
+  if(/king|crown/.test(r)) return 'ti-crown';
   if(/prophet/.test(r)) return 'ti-feather';
   if(/apostle|missionary/.test(r)) return 'ti-map-2';
-  if(/shepherd/.test(r)) return 'ti-mountain';
+  if(/shepherd|keeper of sheep|flock/.test(r)) return 'ti-mountain';
+  if(/ark|builder/.test(r)) return 'ti-ship';
+  if(/hunter|archer/.test(r)) return 'ti-bow';
+  if(/dream/.test(r)) return 'ti-moon-stars';
+  if(/governor|ruler|second in/.test(r)) return 'ti-building-castle';
+  if(/garden|tiller|ground|farm/.test(r)) return 'ti-plant-2';
+  if(/mother|matriarch|sister|wife/.test(r)) return 'ti-flower';
+  if(/father|nations|tribes|firstborn|son/.test(r)) return 'ti-tent';
+  if(/first man|first woman/.test(r)) return 'ti-seeding';
+  if(/servant|unloved/.test(r)) return 'ti-jug';
   return 'ti-user';
+}
+
+/* ---------- eras / stories / life events ---------- */
+function findEra(id){ return lore.eras.find(e=>e.id===id); }
+function findStory(id){ return lore.stories.find(s=>s.id===id); }
+function eraName(id){ const e = findEra(id); return e ? e.name : ''; }
+/* Events where this person is the subject — their own timeline. */
+function characterTimeline(charId){
+  return lore.lifeEvents
+    .filter(e=>e.characterId===charId)
+    .sort((a,b)=>(a.sequenceInLife||0)-(b.sequenceInLife||0));
+}
+/* Events they show up in but aren't the subject of. */
+function appearsIn(charId){
+  return lore.lifeEvents.filter(e=>e.characterId!==charId && (e.participantIds||[]).includes(charId));
+}
+function characterStories(charId){
+  return lore.stories.filter(s=>(s.characterIds||[]).includes(charId));
+}
+/* Who this person actually shares a scene with — real co-occurrence, not a
+   guess from a broad era label. */
+function sharesScenesWith(charId){
+  const ids = new Set();
+  for(const e of lore.lifeEvents){
+    const people = e.participantIds || [];
+    if(people.includes(charId)) people.forEach(p=>{ if(p!==charId) ids.add(p); });
+  }
+  for(const s of lore.stories){
+    const people = s.characterIds || [];
+    if(people.includes(charId)) people.forEach(p=>{ if(p!==charId) ids.add(p); });
+  }
+  return [...ids].map(findChar).filter(Boolean);
 }
 
 /* ---------- spaced repetition (simple) ---------- */
@@ -464,6 +531,8 @@ function render(){
   else if(view.screen==='topicDetail') app.innerHTML = renderTopicDetail(view.params.id);
   else if(view.screen==='characters') app.innerHTML = renderCharacters();
   else if(view.screen==='characterDetail') app.innerHTML = renderCharacterDetail(view.params.id);
+  else if(view.screen==='stories') app.innerHTML = renderStories();
+  else if(view.screen==='storyDetail') app.innerHTML = renderStoryDetail(view.params.id);
   else if(view.screen==='add') app.innerHTML = renderAddMenu();
   else if(view.screen==='addVerse') app.innerHTML = renderAddVerse();
   else if(view.screen==='addCharacter') app.innerHTML = renderAddCharacter();
@@ -721,25 +790,61 @@ function renderTopicDetail(id){
 
 /* ---------- CHARACTERS ---------- */
 function renderCharacters(){
+  if(!data.characters.length){
+    return `<div class="topbar"><h1>People</h1></div><div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`;
+  }
+  const grouped = lore.eras.map(era=>({
+    era,
+    people: data.characters.filter(c=>c.eraId===era.id)
+  })).filter(g=>g.people.length);
+  const ungrouped = data.characters.filter(c=>!c.eraId || !findEra(c.eraId));
   return `
     <div class="topbar"><h1>People</h1></div>
-    ${data.characters.length ? data.characters.map(c=>`
-      <div class="card tap" data-action="open-character" data-id="${c.id}">
-        <div class="char-row">
-          <div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
-          <div>
-            <h3>${esc(c.name)}</h3>
-            <div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div>
+    ${lore.stories.length ? `
+      <div class="card tap" data-action="open-stories">
+        <div class="char-row" style="justify-content:space-between;">
+          <div class="char-row">
+            <div class="avatar"><i class="ti ti-book"></i></div>
+            <div><h3>Stories</h3><p class="field-hint">${lore.stories.length} episodes across ${lore.eras.length} eras.</p></div>
           </div>
+          <i class="ti ti-chevron-right" style="color:var(--ink-faint);"></i>
         </div>
-      </div>`).join('') : `<div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`}
+      </div>` : ''}
+    ${grouped.map(g=>`
+      <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
+      ${g.people.map(c=>renderCharacterRow(c)).join('')}
+    `).join('')}
+    ${ungrouped.length ? `<div class="section-label">Others</div>${ungrouped.map(c=>renderCharacterRow(c)).join('')}` : ''}
   `;
+}
+function renderCharacterRow(c, action){
+  return `
+    <div class="card tap" data-action="${action || 'open-character'}" data-id="${c.id}">
+      <div class="char-row">
+        <div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
+        <div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(' · '))}</div></div>
+      </div>
+    </div>`;
+}
+function renderStoryCard(s){
+  return `
+    <div class="card tap" data-action="open-story" data-id="${s.id}">
+      <h3>${esc(s.title)}</h3>
+      <div class="ref" style="margin-top:3px;">${esc(s.primaryReference)}</div>
+      <p class="field-hint" style="margin-top:6px;line-height:1.5;">${esc(s.summary)}</p>
+    </div>`;
 }
 function renderCharacterDetail(id){
   const c = findChar(id);
   if(!c) return renderCharacters();
   const verses = data.verses.filter(v=>v.characterIds && v.characterIds.includes(id));
-  const contemporaries = data.characters.filter(o=>o.id!==id && o.era===c.era);
+  const timeline = characterTimeline(id);
+  const stories = characterStories(id);
+  const family = (c.relationships||[])
+    .map(r=>({rel:r, who:findChar(r.characterId)}))
+    .filter(x=>x.who);
+  const alsoWith = sharesScenesWith(id);
+  const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
@@ -750,16 +855,91 @@ function renderCharacterDetail(id){
         <div class="avatar" style="width:56px;height:56px;font-size:26px;"><i class="ti ${charIcon(c.roles)}"></i></div>
         <div>
           <div class="tag-row" style="margin-top:0;">${(c.roles||[]).map(r=>`<span class="tag plum">${esc(r)}</span>`).join('')}</div>
-          ${c.era? `<div class="meta" style="margin-top:6px;"><i class="ti ti-clock" style="font-size:13px;vertical-align:-1px;"></i> ${esc(c.era)}</div>`:''}
+          ${c.eraId ? `<div class="meta" style="margin-top:6px;"><i class="ti ti-clock" style="font-size:13px;vertical-align:-1px;"></i> ${esc(eraName(c.eraId))}</div>` : ''}
         </div>
       </div>
       <p>${esc(c.summary||'')}</p>
     </div>
+
+    ${timeline.length ? `
+      <div class="section-label">Their life <span style="color:var(--ink-faint);">${timeline.length} moments</span></div>
+      <div class="timeline">
+        ${timeline.map(e=>`
+          <div class="tl-item${e.storyId ? ' tap' : ''}"${e.storyId ? ` data-action="open-story" data-id="${e.storyId}"` : ''}>
+            <div class="tl-title">${esc(e.title)}</div>
+            <div class="tl-ref">${esc(e.reference)}${e.ageApprox ? ` <span class="tl-age">· aged about ${e.ageApprox}</span>` : ''}</div>
+            <div class="tl-desc">${esc(e.description)}</div>
+          </div>`).join('')}
+      </div>` : ''}
+
+    ${family.length ? `<div class="section-label">Family</div>
+      ${family.map(x=>`
+        <div class="card tap" data-action="open-character" data-id="${x.who.id}">
+          <div class="char-row">
+            <div class="avatar"><i class="ti ${charIcon(x.who.roles)}"></i></div>
+            <div><h3>${esc(x.who.name)}</h3><div class="meta">${esc(c.name)} is the ${esc(x.rel.type)} ${esc(x.who.name)}</div></div>
+          </div>
+        </div>`).join('')}` : ''}
+
+    ${stories.length ? `<div class="section-label">Stories</div>${stories.map(renderStoryCard).join('')}` : ''}
     ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
-    ${contemporaries.length ? `<div class="section-label">Same era (${esc(c.era)})</div>${contemporaries.map(o=>`
-      <div class="card tap" data-action="open-character" data-id="${o.id}">
-        <div class="char-row"><div class="avatar"><i class="ti ${charIcon(o.roles)}"></i></div><div><h3>${esc(o.name)}</h3><div class="meta">${esc((o.roles||[]).join(', '))}</div></div></div>
-      </div>`).join('')}` : ''}
+    ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${alsoWith.map(o=>renderCharacterRow(o)).join('')}` : ''}
+    ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${sameEra.map(o=>renderCharacterRow(o)).join('')}` : ''}
+  `;
+}
+
+/* ---------- STORY DETAIL ---------- */
+function renderStoryDetail(id){
+  const s = findStory(id);
+  if(!s) return renderCharacters();
+  const chars = (s.characterIds||[]).map(findChar).filter(Boolean);
+  const verses = (s.verseIds||[]).map(findVerse).filter(Boolean);
+  const topics = (s.topicIds||[]).map(findTopic).filter(Boolean);
+  const era = findEra(s.eraId);
+  const moments = lore.lifeEvents.filter(e=>e.storyId===id);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
+      <h2>Story</h2>
+    </div>
+    <div class="card">
+      <div class="ref">${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
+      <h2 style="margin:6px 0 8px;">${esc(s.title)}</h2>
+      <p style="color:var(--ink-soft);">${esc(s.summary)}</p>
+      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+    </div>
+    ${chars.length ? `<div class="section-label">Who's in it</div>${chars.map(o=>renderCharacterRow(o)).join('')}` : ''}
+    ${moments.length ? `<div class="section-label">Moments</div>
+      <div class="timeline">
+        ${moments.map(e=>{
+          const who = findChar(e.characterId);
+          return `<div class="tl-item">
+            <div class="tl-title">${esc(e.title)}</div>
+            <div class="tl-ref">${who ? esc(who.name) + ' · ' : ''}${esc(e.reference)}</div>
+            <div class="tl-desc">${esc(e.description)}</div>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+    ${verses.length ? `<div class="section-label">Verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+  `;
+}
+
+/* ---------- STORIES LIST ---------- */
+function renderStories(){
+  if(!lore.stories.length) return `<div class="topbar"><h1>Stories</h1></div><div class="empty"><i class="ti ti-book"></i><p>No stories loaded.</p></div>`;
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
+      <h2>Stories</h2>
+    </div>
+    ${lore.eras.map(era=>{
+      const inEra = lore.stories.filter(s=>s.eraId===era.id);
+      if(!inEra.length) return '';
+      return `
+        <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
+        <p class="field-hint" style="margin:-4px 0 10px;line-height:1.5;">${esc(era.summary)}</p>
+        ${inEra.map(renderStoryCard).join('')}`;
+    }).join('')}
   `;
 }
 
@@ -1109,6 +1289,9 @@ function onAction(e){
   else if(action==='back-to-topics') go('topics');
   else if(action==='open-character') go('characterDetail', {id});
   else if(action==='back-to-characters') go('characters');
+  else if(action==='open-stories') go('stories');
+  else if(action==='open-story') go('storyDetail', {id, from: view});
+  else if(action==='story-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('stories'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
@@ -1201,6 +1384,7 @@ async function migrateLegacy(seedContent){
   if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
 
   data = mergeContent(seed, content);
+  lore = await loadStories();
   render();
 })();
 
