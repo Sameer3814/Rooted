@@ -311,15 +311,22 @@ async function loadSeed(){
   }catch(e){ /* fall back to built-in seed */ }
   return seedData();
 }
-/* Eras, stories and life events. Seed-only for now (nothing here is user
-   editable), so it stays outside the content overlay. Small enough to load
-   at boot, unlike the corpus. */
+/* Eras, stories, life events and connections. Seed-only for now (nothing here
+   is user editable), so they stay outside the content overlay. Small enough to
+   load at boot, unlike the corpus. */
 async function loadStories(){
   try{
     const res = await fetch('./data/stories.json');
     if(res.ok) return await res.json();
   }catch(e){ /* the app works without them; timeline sections just don't render */ }
   return {eras:[], stories:[], lifeEvents:[]};
+}
+async function loadConnections(){
+  try{
+    const res = await fetch('./data/connections.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* Family sections just won't render */ }
+  return [];
 }
 
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
@@ -406,6 +413,7 @@ let progress = {};             // verseId -> VerseProgress, persisted to rooted-
 let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
+let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
 
@@ -482,6 +490,29 @@ function appearsIn(charId){
 }
 function characterStories(charId){
   return lore.stories.filter(s=>(s.characterIds||[]).includes(charId));
+}
+
+/* ---------- connections (DATA_MODEL.md §2) ----------
+   Each edge is stored once, directed; the reverse view is derived here from
+   `inverse` (a different label) or `symmetric` (the same label both ways) —
+   curation never writes the same fact twice. */
+function connectionsFor(type, id){
+  const out = [];
+  for(const c of connections){
+    if(c.fromType===type && c.fromId===id){
+      out.push({relationship:c.relationship, otherType:c.toType, otherId:c.toId});
+    }else if(c.toType===type && c.toId===id){
+      const rel = c.symmetric ? c.relationship : (c.inverse || c.relationship);
+      out.push({relationship:rel, otherType:c.fromType, otherId:c.fromId});
+    }
+  }
+  return out;
+}
+function characterRelationships(charId){
+  return connectionsFor('character', charId)
+    .filter(x=>x.otherType==='character')
+    .map(x=>({type:x.relationship, who:findChar(x.otherId)}))
+    .filter(x=>x.who);
 }
 /* Who this person actually shares a scene with — real co-occurrence, not a
    guess from a broad era label. */
@@ -840,9 +871,7 @@ function renderCharacterDetail(id){
   const verses = data.verses.filter(v=>v.characterIds && v.characterIds.includes(id));
   const timeline = characterTimeline(id);
   const stories = characterStories(id);
-  const family = (c.relationships||[])
-    .map(r=>({rel:r, who:findChar(r.characterId)}))
-    .filter(x=>x.who);
+  const family = characterRelationships(id);
   const alsoWith = sharesScenesWith(id);
   const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
   return `
@@ -877,7 +906,7 @@ function renderCharacterDetail(id){
         <div class="card tap" data-action="open-character" data-id="${x.who.id}">
           <div class="char-row">
             <div class="avatar"><i class="ti ${charIcon(x.who.roles)}"></i></div>
-            <div><h3>${esc(x.who.name)}</h3><div class="meta">${esc(c.name)} is the ${esc(x.rel.type)} ${esc(x.who.name)}</div></div>
+            <div><h3>${esc(x.who.name)}</h3><div class="meta">${esc(c.name)} is the ${esc(x.type)} ${esc(x.who.name)}</div></div>
           </div>
         </div>`).join('')}` : ''}
 
@@ -1385,6 +1414,7 @@ async function migrateLegacy(seedContent){
 
   data = mergeContent(seed, content);
   lore = await loadStories();
+  connections = await loadConnections();
   render();
 })();
 

@@ -118,7 +118,6 @@ not be able to delete a verse. See §7.
   "roles": ["renamed Israel", "father of the twelve tribes"],
   "eraId": "era_patriarchs",
   "summary": "Isaac and Rebekah's younger twin...",
-  "relationships": [{ "characterId": "char_esau", "type": "brother of" }],
   "verseIds": ["verse_genesis_28_15"],
   "mediaIds": ["media_char_jacob_portrait"],
   "depthTags": [],
@@ -134,10 +133,10 @@ not be able to delete a verse. See §7.
   (philosophy #1); `charIcon()` pattern-matches a few known words for an icon
   and falls back to a generic one.
 - `alsoKnownAs` is **planned** — for search (Abram/Abraham, Saul/Paul).
-- `relationships[]` is still an embedded array; it **moves to Connection**
-  eventually. This is the textbook case for the generic entity: the links are
-  typed ("son of"), directional, browsable in their own right, and will grow
-  notes. See §8.4.
+- **No `relationships[]` on Character.** Family links are **Connection**
+  records (below), queried at render time by `characterRelationships()`. Done
+  2026-09-04, §8.4 — this was the textbook case for the generic entity: the
+  links are typed ("son of"), directional, and browsable in their own right.
 - **No `storyIds` / `lifeEventIds` on Character.** Those point the other way —
   `Story.characterIds` and `LifeEvent.characterId` / `participantIds` — and the
   app derives a character's stories and timeline from them
@@ -265,7 +264,7 @@ multiple images, and dark-mode variants can change without touching content.
 - `subjectType` / `subjectId` — what the media is *of*. Also discoverable from
   the subject via its `mediaIds` array.
 
-### Connection — *planned* (the generic relationship entity)
+### Connection — *live* (the generic relationship entity)
 One directed, typed edge between any two entities. Replaces embedded
 relationship arrays. Design philosophy #4.
 ```json
@@ -288,6 +287,8 @@ Rules:
   `"contemporary of"`), the app shows it from both ends. If not, `inverse` gives
   the label to show from the other end (`"child of"` ⇄ `"parent of"`); the app
   derives the reverse view rather than storing a second row.
+  `build_connections.py` requires exactly one of `inverse` / `symmetric` on
+  every edge, so a reverse view is never silently missing.
 - `fromType` / `toType` are entity-type strings: `character`, `story`, `verse`,
   `topic`, `motif`, `era`.
 - What belongs in Connection: anything typed with a label, anything carrying
@@ -296,6 +297,16 @@ Rules:
 - What stays an embedded id array: plain membership/tagging lookups the UI does
   constantly — `Verse.topicIds`, `Verse.characterIds`, `Story.verseIds`,
   `Character.storyIds`, etc.
+
+**Live since 2026-09-04 (§8.4)**, migrated from `Character.relationships[]`:
+26 connections replace 51 embedded entries — most relationship facts had been
+stored twice (Abraham "husband of" Sarah *and* Sarah "wife of" Abraham as two
+separate embedded rows); Connection stores each fact once and derives the
+other direction. The migration also **found a gap for free**: Abraham→Hagar
+had no reverse entry in the old data, so Hagar's page never showed she was his
+wife — `connectionsFor()` now derives it correctly from the one stored edge.
+`data/connections.json` is small and loaded at boot alongside `stories.json`,
+outside the content overlay (nothing here is user-editable yet).
 
 ---
 
@@ -370,7 +381,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
 | `data/stories.json` | 3 eras, 32 stories, 85 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | *planned* | Motif seed |
-| `data/connections.json` | *planned* | Connection seed (incl. migrated character relationships) |
+| `data/connections.json` | 26 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -431,6 +442,11 @@ Everything in `data/` is generated. **Never hand-edit `data/*.json`.**
   `sequenceInLife` per character, and requires every character to have at least
   one life event and every story at least one character or verse. Prepends each
   event's subject to `participantIds` and inherits `eraId` from the story.
+- **`pipeline/build_connections.py`** — `pipeline/curation/connections.json` →
+  `data/connections.json`. Requires exactly one of `inverse` / `symmetric` per
+  edge, rejects an edge connecting an entity to itself, rejects the same fact
+  stored twice, and validates every `fromId`/`toId` against the entity types
+  that exist so far (`character`, `story`, `topic`, `verse`, `era`).
 - **`pipeline/tag_verses.py`** — a curation *aid* that writes nothing. Reads
   `curation/topic_lexicon.json` (keyword hints per topic) and prints ranked
   candidate verses for a human to hand-pick, ranked by keyword hits then
@@ -531,9 +547,15 @@ note).
    `data/stories.json` carries eras, stories and life events. People are grouped
    by era, and `Character.roles` were rewritten to actually distinguish people
    (three men reading "patriarch" told the reader nothing).
-4. **`Character.relationships[]` → Connection.** Create `data/connections.json`,
+4. ~~**`Character.relationships[]` → Connection.** Create `data/connections.json`,
    move the ~20 embedded edges, add `symmetric` / `inverse`. Update the
-   character detail screen to read Connections.
+   character detail screen to read Connections.~~ **Done (2026-09-04).**
+   26 connections replace 51 embedded entries (most facts had been stored
+   twice, once per direction). `pipeline/build_connections.py` requires
+   `inverse` or `symmetric` on every edge and validates every reference.
+   `connectionsFor()` / `characterRelationships()` derive the reverse view at
+   render time. Caught a real gap in the old data for free: Abraham→Hagar had
+   no reverse entry, so her page never said she was his wife.
 5. ~~**Factor fill-in-blank into the ChallengeType interface** (§3) before adding
    scramble.~~ **Done (2026-09-03).** `CHALLENGE_TYPES` registry;
    `buildBlanks`/hardcoded practice flow replaced by `build/render/check/score`.
@@ -601,6 +623,7 @@ fields, so two copies can never disagree:
 |-------|--------------|
 | A character's timeline | `LifeEvent.characterId`, ordered by `sequenceInLife` |
 | A character's stories | `Story.characterIds` |
+| A character's family | `connectionsFor('character', id)` — one directed edge per fact, reverse label derived from `inverse`/`symmetric` |
 | "Appears alongside" | shared `LifeEvent.participantIds` / `Story.characterIds` — real co-occurrence, not an era guess |
 | "Also in <era>" | `Character.eraId`, and only for people *not* already listed above |
 | A topic's verses | `Verse.topicIds` |

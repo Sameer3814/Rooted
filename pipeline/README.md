@@ -59,6 +59,23 @@ be verses that ship in the starter pack, so a story page can always render them.
 It also normalises: each event's subject is prepended to `participantIds`
 automatically, and an event inherits `eraId` from its story when omitted.
 
+### `build_connections.py` — curation → `data/connections.json`
+Emits the generic Connection entity from `curation/connections.json` — the
+`{fromType, fromId, relationship, toType, toId}` edge that replaces embedded
+relationship arrays (`Character.relationships[]` was the original one).
+
+```sh
+py pipeline/build_connections.py
+py pipeline/build_connections.py --check
+```
+
+**Store each fact once.** Every edge needs exactly one of `inverse` (a
+different label for the reverse view, e.g. `"father of"` ⇄ `"son of"`) or
+`symmetric: true` (the same label both ways, e.g. `"brother of"`) — the builder
+rejects an edge with neither, or with both. The app derives the reverse view at
+render time (`connectionsFor()`), so don't write the same fact twice from both
+ends the way the old embedded arrays did.
+
 ### `tag_verses.py` — curation aid, writes nothing
 Surfaces *candidate* verses for a topic so a human can pick the good ones. It
 reads `curation/topic_lexicon.json` (keyword hints per topic), scans the corpus,
@@ -104,11 +121,12 @@ links, never a copy of the text.
 ## Adding a character, story or life event
 
 Characters live in `curation/starter_pack.json`; eras, stories and life events
-live in `curation/stories.json`. Then run **both** builders — characters are
-validated against eras, and stories against verses:
+live in `curation/stories.json`; family/other relationships live in
+`curation/connections.json`. Run all three builders — later ones validate
+against earlier ones' output:
 
 ```sh
-py pipeline/build_starter_pack.py && py pipeline/build_stories.py
+py pipeline/build_starter_pack.py && py pipeline/build_stories.py && py pipeline/build_connections.py
 ```
 
 Two things worth knowing:

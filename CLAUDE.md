@@ -66,6 +66,9 @@ The schema was deliberately designed so all of the above can be added
 - `data/stories.json` — 3 eras, 32 Genesis stories and 85 life events.
   Loaded at boot (it's small). Drives the character life timeline, the
   Stories screens, People-grouped-by-era, and "appears alongside".
+- `data/connections.json` — 26 generic Connection edges (Design philosophy
+  #4). Replaces the old embedded `Character.relationships[]`; loaded at
+  boot. Drives the Family section on character pages.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
@@ -79,6 +82,10 @@ The schema was deliberately designed so all of the above can be added
   - `build_stories.py` — `pipeline/curation/stories.json` →
     `data/stories.json`. Validates every era/story/character/participant/
     topic/verse reference and every `sequenceInLife`.
+  - `build_connections.py` — `pipeline/curation/connections.json` →
+    `data/connections.json`. Requires `inverse` or `symmetric` on every
+    edge so a reverse view is never silently missing; rejects the same
+    fact stored twice.
   - `tag_verses.py` — curation aid that **writes nothing**: surfaces
     candidate verses per topic from `curation/topic_lexicon.json` so a
     human can hand-pick. Topic tags are curated, never generated —
@@ -128,13 +135,14 @@ the "what."
 3. **Media is a separate linked entity**, not embedded fields on
    Character/Story — so art style, multiple images, dark-mode variants,
    etc. can be added without touching content.
-4. **Connections should eventually be a generic entity** —
-   `{ fromId, fromType, toId, toType, relationship, notes }` — rather than
-   relationship arrays embedded separately in Character and Story. The
-   current `characters.json` uses an embedded `relationships[]` array as
-   a shortcut for the MVP; if a `Story` or `Topic-to-Topic` connection
-   system gets built, prefer migrating to the generic Connection shape
-   rather than adding more embedded arrays.
+4. **Connections are a generic entity** —
+   `{ fromType, fromId, relationship, toType, toId, symmetric|inverse, notes }`
+   — rather than relationship arrays embedded separately per entity type.
+   **Live since 2026-09-04** (`data/connections.json`, `pipeline/curation/
+   connections.json`, `build_connections.py`): `Character.relationships[]`
+   was the MVP shortcut this was always meant to replace. When a
+   `Story`-to-`Story` or `Topic`-to-`Topic` connection system gets built,
+   it goes here too — don't add another embedded array.
 5. **Challenge types should be pluggable**, described by data
    (`appliesToEntityTypes`, etc.) rather than a hardcoded switch — only
    fill-in-blank exists right now; when adding scramble/speed
@@ -169,16 +177,13 @@ hand-curate all the content before building.
    built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
    Home picker persisted to `rooted-settings`. Next: progressive reveal
    (`challenge_first_letters`), then matching / ordering.
-2. The generic `Connection` entity (Design philosophy #4) — migrate
-   `Character.relationships[]` to it first. More valuable now that stories
-   exist: it would also carry story→story links (foreshadows, parallels)
-   and motif instances, neither of which is built.
-3. Real character portrait illustrations in the warm-storybook style
+2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-4. Expanding character/relationship data beyond Genesis to other OT books
+3. Expanding character/relationship data beyond Genesis to other OT books
    (`parse_books.py --all` makes the text side trivial now).
-5. A UI for `settings.dailyGoal` (currently a fixed default of 10).
-6. `Motif` entity — recurring biblical patterns. Designed, not built.
+4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
+5. `Motif` entity, and story→story Connections (foreshadows/parallels) —
+   the generic entity exists now, nothing populates these yet.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
@@ -193,8 +198,11 @@ app (§8.8); topic tagging at scale — 17→230 seed verses, 15→27 topics
 85 life events, character life timelines, Story screens, People grouped
 by era, `Character.era`→`eraId` (§8.3, §8.10). `Character.roles` rewritten
 so they actually distinguish people — three men all reading "patriarch"
-told the reader nothing. The `relationships[]` data, present since the
-first commit but never rendered, now shows as a Family section.
+told the reader nothing. The generic `Connection` entity (§8.4) — 26
+connections replace 51 embedded `relationships[]` entries (most facts had
+been stored twice, once per direction); the migration's validation also
+caught a real gap in the old data (Abraham→Hagar had no reverse entry) and
+fixed it for free.
 
 ## Source data provenance
 

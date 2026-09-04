@@ -75,9 +75,8 @@ def build(curation, corpus):
         problems += ["%s -> unknown character %s" % (verse["id"], c)
                      for c in verse["characterIds"] if c not in char_ids]
     for character in curation["characters"]:
-        problems += ["%s -> unknown character %s" % (character["id"], r["characterId"])
-                     for r in character.get("relationships", [])
-                     if r["characterId"] not in char_ids]
+        # character-to-character relationships live in connections.json / Connection
+        # (DATA_MODEL.md §2), validated by build_connections.py, not here.
         problems += ["%s -> unknown verse %s" % (character["id"], v)
                      for v in character.get("verseIds", [])
                      if v not in {x["id"] for x in verses}]
