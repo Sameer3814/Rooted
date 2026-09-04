@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (30 characters: 17 Genesis, 8 Exodus, 5 Ruth)
+### Character — *live* (32 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus)
 ```json
 {
   "id": "char_jacob",
@@ -392,14 +392,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 300 verses + 29 topics + 30 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 319 verses + 31 topics + 32 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (5,292 verses: Genesis, Psalms, Exodus, Ruth) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`). Text unchanged this pass — the whole book was already parsed; this pass added curation on top of it. |
+| `data/verses.json` | full parsed WEB corpus (6,151 verses: Genesis, Psalms, Exodus, Ruth, Leviticus) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 5 eras, 51 stories, 145 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 5 eras, 54 stories, 153 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 7 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 61 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 65 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -676,6 +676,22 @@ note).
     Ruth landed earlier, out of order, and stays — it isn't being undone,
     this just governs what comes next. **Leviticus is a different shape of
     problem** — see §11.
+15. **Leviticus.** **Done (2026-09-04).** Owner's choice from §11's three
+    options: **Story treatment for the few real narrative incidents**, on top
+    of a verses-and-topics pass across the legal material. 3 new stories (the
+    ordination of Aaron, Nadab and Abihu's death, the blasphemer stoned) —
+    genuinely all the narrative Leviticus has in 27 chapters; 2 new characters
+    (Nadab, Abihu — Aaron's sons, needed for the second story); 19 curated
+    verses across the law, including Leviticus 19:18 ("love your neighbor as
+    yourself" — from here, not the New Testament) and 11:44/19:2 ("be holy,
+    for I am holy"); 2 new topics, `topic_holiness` and `topic_love`, neither
+    of which the existing 29 could honestly cover; and the first
+    `"contrasts with"` story↔story Connection — the ordination and Nadab-and-
+    Abihu stories are a deliberate pair in the text itself (the same fire
+    from Yahweh that accepts one offering kills two sons for another, days
+    apart), so the relationship label needed to say that rather than reuse
+    `"parallels"`. No new era — Leviticus happens while Israel is still
+    camped at Sinai, so its content stays in `era_exodus`.
 
 ---
 
@@ -735,18 +751,9 @@ public domain. Rules:
 - Do user-added characters/verses get to participate in Connections and motifs,
   or are those seed-only for now?
 - Multi-translation UI: side-by-side, toggle, or per-verse preference?
-- **§8.14: how should Leviticus (and similar law-heavy books) be curated?**
-  Genesis/Exodus/Ruth all fit the same playbook because they're narrative —
-  era → characters → stories → life events. Leviticus is almost entirely law
-  and ritual instruction; it has maybe three narrative incidents in 27
-  chapters (Nadab and Abihu's death, the blasphemer stoned, the octave of
-  ordination) and no real character arcs. Forcing the Genesis/Exodus story
-  shape onto it would mean thin, padded-out "stories" that don't earn their
-  place. Options, not yet decided: (a) verses-and-topics only for Leviticus —
-  no new Story/Era content, just curate strong topical verses (holiness,
-  atonement, love your neighbor as yourself is *in* Leviticus) into the
-  existing topic set; (b) the handful of genuine narrative incidents get
-  Story treatment and the rest is verses-only; (c) skip ahead to Numbers,
-  which has substantially more narrative (the spies, Korah's rebellion,
-  Balaam's donkey, the bronze serpent), and come back to Leviticus later.
-  Ask the owner before starting it rather than guessing.
+- ~~§8.14: how should Leviticus be curated?~~ **Resolved (2026-09-04),
+  §8.15** — option (b): Story treatment for the ~3 genuine narrative
+  incidents, verses-and-topics for the rest. The same question will come back
+  for any future law-heavy book (large stretches of Numbers and Deuteronomy
+  are also legal/instructional, not narrative) — reuse this decision rather
+  than re-litigating it each time, unless the owner says otherwise.

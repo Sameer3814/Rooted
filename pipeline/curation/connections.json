@@ -551,6 +551,43 @@
       "toType": "story",
       "toId": "story_golden_calf",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_aaron_father_of_nadab",
+      "fromType": "character",
+      "fromId": "char_aaron",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_nadab",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_aaron_father_of_abihu",
+      "fromType": "character",
+      "fromId": "char_aaron",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_abihu",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_nadab_brother_of_abihu",
+      "fromType": "character",
+      "fromId": "char_nadab",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_abihu",
+      "symmetric": true
+    },
+    {
+      "id": "conn_nadab_abihu_contrasts_ordination",
+      "fromType": "story",
+      "fromId": "story_nadab_and_abihu",
+      "relationship": "contrasts with",
+      "toType": "story",
+      "toId": "story_ordination_of_aaron",
+      "symmetric": true,
+      "notes": "The same fire from Yahweh that accepts the ordination offering kills Nadab and Abihu days later for an unauthorized one."
     }
   ]
 }

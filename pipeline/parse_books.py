@@ -29,7 +29,7 @@ data/verses.json — a flat array of Verse objects (DATA_MODEL.md §2):
 
 Usage
 -----
-    py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth (shipped set)
+    py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus (shipped set)
     py pipeline/parse_books.py --books genesis exodus
     py pipeline/parse_books.py --all                # all 66 books
     py pipeline/parse_books.py --out data/verses.json --indent 2
@@ -49,7 +49,7 @@ CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".cache")
 DEFAULT_OUT = os.path.join(REPO_ROOT, "data", "verses.json")
 
 # The books currently shipped in data/verses.json.
-DEFAULT_BOOKS = ["genesis", "psalms", "exodus", "ruth"]
+DEFAULT_BOOKS = ["genesis", "psalms", "exodus", "ruth", "leviticus"]
 
 # slug (== source filename stem, == the slug used in verse ids) -> display name
 BOOKS = {

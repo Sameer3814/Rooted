@@ -2325,6 +2325,145 @@
         "topic_presence"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_9_23",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_leviticus_9_24",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_10_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_nadab",
+        "char_abihu",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_leviticus_10_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_nadab",
+        "char_abihu"
+      ]
+    },
+    {
+      "id": "verse_leviticus_10_3",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": [
+        "char_aaron",
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_leviticus_11_44",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_16_30",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_17_11",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_19_2",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_19_18",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_19_32",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_19_34",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_24_10",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_24_11",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_24_14",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_leviticus_24_16",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_24_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_leviticus_25_10",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_leviticus_26_12",
+      "topicIds": [
+        "topic_covenant",
+        "topic_presence"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -2450,7 +2589,8 @@
       "relatedTopicIds": [
         "topic_creation",
         "topic_presence",
-        "topic_worship"
+        "topic_worship",
+        "topic_holiness"
       ]
     },
     {
@@ -2460,7 +2600,8 @@
       "relatedTopicIds": [
         "topic_humility",
         "topic_sorrow",
-        "topic_faithfulness"
+        "topic_faithfulness",
+        "topic_love"
       ]
     },
     {
@@ -2602,7 +2743,8 @@
       "relatedTopicIds": [
         "topic_thanksgiving",
         "topic_creation",
-        "topic_presence"
+        "topic_presence",
+        "topic_holiness"
       ]
     },
     {
@@ -2621,7 +2763,26 @@
       "description": "Steadfast love and commitment that stays when it would be easier to leave.",
       "relatedTopicIds": [
         "topic_faithfulness",
-        "topic_covenant"
+        "topic_covenant",
+        "topic_love"
+      ]
+    },
+    {
+      "id": "topic_holiness",
+      "name": "Holiness",
+      "description": "Being set apart, because the God who set you apart is set apart.",
+      "relatedTopicIds": [
+        "topic_worship",
+        "topic_identity"
+      ]
+    },
+    {
+      "id": "topic_love",
+      "name": "Love",
+      "description": "Loving God and neighbor well — including the neighbor who isn't like you.",
+      "relatedTopicIds": [
+        "topic_loyalty",
+        "topic_justice"
       ]
     }
   ],
@@ -3011,6 +3172,28 @@
       ],
       "eraId": "era_exodus",
       "summary": "Moses' young aide, first seen leading Israel's fighting men against Amalek and lingering in the tent of meeting after Moses left it. He becomes the far more central figure who leads Israel into the promised land.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nadab",
+      "name": "Nadab",
+      "roles": [
+        "Aaron's firstborn",
+        "died offering unauthorized fire"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Aaron's oldest son, ordained a priest alongside his father and brothers — and killed by fire from Yahweh days later for offering incense God never commanded.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abihu",
+      "name": "Abihu",
+      "roles": [
+        "Aaron's second son",
+        "died offering unauthorized fire"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Aaron's second son, ordained alongside his brother Nadab and killed with him the same way, in the same moment.",
       "verseIds": []
     }
   ]

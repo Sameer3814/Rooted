@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -160,6 +160,15 @@ Worth knowing:
   occurrence is just a fact about that story; `build_motifs.py` requires at
   least 2 `exampleReferences`. Don't force a pattern onto content that only
   has one example — wait until a real second one turns up.
+- **Books are being added in canonical order** (Genesis, Exodus, Leviticus,
+  Numbers, ... — Ruth landed earlier and is the one exception). Books are not
+  all the same shape, though: Genesis, Exodus and Ruth are narrative and fit
+  the full playbook above. Leviticus is almost entirely law and ritual — it
+  got a lighter pass instead: verses and topics throughout, Story treatment
+  only for its handful of genuine narrative incidents (ordination of Aaron,
+  Nadab and Abihu, the blasphemer — three in 27 chapters). Large stretches of
+  Numbers and Deuteronomy are law-heavy too; reuse that same lighter approach
+  for those sections rather than forcing thin stories out of legal material.
 
 ## Copyright
 

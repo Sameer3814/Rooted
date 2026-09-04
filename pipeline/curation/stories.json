@@ -1086,6 +1086,71 @@
         "topic_presence",
         "topic_worship"
       ]
+    },
+    {
+      "id": "story_ordination_of_aaron",
+      "title": "Aaron ordained as priest",
+      "summary": "After seven days of ordination rites, Aaron and his sons offer the first sacrifices as priests. Fire comes out from before Yahweh and consumes the offering, and the whole camp shouts and falls on its face.",
+      "primaryReference": "Leviticus 8:1-9:24",
+      "eraId": "era_exodus",
+      "canonicalOrder": 691,
+      "verseIds": [
+        "verse_leviticus_9_23",
+        "verse_leviticus_9_24"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_nadab",
+        "char_abihu"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_holiness"
+      ]
+    },
+    {
+      "id": "story_nadab_and_abihu",
+      "title": "Nadab and Abihu",
+      "summary": "Two of Aaron's sons offer incense with fire God never authorized, and fire from Yahweh kills them on the spot, in front of their father. Moses tells Aaron this is exactly what God meant by being shown holy among those who come near him. Aaron says nothing.",
+      "primaryReference": "Leviticus 10:1-3",
+      "eraId": "era_exodus",
+      "canonicalOrder": 693,
+      "verseIds": [
+        "verse_leviticus_10_1",
+        "verse_leviticus_10_2",
+        "verse_leviticus_10_3"
+      ],
+      "characterIds": [
+        "char_aaron",
+        "char_moses",
+        "char_nadab",
+        "char_abihu"
+      ],
+      "topicIds": [
+        "topic_holiness"
+      ]
+    },
+    {
+      "id": "story_the_blasphemer",
+      "title": "The blasphemer",
+      "summary": "A man in the camp curses Yahweh's name during a fight. Israel holds him in custody until Yahweh tells Moses exactly what to do: everyone who heard him lays a hand on his head, and the whole community stones him.",
+      "primaryReference": "Leviticus 24:10-23",
+      "eraId": "era_exodus",
+      "canonicalOrder": 695,
+      "verseIds": [
+        "verse_leviticus_24_10",
+        "verse_leviticus_24_11",
+        "verse_leviticus_24_14",
+        "verse_leviticus_24_16",
+        "verse_leviticus_24_23"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
     }
   ],
   "lifeEvents": [
@@ -2773,6 +2838,107 @@
       "storyId": "story_golden_calf",
       "participantIds": [
         "char_moses"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_moses_ordains_aaron",
+      "characterId": "char_moses",
+      "title": "Ordains Aaron and his sons",
+      "description": "He carries out seven days of ordination rites exactly as commanded.",
+      "reference": "Leviticus 8:1-36",
+      "storyId": "story_ordination_of_aaron",
+      "participantIds": [
+        "char_aaron"
+      ],
+      "sequenceInLife": 180
+    },
+    {
+      "id": "event_moses_judges_blasphemer",
+      "characterId": "char_moses",
+      "title": "Rules on the blasphemer",
+      "description": "He holds the man until Yahweh tells him exactly what the community must do.",
+      "reference": "Leviticus 24:10-23",
+      "storyId": "story_the_blasphemer",
+      "sequenceInLife": 190
+    },
+    {
+      "id": "event_aaron_ordained",
+      "characterId": "char_aaron",
+      "title": "Ordained as priest",
+      "description": "He and his sons offer the first sacrifices; fire from Yahweh consumes the offering and the camp shouts.",
+      "reference": "Leviticus 8:1-9:24",
+      "storyId": "story_ordination_of_aaron",
+      "participantIds": [
+        "char_moses",
+        "char_nadab",
+        "char_abihu"
+      ],
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_aaron_loses_sons",
+      "characterId": "char_aaron",
+      "title": "Loses Nadab and Abihu",
+      "description": "Fire from Yahweh kills both sons in front of him for an offering he never commanded. Aaron says nothing.",
+      "reference": "Leviticus 10:1-3",
+      "storyId": "story_nadab_and_abihu",
+      "participantIds": [
+        "char_nadab",
+        "char_abihu",
+        "char_moses"
+      ],
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_nadab_ordained",
+      "characterId": "char_nadab",
+      "title": "Ordained a priest",
+      "description": "He is set apart alongside his father and brothers.",
+      "reference": "Leviticus 8:1-36",
+      "storyId": "story_ordination_of_aaron",
+      "participantIds": [
+        "char_aaron",
+        "char_moses"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nadab_dies",
+      "characterId": "char_nadab",
+      "title": "Dies offering unauthorized fire",
+      "description": "He and his brother Abihu offer incense God never commanded, and are killed instantly.",
+      "reference": "Leviticus 10:1-2",
+      "storyId": "story_nadab_and_abihu",
+      "participantIds": [
+        "char_abihu",
+        "char_aaron"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_abihu_ordained",
+      "characterId": "char_abihu",
+      "title": "Ordained a priest",
+      "description": "He is set apart alongside his father and brothers.",
+      "reference": "Leviticus 8:1-36",
+      "storyId": "story_ordination_of_aaron",
+      "participantIds": [
+        "char_aaron",
+        "char_moses"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abihu_dies",
+      "characterId": "char_abihu",
+      "title": "Dies offering unauthorized fire",
+      "description": "He and his brother Nadab offer incense God never commanded, and are killed instantly.",
+      "reference": "Leviticus 10:1-2",
+      "storyId": "story_nadab_and_abihu",
+      "participantIds": [
+        "char_nadab",
+        "char_aaron"
       ],
       "sequenceInLife": 20
     }

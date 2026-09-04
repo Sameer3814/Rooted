@@ -53,23 +53,25 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **300 verses** (Genesis, Psalms, the whole book of Exodus,
-  and the whole book of Ruth, WEB translation) across **29 topics**
-  (topics linked to related topics), plus **30 characters** (17 Genesis,
-  8 Exodus, 5 Ruth) with real relationships (father of, wife of, brother
-  of, etc. — see Connection, below).
-- `data/characters.json` — the same 30 characters, standalone. Generated
+  first run: **319 verses** (Genesis, Psalms, Exodus, Ruth, and a
+  verses-plus-a-few-stories pass over Leviticus, WEB translation) across
+  **31 topics** (topics linked to related topics), plus **32 characters**
+  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus) with real relationships
+  (father of, wife of, brother of, etc. — see Connection, below).
+- `data/characters.json` — the same 32 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, and Ruth (5,292 verses, WEB translation, public domain). Lazily
-  fetched by the Browse screen the first time it's opened, never at boot.
-  It is *reference material*, kept separate from the user's library —
-  adding a verse from Browse copies it into the user's overlay. Only the
-  300 seed verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 5 eras, 51 stories and 145 life events (Genesis,
-  the whole book of Exodus, and the whole book of Ruth). Loaded at boot
-  (it's small). Drives the character life timeline, the Stories screens,
-  People-grouped-by-era, and "appears alongside".
+  Exodus, Ruth, and Leviticus (6,151 verses, WEB translation, public
+  domain). Lazily fetched by the Browse screen the first time it's
+  opened, never at boot. It is *reference material*, kept separate from
+  the user's library — adding a verse from Browse copies it into the
+  user's overlay. Only the 319 seed verses are topic-tagged; the rest of
+  the corpus isn't yet.
+- `data/stories.json` — 5 eras, 54 stories and 153 life events (Genesis,
+  Exodus, Ruth, and Leviticus's ordination/Nadab-and-Abihu/blasphemer
+  incidents). Loaded at boot (it's small). Drives the character life
+  timeline, the Stories screens, People-grouped-by-era, and "appears
+  alongside".
 - `data/motifs.json` — 7 recurring biblical patterns (younger son chosen,
   meeting a spouse at a well, "I am with you", the deceiver deceived, a
   child's life threatened and delivered, famine driving them to a foreign
@@ -77,16 +79,16 @@ The schema was deliberately designed so all of the above can be added
   instances in the current content — not force-fit onto single
   occurrences. Loaded at boot. Drives the Patterns screens and the
   "Pattern" badges on Character and Story pages.
-- `data/connections.json` — 61 generic Connection edges (Design philosophy
+- `data/connections.json` — 65 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
-  `character` / `verse`), and story↔story links (`"parallels"`). Loaded
-  at boot.
+  `character` / `verse`), and story↔story links (`"parallels"`,
+  `"contrasts with"`). Loaded at boot.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. Default set: Genesis, Psalms, Exodus (whole book), Ruth (whole book).
+    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -200,16 +202,16 @@ hand-curate all the content before building.
 3. **Expanding beyond Genesis to other OT books — ongoing, in canonical
    order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
    Numbers, and so on — Ruth landed earlier and stays, but books from here
-   follow Bible order). Completed so far: Exodus (whole book — the early
-   Moses chapters plus the plagues, Passover, Red Sea, Sinai, golden calf,
-   tabernacle), Ruth (whole book, out of strict order but already done).
-   Next up: **Leviticus** — mostly law and ritual, not narrative, so the
-   Genesis/Exodus/Ruth playbook (era → characters → stories/events) won't
-   map cleanly. Decide the approach before starting it (see DATA_MODEL.md
-   §8.14 for the open question). `parse_books.py --all` makes the text
-   side trivial for any book; the curation/content side is still real
-   work per book, repeatable in the same shape for narrative books (era →
-   characters → stories/events → verses/topics → connections/motifs).
+   follow Bible order). Completed so far: Exodus (whole book), Ruth (whole
+   book, out of strict order but already done), Leviticus (verses/topics
+   throughout, plus Story treatment for its ~3 real narrative incidents —
+   the owner's explicit choice over a verses-only pass or skipping to
+   Numbers; see DATA_MODEL.md §8.15). Next up: **Numbers**.
+   `parse_books.py --all` makes the text side trivial for any book; the
+   curation/content side is still real work per book, repeatable in the
+   same shape for narrative-heavy books (era → characters → stories/events
+   → verses/topics → connections/motifs); law-heavy books get the lighter
+   verses-and-topics-first treatment established with Leviticus.
 4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
 5. ~~`Motif` entity, and story→story Connections (foreshadows/parallels).~~
    **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
@@ -256,7 +258,15 @@ Amalek, Sinai, the golden calf, the tabernacle glory), 2 new characters
 (Pharaoh, Joshua — Joshua deliberately introduced early since he becomes
 central later), 34 verses, and a 7th motif connecting Abraham's plea for
 Sodom to Moses' plea for Israel after the golden calf
-(`motif_intercession_for_others`).
+(`motif_intercession_for_others`). Then Leviticus, with book order now
+canonical going forward (owner's direction) — chose Story treatment for
+its few real narrative incidents (ordination of Aaron, Nadab and Abihu,
+the blasphemer) over a verses-only pass, plus 19 verses across the legal
+material and 2 new topics (`topic_holiness`, `topic_love` — "love your
+neighbor as yourself" is from here, not the New Testament) and 2 new
+characters (Nadab, Abihu). The ordination and Nadab-and-Abihu stories got
+their first `"contrasts with"` story↔story Connection — the same fire from
+Yahweh that accepts one offering kills two sons for another, days apart.
 
 ## Source data provenance
 
