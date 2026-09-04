@@ -1037,7 +1037,14 @@ function renderAddCharacter(){
      interact(state, ds)    optional; handle a tap on an element the type
                             rendered with data-action="practice-interact"
                             (ds = that element's dataset). Mutates state.
-   Adding progressive reveal / matching = another entry here, no changes to
+                            If it sets state.checked itself (a self-graded
+                            type finalizing), the caller does the same
+                            session bookkeeping check() would have.
+     controls(state)        optional; HTML for the action-button area while
+                            !state.checked. Replaces the generic "Check"
+                            button — for a type whose finalization isn't a
+                            single auto-graded tap (self-graded reveal).
+   Adding matching / ordering = another entry here, no changes to
    startPractice / renderPractice / checkPractice.
 */
 const CHALLENGE_TYPES = {
@@ -1170,8 +1177,57 @@ const CHALLENGE_TYPES = {
       if(!state.len) return 0;
       return state.results.filter(Boolean).length / state.len;
     }
+  },
+
+  challenge_first_letters: {
+    id: 'challenge_first_letters',
+    name: 'Progressive reveal',
+    appliesToEntityTypes: ['verse'],
+    config: {},
+    enabled: true,
+    // Self-graded: closer to how memorization actually works than an
+    // auto-graded type. Shown only the first letter of every word, the user
+    // recalls the verse from memory, reveals it, and judges their own recall
+    // — there's no DOM input to check a string against.
+    build(verse){
+      return { words: verse.text.split(' '), revealed:false, checked:false, allCorrect:false };
+    },
+    render(state){
+      if(!state.revealed) return state.words.map(hintWord).join(' ');
+      return esc(state.words.join(' '));
+    },
+    interact(state, ds){
+      if(ds.reveal !== undefined){
+        state.revealed = true;
+      }else if(ds.selfgrade !== undefined){
+        state.checked = true;
+        state.allCorrect = ds.selfgrade === 'correct';
+      }
+    },
+    controls(state){
+      if(!state.revealed){
+        return `<button class="btn primary block" data-action="practice-interact" data-reveal="1"><i class="ti ti-eye"></i> Reveal</button>`;
+      }
+      return `<div style="display:flex;gap:8px;">
+        <button class="btn block" style="flex:1;" data-action="practice-interact" data-selfgrade="wrong">Missed it</button>
+        <button class="btn primary block" style="flex:1;" data-action="practice-interact" data-selfgrade="correct">Got it</button>
+      </div>`;
+    },
+    score(state){ return state.allCorrect ? 1 : 0; }
   }
 };
+/* First letter of each word kept, every other letter blanked to an
+   underscore; everything else (spacing within the word, punctuation,
+   apostrophes) left exactly as-is. Handles "don't" / "Yahweh's" correctly
+   because it walks characters rather than assuming letters are contiguous. */
+function hintWord(word){
+  let seenFirst = false;
+  return esc([...word].map(ch=>{
+    if(!/[a-zA-Z]/.test(ch)) return ch;
+    if(!seenFirst){ seenFirst = true; return ch; }
+    return '_';
+  }).join(''));
+}
 function challengeType(id){ return CHALLENGE_TYPES[id] || CHALLENGE_TYPES.challenge_fill_blank; }
 function verseChallengeTypes(){ return Object.values(CHALLENGE_TYPES).filter(t => t.enabled && t.appliesToEntityTypes.includes('verse')); }
 
@@ -1222,6 +1278,8 @@ function renderPractice(){
     </div>
     ${st.checked
       ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
+      : type.controls
+      ? type.controls(st)
       : `<button class="btn primary block" data-action="check-practice">Check</button>`}
   `;
 }
@@ -1341,6 +1399,18 @@ function practiceInteract(el){
   const item = session.queue[session.index];
   if(item.state.checked || !type.interact) return;
   type.interact(item.state, el.dataset);
+  // A type may finalize grading itself from inside interact() (e.g. a
+  // self-graded type's "Got it" / "Missed it" tap, rather than the generic
+  // Check button). If it just flipped checked to true, do the same session
+  // bookkeeping checkPractice() would have done.
+  if(item.state.checked){
+    session.results.push({
+      verseId: item.verseId,
+      allCorrect: !!item.state.allCorrect,
+      score: type.score(item.state)
+    });
+    recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+  }
   render();
 }
 function checkPractice(){

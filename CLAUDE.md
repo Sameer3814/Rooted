@@ -46,8 +46,8 @@ The schema was deliberately designed so all of the above can be added
   Screens: Home, Browse (search/drill the full corpus), Verse detail,
   Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories), Stories list, Story detail,
-  Add Verse, Add Character, Practice (two challenge types so far:
-  fill-in-blank and scramble).
+  Add Verse, Add Character, Practice (three challenge types: fill-in-blank,
+  scramble, and self-graded progressive reveal).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -176,10 +176,11 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types. Pluggable interface + fill-in-blank + scramble are
-   built (`CHALLENGE_TYPES` in `index.html`, `DATA_MODEL.md` §3), with a
-   Home picker persisted to `rooted-settings`. Next: progressive reveal
-   (`challenge_first_letters`), then matching / ordering.
+1. More challenge types. Three built (`CHALLENGE_TYPES` in `index.html`,
+   `DATA_MODEL.md` §3): fill-in-blank, scramble, and self-graded
+   `challenge_first_letters`, with a Home picker persisted to
+   `rooted-settings`. Next: matching / ordering (`challenge_story_order`,
+   `challenge_character_match`).
 2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
 3. ~~Expanding character/relationship data beyond Genesis to other OT
@@ -212,7 +213,13 @@ caught a real gap in the old data (Abraham→Hagar had no reverse entry) and
 fixed it for free. Content expanded beyond Genesis for the first time —
 Moses' early life (Exodus 2-4): new era, 6 characters, 4 stories, 20 life
 events, 8 connections, 17 verses, 1 new topic (`topic_deliverance`); the
-full corpus now also includes Exodus (5,207 verses total).
+full corpus now also includes Exodus (5,207 verses total). Then a third
+challenge type, `challenge_first_letters` — first letters shown, tap
+Reveal, self-grade Got it / Missed it. Needed two small, backward-compatible
+additions to the ChallengeType interface (`controls()` for a non-Check
+action area, `interact()` allowed to finalize grading itself) —
+self-grading doesn't fit the "one auto-graded tap" shape fill-in-blank
+and scramble share.
 
 ## Source data provenance
 

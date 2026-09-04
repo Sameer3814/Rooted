@@ -310,7 +310,7 @@ outside the content overlay (nothing here is user-editable yet).
 
 ---
 
-## 3. Challenge system — *partial* (interface + 2 types: fill-in-blank, scramble)
+## 3. Challenge system — *partial* (interface + 3 types)
 
 Challenge types are **data-described and pluggable**, not a hardcoded switch
 (design philosophy #5). Implemented in `index.html` as the `CHALLENGE_TYPES`
@@ -325,7 +325,7 @@ challenge_fill_blank: {
   appliesToEntityTypes: ['verse'],
   config: { blankRatio: 0.3, maxBlanks: 4, minWordLength: 4 },
   enabled: true,
-  build, render, check, score, /* interact? */   // the interface below
+  build, render, check, score, /* interact?, controls? */   // the interface below
 }
 ```
 
@@ -338,8 +338,9 @@ Every type implements the same contract, so `startPractice` / `renderPractice` /
 | `build(entity, config)` | → opaque `state` object; holds everything render/check need. Called once per queue item at `startPractice`. Must init `checked:false`. |
 | `render(state)` | → HTML string. Reads `state.checked` to switch between the input view and the graded view. Must preserve what the user entered once `checked`. |
 | `check(state)` | reads its own DOM (it knows its selectors), **mutates** `state` (`checked=true`, per-item results, `allCorrect`), returns `{ allCorrect, correctCount, total }`. |
-| `score(state)` | → number 0..1 (fraction correct). Called after `check`. |
-| `interact(state, ds)` | *optional.* Handles a tap on an element the type rendered with `data-action="practice-interact"` (`ds` = that element's `dataset`). Mutates `state`; the flow re-renders. Used by scramble for tap-to-place; unused by fill-in-blank (native inputs). |
+| `score(state)` | → number 0..1 (fraction correct). Called after grading, whichever route finalized it (`check` or a self-grading `interact`). |
+| `interact(state, ds)` | *optional.* Handles a tap on an element the type rendered with `data-action="practice-interact"` (`ds` = that element's `dataset`). Mutates `state`; the flow re-renders. If it sets `state.checked` itself (a self-graded type finalizing), the caller does the same session bookkeeping `check()` would have — see `challenge_first_letters`. Used by scramble for tap-to-place; unused by fill-in-blank (native inputs). |
+| `controls(state)` | *optional.* HTML for the action-button area while `!state.checked`, replacing the generic "Check" button. For a type whose finalization isn't a single auto-graded tap — a self-graded reveal needs a "Reveal" step and then two grading buttons, not one "Check". |
 
 Session shape: `{ challengeTypeId, queue:[{verseId, state}], index, results:[{verseId, allCorrect, score}] }`.
 `startPractice(verseIds, challengeTypeId)` — `challengeTypeId` defaults to
@@ -351,9 +352,19 @@ tap a placed chip to return it. For verses longer than `config.maxWords` (14)
 only a random contiguous window is scrambled and the rest shown as fixed
 context, so long verses stay playable.
 
+**challenge_first_letters** ("Progressive reveal") — **self-graded**, unlike
+the other two. Every word is shown as its first letter plus underscores for
+the rest (`don't` → `d__'_`, punctuation and apostrophes left alone — it walks
+characters rather than assuming letters are contiguous, so it doesn't mis-blank
+words with internal punctuation). The user recalls the verse from memory, taps
+**Reveal** to see the full text, then **Got it** / **Missed it** grades their
+own recall — there's no DOM input to check a string against, which is why this
+type needed `interact` + `controls` rather than the `check`-button path. This
+is the type that proved those two additions to the interface were worth having.
+
 Planned types (all `appliesToEntityTypes: ["verse"]` unless noted):
 `challenge_fill_blank` (built), `challenge_scramble` (built),
-`challenge_first_letters` (progressive reveal), `challenge_type_it_out`,
+`challenge_first_letters` (built), `challenge_type_it_out`,
 `challenge_reference_match`, `challenge_story_order` (`["story"]`),
 `challenge_character_match` (`["character"]`). Adding one = a new registry
 entry, nothing else.
@@ -563,7 +574,11 @@ note).
    Then **`challenge_scramble` added** as a second registry entry (2026-09-03)
    — validated the interface: only new code was the registry entry, the
    optional `interact` hook, a `set-challenge` action, and the Home picker.
-   Introduced `rooted-settings` (§7) for the persisted type choice.
+   Introduced `rooted-settings` (§7) for the persisted type choice. Then
+   **`challenge_first_letters` added** as a third (2026-09-04) — this one
+   needed two more optional interface members, `interact`-driven finalization
+   and `controls`, because self-grading doesn't fit the "one auto-graded Check
+   tap" shape the first two types share. See §3.
 6. ~~**Wire `data/characters.json` in or delete it** — right now it's dead weight
    duplicating the characters inside `starter-pack.json`.~~ **Resolved
    (2026-09-03).** Still not read by the app, but it's now *generated* from the
