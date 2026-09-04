@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (38 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua)
+### Character — *live* (48 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges)
 ```json
 {
   "id": "char_jacob",
@@ -169,10 +169,11 @@ A narrative unit — one episode. Bigger than a verse, smaller than a book.
   adding Numbers (§8.16): leave gaps between *books*, not just within one —
   Ruth's block (700-740) left no room for Numbers' 7 stories, which sit
   earlier in the timeline (wilderness wandering, before the Judges period).
-  Fixed by bumping Ruth's block to 800-840; a bigger gap between Exodus/
-  Leviticus (through 695) and Ruth from the start would have avoided the
-  renumber. Renumbering itself is cheap (it's curation data, not user data)
-  — just re-run `build_stories.py` after.
+  Fixed by bumping Ruth's block to 800-840. Had to bump it **again** to
+  900-940 when Judges (§8.19) needed room in the same 730-800 gap — leave a
+  bigger gap between books than seems necessary the first time, not just
+  when a collision actually happens. Renumbering itself is cheap (it's
+  curation data, not user data) — just re-run `build_stories.py` after.
 - `verseIds` must be verses that **ship in the starter pack**, so a story page
   can always render them as cards; `build_stories.py` enforces this. The full
   span always lives in `primaryReference`, which is a display string, not ids.
@@ -239,7 +240,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (10 motifs)
+### Motif — *live* (11 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -408,14 +409,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 394 verses + 31 topics + 38 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 428 verses + 31 topics + 48 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (9,056 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (9,674 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 6 eras, 72 stories, 193 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 6 eras, 78 stories, 215 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 9 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 76 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 78 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -775,6 +776,31 @@ note).
     or its God who choose both anyway, and both end up ancestors of David.
     Neither motif needed new code; both are `motif → story`/`verse`
     Connection edges, same as every motif since §8.4.
+19. **Judges.** **Done (2026-09-04).** Narrative again, the full playbook —
+    but **no new era**. Judges' setting is exactly the period `era_judges`
+    already describes (it was created for Ruth); rewrote that era's summary
+    at the same time, since it had only ever talked about Ruth and now needed
+    to describe the judge cycle honestly too — same lesson as `era_exodus` in
+    §8.17, applied proactively this time instead of after the fact. 6 stories:
+    Ehud and Eglon; Deborah, Barak, and Jael; Gideon and the three hundred;
+    Jephthah's vow; Samson's birth; Samson and Delilah. 10 new characters —
+    more than any prior single-book pass, because Judges simply names more
+    distinct people per episode than Genesis/Exodus/Numbers/Joshua did.
+    34 curated verses. No new topics — the existing 31 covered it, again.
+
+    A new motif, `motif_who_am_i_reluctant_call` (Exodus 3:11, Moses at the
+    burning bush; Judges 6:15, Gideon at the wine press) — both told they're
+    being sent, both immediately arguing they're the wrong person, before
+    either does anything the calling actually required. Both instances
+    attach directly to **verses**, which exposed a real gap: `motifsFor()`
+    already worked generically for any entity type, but the UI only ever
+    called it from Character and Story detail — verse-attached instances
+    (this motif, plus two of `motif_gods_reassurance`'s five) had nowhere to
+    show a "Pattern" badge at all. Fixed by adding the same
+    `renderMotifBadges(motifsFor('verse', id))` call to `renderVerseDetail`
+    that Character and Story pages already had. Worth checking for this kind
+    of gap whenever a new attachment point for an existing generic pattern
+    shows up — the query layer being generic doesn't guarantee the UI kept up.
 
 ---
 
@@ -806,7 +832,7 @@ fields, so two copies can never disagree:
 | A topic's verses | `Verse.topicIds` |
 | Verses due today | `rooted-progress` + `isDue`, capped by `settings.dailyGoal` |
 | A motif's instances | `connectionsFor('motif', id)` |
-| Motifs a story/character belongs to | `connectionsFor(type, id)` filtered to `otherType==='motif'` |
+| Motifs a story/character/**verse** belongs to | `connectionsFor(type, id)` filtered to `otherType==='motif'` — wired into all three detail screens since §8.19; a motif instance can attach to any of the three, so the badge has to too |
 | A story's related stories | `connectionsFor('story', id)` filtered to `otherType==='story'` |
 
 ---

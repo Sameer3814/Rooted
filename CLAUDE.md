@@ -53,39 +53,42 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **394 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, Deuteronomy, and the book of Joshua, WEB translation) across
-  **31 topics** (topics linked to related topics), plus **38 characters**
-  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua) with
-  real relationships (father of, wife of, brother of, successor of,
-  etc. — see Connection, below).
-- `data/characters.json` — the same 38 characters, standalone. Generated
+  first run: **428 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  Numbers, Deuteronomy, Joshua, and the book of Judges, WEB translation)
+  across **31 topics** (topics linked to related topics), plus
+  **48 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
+  2 Joshua, 10 Judges) with real relationships (father of, wife of,
+  brother of, successor of, etc. — see Connection, below).
+- `data/characters.json` — the same 48 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, and Joshua (9,056 verses,
-  WEB translation, public domain). Lazily fetched by the Browse screen the
-  first time it's opened, never at boot. It is *reference material*, kept
-  separate from the user's library — adding a verse from Browse copies it
-  into the user's overlay. Only the 394 seed verses are topic-tagged; the
-  rest of the corpus isn't yet.
-- `data/stories.json` — **6 eras**, 72 stories and 193 life events. Covers
+  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, and Judges
+  (9,674 verses, WEB translation, public domain). Lazily fetched by the
+  Browse screen the first time it's opened, never at boot. It is
+  *reference material*, kept separate from the user's library — adding a
+  verse from Browse copies it into the user's overlay. Only the 428 seed
+  verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 6 eras, **78 stories and 215 life events**. Covers
   Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers' wilderness
-  narrative, Deuteronomy's ending, and the book of Joshua's conquest of
-  Canaan (Rahab, Jericho, Achan, the Gibeonites, the sun standing still,
-  Caleb finally receiving Hebron, Joshua's farewell). New era:
-  `era_conquest`, between the wilderness and the Judges. Loaded at boot
-  (it's small). Drives the character life timeline, the Stories screens,
-  People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **10** recurring biblical patterns, each with real
+  narrative, Deuteronomy's ending, Joshua's conquest of Canaan, and the
+  book of Judges' cycle of deliverers — Ehud, Deborah/Barak/Jael, Gideon,
+  Jephthah, Samson — inside the same `era_judges` Ruth already lives in.
+  Loaded at boot (it's small). Drives the character life timeline, the
+  Stories screens, People-grouped-by-era, and "appears alongside".
+- `data/motifs.json` — **11** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Two span three-plus books now: `motif_gods_reassurance`
-  (Genesis, Exodus, Deuteronomy, and now Joshua 1:5 — "as I was with
-  Moses, so I will be with you") and `motif_wilderness_grumbling`. A new
-  one, `motif_foreign_woman_of_faith`, connects Rahab (Joshua) to Ruth —
-  two women with no claim on Israel who choose it anyway, both ancestors
-  of David. Loaded at boot. Drives the Patterns screens and the "Pattern"
-  badges on Character and Story pages.
-- `data/connections.json` — 76 generic Connection edges (Design philosophy
+  occurrences. `motif_gods_reassurance` now spans four books (Genesis,
+  Exodus, Deuteronomy, Joshua). A new one, `motif_foreign_woman_of_faith`,
+  connects Rahab (Joshua) to Ruth — two women with no claim on Israel who
+  choose it anyway, both ancestors of David. Another new one,
+  `motif_who_am_i_reluctant_call`, connects Moses at the burning bush to
+  Gideon at the wine press — both told they're being sent, both
+  immediately arguing they're the wrong person. Loaded at boot. Drives the
+  Patterns screens and the "Pattern" badges on Character, Story, **and
+  Verse** detail pages (verse-attached instances — several by now — had no
+  badge anywhere until this pass; `renderVerseDetail` now calls
+  `motifsFor('verse', id)` the same way Character and Story already did).
+- `data/connections.json` — 78 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
   `character` / `verse`), and story↔story links (`"parallels"`,
   `"contrasts with"`). Loaded at boot.
@@ -94,7 +97,7 @@ The schema was deliberately designed so all of the above can be added
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua.
+    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -208,17 +211,11 @@ hand-curate all the content before building.
 3. **Expanding beyond Genesis to other OT books — ongoing, in canonical
    order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
    Numbers, and so on — Ruth landed earlier and stays, but books from here
-   follow Bible order). Completed so far: Exodus (whole book), Ruth (whole
-   book, out of strict order but already done), Leviticus (verses/topics
-   throughout, plus Story treatment for its ~3 real narrative incidents),
-   Numbers (the narrative stretch: the twelve spies, Korah, water from
-   the rock again, the deaths of Miriam and Aaron, the bronze serpent,
-   Balaam's donkey), Deuteronomy (the Leviticus-style lighter pass —
-   Moses commissioning Joshua, and his death on Mount Nebo, plus
-   verses/topics throughout), Joshua (whole book, narrative again: Rahab,
-   Jericho, Achan, the Gibeonites, the sun standing still, Caleb finally
-   receiving Hebron, Joshua's farewell — new `era_conquest` — see
-   DATA_MODEL.md §8.18). Next up: **Judges**.
+   follow Bible order). Completed so far: Exodus, Leviticus, Numbers,
+   Deuteronomy, Joshua (see prior entries below), and now Judges (whole
+   book, narrative: Ehud, Deborah/Barak/Jael, Gideon, Jephthah, Samson —
+   folds into the `era_judges` Ruth already established, not a new era —
+   see DATA_MODEL.md §8.19). Next up: **1 Samuel**.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -308,7 +305,19 @@ Yahweh"). 2 new characters (Rahab, Achan). A 5th instance of
 `motif_gods_reassurance` (Joshua 1:5, "as I was with Moses, so I will be
 with you") and a new motif, `motif_foreign_woman_of_faith`, connecting
 Rahab to Ruth — two foreign women with no claim on Israel who choose it
-anyway, and both end up ancestors of David.
+anyway, and both end up ancestors of David. Then the book of Judges: 6
+stories (Ehud and Eglon; Deborah, Barak, and Jael; Gideon and the three
+hundred; Jephthah's vow; Samson's birth; Samson and Delilah), all inside
+the existing `era_judges` rather than a new one — refreshed that era's
+summary at the same time, since it had only ever described Ruth. 10 new
+characters, 34 verses, no new topics. A new motif,
+`motif_who_am_i_reluctant_call`, ties Moses at the burning bush to Gideon
+at the wine press — both told they're being sent, both immediately
+arguing they're the wrong person for it. That motif's instances attach to
+verses rather than stories, which surfaced a real gap: verse-attached
+motif instances had no badge anywhere in the app. Fixed by wiring
+`renderMotifBadges` into Verse detail the same way it already worked on
+Character and Story pages.
 
 ## Source data provenance
 

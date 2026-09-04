@@ -687,6 +687,24 @@
       "toType": "story",
       "toId": "story_ruth_clings_to_naomi",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_whoami_instance_moses",
+      "fromType": "motif",
+      "fromId": "motif_who_am_i_reluctant_call",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_exodus_3_11",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_whoami_instance_gideon",
+      "fromType": "motif",
+      "fromId": "motif_who_am_i_reluctant_call",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_judges_6_15",
+      "inverse": "has motif"
     }
   ]
 }

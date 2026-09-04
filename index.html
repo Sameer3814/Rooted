@@ -829,6 +829,7 @@ function renderVerseDetail(id){
       <div class="card tap" data-action="open-character" data-id="${c.id}">
         <div class="char-row"><div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div><div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div></div></div>
       </div>`).join('')}` : ''}
+    ${renderMotifBadges(motifsFor('verse', id))}
   `;
 }
 

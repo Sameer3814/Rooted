@@ -3059,6 +3059,285 @@
       "characterIds": [
         "char_joshua"
       ]
+    },
+    {
+      "id": "verse_judges_3_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_ehud"
+      ]
+    },
+    {
+      "id": "verse_judges_3_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_ehud"
+      ]
+    },
+    {
+      "id": "verse_judges_3_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_ehud"
+      ]
+    },
+    {
+      "id": "verse_judges_3_30",
+      "topicIds": [
+        "topic_peace",
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_judges_4_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_deborah"
+      ]
+    },
+    {
+      "id": "verse_judges_4_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_deborah",
+        "char_barak"
+      ]
+    },
+    {
+      "id": "verse_judges_4_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_barak",
+        "char_deborah"
+      ]
+    },
+    {
+      "id": "verse_judges_4_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_deborah",
+        "char_barak"
+      ]
+    },
+    {
+      "id": "verse_judges_4_14",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_deborah",
+        "char_barak"
+      ]
+    },
+    {
+      "id": "verse_judges_4_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_jael",
+        "char_sisera"
+      ]
+    },
+    {
+      "id": "verse_judges_5_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_deborah"
+      ]
+    },
+    {
+      "id": "verse_judges_5_24",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jael"
+      ]
+    },
+    {
+      "id": "verse_judges_6_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_12",
+      "topicIds": [
+        "topic_calling",
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_14",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_15",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_23",
+      "topicIds": [
+        "topic_peace",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_36",
+      "topicIds": [],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_6_37",
+      "topicIds": [],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_7_2",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_7_7",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_7_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_11_30",
+      "topicIds": [],
+      "characterIds": [
+        "char_jephthah"
+      ]
+    },
+    {
+      "id": "verse_judges_11_31",
+      "topicIds": [],
+      "characterIds": [
+        "char_jephthah"
+      ]
+    },
+    {
+      "id": "verse_judges_11_34",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jephthah",
+        "char_jephthahs_daughter"
+      ]
+    },
+    {
+      "id": "verse_judges_11_35",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jephthah",
+        "char_jephthahs_daughter"
+      ]
+    },
+    {
+      "id": "verse_judges_11_39",
+      "topicIds": [],
+      "characterIds": [
+        "char_jephthahs_daughter"
+      ]
+    },
+    {
+      "id": "verse_judges_13_5",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_samson"
+      ]
+    },
+    {
+      "id": "verse_judges_13_24",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_samson"
+      ]
+    },
+    {
+      "id": "verse_judges_16_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_samson",
+        "char_delilah"
+      ]
+    },
+    {
+      "id": "verse_judges_16_19",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_samson",
+        "char_delilah"
+      ]
+    },
+    {
+      "id": "verse_judges_16_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_samson"
+      ]
+    },
+    {
+      "id": "verse_judges_16_28",
+      "topicIds": [
+        "topic_repentance",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_samson"
+      ]
+    },
+    {
+      "id": "verse_judges_16_30",
+      "topicIds": [],
+      "characterIds": [
+        "char_samson"
+      ]
     }
   ],
   "topics": [
@@ -3854,6 +4133,114 @@
       ],
       "eraId": "era_conquest",
       "summary": "A man of Judah who secretly took silver, gold, and a robe from Jericho's forbidden plunder. Israel was routed at Ai until he was found out and stoned.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ehud",
+      "name": "Ehud",
+      "roles": [
+        "left-handed deliverer",
+        "killed King Eglon alone"
+      ],
+      "eraId": "era_judges",
+      "summary": "A left-handed Benjamite who hid a sword on his right thigh where no one would think to check, got Moab's king alone in a private room, and delivered Israel from Moabite oppression with it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_deborah",
+      "name": "Deborah",
+      "roles": [
+        "judged Israel",
+        "prophetess who led an army into battle"
+      ],
+      "eraId": "era_judges",
+      "summary": "A prophetess who judged Israel and summoned Barak to fight the army oppressing them. When he refused to go without her, she agreed — and told him the real victory would belong to a woman instead.",
+      "verseIds": []
+    },
+    {
+      "id": "char_barak",
+      "name": "Barak",
+      "roles": [
+        "led Israel's army against Sisera",
+        "wouldn't go without Deborah"
+      ],
+      "eraId": "era_judges",
+      "summary": "Summoned by Deborah to fight Sisera's army, he agreed only on the condition that she come with him — and so the honor of the victory went to a woman instead of him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sisera",
+      "name": "Sisera",
+      "roles": [
+        "commander of Israel's oppressors",
+        "killed by a woman with a tent peg"
+      ],
+      "eraId": "era_judges",
+      "summary": "The commander of the army oppressing Israel for twenty years. Routed in battle, he fled on foot to what he thought was a safe tent — and was killed there in his sleep.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jael",
+      "name": "Jael",
+      "roles": [
+        "killed Sisera in her own tent"
+      ],
+      "eraId": "era_judges",
+      "summary": "A Kenite woman who welcomed the fleeing general Sisera into her tent, gave him milk and a place to sleep, and killed him there with a tent peg and a hammer.",
+      "verseIds": []
+    },
+    {
+      "id": "char_gideon",
+      "name": "Gideon",
+      "roles": [
+        "threshed wheat in hiding out of fear",
+        "defeated Midian with 300 men"
+      ],
+      "eraId": "era_judges",
+      "summary": "Found threshing wheat in a wine press to hide it from raiders, he was called a mighty man of valor by an angel while insisting he was the least in the weakest family in his tribe. He tested God twice with a fleece before believing — then watched his army shrink to three hundred men so no one could claim Israel saved itself.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jephthah",
+      "name": "Jephthah",
+      "roles": [
+        "an outcast who became a deliverer",
+        "kept a vow that cost him his daughter"
+      ],
+      "eraId": "era_judges",
+      "summary": "Driven out by his half-brothers, he became a skilled fighter and was called back to lead Israel against Ammon. He vowed to sacrifice whatever came out of his house first if he won — and his only child came out to celebrate with him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jephthahs_daughter",
+      "name": "Jephthah's Daughter",
+      "roles": [
+        "kept her father's tragic vow",
+        "mourned two months in the mountains"
+      ],
+      "eraId": "era_judges",
+      "summary": "Jephthah's only child, who ran out to celebrate her father's victory with tambourines and dancing — not knowing what he had vowed. She asked only for two months to mourn with her friends before he kept his word.",
+      "verseIds": []
+    },
+    {
+      "id": "char_samson",
+      "name": "Samson",
+      "roles": [
+        "a Nazirite from birth",
+        "brought down a temple in his death"
+      ],
+      "eraId": "era_judges",
+      "summary": "Born to a once-childless woman and set apart to God from the womb, his uncut hair carried strength no army could match. Betrayed by the one weakness he never guarded, he died pulling down a temple on the people who blinded him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_delilah",
+      "name": "Delilah",
+      "roles": [
+        "discovered the secret of Samson's strength"
+      ],
+      "eraId": "era_judges",
+      "summary": "A woman Samson loved, paid by Philistine rulers to find out what made him strong. She wore him down with the same question until he finally told her the truth.",
       "verseIds": []
     }
   ]

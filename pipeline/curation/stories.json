@@ -32,7 +32,7 @@
     {
       "id": "era_judges",
       "name": "The Judges",
-      "summary": "Centuries after the Exodus, a chaotic period where everyone did what was right in their own eyes. Ruth's is a quiet story of loyalty inside it -- and it ends by naming David's great-grandparents.",
+      "summary": "A repeating cycle: Israel abandons Yahweh, is oppressed by a neighboring power, cries out, and God raises up a judge to deliver them — Ehud, Deborah, Gideon, Jephthah, Samson, and others — until the next cycle begins. Ruth’s quiet story of loyalty happens inside this same chaotic period, and ends by naming David’s great-grandparents.",
       "order": 6,
       "approxRange": "centuries after the Exodus, before Israel's kings"
     },
@@ -766,7 +766,7 @@
       "summary": "A famine sends Elimelech, Naomi, and their two sons from Bethlehem to Moab. The sons marry Moabite women, Ruth and Orpah. Then all three men die, leaving Naomi with her daughters-in-law and nothing else.",
       "primaryReference": "Ruth 1:1-5",
       "eraId": "era_judges",
-      "canonicalOrder": 800,
+      "canonicalOrder": 900,
       "verseIds": [
         "verse_ruth_1_1",
         "verse_ruth_1_3",
@@ -788,7 +788,7 @@
       "summary": "Naomi urges her daughters-in-law to go home to Moab and remarry. Orpah, weeping, does. Ruth refuses to leave, binding herself to Naomi's people and Naomi's God. They arrive in Bethlehem with nothing, at the start of the barley harvest.",
       "primaryReference": "Ruth 1:6-22",
       "eraId": "era_judges",
-      "canonicalOrder": 810,
+      "canonicalOrder": 910,
       "verseIds": [
         "verse_ruth_1_14",
         "verse_ruth_1_16",
@@ -812,7 +812,7 @@
       "summary": "Ruth goes out to gather leftover grain to feed herself and Naomi, and happens into the field of Boaz, a relative of Naomi's dead husband. He has noticed everything she has done for Naomi, and tells his workers to leave extra for her on purpose.",
       "primaryReference": "Ruth 2:1-23",
       "eraId": "era_judges",
-      "canonicalOrder": 820,
+      "canonicalOrder": 920,
       "verseIds": [
         "verse_ruth_2_2",
         "verse_ruth_2_10",
@@ -837,7 +837,7 @@
       "summary": "Naomi sends Ruth to Boaz at the threshing floor at night to ask him, as a near kinsman, to spread his garment over her — a claim of protection and marriage, not scandal. Boaz agrees, but names a closer relative who has first right to redeem her.",
       "primaryReference": "Ruth 3:1-18",
       "eraId": "era_judges",
-      "canonicalOrder": 830,
+      "canonicalOrder": 930,
       "verseIds": [
         "verse_ruth_3_9",
         "verse_ruth_3_10",
@@ -859,7 +859,7 @@
       "summary": "At the town gate, the nearer kinsman declines to redeem Elimelech's field once he learns it comes with Ruth. Boaz redeems it himself and marries her. She bears a son, Obed — the grandfather of Jesse, the father of David.",
       "primaryReference": "Ruth 4:1-17",
       "eraId": "era_judges",
-      "canonicalOrder": 840,
+      "canonicalOrder": 940,
       "verseIds": [
         "verse_ruth_4_13",
         "verse_ruth_4_14",
@@ -1533,6 +1533,149 @@
         "topic_worship",
         "topic_calling",
         "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_ehud_and_eglon",
+      "title": "Ehud and Eglon",
+      "summary": "Israel's tribute-bearer to Moab's king is secretly a left-handed assassin. Ehud gets Eglon alone with a message from God, and delivers it with a hidden sword instead of words. Israel then defeats Moab and gets eighty years of peace.",
+      "primaryReference": "Judges 3:12-30",
+      "eraId": "era_judges",
+      "canonicalOrder": 800,
+      "verseIds": [
+        "verse_judges_3_15",
+        "verse_judges_3_20",
+        "verse_judges_3_21",
+        "verse_judges_3_30"
+      ],
+      "characterIds": [
+        "char_ehud"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "story_deborah_barak_and_jael",
+      "title": "Deborah, Barak, and Jael",
+      "summary": "Deborah the prophetess summons Barak to fight the army oppressing Israel; he refuses to go without her, so she agrees but tells him the real victory will belong to a woman instead of him. Barak routs the army, and its fleeing commander Sisera is killed in his sleep by Jael, a tent peg through his temple.",
+      "primaryReference": "Judges 4:1-5:31",
+      "eraId": "era_judges",
+      "canonicalOrder": 810,
+      "verseIds": [
+        "verse_judges_4_4",
+        "verse_judges_4_6",
+        "verse_judges_4_8",
+        "verse_judges_4_9",
+        "verse_judges_4_14",
+        "verse_judges_4_21",
+        "verse_judges_5_7",
+        "verse_judges_5_24"
+      ],
+      "characterIds": [
+        "char_deborah",
+        "char_barak",
+        "char_sisera",
+        "char_jael"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_gideon",
+      "title": "Gideon and the three hundred",
+      "summary": "Gideon is found threshing wheat in a wine press, hiding it from raiders, when an angel calls him a mighty man of valor. He tests God twice with a fleece before believing it, then watches his army shrink from thirty-two thousand to three hundred men — so that when Midian is routed with nothing but trumpets, torches, and jars, no one can say Israel saved itself.",
+      "primaryReference": "Judges 6:1-7:25",
+      "eraId": "era_judges",
+      "canonicalOrder": 820,
+      "verseIds": [
+        "verse_judges_6_11",
+        "verse_judges_6_12",
+        "verse_judges_6_14",
+        "verse_judges_6_15",
+        "verse_judges_6_23",
+        "verse_judges_6_36",
+        "verse_judges_6_37",
+        "verse_judges_7_2",
+        "verse_judges_7_7",
+        "verse_judges_7_20"
+      ],
+      "characterIds": [
+        "char_gideon"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_humility",
+        "topic_trust",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_jephthahs_vow",
+      "title": "Jephthah's vow",
+      "summary": "An outcast who became Israel's military leader, Jephthah vows that if God gives him victory over Ammon, he will sacrifice whatever comes out of his house first to meet him. He wins — and his only child, his daughter, comes out dancing to celebrate. He keeps the vow.",
+      "primaryReference": "Judges 11:1-40",
+      "eraId": "era_judges",
+      "canonicalOrder": 830,
+      "verseIds": [
+        "verse_judges_11_30",
+        "verse_judges_11_31",
+        "verse_judges_11_34",
+        "verse_judges_11_35",
+        "verse_judges_11_39"
+      ],
+      "characterIds": [
+        "char_jephthah",
+        "char_jephthahs_daughter"
+      ],
+      "topicIds": [
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_samsons_birth",
+      "title": "Samson's birth",
+      "summary": "An angel tells a childless woman she will bear a son set apart to God from birth, who will begin to deliver Israel from the Philistines. She names him Samson.",
+      "primaryReference": "Judges 13:1-25",
+      "eraId": "era_judges",
+      "canonicalOrder": 840,
+      "verseIds": [
+        "verse_judges_13_5",
+        "verse_judges_13_24"
+      ],
+      "characterIds": [
+        "char_samson"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_samson_and_delilah",
+      "title": "Samson and Delilah",
+      "summary": "Samson falls in love with Delilah, who is paid to discover the secret of his strength. She wears him down until he tells her the truth — that he is a Nazirite from birth — and has his hair cut while he sleeps. Blinded and enslaved, he prays for strength one last time and pulls down the temple of Dagon on everyone in it, himself included.",
+      "primaryReference": "Judges 16:1-31",
+      "eraId": "era_judges",
+      "canonicalOrder": 850,
+      "verseIds": [
+        "verse_judges_16_17",
+        "verse_judges_16_19",
+        "verse_judges_16_20",
+        "verse_judges_16_28",
+        "verse_judges_16_30"
+      ],
+      "characterIds": [
+        "char_samson",
+        "char_delilah"
+      ],
+      "topicIds": [
+        "topic_temptation",
+        "topic_repentance",
+        "topic_humility"
       ]
     }
   ],
@@ -3764,6 +3907,246 @@
       "storyId": "story_achans_sin",
       "participantIds": [
         "char_joshua"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ehud_raised_up",
+      "characterId": "char_ehud",
+      "title": "Raised up as a deliverer",
+      "description": "Israel cries out under Moabite oppression, and Yahweh raises up this left-handed Benjamite.",
+      "reference": "Judges 3:12-15",
+      "storyId": "story_ehud_and_eglon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ehud_kills_eglon",
+      "characterId": "char_ehud",
+      "title": "Kills Eglon alone",
+      "description": "He gets the king alone with a private message and a hidden sword.",
+      "reference": "Judges 3:16-26",
+      "storyId": "story_ehud_and_eglon",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_deborah_judges_israel",
+      "characterId": "char_deborah",
+      "title": "Judges Israel and summons Barak",
+      "description": "She calls Barak to battle and agrees to go with him when he won't go alone.",
+      "reference": "Judges 4:4-10",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_barak"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_deborah_sings_victory",
+      "characterId": "char_deborah",
+      "title": "Sings the victory song",
+      "description": "\"The rulers ceased in Israel, until I, Deborah, arose.\"",
+      "reference": "Judges 5:1-31",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_barak"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_barak_summoned",
+      "characterId": "char_barak",
+      "title": "Summoned by Deborah",
+      "description": "He agrees to fight only if she comes with him.",
+      "reference": "Judges 4:6-9",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_deborah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_barak_defeats_sisera",
+      "characterId": "char_barak",
+      "title": "Routs Sisera's army",
+      "description": "Sisera flees on foot; the honor of finishing him goes to a woman instead.",
+      "reference": "Judges 4:14-16",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_sisera"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_sisera_commands_army",
+      "characterId": "char_sisera",
+      "title": "Commands the army oppressing Israel",
+      "description": "For twenty years his nine hundred iron chariots keep Israel under Canaanite rule.",
+      "reference": "Judges 4:2-3",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_barak"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_sisera_killed_by_jael",
+      "characterId": "char_sisera",
+      "title": "Killed in his sleep by Jael",
+      "description": "He flees to what he thinks is a safe tent, and never wakes up.",
+      "reference": "Judges 4:17-21",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_jael"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jael_kills_sisera",
+      "characterId": "char_jael",
+      "title": "Kills Sisera with a tent peg",
+      "description": "She gives the fleeing commander milk and a place to sleep, then kills him there.",
+      "reference": "Judges 4:17-22",
+      "storyId": "story_deborah_barak_and_jael",
+      "participantIds": [
+        "char_sisera"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_gideon_called",
+      "characterId": "char_gideon",
+      "title": "Called a mighty man of valor",
+      "description": "An angel finds him threshing wheat in hiding, and calls him the opposite of how he sees himself.",
+      "reference": "Judges 6:11-24",
+      "storyId": "story_gideon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_gideon_tests_fleece",
+      "characterId": "char_gideon",
+      "title": "Tests God with a fleece, twice",
+      "description": "He asks for dew on the fleece alone, then dry fleece with dew on the ground, before he believes.",
+      "reference": "Judges 6:36-40",
+      "storyId": "story_gideon",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_gideon_defeats_midian",
+      "characterId": "char_gideon",
+      "title": "Defeats Midian with three hundred men",
+      "description": "Trumpets, torches, and broken jars rout an army too large to count.",
+      "reference": "Judges 7:1-25",
+      "storyId": "story_gideon",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jephthah_vows",
+      "characterId": "char_jephthah",
+      "title": "Vows whatever comes out of his house first",
+      "description": "He makes the vow before going to battle against Ammon.",
+      "reference": "Judges 11:29-33",
+      "storyId": "story_jephthahs_vow",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jephthah_keeps_vow",
+      "characterId": "char_jephthah",
+      "title": "Keeps his vow",
+      "description": "His only child comes out to meet him first, and he does as he vowed.",
+      "reference": "Judges 11:34-39",
+      "storyId": "story_jephthahs_vow",
+      "participantIds": [
+        "char_jephthahs_daughter"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_daughter_celebrates",
+      "characterId": "char_jephthahs_daughter",
+      "title": "Runs out to celebrate",
+      "description": "With tambourines and dancing, not knowing what her father had vowed.",
+      "reference": "Judges 11:34",
+      "storyId": "story_jephthahs_vow",
+      "participantIds": [
+        "char_jephthah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_daughter_mourns",
+      "characterId": "char_jephthahs_daughter",
+      "title": "Asks for two months to mourn",
+      "description": "She asks only to grieve with her friends in the mountains before her father keeps his vow.",
+      "reference": "Judges 11:37-39",
+      "storyId": "story_jephthahs_vow",
+      "participantIds": [
+        "char_jephthah"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_samson_born",
+      "characterId": "char_samson",
+      "title": "Born a Nazirite",
+      "description": "An angel tells his once-childless mother he will begin to deliver Israel.",
+      "reference": "Judges 13:1-25",
+      "storyId": "story_samsons_birth",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_samson_loves_delilah",
+      "characterId": "char_samson",
+      "title": "Falls in love with Delilah",
+      "description": "She is paid to discover the secret of his strength.",
+      "reference": "Judges 16:4-5",
+      "storyId": "story_samson_and_delilah",
+      "participantIds": [
+        "char_delilah"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_samson_betrayed",
+      "characterId": "char_samson",
+      "title": "Betrayed and shorn",
+      "description": "Worn down, he finally tells her the truth, and loses his strength while he sleeps.",
+      "reference": "Judges 16:6-21",
+      "storyId": "story_samson_and_delilah",
+      "participantIds": [
+        "char_delilah"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_samson_final_act",
+      "characterId": "char_samson",
+      "title": "Pulls down the temple",
+      "description": "Blinded and mocked, he prays for strength one last time and brings the building down on everyone in it.",
+      "reference": "Judges 16:23-30",
+      "storyId": "story_samson_and_delilah",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_delilah_paid_to_betray",
+      "characterId": "char_delilah",
+      "title": "Paid to betray Samson",
+      "description": "Philistine rulers offer her silver to find the secret of his strength.",
+      "reference": "Judges 16:5",
+      "storyId": "story_samson_and_delilah",
+      "participantIds": [
+        "char_samson"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_delilah_discovers_secret",
+      "characterId": "char_delilah",
+      "title": "Discovers his secret",
+      "description": "She wears him down with the same question until he finally tells her the truth.",
+      "reference": "Judges 16:15-19",
+      "storyId": "story_samson_and_delilah",
+      "participantIds": [
+        "char_samson"
       ],
       "sequenceInLife": 20
     }
