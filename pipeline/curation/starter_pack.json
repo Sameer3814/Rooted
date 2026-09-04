@@ -2464,6 +2464,227 @@
         "topic_presence"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_numbers_6_24",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_6_25",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_6_26",
+      "topicIds": [
+        "topic_blessing",
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_12_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_miriam",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_numbers_12_8",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_12_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_miriam",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_numbers_12_13",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_miriam"
+      ]
+    },
+    {
+      "id": "verse_numbers_13_30",
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_numbers_13_31",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_13_33",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_14_9",
+      "topicIds": [
+        "topic_trust",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_joshua",
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_numbers_14_24",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_numbers_14_33",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_16_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_korah"
+      ]
+    },
+    {
+      "id": "verse_numbers_16_28",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_16_32",
+      "topicIds": [],
+      "characterIds": [
+        "char_korah"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_miriam"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_12",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_28",
+      "topicIds": [],
+      "characterIds": [
+        "char_aaron",
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_20_29",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_numbers_21_6",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_21_8",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_21_9",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_numbers_22_28",
+      "topicIds": [],
+      "characterIds": [
+        "char_balaam"
+      ]
+    },
+    {
+      "id": "verse_numbers_23_19",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_numbers_24_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_balaam"
+      ]
     }
   ],
   "topics": [
@@ -3194,6 +3415,49 @@
       ],
       "eraId": "era_exodus",
       "summary": "Aaron's second son, ordained alongside his brother Nadab and killed with him the same way, in the same moment.",
+      "verseIds": []
+    },
+    {
+      "id": "char_caleb",
+      "name": "Caleb",
+      "roles": [
+        "believed they could take the land",
+        "followed God fully"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of the twelve spies sent into Canaan, and one of only two who came back saying Israel could take it. For that, he was the only man of his generation, besides Joshua, who lived to enter the land.",
+      "verseIds": []
+    },
+    {
+      "id": "char_korah",
+      "name": "Korah",
+      "roles": [
+        "rebelled against Moses and Aaron",
+        "swallowed by the earth"
+      ],
+      "eraId": "era_exodus",
+      "summary": "A Levite who led an open challenge to Moses and Aaron's authority, claiming the whole congregation was equally holy. The ground opened beneath him, his fellow rebels, and their households.",
+      "verseIds": []
+    },
+    {
+      "id": "char_eleazar",
+      "name": "Eleazar",
+      "roles": [
+        "succeeded Aaron as high priest"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Aaron's son, given his father's priestly garments on Mount Hor the day Aaron died. He carries the priesthood forward into the next generation.",
+      "verseIds": []
+    },
+    {
+      "id": "char_balaam",
+      "name": "Balaam",
+      "roles": [
+        "hired to curse Israel",
+        "blessed them instead"
+      ],
+      "eraId": "era_exodus",
+      "summary": "A foreign prophet hired by a Moabite king to curse Israel. His own donkey saw the angel blocking the road before he did — and when he finally spoke over Israel, blessing came out instead of the curse he was paid for.",
       "verseIds": []
     }
   ]

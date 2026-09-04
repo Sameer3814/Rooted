@@ -588,6 +588,60 @@
       "toId": "story_ordination_of_aaron",
       "symmetric": true,
       "notes": "The same fire from Yahweh that accepts the ordination offering kills Nadab and Abihu days later for an unauthorized one."
+    },
+    {
+      "id": "conn_eleazar_son_of_aaron",
+      "fromType": "character",
+      "fromId": "char_eleazar",
+      "relationship": "son of",
+      "toType": "character",
+      "toId": "char_aaron",
+      "inverse": "father of"
+    },
+    {
+      "id": "conn_grumbling_instance_manna",
+      "fromType": "motif",
+      "fromId": "motif_wilderness_grumbling",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_manna_and_water",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_grumbling_instance_rock_again",
+      "fromType": "motif",
+      "fromId": "motif_wilderness_grumbling",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_water_from_the_rock_again",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_grumbling_instance_bronze_serpent",
+      "fromType": "motif",
+      "fromId": "motif_wilderness_grumbling",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_bronze_serpent",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_unauthorized_instance_nadab_abihu",
+      "fromType": "motif",
+      "fromId": "motif_unauthorized_holy_things",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_nadab_and_abihu",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_unauthorized_instance_korah",
+      "fromType": "motif",
+      "fromId": "motif_unauthorized_holy_things",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_korahs_rebellion",
+      "inverse": "has motif"
     }
   ]
 }

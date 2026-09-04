@@ -759,7 +759,7 @@
       "summary": "A famine sends Elimelech, Naomi, and their two sons from Bethlehem to Moab. The sons marry Moabite women, Ruth and Orpah. Then all three men die, leaving Naomi with her daughters-in-law and nothing else.",
       "primaryReference": "Ruth 1:1-5",
       "eraId": "era_judges",
-      "canonicalOrder": 700,
+      "canonicalOrder": 800,
       "verseIds": [
         "verse_ruth_1_1",
         "verse_ruth_1_3",
@@ -781,7 +781,7 @@
       "summary": "Naomi urges her daughters-in-law to go home to Moab and remarry. Orpah, weeping, does. Ruth refuses to leave, binding herself to Naomi's people and Naomi's God. They arrive in Bethlehem with nothing, at the start of the barley harvest.",
       "primaryReference": "Ruth 1:6-22",
       "eraId": "era_judges",
-      "canonicalOrder": 710,
+      "canonicalOrder": 810,
       "verseIds": [
         "verse_ruth_1_14",
         "verse_ruth_1_16",
@@ -805,7 +805,7 @@
       "summary": "Ruth goes out to gather leftover grain to feed herself and Naomi, and happens into the field of Boaz, a relative of Naomi's dead husband. He has noticed everything she has done for Naomi, and tells his workers to leave extra for her on purpose.",
       "primaryReference": "Ruth 2:1-23",
       "eraId": "era_judges",
-      "canonicalOrder": 720,
+      "canonicalOrder": 820,
       "verseIds": [
         "verse_ruth_2_2",
         "verse_ruth_2_10",
@@ -830,7 +830,7 @@
       "summary": "Naomi sends Ruth to Boaz at the threshing floor at night to ask him, as a near kinsman, to spread his garment over her — a claim of protection and marriage, not scandal. Boaz agrees, but names a closer relative who has first right to redeem her.",
       "primaryReference": "Ruth 3:1-18",
       "eraId": "era_judges",
-      "canonicalOrder": 730,
+      "canonicalOrder": 830,
       "verseIds": [
         "verse_ruth_3_9",
         "verse_ruth_3_10",
@@ -852,7 +852,7 @@
       "summary": "At the town gate, the nearer kinsman declines to redeem Elimelech's field once he learns it comes with Ruth. Boaz redeems it himself and marries her. She bears a son, Obed — the grandfather of Jesse, the father of David.",
       "primaryReference": "Ruth 4:1-17",
       "eraId": "era_judges",
-      "canonicalOrder": 740,
+      "canonicalOrder": 840,
       "verseIds": [
         "verse_ruth_4_13",
         "verse_ruth_4_14",
@@ -1150,6 +1150,157 @@
       ],
       "topicIds": [
         "topic_justice"
+      ]
+    },
+    {
+      "id": "story_miriam_aaron_oppose_moses",
+      "title": "Miriam and Aaron oppose Moses",
+      "summary": "Miriam and Aaron speak against Moses over his Cushite wife, and challenge whether Yahweh speaks only through him. Miriam is struck with leprosy; Moses immediately begs God to heal her, and she is shut outside the camp seven days.",
+      "primaryReference": "Numbers 12:1-16",
+      "eraId": "era_exodus",
+      "canonicalOrder": 696,
+      "verseIds": [
+        "verse_numbers_12_2",
+        "verse_numbers_12_8",
+        "verse_numbers_12_10",
+        "verse_numbers_12_13"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_miriam",
+        "char_aaron"
+      ],
+      "topicIds": [
+        "topic_presence",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_twelve_spies",
+      "title": "The twelve spies",
+      "summary": "Twelve men scout Canaan. Ten report giants and fortified cities and spread fear; Caleb and Joshua insist God will give them the land. The people side with the fearful report and refuse to go up, so God condemns that whole generation to wander forty years and die in the wilderness — only Caleb and Joshua will enter.",
+      "primaryReference": "Numbers 13:1-14:38",
+      "eraId": "era_exodus",
+      "canonicalOrder": 700,
+      "verseIds": [
+        "verse_numbers_13_30",
+        "verse_numbers_13_31",
+        "verse_numbers_13_33",
+        "verse_numbers_14_9",
+        "verse_numbers_14_24",
+        "verse_numbers_14_33"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_caleb",
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_fear",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_korahs_rebellion",
+      "title": "Korah's rebellion",
+      "summary": "Korah and his followers accuse Moses and Aaron of taking too much power for themselves. Moses says the ground itself will show who Yahweh sent — and the earth opens and swallows Korah, his household, and everything he owns.",
+      "primaryReference": "Numbers 16:1-35",
+      "eraId": "era_exodus",
+      "canonicalOrder": 705,
+      "verseIds": [
+        "verse_numbers_16_3",
+        "verse_numbers_16_28",
+        "verse_numbers_16_32"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_korah"
+      ],
+      "topicIds": [
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_water_from_the_rock_again",
+      "title": "Water from the rock, again",
+      "summary": "Nearly forty years after the first time, the people again have no water. This time God tells Moses to speak to the rock — but Moses, furious, strikes it twice instead. The water still comes, but Moses and Aaron are told neither of them will enter the promised land because of it.",
+      "primaryReference": "Numbers 20:2-13",
+      "eraId": "era_exodus",
+      "canonicalOrder": 710,
+      "verseIds": [
+        "verse_numbers_20_10",
+        "verse_numbers_20_11",
+        "verse_numbers_20_12"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_deaths_of_miriam_and_aaron",
+      "title": "Miriam and Aaron die",
+      "summary": "Miriam dies at Kadesh. Later that year, Moses strips Aaron of his priestly garments on Mount Hor and puts them on his son Eleazar; Aaron dies there, and all Israel mourns him thirty days.",
+      "primaryReference": "Numbers 20:1, 20:22-29",
+      "eraId": "era_exodus",
+      "canonicalOrder": 712,
+      "verseIds": [
+        "verse_numbers_20_1",
+        "verse_numbers_20_28",
+        "verse_numbers_20_29"
+      ],
+      "characterIds": [
+        "char_miriam",
+        "char_aaron",
+        "char_moses",
+        "char_eleazar"
+      ],
+      "topicIds": [
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_bronze_serpent",
+      "title": "The bronze serpent",
+      "summary": "The people complain again about the journey, and Yahweh sends venomous snakes among them. When they confess and ask Moses to intercede, God tells him to make a bronze snake and put it on a pole — anyone who is bitten and looks at it lives.",
+      "primaryReference": "Numbers 21:4-9",
+      "eraId": "era_exodus",
+      "canonicalOrder": 715,
+      "verseIds": [
+        "verse_numbers_21_6",
+        "verse_numbers_21_8",
+        "verse_numbers_21_9"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_repentance"
+      ]
+    },
+    {
+      "id": "story_balaams_donkey",
+      "title": "Balaam's donkey",
+      "summary": "Hired by a foreign king to curse Israel, the prophet Balaam is stopped on the road by his own donkey, who sees the angel of Yahweh blocking the way and speaks in protest. Balaam's eyes are opened too — and when the moment comes, he blesses Israel instead of cursing them, seeing a king who will rise from Jacob far in the future.",
+      "primaryReference": "Numbers 22:1-24:25",
+      "eraId": "era_exodus",
+      "canonicalOrder": 720,
+      "verseIds": [
+        "verse_numbers_22_28",
+        "verse_numbers_23_19",
+        "verse_numbers_24_17"
+      ],
+      "characterIds": [
+        "char_balaam"
+      ],
+      "topicIds": [
+        "topic_faithfulness"
       ]
     }
   ],
@@ -2941,6 +3092,259 @@
         "char_aaron"
       ],
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_moses_prays_for_miriam",
+      "characterId": "char_moses",
+      "title": "Prays for Miriam's healing",
+      "description": "The instant she is struck with leprosy, he cries out, \"Heal her, God, I beg you!\"",
+      "reference": "Numbers 12:1-16",
+      "storyId": "story_miriam_aaron_oppose_moses",
+      "participantIds": [
+        "char_miriam",
+        "char_aaron"
+      ],
+      "sequenceInLife": 200
+    },
+    {
+      "id": "event_moses_sends_spies",
+      "characterId": "char_moses",
+      "title": "Sends twelve spies into Canaan",
+      "description": "Ten come back afraid; only Caleb and Joshua say Israel can take the land.",
+      "reference": "Numbers 13:1-14:38",
+      "storyId": "story_twelve_spies",
+      "participantIds": [
+        "char_caleb",
+        "char_joshua"
+      ],
+      "sequenceInLife": 210
+    },
+    {
+      "id": "event_moses_confronts_korah",
+      "characterId": "char_moses",
+      "title": "Confronts Korah's rebellion",
+      "description": "He tells the assembly the ground itself will show who Yahweh sent.",
+      "reference": "Numbers 16:1-35",
+      "storyId": "story_korahs_rebellion",
+      "participantIds": [
+        "char_aaron",
+        "char_korah"
+      ],
+      "sequenceInLife": 220
+    },
+    {
+      "id": "event_moses_strikes_rock",
+      "characterId": "char_moses",
+      "title": "Strikes the rock in anger",
+      "description": "Told to speak to the rock, he strikes it twice instead — and is barred from entering the promised land for it.",
+      "reference": "Numbers 20:2-13",
+      "storyId": "story_water_from_the_rock_again",
+      "participantIds": [
+        "char_aaron"
+      ],
+      "sequenceInLife": 230
+    },
+    {
+      "id": "event_moses_buries_aaron",
+      "characterId": "char_moses",
+      "title": "Buries Aaron on Mount Hor",
+      "description": "He strips Aaron of his priestly garments and puts them on Eleazar before Aaron dies.",
+      "reference": "Numbers 20:22-29",
+      "storyId": "story_deaths_of_miriam_and_aaron",
+      "participantIds": [
+        "char_aaron",
+        "char_eleazar"
+      ],
+      "sequenceInLife": 240
+    },
+    {
+      "id": "event_moses_bronze_serpent",
+      "characterId": "char_moses",
+      "title": "Makes the bronze serpent",
+      "description": "Anyone bitten by the venomous snakes who looks at it lives.",
+      "reference": "Numbers 21:4-9",
+      "storyId": "story_bronze_serpent",
+      "sequenceInLife": 250
+    },
+    {
+      "id": "event_aaron_sees_miriam_leprous",
+      "characterId": "char_aaron",
+      "title": "Sees Miriam struck with leprosy",
+      "description": "He and Moses watch it happen the moment the cloud lifts from the Tent.",
+      "reference": "Numbers 12:1-16",
+      "storyId": "story_miriam_aaron_oppose_moses",
+      "participantIds": [
+        "char_miriam",
+        "char_moses"
+      ],
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_aaron_confronts_korah",
+      "characterId": "char_aaron",
+      "title": "Stands with Moses against Korah",
+      "description": "Korah accuses them both of taking too much power.",
+      "reference": "Numbers 16:1-35",
+      "storyId": "story_korahs_rebellion",
+      "participantIds": [
+        "char_moses",
+        "char_korah"
+      ],
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_aaron_barred_from_canaan",
+      "characterId": "char_aaron",
+      "title": "Barred from the promised land",
+      "description": "He shares in the consequence of Moses striking the rock instead of speaking to it.",
+      "reference": "Numbers 20:2-13",
+      "storyId": "story_water_from_the_rock_again",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_aaron_dies",
+      "characterId": "char_aaron",
+      "title": "Dies on Mount Hor",
+      "description": "His garments pass to Eleazar; all Israel mourns him thirty days.",
+      "reference": "Numbers 20:22-29",
+      "storyId": "story_deaths_of_miriam_and_aaron",
+      "participantIds": [
+        "char_moses",
+        "char_eleazar"
+      ],
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_miriam_opposes_moses",
+      "characterId": "char_miriam",
+      "title": "Speaks against Moses",
+      "description": "She and Aaron challenge Moses over his marriage and his unique standing before God.",
+      "reference": "Numbers 12:1-2",
+      "storyId": "story_miriam_aaron_oppose_moses",
+      "participantIds": [
+        "char_aaron",
+        "char_moses"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_miriam_struck_leprous",
+      "characterId": "char_miriam",
+      "title": "Struck with leprosy",
+      "description": "She is shut outside the camp seven days after Moses prays for her.",
+      "reference": "Numbers 12:10-15",
+      "storyId": "story_miriam_aaron_oppose_moses",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_miriam_dies",
+      "characterId": "char_miriam",
+      "title": "Dies at Kadesh",
+      "description": "The text records her death and burial in a single sentence.",
+      "reference": "Numbers 20:1",
+      "storyId": "story_deaths_of_miriam_and_aaron",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_joshua_spies_canaan",
+      "characterId": "char_joshua",
+      "title": "Spies out Canaan",
+      "description": "One of the twelve, and one of only two who came back believing Israel could take the land.",
+      "reference": "Numbers 13:1-14:38",
+      "storyId": "story_twelve_spies",
+      "participantIds": [
+        "char_caleb"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_caleb_spies_canaan",
+      "characterId": "char_caleb",
+      "title": "Spies out Canaan",
+      "description": "He silences the people's fear: \"Let's go up at once, and possess it; for we are well able.\"",
+      "reference": "Numbers 13:1-14:38",
+      "storyId": "story_twelve_spies",
+      "participantIds": [
+        "char_joshua"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_caleb_promised_land",
+      "characterId": "char_caleb",
+      "title": "Promised he will enter the land",
+      "description": "\"Because he had another spirit with him, and has followed me fully\" — he and Joshua alone of their generation will enter Canaan.",
+      "reference": "Numbers 14:24",
+      "storyId": "story_twelve_spies",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_korah_rebels",
+      "characterId": "char_korah",
+      "title": "Leads a rebellion against Moses and Aaron",
+      "description": "He gathers two hundred fifty leaders and accuses them of taking too much on themselves.",
+      "reference": "Numbers 16:1-3",
+      "storyId": "story_korahs_rebellion",
+      "participantIds": [
+        "char_moses",
+        "char_aaron"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_korah_swallowed",
+      "characterId": "char_korah",
+      "title": "Swallowed by the earth",
+      "description": "The ground opens beneath him, his household, and everything he owns.",
+      "reference": "Numbers 16:31-33",
+      "storyId": "story_korahs_rebellion",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_eleazar_becomes_priest",
+      "characterId": "char_eleazar",
+      "title": "Becomes high priest",
+      "description": "Moses puts Aaron's garments on him on Mount Hor, the same day Aaron dies.",
+      "reference": "Numbers 20:25-28",
+      "storyId": "story_deaths_of_miriam_and_aaron",
+      "participantIds": [
+        "char_aaron",
+        "char_moses"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_balaam_hired",
+      "characterId": "char_balaam",
+      "title": "Hired to curse Israel",
+      "description": "A Moabite king pays him to curse the people camped at his border.",
+      "reference": "Numbers 22:1-21",
+      "storyId": "story_balaams_donkey",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_balaam_donkey_speaks",
+      "characterId": "char_balaam",
+      "title": "His donkey speaks",
+      "description": "She sees the angel of Yahweh blocking the road before he does, and asks him what she's done to deserve being struck.",
+      "reference": "Numbers 22:22-35",
+      "storyId": "story_balaams_donkey",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_balaam_blesses_israel",
+      "characterId": "char_balaam",
+      "title": "Blesses Israel instead of cursing them",
+      "description": "Every time he opens his mouth to curse, blessing comes out — including a glimpse of a king far in Israel's future.",
+      "reference": "Numbers 23:1-24:25",
+      "storyId": "story_balaams_donkey",
+      "sequenceInLife": 30
     }
   ]
 }

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (32 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus)
+### Character — *live* (36 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers)
 ```json
 {
   "id": "char_jacob",
@@ -165,7 +165,14 @@ A narrative unit — one episode. Bigger than a verse, smaller than a book.
 ```
 - `canonicalOrder` — an integer for rough chronological/narrative sorting across
   the whole OT. Sparse on purpose (leave gaps: 100, 110, 120 …) so stories can be
-  inserted without renumbering. Not a claim about exact dates.
+  inserted without renumbering. Not a claim about exact dates. Lesson from
+  adding Numbers (§8.16): leave gaps between *books*, not just within one —
+  Ruth's block (700-740) left no room for Numbers' 7 stories, which sit
+  earlier in the timeline (wilderness wandering, before the Judges period).
+  Fixed by bumping Ruth's block to 800-840; a bigger gap between Exodus/
+  Leviticus (through 695) and Ruth from the start would have avoided the
+  renumber. Renumbering itself is cheap (it's curation data, not user data)
+  — just re-run `build_stories.py` after.
 - `verseIds` must be verses that **ship in the starter pack**, so a story page
   can always render them as cards; `build_stories.py` enforces this. The full
   span always lives in `primaryReference`, which is a display string, not ids.
@@ -223,7 +230,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (7 motifs)
+### Motif — *live* (9 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -392,14 +399,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 319 verses + 31 topics + 32 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 347 verses + 31 topics + 36 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (6,151 verses: Genesis, Psalms, Exodus, Ruth, Leviticus) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (7,439 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 5 eras, 54 stories, 153 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 7 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 65 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 5 eras, 61 stories, 175 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 9 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 71 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -692,6 +699,32 @@ note).
     apart), so the relationship label needed to say that rather than reuse
     `"parallels"`. No new era — Leviticus happens while Israel is still
     camped at Sinai, so its content stays in `era_exodus`.
+16. **Numbers.** **Done (2026-09-04).** Back to the narrative playbook — Numbers
+    is much more story-shaped than Leviticus, though it still has long
+    census/law stretches that got the lighter verses-only treatment instead of
+    forced Story records (reusing the §8.15 decision, as anticipated). 7 new
+    stories: Miriam and Aaron oppose Moses, the twelve spies, Korah's
+    rebellion, water from the rock a second time (Moses strikes instead of
+    speaks — the reason he never enters Canaan), the deaths of Miriam and
+    Aaron, the bronze serpent, Balaam's donkey. 4 new characters — Caleb,
+    Korah, Eleazar (Aaron's successor, `son of`/`father of` Aaron via
+    Connection), Balaam. 28 curated verses, including the Aaronic blessing
+    (Numbers 6:24-26, no story needed — pure verses-and-topics) and the
+    messianic "a star will come out of Jacob" (24:17). No new topics — the
+    existing 31 covered it.
+
+    **Two new motifs, both spanning multiple books** — the clearest evidence
+    yet that the schema is doing its job: `motif_wilderness_grumbling`
+    (`story_manna_and_water` in Exodus; `story_water_from_the_rock_again` and
+    `story_bronze_serpent` in Numbers) and `motif_unauthorized_holy_things`
+    (`story_nadab_and_abihu` in Leviticus; `story_korahs_rebellion` in
+    Numbers). Neither would be visible without Connection already existing
+    from §8.4, and neither needed anything new built to add — just more
+    `motif → story` edges in `curation/connections.json`.
+
+    Required bumping Ruth's `canonicalOrder` block (700-740 → 800-840) to make
+    room for Numbers' 7 stories, which sit earlier in the timeline — see the
+    Story `canonicalOrder` note above.
 
 ---
 

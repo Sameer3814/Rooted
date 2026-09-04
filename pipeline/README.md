@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -162,13 +162,20 @@ Worth knowing:
   has one example — wait until a real second one turns up.
 - **Books are being added in canonical order** (Genesis, Exodus, Leviticus,
   Numbers, ... — Ruth landed earlier and is the one exception). Books are not
-  all the same shape, though: Genesis, Exodus and Ruth are narrative and fit
-  the full playbook above. Leviticus is almost entirely law and ritual — it
-  got a lighter pass instead: verses and topics throughout, Story treatment
-  only for its handful of genuine narrative incidents (ordination of Aaron,
-  Nadab and Abihu, the blasphemer — three in 27 chapters). Large stretches of
-  Numbers and Deuteronomy are law-heavy too; reuse that same lighter approach
-  for those sections rather than forcing thin stories out of legal material.
+  all the same shape, though: Genesis, Exodus, Ruth and Numbers are narrative
+  and fit the full playbook above. Leviticus is almost entirely law and
+  ritual — it got a lighter pass instead: verses and topics throughout, Story
+  treatment only for its handful of genuine narrative incidents (ordination
+  of Aaron, Nadab and Abihu, the blasphemer — three in 27 chapters). Numbers
+  mixed both: real narrative (the spies, Korah, Balaam...) got Stories, its
+  long census/law stretches got the lighter verses-only pass. Deuteronomy is
+  almost entirely Moses' speeches — expect it to need the lighter pass too.
+- **Leave a bigger `canonicalOrder` gap between books than feels necessary.**
+  Ruth's block was placed right after Exodus/Leviticus with only room for a
+  few more stories; adding Numbers (which sits chronologically *before* Ruth)
+  meant bumping Ruth's whole block up by 100 to make space. Cheap to fix (it's
+  curation data — edit and re-run `build_stories.py`), but leave headroom
+  between each book's range from the start and you won't need to.
 
 ## Copyright
 

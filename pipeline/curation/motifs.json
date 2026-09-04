@@ -68,6 +68,25 @@
         "Genesis 18:22-33",
         "Exodus 32:30-32"
       ]
+    },
+    {
+      "id": "motif_wilderness_grumbling",
+      "name": "Grumbling in the wilderness",
+      "description": "Complaints about food, water, or the journey bring either God’s provision or his judgment — sometimes both in the same story.",
+      "exampleReferences": [
+        "Exodus 16:2-4",
+        "Numbers 20:2-11",
+        "Numbers 21:4-9"
+      ]
+    },
+    {
+      "id": "motif_unauthorized_holy_things",
+      "name": "Presuming on what is holy",
+      "description": "Approaching what God has set apart, or the role he assigned someone else, without his authorization — with immediate and severe consequence.",
+      "exampleReferences": [
+        "Leviticus 10:1-3",
+        "Numbers 16:1-35"
+      ]
     }
   ]
 }
