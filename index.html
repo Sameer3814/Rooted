@@ -328,6 +328,13 @@ async function loadConnections(){
   }catch(e){ /* Family sections just won't render */ }
   return [];
 }
+async function loadMotifs(){
+  try{
+    const res = await fetch('./data/motifs.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* Motifs screens just won't render */ }
+  return [];
+}
 
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
 
@@ -414,6 +421,7 @@ let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10};  // persi
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
+let motifs = [];  // seed-only: recurring biblical patterns (DATA_MODEL.md §2)
 let view = {screen:'home', params:{}};
 let session = null; // active practice session
 
@@ -514,6 +522,39 @@ function characterRelationships(charId){
     .map(x=>({type:x.relationship, who:findChar(x.otherId)}))
     .filter(x=>x.who);
 }
+
+/* ---------- motifs (DATA_MODEL.md §2) ----------
+   A Motif carries no links of its own; every instance is a Connection
+   (motif -> story|character|verse, "instance of"), so these fall straight
+   out of connectionsFor() like everything else here. */
+function findMotif(id){ return motifs.find(m=>m.id===id); }
+function motifInstances(motifId){
+  return connectionsFor('motif', motifId)
+    .map(x=>({entityType:x.otherType, entity: findByType(x.otherType, x.otherId)}))
+    .filter(x=>x.entity);
+}
+function motifsFor(type, id){
+  return connectionsFor(type, id)
+    .filter(x=>x.otherType==='motif')
+    .map(x=>findMotif(x.otherId))
+    .filter(Boolean);
+}
+function findByType(type, id){
+  if(type==='story') return findStory(id);
+  if(type==='character') return findChar(id);
+  if(type==='verse') return findVerse(id);
+  if(type==='topic') return findTopic(id);
+  if(type==='era') return findEra(id);
+  return null;
+}
+/* Story<->story links other than motif co-membership — "parallels",
+   "foreshadows", etc. */
+function relatedStories(storyId){
+  return connectionsFor('story', storyId)
+    .filter(x=>x.otherType==='story')
+    .map(x=>({type:x.relationship, story:findStory(x.otherId)}))
+    .filter(x=>x.story);
+}
 /* Who this person actually shares a scene with — real co-occurrence, not a
    guess from a broad era label. */
 function sharesScenesWith(charId){
@@ -564,6 +605,8 @@ function render(){
   else if(view.screen==='characterDetail') app.innerHTML = renderCharacterDetail(view.params.id);
   else if(view.screen==='stories') app.innerHTML = renderStories();
   else if(view.screen==='storyDetail') app.innerHTML = renderStoryDetail(view.params.id);
+  else if(view.screen==='motifs') app.innerHTML = renderMotifs();
+  else if(view.screen==='motifDetail') app.innerHTML = renderMotifDetail(view.params.id);
   else if(view.screen==='add') app.innerHTML = renderAddMenu();
   else if(view.screen==='addVerse') app.innerHTML = renderAddVerse();
   else if(view.screen==='addCharacter') app.innerHTML = renderAddCharacter();
@@ -841,6 +884,16 @@ function renderCharacters(){
           <i class="ti ti-chevron-right" style="color:var(--ink-faint);"></i>
         </div>
       </div>` : ''}
+    ${motifs.length ? `
+      <div class="card tap" data-action="open-motifs">
+        <div class="char-row" style="justify-content:space-between;">
+          <div class="char-row">
+            <div class="avatar"><i class="ti ti-sparkles"></i></div>
+            <div><h3>Patterns</h3><p class="field-hint">${motifs.length} recurring motifs across these stories.</p></div>
+          </div>
+          <i class="ti ti-chevron-right" style="color:var(--ink-faint);"></i>
+        </div>
+      </div>` : ''}
     ${grouped.map(g=>`
       <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
       ${g.people.map(c=>renderCharacterRow(c)).join('')}
@@ -912,6 +965,7 @@ function renderCharacterDetail(id){
 
     ${stories.length ? `<div class="section-label">Stories</div>${stories.map(renderStoryCard).join('')}` : ''}
     ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+    ${renderMotifBadges(motifsFor('character', id))}
     ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${alsoWith.map(o=>renderCharacterRow(o)).join('')}` : ''}
     ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${sameEra.map(o=>renderCharacterRow(o)).join('')}` : ''}
   `;
@@ -926,6 +980,7 @@ function renderStoryDetail(id){
   const topics = (s.topicIds||[]).map(findTopic).filter(Boolean);
   const era = findEra(s.eraId);
   const moments = lore.lifeEvents.filter(e=>e.storyId===id);
+  const related = relatedStories(id);
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
@@ -950,6 +1005,13 @@ function renderStoryDetail(id){
         }).join('')}
       </div>` : ''}
     ${verses.length ? `<div class="section-label">Verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+    ${renderMotifBadges(motifsFor('story', id))}
+    ${related.length ? `<div class="section-label">Related stories</div>${related.map(r=>`
+      <div class="card tap" data-action="open-story" data-id="${r.story.id}">
+        <div class="tag plum" style="margin-bottom:6px;display:inline-block;">${esc(r.type)}</div>
+        <h3>${esc(r.story.title)}</h3>
+        <div class="ref" style="margin-top:3px;">${esc(r.story.primaryReference)}</div>
+      </div>`).join('')}` : ''}
   `;
 }
 
@@ -968,6 +1030,58 @@ function renderStories(){
         <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
         <p class="field-hint" style="margin:-4px 0 10px;line-height:1.5;">${esc(era.summary)}</p>
         ${inEra.map(renderStoryCard).join('')}`;
+    }).join('')}
+  `;
+}
+
+/* ---------- MOTIFS ---------- */
+function renderMotifBadges(list){
+  if(!list.length) return '';
+  return `<div class="section-label">Pattern</div>
+    <div class="tag-row" style="margin-bottom:12px;">
+      ${list.map(m=>`<span class="tag plum tap" data-action="open-motif" data-id="${m.id}" style="cursor:pointer;"><i class="ti ti-sparkles" style="font-size:12px;vertical-align:-1px;"></i> ${esc(m.name)}</span>`).join('')}
+    </div>`;
+}
+function renderMotifCard(m){
+  const count = motifInstances(m.id).length;
+  return `
+    <div class="card tap" data-action="open-motif" data-id="${m.id}">
+      <h3>${esc(m.name)}</h3>
+      <p class="field-hint" style="margin-top:6px;line-height:1.5;">${esc(m.description)}</p>
+      <div class="tag-row"><span class="tag">${count} instance${count===1?'':'s'}</span></div>
+    </div>`;
+}
+function renderMotifs(){
+  if(!motifs.length) return `<div class="topbar"><h1>Patterns</h1></div><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div>`;
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
+      <h2>Patterns</h2>
+    </div>
+    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.</p>
+    ${motifs.map(renderMotifCard).join('')}
+  `;
+}
+function renderMotifDetail(id){
+  const m = findMotif(id);
+  if(!m) return renderMotifs();
+  const instances = motifInstances(id);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="motif-back"><i class="ti ti-arrow-left"></i></button>
+      <h2>Pattern</h2>
+    </div>
+    <div class="card">
+      <h2 style="margin-bottom:8px;"><i class="ti ti-sparkles" style="color:var(--gold-deep);font-size:20px;vertical-align:-2px;"></i> ${esc(m.name)}</h2>
+      <p style="color:var(--ink-soft);">${esc(m.description)}</p>
+      ${m.exampleReferences && m.exampleReferences.length ? `<div class="field-hint" style="margin-top:10px;">${m.exampleReferences.map(esc).join(' · ')}</div>` : ''}
+    </div>
+    <div class="section-label">Where it shows up <span style="color:var(--ink-faint);">${instances.length}</span></div>
+    ${instances.map(x=>{
+      if(x.entityType==='story') return renderStoryCard(x.entity);
+      if(x.entityType==='character') return renderCharacterRow(x.entity);
+      if(x.entityType==='verse') return renderVerseCard(x.entity);
+      return '';
     }).join('')}
   `;
 }
@@ -1379,6 +1493,9 @@ function onAction(e){
   else if(action==='open-stories') go('stories');
   else if(action==='open-story') go('storyDetail', {id, from: view});
   else if(action==='story-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('stories'); }
+  else if(action==='open-motifs') go('motifs');
+  else if(action==='open-motif') go('motifDetail', {id, from: view});
+  else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
@@ -1485,6 +1602,7 @@ async function migrateLegacy(seedContent){
   data = mergeContent(seed, content);
   lore = await loadStories();
   connections = await loadConnections();
+  motifs = await loadMotifs();
   render();
 })();
 

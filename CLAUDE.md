@@ -45,9 +45,10 @@ The schema was deliberately designed so all of the above can be added
 - `index.html` — the entire app (vanilla JS, no framework, no build step).
   Screens: Home, Browse (search/drill the full corpus), Verse detail,
   Topics, Topic detail, People (grouped by era), Character detail
-  (life timeline, family, stories), Stories list, Story detail,
-  Add Verse, Add Character, Practice (three challenge types: fill-in-blank,
-  scramble, and self-graded progressive reveal).
+  (life timeline, family, stories, pattern badges), Stories list,
+  Story detail (related stories, pattern badges), Patterns list,
+  Pattern detail, Add Verse, Add Character, Practice (three challenge
+  types: fill-in-blank, scramble, and self-graded progressive reveal).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -69,9 +70,16 @@ The schema was deliberately designed so all of the above can be added
   plus Moses' early life in Exodus). Loaded at boot (it's small). Drives
   the character life timeline, the Stories screens, People-grouped-by-era,
   and "appears alongside".
-- `data/connections.json` — 34 generic Connection edges (Design philosophy
-  #4). Replaces the old embedded `Character.relationships[]`; loaded at
-  boot. Drives the Family section on character pages.
+- `data/motifs.json` — 5 recurring biblical patterns (younger son chosen,
+  meeting a spouse at a well, "I am with you", the deceiver deceived, a
+  child's life threatened and delivered), each with 3 real instances in
+  the current content — not force-fit onto single occurrences. Loaded at
+  boot. Drives the Patterns screens and the "Pattern" badges on Character
+  and Story pages.
+- `data/connections.json` — 50 generic Connection edges (Design philosophy
+  #4): family relationships, motif instances (`motif` → `story` /
+  `character` / `verse`), and the first story↔story link (`"parallels"`).
+  Loaded at boot.
 - `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
@@ -85,10 +93,14 @@ The schema was deliberately designed so all of the above can be added
   - `build_stories.py` — `pipeline/curation/stories.json` →
     `data/stories.json`. Validates every era/story/character/participant/
     topic/verse reference and every `sequenceInLife`.
+  - `build_motifs.py` — `pipeline/curation/motifs.json` →
+    `data/motifs.json`. Requires >=2 `exampleReferences` per motif — one
+    occurrence is just a fact about that story, not a pattern.
   - `build_connections.py` — `pipeline/curation/connections.json` →
     `data/connections.json`. Requires `inverse` or `symmetric` on every
     edge so a reverse view is never silently missing; rejects the same
-    fact stored twice.
+    fact stored twice. Run after build_stories.py and build_motifs.py —
+    it validates against their output.
   - `tag_verses.py` — curation aid that **writes nothing**: surfaces
     candidate verses per topic from `curation/topic_lexicon.json` so a
     human can hand-pick. Topic tags are curated, never generated —
@@ -143,9 +155,10 @@ the "what."
    — rather than relationship arrays embedded separately per entity type.
    **Live since 2026-09-04** (`data/connections.json`, `pipeline/curation/
    connections.json`, `build_connections.py`): `Character.relationships[]`
-   was the MVP shortcut this was always meant to replace. When a
-   `Story`-to-`Story` or `Topic`-to-`Topic` connection system gets built,
-   it goes here too — don't add another embedded array.
+   was the MVP shortcut this was always meant to replace. Now also carries
+   Motif instances (`motif` → `story`/`character`/`verse`) and the first
+   `Story`-to-`Story` link (`"parallels"`). A future `Topic`-to-`Topic`
+   connection system goes here too — don't add another embedded array.
 5. **Challenge types should be pluggable**, described by data
    (`appliesToEntityTypes`, etc.) rather than a hardcoded switch — only
    fill-in-blank exists right now; when adding scramble/speed
@@ -190,8 +203,10 @@ hand-curate all the content before building.
    text side trivial for any further book; the curation/content side is
    still real work per book.
 4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
-5. `Motif` entity, and story→story Connections (foreshadows/parallels) —
-   the generic entity exists now, nothing populates these yet.
+5. ~~`Motif` entity, and story→story Connections (foreshadows/parallels).~~
+   **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
+   `data/motifs.json` above. Only one story↔story Connection so far
+   (`"parallels"`); more will accumulate as content grows.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
@@ -219,7 +234,11 @@ Reveal, self-grade Got it / Missed it. Needed two small, backward-compatible
 additions to the ChallengeType interface (`controls()` for a non-Check
 action area, `interact()` allowed to finalize grading itself) —
 self-grading doesn't fit the "one auto-graded tap" shape fill-in-blank
-and scramble share.
+and scramble share. Then the `Motif` entity — 5 patterns, each with 3 real
+instances (not force-fit onto single occurrences; the builder rejects
+motifs with fewer), plus the first story↔story Connection. Both fell out
+of `connectionsFor()` with zero new query machinery, which is exactly what
+making Connection generic back on 2026-09-04 was for.
 
 ## Source data provenance
 

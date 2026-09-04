@@ -10,7 +10,7 @@ connectionsFor() does the deriving at render time — curation never writes the
 same fact twice.
 
 Validates every fromId/toId against the entity types that exist so far
-(character, story — more as they're built) and requires exactly one of
+(character, story, era, topic, verse, motif) and requires exactly one of
 `inverse` / `symmetric: true` on every edge, so a reverse view is never
 silently missing.
 
@@ -31,6 +31,7 @@ CURATION_DIR = os.path.join(REPO_ROOT, "pipeline", "curation")
 DEFAULT_CURATION = os.path.join(CURATION_DIR, "connections.json")
 DEFAULT_PACK_CURATION = os.path.join(CURATION_DIR, "starter_pack.json")
 DEFAULT_STORIES_OUT = os.path.join(REPO_ROOT, "data", "stories.json")
+DEFAULT_MOTIFS_OUT = os.path.join(REPO_ROOT, "data", "motifs.json")
 DEFAULT_OUT = os.path.join(REPO_ROOT, "data", "connections.json")
 
 CONN_FIELDS = ("id", "fromType", "fromId", "relationship", "toType", "toId",
@@ -42,18 +43,19 @@ def load(path):
         return json.load(fh)
 
 
-def id_sets(pack, stories):
+def id_sets(pack, stories, motifs):
     return {
         "character": {c["id"] for c in pack["characters"]},
         "topic": {t["id"] for t in pack["topics"]},
         "verse": {v["id"] for v in pack["verses"]},
         "story": {s["id"] for s in stories.get("stories", [])},
         "era": {e["id"] for e in stories.get("eras", [])},
+        "motif": {m["id"] for m in motifs},
     }
 
 
-def build(conns, pack, stories):
-    ids = id_sets(pack, stories)
+def build(conns, pack, stories, motifs):
+    ids = id_sets(pack, stories, motifs)
     problems = []
 
     dupes = [i for i, n in Counter(c["id"] for c in conns).items() if n > 1]
@@ -108,6 +110,8 @@ def main():
     ap.add_argument("--pack-curation", default=DEFAULT_PACK_CURATION)
     ap.add_argument("--stories", default=DEFAULT_STORIES_OUT,
                     help="built data/stories.json, for story/era id validation")
+    ap.add_argument("--motifs", default=DEFAULT_MOTIFS_OUT,
+                    help="built data/motifs.json, for motif id validation")
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument("--indent", type=int, default=None)
     ap.add_argument("--check", action="store_true")
@@ -115,7 +119,8 @@ def main():
 
     src = {k: v for k, v in load(args.curation).items() if not k.startswith("_")}
     stories = load(args.stories) if os.path.exists(args.stories) else {}
-    result = build(src["connections"], load(args.pack_curation), stories)
+    motifs = load(args.motifs) if os.path.exists(args.motifs) else []
+    result = build(src["connections"], load(args.pack_curation), stories, motifs)
     payload = json.dumps(result, ensure_ascii=False, indent=args.indent)
 
     if args.check:

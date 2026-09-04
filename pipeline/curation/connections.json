@@ -307,6 +307,151 @@
       "toType": "character",
       "toId": "char_moses",
       "inverse": "adopted son of"
+    },
+    {
+      "id": "conn_meeting_at_a_well_instance_rebekah_at_the_well",
+      "fromType": "motif",
+      "fromId": "motif_meeting_at_a_well",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_rebekah_at_the_well",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_meeting_at_a_well_instance_jacob_rachel_leah",
+      "fromType": "motif",
+      "fromId": "motif_meeting_at_a_well",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_jacob_rachel_leah",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_meeting_at_a_well_instance_moses_flees_to_midian",
+      "fromType": "motif",
+      "fromId": "motif_meeting_at_a_well",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_moses_flees_to_midian",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_younger_son_chosen_instance_isaac",
+      "fromType": "motif",
+      "fromId": "motif_younger_son_chosen",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_isaac",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_younger_son_chosen_instance_jacob",
+      "fromType": "motif",
+      "fromId": "motif_younger_son_chosen",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_jacob",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_younger_son_chosen_instance_joseph",
+      "fromType": "motif",
+      "fromId": "motif_younger_son_chosen",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_joseph",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gods_reassurance_instance_genesis_26_24",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_genesis_26_24",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gods_reassurance_instance_genesis_28_15",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_genesis_28_15",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gods_reassurance_instance_exodus_3_12",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_exodus_3_12",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_the_deceiver_deceived_instance_stolen_blessing",
+      "fromType": "motif",
+      "fromId": "motif_the_deceiver_deceived",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_stolen_blessing",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_the_deceiver_deceived_instance_jacob_rachel_leah",
+      "fromType": "motif",
+      "fromId": "motif_the_deceiver_deceived",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_jacob_rachel_leah",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_the_deceiver_deceived_instance_joseph_sold",
+      "fromType": "motif",
+      "fromId": "motif_the_deceiver_deceived",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_joseph_sold",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_child_in_danger_delivered_instance_binding_of_isaac",
+      "fromType": "motif",
+      "fromId": "motif_child_in_danger_delivered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_binding_of_isaac",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_child_in_danger_delivered_instance_hagar_sent_away",
+      "fromType": "motif",
+      "fromId": "motif_child_in_danger_delivered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_hagar_sent_away",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_child_in_danger_delivered_instance_moses_in_the_basket",
+      "fromType": "motif",
+      "fromId": "motif_child_in_danger_delivered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_moses_in_the_basket",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_joseph_sold_parallels_stolen_blessing",
+      "fromType": "story",
+      "fromId": "story_joseph_sold",
+      "relationship": "parallels",
+      "toType": "story",
+      "toId": "story_stolen_blessing",
+      "symmetric": true,
+      "notes": "Jacob deceived his father with animal skins to steal a blessing; his own sons later deceive him with animal blood on a coat."
     }
   ]
 }

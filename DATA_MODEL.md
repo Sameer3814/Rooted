@@ -223,7 +223,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *planned*
+### Motif — *live* (5 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -238,8 +238,15 @@ barren-woman-given-a-child, water-in-the-wilderness…).
 ```
 - **Motif instances** (this motif shows up in that story / character / verse)
   are **Connections** — `fromType: "motif"`, `toType: "story" | "character" |
-  "verse"`, `relationship: "instance of"`. No separate MotifInstance entity;
-  this is the deliberate demonstration of the generic-Connection pattern.
+  "verse"`, `relationship: "instance of"`, `inverse: "has motif"`. No separate
+  MotifInstance entity; this was the deliberate demonstration of the generic
+  Connection pattern (§8.4), and it's live now — `motifInstances()` /
+  `motifsFor()` fall straight out of `connectionsFor()`, no new query logic.
+- **`build_motifs.py` requires ≥2 `exampleReferences`.** A "motif" with one
+  occurrence is just a fact about that one story — not curated as a motif
+  until a genuine second instance exists in the content. (Done 2026-09-04,
+  §8.12): 5 motifs, all with 3 real instances each in the current Genesis +
+  early-Exodus content — not force-fit onto single occurrences.
 
 ### Media — *planned*
 Illustrations, maps, decorative art. A **separate linked entity** so art style,
@@ -391,8 +398,8 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `data/verses.json` | full parsed WEB corpus (5,207 verses: Genesis, Psalms, Exodus) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
 | `data/stories.json` | 4 eras, 36 stories, 105 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | *planned* | Motif seed |
-| `data/connections.json` | 34 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/motifs.json` | 5 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 50 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -453,11 +460,16 @@ Everything in `data/` is generated. **Never hand-edit `data/*.json`.**
   `sequenceInLife` per character, and requires every character to have at least
   one life event and every story at least one character or verse. Prepends each
   event's subject to `participantIds` and inherits `eraId` from the story.
+- **`pipeline/build_motifs.py`** — `pipeline/curation/motifs.json` →
+  `data/motifs.json`. Requires ≥2 `exampleReferences` per motif — a pattern
+  with one occurrence is just a fact about that one story.
 - **`pipeline/build_connections.py`** — `pipeline/curation/connections.json` →
   `data/connections.json`. Requires exactly one of `inverse` / `symmetric` per
   edge, rejects an edge connecting an entity to itself, rejects the same fact
   stored twice, and validates every `fromId`/`toId` against the entity types
-  that exist so far (`character`, `story`, `topic`, `verse`, `era`).
+  that exist so far (`character`, `story`, `topic`, `verse`, `era`, `motif`).
+  Run **after** `build_stories.py` and `build_motifs.py` — it validates
+  against their output.
 - **`pipeline/tag_verses.py`** — a curation *aid* that writes nothing. Reads
   `curation/topic_lexicon.json` (keyword hints per topic) and prints ranked
   candidate verses for a human to hand-pick, ranked by keyword hits then
@@ -620,6 +632,18 @@ note).
     the *text* side trivial (`--books exodus`); the curation/content side —
     picking verses, writing stories and life events, tagging — is still real
     work per book, and is what actually took the time here.
+12. **`Motif` entity, and story→story Connections.** **Done (2026-09-04).**
+    5 motifs (`build_motifs.py`), each with 3 real instances in the existing
+    content — not force-fit onto single occurrences; a motif with fewer than 2
+    is rejected by the builder. New "Patterns" screens (list + detail),
+    reached from People; a "Pattern" badge row on Character and Story detail
+    pages. Also the first story↔story Connection (`"parallels"`, symmetric):
+    Joseph's brothers deceiving Jacob with a blood-soaked coat directly
+    mirrors Jacob deceiving Isaac with animal skins — shown as "Related
+    stories" on the Story detail page. `motifInstances()` / `motifsFor()` /
+    `relatedStories()` all fall straight out of the existing `connectionsFor()`
+    — no new query machinery, which is exactly what making Connection generic
+    back in §8.4 was for.
 
 ---
 
@@ -650,6 +674,9 @@ fields, so two copies can never disagree:
 | "Also in <era>" | `Character.eraId`, and only for people *not* already listed above |
 | A topic's verses | `Verse.topicIds` |
 | Verses due today | `rooted-progress` + `isDue`, capped by `settings.dailyGoal` |
+| A motif's instances | `connectionsFor('motif', id)` |
+| Motifs a story/character belongs to | `connectionsFor(type, id)` filtered to `otherType==='motif'` |
+| A story's related stories | `connectionsFor('story', id)` filtered to `otherType==='story'` |
 
 ---
 

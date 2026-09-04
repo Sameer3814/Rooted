@@ -1,0 +1,36 @@
+{
+  "_comment": "Hand-curated Motif records (DATA_MODEL.md §2). A Motif itself carries no links; every instance (this motif shows up in that story/character/verse) is a Connection with fromType:'motif', toType:'story'|'character'|'verse', relationship:'instance of' — see curation/connections.json. Chosen only where the current content actually has 2+ genuine recurrences; not force-fit onto single occurrences.",
+
+  "motifs": [
+    {
+      "id": "motif_meeting_at_a_well",
+      "name": "Meeting a spouse at a well",
+      "description": "A future wife is found at a well, in a foreign land, through an act of hospitality or defense — Isaac's, Jacob's, and Moses's wives are all met exactly this way.",
+      "exampleReferences": ["Genesis 24:15-27", "Genesis 29:1-12", "Exodus 2:15-21"]
+    },
+    {
+      "id": "motif_younger_son_chosen",
+      "name": "The younger son is chosen",
+      "description": "God repeatedly bypasses the culturally expected right of the firstborn: Isaac over Ishmael, Jacob over Esau, Joseph exalted above his ten older brothers.",
+      "exampleReferences": ["Genesis 17:19-21", "Genesis 25:23", "Genesis 37:3-11"]
+    },
+    {
+      "id": "motif_gods_reassurance",
+      "name": "\"I am with you\"",
+      "description": "At a moment of fear or a fresh commission, God speaks the same reassurance — his presence, not a removal of the danger, is the answer given.",
+      "exampleReferences": ["Genesis 26:24", "Genesis 28:15", "Exodus 3:12"]
+    },
+    {
+      "id": "motif_the_deceiver_deceived",
+      "name": "The deceiver deceived",
+      "description": "Jacob takes his brother's blessing in disguise, using animal skins to fool his father's touch. He is deceived in turn by Laban, married to the wrong sister in the dark. His own sons then deceive him with an animal's blood on his favorite son's coat.",
+      "exampleReferences": ["Genesis 27:15-23", "Genesis 29:21-25", "Genesis 37:31-33"]
+    },
+    {
+      "id": "motif_child_in_danger_delivered",
+      "name": "A child's life threatened, and delivered",
+      "description": "A child's death seems certain — by the knife, by thirst in the wilderness, by royal decree — and God provides a way through at the last possible moment.",
+      "exampleReferences": ["Genesis 22:9-13", "Genesis 21:14-19", "Exodus 2:1-10"]
+    }
+  ]
+}

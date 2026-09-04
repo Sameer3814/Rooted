@@ -1,10 +1,11 @@
-const CACHE = 'rooted-v6';
+const CACHE = 'rooted-v7';
 // data/verses.json (~1.1MB) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then.
-// starter-pack.json, stories.json and connections.json all load at boot, so
-// they belong here.
+// starter-pack.json, stories.json, motifs.json and connections.json all load
+// at boot, so they belong here.
 const ASSETS = ['./', './index.html', './manifest.json', './icon.png',
-                './data/starter-pack.json', './data/stories.json', './data/connections.json'];
+                './data/starter-pack.json', './data/stories.json',
+                './data/motifs.json', './data/connections.json'];
 
 self.addEventListener('install', e=>{
   e.waitUntil(

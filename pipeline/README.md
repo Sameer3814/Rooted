@@ -59,10 +59,29 @@ be verses that ship in the starter pack, so a story page can always render them.
 It also normalises: each event's subject is prepended to `participantIds`
 automatically, and an event inherits `eraId` from its story when omitted.
 
+### `build_motifs.py` — curation → `data/motifs.json`
+Emits the Motif entity from `curation/motifs.json` — name, description, and
+`exampleReferences` (display strings, not verse ids).
+
+```sh
+py pipeline/build_motifs.py
+py pipeline/build_motifs.py --check
+```
+
+**Requires at least 2 `exampleReferences`.** A "motif" with one occurrence is
+just a fact about that one story — not curated as a motif until a genuine
+second instance turns up in the content. A motif's actual instances (this
+motif shows up in that story/character/verse) aren't part of the Motif record
+at all — they're Connections, added to `curation/connections.json` the same
+way any other edge is (`fromType: "motif"`, `relationship: "instance of"`,
+`inverse: "has motif"`).
+
 ### `build_connections.py` — curation → `data/connections.json`
 Emits the generic Connection entity from `curation/connections.json` — the
 `{fromType, fromId, relationship, toType, toId}` edge that replaces embedded
-relationship arrays (`Character.relationships[]` was the original one).
+relationship arrays (`Character.relationships[]` was the original one). Also
+carries Motif instances and story↔story links (`"parallels"`, `"foreshadows"`)
+— anything typed and directional goes here, not a new embedded array.
 
 ```sh
 py pipeline/build_connections.py
@@ -74,7 +93,8 @@ different label for the reverse view, e.g. `"father of"` ⇄ `"son of"`) or
 `symmetric: true` (the same label both ways, e.g. `"brother of"`) — the builder
 rejects an edge with neither, or with both. The app derives the reverse view at
 render time (`connectionsFor()`), so don't write the same fact twice from both
-ends the way the old embedded arrays did.
+ends the way the old embedded arrays did. Run this **after** `build_stories.py`
+and `build_motifs.py` — it validates every `fromId`/`toId` against their output.
 
 ### `tag_verses.py` — curation aid, writes nothing
 Surfaces *candidate* verses for a topic so a human can pick the good ones. It
@@ -118,23 +138,28 @@ considered and deliberately rejected in favour of a smaller curated set.
 Verse text lives only in the corpus; the curation file holds selection and
 links, never a copy of the text.
 
-## Adding a character, story or life event
+## Adding a character, story, life event or pattern
 
 Characters live in `curation/starter_pack.json`; eras, stories and life events
-live in `curation/stories.json`; family/other relationships live in
-`curation/connections.json`. Run all three builders — later ones validate
-against earlier ones' output:
+live in `curation/stories.json`; motifs live in `curation/motifs.json`;
+family/other relationships and motif instances live in
+`curation/connections.json`. Run all four builders in this order — later ones
+validate against earlier ones' output:
 
 ```sh
-py pipeline/build_starter_pack.py && py pipeline/build_stories.py && py pipeline/build_connections.py
+py pipeline/build_starter_pack.py && py pipeline/build_stories.py && py pipeline/build_motifs.py && py pipeline/build_connections.py
 ```
 
-Two things worth knowing:
+Worth knowing:
 - **`roles` should distinguish the person.** They're what the People list shows
   under each name, so "called out of Ur" earns its place and "patriarch" does
   not — three men carrying the same label tells the reader nothing.
 - **Give every character at least one life event.** The builder enforces it; a
   character with an empty timeline looks broken in the app.
+- **A motif needs a genuine second instance before it's a motif.** One
+  occurrence is just a fact about that story; `build_motifs.py` requires at
+  least 2 `exampleReferences`. Don't force a pattern onto content that only
+  has one example — wait until a real second one turns up.
 
 ## Copyright
 
