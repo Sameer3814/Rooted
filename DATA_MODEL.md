@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (28 characters: 17 Genesis, 6 Exodus, 5 Ruth)
+### Character — *live* (30 characters: 17 Genesis, 8 Exodus, 5 Ruth)
 ```json
 {
   "id": "char_jacob",
@@ -223,7 +223,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (6 motifs)
+### Motif — *live* (7 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -392,14 +392,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 266 verses + 29 topics + 28 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 300 verses + 29 topics + 30 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (5,292 verses: Genesis, Psalms, Exodus, Ruth) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (5,292 verses: Genesis, Psalms, Exodus, Ruth) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`). Text unchanged this pass — the whole book was already parsed; this pass added curation on top of it. |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 5 eras, 41 stories, 126 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 6 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 58 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 5 eras, 51 stories, 145 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 7 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 61 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -657,6 +657,25 @@ note).
     of connection this whole schema exists to make visible. Same repeatable
     shape as the Exodus expansion: parse the book, pick verses, write stories
     and events, tag, then look for what it echoes in what's already there.
+14. **Finish the book of Exodus (chapters 5–40).** **Done (2026-09-04).**
+    9 more stories (the plagues, the Passover, the Red Sea, the song of the
+    sea, manna and water, the battle with Amalek, the covenant at Sinai, the
+    golden calf, the tabernacle's glory); 2 new characters — **Pharaoh**
+    (never named in the text; represents the throne rather than committing to
+    one ruler across the narrative) and **Joshua** (introduced here on
+    purpose, well before the book that will bear his name); 34 curated verses;
+    a 7th motif, `motif_intercession_for_others`, connecting Abraham's plea
+    for Sodom (`story_pleading_for_sodom`, Genesis) to Moses' plea for Israel
+    after the golden calf (`story_golden_calf`, Exodus) — two people risking
+    everything to stand between God's judgment and people who did nothing to
+    earn mercy. No new topics needed; the existing 29 already covered this
+    content well, a sign the topic set is maturing.
+
+    **Going forward, book order is canonical** (owner's direction,
+    2026-09-04): Exodus → Leviticus → Numbers → Deuteronomy → Joshua → ...
+    Ruth landed earlier, out of order, and stays — it isn't being undone,
+    this just governs what comes next. **Leviticus is a different shape of
+    problem** — see §11.
 
 ---
 
@@ -716,3 +735,18 @@ public domain. Rules:
 - Do user-added characters/verses get to participate in Connections and motifs,
   or are those seed-only for now?
 - Multi-translation UI: side-by-side, toggle, or per-verse preference?
+- **§8.14: how should Leviticus (and similar law-heavy books) be curated?**
+  Genesis/Exodus/Ruth all fit the same playbook because they're narrative —
+  era → characters → stories → life events. Leviticus is almost entirely law
+  and ritual instruction; it has maybe three narrative incidents in 27
+  chapters (Nadab and Abihu's death, the blasphemer stoned, the octave of
+  ordination) and no real character arcs. Forcing the Genesis/Exodus story
+  shape onto it would mean thin, padded-out "stories" that don't earn their
+  place. Options, not yet decided: (a) verses-and-topics only for Leviticus —
+  no new Story/Era content, just curate strong topical verses (holiness,
+  atonement, love your neighbor as yourself is *in* Leviticus) into the
+  existing topic set; (b) the handful of genuine narrative incidents get
+  Story treatment and the rest is verses-only; (c) skip ahead to Numbers,
+  which has substantially more narrative (the spies, Korah's rebellion,
+  Balaam's donkey, the bronze serpent), and come back to Leviticus later.
+  Ask the owner before starting it rather than guessing.

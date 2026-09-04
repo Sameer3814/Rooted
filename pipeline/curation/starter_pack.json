@@ -2056,6 +2056,275 @@
       "characterIds": [
         "char_naomi"
       ]
+    },
+    {
+      "id": "verse_exodus_5_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_12_13",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_12_31",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_13_21",
+      "topicIds": [
+        "topic_guidance",
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_14_13",
+      "topicIds": [
+        "topic_trust",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_14_14",
+      "topicIds": [
+        "topic_trust",
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_14_22",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_14_30",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_14_31",
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_15_2",
+      "topicIds": [
+        "topic_worship",
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_15_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_miriam",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_15_21",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_miriam"
+      ]
+    },
+    {
+      "id": "verse_exodus_16_4",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_16_15",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_17_6",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_17_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_17_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses",
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_17_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_exodus_19_4",
+      "topicIds": [
+        "topic_deliverance",
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_19_5",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_19_6",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_20_3",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_20_12",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_24_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_32_1",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_32_4",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_aaron"
+      ]
+    },
+    {
+      "id": "verse_exodus_32_19",
+      "topicIds": [],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_32_31",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_32_32",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_moses"
+      ]
+    },
+    {
+      "id": "verse_exodus_33_11",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_exodus_34_6",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_34_7",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_forgiveness",
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_40_34",
+      "topicIds": [
+        "topic_presence",
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_exodus_40_35",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -2720,6 +2989,28 @@
       ],
       "eraId": "era_judges",
       "summary": "Naomi's other daughter-in-law, who loved her enough to weep at their parting, but chose — reasonably, and without condemnation in the text — to return to her own people and gods rather than follow her into an uncertain future.",
+      "verseIds": []
+    },
+    {
+      "id": "char_pharaoh",
+      "name": "Pharaoh",
+      "roles": [
+        "hardened his heart",
+        "let Egypt's firstborn die rather than let Israel go"
+      ],
+      "eraId": "era_exodus",
+      "summary": "The king of Egypt who enslaved Israel and refused, plague after plague, to let them go. The text never gives him a name — he represents the throne more than a single ruler across the narrative.",
+      "verseIds": []
+    },
+    {
+      "id": "char_joshua",
+      "name": "Joshua",
+      "roles": [
+        "defeated Amalek",
+        "wouldn't leave the Tent of Meeting"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Moses' young aide, first seen leading Israel's fighting men against Amalek and lingering in the tent of meeting after Moses left it. He becomes the far more central figure who leads Israel into the promised land.",
       "verseIds": []
     }
   ]

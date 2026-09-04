@@ -59,6 +59,15 @@
         "Genesis 46:1-7",
         "Ruth 1:1-5"
       ]
+    },
+    {
+      "id": "motif_intercession_for_others",
+      "name": "Standing in the gap for others",
+      "description": "Someone pleads with God on behalf of people who have no claim on mercy of their own — Abraham bargaining for Sodom, Moses offering himself in place of a people who had just betrayed him.",
+      "exampleReferences": [
+        "Genesis 18:22-33",
+        "Exodus 32:30-32"
+      ]
     }
   ]
 }

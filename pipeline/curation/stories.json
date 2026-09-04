@@ -869,6 +869,223 @@
         "topic_faithfulness",
         "topic_provision"
       ]
+    },
+    {
+      "id": "story_let_my_people_go",
+      "title": "\"Let my people go\"",
+      "summary": "Moses and Aaron confront Pharaoh again and again with the same demand. Each time he refuses, a plague strikes Egypt; each time it lifts, his heart hardens again.",
+      "primaryReference": "Exodus 5:1-11:10",
+      "eraId": "era_exodus",
+      "canonicalOrder": 640,
+      "verseIds": [
+        "verse_exodus_5_1"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_pharaoh"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_the_passover",
+      "title": "The Passover",
+      "summary": "On the night of the tenth plague, Israel is told to mark their doorposts with blood so death will pass over them. That night Egypt's firstborn die, and Pharaoh finally lets Israel go.",
+      "primaryReference": "Exodus 12:1-42",
+      "eraId": "era_exodus",
+      "canonicalOrder": 650,
+      "verseIds": [
+        "verse_exodus_12_13",
+        "verse_exodus_12_31"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_pharaoh"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_covenant"
+      ]
+    },
+    {
+      "id": "story_crossing_the_red_sea",
+      "title": "Crossing the Red Sea",
+      "summary": "With Pharaoh's army closing in and the sea ahead, Moses tells the people to stand still. The sea divides, Israel crosses on dry ground, and the pursuing army is destroyed.",
+      "primaryReference": "Exodus 13:17-14:31",
+      "eraId": "era_exodus",
+      "canonicalOrder": 660,
+      "verseIds": [
+        "verse_exodus_13_21",
+        "verse_exodus_14_13",
+        "verse_exodus_14_14",
+        "verse_exodus_14_22",
+        "verse_exodus_14_30",
+        "verse_exodus_14_31"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_pharaoh"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_deliverance",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_song_of_the_sea",
+      "title": "The song of the sea",
+      "summary": "On the far shore, Moses sings of what Yahweh has done. Miriam takes up a tambourine, and all the women dance and sing after her.",
+      "primaryReference": "Exodus 15:1-21",
+      "eraId": "era_exodus",
+      "canonicalOrder": 665,
+      "verseIds": [
+        "verse_exodus_15_2",
+        "verse_exodus_15_20",
+        "verse_exodus_15_21"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_miriam",
+        "char_aaron"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_strength"
+      ]
+    },
+    {
+      "id": "story_manna_and_water",
+      "title": "Bread from heaven, water from the rock",
+      "summary": "In the wilderness the people run out of food, then water. God answers both times — bread appearing with the dew each morning, water from a struck rock.",
+      "primaryReference": "Exodus 16:1-17:7",
+      "eraId": "era_exodus",
+      "canonicalOrder": 670,
+      "verseIds": [
+        "verse_exodus_16_4",
+        "verse_exodus_16_15",
+        "verse_exodus_17_6"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_provision",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_battle_with_amalek",
+      "title": "The battle with Amalek",
+      "summary": "Joshua leads Israel's fighting men against Amalek while Moses holds up his hands on a hilltop. When his hands grow heavy, Aaron and another man hold them up until sunset, and Joshua wins.",
+      "primaryReference": "Exodus 17:8-16",
+      "eraId": "era_exodus",
+      "canonicalOrder": 675,
+      "verseIds": [
+        "verse_exodus_17_11",
+        "verse_exodus_17_12",
+        "verse_exodus_17_13"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_strength"
+      ]
+    },
+    {
+      "id": "story_covenant_at_sinai",
+      "title": "The covenant at Sinai",
+      "summary": "At the mountain, God offers Israel a covenant — his own possession, a kingdom of priests — and gives the commandments, beginning with no other gods and honoring father and mother.",
+      "primaryReference": "Exodus 19:1-20:21",
+      "eraId": "era_exodus",
+      "canonicalOrder": 680,
+      "verseIds": [
+        "verse_exodus_19_4",
+        "verse_exodus_19_5",
+        "verse_exodus_19_6",
+        "verse_exodus_20_3",
+        "verse_exodus_20_12",
+        "verse_exodus_24_12"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_covenant",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_golden_calf",
+      "title": "The golden calf",
+      "summary": "While Moses is on the mountain, the people grow impatient and ask Aaron to make them a god. Moses comes down, breaks the tablets in anger, and then goes back up to beg God to forgive them rather than destroy them. Joshua, meanwhile, has not left the tent.",
+      "primaryReference": "Exodus 32:1-33:11",
+      "eraId": "era_exodus",
+      "canonicalOrder": 685,
+      "verseIds": [
+        "verse_exodus_32_1",
+        "verse_exodus_32_4",
+        "verse_exodus_32_19",
+        "verse_exodus_32_31",
+        "verse_exodus_32_32",
+        "verse_exodus_33_11"
+      ],
+      "characterIds": [
+        "char_moses",
+        "char_aaron",
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_temptation",
+        "topic_repentance",
+        "topic_forgiveness",
+        "topic_presence"
+      ]
+    },
+    {
+      "id": "story_gods_character_revealed",
+      "title": "\"Merciful and gracious\"",
+      "summary": "God gives Moses new tablets and passes before him, proclaiming his own character: merciful, gracious, slow to anger, abundant in loving kindness — and still just.",
+      "primaryReference": "Exodus 34:1-9",
+      "eraId": "era_exodus",
+      "canonicalOrder": 687,
+      "verseIds": [
+        "verse_exodus_34_6",
+        "verse_exodus_34_7"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_forgiveness",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_gods_glory_fills_tabernacle",
+      "title": "The glory fills the tabernacle",
+      "summary": "The tabernacle is finished exactly as instructed. A cloud covers it, and Yahweh's glory fills it so completely that even Moses cannot enter.",
+      "primaryReference": "Exodus 40:1-38",
+      "eraId": "era_exodus",
+      "canonicalOrder": 690,
+      "verseIds": [
+        "verse_exodus_40_34",
+        "verse_exodus_40_35"
+      ],
+      "characterIds": [
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_presence",
+        "topic_worship"
+      ]
     }
   ],
   "lifeEvents": [
@@ -2337,6 +2554,225 @@
       "participantIds": [
         "char_naomi",
         "char_ruth"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_moses_confronts_pharaoh",
+      "characterId": "char_moses",
+      "title": "Confronts Pharaoh again and again",
+      "description": "He and Aaron repeat the same demand through nine plagues, and Pharaoh's heart hardens every time.",
+      "reference": "Exodus 5:1-11:10",
+      "storyId": "story_let_my_people_go",
+      "participantIds": [
+        "char_aaron",
+        "char_pharaoh"
+      ],
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_moses_institutes_passover",
+      "characterId": "char_moses",
+      "title": "Institutes the Passover",
+      "description": "He tells Israel to mark their doors with blood on the night of the tenth plague.",
+      "reference": "Exodus 12:1-28",
+      "storyId": "story_the_passover",
+      "participantIds": [
+        "char_aaron"
+      ],
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_moses_red_sea",
+      "characterId": "char_moses",
+      "title": "Leads Israel through the sea",
+      "description": "He stretches out his hand and the sea divides; Israel crosses on dry ground.",
+      "reference": "Exodus 14:1-31",
+      "storyId": "story_crossing_the_red_sea",
+      "participantIds": [
+        "char_pharaoh"
+      ],
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_moses_sings",
+      "characterId": "char_moses",
+      "title": "Sings on the far shore",
+      "description": "\"Yah is my strength and song. He has become my salvation.\"",
+      "reference": "Exodus 15:1-18",
+      "storyId": "story_song_of_the_sea",
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_moses_provides",
+      "characterId": "char_moses",
+      "title": "Brings bread and water from nothing",
+      "description": "He relays God's provision of manna and strikes the rock at Horeb for water.",
+      "reference": "Exodus 16:1-17:7",
+      "storyId": "story_manna_and_water",
+      "sequenceInLife": 130
+    },
+    {
+      "id": "event_moses_receives_law",
+      "characterId": "char_moses",
+      "title": "Receives the covenant and the commandments",
+      "description": "God offers Israel a covenant through him, and gives the Ten Commandments.",
+      "reference": "Exodus 19:1-20:21",
+      "storyId": "story_covenant_at_sinai",
+      "sequenceInLife": 140
+    },
+    {
+      "id": "event_moses_breaks_tablets",
+      "characterId": "char_moses",
+      "title": "Breaks the tablets, then intercedes",
+      "description": "Furious at the golden calf, he shatters the tablets — then goes back up the mountain and offers to be blotted out himself rather than let the people be destroyed.",
+      "reference": "Exodus 32:1-32",
+      "storyId": "story_golden_calf",
+      "participantIds": [
+        "char_aaron"
+      ],
+      "sequenceInLife": 150
+    },
+    {
+      "id": "event_moses_gods_character",
+      "characterId": "char_moses",
+      "title": "Hears God proclaim his own character",
+      "description": "\"Merciful and gracious, slow to anger, and abundant in loving kindness and truth.\"",
+      "reference": "Exodus 34:1-9",
+      "storyId": "story_gods_character_revealed",
+      "sequenceInLife": 160
+    },
+    {
+      "id": "event_moses_tabernacle",
+      "characterId": "char_moses",
+      "title": "Can't enter his own tent",
+      "description": "God's glory fills the finished tabernacle so completely that even Moses is kept out.",
+      "reference": "Exodus 40:34-38",
+      "storyId": "story_gods_glory_fills_tabernacle",
+      "sequenceInLife": 170
+    },
+    {
+      "id": "event_aaron_confronts_pharaoh",
+      "characterId": "char_aaron",
+      "title": "Speaks for Moses before Pharaoh",
+      "description": "He repeats Yahweh's demand to Pharaoh through the escalating plagues.",
+      "reference": "Exodus 5:1-11:10",
+      "storyId": "story_let_my_people_go",
+      "participantIds": [
+        "char_moses",
+        "char_pharaoh"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_aaron_passover",
+      "characterId": "char_aaron",
+      "title": "Keeps the first Passover",
+      "description": "He and Moses lead Israel through the night of the tenth plague.",
+      "reference": "Exodus 12:1-28",
+      "storyId": "story_the_passover",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_aaron_holds_hands",
+      "characterId": "char_aaron",
+      "title": "Holds up Moses' hands",
+      "description": "When Moses' arms grow heavy on the hilltop, Aaron holds one side up until Joshua wins the battle.",
+      "reference": "Exodus 17:10-13",
+      "storyId": "story_battle_with_amalek",
+      "participantIds": [
+        "char_moses",
+        "char_joshua"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_aaron_golden_calf",
+      "characterId": "char_aaron",
+      "title": "Makes the golden calf",
+      "description": "Pressured by the people, he collects their gold and fashions it into an idol.",
+      "reference": "Exodus 32:1-6",
+      "storyId": "story_golden_calf",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_miriam_sings",
+      "characterId": "char_miriam",
+      "title": "Leads the women in song",
+      "description": "She takes a tambourine and leads the women in singing and dancing after the sea closes over Egypt's army.",
+      "reference": "Exodus 15:20-21",
+      "storyId": "story_song_of_the_sea",
+      "participantIds": [
+        "char_moses",
+        "char_aaron"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_pharaoh_refuses",
+      "characterId": "char_pharaoh",
+      "title": "Refuses, plague after plague",
+      "description": "Each time a plague lifts, his heart hardens and he refuses to let Israel go.",
+      "reference": "Exodus 5:1-11:10",
+      "storyId": "story_let_my_people_go",
+      "participantIds": [
+        "char_moses",
+        "char_aaron"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_pharaoh_releases",
+      "characterId": "char_pharaoh",
+      "title": "Finally lets Israel go",
+      "description": "After his own son dies in the tenth plague, he tells Moses and Aaron to take Israel and leave.",
+      "reference": "Exodus 12:29-32",
+      "storyId": "story_the_passover",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_pharaoh_pursues",
+      "characterId": "char_pharaoh",
+      "title": "Pursues Israel to the sea",
+      "description": "He changes his mind and chases Israel with his army, which the sea then destroys.",
+      "reference": "Exodus 14:5-28",
+      "storyId": "story_crossing_the_red_sea",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_joshua_defeats_amalek",
+      "characterId": "char_joshua",
+      "title": "Defeats Amalek",
+      "description": "He leads Israel's fighting men while Moses' upheld hands decide the battle.",
+      "reference": "Exodus 17:8-13",
+      "storyId": "story_battle_with_amalek",
+      "participantIds": [
+        "char_moses",
+        "char_aaron"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joshua_stays_in_tent",
+      "characterId": "char_joshua",
+      "title": "Won't leave the Tent of Meeting",
+      "description": "After Moses speaks with God face to face and leaves the tent, his young aide stays behind.",
+      "reference": "Exodus 33:11",
+      "storyId": "story_golden_calf",
+      "participantIds": [
+        "char_moses"
       ],
       "sequenceInLife": 20
     }

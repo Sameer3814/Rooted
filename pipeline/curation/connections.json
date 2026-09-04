@@ -524,6 +524,33 @@
       "toType": "story",
       "toId": "story_famine_to_moab",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_joshua_aide_to_moses",
+      "fromType": "character",
+      "fromId": "char_joshua",
+      "relationship": "aide to",
+      "toType": "character",
+      "toId": "char_moses",
+      "inverse": "aided by"
+    },
+    {
+      "id": "conn_intercession_instance_pleading_for_sodom",
+      "fromType": "motif",
+      "fromId": "motif_intercession_for_others",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_pleading_for_sodom",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_intercession_instance_golden_calf",
+      "fromType": "motif",
+      "fromId": "motif_intercession_for_others",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_golden_calf",
+      "inverse": "has motif"
     }
   ]
 }
