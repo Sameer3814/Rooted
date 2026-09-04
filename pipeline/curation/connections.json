@@ -750,6 +750,105 @@
       "toType": "verse",
       "toId": "verse_1samuel_9_21",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_saul_father_of_michal",
+      "fromType": "character",
+      "fromId": "char_saul",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_michal",
+      "inverse": "daughter of"
+    },
+    {
+      "id": "conn_david_husband_of_michal",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_michal",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_uriah_husband_of_bathsheba",
+      "fromType": "character",
+      "fromId": "char_uriah",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_bathsheba",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_david_husband_of_bathsheba",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_bathsheba",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_david_father_of_absalom",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_absalom",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_david_father_of_amnon",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_amnon",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_david_father_of_tamar",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_tamar",
+      "inverse": "daughter of"
+    },
+    {
+      "id": "conn_absalom_brother_of_tamar",
+      "fromType": "character",
+      "fromId": "char_absalom",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_tamar",
+      "inverse": "sister of"
+    },
+    {
+      "id": "conn_jonathan_father_of_mephibosheth",
+      "fromType": "character",
+      "fromId": "char_jonathan",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_mephibosheth",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_prophetconfronts_instance_saul",
+      "fromType": "motif",
+      "fromId": "motif_prophet_confronts_the_king",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_sauls_rejection",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_prophetconfronts_instance_david",
+      "fromType": "motif",
+      "fromId": "motif_prophet_confronts_the_king",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_nathan_confronts_david",
+      "inverse": "has motif"
     }
   ]
 }

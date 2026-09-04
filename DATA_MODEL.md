@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (55 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel)
+### Character — *live* (64 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel)
 ```json
 {
   "id": "char_jacob",
@@ -240,7 +240,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (11 motifs)
+### Motif — *live* (12 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -409,14 +409,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 466 verses + 32 topics + 55 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 505 verses + 32 topics + 64 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (10,484 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (11,179 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 7 eras, 88 stories, 242 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 11 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 83 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 7 eras, 98 stories, 266 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 12 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 94 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -827,6 +827,35 @@ note).
     and Gideon — attached directly to a verse, the same shape §8.19 already
     wired a badge for. No new UI or query code needed for either — pure
     payoff from Connection being generic since §8.4.
+
+21. **2 Samuel.** **Done (2026-09-04).** Narrative again, the full playbook.
+    **No new era** — folds into the same `era_united_kingdom` §8.20
+    created for 1 Samuel, since it's the same period continuing directly
+    (David's reign), not a new one. 10 stories: David's lament for Saul and
+    Jonathan; David becomes king over all Israel and takes Jerusalem;
+    Michal despises David for dancing before the ark; God's covenant with
+    David's house; David's kindness to Mephibosheth for Jonathan's sake;
+    David and Bathsheba, and the killing of Uriah; Nathan's confrontation
+    ("you are the man"); the rape of Tamar and Absalom's revenge on Amnon;
+    Absalom's rebellion; the death of Absalom. 9 new characters (Michal,
+    Bathsheba, Uriah, Nathan, Absalom, Tamar, Amnon, Mephibosheth, Joab) —
+    more than any prior single-book pass (Judges' 10 was spread across 6
+    stories; these 9 concentrate across the second half of one book). 39
+    curated verses. No new topics — the existing 32 (temptation,
+    repentance, justice, betrayal, sorrow, loyalty, forgiveness) covered
+    every beat without needing more.
+
+    11 new Connections, including a relationship kind not seen before:
+    `"daughter of"` as the inverse of `"father of"` when the child is
+    female (Saul → Michal), matching the pattern already established for
+    mothers (Jochebed → Miriam, §8.3). A new motif,
+    `motif_prophet_confronts_the_king`, connects Samuel telling Saul "to
+    obey is better than sacrifice" (1 Samuel 15:22-23, already curated) to
+    Nathan telling David "you are the man" (2 Samuel 12:1-7) — not
+    recognized as a motif until this second real instance existed, per the
+    standing rule. Both instances attach to **stories**, not verses, so no
+    new UI wiring was needed — `renderMotifBadges` on Story detail already
+    handled it.
 
 ---
 

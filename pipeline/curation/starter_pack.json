@@ -3684,6 +3684,351 @@
         "char_saul",
         "char_jonathan"
       ]
+    },
+    {
+      "id": "verse_2samuel_1_19",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_2samuel_1_26",
+      "topicIds": [
+        "topic_sorrow",
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_jonathan"
+      ]
+    },
+    {
+      "id": "verse_2samuel_2_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_5_3",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_5_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_6_14",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_6_16",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_michal"
+      ]
+    },
+    {
+      "id": "verse_2samuel_6_20",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_michal",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_6_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_michal"
+      ]
+    },
+    {
+      "id": "verse_2samuel_7_12",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_7_16",
+      "topicIds": [
+        "topic_covenant",
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_9_1",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_jonathan"
+      ]
+    },
+    {
+      "id": "verse_2samuel_9_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_mephibosheth",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_9_7",
+      "topicIds": [
+        "topic_loyalty",
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_mephibosheth",
+        "char_jonathan"
+      ]
+    },
+    {
+      "id": "verse_2samuel_11_2",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_11_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_david",
+        "char_bathsheba",
+        "char_uriah"
+      ]
+    },
+    {
+      "id": "verse_2samuel_11_4",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_bathsheba"
+      ]
+    },
+    {
+      "id": "verse_2samuel_11_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_david",
+        "char_uriah"
+      ]
+    },
+    {
+      "id": "verse_2samuel_11_27",
+      "topicIds": [],
+      "characterIds": [
+        "char_david",
+        "char_bathsheba"
+      ]
+    },
+    {
+      "id": "verse_2samuel_12_7",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_nathan",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_12_13",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_nathan"
+      ]
+    },
+    {
+      "id": "verse_2samuel_12_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_amnon",
+        "char_tamar",
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_amnon",
+        "char_tamar"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_15",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_amnon",
+        "char_tamar"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_22",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_absalom",
+        "char_amnon",
+        "char_tamar"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_28",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom",
+        "char_amnon"
+      ]
+    },
+    {
+      "id": "verse_2samuel_13_29",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom",
+        "char_amnon"
+      ]
+    },
+    {
+      "id": "verse_2samuel_14_33",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_4",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_6",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2samuel_18_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_18_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_joab",
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_18_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_absalom",
+        "char_joab"
+      ]
+    },
+    {
+      "id": "verse_2samuel_18_33",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_absalom"
+      ]
+    },
+    {
+      "id": "verse_2samuel_19_4",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_absalom"
+      ]
     }
   ],
   "topics": [
@@ -4675,6 +5020,96 @@
       ],
       "eraId": "era_united_kingdom",
       "summary": "Saul's son and heir to the throne, who loved David more than his own claim to it, made a covenant with him, warned him of his father's murderous intent, and died alongside Saul on Mount Gilboa.",
+      "verseIds": []
+    },
+    {
+      "id": "char_michal",
+      "name": "Michal",
+      "roles": [
+        "Saul's daughter who despised David's worship"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's first wife and Saul's daughter; watching him dance before the ark, she despises him for it and remains childless the rest of her life.",
+      "verseIds": []
+    },
+    {
+      "id": "char_bathsheba",
+      "name": "Bathsheba",
+      "roles": [
+        "the wife David took by force, mother of Solomon"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Uriah's wife, taken by David while her husband was at war; later becomes the mother of Solomon.",
+      "verseIds": []
+    },
+    {
+      "id": "char_uriah",
+      "name": "Uriah",
+      "roles": [
+        "the loyal soldier David had killed to cover his sin"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A Hittite soldier in David's army, more loyal to his fellow soldiers than to his own comfort; killed on David's orders to hide David's adultery with his wife.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nathan",
+      "name": "Nathan",
+      "roles": [
+        "the prophet who told David \"you are the man\""
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A prophet in David's court who delivers God's covenant promise, then later confronts David's sin with a parable that leaves the king condemning himself.",
+      "verseIds": []
+    },
+    {
+      "id": "char_absalom",
+      "name": "Absalom",
+      "roles": [
+        "David's son who avenged his sister and later rebelled against him"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's third son; kills his half-brother Amnon for raping their sister Tamar, then years later steals the loyalty of Israel and drives David out of Jerusalem.",
+      "verseIds": []
+    },
+    {
+      "id": "char_tamar",
+      "name": "Tamar",
+      "roles": [
+        "David's daughter, raped by her half-brother Amnon"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's daughter and Absalom's full sister; raped by their half-brother Amnon, an act her brother avenges two years later.",
+      "verseIds": []
+    },
+    {
+      "id": "char_amnon",
+      "name": "Amnon",
+      "roles": [
+        "David's firstborn son, who forced his half-sister Tamar"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's oldest son; obsessed with his half-sister Tamar, rapes her and then discards her, and is later killed for it by her brother Absalom.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mephibosheth",
+      "name": "Mephibosheth",
+      "roles": [
+        "Jonathan's crippled son, shown kindness for his father's sake"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Jonathan's son, crippled in both feet since childhood; David seeks him out and restores Saul's land to him for Jonathan's sake.",
+      "verseIds": []
+    },
+    {
+      "id": "char_joab",
+      "name": "Joab",
+      "roles": [
+        "David's ruthless army commander, loyal but uncontrollable"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The commander of David's army; carries out the order that gets Uriah killed, and later kills Absalom against David's direct command.",
       "verseIds": []
     }
   ]

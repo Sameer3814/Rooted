@@ -53,40 +53,43 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **466 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, Deuteronomy, Joshua, Judges, and 1 Samuel, WEB translation)
-  across **32 topics** (topics linked to related topics), plus
-  **55 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
-  2 Joshua, 10 Judges, 7 1 Samuel) with real relationships (father of,
-  wife of, brother of, successor of, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 55 characters, standalone. Generated
+  first run: **505 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, and 2 Samuel, WEB
+  translation) across **32 topics** (topics linked to related topics),
+  plus **64 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus,
+  4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel) with real
+  relationships (father of, wife of, brother of, successor of, raised,
+  etc. — see Connection, below).
+- `data/characters.json` — the same 64 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, and
-  1 Samuel (10,484 verses, WEB translation, public domain). Lazily fetched
-  by the Browse screen the first time it's opened, never at boot. It is
-  *reference material*, kept separate from the user's library — adding a
-  verse from Browse copies it into the user's overlay. Only the 466 seed
-  verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 7 eras, **88 stories and 242 life events**. Covers
+  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel,
+  and 2 Samuel (11,179 verses, WEB translation, public domain). Lazily
+  fetched by the Browse screen the first time it's opened, never at boot.
+  It is *reference material*, kept separate from the user's library —
+  adding a verse from Browse copies it into the user's overlay. Only the
+  505 seed verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 7 eras, **98 stories and 266 life events**. Covers
   Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers' wilderness
   narrative, Deuteronomy's ending, Joshua's conquest of Canaan, the book
-  of Judges' cycle of deliverers, and the new `era_united_kingdom` — Israel's
-  first three kings begin with Hannah's prayer, Samuel's call, Saul chosen
-  and rejected, David anointed and defeating Goliath, David and Jonathan's
-  covenant, Saul hunting David, the witch of Endor, and the deaths of Saul
-  and Jonathan. Loaded at boot (it's small). Drives the character life
-  timeline, the Stories screens, People-grouped-by-era, and "appears
+  of Judges' cycle of deliverers, and `era_united_kingdom` — Israel's
+  first three kings, now carrying all of 1 and 2 Samuel: Hannah's prayer
+  through Saul's death, then David's lament, his kingship over a united
+  Israel, the ark brought to Jerusalem, God's covenant with his house,
+  kindness to Mephibosheth, his sin with Bathsheba and Uriah, Nathan's
+  rebuke, the rape of Tamar and Absalom's revenge, and Absalom's
+  rebellion and death. Loaded at boot (it's small). Drives the character
+  life timeline, the Stories screens, People-grouped-by-era, and "appears
   alongside".
-- `data/motifs.json` — **11** recurring biblical patterns, each with real
+- `data/motifs.json` — **12** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. `motif_younger_son_chosen` now spans Genesis and 1 Samuel —
-  David, the youngest of Jesse's sons, joins Isaac, Jacob, and Joseph.
-  `motif_who_am_i_reluctant_call` now has a third instance: Saul telling
-  Samuel he's from the smallest tribe and family (1 Samuel 9:21), alongside
-  Moses and Gideon. Loaded at boot. Drives the Patterns screens and the
-  "Pattern" badges on Character, Story, and Verse detail pages.
-- `data/connections.json` — 83 generic Connection edges (Design philosophy
+  occurrences. A new one, `motif_prophet_confronts_the_king`, connects
+  Samuel telling Saul "to obey is better than sacrifice" (1 Samuel 15) to
+  Nathan telling David "you are the man" (2 Samuel 12) — a prophet risking
+  everything to tell a king the truth about himself. Loaded at boot.
+  Drives the Patterns screens and the "Pattern" badges on Character,
+  Story, and Verse detail pages.
+- `data/connections.json` — 94 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
   `character` / `verse`), and story↔story links (`"parallels"`,
   `"contrasts with"`). Loaded at boot.
@@ -96,7 +99,7 @@ The schema was deliberately designed so all of the above can be added
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
     whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
-    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel.
+    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -211,12 +214,14 @@ hand-curate all the content before building.
    order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
    Numbers, and so on — Ruth landed earlier and stays, but books from here
    follow Bible order). Completed so far: Exodus, Leviticus, Numbers,
-   Deuteronomy, Joshua, Judges (see prior entries below), and now 1 Samuel
-   (whole book, narrative: Hannah's prayer, Samuel's call and Eli's death,
-   Israel demanding a king, Saul's rejection, David anointed, David and
-   Goliath, David and Jonathan, Saul hunting David, the witch of Endor, the
-   deaths of Saul and Jonathan — new `era_united_kingdom`, see
-   DATA_MODEL.md §8.20). Next up: **2 Samuel**, then **1 Kings**.
+   Deuteronomy, Joshua, Judges, 1 Samuel (see prior entries below), and now
+   2 Samuel (whole book, narrative: David's lament for Saul and Jonathan,
+   his kingship over a united Israel, bringing the ark to Jerusalem, God's
+   covenant with his house, kindness to Mephibosheth, his sin with
+   Bathsheba and Uriah, Nathan's confrontation, the rape of Tamar and
+   Absalom's revenge, Absalom's rebellion and death — folded into the
+   existing `era_united_kingdom`, see DATA_MODEL.md §8.21). Next up:
+   **1 Kings**.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -331,7 +336,22 @@ Jonathan), 38 verses, 1 new topic (`topic_obedience`). David becomes the
 same shape as Isaac, Jacob, and Joseph), and Saul's "am I not a
 Benjamite, of the smallest of the tribes... my family the least" (1
 Samuel 9:21) becomes a 3rd instance of `motif_who_am_i_reluctant_call`,
-alongside Moses and Gideon.
+alongside Moses and Gideon. Then 2 Samuel, staying inside the same
+`era_united_kingdom`: David's lament for Saul and Jonathan ("how the
+mighty have fallen"), his kingship over a united Israel and capture of
+Jerusalem, bringing the ark up while Michal despises him for dancing
+before it, God's covenant promising his throne established forever,
+kindness to Jonathan's crippled son Mephibosheth, his sin with Bathsheba
+and the killing of her husband Uriah, Nathan's confrontation ("you are
+the man"), the rape of Tamar and Absalom's revenge on Amnon, and
+Absalom's rebellion ending in his death and David's grief ("O Absalom,
+my son, my son!"). 9 new characters (Michal, Bathsheba, Uriah, Nathan,
+Absalom, Tamar, Amnon, Mephibosheth, Joab), 39 verses, no new topics —
+the existing 32 covered adultery, repentance, betrayal, and sorrow
+without needing more. A new motif, `motif_prophet_confronts_the_king`,
+connects Samuel's rebuke of Saul to Nathan's rebuke of David — the same
+shape of a prophet telling a compromised king the truth to his face,
+recognized only once a second real instance existed.
 
 ## Source data provenance
 

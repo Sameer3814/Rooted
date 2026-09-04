@@ -1902,6 +1902,227 @@
       "topicIds": [
         "topic_sorrow"
       ]
+    },
+    {
+      "id": "story_davids_lament",
+      "title": "David's lament for Saul and Jonathan",
+      "summary": "News of Saul and Jonathan's deaths reaches David at Ziklag. Rather than relief at his rival's end, he tears his clothes and mourns, then composes a lament — grief for Saul as the anointed king, and for Jonathan a love \"passing the love of women.\"",
+      "primaryReference": "2 Samuel 1:1-27",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1100,
+      "verseIds": [
+        "verse_2samuel_1_19",
+        "verse_2samuel_1_26"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_saul",
+        "char_jonathan"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_loyalty"
+      ]
+    },
+    {
+      "id": "story_david_king_over_israel",
+      "title": "David becomes king over all Israel",
+      "summary": "After years of civil war between Saul's house and David's, the elders of every tribe come to Hebron and anoint David king over a united Israel. He takes the Jebusite stronghold of Zion and makes it his city — Jerusalem.",
+      "primaryReference": "2 Samuel 2:1-5:10",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1110,
+      "verseIds": [
+        "verse_2samuel_2_4",
+        "verse_2samuel_5_3",
+        "verse_2samuel_5_7"
+      ],
+      "characterIds": [
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_michal_despises_david",
+      "title": "Michal despises David's worship",
+      "summary": "David brings the ark of the covenant up to Jerusalem, dancing before it with all his might in plain linen. Watching from a window, his wife Michal — Saul's daughter — despises him in her heart for humiliating himself in front of servant girls. She never bears a child.",
+      "primaryReference": "2 Samuel 6:1-23",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1120,
+      "verseIds": [
+        "verse_2samuel_6_14",
+        "verse_2samuel_6_16",
+        "verse_2samuel_6_20",
+        "verse_2samuel_6_23"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_michal"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_davidic_covenant",
+      "title": "God's covenant with David",
+      "summary": "David wants to build God a house. Instead, through the prophet Nathan, God promises to build David a house — a dynasty and a throne established forever, a promise later generations would read as pointing toward the Messiah.",
+      "primaryReference": "2 Samuel 7:1-17",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1130,
+      "verseIds": [
+        "verse_2samuel_7_12",
+        "verse_2samuel_7_16"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_nathan"
+      ],
+      "topicIds": [
+        "topic_covenant",
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_david_and_mephibosheth",
+      "title": "David and Mephibosheth",
+      "summary": "Years after Jonathan's death, David asks if anyone from Saul's house is left so he can show them kindness for Jonathan's sake. He finds Mephibosheth, Jonathan's son, crippled in both feet, and restores his grandfather's land and a permanent seat at the king's table.",
+      "primaryReference": "2 Samuel 9:1-13",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1140,
+      "verseIds": [
+        "verse_2samuel_9_1",
+        "verse_2samuel_9_6",
+        "verse_2samuel_9_7"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_mephibosheth",
+        "char_jonathan"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_david_and_bathsheba",
+      "title": "David and Bathsheba",
+      "summary": "While his army is at war, David stays behind, sees Bathsheba bathing, and sends for her, though he knows she is another man's wife. When she becomes pregnant, he tries to cover it up, and when that fails, arranges for her husband Uriah to die in battle.",
+      "primaryReference": "2 Samuel 11:1-27",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1150,
+      "verseIds": [
+        "verse_2samuel_11_2",
+        "verse_2samuel_11_3",
+        "verse_2samuel_11_4",
+        "verse_2samuel_11_15",
+        "verse_2samuel_11_27"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_bathsheba",
+        "char_uriah",
+        "char_joab"
+      ],
+      "topicIds": [
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "story_nathan_confronts_david",
+      "title": "\"You are the man\"",
+      "summary": "Nathan tells David a story about a rich man who steals a poor man's only lamb, and watches David condemn the man in outrage — before telling him, \"You are the man.\" David confesses on the spot; Nathan says his sin is forgiven, but its cost will follow him.",
+      "primaryReference": "2 Samuel 12:1-25",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1160,
+      "verseIds": [
+        "verse_2samuel_12_7",
+        "verse_2samuel_12_13",
+        "verse_2samuel_12_14"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_nathan"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_amnon_and_tamar",
+      "title": "Amnon and Tamar",
+      "summary": "David's firstborn son Amnon forces himself on his half-sister Tamar, then hates her afterward and throws her out in shame. Her full brother Absalom says nothing publicly but waits two years, then has his servants kill Amnon at a feast.",
+      "primaryReference": "2 Samuel 13:1-33",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1170,
+      "verseIds": [
+        "verse_2samuel_13_1",
+        "verse_2samuel_13_2",
+        "verse_2samuel_13_15",
+        "verse_2samuel_13_22",
+        "verse_2samuel_13_28",
+        "verse_2samuel_13_29"
+      ],
+      "characterIds": [
+        "char_amnon",
+        "char_tamar",
+        "char_absalom"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_absaloms_rebellion",
+      "title": "Absalom's rebellion",
+      "summary": "Reconciled with his father after years of exile, Absalom sets himself up at the city gate, telling every petitioner he'd judge their case better than the king would — quietly stealing the loyalty of Israel. He then declares himself king at Hebron, and David flees Jerusalem rather than fight his own son in the city.",
+      "primaryReference": "2 Samuel 14:33-15:14",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1180,
+      "verseIds": [
+        "verse_2samuel_14_33",
+        "verse_2samuel_15_1",
+        "verse_2samuel_15_4",
+        "verse_2samuel_15_6",
+        "verse_2samuel_15_13",
+        "verse_2samuel_15_14"
+      ],
+      "characterIds": [
+        "char_absalom",
+        "char_david",
+        "char_joab"
+      ],
+      "topicIds": [
+        "topic_betrayal"
+      ]
+    },
+    {
+      "id": "story_death_of_absalom",
+      "title": "The death of Absalom",
+      "summary": "Riding through the forest during the battle against his father's loyalists, Absalom's head catches in the branches of a great oak, leaving him hanging helpless. Against David's express order to deal gently with him, Joab kills him. When David hears, his victory turns to grief: \"O Absalom, my son, my son!\"",
+      "primaryReference": "2 Samuel 18:1-19:4",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1190,
+      "verseIds": [
+        "verse_2samuel_18_9",
+        "verse_2samuel_18_14",
+        "verse_2samuel_18_15",
+        "verse_2samuel_18_33",
+        "verse_2samuel_19_4"
+      ],
+      "characterIds": [
+        "char_absalom",
+        "char_david",
+        "char_joab"
+      ],
+      "topicIds": [
+        "topic_sorrow"
+      ]
     }
   ],
   "lifeEvents": [
@@ -4692,6 +4913,299 @@
         "char_saul"
       ],
       "sequenceInLife": 30
+    },
+    {
+      "id": "event_david_laments_saul_jonathan",
+      "characterId": "char_david",
+      "title": "Laments Saul and Jonathan",
+      "description": "Tears his clothes at the news and composes a lament instead of celebrating.",
+      "reference": "2 Samuel 1:1-27",
+      "storyId": "story_davids_lament",
+      "participantIds": [
+        "char_saul",
+        "char_jonathan"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_david_king_over_israel",
+      "characterId": "char_david",
+      "title": "Becomes king over all Israel",
+      "description": "Anointed at Hebron by the elders of every tribe; takes Jerusalem as his city.",
+      "reference": "2 Samuel 2:1-5:10",
+      "storyId": "story_david_king_over_israel",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_david_dances_before_ark",
+      "characterId": "char_david",
+      "title": "Dances before the ark",
+      "description": "Brings the ark to Jerusalem, dancing with all his might; his wife Michal despises him for it.",
+      "reference": "2 Samuel 6:1-23",
+      "storyId": "story_michal_despises_david",
+      "participantIds": [
+        "char_michal"
+      ],
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_david_receives_covenant",
+      "characterId": "char_david",
+      "title": "Receives God's covenant",
+      "description": "Wants to build God a house; is promised instead that God will build his house — a throne established forever.",
+      "reference": "2 Samuel 7:1-17",
+      "storyId": "story_davidic_covenant",
+      "participantIds": [
+        "char_nathan"
+      ],
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_david_shows_mephibosheth_kindness",
+      "characterId": "char_david",
+      "title": "Shows kindness to Mephibosheth",
+      "description": "Restores Saul's land to Jonathan's crippled son and gives him a permanent place at the king's table.",
+      "reference": "2 Samuel 9:1-13",
+      "storyId": "story_david_and_mephibosheth",
+      "participantIds": [
+        "char_mephibosheth"
+      ],
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_david_takes_bathsheba",
+      "characterId": "char_david",
+      "title": "Takes Bathsheba and has Uriah killed",
+      "description": "Sends for another man's wife, then arranges her husband's death in battle to cover it up.",
+      "reference": "2 Samuel 11:1-27",
+      "storyId": "story_david_and_bathsheba",
+      "participantIds": [
+        "char_bathsheba",
+        "char_uriah",
+        "char_joab"
+      ],
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_david_confronted_by_nathan",
+      "characterId": "char_david",
+      "title": "Confronted and confesses",
+      "description": "\"You are the man.\" David says, \"I have sinned against Yahweh.\"",
+      "reference": "2 Samuel 12:1-25",
+      "storyId": "story_nathan_confronts_david",
+      "participantIds": [
+        "char_nathan"
+      ],
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_david_flees_absalom",
+      "characterId": "char_david",
+      "title": "Flees Jerusalem before Absalom",
+      "description": "Chooses to leave his own city rather than fight his son within it.",
+      "reference": "2 Samuel 15:1-14",
+      "storyId": "story_absaloms_rebellion",
+      "participantIds": [
+        "char_absalom"
+      ],
+      "sequenceInLife": 130
+    },
+    {
+      "id": "event_david_mourns_absalom",
+      "characterId": "char_david",
+      "title": "Mourns Absalom's death",
+      "description": "\"O Absalom, my son, my son!\" — grief that overshadows the victory over the rebellion.",
+      "reference": "2 Samuel 18:33-19:4",
+      "storyId": "story_death_of_absalom",
+      "participantIds": [
+        "char_absalom",
+        "char_joab"
+      ],
+      "sequenceInLife": 140
+    },
+    {
+      "id": "event_michal_despises_david",
+      "characterId": "char_michal",
+      "title": "Despises David's worship",
+      "description": "Watches him dance before the ark and mocks him for it when he returns home.",
+      "reference": "2 Samuel 6:16-23",
+      "storyId": "story_michal_despises_david",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_bathsheba_taken_by_david",
+      "characterId": "char_bathsheba",
+      "title": "Taken by David",
+      "description": "Sent for while her husband Uriah is away at war; becomes pregnant.",
+      "reference": "2 Samuel 11:2-5",
+      "storyId": "story_david_and_bathsheba",
+      "participantIds": [
+        "char_david",
+        "char_uriah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_uriah_killed",
+      "characterId": "char_uriah",
+      "title": "Sent to die in battle",
+      "description": "Refuses to go home to his wife while his fellow soldiers are camped in the field, so David has Joab place him where the fighting is fiercest.",
+      "reference": "2 Samuel 11:6-17",
+      "storyId": "story_david_and_bathsheba",
+      "participantIds": [
+        "char_david",
+        "char_joab",
+        "char_bathsheba"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nathan_delivers_oracle",
+      "characterId": "char_nathan",
+      "title": "Delivers God's covenant to David",
+      "description": "Tells David that God will build him a house — a throne established forever.",
+      "reference": "2 Samuel 7:1-17",
+      "storyId": "story_davidic_covenant",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nathan_confronts_david",
+      "characterId": "char_nathan",
+      "title": "Confronts David with a parable",
+      "description": "Tells the story of the rich man and the poor man's lamb, then says, \"You are the man.\"",
+      "reference": "2 Samuel 12:1-14",
+      "storyId": "story_nathan_confronts_david",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_absalom_avenges_tamar",
+      "characterId": "char_absalom",
+      "title": "Avenges Tamar",
+      "description": "Waits two years, then has his servants kill Amnon at a feast.",
+      "reference": "2 Samuel 13:23-29",
+      "storyId": "story_amnon_and_tamar",
+      "participantIds": [
+        "char_amnon",
+        "char_tamar"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_absalom_reconciled",
+      "characterId": "char_absalom",
+      "title": "Reconciled with David",
+      "description": "Returns from exile and is received back by his father.",
+      "reference": "2 Samuel 14:1-33",
+      "storyId": "story_absaloms_rebellion",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_absalom_steals_hearts",
+      "characterId": "char_absalom",
+      "title": "Steals the hearts of Israel",
+      "description": "Stations himself at the city gate, telling every petitioner he would judge their case better than the king.",
+      "reference": "2 Samuel 15:1-6",
+      "storyId": "story_absaloms_rebellion",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_absalom_dies",
+      "characterId": "char_absalom",
+      "title": "Dies caught in an oak tree",
+      "description": "His head catches in the branches while fleeing; Joab kills him against David's express order.",
+      "reference": "2 Samuel 18:9-15",
+      "storyId": "story_death_of_absalom",
+      "participantIds": [
+        "char_joab",
+        "char_david"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_tamar_raped_by_amnon",
+      "characterId": "char_tamar",
+      "title": "Raped by Amnon",
+      "description": "Her half-brother forces her, then throws her out and hates her afterward.",
+      "reference": "2 Samuel 13:1-19",
+      "storyId": "story_amnon_and_tamar",
+      "participantIds": [
+        "char_amnon"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_amnon_forces_tamar",
+      "characterId": "char_amnon",
+      "title": "Forces his sister Tamar",
+      "description": "Obsessed with her, tricks her into his room and rapes her.",
+      "reference": "2 Samuel 13:1-19",
+      "storyId": "story_amnon_and_tamar",
+      "participantIds": [
+        "char_tamar"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_amnon_killed_by_absalom",
+      "characterId": "char_amnon",
+      "title": "Killed by Absalom's servants",
+      "description": "Struck down at a feast two years after raping Tamar.",
+      "reference": "2 Samuel 13:23-29",
+      "storyId": "story_amnon_and_tamar",
+      "participantIds": [
+        "char_absalom"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_mephibosheth_shown_kindness",
+      "characterId": "char_mephibosheth",
+      "title": "Shown kindness by David",
+      "description": "Crippled in both feet since childhood, is given his grandfather Saul's land and a permanent seat at the king's table.",
+      "reference": "2 Samuel 9:1-13",
+      "storyId": "story_david_and_mephibosheth",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joab_kills_uriah_orders",
+      "characterId": "char_joab",
+      "title": "Carries out David's order against Uriah",
+      "description": "Places Uriah where the fighting is fiercest, at David's instruction, so he'll be killed.",
+      "reference": "2 Samuel 11:14-17",
+      "storyId": "story_david_and_bathsheba",
+      "participantIds": [
+        "char_david",
+        "char_uriah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joab_kills_absalom",
+      "characterId": "char_joab",
+      "title": "Kills Absalom",
+      "description": "Against David's express order to deal gently with him, thrusts three darts through Absalom's heart.",
+      "reference": "2 Samuel 18:9-15",
+      "storyId": "story_death_of_absalom",
+      "participantIds": [
+        "char_absalom",
+        "char_david"
+      ],
+      "sequenceInLife": 20
     }
   ]
 }
