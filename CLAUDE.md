@@ -53,42 +53,40 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **428 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, Deuteronomy, Joshua, and the book of Judges, WEB translation)
-  across **31 topics** (topics linked to related topics), plus
-  **48 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
-  2 Joshua, 10 Judges) with real relationships (father of, wife of,
-  brother of, successor of, etc. — see Connection, below).
-- `data/characters.json` — the same 48 characters, standalone. Generated
+  first run: **466 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  Numbers, Deuteronomy, Joshua, Judges, and 1 Samuel, WEB translation)
+  across **32 topics** (topics linked to related topics), plus
+  **55 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
+  2 Joshua, 10 Judges, 7 1 Samuel) with real relationships (father of,
+  wife of, brother of, successor of, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 55 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, and Judges
-  (9,674 verses, WEB translation, public domain). Lazily fetched by the
-  Browse screen the first time it's opened, never at boot. It is
+  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, and
+  1 Samuel (10,484 verses, WEB translation, public domain). Lazily fetched
+  by the Browse screen the first time it's opened, never at boot. It is
   *reference material*, kept separate from the user's library — adding a
-  verse from Browse copies it into the user's overlay. Only the 428 seed
+  verse from Browse copies it into the user's overlay. Only the 466 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 6 eras, **78 stories and 215 life events**. Covers
+- `data/stories.json` — 7 eras, **88 stories and 242 life events**. Covers
   Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers' wilderness
-  narrative, Deuteronomy's ending, Joshua's conquest of Canaan, and the
-  book of Judges' cycle of deliverers — Ehud, Deborah/Barak/Jael, Gideon,
-  Jephthah, Samson — inside the same `era_judges` Ruth already lives in.
-  Loaded at boot (it's small). Drives the character life timeline, the
-  Stories screens, People-grouped-by-era, and "appears alongside".
+  narrative, Deuteronomy's ending, Joshua's conquest of Canaan, the book
+  of Judges' cycle of deliverers, and the new `era_united_kingdom` — Israel's
+  first three kings begin with Hannah's prayer, Samuel's call, Saul chosen
+  and rejected, David anointed and defeating Goliath, David and Jonathan's
+  covenant, Saul hunting David, the witch of Endor, and the deaths of Saul
+  and Jonathan. Loaded at boot (it's small). Drives the character life
+  timeline, the Stories screens, People-grouped-by-era, and "appears
+  alongside".
 - `data/motifs.json` — **11** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. `motif_gods_reassurance` now spans four books (Genesis,
-  Exodus, Deuteronomy, Joshua). A new one, `motif_foreign_woman_of_faith`,
-  connects Rahab (Joshua) to Ruth — two women with no claim on Israel who
-  choose it anyway, both ancestors of David. Another new one,
-  `motif_who_am_i_reluctant_call`, connects Moses at the burning bush to
-  Gideon at the wine press — both told they're being sent, both
-  immediately arguing they're the wrong person. Loaded at boot. Drives the
-  Patterns screens and the "Pattern" badges on Character, Story, **and
-  Verse** detail pages (verse-attached instances — several by now — had no
-  badge anywhere until this pass; `renderVerseDetail` now calls
-  `motifsFor('verse', id)` the same way Character and Story already did).
-- `data/connections.json` — 78 generic Connection edges (Design philosophy
+  occurrences. `motif_younger_son_chosen` now spans Genesis and 1 Samuel —
+  David, the youngest of Jesse's sons, joins Isaac, Jacob, and Joseph.
+  `motif_who_am_i_reluctant_call` now has a third instance: Saul telling
+  Samuel he's from the smallest tribe and family (1 Samuel 9:21), alongside
+  Moses and Gideon. Loaded at boot. Drives the Patterns screens and the
+  "Pattern" badges on Character, Story, and Verse detail pages.
+- `data/connections.json` — 83 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
   `character` / `verse`), and story↔story links (`"parallels"`,
   `"contrasts with"`). Loaded at boot.
@@ -97,7 +95,8 @@ The schema was deliberately designed so all of the above can be added
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges.
+    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
+    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -212,10 +211,12 @@ hand-curate all the content before building.
    order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
    Numbers, and so on — Ruth landed earlier and stays, but books from here
    follow Bible order). Completed so far: Exodus, Leviticus, Numbers,
-   Deuteronomy, Joshua (see prior entries below), and now Judges (whole
-   book, narrative: Ehud, Deborah/Barak/Jael, Gideon, Jephthah, Samson —
-   folds into the `era_judges` Ruth already established, not a new era —
-   see DATA_MODEL.md §8.19). Next up: **1 Samuel**.
+   Deuteronomy, Joshua, Judges (see prior entries below), and now 1 Samuel
+   (whole book, narrative: Hannah's prayer, Samuel's call and Eli's death,
+   Israel demanding a king, Saul's rejection, David anointed, David and
+   Goliath, David and Jonathan, Saul hunting David, the witch of Endor, the
+   deaths of Saul and Jonathan — new `era_united_kingdom`, see
+   DATA_MODEL.md §8.20). Next up: **2 Samuel**, then **1 Kings**.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -317,7 +318,20 @@ arguing they're the wrong person for it. That motif's instances attach to
 verses rather than stories, which surfaced a real gap: verse-attached
 motif instances had no badge anywhere in the app. Fixed by wiring
 `renderMotifBadges` into Verse detail the same way it already worked on
-Character and Story pages.
+Character and Story pages. Then 1 Samuel: a new era, `era_united_kingdom`,
+and 10 stories — Hannah's prayer and Samuel given to Eli, Samuel's call
+and Eli's death when the ark is captured, Israel demanding a king, Saul's
+rejection for disobedience ("to obey is better than sacrifice"), David
+anointed while still a shepherd, David and Goliath, David and Jonathan's
+covenant, Saul hunting David through the wilderness (who spares him
+twice), the witch of Endor, and the deaths of Saul and Jonathan at
+Gilboa. 7 new characters (Hannah, Eli, Samuel, Saul, David, Goliath,
+Jonathan), 38 verses, 1 new topic (`topic_obedience`). David becomes the
+4th instance of `motif_younger_son_chosen` (youngest of Jesse's sons,
+same shape as Isaac, Jacob, and Joseph), and Saul's "am I not a
+Benjamite, of the smallest of the tribes... my family the least" (1
+Samuel 9:21) becomes a 3rd instance of `motif_who_am_i_reluctant_call`,
+alongside Moses and Gideon.
 
 ## Source data provenance
 

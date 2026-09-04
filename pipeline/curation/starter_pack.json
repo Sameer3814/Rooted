@@ -3338,6 +3338,352 @@
       "characterIds": [
         "char_samson"
       ]
+    },
+    {
+      "id": "verse_1samuel_1_10",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_hannah"
+      ]
+    },
+    {
+      "id": "verse_1samuel_1_11",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_hannah"
+      ]
+    },
+    {
+      "id": "verse_1samuel_1_27",
+      "topicIds": [],
+      "characterIds": [
+        "char_hannah"
+      ]
+    },
+    {
+      "id": "verse_1samuel_1_28",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_hannah",
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_2_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_hannah"
+      ]
+    },
+    {
+      "id": "verse_1samuel_2_26",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_3_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_3_9",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_eli"
+      ]
+    },
+    {
+      "id": "verse_1samuel_3_10",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_3_19",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_4_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_eli"
+      ]
+    },
+    {
+      "id": "verse_1samuel_4_18",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_eli"
+      ]
+    },
+    {
+      "id": "verse_1samuel_8_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_8_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_9_21",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_10_1",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_13_13",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_15_22",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_15_23",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_16_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_16_7",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_16_13",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_samuel"
+      ]
+    },
+    {
+      "id": "verse_1samuel_17_37",
+      "topicIds": [
+        "topic_trust",
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_17_45",
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_goliath"
+      ]
+    },
+    {
+      "id": "verse_1samuel_17_47",
+      "topicIds": [
+        "topic_trust",
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_17_50",
+      "topicIds": [],
+      "characterIds": [
+        "char_david",
+        "char_goliath"
+      ]
+    },
+    {
+      "id": "verse_1samuel_18_1",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_jonathan"
+      ]
+    },
+    {
+      "id": "verse_1samuel_18_3",
+      "topicIds": [
+        "topic_loyalty",
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_jonathan"
+      ]
+    },
+    {
+      "id": "verse_1samuel_20_17",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_jonathan",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_20_42",
+      "topicIds": [
+        "topic_covenant",
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jonathan",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_19_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_saul",
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1samuel_23_14",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_24_6",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_26_9",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_28_19",
+      "topicIds": [],
+      "characterIds": [
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_31_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_jonathan",
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_31_4",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_saul"
+      ]
+    },
+    {
+      "id": "verse_1samuel_31_6",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_jonathan"
+      ]
     }
   ],
   "topics": [
@@ -3412,7 +3758,8 @@
         "topic_trust",
         "topic_thanksgiving",
         "topic_deliverance",
-        "topic_loyalty"
+        "topic_loyalty",
+        "topic_obedience"
       ]
     },
     {
@@ -3618,7 +3965,8 @@
         "topic_thanksgiving",
         "topic_creation",
         "topic_presence",
-        "topic_holiness"
+        "topic_holiness",
+        "topic_obedience"
       ]
     },
     {
@@ -3657,6 +4005,15 @@
       "relatedTopicIds": [
         "topic_loyalty",
         "topic_justice"
+      ]
+    },
+    {
+      "id": "topic_obedience",
+      "name": "Obedience",
+      "description": "Doing what God said, not just what looks religious.",
+      "relatedTopicIds": [
+        "topic_faithfulness",
+        "topic_worship"
       ]
     }
   ],
@@ -4241,6 +4598,83 @@
       ],
       "eraId": "era_judges",
       "summary": "A woman Samson loved, paid by Philistine rulers to find out what made him strong. She wore him down with the same question until he finally told her the truth.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hannah",
+      "name": "Hannah",
+      "roles": [
+        "prayed for a son",
+        "gave him back to God"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Barren and taunted for it, she vowed that if God gave her a son she would give him back to serve at the tabernacle for life — then kept her vow and sang instead of grieving.",
+      "verseIds": []
+    },
+    {
+      "id": "char_eli",
+      "name": "Eli",
+      "roles": [
+        "priest who raised Samuel",
+        "judged Israel forty years"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The priest who raised Samuel at the tabernacle and taught him to recognize God's voice. He died the moment he heard the ark had been captured, at the end of a long life spent failing to restrain his own corrupt sons.",
+      "verseIds": []
+    },
+    {
+      "id": "char_samuel",
+      "name": "Samuel",
+      "roles": [
+        "heard God's voice as a boy",
+        "anointed Israel's first two kings"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Given to the tabernacle before he could remember anything else, he became the last judge and the prophet who anointed both Saul and David — the hinge between the age of judges and the age of kings.",
+      "verseIds": []
+    },
+    {
+      "id": "char_saul",
+      "name": "Saul",
+      "roles": [
+        "Israel's first king",
+        "rejected for disobedience"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Chosen as Israel's first king from the smallest family in the smallest tribe, he disobeyed two direct commands, was told his kingdom would not endure, and spent his final years hunting the man God had already chosen to replace him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_david",
+      "name": "David",
+      "roles": [
+        "youngest of Jesse's sons",
+        "the shepherd chosen when no one else was"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The youngest of eight brothers, out with the sheep when Samuel came looking for a king, chosen because Yahweh looks at the heart rather than appearance. He kills Goliath with a sling, befriends Jonathan, and refuses twice to kill the king who is hunting him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_goliath",
+      "name": "Goliath",
+      "roles": [
+        "Philistine champion",
+        "killed by a shepherd's sling"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A nine-foot Philistine champion who taunted Israel's army for forty days before a shepherd boy with no armor and a sling ended it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jonathan",
+      "name": "Jonathan",
+      "roles": [
+        "Saul's son",
+        "loved David as his own soul"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Saul's son and heir to the throne, who loved David more than his own claim to it, made a covenant with him, warned him of his father's murderous intent, and died alongside Saul on Mount Gilboa.",
       "verseIds": []
     }
   ]

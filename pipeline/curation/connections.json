@@ -705,6 +705,51 @@
       "toType": "verse",
       "toId": "verse_judges_6_15",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_hannah_mother_of_samuel",
+      "fromType": "character",
+      "fromId": "char_hannah",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_samuel",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_saul_father_of_jonathan",
+      "fromType": "character",
+      "fromId": "char_saul",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_jonathan",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_eli_raised_samuel",
+      "fromType": "character",
+      "fromId": "char_eli",
+      "relationship": "raised",
+      "toType": "character",
+      "toId": "char_samuel",
+      "inverse": "raised by"
+    },
+    {
+      "id": "conn_youngerson_instance_david",
+      "fromType": "motif",
+      "fromId": "motif_younger_son_chosen",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_david",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_whoami_instance_saul",
+      "fromType": "motif",
+      "fromId": "motif_who_am_i_reluctant_call",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_1samuel_9_21",
+      "inverse": "has motif"
     }
   ]
 }

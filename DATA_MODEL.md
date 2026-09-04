@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (48 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges)
+### Character — *live* (55 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel)
 ```json
 {
   "id": "char_jacob",
@@ -409,14 +409,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 428 verses + 31 topics + 48 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 466 verses + 32 topics + 55 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (9,674 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
-| `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 6 eras, 78 stories, 215 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 9 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 78 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/verses.json` | full parsed WEB corpus (10,484 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
+| `data/stories.json` | 7 eras, 88 stories, 242 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 11 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 83 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -801,6 +801,32 @@ note).
     that Character and Story pages already had. Worth checking for this kind
     of gap whenever a new attachment point for an existing generic pattern
     shows up — the query layer being generic doesn't guarantee the UI kept up.
+
+20. **1 Samuel.** **Done (2026-09-04).** Narrative again, the full playbook.
+    New era, `era_united_kingdom` (order 7) — Israel's first three kings.
+    10 stories: Hannah's prayer (and giving Samuel to Eli); Samuel's call
+    and Eli's death when the ark is captured; Israel demanding a king;
+    Saul's rejection ("to obey is better than sacrifice"); David anointed
+    while still a shepherd; David and Goliath; David and Jonathan's
+    covenant; Saul hunting David through the wilderness (who spares him
+    twice rather than raise a hand against Yahweh's anointed); the witch of
+    Endor; the deaths of Saul and Jonathan at Gilboa. 7 new characters
+    (Hannah, Eli, Samuel, Saul, David, Goliath, Jonathan). 38 curated
+    verses. 1 new topic, `topic_obedience` (Saul's rejection needed it —
+    existing topics didn't cover "obeying a direct command" specifically).
+
+    3 new Connections: Hannah "mother of" Samuel, Saul "father of"
+    Jonathan, Eli "raised" Samuel (a relationship kind not seen before —
+    not a blood relation, but a real one worth naming). Two existing
+    motifs gained instances rather than needing new ones: David becomes
+    `motif_younger_son_chosen`'s 4th instance (youngest of Jesse's sons,
+    same shape as Isaac, Jacob, and Joseph), and Saul's "am I not a
+    Benjamite, of the smallest of the tribes of Israel, and my family the
+    least of all the families of the tribe of Benjamin?" (1 Samuel 9:21)
+    becomes `motif_who_am_i_reluctant_call`'s 3rd instance, alongside Moses
+    and Gideon — attached directly to a verse, the same shape §8.19 already
+    wired a badge for. No new UI or query code needed for either — pure
+    payoff from Connection being generic since §8.4.
 
 ---
 

@@ -42,6 +42,13 @@
       "summary": "Under Joshua, Israel crosses the Jordan into the promised land and takes it city by city — some through overwhelming victory, one through failure and correction, one through being deceived.",
       "order": 5,
       "approxRange": "immediately after the wilderness years, before the judges"
+    },
+    {
+      "id": "era_united_kingdom",
+      "name": "The United Kingdom",
+      "summary": "Israel’s first three kings reign over a unified nation: Saul, chosen and then rejected; David, the shepherd who becomes king and is promised an everlasting throne; and later Solomon, whose wisdom and excess both become legendary.",
+      "order": 7,
+      "approxRange": "Israel’s first kings, before the kingdom splits"
     }
   ],
   "stories": [
@@ -1676,6 +1683,224 @@
         "topic_temptation",
         "topic_repentance",
         "topic_humility"
+      ]
+    },
+    {
+      "id": "story_hannahs_prayer",
+      "title": "Hannah's prayer",
+      "summary": "Barren and taunted for it, Hannah vows that if God gives her a son she will give him back to serve at the tabernacle for life. She bears Samuel, and when he is weaned, brings him to the priest Eli and keeps her vow — then sings a song of praise instead of grief.",
+      "primaryReference": "1 Samuel 1:1-2:11",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1000,
+      "verseIds": [
+        "verse_1samuel_1_10",
+        "verse_1samuel_1_11",
+        "verse_1samuel_1_27",
+        "verse_1samuel_1_28",
+        "verse_1samuel_2_1"
+      ],
+      "characterIds": [
+        "char_hannah",
+        "char_eli",
+        "char_samuel"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_faith",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_samuels_call_and_elis_death",
+      "title": "Samuel's call, and the fall of Eli's house",
+      "summary": "A boy still serving in the tabernacle, Samuel hears Yahweh call his name at night and mistakes it for Eli three times before Eli realizes what's happening and tells him how to answer. Not long after, the Philistines capture the ark in battle and kill Eli's sons; when the old priest hears the ark is gone, he falls backward and dies.",
+      "primaryReference": "1 Samuel 3:1-4:18",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1010,
+      "verseIds": [
+        "verse_1samuel_3_4",
+        "verse_1samuel_3_9",
+        "verse_1samuel_3_10",
+        "verse_1samuel_3_19",
+        "verse_1samuel_4_11",
+        "verse_1samuel_4_18"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_eli"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_guidance",
+        "topic_faithfulness",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_israel_demands_a_king",
+      "title": "Israel demands a king",
+      "summary": "Old and watching his sons fail as judges, Samuel is asked by the elders for a king like the other nations. God tells him the people haven't rejected Samuel — they've rejected God. Samuel anoints Saul in private, then presents him to the people, who shout, \"Long live the king!\"",
+      "primaryReference": "1 Samuel 8:1-10:27",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1020,
+      "verseIds": [
+        "verse_1samuel_8_6",
+        "verse_1samuel_8_7",
+        "verse_1samuel_9_21",
+        "verse_1samuel_10_1"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_saul"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_sauls_rejection",
+      "title": "Saul's rejection",
+      "summary": "Saul offers a sacrifice himself instead of waiting for Samuel, and later spares the Amalekite king and the best of the plunder against a direct command. Samuel tells him plainly: to obey is better than sacrifice, and because he has rejected Yahweh's word, Yahweh has rejected him as king.",
+      "primaryReference": "1 Samuel 13:1-15:35",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1030,
+      "verseIds": [
+        "verse_1samuel_13_13",
+        "verse_1samuel_15_22",
+        "verse_1samuel_15_23"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_samuel"
+      ],
+      "topicIds": [
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_david_anointed",
+      "title": "David anointed",
+      "summary": "Sent to Jesse's house in Bethlehem, Samuel is ready to anoint the tallest, most impressive brother — until God tells him not to judge by appearance, because he looks at the heart. The youngest, still out with the sheep, is the one anointed.",
+      "primaryReference": "1 Samuel 16:1-13",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1040,
+      "verseIds": [
+        "verse_1samuel_16_1",
+        "verse_1samuel_16_7",
+        "verse_1samuel_16_13"
+      ],
+      "characterIds": [
+        "char_samuel",
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_identity"
+      ]
+    },
+    {
+      "id": "story_david_and_goliath",
+      "title": "David and Goliath",
+      "summary": "While Saul's army cowers before a nine-foot Philistine champion, a shepherd boy who came to bring his brothers lunch volunteers to fight him — with no armor, a sling, and the conviction that the battle belongs to Yahweh, not to swords.",
+      "primaryReference": "1 Samuel 17:1-58",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1050,
+      "verseIds": [
+        "verse_1samuel_17_37",
+        "verse_1samuel_17_45",
+        "verse_1samuel_17_47",
+        "verse_1samuel_17_50"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_goliath",
+        "char_saul"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_trust",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_david_and_jonathan",
+      "title": "David and Jonathan",
+      "summary": "Saul's son Jonathan loves David as his own soul, and the two make a covenant of loyalty that outlasts Saul's growing hatred — Jonathan even warns David when his father means to kill him, choosing the friendship over his own claim to the throne.",
+      "primaryReference": "1 Samuel 18:1-4, 20:1-42",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1060,
+      "verseIds": [
+        "verse_1samuel_18_1",
+        "verse_1samuel_18_3",
+        "verse_1samuel_20_17",
+        "verse_1samuel_20_42"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_jonathan"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_covenant"
+      ]
+    },
+    {
+      "id": "story_saul_hunts_david",
+      "title": "Saul hunts David",
+      "summary": "Jealous of David's popularity, Saul tries to pin him to the wall with a spear, then hunts him through the wilderness for years. Twice David has a clear chance to kill him and refuses, unwilling to raise a hand against Yahweh's anointed king.",
+      "primaryReference": "1 Samuel 19:1-24:22, 26:1-25",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1070,
+      "verseIds": [
+        "verse_1samuel_19_10",
+        "verse_1samuel_23_14",
+        "verse_1samuel_24_6",
+        "verse_1samuel_26_9"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_witch_of_endor",
+      "title": "The witch of Endor",
+      "summary": "With Yahweh silent and the Philistines closing in, Saul — who had banned mediums from the land — disguises himself and asks a medium to bring up Samuel's spirit. What he hears is his own death sentence for tomorrow.",
+      "primaryReference": "1 Samuel 28:3-25",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1080,
+      "verseIds": [
+        "verse_1samuel_28_19"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_samuel"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_death_of_saul_and_jonathan",
+      "title": "The death of Saul and Jonathan",
+      "summary": "Israel is routed on Mount Gilboa. Jonathan and his brothers are killed, and Saul, badly wounded and refusing capture, falls on his own sword.",
+      "primaryReference": "1 Samuel 31:1-13",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1090,
+      "verseIds": [
+        "verse_1samuel_31_2",
+        "verse_1samuel_31_4",
+        "verse_1samuel_31_6"
+      ],
+      "characterIds": [
+        "char_saul",
+        "char_jonathan"
+      ],
+      "topicIds": [
+        "topic_sorrow"
       ]
     }
   ],
@@ -4149,6 +4374,324 @@
         "char_samson"
       ],
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_hannah_prays",
+      "characterId": "char_hannah",
+      "title": "Prays for a son",
+      "description": "In bitterness of soul, she vows to give him back to Yahweh if he answers her.",
+      "reference": "1 Samuel 1:1-18",
+      "storyId": "story_hannahs_prayer",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_hannah_gives_samuel",
+      "characterId": "char_hannah",
+      "title": "Gives Samuel to Eli",
+      "description": "As soon as he is weaned, she brings him to the tabernacle and keeps her vow.",
+      "reference": "1 Samuel 1:24-28",
+      "storyId": "story_hannahs_prayer",
+      "participantIds": [
+        "char_eli",
+        "char_samuel"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_hannah_sings",
+      "characterId": "char_hannah",
+      "title": "Sings a song of praise",
+      "description": "\"My heart exults in Yahweh! My horn is exalted in Yahweh.\"",
+      "reference": "1 Samuel 2:1-10",
+      "storyId": "story_hannahs_prayer",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_eli_raises_samuel",
+      "characterId": "char_eli",
+      "title": "Raises Samuel at the tabernacle",
+      "description": "He takes in the boy Hannah gives him.",
+      "reference": "1 Samuel 1:24-28, 2:11",
+      "storyId": "story_hannahs_prayer",
+      "participantIds": [
+        "char_hannah",
+        "char_samuel"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_eli_teaches_samuel",
+      "characterId": "char_eli",
+      "title": "Teaches Samuel to recognize God's voice",
+      "description": "After the third time, he realizes it is Yahweh calling and tells Samuel how to answer.",
+      "reference": "1 Samuel 3:1-10",
+      "storyId": "story_samuels_call_and_elis_death",
+      "participantIds": [
+        "char_samuel"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_eli_dies",
+      "characterId": "char_eli",
+      "title": "Dies when he hears the ark is captured",
+      "description": "At ninety-eight, he falls backward off his seat and breaks his neck.",
+      "reference": "1 Samuel 4:12-18",
+      "storyId": "story_samuels_call_and_elis_death",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_samuel_given_to_eli",
+      "characterId": "char_samuel",
+      "title": "Given to Eli as a small child",
+      "description": "His mother Hannah brings him to serve at the tabernacle for life.",
+      "reference": "1 Samuel 1:24-28",
+      "storyId": "story_hannahs_prayer",
+      "participantIds": [
+        "char_hannah",
+        "char_eli"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_samuel_called",
+      "characterId": "char_samuel",
+      "title": "Hears Yahweh call his name",
+      "description": "He answers, \"Speak, for your servant hears.\"",
+      "reference": "1 Samuel 3:1-18",
+      "storyId": "story_samuels_call_and_elis_death",
+      "participantIds": [
+        "char_eli"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_samuel_anoints_saul",
+      "characterId": "char_samuel",
+      "title": "Anoints Saul as king",
+      "description": "He pours oil on Saul's head in private, then presents him to the people.",
+      "reference": "1 Samuel 10:1-24",
+      "storyId": "story_israel_demands_a_king",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_samuel_rejects_saul",
+      "characterId": "char_samuel",
+      "title": "Tells Saul he is rejected as king",
+      "description": "\"To obey is better than sacrifice.\"",
+      "reference": "1 Samuel 13:1-15:35",
+      "storyId": "story_sauls_rejection",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_samuel_anoints_david",
+      "characterId": "char_samuel",
+      "title": "Anoints David",
+      "description": "He anoints the youngest of Jesse's sons in the middle of his brothers.",
+      "reference": "1 Samuel 16:1-13",
+      "storyId": "story_david_anointed",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_samuel_appears_at_endor",
+      "characterId": "char_samuel",
+      "title": "Appears to Saul after death",
+      "description": "Brought up by a medium, his spirit tells Saul he will die the next day.",
+      "reference": "1 Samuel 28:11-19",
+      "storyId": "story_witch_of_endor",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_saul_chosen_king",
+      "characterId": "char_saul",
+      "title": "Chosen as Israel's first king",
+      "description": "From the smallest family in the smallest tribe, anointed and then acclaimed by all the people.",
+      "reference": "1 Samuel 9:1-10:24",
+      "storyId": "story_israel_demands_a_king",
+      "participantIds": [
+        "char_samuel"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_saul_rejected",
+      "characterId": "char_saul",
+      "title": "Rejected as king",
+      "description": "Two acts of disobedience cost him the dynasty God would otherwise have established.",
+      "reference": "1 Samuel 13:1-15:35",
+      "storyId": "story_sauls_rejection",
+      "participantIds": [
+        "char_samuel"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_saul_hunts_david",
+      "characterId": "char_saul",
+      "title": "Hunts David for years",
+      "description": "Jealous and increasingly desperate, he pursues the man he knows will replace him.",
+      "reference": "1 Samuel 18:6-26:25",
+      "storyId": "story_saul_hunts_david",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_saul_consults_medium",
+      "characterId": "char_saul",
+      "title": "Consults a medium at Endor",
+      "description": "With God silent, he breaks his own law banning mediums to ask one for help.",
+      "reference": "1 Samuel 28:3-25",
+      "storyId": "story_witch_of_endor",
+      "participantIds": [
+        "char_samuel"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_saul_dies",
+      "characterId": "char_saul",
+      "title": "Dies on Mount Gilboa",
+      "description": "Badly wounded and refusing capture, he falls on his own sword.",
+      "reference": "1 Samuel 31:1-6",
+      "storyId": "story_death_of_saul_and_jonathan",
+      "participantIds": [
+        "char_jonathan"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_david_anointed",
+      "characterId": "char_david",
+      "title": "Anointed while still a shepherd",
+      "description": "Samuel anoints him in the middle of his brothers, and Yahweh's Spirit comes on him from that day.",
+      "reference": "1 Samuel 16:1-13",
+      "storyId": "story_david_anointed",
+      "participantIds": [
+        "char_samuel"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_david_defeats_goliath",
+      "characterId": "char_david",
+      "title": "Defeats Goliath",
+      "description": "With a sling and a stone, in the name of Yahweh of Armies.",
+      "reference": "1 Samuel 17:1-58",
+      "storyId": "story_david_and_goliath",
+      "participantIds": [
+        "char_goliath"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_david_covenant_jonathan",
+      "characterId": "char_david",
+      "title": "Makes a covenant with Jonathan",
+      "description": "The two swear loyalty to each other and to each other's descendants forever.",
+      "reference": "1 Samuel 18:1-4, 20:1-42",
+      "storyId": "story_david_and_jonathan",
+      "participantIds": [
+        "char_jonathan"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_david_flees_saul",
+      "characterId": "char_david",
+      "title": "Flees Saul's jealousy",
+      "description": "He dodges a thrown spear and spends years as a fugitive in the wilderness.",
+      "reference": "1 Samuel 19:1-24:22",
+      "storyId": "story_saul_hunts_david",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_david_spares_saul_twice",
+      "characterId": "char_david",
+      "title": "Spares Saul's life twice",
+      "description": "With a clear chance to kill him both times, he refuses to raise a hand against Yahweh's anointed.",
+      "reference": "1 Samuel 24:1-22, 26:1-25",
+      "storyId": "story_saul_hunts_david",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_goliath_challenges_israel",
+      "characterId": "char_goliath",
+      "title": "Challenges Israel's army",
+      "description": "For forty days he taunts them, and no one answers.",
+      "reference": "1 Samuel 17:1-11, 16, 23-24",
+      "storyId": "story_david_and_goliath",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_goliath_killed",
+      "characterId": "char_goliath",
+      "title": "Killed by a shepherd's sling",
+      "description": "A stone to the forehead, then his own sword.",
+      "reference": "1 Samuel 17:48-51",
+      "storyId": "story_david_and_goliath",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jonathan_covenant_david",
+      "characterId": "char_jonathan",
+      "title": "Makes a covenant with David",
+      "description": "\"The soul of Jonathan was knit with the soul of David, and Jonathan loved him as his own soul.\"",
+      "reference": "1 Samuel 18:1-4",
+      "storyId": "story_david_and_jonathan",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jonathan_warns_david",
+      "characterId": "char_jonathan",
+      "title": "Warns David of his father's intent",
+      "description": "He chooses the friendship over his own claim to the throne.",
+      "reference": "1 Samuel 20:1-42",
+      "storyId": "story_david_and_jonathan",
+      "participantIds": [
+        "char_david"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jonathan_dies",
+      "characterId": "char_jonathan",
+      "title": "Dies at Gilboa",
+      "description": "Killed alongside his father and brothers in the battle against the Philistines.",
+      "reference": "1 Samuel 31:1-2",
+      "storyId": "story_death_of_saul_and_jonathan",
+      "participantIds": [
+        "char_saul"
+      ],
+      "sequenceInLife": 30
     }
   ]
 }
