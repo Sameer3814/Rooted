@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (64 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel)
+### Character — *live* (74 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings)
 ```json
 {
   "id": "char_jacob",
@@ -409,14 +409,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 505 verses + 32 topics + 64 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 545 verses + 33 topics + 74 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (11,179 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (11,995 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 7 eras, 98 stories, 266 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 8 eras, 110 stories, 286 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 12 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 94 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 101 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -856,6 +856,37 @@ note).
     standing rule. Both instances attach to **stories**, not verses, so no
     new UI wiring was needed — `renderMotifBadges` on Story detail already
     handled it.
+
+22. **1 Kings.** **Done (2026-09-04).** Narrative again, the full
+    playbook. New era, `era_divided_kingdom` (order 8) — `era_united_kingdom`
+    (§8.20) stays as-is for Solomon's reign, since it's still the same
+    period as David's; the new era starts at the split. 12 stories: Solomon
+    crowned over his older brother Adonijah; Solomon asks for wisdom
+    instead of riches; Solomon's judgment between two women over a baby;
+    building and dedicating the temple; the queen of Sheba; Solomon's
+    downfall into idolatry through his foreign wives; the kingdom divides
+    when Rehoboam rejects the elders' counsel; Jeroboam's golden calves at
+    Dan and Bethel; Elijah fed by ravens and sustaining a widow through
+    famine; Elijah's contest with the prophets of Baal on Mount Carmel;
+    Elijah at Horeb; Naboth's vineyard. 10 new characters (Solomon,
+    Adonijah, the queen of Sheba, Rehoboam, Jeroboam, Elijah, the widow of
+    Zarephath, Ahab, Jezebel, Naboth) — the most in a single pass so far,
+    reflecting how many named figures 1 Kings introduces. 40 curated
+    verses. 1 new topic, `topic_idolatry` (golden calves and Baal worship
+    needed it — nothing existing fit cleanly).
+
+    7 new Connections: 5 family (David→Solomon, Bathsheba→Solomon,
+    David→Adonijah, Solomon→Rehoboam, Ahab↔Jezebel) plus 2 motif
+    instances. No new motifs — two existing ones gained real instances
+    instead: Solomon becomes `motif_younger_son_chosen`'s 5th (crowned
+    over his older brother Adonijah, the same shape as Isaac, Jacob,
+    Joseph, and David), and Elijah confronting Ahab over Naboth's murder
+    becomes `motif_prophet_confronts_the_king`'s 3rd, alongside
+    Samuel/Saul (§8.19) and Nathan/David (§8.21) — a pattern now
+    established across three different prophets and three different
+    kings. Both instances attach to entities the UI already had badges
+    wired for (character and story respectively), so again no new query
+    or rendering code.
 
 ---
 

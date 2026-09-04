@@ -4029,6 +4029,352 @@
         "char_david",
         "char_absalom"
       ]
+    },
+    {
+      "id": "verse_1kings_1_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_adonijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_1_39",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_2_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_9",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_12",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_24",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_25",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_26",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_3_28",
+      "topicIds": [
+        "topic_wisdom",
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_8_10",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_8_11",
+      "topicIds": [
+        "topic_presence",
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_8_27",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_10_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon",
+        "char_queen_of_sheba"
+      ]
+    },
+    {
+      "id": "verse_1kings_10_7",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_queen_of_sheba",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_10_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_10_24",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_11_4",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_11_11",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_11_31",
+      "topicIds": [],
+      "characterIds": [
+        "char_jeroboam",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1kings_12_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_rehoboam"
+      ]
+    },
+    {
+      "id": "verse_1kings_12_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_rehoboam"
+      ]
+    },
+    {
+      "id": "verse_1kings_12_16",
+      "topicIds": [],
+      "characterIds": [
+        "char_rehoboam"
+      ]
+    },
+    {
+      "id": "verse_1kings_12_28",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_jeroboam"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_1",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elijah",
+        "char_ahab"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_4",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_9",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elijah",
+        "char_widow_of_zarephath"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_12",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_widow_of_zarephath"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_14",
+      "topicIds": [
+        "topic_provision",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_widow_of_zarephath",
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_17_22",
+      "topicIds": [],
+      "characterIds": [
+        "char_elijah",
+        "char_widow_of_zarephath"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_21",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_38",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_39",
+      "topicIds": [
+        "topic_worship",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_19_4",
+      "topicIds": [
+        "topic_sorrow",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_19_12",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_19_18",
+      "topicIds": [],
+      "characterIds": [
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_1kings_21_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_ahab",
+        "char_naboth"
+      ]
+    },
+    {
+      "id": "verse_1kings_21_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_jezebel",
+        "char_ahab",
+        "char_naboth"
+      ]
+    },
+    {
+      "id": "verse_1kings_21_19",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_elijah",
+        "char_ahab"
+      ]
+    },
+    {
+      "id": "verse_1kings_21_29",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_ahab"
+      ]
     }
   ],
   "topics": [
@@ -4359,6 +4705,15 @@
       "relatedTopicIds": [
         "topic_faithfulness",
         "topic_worship"
+      ]
+    },
+    {
+      "id": "topic_idolatry",
+      "name": "Idolatry",
+      "description": "Verses on worshiping other gods, or anything, in place of Yahweh.",
+      "relatedTopicIds": [
+        "topic_worship",
+        "topic_holiness"
       ]
     }
   ],
@@ -5110,6 +5465,106 @@
       ],
       "eraId": "era_united_kingdom",
       "summary": "The commander of David's army; carries out the order that gets Uriah killed, and later kills Absalom against David's direct command.",
+      "verseIds": []
+    },
+    {
+      "id": "char_solomon",
+      "name": "Solomon",
+      "roles": [
+        "asked for wisdom instead of riches, built the temple"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David and Bathsheba's son; asks God for an understanding heart rather than wealth, builds the temple in Jerusalem, but his foreign wives turn his heart to other gods in his old age.",
+      "verseIds": []
+    },
+    {
+      "id": "char_adonijah",
+      "name": "Adonijah",
+      "roles": [
+        "David's son who crowned himself king too soon"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's older son, who declares himself king while his father is still alive and dying, before Solomon is chosen instead.",
+      "verseIds": []
+    },
+    {
+      "id": "char_queen_of_sheba",
+      "name": "The queen of Sheba",
+      "roles": [
+        "tested Solomon's wisdom and found it exceeded the reports"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A foreign queen who travels to Jerusalem to test Solomon's famous wisdom with hard questions, and leaves saying not even half of it had been told her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_rehoboam",
+      "name": "Rehoboam",
+      "roles": [
+        "Solomon's son whose harsh answer split the kingdom"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Solomon's son and successor; rejects the elders' counsel to ease the people's burden, and loses ten of Israel's twelve tribes to Jeroboam on the spot.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jeroboam",
+      "name": "Jeroboam",
+      "roles": [
+        "led ten tribes away and built golden calves to keep them from Jerusalem"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "An official under Solomon who becomes king over the ten northern tribes when they reject Rehoboam, then sets up rival golden-calf worship so his people won't return to Jerusalem.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elijah",
+      "name": "Elijah",
+      "roles": [
+        "the prophet who called down fire on Mount Carmel"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A prophet from Gilead who confronts king Ahab over Baal worship, is fed by ravens and a foreign widow through a famine, wins a public contest against 450 prophets of Baal, and meets God in a still small voice at Horeb.",
+      "verseIds": []
+    },
+    {
+      "id": "char_widow_of_zarephath",
+      "name": "The widow of Zarephath",
+      "roles": [
+        "the foreign widow whose flour and oil never ran out"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A widow in Sidon down to her last handful of flour, who feeds Elijah first at his word and finds her jar never runs empty through the whole famine.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ahab",
+      "name": "Ahab",
+      "roles": [
+        "the king who married Jezebel and stole Naboth's vineyard"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "King of Israel, married to Jezebel; promotes Baal worship, loses the Carmel contest to Elijah, and lets his wife arrange a man's murder so he can take his vineyard.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jezebel",
+      "name": "Jezebel",
+      "roles": [
+        "Ahab's wife who had Naboth killed for his vineyard"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Ahab's wife, a promoter of Baal worship who arranges false charges to have Naboth stoned to death so Ahab can take his vineyard.",
+      "verseIds": []
+    },
+    {
+      "id": "char_naboth",
+      "name": "Naboth",
+      "roles": [
+        "killed on false charges so Ahab could take his vineyard"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A landowner in Jezreel who refuses to sell his family's inherited vineyard to king Ahab, and is falsely accused and stoned to death for it.",
       "verseIds": []
     }
   ]

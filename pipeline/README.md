@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua + judges + 1samuel + 2samuel (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua + judges + 1samuel + 2samuel + 1kings (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -183,9 +183,14 @@ Worth knowing:
   was also narrative throughout and folded into that same era (David's
   reign continuing directly from 1 Samuel, not a new period) — the same
   "same era, no new one" call as Judges, just for the opposite reason
-  (genuinely the same period, vs. era_judges already covering it). Expect
-  the lighter pass to come back for the more legal/genealogical stretches
-  later on (parts of 1-2 Chronicles, etc.).
+  (genuinely the same period, vs. era_judges already covering it). 1 Kings
+  was narrative throughout too, but this time genuinely needed a new era
+  partway through the book: Solomon's reign is still era_united_kingdom,
+  but once the kingdom splits (chapter 12) a new era_divided_kingdom
+  starts — the split happens mid-book, which the era boundary just has to
+  follow rather than aligning to book boundaries. Expect the lighter pass
+  to come back for the more legal/genealogical stretches later on (parts
+  of 1-2 Chronicles, etc.).
 - **Reread an era's `name`/`summary`/`approxRange` each time a new book
   extends it, not just its `id`.** `era_exodus` still read "The Exodus
   begins" / "in Egypt" after Leviticus, Numbers, and Deuteronomy — 40 years

@@ -849,6 +849,69 @@
       "toType": "story",
       "toId": "story_nathan_confronts_david",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_david_father_of_solomon",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_solomon",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_bathsheba_mother_of_solomon",
+      "fromType": "character",
+      "fromId": "char_bathsheba",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_solomon",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_david_father_of_adonijah",
+      "fromType": "character",
+      "fromId": "char_david",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_adonijah",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_solomon_father_of_rehoboam",
+      "fromType": "character",
+      "fromId": "char_solomon",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_rehoboam",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_ahab_husband_of_jezebel",
+      "fromType": "character",
+      "fromId": "char_ahab",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_jezebel",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_youngerson_instance_solomon",
+      "fromType": "motif",
+      "fromId": "motif_younger_son_chosen",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_solomon",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_prophetconfronts_instance_ahab",
+      "fromType": "motif",
+      "fromId": "motif_prophet_confronts_the_king",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_naboths_vineyard",
+      "inverse": "has motif"
     }
   ]
 }
