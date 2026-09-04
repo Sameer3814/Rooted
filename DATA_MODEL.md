@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (36 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers)
+### Character — *live* (38 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua)
 ```json
 {
   "id": "char_jacob",
@@ -239,7 +239,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (9 motifs)
+### Motif — *live* (10 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -408,14 +408,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 366 verses + 31 topics + 36 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 394 verses + 31 topics + 38 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (8,398 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (9,056 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone Genesis characters | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 5 eras, 63 stories, 179 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 6 eras, 72 stories, 193 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 9 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 73 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 76 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -754,6 +754,27 @@ note).
     stale since it still read "The Exodus begins" / "in Egypt" after three
     more books' worth of content, spanning 40 years and ending at the Jordan,
     had been folded into the same era id.
+18. **Joshua.** **Done (2026-09-04).** Narrative again — the full playbook,
+    same as Genesis/Exodus/Numbers. New era, `era_conquest` (order 5, between
+    `era_exodus` and `era_judges`, which moved to order 6). 9 stories: Joshua
+    takes charge; Rahab and the spies; crossing the Jordan; the fall of
+    Jericho; Achan's sin and the second battle for Ai; the Gibeonite
+    deception; the sun standing still; Caleb receiving Hebron (a direct
+    payoff of a promise from `story_twelve_spies` in Numbers, 45 years
+    earlier — extends Caleb's existing timeline rather than starting a new
+    arc); Joshua's farewell ("as for me and my house, we will serve
+    Yahweh," 24:15). 2 new characters — Rahab, Achan. 28 curated verses. No
+    new topics — the existing 31 covered it again.
+
+    Two motif payoffs: `motif_gods_reassurance` picked up a **5th** instance
+    (Joshua 1:5, "as I was with Moses, so I will be with you" — spoken at the
+    very moment Joshua's leadership begins, echoing Deuteronomy 31:23's
+    instance at his commissioning one book earlier). And a new motif,
+    `motif_foreign_woman_of_faith` (`story_rahab_and_the_spies` in Joshua;
+    `story_ruth_clings_to_naomi` in Ruth) — two women with no claim on Israel
+    or its God who choose both anyway, and both end up ancestors of David.
+    Neither motif needed new code; both are `motif → story`/`verse`
+    Connection edges, same as every motif since §8.4.
 
 ---
 

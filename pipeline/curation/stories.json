@@ -33,8 +33,15 @@
       "id": "era_judges",
       "name": "The Judges",
       "summary": "Centuries after the Exodus, a chaotic period where everyone did what was right in their own eyes. Ruth's is a quiet story of loyalty inside it -- and it ends by naming David's great-grandparents.",
-      "order": 5,
+      "order": 6,
       "approxRange": "centuries after the Exodus, before Israel's kings"
+    },
+    {
+      "id": "era_conquest",
+      "name": "The Conquest of Canaan",
+      "summary": "Under Joshua, Israel crosses the Jordan into the promised land and takes it city by city — some through overwhelming victory, one through failure and correction, one through being deceived.",
+      "order": 5,
+      "approxRange": "immediately after the wilderness years, before the judges"
     }
   ],
   "stories": [
@@ -1343,6 +1350,189 @@
       "topicIds": [
         "topic_faithfulness",
         "topic_presence"
+      ]
+    },
+    {
+      "id": "story_joshua_takes_charge",
+      "title": "Joshua takes charge",
+      "summary": "As Moses' successor, Joshua hears God's charge directly: be strong and courageous, keep the law always on his lips, and know that God is with him exactly as he was with Moses.",
+      "primaryReference": "Joshua 1:1-9",
+      "eraId": "era_conquest",
+      "canonicalOrder": 740,
+      "verseIds": [
+        "verse_joshua_1_5",
+        "verse_joshua_1_6",
+        "verse_joshua_1_8",
+        "verse_joshua_1_9"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_presence",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_rahab_and_the_spies",
+      "title": "Rahab and the spies",
+      "summary": "Joshua sends two spies into Jericho, where a woman named Rahab hides them from the king's men on her roof. She tells them Jericho is already terrified of Israel, and asks only that her family be spared when the city falls. They agree, and she lowers them from the wall by a rope, marking her window with a scarlet cord.",
+      "primaryReference": "Joshua 2:1-24",
+      "eraId": "era_conquest",
+      "canonicalOrder": 750,
+      "verseIds": [
+        "verse_joshua_2_9",
+        "verse_joshua_2_11",
+        "verse_joshua_2_14",
+        "verse_joshua_2_21"
+      ],
+      "characterIds": [
+        "char_joshua",
+        "char_rahab"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_crossing_the_jordan",
+      "title": "Crossing the Jordan",
+      "summary": "The priests carry the ark into the flooding Jordan, and the water stops flowing the moment their feet touch it. All Israel crosses on dry ground, and twelve stones are set up as a memorial.",
+      "primaryReference": "Joshua 3:1-4:24",
+      "eraId": "era_conquest",
+      "canonicalOrder": 755,
+      "verseIds": [
+        "verse_joshua_3_13",
+        "verse_joshua_3_17"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_fall_of_jericho",
+      "title": "The fall of Jericho",
+      "summary": "For six days Israel marches silently around Jericho once a day; on the seventh, they march around it seven times, then shout at the priests' trumpet blast — and the wall falls flat. Rahab and her family are the only ones spared.",
+      "primaryReference": "Joshua 6:1-27",
+      "eraId": "era_conquest",
+      "canonicalOrder": 760,
+      "verseIds": [
+        "verse_joshua_6_2",
+        "verse_joshua_6_5",
+        "verse_joshua_6_20"
+      ],
+      "characterIds": [
+        "char_joshua",
+        "char_rahab"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_achans_sin",
+      "title": "Achan's sin, and the second battle for Ai",
+      "summary": "Israel is unexpectedly routed at Ai. Joshua learns why: Achan secretly kept plunder from Jericho that had been devoted to destruction. Once Achan is exposed and stoned, Israel attacks Ai again and takes it.",
+      "primaryReference": "Joshua 7:1-8:29",
+      "eraId": "era_conquest",
+      "canonicalOrder": 765,
+      "verseIds": [
+        "verse_joshua_7_1",
+        "verse_joshua_7_11",
+        "verse_joshua_7_20",
+        "verse_joshua_7_25",
+        "verse_joshua_8_1"
+      ],
+      "characterIds": [
+        "char_joshua",
+        "char_achan"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_justice",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_gibeonite_deception",
+      "title": "The Gibeonite deception",
+      "summary": "Hearing what happened to Jericho and Ai, the Gibeonites disguise themselves as travelers from a distant country and trick Israel's leaders into a treaty of peace, without anyone asking God first.",
+      "primaryReference": "Joshua 9:1-27",
+      "eraId": "era_conquest",
+      "canonicalOrder": 770,
+      "verseIds": [
+        "verse_joshua_9_15"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_sun_stands_still",
+      "title": "The sun stands still",
+      "summary": "Defending the Gibeonites he had just made a treaty with, Joshua asks Yahweh, in front of all Israel, to make the sun and moon stand still — and they do, for a day with no equal before or since, while Israel finishes the battle.",
+      "primaryReference": "Joshua 10:1-15",
+      "eraId": "era_conquest",
+      "canonicalOrder": 775,
+      "verseIds": [
+        "verse_joshua_10_12",
+        "verse_joshua_10_14"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_caleb_receives_hebron",
+      "title": "Caleb receives Hebron",
+      "summary": "Forty-five years after he first believed Israel could take the land, eighty-five-year-old Caleb asks Joshua to keep the promise: give him the hill country of the very Anakim that once made the other ten spies afraid.",
+      "primaryReference": "Joshua 14:6-15",
+      "eraId": "era_conquest",
+      "canonicalOrder": 780,
+      "verseIds": [
+        "verse_joshua_14_10",
+        "verse_joshua_14_11",
+        "verse_joshua_14_12"
+      ],
+      "characterIds": [
+        "char_caleb",
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_faith",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_joshua_farewell_and_death",
+      "title": "\"As for me and my house\"",
+      "summary": "Old and near death, Joshua gathers Israel and reminds them everything Yahweh promised has come true. He tells them to choose today whom they will serve — and commits himself and his household to Yahweh, whatever they decide.",
+      "primaryReference": "Joshua 23:1-24:33",
+      "eraId": "era_conquest",
+      "canonicalOrder": 785,
+      "verseIds": [
+        "verse_joshua_23_14",
+        "verse_joshua_24_14",
+        "verse_joshua_24_15",
+        "verse_joshua_24_31"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_calling",
+        "topic_faithfulness"
       ]
     }
   ],
@@ -3429,6 +3619,153 @@
         "char_moses"
       ],
       "sequenceInLife": 40
+    },
+    {
+      "id": "event_joshua_takes_charge",
+      "characterId": "char_joshua",
+      "title": "Takes charge after Moses",
+      "description": "God tells him directly to be strong and courageous, and that he will be with him just as he was with Moses.",
+      "reference": "Joshua 1:1-9",
+      "storyId": "story_joshua_takes_charge",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_joshua_sends_spies",
+      "characterId": "char_joshua",
+      "title": "Sends spies into Jericho",
+      "description": "They are hidden by a woman named Rahab and return with word that the city is already afraid.",
+      "reference": "Joshua 2:1-24",
+      "storyId": "story_rahab_and_the_spies",
+      "participantIds": [
+        "char_rahab"
+      ],
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_joshua_crosses_jordan",
+      "characterId": "char_joshua",
+      "title": "Leads Israel across the Jordan",
+      "description": "The river stops flowing the moment the priests carrying the ark step into it.",
+      "reference": "Joshua 3:1-4:24",
+      "storyId": "story_crossing_the_jordan",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_joshua_conquers_jericho",
+      "characterId": "char_joshua",
+      "title": "Takes Jericho",
+      "description": "Seven days of marching, then a shout, and the wall falls.",
+      "reference": "Joshua 6:1-27",
+      "storyId": "story_fall_of_jericho",
+      "participantIds": [
+        "char_rahab"
+      ],
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_joshua_deals_with_achan",
+      "characterId": "char_joshua",
+      "title": "Uncovers Achan's sin",
+      "description": "After defeat at Ai, he finds and deals with the hidden plunder that caused it.",
+      "reference": "Joshua 7:1-8:29",
+      "storyId": "story_achans_sin",
+      "participantIds": [
+        "char_achan"
+      ],
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_joshua_deceived_by_gibeonites",
+      "characterId": "char_joshua",
+      "title": "Deceived by the Gibeonites",
+      "description": "He makes a treaty with them without asking God first, believing their disguise.",
+      "reference": "Joshua 9:1-27",
+      "storyId": "story_gibeonite_deception",
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_joshua_sun_stands_still",
+      "characterId": "char_joshua",
+      "title": "Asks the sun to stand still",
+      "description": "In front of all Israel, he asks Yahweh to stop the sun and moon so the battle can be finished.",
+      "reference": "Joshua 10:1-15",
+      "storyId": "story_sun_stands_still",
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_joshua_gives_caleb_hebron",
+      "characterId": "char_joshua",
+      "title": "Gives Caleb Hebron",
+      "description": "He honors the forty-five-year-old promise and gives Caleb the hill country he asked for.",
+      "reference": "Joshua 14:6-15",
+      "storyId": "story_caleb_receives_hebron",
+      "participantIds": [
+        "char_caleb"
+      ],
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_joshua_farewell",
+      "characterId": "char_joshua",
+      "title": "Gathers Israel to choose",
+      "description": "\"As for me and my house, we will serve Yahweh.\"",
+      "reference": "Joshua 23:1-24:33",
+      "storyId": "story_joshua_farewell_and_death",
+      "sequenceInLife": 130
+    },
+    {
+      "id": "event_caleb_receives_hebron",
+      "characterId": "char_caleb",
+      "title": "Receives Hebron at eighty-five",
+      "description": "He asks Joshua to keep the promise Moses made forty-five years earlier, and is given the hill country of the Anakim.",
+      "reference": "Joshua 14:6-15",
+      "storyId": "story_caleb_receives_hebron",
+      "participantIds": [
+        "char_joshua"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_rahab_hides_spies",
+      "characterId": "char_rahab",
+      "title": "Hides the Israelite spies",
+      "description": "She hides them on her roof, believing Yahweh has already given Israel the land, and asks only that her family be spared.",
+      "reference": "Joshua 2:1-21",
+      "storyId": "story_rahab_and_the_spies",
+      "participantIds": [
+        "char_joshua"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_rahab_spared",
+      "characterId": "char_rahab",
+      "title": "Spared when Jericho falls",
+      "description": "She and her family are the only ones in the city who survive.",
+      "reference": "Joshua 6:22-25",
+      "storyId": "story_fall_of_jericho",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_achan_takes_plunder",
+      "characterId": "char_achan",
+      "title": "Takes forbidden plunder",
+      "description": "He secretly keeps silver, gold, and a robe from Jericho that had been devoted to destruction, and buries it under his tent.",
+      "reference": "Joshua 7:1, 7:20-21",
+      "storyId": "story_achans_sin",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_achan_stoned",
+      "characterId": "char_achan",
+      "title": "Found out and stoned",
+      "description": "His sin is why Israel was defeated at Ai; once found, he confesses and is stoned.",
+      "reference": "Joshua 7:16-26",
+      "storyId": "story_achans_sin",
+      "participantIds": [
+        "char_joshua"
+      ],
+      "sequenceInLife": 20
     }
   ]
 }

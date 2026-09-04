@@ -53,39 +53,39 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **366 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, and Deuteronomy's two narrative moments plus its most
-  quotable verses, WEB translation) across **31 topics** (topics linked
-  to related topics), plus **36 characters** (17 Genesis, 8 Exodus,
-  5 Ruth, 2 Leviticus, 4 Numbers — no new characters needed for
-  Deuteronomy) with real relationships (father of, wife of, brother of,
-  successor of, etc. — see Connection, below).
-- `data/characters.json` — the same 36 characters, standalone. Generated
+  first run: **394 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  Numbers, Deuteronomy, and the book of Joshua, WEB translation) across
+  **31 topics** (topics linked to related topics), plus **38 characters**
+  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua) with
+  real relationships (father of, wife of, brother of, successor of,
+  etc. — see Connection, below).
+- `data/characters.json` — the same 38 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, and Deuteronomy (8,398 verses, WEB
-  translation, public domain). Lazily fetched by the Browse screen the
+  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, and Joshua (9,056 verses,
+  WEB translation, public domain). Lazily fetched by the Browse screen the
   first time it's opened, never at boot. It is *reference material*, kept
   separate from the user's library — adding a verse from Browse copies it
-  into the user's overlay. Only the 366 seed verses are topic-tagged; the
+  into the user's overlay. Only the 394 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
-- `data/stories.json` — 5 eras, 63 stories and 179 life events. Covers
+- `data/stories.json` — **6 eras**, 72 stories and 193 life events. Covers
   Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers' wilderness
-  narrative, and Deuteronomy's ending — Moses commissioning Joshua, then
-  viewing the land and dying on Mount Nebo. Loaded at boot (it's small).
-  Drives the character life timeline, the Stories screens,
+  narrative, Deuteronomy's ending, and the book of Joshua's conquest of
+  Canaan (Rahab, Jericho, Achan, the Gibeonites, the sun standing still,
+  Caleb finally receiving Hebron, Joshua's farewell). New era:
+  `era_conquest`, between the wilderness and the Judges. Loaded at boot
+  (it's small). Drives the character life timeline, the Stories screens,
   People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — 9 recurring biblical patterns, each with real
+- `data/motifs.json` — **10** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences — including two that span multiple books: grumbling in the
-  wilderness (manna in Exodus, the rock and the bronze serpent in
-  Numbers) and presuming on what is holy (Nadab and Abihu in Leviticus,
-  Korah in Numbers). `motif_gods_reassurance` (Genesis, Exodus) picked up
-  a fourth instance in Deuteronomy 31:23, at Joshua's commissioning — the
-  same "I will be with you" said to a new leader at a leadership handoff.
-  Loaded at boot. Drives the Patterns screens and the "Pattern" badges on
-  Character and Story pages.
-- `data/connections.json` — 73 generic Connection edges (Design philosophy
+  occurrences. Two span three-plus books now: `motif_gods_reassurance`
+  (Genesis, Exodus, Deuteronomy, and now Joshua 1:5 — "as I was with
+  Moses, so I will be with you") and `motif_wilderness_grumbling`. A new
+  one, `motif_foreign_woman_of_faith`, connects Rahab (Joshua) to Ruth —
+  two women with no claim on Israel who choose it anyway, both ancestors
+  of David. Loaded at boot. Drives the Patterns screens and the "Pattern"
+  badges on Character and Story pages.
+- `data/connections.json` — 76 generic Connection edges (Design philosophy
   #4): family relationships, motif instances (`motif` → `story` /
   `character` / `verse`), and story↔story links (`"parallels"`,
   `"contrasts with"`). Loaded at boot.
@@ -94,7 +94,7 @@ The schema was deliberately designed so all of the above can be added
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy.
+    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -213,11 +213,12 @@ hand-curate all the content before building.
    throughout, plus Story treatment for its ~3 real narrative incidents),
    Numbers (the narrative stretch: the twelve spies, Korah, water from
    the rock again, the deaths of Miriam and Aaron, the bronze serpent,
-   Balaam's donkey), Deuteronomy (almost entirely Moses' farewell
-   speeches, so the Leviticus-style lighter pass again — verses/topics
-   throughout, Story treatment for its only two real narrative beats:
-   Moses commissioning Joshua, and Moses viewing the land and dying on
-   Mount Nebo — see DATA_MODEL.md §8.17). Next up: **Joshua**.
+   Balaam's donkey), Deuteronomy (the Leviticus-style lighter pass —
+   Moses commissioning Joshua, and his death on Mount Nebo, plus
+   verses/topics throughout), Joshua (whole book, narrative again: Rahab,
+   Jericho, Achan, the Gibeonites, the sun standing still, Caleb finally
+   receiving Hebron, Joshua's farewell — new `era_conquest` — see
+   DATA_MODEL.md §8.18). Next up: **Judges**.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -297,7 +298,17 @@ commissioning that Isaac and Jacob heard generations earlier. Also
 corrected `era_exodus`'s display text ("The Exodus begins" / "in Egypt"),
 which had quietly gone stale as Leviticus, Numbers, and now Deuteronomy —
 40 years later, at the Jordan — all got folded into the same era id
-without the name and summary being updated to match.
+without the name and summary being updated to match. Then the book of
+Joshua: a new era, `era_conquest`, and 9 stories — taking charge, Rahab
+and the spies, crossing the Jordan, the fall of Jericho, Achan's sin,
+the Gibeonite deception, the sun standing still, Caleb finally
+receiving Hebron 45 years after he first believed Israel could take the
+land, and Joshua's farewell ("as for me and my house, we will serve
+Yahweh"). 2 new characters (Rahab, Achan). A 5th instance of
+`motif_gods_reassurance` (Joshua 1:5, "as I was with Moses, so I will be
+with you") and a new motif, `motif_foreign_woman_of_faith`, connecting
+Rahab to Ruth — two foreign women with no claim on Israel who choose it
+anyway, and both end up ancestors of David.
 
 ## Source data provenance
 

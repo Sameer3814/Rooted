@@ -2830,6 +2830,235 @@
       "characterIds": [
         "char_moses"
       ]
+    },
+    {
+      "id": "verse_joshua_1_5",
+      "topicIds": [
+        "topic_presence",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_1_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_1_8",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_1_9",
+      "topicIds": [
+        "topic_fear",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_2_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_rahab"
+      ]
+    },
+    {
+      "id": "verse_joshua_2_11",
+      "topicIds": [
+        "topic_faith",
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_rahab"
+      ]
+    },
+    {
+      "id": "verse_joshua_2_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_rahab"
+      ]
+    },
+    {
+      "id": "verse_joshua_2_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_rahab"
+      ]
+    },
+    {
+      "id": "verse_joshua_3_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_3_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_6_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_6_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_6_20",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_7_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_achan"
+      ]
+    },
+    {
+      "id": "verse_joshua_7_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_achan"
+      ]
+    },
+    {
+      "id": "verse_joshua_7_20",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_achan"
+      ]
+    },
+    {
+      "id": "verse_joshua_7_25",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_achan",
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_8_1",
+      "topicIds": [
+        "topic_fear",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_9_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_10_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_10_14",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_joshua_14_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_joshua_14_11",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_joshua_14_12",
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_caleb"
+      ]
+    },
+    {
+      "id": "verse_joshua_23_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_24_14",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_24_15",
+      "topicIds": [
+        "topic_worship",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_joshua"
+      ]
+    },
+    {
+      "id": "verse_joshua_24_31",
+      "topicIds": [],
+      "characterIds": [
+        "char_joshua"
+      ]
     }
   ],
   "topics": [
@@ -3603,6 +3832,28 @@
       ],
       "eraId": "era_exodus",
       "summary": "A foreign prophet hired by a Moabite king to curse Israel. His own donkey saw the angel blocking the road before he did — and when he finally spoke over Israel, blessing came out instead of the curse he was paid for.",
+      "verseIds": []
+    },
+    {
+      "id": "char_rahab",
+      "name": "Rahab",
+      "roles": [
+        "hid the spies",
+        "chose Israel's God over her own people"
+      ],
+      "eraId": "era_conquest",
+      "summary": "A woman of Jericho who hid two Israelite spies on her roof, believing Yahweh had already given them the land. She and her family were the only ones spared when the city fell.",
+      "verseIds": []
+    },
+    {
+      "id": "char_achan",
+      "name": "Achan",
+      "roles": [
+        "kept plunder God had forbidden",
+        "brought defeat on Israel"
+      ],
+      "eraId": "era_conquest",
+      "summary": "A man of Judah who secretly took silver, gold, and a robe from Jericho's forbidden plunder. Israel was routed at Ai until he was found out and stoned.",
       "verseIds": []
     }
   ]

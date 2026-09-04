@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -172,7 +172,11 @@ Worth knowing:
   almost entirely Moses' three farewell speeches — got the lighter pass too,
   same as predicted: verses/topics throughout, Stories only for its two real
   narrative beats (Moses commissioning Joshua; Moses viewing the land and
-  dying on Nebo). Joshua (the book) should be narrative again.
+  dying on Nebo). Joshua (the book) went back to the full playbook — narrative
+  again, as predicted (Rahab, Jericho, Achan, the Gibeonites, the sun
+  standing still, Caleb's payoff, Joshua's farewell). Judges should stay
+  narrative; expect the lighter pass to come back for the more
+  legal/genealogical stretches later on (parts of 1-2 Chronicles, etc.).
 - **Reread an era's `name`/`summary`/`approxRange` each time a new book
   extends it, not just its `id`.** `era_exodus` still read "The Exodus
   begins" / "in Egypt" after Leviticus, Numbers, and Deuteronomy — 40 years

@@ -660,6 +660,33 @@
       "toType": "verse",
       "toId": "verse_deuteronomy_31_23",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_reassurance_instance_joshua_1_5",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_joshua_1_5",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_foreignwoman_instance_rahab",
+      "fromType": "motif",
+      "fromId": "motif_foreign_woman_of_faith",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_rahab_and_the_spies",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_foreignwoman_instance_ruth",
+      "fromType": "motif",
+      "fromId": "motif_foreign_woman_of_faith",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_ruth_clings_to_naomi",
+      "inverse": "has motif"
     }
   ]
 }
