@@ -56,6 +56,13 @@
       "summary": "After Solomon's death the kingdom splits in two: Rehoboam keeps Judah in the south, Jeroboam leads the ten northern tribes as Israel and sets up rival worship to keep them from Jerusalem. In the north, king Ahab marries Jezebel and promotes Baal worship, and the prophet Elijah confronts them both.",
       "order": 8,
       "approxRange": "Israel splits into two kingdoms; the prophet Elijah's ministry in the north"
+    },
+    {
+      "id": "era_exile",
+      "name": "The Exile",
+      "summary": "Jerusalem falls to Nebuchadnezzar of Babylon. The temple Solomon built is burned, the last king of Judah is blinded and dragged away in chains, and the people are carried into captivity — the end of the monarchy and the start of seventy years in a foreign land.",
+      "order": 9,
+      "approxRange": "Judah carried into captivity in Babylon"
     }
   ],
   "stories": [
@@ -2378,6 +2385,294 @@
       "topicIds": [
         "topic_justice",
         "topic_repentance"
+      ]
+    },
+    {
+      "id": "story_elijah_taken_up",
+      "title": "Elijah taken up to heaven",
+      "summary": "Knowing his time is near, Elijah asks Elisha what he can do for him before he goes; Elisha asks for a double portion of his spirit. A chariot of fire separates them and Elijah is carried up in a whirlwind. Elisha picks up the fallen mantle, strikes the Jordan with it, and the waters part for him too.",
+      "primaryReference": "2 Kings 2:1-18",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1400,
+      "verseIds": [
+        "verse_2kings_2_9",
+        "verse_2kings_2_11",
+        "verse_2kings_2_12",
+        "verse_2kings_2_14",
+        "verse_2kings_2_15"
+      ],
+      "characterIds": [
+        "char_elijah",
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_elisha_and_the_widows_oil",
+      "title": "The widow's oil",
+      "summary": "A prophet's widow, about to lose her sons to her creditors, has nothing left but a small jar of oil. Elisha tells her to borrow every empty container she can and start pouring; the oil keeps flowing until the last jar is full, enough to pay the debt and live on.",
+      "primaryReference": "2 Kings 4:1-7",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1410,
+      "verseIds": [
+        "verse_2kings_4_3",
+        "verse_2kings_4_6"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_provision",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_elisha_and_the_shunammite",
+      "title": "The Shunammite woman's son",
+      "summary": "A well-off woman in Shunem builds Elisha a room on her roof. In return he promises her the son she never thought she'd have. Years later the boy dies suddenly; she rides straight to Elisha, who comes and stretches himself over the child until he sneezes and opens his eyes.",
+      "primaryReference": "2 Kings 4:8-37",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1420,
+      "verseIds": [
+        "verse_2kings_4_9",
+        "verse_2kings_4_16",
+        "verse_2kings_4_32",
+        "verse_2kings_4_34",
+        "verse_2kings_4_35"
+      ],
+      "characterIds": [
+        "char_elisha",
+        "char_shunammite_woman",
+        "char_gehazi"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_provision"
+      ]
+    },
+    {
+      "id": "story_naaman_healed",
+      "title": "Naaman healed",
+      "summary": "Naaman, an Aramean army commander with leprosy, hears of a prophet in Israel from a captured servant girl. He arrives expecting a grand ceremony and is told instead to wash seven times in the Jordan. Insulted, he almost leaves — until his servants talk him into it, and he comes up clean, declaring there is no God but the God of Israel. Elisha's servant Gehazi then chases Naaman down for a gift, and takes the leprosy with it.",
+      "primaryReference": "2 Kings 5:1-27",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1430,
+      "verseIds": [
+        "verse_2kings_5_1",
+        "verse_2kings_5_3",
+        "verse_2kings_5_10",
+        "verse_2kings_5_11",
+        "verse_2kings_5_14",
+        "verse_2kings_5_15",
+        "verse_2kings_5_27"
+      ],
+      "characterIds": [
+        "char_naaman",
+        "char_elisha",
+        "char_gehazi"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_faith",
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_elisha_and_the_blinded_army",
+      "title": "The chariots of fire",
+      "summary": "Aram sends an army by night to capture Elisha, and his servant panics at the sight of it. Elisha prays, and the servant's eyes are opened to see the hills full of horses and chariots of fire. Elisha then asks God to strike the enemy army with blindness, leads them into Samaria, and sends them home fed rather than killed.",
+      "primaryReference": "2 Kings 6:8-23",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1440,
+      "verseIds": [
+        "verse_2kings_6_15",
+        "verse_2kings_6_16",
+        "verse_2kings_6_17",
+        "verse_2kings_6_23"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_fear",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_siege_of_samaria_lifted",
+      "title": "The siege of Samaria lifted",
+      "summary": "Aram's siege has driven Samaria to starvation and cannibalism. Elisha announces that by the next day food will be cheap again, and an officer scoffs. That night God makes the Aramean army hear the sound of a great host and flee, leaving everything behind; four lepers find the empty camp and bring the news, and the officer is trampled in the rush to the gate, exactly as Elisha said.",
+      "primaryReference": "2 Kings 6:24-7:20",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1450,
+      "verseIds": [
+        "verse_2kings_7_1",
+        "verse_2kings_7_9",
+        "verse_2kings_7_16"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_provision",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_jehu_and_the_death_of_jezebel",
+      "title": "Jehu and the death of Jezebel",
+      "summary": "A young prophet anoints the army commander Jehu king, charging him to wipe out Ahab's house and avenge the prophets Jezebel killed. Jehu drives to Jezreel, kills Ahab's son Joram, and orders Jezebel thrown from her window. By the time anyone goes to bury her, the dogs have left only her skull, feet, and hands — as Elijah had said.",
+      "primaryReference": "2 Kings 9:1-37",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1460,
+      "verseIds": [
+        "verse_2kings_9_6",
+        "verse_2kings_9_7",
+        "verse_2kings_9_30",
+        "verse_2kings_9_33",
+        "verse_2kings_9_35"
+      ],
+      "characterIds": [
+        "char_jehu",
+        "char_jezebel"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_death_of_elisha",
+      "title": "The death of Elisha",
+      "summary": "Elisha, dying, has king Jehoash shoot an arrow out the window as a sign of victory over Aram, then rebukes him for striking the ground only three times instead of pressing on. After Elisha is buried, a body hurriedly thrown into his tomb touches his bones and the man comes back to life.",
+      "primaryReference": "2 Kings 13:14-21",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1470,
+      "verseIds": [
+        "verse_2kings_13_20",
+        "verse_2kings_13_21"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_fall_of_israel",
+      "title": "The fall of Israel",
+      "summary": "After two centuries of kings who led the northern kingdom into idolatry, Assyria captures Samaria and carries Israel away. The account stops the narrative to explain why: they had worshiped other gods, ignored every prophet God sent, and finally were removed from the land — leaving only Judah in the south.",
+      "primaryReference": "2 Kings 17:1-23",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1480,
+      "verseIds": [
+        "verse_2kings_17_6",
+        "verse_2kings_17_7",
+        "verse_2kings_17_18",
+        "verse_2kings_17_23"
+      ],
+      "characterIds": [],
+      "topicIds": [
+        "topic_idolatry",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_hezekiah_and_sennacherib",
+      "title": "Hezekiah and Sennacherib",
+      "summary": "Sennacherib of Assyria takes Judah's fortified cities and sends messengers to mock Hezekiah's trust in God. Hezekiah spreads the threatening letter out before Yahweh and prays that the nations may know he alone is God. That night God's angel strikes 185,000 in the Assyrian camp, and Sennacherib withdraws.",
+      "primaryReference": "2 Kings 18:13-19:37",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1490,
+      "verseIds": [
+        "verse_2kings_18_5",
+        "verse_2kings_19_15",
+        "verse_2kings_19_19",
+        "verse_2kings_19_35"
+      ],
+      "characterIds": [
+        "char_hezekiah",
+        "char_sennacherib",
+        "char_isaiah"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_trust",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_hezekiahs_illness",
+      "title": "Hezekiah's illness",
+      "summary": "Told by Isaiah to set his house in order because he will die, Hezekiah turns to the wall and weeps and prays. Before Isaiah has even left the palace, God sends him back: fifteen years added, and as a sign, the shadow on the stairway of Ahaz moves ten steps backward.",
+      "primaryReference": "2 Kings 20:1-11",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1500,
+      "verseIds": [
+        "verse_2kings_20_1",
+        "verse_2kings_20_5",
+        "verse_2kings_20_6",
+        "verse_2kings_20_11"
+      ],
+      "characterIds": [
+        "char_hezekiah",
+        "char_isaiah"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_josiah_and_the_book_of_the_law",
+      "title": "Josiah and the Book of the Law",
+      "summary": "During temple repairs the high priest finds the lost Book of the Law. When it is read to king Josiah, he tears his clothes, realizing how far Judah has drifted. The prophetess Huldah confirms the coming judgment but says it will not fall in Josiah's lifetime because his heart was tender. Josiah gathers the nation, renews the covenant, and tears down every idol and high place in the land.",
+      "primaryReference": "2 Kings 22:1-23:25",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1510,
+      "verseIds": [
+        "verse_2kings_22_8",
+        "verse_2kings_22_11",
+        "verse_2kings_22_13",
+        "verse_2kings_22_19",
+        "verse_2kings_23_3",
+        "verse_2kings_23_25"
+      ],
+      "characterIds": [
+        "char_josiah",
+        "char_huldah"
+      ],
+      "topicIds": [
+        "topic_scripture",
+        "topic_repentance",
+        "topic_covenant"
+      ]
+    },
+    {
+      "id": "story_fall_of_jerusalem",
+      "title": "The fall of Jerusalem",
+      "summary": "Zedekiah rebels against Babylon, and Nebuchadnezzar's army besieges Jerusalem for two years until the food runs out. The city is broken into, the temple and palace are burned, the walls are pulled down, and the people are carried off to Babylon. Zedekiah watches his sons killed, then is blinded and led away in chains.",
+      "primaryReference": "2 Kings 24:1-25:21",
+      "eraId": "era_exile",
+      "canonicalOrder": 1600,
+      "verseIds": [
+        "verse_2kings_24_13",
+        "verse_2kings_24_14",
+        "verse_2kings_25_1",
+        "verse_2kings_25_7",
+        "verse_2kings_25_9",
+        "verse_2kings_25_21"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar",
+        "char_zedekiah"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_justice"
       ]
     }
   ],
@@ -5687,6 +5982,280 @@
       "participantIds": [
         "char_ahab",
         "char_jezebel"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elijah_taken_up",
+      "characterId": "char_elijah",
+      "title": "Taken up to heaven in a whirlwind",
+      "description": "A chariot of fire separates him from Elisha, and he is carried up alive.",
+      "reference": "2 Kings 2:1-12",
+      "storyId": "story_elijah_taken_up",
+      "participantIds": [
+        "char_elisha"
+      ],
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_jezebel_thrown_down",
+      "characterId": "char_jezebel",
+      "title": "Thrown from a window at Jehu's command",
+      "description": "The dogs leave only her skull, feet, and hands, exactly as Elijah had foretold.",
+      "reference": "2 Kings 9:30-37",
+      "storyId": "story_jehu_and_the_death_of_jezebel",
+      "participantIds": [
+        "char_jehu"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_elisha_receives_mantle",
+      "characterId": "char_elisha",
+      "title": "Receives Elijah's mantle",
+      "description": "Asks for a double portion of Elijah's spirit, and parts the Jordan with the fallen cloak.",
+      "reference": "2 Kings 2:1-15",
+      "storyId": "story_elijah_taken_up",
+      "participantIds": [
+        "char_elijah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elisha_widows_oil",
+      "characterId": "char_elisha",
+      "title": "Multiplies a widow's oil",
+      "description": "Fills every borrowed container so she can pay her debt and keep her sons.",
+      "reference": "2 Kings 4:1-7",
+      "storyId": "story_elisha_and_the_widows_oil",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_elisha_raises_shunammite_son",
+      "characterId": "char_elisha",
+      "title": "Raises the Shunammite's son",
+      "description": "Promises her a son, then brings the boy back to life when he later dies.",
+      "reference": "2 Kings 4:8-37",
+      "storyId": "story_elisha_and_the_shunammite",
+      "participantIds": [
+        "char_shunammite_woman",
+        "char_gehazi"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_elisha_heals_naaman",
+      "characterId": "char_elisha",
+      "title": "Heals Naaman of leprosy",
+      "description": "Sends him to wash seven times in the Jordan; his servant Gehazi's greed then costs Gehazi the same disease.",
+      "reference": "2 Kings 5:1-27",
+      "storyId": "story_naaman_healed",
+      "participantIds": [
+        "char_naaman",
+        "char_gehazi"
+      ],
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_elisha_blinded_army",
+      "characterId": "char_elisha",
+      "title": "Blinds an Aramean army and feeds it",
+      "description": "Shows his frightened servant the chariots of fire, then leads the enemy into Samaria and sends them home unharmed.",
+      "reference": "2 Kings 6:8-23",
+      "storyId": "story_elisha_and_the_blinded_army",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_elisha_siege_lifted",
+      "characterId": "char_elisha",
+      "title": "Foretells the end of the siege of Samaria",
+      "description": "Says food will be cheap by the next day; it happens exactly as he said.",
+      "reference": "2 Kings 6:24-7:20",
+      "storyId": "story_siege_of_samaria_lifted",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_elisha_dies",
+      "characterId": "char_elisha",
+      "title": "Dies, and revives a man from the grave",
+      "description": "A body thrown into his tomb touches his bones and comes back to life.",
+      "reference": "2 Kings 13:14-21",
+      "storyId": "story_death_of_elisha",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_shunammite_given_son",
+      "characterId": "char_shunammite_woman",
+      "title": "Given a son, and gets him back from death",
+      "description": "Builds Elisha a room, is promised a child, and later rides to fetch the prophet when the boy dies.",
+      "reference": "2 Kings 4:8-37",
+      "storyId": "story_elisha_and_the_shunammite",
+      "participantIds": [
+        "char_elisha"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_naaman_healed",
+      "characterId": "char_naaman",
+      "title": "Healed of leprosy in the Jordan",
+      "description": "Swallows his pride, washes seven times, and comes up clean — then declares Israel's God the only God.",
+      "reference": "2 Kings 5:1-19",
+      "storyId": "story_naaman_healed",
+      "participantIds": [
+        "char_elisha"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_gehazi_takes_the_gift",
+      "characterId": "char_gehazi",
+      "title": "Takes Naaman's gift, and his leprosy",
+      "description": "Chases Naaman down for silver and clothes behind Elisha's back, and leaves Elisha's presence a leper.",
+      "reference": "2 Kings 5:20-27",
+      "storyId": "story_naaman_healed",
+      "participantIds": [
+        "char_elisha",
+        "char_naaman"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jehu_anointed",
+      "characterId": "char_jehu",
+      "title": "Anointed king to end Ahab's house",
+      "description": "Charged by a prophet to avenge the blood of the prophets Jezebel had killed.",
+      "reference": "2 Kings 9:1-13",
+      "storyId": "story_jehu_and_the_death_of_jezebel",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jehu_kills_jezebel",
+      "characterId": "char_jehu",
+      "title": "Has Jezebel thrown from her window",
+      "description": "Ends the house of Ahab in Jezreel.",
+      "reference": "2 Kings 9:30-37",
+      "storyId": "story_jehu_and_the_death_of_jezebel",
+      "participantIds": [
+        "char_jezebel"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_hezekiah_and_sennacherib",
+      "characterId": "char_hezekiah",
+      "title": "Trusts Yahweh against Sennacherib",
+      "description": "Spreads the Assyrian threat before God in prayer; the angel of Yahweh strikes the camp that night.",
+      "reference": "2 Kings 18:13-19:37",
+      "storyId": "story_hezekiah_and_sennacherib",
+      "participantIds": [
+        "char_sennacherib",
+        "char_isaiah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_hezekiah_illness",
+      "characterId": "char_hezekiah",
+      "title": "Given fifteen more years",
+      "description": "Weeps and prays when told he will die; God heals him and turns the shadow back as a sign.",
+      "reference": "2 Kings 20:1-11",
+      "storyId": "story_hezekiahs_illness",
+      "participantIds": [
+        "char_isaiah"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_sennacherib_army_struck",
+      "characterId": "char_sennacherib",
+      "title": "His army struck down outside Jerusalem",
+      "description": "185,000 dead in a night; he withdraws to Nineveh.",
+      "reference": "2 Kings 19:35-37",
+      "storyId": "story_hezekiah_and_sennacherib",
+      "participantIds": [
+        "char_hezekiah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_isaiah_assures_hezekiah",
+      "characterId": "char_isaiah",
+      "title": "Assures Hezekiah against Assyria",
+      "description": "Delivers God's word that Sennacherib will not enter the city.",
+      "reference": "2 Kings 19:1-34",
+      "storyId": "story_hezekiah_and_sennacherib",
+      "participantIds": [
+        "char_hezekiah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_isaiah_heals_hezekiah",
+      "characterId": "char_isaiah",
+      "title": "Tells Hezekiah he will be healed",
+      "description": "Cries to Yahweh, and the shadow on the sundial goes ten steps back.",
+      "reference": "2 Kings 20:1-11",
+      "storyId": "story_hezekiahs_illness",
+      "participantIds": [
+        "char_hezekiah"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_josiah_finds_the_law",
+      "characterId": "char_josiah",
+      "title": "Hears the lost Book of the Law",
+      "description": "Tears his clothes when he realizes how far Judah has fallen from it.",
+      "reference": "2 Kings 22:1-20",
+      "storyId": "story_josiah_and_the_book_of_the_law",
+      "participantIds": [
+        "char_huldah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_josiah_renews_covenant",
+      "characterId": "char_josiah",
+      "title": "Renews the covenant and purges idolatry",
+      "description": "Reads the law to the whole nation and tears down every high place and idol in the land.",
+      "reference": "2 Kings 23:1-25",
+      "storyId": "story_josiah_and_the_book_of_the_law",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_huldah_prophesies",
+      "characterId": "char_huldah",
+      "title": "Confirms the book's warning to Josiah",
+      "description": "Says judgment is coming on Judah, but not in Josiah's day, because his heart was tender.",
+      "reference": "2 Kings 22:14-20",
+      "storyId": "story_josiah_and_the_book_of_the_law",
+      "participantIds": [
+        "char_josiah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nebuchadnezzar_takes_jerusalem",
+      "characterId": "char_nebuchadnezzar",
+      "title": "Besieges and burns Jerusalem",
+      "description": "Destroys the temple and city and carries Judah into exile in Babylon.",
+      "reference": "2 Kings 24:1-25:21",
+      "storyId": "story_fall_of_jerusalem",
+      "participantIds": [
+        "char_zedekiah"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zedekiah_blinded",
+      "characterId": "char_zedekiah",
+      "title": "The last king of Judah, blinded and exiled",
+      "description": "Sees his sons killed, then is blinded and taken to Babylon in chains.",
+      "reference": "2 Kings 25:1-7",
+      "storyId": "story_fall_of_jerusalem",
+      "participantIds": [
+        "char_nebuchadnezzar"
       ],
       "sequenceInLife": 10
     }

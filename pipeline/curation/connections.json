@@ -912,6 +912,51 @@
       "toType": "story",
       "toId": "story_naboths_vineyard",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_elisha_successor_of_elijah",
+      "fromType": "character",
+      "fromId": "char_elisha",
+      "relationship": "successor of",
+      "toType": "character",
+      "toId": "char_elijah",
+      "inverse": "predecessor of"
+    },
+    {
+      "id": "conn_gehazi_servant_of_elisha",
+      "fromType": "character",
+      "fromId": "char_gehazi",
+      "relationship": "servant of",
+      "toType": "character",
+      "toId": "char_elisha",
+      "inverse": "master of"
+    },
+    {
+      "id": "conn_raisesdead_instance_elijah_widow",
+      "fromType": "motif",
+      "fromId": "motif_prophet_raises_a_dead_child",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_elijah_fed_by_ravens_and_widow",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_raisesdead_instance_elisha_shunammite",
+      "fromType": "motif",
+      "fromId": "motif_prophet_raises_a_dead_child",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_elisha_and_the_shunammite",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_reassurance_instance_2kings_6_16",
+      "fromType": "motif",
+      "fromId": "motif_gods_reassurance",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_2kings_6_16",
+      "inverse": "has motif"
     }
   ]
 }

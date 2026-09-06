@@ -4375,6 +4375,505 @@
       "characterIds": [
         "char_ahab"
       ]
+    },
+    {
+      "id": "verse_2kings_2_9",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_elijah",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_2_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_elijah",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_2_12",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_elisha",
+        "char_elijah"
+      ]
+    },
+    {
+      "id": "verse_2kings_2_14",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_2_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_3",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_6",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_9",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": [
+        "char_shunammite_woman",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_16",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha",
+        "char_shunammite_woman"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_32",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_34",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_4_35",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_naaman"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_naaman",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_10",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_elisha",
+        "char_naaman"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_11",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_naaman"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_14",
+      "topicIds": [
+        "topic_obedience",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_naaman",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_15",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_naaman",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_5_27",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_gehazi",
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_6_15",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_6_16",
+      "topicIds": [
+        "topic_fear",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_6_17",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_6_23",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_7_1",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_7_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_7_16",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_9_6",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jehu"
+      ]
+    },
+    {
+      "id": "verse_2kings_9_7",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_jehu",
+        "char_jezebel"
+      ]
+    },
+    {
+      "id": "verse_2kings_9_30",
+      "topicIds": [],
+      "characterIds": [
+        "char_jezebel",
+        "char_jehu"
+      ]
+    },
+    {
+      "id": "verse_2kings_9_33",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_jezebel",
+        "char_jehu"
+      ]
+    },
+    {
+      "id": "verse_2kings_9_35",
+      "topicIds": [],
+      "characterIds": [
+        "char_jezebel"
+      ]
+    },
+    {
+      "id": "verse_2kings_13_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_13_21",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ]
+    },
+    {
+      "id": "verse_2kings_17_6",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2kings_17_7",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2kings_17_18",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2kings_17_23",
+      "topicIds": [
+        "topic_justice",
+        "topic_idolatry"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2kings_18_5",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_19_15",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_19_19",
+      "topicIds": [
+        "topic_prayer",
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_19_35",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_hezekiah",
+        "char_sennacherib"
+      ]
+    },
+    {
+      "id": "verse_2kings_20_1",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_hezekiah",
+        "char_isaiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_20_5",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_hezekiah",
+        "char_isaiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_20_6",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_20_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_isaiah",
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_22_8",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_josiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_22_11",
+      "topicIds": [
+        "topic_repentance",
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_josiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_22_13",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_josiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_22_19",
+      "topicIds": [
+        "topic_humility",
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_josiah",
+        "char_huldah"
+      ]
+    },
+    {
+      "id": "verse_2kings_23_3",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_josiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_23_25",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_josiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_24_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_2kings_24_14",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_2kings_25_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_nebuchadnezzar",
+        "char_zedekiah"
+      ]
+    },
+    {
+      "id": "verse_2kings_25_7",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_zedekiah",
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_2kings_25_9",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_2kings_25_21",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -4714,6 +5213,16 @@
       "relatedTopicIds": [
         "topic_worship",
         "topic_holiness"
+      ]
+    },
+    {
+      "id": "topic_prayer",
+      "name": "Prayer",
+      "description": "Verses on crying out to God, and how his people bring him their fear, grief, and need.",
+      "relatedTopicIds": [
+        "topic_trust",
+        "topic_waiting",
+        "topic_thanksgiving"
       ]
     }
   ],
@@ -5565,6 +6074,126 @@
       ],
       "eraId": "era_divided_kingdom",
       "summary": "A landowner in Jezreel who refuses to sell his family's inherited vineyard to king Ahab, and is falsely accused and stoned to death for it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elisha",
+      "name": "Elisha",
+      "roles": [
+        "Elijah's successor, the prophet of everyday miracles"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Elijah's attendant and chosen successor, who receives a double portion of his spirit and spends decades working quiet miracles for widows, foreigners, and armies across the northern kingdom.",
+      "verseIds": []
+    },
+    {
+      "id": "char_naaman",
+      "name": "Naaman",
+      "roles": [
+        "the Aramean commander healed of leprosy in the Jordan"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A Syrian army commander with leprosy who almost refuses Elisha's unglamorous instructions, then is healed and declares there is no God anywhere but in Israel.",
+      "verseIds": []
+    },
+    {
+      "id": "char_gehazi",
+      "name": "Gehazi",
+      "roles": [
+        "Elisha's servant, struck with leprosy for his greed"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Elisha's attendant, who chases Naaman down for a gift his master had refused, and carries away Naaman's leprosy as the price.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shunammite_woman",
+      "name": "The Shunammite woman",
+      "roles": [
+        "the woman who housed Elisha and got her dead son back"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A well-off woman of Shunem who builds Elisha a room, is given the son she never expected, and rides straight to the prophet when the boy suddenly dies.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jehu",
+      "name": "Jehu",
+      "roles": [
+        "the army commander anointed to end the house of Ahab"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "An army commander anointed king by a prophet to wipe out Ahab's dynasty and avenge Jezebel's murders of God's prophets.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hezekiah",
+      "name": "Hezekiah",
+      "roles": [
+        "Judah's king who trusted Yahweh against Assyria"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A king of Judah who trusted Yahweh more than any king before or after him; he laid the Assyrian threat before God in prayer and was delivered, and was later given fifteen added years of life.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sennacherib",
+      "name": "Sennacherib",
+      "roles": [
+        "the Assyrian king whose army was struck outside Jerusalem"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "The king of Assyria who mocked Hezekiah's trust in God, then lost 185,000 men in a single night and withdrew.",
+      "verseIds": []
+    },
+    {
+      "id": "char_isaiah",
+      "name": "Isaiah",
+      "roles": [
+        "the prophet who counseled Hezekiah through the Assyrian crisis"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A prophet in Judah during Hezekiah's reign, who assured the king that Jerusalem would stand against Assyria and later that his life would be extended.",
+      "verseIds": []
+    },
+    {
+      "id": "char_josiah",
+      "name": "Josiah",
+      "roles": [
+        "the boy king who rediscovered the law and purged Judah's idols"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Made king of Judah at eight; when the lost Book of the Law was found and read to him, he tore his clothes, renewed the covenant, and tore down every idol and high place in the land.",
+      "verseIds": []
+    },
+    {
+      "id": "char_huldah",
+      "name": "Huldah",
+      "roles": [
+        "the prophetess who authenticated the Book of the Law"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A prophetess in Jerusalem whom Josiah's officials consult about the rediscovered law; she confirms the coming judgment but says it will not fall in Josiah's lifetime.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nebuchadnezzar",
+      "name": "Nebuchadnezzar",
+      "roles": [
+        "the Babylonian king who burned Jerusalem and exiled Judah"
+      ],
+      "eraId": "era_exile",
+      "summary": "The king of Babylon who besieged Jerusalem, destroyed the temple, and carried Judah into a seventy-year captivity.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zedekiah",
+      "name": "Zedekiah",
+      "roles": [
+        "the last king of Judah, blinded and carried to Babylon"
+      ],
+      "eraId": "era_exile",
+      "summary": "The final king of Judah; his rebellion against Babylon brought the siege that ended the kingdom, and he was forced to watch his sons killed before being blinded and exiled.",
       "verseIds": []
     }
   ]

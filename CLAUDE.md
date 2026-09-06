@@ -53,44 +53,44 @@ The schema was deliberately designed so all of the above can be added
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **545 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, and 1 Kings,
-  WEB translation) across **33 topics** (topics linked to related
-  topics), plus **74 characters** (17 Genesis, 8 Exodus, 5 Ruth,
+  first run: **602 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, and
+  2 Kings, WEB translation) across **34 topics** (topics linked to
+  related topics), plus **86 characters** (17 Genesis, 8 Exodus, 5 Ruth,
   2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel,
-  10 1 Kings) with real relationships (father of, wife of, brother of,
-  successor of, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 74 characters, standalone. Generated
+  10 1 Kings, 12 2 Kings) with real relationships (father of, wife of,
+  brother of, successor of, servant of, raised, etc. — see Connection,
+  below).
+- `data/characters.json` — the same 86 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
   Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel,
-  2 Samuel, and 1 Kings (11,995 verses, WEB translation, public domain).
-  Lazily fetched by the Browse screen the first time it's opened, never
-  at boot. It is *reference material*, kept separate from the user's
-  library — adding a verse from Browse copies it into the user's overlay.
-  Only the 545 seed verses are topic-tagged; the rest of the corpus isn't
-  yet.
-- `data/stories.json` — 8 eras, **110 stories and 286 life events**.
+  2 Samuel, 1 Kings, and 2 Kings (12,714 verses, WEB translation, public
+  domain). Lazily fetched by the Browse screen the first time it's
+  opened, never at boot. It is *reference material*, kept separate from
+  the user's library — adding a verse from Browse copies it into the
+  user's overlay. Only the 602 seed verses are topic-tagged; the rest of
+  the corpus isn't yet.
+- `data/stories.json` — 9 eras, **123 stories and 310 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
-  (Hannah through Solomon: Israel's first three kings), and the new
-  `era_divided_kingdom` — the kingdom splitting under Rehoboam and
-  Jeroboam, and Elijah's confrontations with Ahab and Jezebel in the
-  north (ravens and the widow's oil, the contest on Mount Carmel, the
-  still small voice at Horeb, Naboth's vineyard). Loaded at boot (it's
-  small). Drives the character life timeline, the Stories screens,
-  People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **12** recurring biblical patterns, each with real
+  (Hannah through Solomon), `era_divided_kingdom` (the kingdom splitting,
+  the Elijah cycle, then all of 2 Kings — Elisha's ministry, Jehu and the
+  death of Jezebel, the fall of the northern kingdom, Hezekiah against
+  Sennacherib, Josiah and the rediscovered law), and the new `era_exile`
+  — Jerusalem falls to Nebuchadnezzar and Judah is carried to Babylon.
+  Loaded at boot (it's small). Drives the character life timeline, the
+  Stories screens, People-grouped-by-era, and "appears alongside".
+- `data/motifs.json` — **13** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. No new motifs this pass — two existing ones gained a
-  5th/3rd instance instead: `motif_younger_son_chosen` now includes
-  Solomon crowned over his older brother Adonijah, and
-  `motif_prophet_confronts_the_king` now includes Elijah confronting Ahab
-  over Naboth's vineyard, alongside Samuel/Saul and Nathan/David. Loaded
-  at boot. Drives the Patterns screens and the "Pattern" badges on
-  Character, Story, and Verse detail pages.
-- `data/connections.json` — 101 generic Connection edges (Design
+  occurrences. A new one, `motif_prophet_raises_a_dead_child`, pairs
+  Elijah reviving the widow of Zarephath's son with Elisha reviving the
+  Shunammite woman's. `motif_gods_reassurance` picked up its 6th
+  instance ("those who are with us are more than those who are with
+  them," 2 Kings 6:16). Loaded at boot. Drives the Patterns screens and
+  the "Pattern" badges on Character, Story, and Verse detail pages.
+- `data/connections.json` — 106 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -100,7 +100,8 @@ The schema was deliberately designed so all of the above can be added
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
     whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
-    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings.
+    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
+    2 Kings.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -215,16 +216,17 @@ hand-curate all the content before building.
    order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
    Numbers, and so on — Ruth landed earlier and stays, but books from here
    follow Bible order). Completed so far: Exodus, Leviticus, Numbers,
-   Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel (see prior entries
-   below), and now 1 Kings (whole book, narrative: Solomon becomes king
-   over Adonijah, asks for wisdom, judges between two mothers, builds the
-   temple, the queen of Sheba, his downfall into idolatry, the kingdom
-   splitting under Rehoboam and Jeroboam, Jeroboam's golden calves, and
-   Elijah's cycle — ravens and the widow's oil, Mount Carmel, Horeb,
-   Naboth's vineyard — new `era_divided_kingdom`, see DATA_MODEL.md
-   §8.22). This completes the "next 3 books" (1 Samuel, 2 Samuel,
-   1 Kings) the owner asked for; next up is picking a new stretch, likely
-   continuing canonically into 2 Kings or the Elijah/Elisha cycle.
+   Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings (see prior
+   entries below), and now 2 Kings (whole book, narrative: Elijah taken
+   up and Elisha's ministry — the widow's oil, the Shunammite's son,
+   Naaman, the chariots of fire, the siege of Samaria lifted; Jehu and
+   the death of Jezebel; the fall of the northern kingdom to Assyria;
+   Hezekiah against Sennacherib and his illness; Josiah and the
+   rediscovered Book of the Law; and the fall of Jerusalem — new
+   `era_exile`, see DATA_MODEL.md §8.23). Next up if continuing
+   canonically: 1–2 Chronicles (much of it genealogy — likely the
+   lighter verses-and-topics pass) or straight to Ezra/Nehemiah and the
+   return from exile.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -374,7 +376,27 @@ worship needed it, nothing existing fit). No new motifs: Solomon becomes
 `motif_younger_son_chosen`'s 5th instance (crowned over his older
 brother Adonijah), and Elijah confronting Ahab over Naboth becomes
 `motif_prophet_confronts_the_king`'s 3rd, alongside Samuel/Saul and
-Nathan/David.
+Nathan/David. Then 2 Kings: Elijah is taken up and Elisha takes his
+mantle; most of the book is Elisha's quiet miracles (the widow's oil,
+raising the Shunammite's son, healing Naaman while Gehazi's greed earns
+him the leprosy, the chariots of fire, the siege of Samaria lifted),
+then Jehu ending the house of Ahab and Jezebel, the northern kingdom
+carried off by Assyria, Hezekiah's prayer against Sennacherib and his
+added fifteen years, Josiah's rediscovery of the law and last reforms,
+and finally the fall of Jerusalem and the exile to Babylon. A new era,
+`era_exile`, holds that last story (the monarchy ends there). 12 new
+characters (Elisha, Naaman, Gehazi, the Shunammite woman, Jehu,
+Hezekiah, Sennacherib, Isaiah, Josiah, Huldah, Nebuchadnezzar,
+Zedekiah), 57 verses, 1 new topic (`topic_prayer` — Hezekiah's prayers
+model it and there was already a lot of prayer content to gather). One
+new motif, `motif_prophet_raises_a_dead_child` (Elijah and the widow of
+Zarephath's son; Elisha and the Shunammite's), and a 6th instance of
+`motif_gods_reassurance` ("those who are with us are more than those who
+are with them"). Two new relationship kinds: `"successor of"` reused for
+Elisha/Elijah, and a first `"servant of"` (Gehazi/Elisha). Also brought
+`motif_gods_reassurance`'s `exampleReferences` up to date — it had
+listed only its first three since Deuteronomy and Joshua added instances
+without touching the display list.
 
 ## Source data provenance
 

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (74 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings)
+### Character — *live* (86 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings)
 ```json
 {
   "id": "char_jacob",
@@ -240,7 +240,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (12 motifs)
+### Motif — *live* (13 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -409,14 +409,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 545 verses + 33 topics + 74 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 602 verses + 34 topics + 86 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (11,995 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (12,714 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 8 eras, 110 stories, 286 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 12 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 101 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 9 eras, 123 stories, 310 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 13 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 106 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -887,6 +887,38 @@ note).
     kings. Both instances attach to entities the UI already had badges
     wired for (character and story respectively), so again no new query
     or rendering code.
+
+23. **2 Kings.** **Done (2026-09-06).** Narrative again, the full
+    playbook. New era, `era_exile` (order 9) — but only for the last
+    story; everything up to the fall of Jerusalem is still the divided
+    monarchy, so `era_divided_kingdom` carries the other 12 new stories.
+    13 stories: Elijah taken up in a whirlwind and Elisha taking his
+    mantle; the widow's oil; the Shunammite woman's son; Naaman healed
+    (and Gehazi's greed); the chariots of fire; the siege of Samaria
+    lifted; Jehu and the death of Jezebel; the death of Elisha; the fall
+    of the northern kingdom to Assyria; Hezekiah and Sennacherib;
+    Hezekiah's illness; Josiah and the rediscovered Book of the Law; the
+    fall of Jerusalem. 12 new characters (Elisha, Naaman, Gehazi, the
+    Shunammite woman, Jehu, Hezekiah, Sennacherib, Isaiah, Josiah,
+    Huldah, Nebuchadnezzar, Zedekiah). 57 curated verses. 1 new topic,
+    `topic_prayer` — Hezekiah's two prayers (2 Kings 19:15-19, 20:2-3)
+    are model laments, and there was already a lot of prayer content
+    (Hannah, Solomon's dedication, Elijah) to gather under it.
+
+    5 new Connections: `"successor of"` reused for Elisha/Elijah (same
+    as Joshua/Moses, §8.17), a first `"servant of"` (Gehazi/Elisha), and
+    3 motif instances. One new motif, `motif_prophet_raises_a_dead_child`
+    — Elijah reviving the widow of Zarephath's son (1 Kings 17, already
+    curated) and Elisha reviving the Shunammite woman's; a real second
+    instance turned an isolated miracle into a pattern. `motif_gods_reassurance`
+    also picked up its 6th instance (2 Kings 6:16, "those who are with us
+    are more than those who are with them"), and its `exampleReferences`
+    display list was brought current — it had still shown only the first
+    three since §8.17/§8.18 added Deuteronomy 31:23 and Joshua 1:5 as
+    Connections without touching the Motif record. Worth remembering that
+    `exampleReferences` (a curated display sample on the Motif) and the
+    Connection instances (what "Where it shows up" lists) are separate and
+    can drift; keep the sample honest when adding instances.
 
 ---
 
