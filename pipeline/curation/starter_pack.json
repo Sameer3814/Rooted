@@ -4874,6 +4874,461 @@
         "topic_justice"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_1chronicles_4_10",
+      "topicIds": [
+        "topic_prayer",
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1chronicles_16_11",
+      "topicIds": [
+        "topic_seeking_god",
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_21_1",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_21_8",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_21_13",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_21_24",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_21_26",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_22_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_22_5",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_22_19",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_28_9",
+      "topicIds": [
+        "topic_seeking_god",
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_28_20",
+      "topicIds": [
+        "topic_strength",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_29_11",
+      "topicIds": [
+        "topic_worship",
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_29_12",
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_1chronicles_29_14",
+      "topicIds": [
+        "topic_prayer",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_7_1",
+      "topicIds": [
+        "topic_worship",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_7_14",
+      "topicIds": [
+        "topic_repentance",
+        "topic_prayer",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_solomon"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_12_1",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_rehoboam"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_13_12",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_abijah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_13_18",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_abijah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_14_11",
+      "topicIds": [
+        "topic_prayer",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_asa"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_15_2",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_asa"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_16_9",
+      "topicIds": [
+        "topic_seeking_god",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_asa"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_12",
+      "topicIds": [
+        "topic_prayer",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_15",
+      "topicIds": [
+        "topic_deliverance",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_17",
+      "topicIds": [
+        "topic_deliverance",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_20",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_21",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_20_22",
+      "topicIds": [],
+      "characterIds": [
+        "char_jehoshaphat"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_23_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_joash",
+        "char_jehoiada"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_24_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_joash",
+        "char_jehoiada"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_24_20",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_zechariah_priest",
+        "char_joash"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_24_22",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_joash",
+        "char_zechariah_priest"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_26_5",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_uzziah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_26_16",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_uzziah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_26_18",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": [
+        "char_uzziah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_26_19",
+      "topicIds": [],
+      "characterIds": [
+        "char_uzziah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_26_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_uzziah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_30_9",
+      "topicIds": [
+        "topic_repentance",
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_30_18",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_31_21",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_33_12",
+      "topicIds": [
+        "topic_repentance",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_manasseh"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_33_13",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_manasseh"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_33_15",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_manasseh"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_36_15",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2chronicles_36_16",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2chronicles_36_21",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2chronicles_36_23",
+      "topicIds": [
+        "topic_deliverance",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_cyrus"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_29_3",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
+    },
+    {
+      "id": "verse_2chronicles_30_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ]
     }
   ],
   "topics": [
@@ -5223,6 +5678,16 @@
         "topic_trust",
         "topic_waiting",
         "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "topic_seeking_god",
+      "name": "Seeking God",
+      "description": "Verses on setting your heart to seek Yahweh — and the promise that he is found by those who do.",
+      "relatedTopicIds": [
+        "topic_guidance",
+        "topic_prayer",
+        "topic_worship"
       ]
     }
   ],
@@ -6194,6 +6659,96 @@
       ],
       "eraId": "era_exile",
       "summary": "The final king of Judah; his rebellion against Babylon brought the siege that ended the kingdom, and he was forced to watch his sons killed before being blinded and exiled.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abijah",
+      "name": "Abijah",
+      "roles": [
+        "the king of Judah who won a battle by relying on Yahweh"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Rehoboam's son and successor in Judah; outnumbered by Jeroboam's army, he called Israel to stop fighting against God, and Judah prevailed because they relied on Yahweh.",
+      "verseIds": []
+    },
+    {
+      "id": "char_asa",
+      "name": "Asa",
+      "roles": [
+        "the reforming king of Judah who later trusted Aram over God"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A king of Judah who tore down idols and cried to Yahweh against a vast army early in his reign, but late in life bought off Syria with temple silver and was rebuked for it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jehoshaphat",
+      "name": "Jehoshaphat",
+      "roles": [
+        "the king of Judah who sent singers ahead of his army"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A king of Judah who had the law taught town to town, and who met an invasion by gathering the nation to pray and sending the temple choir out in front of the soldiers.",
+      "verseIds": []
+    },
+    {
+      "id": "char_joash",
+      "name": "Joash",
+      "roles": [
+        "the boy king who restored the temple, then killed the priest's son"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Hidden as an infant and crowned at seven by the priest Jehoiada; he restored the temple while Jehoiada lived, but after the priest died he turned to idols and had Jehoiada's son Zechariah stoned.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jehoiada",
+      "name": "Jehoiada",
+      "roles": [
+        "the priest who hid the heir of David's line and crowned him king"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "The high priest who sheltered the infant Joash through Athaliah's purge, overthrew her, crowned the boy king, and guided Judah back to Yahweh for as long as he lived.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zechariah_priest",
+      "name": "Zechariah son of Jehoiada",
+      "roles": [
+        "the priest stoned in the temple court for rebuking Joash"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Jehoiada's son; when he rebuked king Joash for abandoning Yahweh, Joash had him stoned in the courtyard of the temple. His dying words were \"May Yahweh see, and avenge.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_uzziah",
+      "name": "Uzziah",
+      "roles": [
+        "the king who prospered while he sought God, then was struck with leprosy for his pride"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A long-reigning, successful king of Judah whose heart was lifted up once he was strong; he forced his way into the temple to burn incense and was a leper from that day.",
+      "verseIds": []
+    },
+    {
+      "id": "char_manasseh",
+      "name": "Manasseh",
+      "roles": [
+        "Judah's most idolatrous king, who repented in a Babylonian prison"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "The king who filled even the temple with altars to other gods; carried to Babylon in chains, he humbled himself and prayed, was restored to Jerusalem, and spent his last years tearing out the idols he had raised.",
+      "verseIds": []
+    },
+    {
+      "id": "char_cyrus",
+      "name": "Cyrus",
+      "roles": [
+        "the Persian king whose decree opened the road home from exile"
+      ],
+      "eraId": "era_exile",
+      "summary": "The king of Persia who, after seventy years of exile, proclaimed that Yahweh had charged him to rebuild the temple in Jerusalem and that any of God's people who wished could go up.",
       "verseIds": []
     }
   ]

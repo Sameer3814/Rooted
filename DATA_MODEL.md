@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (86 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings)
+### Character — *live* (95 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles)
 ```json
 {
   "id": "char_jacob",
@@ -174,6 +174,11 @@ A narrative unit — one episode. Bigger than a verse, smaller than a book.
   bigger gap between books than seems necessary the first time, not just
   when a collision actually happens. Renumbering itself is cheap (it's
   curation data, not user data) — just re-run `build_stories.py` after.
+  The payoff showed up at Chronicles (§8.24): its 11 stories slot
+  *between* existing Samuel/Kings stories (David's temple prep just before
+  Solomon at 1196–1198; the kings of Judah interleaved with the northern
+  kings at 1305/1315/1335/1465/1475/…) with no renumbering, purely
+  because the 10-wide gaps were already there.
 - `verseIds` must be verses that **ship in the starter pack**, so a story page
   can always render them as cards; `build_stories.py` enforces this. The full
   span always lives in `primaryReference`, which is a display string, not ids.
@@ -240,7 +245,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (13 motifs)
+### Motif — *live* (15 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -409,14 +414,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 602 verses + 34 topics + 86 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 652 verses + 35 topics + 95 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (12,714 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (14,478 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 9 eras, 123 stories, 310 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 13 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 106 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 9 eras, 134 stories, 329 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 15 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 117 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -919,6 +924,47 @@ note).
     `exampleReferences` (a curated display sample on the Motif) and the
     Connection instances (what "Where it shows up" lists) are separate and
     can drift; keep the sample honest when adding instances.
+
+24. **1–2 Chronicles.** **Done (2026-09-06).** Full playbook, done as one
+    pass across both books, but deliberately **scoped to Chronicles-unique
+    material**. Chronicles retells Samuel–Kings from a temple-and-Judah
+    angle; duplicating stories the app already has (David's reign, the
+    temple, the fall of Jerusalem) would just clutter the per-character
+    and per-era views. So the curation added 11 new stories only where
+    Chronicles genuinely adds something:
+    - **David** (`era_united_kingdom`): the census and the threshing floor
+      of Ornan becoming the temple site (1 Chr 21); David gathering
+      materials and charging Solomon (1 Chr 22, 28); David's "all things
+      come from you, and of your own we have given you" prayer (1 Chr 29).
+    - **Kings of Judah** (`era_divided_kingdom`) — the ones Kings passes
+      over fast: Abijah winning by reliance on Yahweh (2 Chr 13); Asa's
+      early trust and late failure (2 Chr 14–16); Jehoshaphat sending the
+      choir out ahead of the army, "the battle is not yours but God's"
+      (2 Chr 20); Joash restoring the temple and then having the priest
+      Zechariah stoned (2 Chr 24); Uzziah struck with leprosy for forcing
+      his way into the temple (2 Chr 26); Hezekiah's great Passover
+      (2 Chr 29–31); Manasseh's repentance in a Babylonian prison
+      (2 Chr 33).
+    - **The exile** (`era_exile`): the decree of Cyrus (2 Chr 36:22-23) —
+      Chronicles ends on the road home.
+
+    9 new characters (Abijah, Asa, Jehoshaphat, Joash, Jehoiada,
+    Zechariah son of Jehoiada, Uzziah, Manasseh, Cyrus). 50 curated
+    verses. 1 new topic, `topic_seeking_god` ("if you seek him, he will
+    be found by you" is a Chronicles refrain — 1 Chr 28:9, 2 Chr 7:14,
+    14:11, 15:2, 26:5, 31:21). 6 family Connections fill in the Davidic
+    line of Judah (Rehoboam→Abijah→Asa→Jehoshaphat; Hezekiah→Manasseh;
+    Jehoiada→Zechariah; Jehoiada "raised" Joash). Two new motifs:
+    `motif_stand_still_and_see` (Exodus 14:13-14 and 2 Chr 20:15-17,
+    nearly the same words — its instances attach to `story_crossing_the_red_sea`
+    and `story_jehoshaphats_battle`, so the badge now appears on the
+    already-existing Exodus story too) and `motif_pride_before_the_fall`
+    (Rehoboam and Uzziah — "when he was strong, his heart was lifted
+    up"). `motif_prophet_confronts_the_king` gained a 4th instance,
+    Zechariah/Joash — the variant where the king kills the messenger.
+    2 Chr 7:14 and 7:1 were added to the **existing** 1 Kings temple
+    story's `verseIds` rather than a new story — the pattern for parallel
+    material going forward: extend the existing story, don't duplicate it.
 
 ---
 

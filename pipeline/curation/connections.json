@@ -957,6 +957,105 @@
       "toType": "verse",
       "toId": "verse_2kings_6_16",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_rehoboam_father_of_abijah",
+      "fromType": "character",
+      "fromId": "char_rehoboam",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_abijah",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_abijah_father_of_asa",
+      "fromType": "character",
+      "fromId": "char_abijah",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_asa",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_asa_father_of_jehoshaphat",
+      "fromType": "character",
+      "fromId": "char_asa",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_jehoshaphat",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_hezekiah_father_of_manasseh",
+      "fromType": "character",
+      "fromId": "char_hezekiah",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_manasseh",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_jehoiada_father_of_zechariah",
+      "fromType": "character",
+      "fromId": "char_jehoiada",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_zechariah_priest",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_jehoiada_raised_joash",
+      "fromType": "character",
+      "fromId": "char_jehoiada",
+      "relationship": "raised",
+      "toType": "character",
+      "toId": "char_joash",
+      "inverse": "raised by"
+    },
+    {
+      "id": "conn_prophetconfronts_instance_joash",
+      "fromType": "motif",
+      "fromId": "motif_prophet_confronts_the_king",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_joash_and_zechariah",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_standstill_instance_red_sea",
+      "fromType": "motif",
+      "fromId": "motif_stand_still_and_see",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_crossing_the_red_sea",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_standstill_instance_jehoshaphat",
+      "fromType": "motif",
+      "fromId": "motif_stand_still_and_see",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_jehoshaphats_battle",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_pride_instance_uzziah",
+      "fromType": "motif",
+      "fromId": "motif_pride_before_the_fall",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_uzziahs_pride",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_pride_instance_rehoboam",
+      "fromType": "motif",
+      "fromId": "motif_pride_before_the_fall",
+      "relationship": "instance of",
+      "toType": "character",
+      "toId": "char_rehoboam",
+      "inverse": "has motif"
     }
   ]
 }

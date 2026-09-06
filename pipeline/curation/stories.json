@@ -2204,14 +2204,16 @@
     {
       "id": "story_solomon_builds_the_temple",
       "title": "Solomon builds the temple",
-      "summary": "Solomon builds a permanent house for God in Jerusalem. When it's finished and the ark is brought in, a cloud fills the temple with Yahweh's glory — and Solomon himself asks, in his dedication prayer, whether God could truly dwell in a house built by human hands.",
+      "summary": "Solomon builds a permanent house for God in Jerusalem. When it's finished and the ark is brought in, a cloud fills the temple with Yahweh's glory — and Solomon himself asks, in his dedication prayer, whether God could truly dwell in a house built by human hands. The Chronicles account adds fire falling from heaven at the dedication, and God's night-time answer to Solomon: if his people humble themselves, pray, and turn back, he will hear and heal their land.",
       "primaryReference": "1 Kings 5:1-8:66",
       "eraId": "era_united_kingdom",
       "canonicalOrder": 1230,
       "verseIds": [
         "verse_1kings_8_10",
         "verse_1kings_8_11",
-        "verse_1kings_8_27"
+        "verse_1kings_8_27",
+        "verse_2chronicles_7_1",
+        "verse_2chronicles_7_14"
       ],
       "characterIds": [
         "char_solomon"
@@ -2673,6 +2675,252 @@
       "topicIds": [
         "topic_sorrow",
         "topic_justice"
+      ]
+    },
+    {
+      "id": "story_the_threshing_floor_of_ornan",
+      "title": "The threshing floor of Ornan",
+      "summary": "David orders a census of Israel against advice, and a plague follows that kills seventy thousand. Seeing the angel of Yahweh at the threshing floor of Ornan the Jebusite, David buys the site at full price — refusing to offer God something that cost him nothing — and builds an altar there. Fire falls from heaven, and David declares this the place for the house of God.",
+      "primaryReference": "1 Chronicles 21:1-22:1",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1195,
+      "verseIds": [
+        "verse_1chronicles_21_1",
+        "verse_1chronicles_21_8",
+        "verse_1chronicles_21_13",
+        "verse_1chronicles_21_24",
+        "verse_1chronicles_21_26",
+        "verse_1chronicles_22_1"
+      ],
+      "characterIds": [
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_david_prepares_the_temple",
+      "title": "David prepares for the temple",
+      "summary": "Barred from building the temple himself because he was a man of war, David spends his last years gathering materials on a vast scale and charging his son Solomon with the work. \"Be strong and courageous, and do it. Don't be afraid, for Yahweh God is with you; he will not fail you until all the work is finished.\"",
+      "primaryReference": "1 Chronicles 22:2-19, 28:1-21",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1196,
+      "verseIds": [
+        "verse_1chronicles_22_5",
+        "verse_1chronicles_22_19",
+        "verse_1chronicles_28_9",
+        "verse_1chronicles_28_20"
+      ],
+      "characterIds": [
+        "char_david",
+        "char_solomon"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_calling",
+        "topic_strength",
+        "topic_seeking_god"
+      ]
+    },
+    {
+      "id": "story_davids_prayer_of_blessing",
+      "title": "David's prayer of blessing",
+      "summary": "Before the whole assembly, having given his own treasure to the temple fund and seen the people give willingly too, David blesses Yahweh: \"Yours, Yahweh, is the greatness, the power, the glory... all things come from you, and of your own we have given you.\"",
+      "primaryReference": "1 Chronicles 29:10-20",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1198,
+      "verseIds": [
+        "verse_1chronicles_29_11",
+        "verse_1chronicles_29_12",
+        "verse_1chronicles_29_14"
+      ],
+      "characterIds": [
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_thanksgiving",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_abijah_trusts_yahweh",
+      "title": "Abijah relies on Yahweh",
+      "summary": "Rehoboam's son Abijah faces Jeroboam's army, twice the size of his own and already flanking him. He calls across the lines that Judah has not forsaken Yahweh or his priests, and warns Israel not to fight against God. Judah wins because they relied on the God of their fathers.",
+      "primaryReference": "2 Chronicles 13:1-20",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1305,
+      "verseIds": [
+        "verse_2chronicles_13_12",
+        "verse_2chronicles_13_18"
+      ],
+      "characterIds": [
+        "char_abijah"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_asas_reforms",
+      "title": "Asa's reliance, and his failure",
+      "summary": "Outnumbered by a vast Ethiopian army, king Asa prays that with Yahweh there is no difference between the mighty and the powerless, and Judah is delivered. A prophet tells him Yahweh is found by those who seek him. Years later, threatened again, Asa buys off Aram with temple silver instead of trusting God, and is rebuked: \"the eyes of Yahweh run to and fro throughout the whole earth, to show himself strong for those whose heart is right toward him.\"",
+      "primaryReference": "2 Chronicles 14:1-16:14",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1315,
+      "verseIds": [
+        "verse_2chronicles_14_11",
+        "verse_2chronicles_15_2",
+        "verse_2chronicles_16_9"
+      ],
+      "characterIds": [
+        "char_asa"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_prayer",
+        "topic_seeking_god"
+      ]
+    },
+    {
+      "id": "story_jehoshaphats_battle",
+      "title": "The battle is not yours but God's",
+      "summary": "A vast coalition marches on Judah. King Jehoshaphat gathers the nation to fast and pray — \"we don't know what to do, but our eyes are on you\" — and a Levite answers with God's word: the battle is not theirs but God's; they need only stand and watch. Jehoshaphat sends singers ahead of the army praising God's steadfast love, and the enemy destroys itself.",
+      "primaryReference": "2 Chronicles 20:1-30",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1335,
+      "verseIds": [
+        "verse_2chronicles_20_12",
+        "verse_2chronicles_20_15",
+        "verse_2chronicles_20_17",
+        "verse_2chronicles_20_20",
+        "verse_2chronicles_20_21",
+        "verse_2chronicles_20_22"
+      ],
+      "characterIds": [
+        "char_jehoshaphat"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_prayer",
+        "topic_deliverance",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_joash_and_zechariah",
+      "title": "Joash and Zechariah",
+      "summary": "Hidden as an infant and crowned at seven by the priest Jehoiada, Joash does right as long as Jehoiada lives and restores the temple. But after the old priest dies, Joash listens to other officials and turns to idols. When Jehoiada's own son Zechariah rebukes him, Joash has him stoned in the temple court. Zechariah's dying words: \"May Yahweh see, and avenge.\"",
+      "primaryReference": "2 Chronicles 22:10-24:27",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1465,
+      "verseIds": [
+        "verse_2chronicles_23_11",
+        "verse_2chronicles_24_2",
+        "verse_2chronicles_24_20",
+        "verse_2chronicles_24_22"
+      ],
+      "characterIds": [
+        "char_joash",
+        "char_jehoiada",
+        "char_zechariah_priest"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_uzziahs_pride",
+      "title": "Uzziah's pride",
+      "summary": "As long as Uzziah sought God he prospered, and his fame spread far. But once he was strong, his heart was lifted up: he walked into the temple to burn incense, a thing reserved for priests. Confronted by eighty priests, he raged at them with the censer still in his hand — and leprosy broke out on his forehead. He lived in isolation, cut off from the house of Yahweh, the rest of his life.",
+      "primaryReference": "2 Chronicles 26:1-23",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1475,
+      "verseIds": [
+        "verse_2chronicles_26_5",
+        "verse_2chronicles_26_16",
+        "verse_2chronicles_26_18",
+        "verse_2chronicles_26_19",
+        "verse_2chronicles_26_21"
+      ],
+      "characterIds": [
+        "char_uzziah"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_holiness",
+        "topic_seeking_god"
+      ]
+    },
+    {
+      "id": "story_hezekiahs_passover",
+      "title": "Hezekiah's Passover",
+      "summary": "In his first month as king, Hezekiah reopens and cleanses the temple his father had shut, then invites all Israel — north and south — to Jerusalem for a Passover the nation hasn't kept properly in generations. Many come unprepared and eat it anyway; Hezekiah prays that the good Yahweh will pardon everyone who sets his heart to seek God, and God heals the people.",
+      "primaryReference": "2 Chronicles 29:1-31:21",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1485,
+      "verseIds": [
+        "verse_2chronicles_29_3",
+        "verse_2chronicles_30_1",
+        "verse_2chronicles_30_9",
+        "verse_2chronicles_30_18",
+        "verse_2chronicles_31_21"
+      ],
+      "characterIds": [
+        "char_hezekiah"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_repentance",
+        "topic_seeking_god"
+      ]
+    },
+    {
+      "id": "story_manassehs_repentance",
+      "title": "Manasseh's repentance",
+      "summary": "Manasseh leads Judah into worse idolatry than the nations Israel had driven out — altars to other gods inside the temple itself. Assyria takes him to Babylon with a hook in his nose and in chains. There, in distress, he humbles himself and prays; God brings him back to Jerusalem, and Manasseh spends his last years tearing out the idols he had built.",
+      "primaryReference": "2 Chronicles 33:1-20",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1505,
+      "verseIds": [
+        "verse_2chronicles_33_12",
+        "verse_2chronicles_33_13",
+        "verse_2chronicles_33_15"
+      ],
+      "characterIds": [
+        "char_manasseh",
+        "char_hezekiah"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_forgiveness",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_cyrus_decree",
+      "title": "The decree of Cyrus",
+      "summary": "Chronicles ends where the exile began to lift. After seventy years, exactly as Jeremiah had said, Cyrus king of Persia issues a proclamation: Yahweh has charged him to build a house in Jerusalem, and any of God's people who wishes may go up. The last words of the Hebrew Bible's history are an open road home.",
+      "primaryReference": "2 Chronicles 36:15-23",
+      "eraId": "era_exile",
+      "canonicalOrder": 1610,
+      "verseIds": [
+        "verse_2chronicles_36_15",
+        "verse_2chronicles_36_16",
+        "verse_2chronicles_36_21",
+        "verse_2chronicles_36_23"
+      ],
+      "characterIds": [
+        "char_cyrus"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_faithfulness",
+        "topic_waiting"
       ]
     }
   ],
@@ -6257,6 +6505,198 @@
       "participantIds": [
         "char_nebuchadnezzar"
       ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_david_buys_threshing_floor",
+      "characterId": "char_david",
+      "title": "Buys the threshing floor for the temple",
+      "description": "After the census and the plague, refuses to give God an offering that costs him nothing, and names the site the house of God.",
+      "reference": "1 Chronicles 21:1-22:1",
+      "storyId": "story_the_threshing_floor_of_ornan",
+      "sequenceInLife": 150
+    },
+    {
+      "id": "event_david_prepares_temple",
+      "characterId": "char_david",
+      "title": "Prepares for the temple and charges Solomon",
+      "description": "Gathers materials on a vast scale and tells his son to be strong and build the sanctuary.",
+      "reference": "1 Chronicles 22:2-19, 28:1-21",
+      "storyId": "story_david_prepares_the_temple",
+      "participantIds": [
+        "char_solomon"
+      ],
+      "sequenceInLife": 160
+    },
+    {
+      "id": "event_david_prayer_of_blessing",
+      "characterId": "char_david",
+      "title": "Blesses Yahweh before the assembly",
+      "description": "\"All things come from you, and of your own we have given you.\"",
+      "reference": "1 Chronicles 29:10-20",
+      "storyId": "story_davids_prayer_of_blessing",
+      "sequenceInLife": 170
+    },
+    {
+      "id": "event_abijah_relies_on_yahweh",
+      "characterId": "char_abijah",
+      "title": "Wins by relying on Yahweh",
+      "description": "Outnumbered and outflanked by Jeroboam, warns Israel not to fight against God, and Judah prevails.",
+      "reference": "2 Chronicles 13:1-20",
+      "storyId": "story_abijah_trusts_yahweh",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_asa_cries_to_yahweh",
+      "characterId": "char_asa",
+      "title": "Cries to Yahweh against a vast army",
+      "description": "\"There is no one besides you to help, between the mighty and him who has no strength.\"",
+      "reference": "2 Chronicles 14:1-15",
+      "storyId": "story_asas_reforms",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_asa_relies_on_aram",
+      "characterId": "char_asa",
+      "title": "Trusts Aram instead of God, and is rebuked",
+      "description": "Buys off Syria with temple silver; a seer tells him he has done foolishly.",
+      "reference": "2 Chronicles 16:1-10",
+      "storyId": "story_asas_reforms",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jehoshaphat_teaches_the_law",
+      "characterId": "char_jehoshaphat",
+      "title": "Sends teachers of the law through Judah",
+      "description": "Officials, Levites, and priests carry the book of the law from town to town.",
+      "reference": "2 Chronicles 17:1-9",
+      "storyId": "story_jehoshaphats_battle",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jehoshaphat_battle",
+      "characterId": "char_jehoshaphat",
+      "title": "Faces invasion with prayer and singers",
+      "description": "Gathers Judah to fast and pray, then sends the choir out ahead of the army.",
+      "reference": "2 Chronicles 20:1-30",
+      "storyId": "story_jehoshaphats_battle",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_joash_crowned_by_jehoiada",
+      "characterId": "char_joash",
+      "title": "Hidden and crowned as a boy",
+      "description": "Kept safe in the temple by the priest Jehoiada through Athaliah's purge, and made king at seven.",
+      "reference": "2 Chronicles 22:10-23:21",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_jehoiada"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joash_repairs_temple",
+      "characterId": "char_joash",
+      "title": "Restores the temple",
+      "description": "Does right for as long as Jehoiada the priest is alive to guide him.",
+      "reference": "2 Chronicles 24:1-16",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_jehoiada"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_joash_kills_zechariah",
+      "characterId": "char_joash",
+      "title": "Has Zechariah stoned in the temple court",
+      "description": "After Jehoiada dies, turns to idols and kills the priest's son for rebuking him.",
+      "reference": "2 Chronicles 24:17-22",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_zechariah_priest"
+      ],
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jehoiada_crowns_joash",
+      "characterId": "char_jehoiada",
+      "title": "Hides and crowns the boy king Joash",
+      "description": "Shelters the last heir of David's line for six years, then overthrows Athaliah.",
+      "reference": "2 Chronicles 22:10-23:21",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_joash"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jehoiada_guides_joash",
+      "characterId": "char_jehoiada",
+      "title": "Guides Joash to restore the temple",
+      "description": "As long as he lives, Joash does what is right.",
+      "reference": "2 Chronicles 24:1-16",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_joash"
+      ],
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_zechariah_rebukes_joash",
+      "characterId": "char_zechariah_priest",
+      "title": "Rebukes Joash, and is killed for it",
+      "description": "\"Because you have forsaken Yahweh, he has also forsaken you.\" He is stoned in the temple court; his last words: \"May Yahweh see, and avenge.\"",
+      "reference": "2 Chronicles 24:20-22",
+      "storyId": "story_joash_and_zechariah",
+      "participantIds": [
+        "char_joash"
+      ],
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_uzziah_seeks_god",
+      "characterId": "char_uzziah",
+      "title": "Prospers while he seeks God",
+      "description": "As long as he sought Yahweh, God made him prosper, and his fame spread far.",
+      "reference": "2 Chronicles 26:1-15",
+      "storyId": "story_uzziahs_pride",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_uzziah_struck_with_leprosy",
+      "characterId": "char_uzziah",
+      "title": "Struck with leprosy for his pride",
+      "description": "Enters the temple to burn incense, rages at the priests who stop him, and is a leper from that hour.",
+      "reference": "2 Chronicles 26:16-23",
+      "storyId": "story_uzziahs_pride",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_manasseh_idolatry",
+      "characterId": "char_manasseh",
+      "title": "Leads Judah into deep idolatry",
+      "description": "Builds altars to other gods inside Yahweh's own temple.",
+      "reference": "2 Chronicles 33:1-11",
+      "storyId": "story_manassehs_repentance",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_manasseh_repents",
+      "characterId": "char_manasseh",
+      "title": "Humbles himself in Babylon and is restored",
+      "description": "Prays in captivity, is brought back to Jerusalem, and spends his last years removing the idols he had built.",
+      "reference": "2 Chronicles 33:12-20",
+      "storyId": "story_manassehs_repentance",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_cyrus_decree",
+      "characterId": "char_cyrus",
+      "title": "Proclaims the return from exile",
+      "description": "Declares that Yahweh has charged him to rebuild the temple, and any of God's people may go up to Jerusalem.",
+      "reference": "2 Chronicles 36:22-23",
+      "storyId": "story_cyrus_decree",
       "sequenceInLife": 10
     }
   ]

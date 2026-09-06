@@ -14,7 +14,7 @@ CC0), groups the text entries by chapter+verse, normalises smart quotes to
 ASCII and collapses whitespace, and emits the Verse schema (DATA_MODEL.md §2).
 
 ```sh
-py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua + judges + 1samuel + 2samuel + 1kings + 2kings (what's shipped)
+py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua + judges + 1samuel + 2samuel + 1kings + 2kings + 1chronicles + 2chronicles (what's shipped)
 py pipeline/parse_books.py --books genesis exodus proverbs
 py pipeline/parse_books.py --all                # all 66 books
 py pipeline/parse_books.py --indent 2           # pretty-print instead of compact
@@ -198,8 +198,14 @@ Worth knowing:
   follow rather than aligning to book boundaries. 2 Kings did the same
   thing again at its other end: 12 of its 13 stories are still
   era_divided_kingdom, and only the fall of Jerusalem crosses into the
-  new era_exile. Expect the lighter pass to come back for the more
-  legal/genealogical stretches later on (parts of 1-2 Chronicles, etc.).
+  new era_exile. 1-2 Chronicles was done as a single pass and was
+  handled differently again: it *retells* Samuel-Kings, so rather than a
+  light pass OR duplicate stories, the curation added stories only for
+  Chronicles-unique material (David's temple prep, the kings of Judah
+  that Kings skims, Cyrus's decree) and folded genuinely parallel gems
+  like 2 Chr 7:14 into the *existing* Kings stories' verseIds. That's the
+  pattern for any future retold material (the Gospels will need it too):
+  extend the existing story, don't clone it.
 - **Reread an era's `name`/`summary`/`approxRange` each time a new book
   extends it, not just its `id`.** `era_exodus` still read "The Exodus
   begins" / "in Egypt" after Leviticus, Numbers, and Deuteronomy — 40 years
