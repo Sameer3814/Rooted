@@ -43,14 +43,20 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
-  step). Screens: Home (now also an account bar for optional cloud sync
-  and a "Your data" export/import card, see below), Browse (search/drill
-  the full corpus), Verse detail,
-  Topics, Topic detail, People (grouped by era), Character detail
+  step). Screens: Home, Browse (search/drill the full corpus), Verse
+  detail, Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories, pattern badges), Stories list,
   Story detail (related stories, pattern badges), Patterns list,
   Pattern detail, Add Verse, Add Character, Practice (three challenge
-  types: fill-in-blank, scramble, and self-graded progressive reveal).
+  types: fill-in-blank, scramble, and self-graded progressive reveal),
+  and **Settings** (gear icon, top-right of Home) — the account bar for
+  optional cloud sync and the "Your data" export/import card live here,
+  not on Home. They started on Home (2026-09-08) and were moved the same
+  day on direct feedback: sync/backup controls are occasional-use, and
+  were pushing the actual daily-use content (due-today stats, the
+  Practice button) below the fold. Lesson for anything added later in
+  this vein — account/settings-shaped features default to Settings, not
+  Home, unless there's a specific reason a control needs daily visibility.
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).

@@ -1051,7 +1051,8 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     endpoint, `GET/POST /api/sync`, one document per user
     (`RootedDB/UserData`, partition key `/userId`). Client-side:
     `pullAndMerge()` / `pushToCloud()` / `touchSyncMeta()` in `index.html`,
-    plus an account bar on Home (`renderAccountBar()`) that's invisible
+    plus an account bar (`renderAccountBar()`, on the Settings screen —
+    moved off Home on 2026-09-08 feedback, see §26) that's invisible
     scaffolding when signed out — an anonymous visitor never calls
     `/api/sync` and the app behaves exactly as it did before this pass.
 
@@ -1076,11 +1077,11 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
 
 26. **Local backup: JSON export/import (§7.1).** **Done (2026-09-08).**
     Closes the gap §25 left open — cloud sync only covers signed-in users,
-    and this app's default, expected mode is anonymous. Two buttons on
-    Home's new "Your data" card: **Export** (`exportBundle()` /
-    `downloadExport()`) downloads `rooted-backup-<date>.json` in exactly
-    the same `{content, progress, settings}` shape as the Cosmos document,
-    plus `app`/`exportedAt`; **Import** (`validateImportBundle()` /
+    and this app's default, expected mode is anonymous. Two buttons on a
+    "Your data" card: **Export** (`exportBundle()` / `downloadExport()`)
+    downloads `rooted-backup-<date>.json` in exactly the same `{content,
+    progress, settings}` shape as the Cosmos document, plus
+    `app`/`exportedAt`; **Import** (`validateImportBundle()` /
     `importFromFile()`) reads a file back in. Validation is lenient by
     design — a file can contain any subset of the three keys (e.g. someone
     might hand-edit a settings-only file) — but rejects anything with none
@@ -1091,6 +1092,13 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     made for cloud sync's merge strategy (§7.1), for the same reason: this
     is a manual, occasional, deliberate action, not something that needs
     to survive concurrent edits.
+
+    Both this card and the account bar (§25) landed on Home first, then
+    moved to a new **Settings** screen (gear icon, top-right of Home) the
+    same day, on direct feedback: occasional-use controls were pushing the
+    actual daily-use content (due-today stats, the Practice button) below
+    the fold. `renderSettings()` in `index.html`. Standing rule from this:
+    account/settings-shaped additions default to Settings, not Home.
 
 ---
 

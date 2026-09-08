@@ -788,6 +788,7 @@ function render(){
   else if(view.screen==='addVerse') app.innerHTML = renderAddVerse();
   else if(view.screen==='addCharacter') app.innerHTML = renderAddCharacter();
   else if(view.screen==='practice') app.innerHTML = renderPractice();
+  else if(view.screen==='settings') app.innerHTML = renderSettings();
   bindEvents();
 }
 
@@ -801,9 +802,8 @@ function renderHome(){
   return `
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
+      <button class="back-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
     </div>
-    ${renderAccountBar()}
-    ${renderDataCard()}
     <div class="stat-row">
       <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
       <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
@@ -856,6 +856,16 @@ function renderDataCard(){
       </div>
       <input type="file" id="import-file-input" accept="application/json" style="display:none;">
     </div>`;
+}
+function renderSettings(){
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+      <h2>Settings</h2>
+    </div>
+    ${renderAccountBar()}
+    ${renderDataCard()}
+  `;
 }
 /* ---------- BROWSE (full corpus) ---------- */
 async function loadCorpus(){
@@ -1704,6 +1714,7 @@ function onAction(e){
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
+  else if(action==='go-settings') go('settings');
   else if(action==='open-verse') go('verseDetail', {id, from: view});
   else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
   else if(action==='start-practice-verse') startPractice([id]);
