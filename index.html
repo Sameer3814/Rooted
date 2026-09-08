@@ -402,6 +402,78 @@ function refreshAccountBar(){
   el.outerHTML = renderAccountBar();
   bindEvents(document.getElementById('account-bar'));
 }
+
+/* ---------- local backup: export / import ----------
+   Cloud sync (above) only covers signed-in users. This is the fallback for
+   everyone else — and a manual safety net even when signed in, since
+   localStorage on a single device is still one browser-clear away from
+   gone. Same bundle shape as the cloud sync document, by design, so
+   there's exactly one "what does a user's data look like" shape used in
+   three places (localStorage keys, Cosmos, and export files). See
+   DATA_MODEL.md §7.1 / CLAUDE.md known gaps. */
+function exportBundle(){
+  return {
+    app: 'rooted',
+    exportedAt: new Date().toISOString(),
+    content, progress, settings
+  };
+}
+function downloadExport(){
+  const blob = new Blob([JSON.stringify(exportBundle(), null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rooted-backup-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+function validateImportBundle(obj){
+  if(!obj || typeof obj !== 'object') return {ok:false, error:'That file isn\'t a Rooted backup.'};
+  const out = {};
+  if(obj.content !== undefined){
+    if(typeof obj.content !== 'object' || obj.content === null) return {ok:false, error:'Backup file is corrupted (content).'};
+    out.content = Object.assign(emptyOverlay(), obj.content);
+  }
+  if(obj.progress !== undefined){
+    if(typeof obj.progress !== 'object' || obj.progress === null) return {ok:false, error:'Backup file is corrupted (progress).'};
+    out.progress = obj.progress;
+  }
+  if(obj.settings !== undefined){
+    if(typeof obj.settings !== 'object' || obj.settings === null) return {ok:false, error:'Backup file is corrupted (settings).'};
+    out.settings = obj.settings;
+  }
+  if(!('content' in out) && !('progress' in out) && !('settings' in out)){
+    return {ok:false, error:'That file doesn\'t contain any Rooted data.'};
+  }
+  return {ok:true, bundle:out};
+}
+async function importFromFile(file){
+  let text;
+  try{ text = await file.text(); }
+  catch(e){ alert('Could not read that file.'); return; }
+  let parsed;
+  try{ parsed = JSON.parse(text); }
+  catch(e){ alert('That file is not valid JSON.'); return; }
+  const result = validateImportBundle(parsed);
+  if(!result.ok){ alert(result.error); return; }
+  if(!confirm('This replaces your current verses, progress, and settings on this device with the backup file. This can\'t be undone. Continue?')) return;
+
+  const {bundle} = result;
+  if('content' in bundle){ content = bundle.content; data = mergeContent(seed, content); }
+  if('progress' in bundle){
+    progress = {};
+    for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
+  }
+  if('settings' in bundle){
+    settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, bundle.settings);
+    if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
+  }
+  saveContent(); saveProgress(); saveSettings();
+  render();
+  alert('Import complete.');
+}
 async function loadStored(key){
   try{
     const res = await window.storage.get(key, false);
@@ -731,6 +803,7 @@ function renderHome(){
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
     </div>
     ${renderAccountBar()}
+    ${renderDataCard()}
     <div class="stat-row">
       <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
       <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
@@ -770,6 +843,18 @@ function renderAccountBar(){
         <div><h3 style="margin:0;">${esc(label)}</h3><p class="field-hint" data-action="sync-now" style="cursor:pointer;">${esc(statusText)}</p></div>
       </div>
       <a class="btn" href="/.auth/logout?post_logout_redirect_uri=/">Sign out</a>
+    </div>`;
+}
+function renderDataCard(){
+  return `
+    <div class="card">
+      <h3 style="margin:0 0 4px;">Your data</h3>
+      <p class="field-hint" style="margin-bottom:10px;">Back up your verses, progress, and settings to a file on this device, or restore from one — works whether or not you're signed in.</p>
+      <div style="display:flex;gap:8px;">
+        <button class="btn" data-action="export-data" style="flex:1;"><i class="ti ti-download"></i> Export</button>
+        <button class="btn" data-action="trigger-import" style="flex:1;"><i class="ti ti-upload"></i> Import</button>
+      </div>
+      <input type="file" id="import-file-input" accept="application/json" style="display:none;">
     </div>`;
 }
 /* ---------- BROWSE (full corpus) ---------- */
@@ -1582,6 +1667,12 @@ function bindEvents(root){
   if(vf) vf.addEventListener('submit', e=>{ e.preventDefault(); saveVerse(); });
   const cf = document.getElementById('char-form');
   if(cf) cf.addEventListener('submit', e=>{ e.preventDefault(); saveCharacter(); });
+  const importInput = document.getElementById('import-file-input');
+  if(importInput) importInput.addEventListener('change', ()=>{
+    const file = importInput.files && importInput.files[0];
+    if(file) importFromFile(file);
+    importInput.value = ''; // allow re-selecting the same file (e.g. after a failed import)
+  });
 
   // Search updates only the results container, so the input keeps focus and
   // the caret doesn't jump while typing.
@@ -1640,6 +1731,8 @@ function onAction(e){
   else if(action==='add-from-corpus') addFromCorpus(id);
   else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
   else if(action==='sync-now'){ if(account) pullAndMerge(); }
+  else if(action==='export-data') downloadExport();
+  else if(action==='trigger-import'){ const inp = document.getElementById('import-file-input'); if(inp) inp.click(); }
 }
 function practiceInteract(el){
   if(!session) return;

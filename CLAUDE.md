@@ -43,8 +43,9 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
-  step). Screens: Home (now also an account bar for optional cloud sync,
-  see below), Browse (search/drill the full corpus), Verse detail,
+  step). Screens: Home (now also an account bar for optional cloud sync
+  and a "Your data" export/import card, see below), Browse (search/drill
+  the full corpus), Verse detail,
   Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories, pattern badges), Stories list,
   Story detail (related stories, pattern badges), Patterns list,
@@ -272,14 +273,19 @@ hand-curate all the content before building.
    **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
    `data/motifs.json` above. Only one story↔story Connection so far
    (`"parallels"`); more will accumulate as content grows.
-6. **JSON export/import for local backup.** Cloud sync (§7.1, done
-   2026-09-06) covers cross-device sync *for signed-in users*, but doesn't
-   replace this: an anonymous visitor (sign-in is optional, by design) has
-   no backup at all today, and even a signed-in user's local `localStorage`
-   is still the fast path everything reads from first. A "Export my data"
-   / "Import" pair in Settings (doesn't exist as a screen yet — the
-   challenge-type picker is the only settings surface so far, live on
-   Home) closes that gap independent of Azure entirely.
+6. ~~**JSON export/import for local backup.**~~ **Done (2026-09-08).**
+   Two buttons on Home's new "Your data" card (same card group as the
+   account bar, since there's still no dedicated Settings screen — the
+   challenge-type picker is the only other settings surface). Export
+   downloads `rooted-backup-<date>.json` — `{app, exportedAt, content,
+   progress, settings}`, the exact same shape as the cloud sync document
+   (`exportBundle()`/`downloadExport()` in `index.html`). Import
+   (`validateImportBundle()`/`importFromFile()`) reads a file, validates
+   it leniently (accepts any subset of `content`/`progress`/`settings`,
+   rejects anything with none of them or a corrupted field), confirms
+   with the user since it's a destructive local overwrite, then replaces
+   local state and re-renders. Works with zero sign-in — the whole point
+   was covering the anonymous case cloud sync doesn't.
 7. **Per-field sync merge**, if whole-bundle last-write-wins (§7.1) ever
    turns out to lose real data in practice — e.g. practicing offline on
    two devices before either syncs. Not built because it hasn't been a

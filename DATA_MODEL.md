@@ -635,6 +635,18 @@ independently decodes the server-verified `x-ms-client-principal` header
 itself and never trusts a `userId` from the request body — defense in
 depth, not reliance on either layer alone.
 
+**Local backup (export/import) reuses this bundle shape.** §7.1's
+`{content, progress, settings}` shape isn't just the Cosmos document — it's
+also exactly what `exportBundle()` downloads as a `.json` file and what
+`importFromFile()` reads back in (`index.html`, Home's "Your data" card).
+One shape, three places (`localStorage` keys split apart, one Cosmos
+document, one export file) rather than three different serializations to
+keep in sync. Unlike cloud sync, export/import needs no sign-in — it's the
+fallback for the anonymous case cloud sync doesn't cover, and a manual
+safety net regardless (a single device's `localStorage` is still one
+browser-data-clear away from gone). Import is a deliberate, confirmed,
+whole-bundle overwrite of local state — not a merge, and not automatic.
+
 ---
 
 ## 8. Current state → target: migration checklist
@@ -1061,6 +1073,24 @@ depth, not reliance on either layer alone.
     pattern for every credential since: portal-direct, or a scoped
     mechanism that never puts the secret in a command or a tracked file
     (the SSH deploy key set up for pushing to GitHub is the other example).
+
+26. **Local backup: JSON export/import (§7.1).** **Done (2026-09-08).**
+    Closes the gap §25 left open — cloud sync only covers signed-in users,
+    and this app's default, expected mode is anonymous. Two buttons on
+    Home's new "Your data" card: **Export** (`exportBundle()` /
+    `downloadExport()`) downloads `rooted-backup-<date>.json` in exactly
+    the same `{content, progress, settings}` shape as the Cosmos document,
+    plus `app`/`exportedAt`; **Import** (`validateImportBundle()` /
+    `importFromFile()`) reads a file back in. Validation is lenient by
+    design — a file can contain any subset of the three keys (e.g. someone
+    might hand-edit a settings-only file) — but rejects anything with none
+    of them, or a field that's present but the wrong shape, with a specific
+    error rather than a silent no-op or a crash. Import always confirms
+    before acting (`confirm()`) since it's a **whole-bundle overwrite** of
+    local state, not a merge — matches the same "don't get clever" choice
+    made for cloud sync's merge strategy (§7.1), for the same reason: this
+    is a manual, occasional, deliberate action, not something that needs
+    to survive concurrent edits.
 
 ---
 
