@@ -1,0 +1,14 @@
+{
+  "routes": [
+    { "route": "/.git/*", "statusCode": 404 },
+    { "route": "/pipeline/.cache/*", "statusCode": 404 },
+    {
+      "route": "/sw.js",
+      "headers": { "Cache-Control": "no-cache" }
+    }
+  ],
+  "mimeTypes": {
+    ".json": "application/json",
+    ".webmanifest": "application/manifest+json"
+  }
+}
