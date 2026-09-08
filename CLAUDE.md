@@ -42,8 +42,9 @@ The schema was deliberately designed so all of the above can be added
 
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
-- `index.html` — the entire app (vanilla JS, no framework, no build step).
-  Screens: Home, Browse (search/drill the full corpus), Verse detail,
+- `index.html` — the entire frontend (vanilla JS, no framework, no build
+  step). Screens: Home (now also an account bar for optional cloud sync,
+  see below), Browse (search/drill the full corpus), Verse detail,
   Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories, pattern badges), Stories list,
   Story detail (related stories, pattern badges), Patterns list,
@@ -52,6 +53,35 @@ The schema was deliberately designed so all of the above can be added
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
+- **Live deployment, hosting, and cloud sync — done (2026-09-06).** The
+  frontend still has zero build step, but the *repo* now does (see below):
+  - Hosted on **Azure Static Web Apps (Free tier)**:
+    https://calm-mushroom-0ebd30c10.6.azurestaticapps.net — auto-deploys on
+    every push to `master` via `.github/workflows/azure-static-web-apps-
+    calm-mushroom-0ebd30c10.yml` (Azure-generated, don't rename/regenerate
+    without updating the API location it points at). `staticwebapp.config.json`
+    blocks `/.git/*` and `/pipeline/.cache/*`, sets `sw.js` to `no-cache`
+    so PWA updates roll out immediately, and gates `/api/*` to signed-in
+    users.
+  - `api/` — the app's first backend: an Azure Functions app (Node.js,
+    v4 programming model — this folder *does* have a build step,
+    `npm install`, handled by Azure's deploy action; the static frontend
+    doesn't). One endpoint, `GET/POST /api/sync` (`api/src/functions/sync.js`),
+    backed by **Azure Cosmos DB for NoSQL (Free tier — free forever, not a
+    trial)**, one document per signed-in user. See DATA_MODEL.md §7.1 for
+    the full design (merge strategy, security boundary, why sign-in is
+    optional).
+  - Auth is **GitHub**, via Static Web Apps' built-in pre-configured
+    provider (`/.auth/login/github` — zero OAuth-app registration). Chosen
+    for zero setup, explicitly not locked in — switching providers later
+    is supported by the platform, though note each provider yields a
+    different `userId` for the same person (§7.1), so it's not seamless
+    account migration.
+  - GitHub repo: https://github.com/Sameer3814/Rooted (public). Pushes
+    from this session go over a dedicated SSH deploy key
+    (`~/.ssh/rooted_github_personal`, host alias `github-personal`) set up
+    specifically so a work laptop's GitHub Desktop (signed into a work
+    account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
   first run: **652 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
   Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
@@ -242,6 +272,18 @@ hand-curate all the content before building.
    **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
    `data/motifs.json` above. Only one story↔story Connection so far
    (`"parallels"`); more will accumulate as content grows.
+6. **JSON export/import for local backup.** Cloud sync (§7.1, done
+   2026-09-06) covers cross-device sync *for signed-in users*, but doesn't
+   replace this: an anonymous visitor (sign-in is optional, by design) has
+   no backup at all today, and even a signed-in user's local `localStorage`
+   is still the fast path everything reads from first. A "Export my data"
+   / "Import" pair in Settings (doesn't exist as a screen yet — the
+   challenge-type picker is the only settings surface so far, live on
+   Home) closes that gap independent of Azure entirely.
+7. **Per-field sync merge**, if whole-bundle last-write-wins (§7.1) ever
+   turns out to lose real data in practice — e.g. practicing offline on
+   two devices before either syncs. Not built because it hasn't been a
+   real problem yet, not because it's hard to imagine.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

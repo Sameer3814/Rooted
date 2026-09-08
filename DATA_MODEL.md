@@ -425,10 +425,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
+| `window.storage: rooted-sync-meta` | `{ updatedAt }` — local edit clock for cloud sync | **done** — §7.1, stamped by `touchSyncMeta()` on every content/progress/settings write |
 | `window.storage: rooted-sessions` | practice session log | planned — optional / trimmable |
 | `window.storage: rooted-journal` | discovery journal entries | planned — §7 |
 | `window.storage: rooted-settings` | preferences (`challengeTypeId` so far; depth, goals planned) | *partial* — §7, `saveSettings()` |
 | `window.storage: rooted-app-data` | pre-split single blob | legacy — migrated once on boot by `migrateLegacy`, then ignored |
+| Cosmos DB `RootedDB/UserData` (partition key `/userId`) | one document per signed-in user: `{ id, userId, identityProvider, content, progress, settings, updatedAt }` | **done** — §7.1, optional cloud mirror of the four keys above, written via `api/src/functions/sync.js` |
 
 > The content/progress split (§8.1) is implemented. On first boot after the
 > split, an existing `rooted-app-data` blob is read once: entities not in the
@@ -571,6 +573,67 @@ note).
   pulls (`practiceQueue`), so the 247-verse seed doesn't all come due at once on
   a fresh install. No UI to change it yet; Home shows "Practice 10 of 247 due".
 - `activeDepth` — planned (§4).
+
+### 7.1 Cloud sync — *live* (optional, opt-in)
+
+The app is a static site with no backend by default — `window.storage`
+(§5) is always the fast, offline-capable source of truth, and everything
+above this subsection works exactly as described with zero network calls.
+Cloud sync is a second, optional layer on top, for a visitor who signs in:
+the same four keys (`rooted-content`, `rooted-progress`, `rooted-settings`,
+`rooted-sync-meta`) additionally mirror to one Cosmos DB document via
+`/api/sync` (`api/src/functions/sync.js`), so a second device can pick up
+the same library and progress. Signing in is never required — an
+anonymous visitor never calls `/api/sync` at all (see `pullAndMerge()` /
+`pushToCloud()` in `index.html`, both no-ops when `account` is null).
+
+**Identity.** Auth is Azure Static Web Apps' built-in platform
+authentication, not app code — `/.auth/login/github` and `/.auth/logout`
+are plain links, no OAuth app registration needed for GitHub specifically
+(one of SWA's "pre-configured" providers). `/.auth/me` returns the signed-in
+`clientPrincipal` (`{userId, userDetails, identityProvider, userRoles}`);
+`userId` is the partition key and document id in Cosmos. Switching the
+login provider later (the owner's explicit intent — GitHub was chosen for
+zero setup, not because it's final) means enabling a different SWA
+provider — but note each provider yields a **different** `userId` for the
+same person, so it's a fresh account under the new provider, not a
+migration. If provider portability ever matters, that's a future problem
+to solve deliberately (e.g. a provider-agnostic account entity), not
+something the current design gets for free.
+
+**Sync bundle** (one Cosmos document per user):
+```json
+{
+  "id": "gh|1234567",
+  "userId": "gh|1234567",
+  "identityProvider": "github",
+  "content": { "verses": [...], "topics": [...], "characters": [...] },
+  "progress": { "verse_genesis_1_1": { "...VerseProgress" } },
+  "settings": { "challengeTypeId": "challenge_scramble", "dailyGoal": 10 },
+  "updatedAt": "2026-09-06T10:30:00.000Z"
+}
+```
+
+**Merge strategy: whole-bundle last-write-wins, not per-field.** Every
+local edit stamps `rooted-sync-meta.updatedAt` (via `touchSyncMeta()`,
+called from `saveContent`/`saveProgress`/`saveSettings`). On sign-in (and
+on demand via the "Synced" / "Sync failed" tap target in the Home account
+bar), `pullAndMerge()` compares that local timestamp against the cloud
+document's `updatedAt`: whichever is newer **replaces the other side
+entirely** — not a per-verse or per-field merge. Deliberately simple for
+v1: correct for "one person, a couple of devices," not for editing the
+same account offline on two devices at the same time (the older side's
+changes since the last sync would be lost in that case). A field-level
+merge is a clean future upgrade if that ever becomes a real problem — see
+"Known gaps" in CLAUDE.md.
+
+**Security boundary.** The Cosmos connection string lives only as a
+Function App setting (`COSMOS_CONNECTION_STRING`, set in the Azure Portal,
+never in the repo or in client JS). `staticwebapp.config.json` restricts
+`/api/*` to the `authenticated` role at the platform level; `sync.js` also
+independently decodes the server-verified `x-ms-client-principal` header
+itself and never trusts a `userId` from the request body — defense in
+depth, not reliance on either layer alone.
 
 ---
 
@@ -965,6 +1028,39 @@ note).
     2 Chr 7:14 and 7:1 were added to the **existing** 1 Kings temple
     story's `verseIds` rather than a new story — the pattern for parallel
     material going forward: extend the existing story, don't duplicate it.
+
+25. **Cloud sync (§7.1).** **Done (2026-09-06).** The app's first backend.
+    Content moved beyond OT books for this pass — three new resources:
+    Azure Static Web Apps' linked/managed Functions API (`api/`, deployed
+    from the same repo, same GitHub Actions pipeline, `api_location: "api"`
+    in the workflow), Azure Cosmos DB for NoSQL (Free Tier — 1000 RU/s +
+    25 GB, free forever, not a 12-month trial), and SWA's built-in
+    authentication (GitHub, zero OAuth-app registration needed). One
+    endpoint, `GET/POST /api/sync`, one document per user
+    (`RootedDB/UserData`, partition key `/userId`). Client-side:
+    `pullAndMerge()` / `pushToCloud()` / `touchSyncMeta()` in `index.html`,
+    plus an account bar on Home (`renderAccountBar()`) that's invisible
+    scaffolding when signed out — an anonymous visitor never calls
+    `/api/sync` and the app behaves exactly as it did before this pass.
+
+    Chose **offline-first with whole-bundle last-write-wins sync** over
+    "server is the source of truth" — deliberately, since the PWA's
+    offline-capable identity predates this and shouldn't regress. Real
+    tradeoff, not a hidden detail: editing the same account on two devices
+    offline at the same time can lose one side's changes on next sync — see
+    §7.1 for why that's an acceptable v1 scope, not an oversight.
+
+    `staticwebapp.config.json` gained `/api/*` → `allowedRoles:
+    ["authenticated"]` (platform-level gate) on top of `sync.js`'s own
+    server-side principal check (defense in depth, not reliance on either
+    alone). `COSMOS_CONNECTION_STRING` is a Function App setting, set once
+    directly in the Azure Portal — deliberately never passed through chat
+    or written to a file by an agent, after an earlier attempt to do
+    exactly that (with a GitHub PAT, for the initial repo push) was
+    correctly blocked by a safety guardrail. That became the standing
+    pattern for every credential since: portal-direct, or a scoped
+    mechanism that never puts the secret in a command or a tracked file
+    (the SSH deploy key set up for pushing to GitHub is the other example).
 
 ---
 

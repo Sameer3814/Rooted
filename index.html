@@ -269,14 +269,26 @@ if(!window.storage){
                        for seed ids; the overlay adds new ids and patches
                        existing ones.
    - rooted-progress : map of verseId -> VerseProgress
+   - rooted-sync-meta: { updatedAt } — stamped on every local edit, compared
+                       against the cloud copy's updatedAt to decide which
+                       side wins on sync (whole-bundle last-write-wins, not
+                       per-field — see pullAndMerge() below and
+                       DATA_MODEL.md §7.1).
 */
-const CONTENT_KEY  = 'rooted-content';
-const PROGRESS_KEY = 'rooted-progress';
-const SETTINGS_KEY = 'rooted-settings';  // per-user preferences (DATA_MODEL.md §7)
-const LEGACY_KEY   = 'rooted-app-data';  // pre-split single blob; migrated once
+const CONTENT_KEY   = 'rooted-content';
+const PROGRESS_KEY  = 'rooted-progress';
+const SETTINGS_KEY  = 'rooted-settings';   // per-user preferences (DATA_MODEL.md §7)
+const SYNC_META_KEY = 'rooted-sync-meta';  // {updatedAt} for cloud sync (DATA_MODEL.md §7.1)
+const LEGACY_KEY    = 'rooted-app-data';   // pre-split single blob; migrated once
 
 let contentTimer = null, progressTimer = null, settingsTimer = null;
+let syncMeta = {updatedAt: null};    // local edit clock; compared against the cloud copy
+let account = null;                  // {userId, userDetails, identityProvider, userRoles} | null — from /.auth/me
+let syncStatus = 'idle';             // 'idle' | 'syncing' | 'synced' | 'error' — for the account bar
+let cloudPushTimer = null;
+let suppressSyncTouch = false;       // true while pullAndMerge() is writing an *adopted* remote state locally, so that adoption doesn't get mistaken for a fresh local edit and immediately pushed back up
 function saveContent(){
+  touchSyncMeta();
   clearTimeout(contentTimer);
   contentTimer = setTimeout(async ()=>{
     try{ await window.storage.set(CONTENT_KEY, JSON.stringify(content), false); }
@@ -284,6 +296,7 @@ function saveContent(){
   }, 250);
 }
 function saveProgress(){
+  touchSyncMeta();
   clearTimeout(progressTimer);
   progressTimer = setTimeout(async ()=>{
     try{ await window.storage.set(PROGRESS_KEY, JSON.stringify(progress), false); }
@@ -291,11 +304,103 @@ function saveProgress(){
   }, 250);
 }
 function saveSettings(){
+  touchSyncMeta();
   clearTimeout(settingsTimer);
   settingsTimer = setTimeout(async ()=>{
     try{ await window.storage.set(SETTINGS_KEY, JSON.stringify(settings), false); }
     catch(e){ console.error('settings save failed', e); }
   }, 250);
+}
+
+/* ---------- cloud sync (optional — see DATA_MODEL.md §7.1) ----------
+   Local storage (above) is always the fast, offline-capable source of
+   truth. Signing in additionally mirrors {content, progress, settings} to
+   one Cosmos DB document per user via /api/sync, so the same library and
+   progress can be picked up on another device. Whole-bundle last-write-wins:
+   whichever side's `updatedAt` is newer replaces the other side entirely —
+   simple and safe for "one person, a couple of devices," not a per-field
+   merge. See api/src/functions/sync.js for the server half. */
+function touchSyncMeta(){
+  if(suppressSyncTouch) return;
+  syncMeta.updatedAt = new Date().toISOString();
+  window.storage.set(SYNC_META_KEY, JSON.stringify(syncMeta), false).catch(()=>{});
+  scheduleCloudPush();
+}
+function scheduleCloudPush(){
+  if(!account) return;
+  clearTimeout(cloudPushTimer);
+  cloudPushTimer = setTimeout(pushToCloud, 1500);
+}
+async function loadAccount(){
+  try{
+    const res = await fetch('/.auth/me');
+    if(!res.ok) return null;
+    const body = await res.json();
+    return (body && body.clientPrincipal) || null;
+  }catch(e){ return null; }
+}
+async function pushToCloud(){
+  if(!account) return;
+  syncStatus = 'syncing';
+  refreshAccountBar();
+  try{
+    const res = await fetch('/api/sync', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({content, progress, settings, updatedAt: syncMeta.updatedAt})
+    });
+    syncStatus = res.ok ? 'synced' : 'error';
+  }catch(e){
+    console.error('cloud push failed', e);
+    syncStatus = 'error';
+  }
+  refreshAccountBar();
+}
+async function pullAndMerge(){
+  if(!account) return;
+  syncStatus = 'syncing';
+  refreshAccountBar();
+  try{
+    const res = await fetch('/api/sync');
+    if(res.ok){
+      const remote = await res.json();
+      if(remote && remote.updatedAt){
+        const remoteTime = Date.parse(remote.updatedAt) || 0;
+        const localTime = syncMeta.updatedAt ? (Date.parse(syncMeta.updatedAt) || 0) : 0;
+        if(remoteTime > localTime){
+          suppressSyncTouch = true;
+          content = Object.assign(emptyOverlay(), remote.content || {});
+          progress = {};
+          for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
+          settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, remote.settings || {});
+          if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
+          data = mergeContent(seed, content);
+          saveContent(); saveProgress(); saveSettings();
+          suppressSyncTouch = false;
+          syncMeta.updatedAt = remote.updatedAt;
+          window.storage.set(SYNC_META_KEY, JSON.stringify(syncMeta), false).catch(()=>{});
+        } else if(localTime > remoteTime){
+          await pushToCloud();
+        }
+      } else {
+        // Nothing synced yet for this account — this device's copy becomes the first cloud copy.
+        await pushToCloud();
+      }
+      syncStatus = 'synced';
+    } else {
+      syncStatus = 'error';
+    }
+  }catch(e){
+    console.error('cloud pull failed', e);
+    syncStatus = 'error';
+  }
+  render();
+}
+function refreshAccountBar(){
+  const el = document.getElementById('account-bar');
+  if(!el) return;
+  el.outerHTML = renderAccountBar();
+  bindEvents(document.getElementById('account-bar'));
 }
 async function loadStored(key){
   try{
@@ -625,6 +730,7 @@ function renderHome(){
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
     </div>
+    ${renderAccountBar()}
     <div class="stat-row">
       <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
       <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
@@ -642,6 +748,29 @@ function renderHome(){
           : '')
       : renderEmptyVerses()}
   `;
+}
+function renderAccountBar(){
+  if(!account){
+    return `
+    <div class="card" id="account-bar" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div class="char-row">
+        <div class="avatar"><i class="ti ti-cloud"></i></div>
+        <div><h3 style="margin:0;">Sync across devices</h3><p class="field-hint">Sign in to back up your progress and pick it up anywhere.</p></div>
+      </div>
+      <a class="btn" href="/.auth/login/github?post_login_redirect_uri=/"><i class="ti ti-brand-github"></i> Sign in</a>
+    </div>`;
+  }
+  const label = account.userDetails || 'your account';
+  const statusText = syncStatus==='syncing' ? 'Syncing…' : syncStatus==='error' ? 'Sync failed — tap to retry' : 'Synced';
+  const statusIcon = syncStatus==='syncing' ? 'ti-loader' : syncStatus==='error' ? 'ti-cloud-off' : 'ti-cloud-check';
+  return `
+    <div class="card" id="account-bar" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div class="char-row">
+        <div class="avatar"><i class="ti ${statusIcon}"></i></div>
+        <div><h3 style="margin:0;">${esc(label)}</h3><p class="field-hint" data-action="sync-now" style="cursor:pointer;">${esc(statusText)}</p></div>
+      </div>
+      <a class="btn" href="/.auth/logout?post_logout_redirect_uri=/">Sign out</a>
+    </div>`;
 }
 /* ---------- BROWSE (full corpus) ---------- */
 async function loadCorpus(){
@@ -1510,6 +1639,7 @@ function onAction(e){
   else if(action==='browse-root'){ browse.book = null; browse.chapter = null; refreshBrowseResults(); }
   else if(action==='add-from-corpus') addFromCorpus(id);
   else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
+  else if(action==='sync-now'){ if(account) pullAndMerge(); }
 }
 function practiceInteract(el){
   if(!session) return;
@@ -1600,11 +1730,20 @@ async function migrateLegacy(seedContent){
   settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
 
+  const storedSyncMeta = await loadStored(SYNC_META_KEY);
+  syncMeta = Object.assign({updatedAt: null}, storedSyncMeta || {});
+
   data = mergeContent(seed, content);
   lore = await loadStories();
   connections = await loadConnections();
   motifs = await loadMotifs();
   render();
+
+  // Cloud sync is optional and never blocks first paint — the app is fully
+  // usable offline the instant the line above runs. This runs after, in the
+  // background, and only touches anything if the visitor is signed in.
+  account = await loadAccount();
+  if(account) await pullAndMerge();
 })();
 
 if('serviceWorker' in navigator){

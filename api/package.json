@@ -1,0 +1,14 @@
+{
+  "name": "rooted-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rooted's server-side sync API — Azure Functions, linked into the Static Web App. Owns the Cosmos DB connection so it never reaches the client.",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.1",
+    "@azure/cosmos": "^4.1.1"
+  }
+}

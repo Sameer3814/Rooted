@@ -4,3 +4,9 @@ Thumbs.db
 node_modules/
 __pycache__/
 pipeline/.cache/
+
+# Azure Functions local dev — can hold real secrets for local testing;
+# never commit. api/local.settings.json.example is the checked-in template.
+api/local.settings.json
+api/bin/
+api/obj/

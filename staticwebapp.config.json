@@ -5,6 +5,10 @@
     {
       "route": "/sw.js",
       "headers": { "Cache-Control": "no-cache" }
+    },
+    {
+      "route": "/api/*",
+      "allowedRoles": ["authenticated"]
     }
   ],
   "mimeTypes": {
