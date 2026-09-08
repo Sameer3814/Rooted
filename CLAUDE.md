@@ -57,6 +57,16 @@ The schema was deliberately designed so all of the above can be added
   Practice button) below the fold. Lesson for anything added later in
   this vein — account/settings-shaped features default to Settings, not
   Home, unless there's a specific reason a control needs daily visibility.
+- **Streaks, a practice-activity heatmap, and brand mastery labels —
+  done (2026-09-08).** First of the Tier 1 engagement features. Home's
+  stat row gained a "day streak" card, plus a compact 7-week
+  practice-activity heatmap (shown once there's any activity to show —
+  hidden on a fresh install rather than displaying an empty grid). Both
+  are pure derived views over `VerseProgress.history[]` — no new storage.
+  `VerseProgress.status` now always displays through brand labels —
+  Seedling → Rooted → Flourishing → Mastered — instead of the old
+  generic "Not started / Learning / Reviewing / Mastered." See
+  DATA_MODEL.md §7/§27.
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).

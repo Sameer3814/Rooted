@@ -531,9 +531,21 @@ note).
 }
 ```
 - `status` ∈ `new | learning | review | mastered` (drives the simple SRS
-  interval ladder already in `scheduleNext`).
+  interval ladder already in `scheduleNext`). **Display only** — never the
+  stored value itself — these map to the brand-flavored labels Seedling /
+  Rooted / Flourishing / Mastered (`MASTERY_LABELS`/`masteryLabel()` in
+  `index.html`), so a status rename never means a data migration.
 - Stored as a map keyed by `verseId` under `rooted-progress`. A verse with no
   entry is treated as `new`.
+- `history[]` is also what streaks and the practice-activity heatmap on
+  Home are derived from (`computeStreak()`, `practiceCountsByDay()`,
+  `renderHeatmap()`) — no separate storage, purely a new view over data
+  already being recorded on every `recordPractice()` call. Streak days are
+  calendar days in the **viewer's local timezone** (history timestamps are
+  UTC ISO strings) — a streak resetting at UTC midnight instead of the
+  user's own midnight would feel broken. A streak counts back from
+  yesterday, not today, if nothing's logged yet today — the day not
+  having happened yet shouldn't read as a broken streak.
 
 ### PracticeSession *(optional, for stats)*
 ```json
@@ -1099,6 +1111,24 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     actual daily-use content (due-today stats, the Practice button) below
     the fold. `renderSettings()` in `index.html`. Standing rule from this:
     account/settings-shaped additions default to Settings, not Home.
+
+27. **Streaks, activity heatmap, and brand mastery labels (§7).**
+    **Done (2026-09-08).** First of the post-cloud-sync Tier 1 engagement
+    features (owner's prioritized list). Zero new storage — purely new
+    views over `VerseProgress.history[]`, already written by
+    `recordPractice()` since day one: `computeStreak()` and
+    `practiceCountsByDay()` derive everything from it. Home's stat row
+    gained a 4th card ("day streak"); a compact 7×7 practice-activity
+    heatmap (calendar-style, day-of-week columns — chosen over a
+    GitHub-style weeks-as-columns layout because it reads better narrow,
+    which is what this app is) sits below it, but **only once the user has
+    any activity at all** — an all-empty grid on a fresh install reads as
+    clutter, not motivation, so it's hidden until earned. `status`'s raw
+    values (`new|learning|review|mastered`) now always render through
+    `masteryLabel()` → Seedling/Rooted/Flourishing/Mastered, replacing an
+    ad hoc label object that lived inline in the verse-detail renderer.
+    "Rooted" as the mid-tier label is a deliberate small pun on the app's
+    own name, not an accident.
 
 ---
 
