@@ -537,10 +537,13 @@ note).
   `index.html`), so a status rename never means a data migration.
 - Stored as a map keyed by `verseId` under `rooted-progress`. A verse with no
   entry is treated as `new`.
-- `history[]` is also what streaks and the practice-activity heatmap on
-  Home are derived from (`computeStreak()`, `practiceCountsByDay()`,
-  `renderHeatmap()`) — no separate storage, purely a new view over data
-  already being recorded on every `recordPractice()` call. Streak days are
+- `history[]` is also what streaks are derived from (`computeStreak()`,
+  `practiceCountsByDay()`) — no separate storage, purely a new view over
+  data already being recorded on every `recordPractice()` call. A Home
+  activity heatmap was built on top of `practiceCountsByDay()` and then
+  removed the next day on feedback (§27) — the function stays regardless,
+  since `computeStreak()` needs it and it's the natural data source if a
+  heatmap comes back on a future profile screen. Streak days are
   calendar days in the **viewer's local timezone** (history timestamps are
   UTC ISO strings) — a streak resetting at UTC midnight instead of the
   user's own midnight would feel broken. A streak counts back from
@@ -1118,17 +1121,24 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     views over `VerseProgress.history[]`, already written by
     `recordPractice()` since day one: `computeStreak()` and
     `practiceCountsByDay()` derive everything from it. Home's stat row
-    gained a 4th card ("day streak"); a compact 7×7 practice-activity
-    heatmap (calendar-style, day-of-week columns — chosen over a
-    GitHub-style weeks-as-columns layout because it reads better narrow,
-    which is what this app is) sits below it, but **only once the user has
-    any activity at all** — an all-empty grid on a fresh install reads as
-    clutter, not motivation, so it's hidden until earned. `status`'s raw
-    values (`new|learning|review|mastered`) now always render through
+    gained a 4th card ("day streak"). `status`'s raw values
+    (`new|learning|review|mastered`) now always render through
     `masteryLabel()` → Seedling/Rooted/Flourishing/Mastered, replacing an
     ad hoc label object that lived inline in the verse-detail renderer.
     "Rooted" as the mid-tier label is a deliberate small pun on the app's
     own name, not an accident.
+
+    Also shipped in this pass: a compact 7×7 practice-activity heatmap
+    below the stat row (calendar-style, day-of-week columns, shown only
+    once there was activity to show). **Removed the very next day
+    (2026-09-09)** on direct feedback — didn't land well on Home. Not
+    ruled out entirely: the owner floated a future profile screen as
+    where it might belong instead (ties into the accounts-required
+    direction — see the `rooted-product-vision` memory). `renderHeatmap()`
+    was deleted along with its CSS; `practiceCountsByDay()` stayed, since
+    `computeStreak()` depends on it and it's the obvious data source to
+    reuse if a heatmap comes back. The streak stat card and mastery labels
+    from this same pass were **not** part of the complaint and stayed as-is.
 
 ---
 

@@ -58,12 +58,6 @@
   .stat-card{flex:1;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-card);padding:14px;}
   .stat-card .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;}
   .stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
-  .heatmap-card{margin-bottom:20px;}
-  .heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:220px;margin:0 auto;}
-  .heatmap-cell{aspect-ratio:1;border-radius:4px;background:var(--paper);border:1px solid var(--line);}
-  .heatmap-cell.l1{background:var(--gold-wash);border-color:var(--gold-wash);}
-  .heatmap-cell.l2{background:var(--gold);border-color:var(--gold);}
-  .heatmap-cell.l3{background:var(--gold-deep);border-color:var(--gold-deep);}
   .section-label{font-size:13px;color:var(--ink-soft);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between;}
   .card{
     background:var(--paper-raised);
@@ -577,13 +571,17 @@ function normalizeProgress(p){
 const MASTERY_LABELS = {new:'Seedling', learning:'Rooted', review:'Flourishing', mastered:'Mastered'};
 function masteryLabel(status){ return MASTERY_LABELS[status] || status; }
 
-/* ---------- streaks & activity heatmap (DATA_MODEL.md §7) ----------
+/* ---------- streaks (DATA_MODEL.md §7) ----------
    Derived entirely from VerseProgress.history[], already recorded by
    recordPractice() on every attempt — no new storage, just a new view
    over data that was already being collected. Days are calendar days in
    the viewer's *local* timezone (history timestamps are UTC ISO strings),
    since a streak that resets at UTC midnight rather than the user's own
-   midnight would feel broken to them. */
+   midnight would feel broken to them.
+   practiceCountsByDay() also used to back a Home activity heatmap, removed
+   2026-09-09 on feedback (didn't land well there) — the function stays
+   since computeStreak() needs it, and it's the natural data source if a
+   heatmap comes back on a future profile screen instead. */
 function localDayKey(d){
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
@@ -847,7 +845,6 @@ function renderHome(){
   const session_size = Math.min(due.length, settings.dailyGoal || 10);
   const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
   const streak = computeStreak();
-  const hasActivity = Object.keys(practiceCountsByDay()).length > 0;
   return `
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
@@ -859,14 +856,6 @@ function renderHome(){
       <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
       <div class="stat-card"><div class="num">${streak}</div><div class="label">day streak</div></div>
     </div>
-    ${hasActivity ? `
-    <div class="card heatmap-card">
-      <div class="char-row" style="justify-content:space-between;margin-bottom:10px;">
-        <h3 style="margin:0;">Practice activity</h3>
-        <span class="field-hint">last 7 weeks</span>
-      </div>
-      ${renderHeatmap()}
-    </div>` : ''}
     ${due.length ? `
       ${renderChallengePicker()}
       <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
@@ -1057,25 +1046,6 @@ function renderChallengePicker(){
   return `<div class="segmented">${types.map(t=>
     `<button data-action="set-challenge" data-id="${t.id}" class="${t.id===settings.challengeTypeId?'active':''}">${esc(t.name)}</button>`
   ).join('')}</div>`;
-}
-/* 7 columns (Sun-Sat) x 7 rows (weeks), oldest week at the top, filled in
-   plain chronological order — a compact calendar-style grid reads better
-   than a GitHub-style weeks-as-columns layout on a narrow phone screen. */
-function renderHeatmap(){
-  const HISTORY_WEEKS = 7;
-  const counts = practiceCountsByDay();
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  const totalDays = HISTORY_WEEKS * 7;
-  const cells = [];
-  for(let i = totalDays - 1; i >= 0; i--){
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const count = counts[localDayKey(d)] || 0;
-    const level = !count ? 0 : count <= 1 ? 1 : count <= 3 ? 2 : 3;
-    cells.push(`<div class="heatmap-cell${level ? ' l'+level : ''}" title="${esc(d.toDateString())}: ${count} practice${count===1?'':'s'}"></div>`);
-  }
-  return `<div class="heatmap">${cells.join('')}</div>`;
 }
 function renderVerseCard(v){
   const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');

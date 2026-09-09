@@ -57,15 +57,14 @@ The schema was deliberately designed so all of the above can be added
   Practice button) below the fold. Lesson for anything added later in
   this vein — account/settings-shaped features default to Settings, not
   Home, unless there's a specific reason a control needs daily visibility.
-- **Streaks, a practice-activity heatmap, and brand mastery labels —
-  done (2026-09-08).** First of the Tier 1 engagement features. Home's
-  stat row gained a "day streak" card, plus a compact 7-week
-  practice-activity heatmap (shown once there's any activity to show —
-  hidden on a fresh install rather than displaying an empty grid). Both
-  are pure derived views over `VerseProgress.history[]` — no new storage.
+- **Streaks and brand mastery labels — done (2026-09-08).** First of the
+  Tier 1 engagement features. Home's stat row gained a "day streak" card
+  — a pure derived view over `VerseProgress.history[]`, no new storage.
   `VerseProgress.status` now always displays through brand labels —
   Seedling → Rooted → Flourishing → Mastered — instead of the old
-  generic "Not started / Learning / Reviewing / Mastered." See
+  generic "Not started / Learning / Reviewing / Mastered." (A
+  practice-activity heatmap shipped alongside these in the same commit,
+  then got pulled the next day on feedback — see known gaps.) See
   DATA_MODEL.md §7/§27.
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
@@ -306,6 +305,16 @@ hand-curate all the content before building.
    turns out to lose real data in practice — e.g. practicing offline on
    two devices before either syncs. Not built because it hasn't been a
    real problem yet, not because it's hard to imagine.
+8. **Practice-activity heatmap — built, then removed (2026-09-08 →
+   2026-09-09).** Shipped on Home alongside the streak card, pulled the
+   next day on direct feedback (didn't land well there). Not dead — the
+   owner floated a future **profile screen** as where it might belong
+   instead, which ties into the bigger not-yet-started accounts/guest-mode
+   direction (see the `rooted-product-vision` memory — this doesn't have
+   a CLAUDE.md section of its own yet since none of that's been designed).
+   `practiceCountsByDay()` (DATA_MODEL.md §7) is still there and is the
+   data source to reuse if/when this comes back — just `renderHeatmap()`
+   and its CSS were deleted.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
