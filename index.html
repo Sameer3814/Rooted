@@ -694,6 +694,7 @@ let corpus = null;          // null = not loaded yet
 let corpusStatus = 'idle';  // idle | loading | ready | error
 let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
+let peopleQuery = '';
 const SEARCH_LIMIT = 60;
 let homeLimit = 25;   // Home lists this many verses before "Show all"
 
@@ -1177,13 +1178,33 @@ function renderCharacters(){
   if(!data.characters.length){
     return `<div class="topbar"><h1>People</h1></div><div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`;
   }
+  return `
+    <div class="topbar"><h1>People</h1></div>
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="people-search" value="${esc(peopleQuery)}" placeholder="Search people by name or role..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="people-results">${renderPeopleResults()}</div>
+  `;
+}
+function renderPeopleResults(){
+  const q = peopleQuery.trim().toLowerCase();
+  if(q){
+    const hits = data.characters.filter(c=>
+      c.name.toLowerCase().includes(q) || (c.roles||[]).some(r=>r.toLowerCase().includes(q))
+    );
+    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No one matches "${esc(peopleQuery)}".</p></div>`;
+    return `
+      <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
+      ${hits.map(c=>renderCharacterRow(c)).join('')}
+    `;
+  }
   const grouped = lore.eras.map(era=>({
     era,
     people: data.characters.filter(c=>c.eraId===era.id)
   })).filter(g=>g.people.length);
   const ungrouped = data.characters.filter(c=>!c.eraId || !findEra(c.eraId));
   return `
-    <div class="topbar"><h1>People</h1></div>
     ${lore.stories.length ? `
       <div class="card tap" data-action="open-stories">
         <div class="char-row" style="justify-content:space-between;">
@@ -1827,11 +1848,24 @@ function bindEvents(root){
       bindEvents(results);
     }, 140);
   });
+
+  const peopleSearch = document.getElementById('people-search');
+  if(peopleSearch) peopleSearch.addEventListener('input', ()=>{
+    peopleQuery = peopleSearch.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refreshPeopleResults, 140);
+  });
 }
 function refreshBrowseResults(){
   const results = document.getElementById('browse-results');
   if(!results){ render(); return; }
   results.innerHTML = renderBrowseResults();
+  bindEvents(results);
+}
+function refreshPeopleResults(){
+  const results = document.getElementById('people-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderPeopleResults();
   bindEvents(results);
 }
 function onAction(e){

@@ -1268,6 +1268,29 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     assertions for each of the four exact values (not just "changed
     somehow") — see `test_design_system.js`'s "v2.1 refinements" section.
 
+30. **People search.** **Done (2026-09-09).** Live-filter search on the
+    People screen, mirroring Browse's existing search UX exactly rather
+    than inventing a new pattern: a `.search-wrap` input
+    (`renderCharacters()`), a module-level query string (`peopleQuery`,
+    parallel to `browse.q`), a 140ms-debounced `input` listener wired in
+    `bindEvents()`'s global section, and a `renderPeopleResults()` /
+    `refreshPeopleResults()` split so typing only re-renders the
+    `#people-results` subtree — the input never loses focus or caret
+    position mid-keystroke, same reasoning as Browse's search.
+
+    Matches on **name or role**, case-insensitive substring — e.g.
+    "king" surfaces every character whose `roles[]` mentions it. Worth
+    doing given the project's standing rule that `Character.roles` are
+    curated to actually distinguish people, not generic labels (CLAUDE.md)
+    — that same specificity makes role search genuinely useful rather
+    than a token gesture. Empty query still shows the original
+    era-grouped view with the Stories/Patterns quick-link cards
+    (`renderPeopleResults()`'s no-query branch) — search doesn't replace
+    that, it's a second way in. No new storage; `peopleQuery` is
+    view-only state, not persisted, matching how `browse.q` already
+    behaves (search state does *not* reset on nav-bar navigation away
+    and back, deliberately consistent between the two screens).
+
 ---
 
 ## 9. How the app reads this data

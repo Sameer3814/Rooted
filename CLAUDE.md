@@ -67,6 +67,11 @@ The schema was deliberately designed so all of the above can be added
   practice-activity heatmap shipped alongside these in the same commit,
   then got pulled the next day on feedback — see known gaps.) See
   DATA_MODEL.md §7/§27.
+- **People search — done (2026-09-09).** Live-filter search on the
+  People screen, matching by name or role, mirroring Browse's existing
+  debounced-search pattern exactly (own `#people-results` subtree, own
+  `peopleQuery` state) rather than inventing a new one. See
+  DATA_MODEL.md §30.
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -248,18 +253,21 @@ placeholder "portraits" until real character illustrations exist.
 Two other directions (minimal/modern, rich/classical) were shown and
 explicitly rejected in favor of this one.
 
-**Visual system v2 — done (2026-09-09).** The direction above is
-unchanged; this was an execution pass, not a redirection, in response to
-"doesn't look like a polished app in the market... looks basic." Surface
-elevation replaced hard 1px borders (soft `box-shadow`, pure-white card
-fills on a warm stone `#F8F5EE` ground), the accent palette collapsed
-from four colors to three clear roles (gold = action/urgency, sage =
-progress/mastery, tan = plain metadata — **plum is retired**, not
-recolored), book/people lists became borderless hairline-divided rows
-instead of full cards, character and story detail pages open on a real
-hero header instead of a cramped 56px icon box, and the bottom nav now
-floats as a frosted, rounded overlay instead of a flush bottom bar. Full
-rationale, every token's new value, and which call sites changed: see
+**Visual system v2 — done (2026-09-09), refined same day (v2.1).** The
+direction above is unchanged; this was an execution pass, not a
+redirection, in response to "doesn't look like a polished app in the
+market... looks basic." Surface elevation replaced hard 1px borders
+(soft `box-shadow`, pure-white card fills on a warm linen `#F3EFE6`
+ground — deepened once more in the v2.1 follow-up), the accent palette
+collapsed from four colors to three clear roles (gold = action/urgency,
+sage = progress/mastery, tan = plain metadata — **plum is retired**, not
+recolored), book/people/**topics** lists became borderless
+hairline-divided rows instead of full cards, character and story detail
+pages open on a real hero header instead of a cramped 56px icon box, and
+the bottom nav now floats as a frosted, rounded overlay instead of a
+flush bottom bar (its `padding-bottom` clearance was under-sized in v2
+and clipped content on a real device — fixed in v2.1). Full rationale,
+every token's exact value, and which call sites changed: see
 DATA_MODEL.md §29.
 
 ## Known gaps / not-yet-built (in likely priority order)
