@@ -601,8 +601,10 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 247-verse seed doesn't all come due at once on
-  a fresh install. No UI to change it yet; Home shows "Practice 10 of 247 due".
+  pulls (`practiceQueue`), so the 652-verse seed doesn't all come due at once
+  on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
+  (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
+  input, so an invalid or extreme value is never possible.
 - `activeDepth` — planned (§4).
 
 ### 7.1 Cloud sync — *live* (optional, opt-in)
@@ -1290,6 +1292,25 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     view-only state, not persisted, matching how `browse.q` already
     behaves (search state does *not* reset on nav-bar navigation away
     and back, deliberately consistent between the two screens).
+
+31. **`settings.dailyGoal` UI.** **Done (2026-09-09).** Closes a gap
+    that's existed since `dailyGoal` was introduced (§8.1) — a working
+    setting with no way to change it. `renderGoalCard()` on the Settings
+    screen: a 5/10/15/20/25 preset picker reusing the existing
+    `.segmented` chip component (same one the Home challenge-type picker
+    already uses) rather than a free-typed number input, so there's no
+    validation to write — every tap sets a known-good value. New
+    `set-daily-goal` action in `onAction()`, same shape as the existing
+    `set-challenge` handler it sits next to. Takes effect immediately
+    (`practiceQueue()` and Home's "Practice N of M due" both read
+    `settings.dailyGoal` live) and syncs like any other setting change —
+    `saveSettings()` already called `touchSyncMeta()`, nothing new needed
+    there. Tested through the real `onAction()` dispatch, not just the
+    render function in isolation — confirms the string `dataset.id` a
+    real click event delivers gets converted to a number before it's
+    stored (`+id`), and that the new goal actually changes what
+    `practiceQueue()` and Home produce, not just what the chip shows as
+    active.
 
 ---
 

@@ -72,6 +72,10 @@ The schema was deliberately designed so all of the above can be added
   debounced-search pattern exactly (own `#people-results` subtree, own
   `peopleQuery` state) rather than inventing a new one. See
   DATA_MODEL.md §30.
+- **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
+  picker on Settings, reusing the existing `.segmented` chip component
+  (the same one Home's challenge-type picker uses) instead of a
+  free-typed number input. See DATA_MODEL.md §7/§31.
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).
@@ -309,7 +313,9 @@ hand-curate all the content before building.
    stories/events → verses/topics → connections/motifs); law/speech-heavy
    stretches get the lighter verses-and-topics-first treatment established
    with Leviticus.
-4. A UI for `settings.dailyGoal` (currently a fixed default of 10).
+4. ~~A UI for `settings.dailyGoal`.~~ **Done (2026-09-09).** A 5/10/15/20/25
+   preset picker on the Settings screen, reusing the existing `.segmented`
+   chip component. See DATA_MODEL.md §7/§31.
 5. ~~`Motif` entity, and story→story Connections (foreshadows/parallels).~~
    **Done (2026-09-04).** 5 motifs, each with 3 real instances — see
    `data/motifs.json` above. Only one story↔story Connection so far

@@ -944,6 +944,18 @@ function renderDataCard(){
       <input type="file" id="import-file-input" accept="application/json" style="display:none;">
     </div>`;
 }
+const DAILY_GOAL_OPTIONS = [5, 10, 15, 20, 25];
+function renderGoalCard(){
+  const goal = settings.dailyGoal || 10;
+  return `
+    <div class="card">
+      <h3 style="margin:0 0 4px;">Daily goal</h3>
+      <p class="field-hint" style="margin-bottom:12px;">How many due verses a practice session pulls in at once.</p>
+      <div class="segmented">
+        ${DAILY_GOAL_OPTIONS.map(n=>`<button data-action="set-daily-goal" data-id="${n}" class="${n===goal?'active':''}">${n}</button>`).join('')}
+      </div>
+    </div>`;
+}
 function renderSettings(){
   return `
     <div class="screen-head">
@@ -951,6 +963,7 @@ function renderSettings(){
       <h2>Settings</h2>
     </div>
     ${renderAccountBar()}
+    ${renderGoalCard()}
     ${renderDataCard()}
   `;
 }
@@ -1898,6 +1911,7 @@ function onAction(e){
   else if(action==='next-practice'){ if(session) session.index++; render(); }
   else if(action==='practice-interact') practiceInteract(el);
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
+  else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
   else if(action==='browse-book'){ browse.book = id; browse.chapter = null; refreshBrowseResults(); }
   else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; refreshBrowseResults(); }
   else if(action==='browse-root'){ browse.book = null; browse.chapter = null; refreshBrowseResults(); }
