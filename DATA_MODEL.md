@@ -1248,6 +1248,26 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     detail pages, zero remaining functional references to `plum`) rather
     than just trusting the diff.
 
+    **Refinement pass, same day.** After looking at the deployed result,
+    the owner sent four precise corrections: `--paper` deepened again to
+    `#F3EFE6` (a richer linen than the first pass's `#F8F5EE`) and
+    `--shadow-card`'s blur tightened to 16px; `body`'s `padding-bottom`
+    raised 104px → 120px (with `!important`, specified explicitly — the
+    floating nav was clipping the bottom-most content on a real device,
+    a real bug the test suite couldn't have caught since it never
+    measures rendered layout, only markup/CSS-source presence);
+    `renderTopics()` converted from `.card` rows to `.list-row` (missed
+    in the first pass — the brief's rule 4 named the book/people
+    browsers explicitly but Topics is the same shape and should have
+    been included); `.hero-avatar` resized 88px → 76px with a tighter
+    `border-radius:20px` and a literal `#EFE9DC` fill (its icon color
+    moved from gold to `--tan-deep` to stay coherent with that new warm
+    -neutral fill, since the brief didn't specify one), `.hero h1` sized
+    up to `2rem` with explicit `margin:12px 0 8px` replacing the avatar's
+    own bottom margin so the two don't stack. Test suite extended with
+    assertions for each of the four exact values (not just "changed
+    somehow") — see `test_design_system.js`'s "v2.1 refinements" section.
+
 ---
 
 ## 9. How the app reads this data
