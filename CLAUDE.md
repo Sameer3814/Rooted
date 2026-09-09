@@ -58,15 +58,18 @@ The schema was deliberately designed so all of the above can be added
   Practice button) below the fold. Lesson for anything added later in
   this vein — account/settings-shaped features default to Settings, not
   Home, unless there's a specific reason a control needs daily visibility.
-- **Streaks and brand mastery labels — done (2026-09-08).** First of the
-  Tier 1 engagement features. Home's stat row gained a "day streak" card
-  — a pure derived view over `VerseProgress.history[]`, no new storage.
-  `VerseProgress.status` now always displays through brand labels —
-  Seedling → Rooted → Flourishing → Mastered — instead of the old
-  generic "Not started / Learning / Reviewing / Mastered." (A
-  practice-activity heatmap shipped alongside these in the same commit,
-  then got pulled the next day on feedback — see known gaps.) See
-  DATA_MODEL.md §7/§27.
+- **Streaks and brand mastery labels — done (2026-09-08), relabeled
+  2026-09-09.** First of the Tier 1 engagement features. Home's stat row
+  gained a "day streak" card — a pure derived view over
+  `VerseProgress.history[]`, no new storage. `VerseProgress.status` now
+  always displays through brand labels — plant-growth emoji stages as of
+  the 2026-09-09 pass: 🌱 Seedling → 🌿 Sprouting → 🌳 Rooted → 👑
+  Flourishing (superseded the original 2026-09-08 text-only naming,
+  where "Rooted" was the *learning* tier and "Mastered" was plain text —
+  see DATA_MODEL.md §32). Every verse card now shows its stage tag, not
+  just mastered/due ones. (A practice-activity heatmap shipped alongside
+  the original pass, then got pulled the next day on feedback — see
+  known gaps.) See DATA_MODEL.md §7/§27/§32.
 - **People search — done (2026-09-09).** Live-filter search on the
   People screen, matching by name or role, mirroring Browse's existing
   debounced-search pattern exactly (own `#people-results` subtree, own
@@ -76,6 +79,20 @@ The schema was deliberately designed so all of the above can be added
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a
   free-typed number input. See DATA_MODEL.md §7/§31.
+- **Dynamic/tactile UX pass — done (2026-09-09).** "Feel like Duolingo,
+  keep warm storybook." Springy `scale(.96)` press feedback on every
+  tappable surface (one shared CSS rule); a daily-goal progress ring on
+  Home (`renderGoalRing()`, no new storage); a rewritten session-complete
+  screen — slide-up entrance, bounced-in icon, staggered animated stats,
+  a small CSS-only spark burst (no `<canvas>`, no per-frame JS); and
+  `playSfx()`/`hapticBuzz()` — synthesized Web Audio tones + vibration,
+  gated by one new "Sound & haptics" toggle on Settings (default on).
+  Also caught and fixed a real latent bug while rewriting the completion
+  screen: a background render (e.g. cloud sync landing) between finishing
+  a session and tapping "Done" used to silently reset the shown tally to
+  "0/0 correct." A full `prefers-reduced-motion` override disables the
+  new animations. See DATA_MODEL.md §32 for everything, including the
+  mastery-label relabel this pass also did (noted above).
 - `manifest.json` + `sw.js` — installable PWA (add-to-homescreen, offline
   shell caching).
 - `icon.png` — placeholder app icon (simple generated shape, not final art).

@@ -266,6 +266,61 @@
   .back-btn{width:36px;height:36px;border-radius:10px;border:none;background:var(--paper-raised);box-shadow:var(--shadow-pop);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .err{color:var(--danger);font-size:13px;margin-top:6px;}
   .field-hint{font-size:12px;color:var(--ink-faint);margin-top:4px;}
+
+  /* ---------- tactile micro-interactions (2026-09-09) ----------
+     A springy press-down on every tappable surface — buttons, practice
+     chips, nav items, tappable cards/rows, chapter cells. One shared rule
+     rather than touching each component's own block. */
+  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn{
+    transition: transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .btn:active, .chip:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active{
+    transform: scale(.96);
+  }
+  /* Scramble chips "pop" in on every render (pick/unpick/re-render) — a
+     full FLIP slide-between-containers animation would need per-chip
+     position tracking across two separate drop zones; this is the
+     lightweight, robust illusion of fluid placement instead. */
+  @keyframes chipIn{from{opacity:0;transform:scale(.82);}to{opacity:1;transform:scale(1);}}
+  .chip{animation:chipIn .18s cubic-bezier(.34,1.56,.64,1);}
+
+  /* ---------- daily goal ring (Home) ---------- */
+  .goal-ring{position:relative;width:104px;height:104px;margin:0 auto 16px;}
+  .goal-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+  .goal-ring circle{fill:none;stroke-width:7;}
+  .goal-ring .ring-track{stroke:var(--surface-sunken);}
+  .goal-ring .ring-fill{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.34,1.56,.64,1);}
+  .goal-ring .ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .goal-ring .ring-label .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--ink);}
+  .goal-ring .ring-label .of{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
+
+  /* ---------- session-complete celebration ---------- */
+  @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes bounceIn{0%{opacity:0;transform:scale(.3);}55%{opacity:1;transform:scale(1.15);}100%{transform:scale(1);}}
+  @keyframes statIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes spark{
+    0%{opacity:1;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(0) scale(1);}
+    100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(calc(-1 * var(--dist))) scale(.3);}
+  }
+  .complete-card{position:relative;text-align:center;padding:32px 16px 28px;overflow:hidden;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1) both;}
+  .complete-icon{font-size:40px;color:var(--gold-deep);display:inline-block;animation:bounceIn .5s cubic-bezier(.34,1.56,.64,1) both;}
+  .sparks{position:absolute;inset:0;pointer-events:none;}
+  .spark{position:absolute;top:50%;left:50%;width:var(--size);height:var(--size);background:var(--spark-color,var(--gold));border-radius:50%;animation:spark .7s ease-out both;}
+  .complete-stats{display:flex;gap:10px;justify-content:center;margin-top:18px;}
+  .complete-stat{background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:14px 20px;min-width:96px;opacity:0;animation:statIn .4s ease-out both;}
+  .complete-stat .num{font-family:'Fraunces',serif;font-size:22px;font-weight:600;}
+  .complete-stat .lbl{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+
+  /* Respect a real accessibility signal over the fun — every animation
+     above is decorative, none of it gates functionality, so disabling it
+     costs nothing. */
+  @media (prefers-reduced-motion: reduce){
+    .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn,
+    .complete-card, .complete-icon, .spark, .complete-stat, .goal-ring .ring-fill{
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -411,7 +466,7 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, remote.settings || {});
+          settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
           data = mergeContent(seed, content);
           saveContent(); saveProgress(); saveSettings();
@@ -506,7 +561,7 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, bundle.settings);
+    settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, bundle.settings);
     if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
   }
   saveContent(); saveProgress(); saveSettings();
@@ -607,7 +662,7 @@ function normalizeProgress(p){
 /* Brand-flavored display labels for VerseProgress.status (DATA_MODEL.md §7)
    — the stored value stays `new|learning|review|mastered` (the SRS ladder
    logic keys off it), this is presentation-only. */
-const MASTERY_LABELS = {new:'Seedling', learning:'Rooted', review:'Flourishing', mastered:'Mastered'};
+const MASTERY_LABELS = {new:'🌱 Seedling', learning:'🌿 Sprouting', review:'🌳 Rooted', mastered:'👑 Flourishing'};
 function masteryLabel(status){ return MASTERY_LABELS[status] || status; }
 
 /* ---------- streaks (DATA_MODEL.md §7) ----------
@@ -649,6 +704,48 @@ function computeStreak(){
   }
   return streak;
 }
+function todaysPracticeCount(){
+  return practiceCountsByDay()[localDayKey(new Date())] || 0;
+}
+
+/* ---------- sound & haptics (Web Audio API, synthesized — no audio
+   files) ----------
+   Gated by settings.soundEnabled (default true) — an app for quiet study
+   time needs an easy mute, not just an on switch (Settings screen). One
+   AudioContext, created lazily on first use: browsers require a user
+   gesture before audio can start, and playSfx is only ever called from
+   inside a click-handler chain, so that's always satisfied here. */
+let audioCtx = null;
+const SFX_NOTES = {
+  tap:      [{f:520, t:0,   d:.05, g:.05}],
+  correct:  [{f:660, t:0,   d:.09, g:.09}, {f:880, t:.07, d:.14, g:.08}],
+  complete: [{f:523, t:0,   d:.11, g:.08}, {f:659, t:.09, d:.11, g:.08}, {f:784, t:.18, d:.22, g:.09}],
+};
+function playSfx(type){
+  if(settings.soundEnabled === false) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    (SFX_NOTES[type] || SFX_NOTES.tap).forEach(n=>{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = n.f;
+      const start = audioCtx.currentTime + n.t;
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(n.g, start + .01);
+      gain.gain.exponentialRampToValueAtTime(.0001, start + n.d);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(start);
+      osc.stop(start + n.d + .02);
+    });
+  }catch(e){ /* Web Audio unsupported/blocked — sound is decorative, fail silently */ }
+}
+function hapticBuzz(pattern){
+  if(settings.soundEnabled === false) return; // one toggle covers sound + haptics
+  try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){ /* not supported (e.g. iOS Safari) — fine */ }
+}
 
 /* ---------- seed content ---------- */
 function seedData(){
@@ -678,7 +775,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -897,6 +994,7 @@ function renderHome(){
       <div class="stat-card"><div class="num">${streak}</div><div class="label">day streak</div></div>
     </div>
     ${due.length ? `
+      ${renderGoalRing()}
       ${renderChallengePicker()}
       <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
     ` : ''}
@@ -956,6 +1054,16 @@ function renderGoalCard(){
       </div>
     </div>`;
 }
+function renderSoundCard(){
+  const on = settings.soundEnabled !== false;
+  return `
+    <div class="card">
+      <div class="char-row" style="justify-content:space-between;">
+        <div><h3 style="margin:0;">Sound &amp; haptics</h3><p class="field-hint">Gentle tones and vibration for correct answers and finishing a session.</p></div>
+        <button class="btn ${on?'primary':''}" data-action="toggle-sound" style="flex-shrink:0;">${on ? 'On' : 'Off'}</button>
+      </div>
+    </div>`;
+}
 function renderSettings(){
   return `
     <div class="screen-head">
@@ -964,6 +1072,7 @@ function renderSettings(){
     </div>
     ${renderAccountBar()}
     ${renderGoalCard()}
+    ${renderSoundCard()}
     ${renderDataCard()}
   `;
 }
@@ -1099,15 +1208,35 @@ function renderChallengePicker(){
     `<button data-action="set-challenge" data-id="${t.id}" class="${t.id===settings.challengeTypeId?'active':''}">${esc(t.name)}</button>`
   ).join('')}</div>`;
 }
+/* How many of today's daily goal have been practiced so far — a ring,
+   not another flat stat card, since this one's meant to feel like
+   progress happening today specifically, not a running total. */
+function renderGoalRing(){
+  const goal = settings.dailyGoal || 10;
+  const count = Math.min(todaysPracticeCount(), goal);
+  const pct = goal ? count / goal : 0;
+  const R = 30, C = 2 * Math.PI * R;
+  const offset = C * (1 - pct);
+  return `
+    <div class="goal-ring">
+      <svg viewBox="0 0 72 72">
+        <circle class="ring-track" cx="36" cy="36" r="${R}"></circle>
+        <circle class="ring-fill" cx="36" cy="36" r="${R}" style="stroke-dasharray:${C.toFixed(2)};stroke-dashoffset:${offset.toFixed(2)};"></circle>
+      </svg>
+      <div class="ring-label"><div class="num">${count}</div><div class="of">of ${goal} today</div></div>
+    </div>`;
+}
 function renderVerseCard(v){
-  const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag tag--sage">Mastered</span>' : (isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '');
+  const status = getProgress(v.id).status;
+  const stageTag = `<span class="tag ${status==='mastered' ? 'tag--sage' : 'tag--tan'}">${masteryLabel(status)}</span>`;
+  const dueTag = isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '';
   return `
     <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
       <div class="ref">${esc(v.reference)}</div>
       <div class="text">${esc(v.text)}</div>
       <div class="tag-row">
         ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--tan">${esc(t.name)}</span>`:'';}).join('')}
-        ${statusTag}
+        ${stageTag}${dueTag}
       </div>
     </div>`;
 }
@@ -1744,19 +1873,47 @@ function startPractice(verseIds, challengeTypeId){
   };
   go('practice');
 }
+/* Small CSS-only confetti burst — spans with a randomized rotation +
+   outward translateY, no <canvas> or per-frame JS. See index's design
+   notes: a real canvas particle system needs a requestAnimationFrame
+   loop, which is a real battery/perf cost on a low-end phone for a
+   decorative flourish; this reads the same and costs nothing at rest. */
+function renderSparks(n){
+  let out = '';
+  for(let i=0;i<n;i++){
+    const angle = (Math.random()*360).toFixed(1);
+    const dist = (36 + Math.random()*46).toFixed(1);
+    const size = (4 + Math.random()*4).toFixed(1);
+    const delay = (Math.random()*0.15).toFixed(2);
+    const color = Math.random() < 0.75 ? 'var(--gold)' : 'var(--gold-deep)';
+    out += `<span class="spark" style="--angle:${angle}deg;--dist:${dist}px;--size:${size}px;--spark-color:${color};animation-delay:${delay}s;"></span>`;
+  }
+  return out;
+}
 function renderPractice(){
   if(!session || session.index >= session.queue.length){
+    // Deliberately does NOT null `session` here — a background render
+    // (cloud sync landing, a timer) between finishing and tapping "Done"
+    // used to silently reset this screen to "0/0 correct". session.index
+    // staying >= session.queue.length already keeps this branch stable on
+    // repeated renders; session is only cleared when the user actually
+    // leaves, via the "Done" button (data-action="exit-practice").
     const results = session ? session.results : [];
     const total = results.length;
     const correct = results.filter(r => r.allCorrect).length;
-    session = null;
+    const streak = computeStreak();
     return `
       <div class="topbar"><h1>Session complete</h1></div>
-      <div class="card" style="text-align:center;padding:28px 16px;">
-        <i class="ti ti-confetti" style="font-size:36px;color:var(--gold-deep);"></i>
+      <div class="card complete-card">
+        <div class="sparks">${renderSparks(14)}</div>
+        <i class="ti ti-confetti complete-icon"></i>
         <h2 style="margin-top:10px;">${correct} / ${total} correct</h2>
-        <p style="color:var(--ink-soft);margin-top:6px;">Next review dates have been updated.</p>
-        <button class="btn primary" style="margin-top:18px;" data-action="go-home">Done</button>
+        <div class="complete-stats">
+          <div class="complete-stat" style="animation-delay:.12s;"><div class="num">${total}</div><div class="lbl">Verses reviewed</div></div>
+          <div class="complete-stat" style="animation-delay:.26s;"><div class="num">${streak}</div><div class="lbl">Day streak</div></div>
+        </div>
+        <p style="color:var(--ink-soft);margin-top:14px;">Next review dates have been updated.</p>
+        <button class="btn primary block" style="margin-top:18px;" data-action="exit-practice">Done</button>
       </div>
     `;
   }
@@ -1908,10 +2065,21 @@ function onAction(e){
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
   else if(action==='exit-practice'){ session=null; go('home'); }
   else if(action==='check-practice') checkPractice();
-  else if(action==='next-practice'){ if(session) session.index++; render(); }
+  else if(action==='next-practice'){
+    if(session){
+      session.index++;
+      if(session.index >= session.queue.length){ playSfx('complete'); hapticBuzz([20,40,20]); }
+    }
+    render();
+  }
   else if(action==='practice-interact') practiceInteract(el);
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
   else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
+  else if(action==='toggle-sound'){
+    settings.soundEnabled = settings.soundEnabled === false ? true : false;
+    saveSettings(); render();
+    if(settings.soundEnabled) playSfx('tap'); // confirm it's on; silence needs no confirmation
+  }
   else if(action==='browse-book'){ browse.book = id; browse.chapter = null; refreshBrowseResults(); }
   else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; refreshBrowseResults(); }
   else if(action==='browse-root'){ browse.book = null; browse.chapter = null; refreshBrowseResults(); }
@@ -1932,12 +2100,15 @@ function practiceInteract(el){
   // Check button). If it just flipped checked to true, do the same session
   // bookkeeping checkPractice() would have done.
   if(item.state.checked){
+    if(item.state.allCorrect){ playSfx('correct'); hapticBuzz(30); }
     session.results.push({
       verseId: item.verseId,
       allCorrect: !!item.state.allCorrect,
       score: type.score(item.state)
     });
     recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+  } else {
+    playSfx('tap'); // a non-finalizing tap — chip pick/unpick, ladder advance
   }
   render();
 }
@@ -1947,6 +2118,7 @@ function checkPractice(){
   const item = session.queue[session.index];
   if(item.state.checked) return;
   const summary = type.check(item.state);
+  if(summary.allCorrect){ playSfx('correct'); hapticBuzz(30); }
   session.results.push({
     verseId: item.verseId,
     allCorrect: summary.allCorrect,
@@ -2007,7 +2179,7 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
 
   const storedSyncMeta = await loadStored(SYNC_META_KEY);

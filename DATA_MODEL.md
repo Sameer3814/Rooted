@@ -1312,6 +1312,100 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     `practiceQueue()` and Home produce, not just what the chip shows as
     active.
 
+32. **Dynamic/tactile UX pass — "feel like Duolingo, keep warm
+    storybook."** **Done (2026-09-09).** Five pieces, all in `index.html`:
+
+    - **Tactile press feedback.** One shared rule —
+      `transition: transform .15s cubic-bezier(.34,1.56,.64,1)` +
+      `:active{transform: scale(.96)}` — across every tappable surface
+      (`.btn`, `.chip`, `.navitem`, `.card.tap`, `.list-row.tap`,
+      `.chapter-cell`, `.back-btn`), added once rather than touching each
+      component's own block. Composes cleanly with each element's
+      existing `:active` treatment (background/box-shadow/border-color
+      changes) since `transform` is an independent property. Scramble
+      chips also get a `chipIn` pop-in keyframe on every render — a
+      lighter, more robust stand-in for a true FLIP slide-between-
+      containers animation, which would need per-chip position tracking
+      across two separate drop zones; this reads as "fluid placement"
+      without that complexity.
+    - **Plant-growth mastery stages, re-labeled.** `MASTERY_LABELS`
+      (§7/§27) changed from plain text (Seedling/Rooted/Flourishing/
+      Mastered) to explicit emoji growth stages: 🌱 Seedling → 🌿
+      Sprouting → 🌳 Rooted → 👑 Flourishing. **Supersedes §27's naming**
+      — "Rooted" moved from the *learning* tier to the *review* tier, and
+      "Mastered" became "👑 Flourishing." `renderVerseCard()` also changed
+      to show the growth-stage tag on **every** verse card regardless of
+      status (previously only `mastered`/`due` got a tag at all) — colored
+      `tag--sage` only for `mastered`, `tag--tan` for the three
+      in-progress stages, deliberately not a 4th accent color; the emoji
+      + copy carry the distinction, not more palette (keeps rule 3 from
+      the visual-system pass, §29, intact: three roles, not four-plus).
+    - **Daily-goal progress ring (Home).** `renderGoalRing()` — an inline
+      SVG ring (`stroke-dasharray`/`stroke-dashoffset`, no library), shown
+      only when something's due (same conditional as the Practice CTA).
+      `todaysPracticeCount()` (new, sits by `computeStreak()`) reuses
+      `practiceCountsByDay()` — zero new storage, another view over
+      `VerseProgress.history[]`. Fill is capped at the goal even if more
+      than the goal was practiced today (no overflow past a full ring).
+    - **Session-complete celebration, and a real bug fix.** Rewrote the
+      completion screen in `renderPractice()`: a slide-up entrance, a
+      bounced-in icon, two staggered animated stat tiles (verses
+      reviewed, current day streak — the *current* streak, since this
+      session's practice may have just extended it), and a small
+      CSS-only spark burst (`renderSparks()` — randomized-trajectory
+      `<span>`s using a `rotate(var(--angle)) translateY(var(--dist))`
+      technique, not a `<canvas>` + `requestAnimationFrame` particle
+      system, which would cost real per-frame JS and battery for a
+      decorative flourish that doesn't need it). **While rewriting this,
+      found and fixed a real latent bug**: the old code did
+      `session = null` unconditionally the moment the completion branch
+      rendered — harmless on the very first render, but a background
+      `render()` (a cloud sync landing, for instance — `pushToCloud()`/
+      `pullAndMerge()` both call `render()`) arriving *before* the user
+      tapped "Done" would silently reset the tally to "0/0 correct" on
+      screen. Fix: stop nulling `session` in the render function (the
+      branch condition, `session.index >= session.queue.length`, is
+      already stable across repeated renders on its own) and only clear
+      it when the user actually leaves — the "Done" button now uses the
+      existing `exit-practice` action instead of a bare `go-home`.
+    - **Sound and haptics.** `playSfx(type)` — `'tap' | 'correct' |
+      'complete'` — synthesizes short tones via the Web Audio API
+      (`OscillatorNode` + `GainNode` envelopes), no audio files, no new
+      assets. One `AudioContext`, created lazily on first call (browsers
+      require a user gesture before audio can start; `playSfx` is always
+      called from inside a click-handler chain, so that's already
+      satisfied). `hapticBuzz(pattern)` wraps `navigator.vibrate()`. Both
+      wrapped in `try/catch` and silently no-op if unsupported (Web Audio
+      blocked, or `navigator.vibrate` absent — notably all of iOS
+      Safari) — sound and haptics are enhancement, never a dependency.
+      Wired into the real interaction points: `checkPractice()` and the
+      finalizing branch of `practiceInteract()` play `'correct'` +
+      buzz only on a correct grade (not a generic tap-then-correct
+      double-fire); a non-finalizing `practiceInteract()` (a chip
+      pick/unpick, a Verse Ladder "Hide more") plays `'tap'`; the
+      `next-practice` handler plays `'complete'` exactly when that
+      increment crosses into "session finished." Gated by one new
+      setting, `settings.soundEnabled` (default `true`, threaded through
+      all four places `settings` gets constructed — boot, cloud-sync
+      adopt, import-file adopt, the in-memory default) — a single mute
+      toggle covers both sound and haptics, on a new "Sound & haptics"
+      card on Settings (`renderSoundCard()`), since a study app needs an
+      easy off switch for quiet settings, not just an on switch.
+
+    Full test coverage (`test_dynamic_ux.js`): the shared tactile-press
+    CSS rule and reduced-motion override actually present in source; the
+    exact emoji label mapping; the ring's `stroke-dashoffset` math
+    verified against the real formula for a known count/goal, including
+    the over-100%-cap case; **the session-null bug reproduced and proven
+    fixed** — render the complete screen twice in a row and confirm the
+    tally doesn't change; sound/haptic calls verified via spy overrides
+    through the *real* `checkPractice()`/`practiceInteract()`/
+    `next-practice` dispatch (not called directly in isolation), including
+    that both degrade to a graceful no-op with no `AudioContext` or
+    `navigator.vibrate` available at all, matching what a real un-supporting
+    browser looks like. Full existing regression suite (10 files) stayed
+    green throughout.
+
 ---
 
 ## 9. How the app reads this data
