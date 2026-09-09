@@ -1600,6 +1600,58 @@ const CHALLENGE_TYPES = {
       </div>`;
     },
     score(state){ return state.allCorrect ? 1 : 0; }
+  },
+
+  challenge_verse_ladder: {
+    id: 'challenge_verse_ladder',
+    name: 'Verse ladder',
+    appliesToEntityTypes: ['verse'],
+    config: { stageRatios: [0, 0.25, 0.5, 0.75, 1] },
+    enabled: true,
+    // Self-graded, like Progressive reveal — but words disappear in
+    // graduated steps (0% / 25% / 50% / 75% / 100% hidden) instead of one
+    // reveal/hide toggle. A fixed random word order decides which words go
+    // first and stays fixed for the whole climb, so stage N's hidden set is
+    // always a superset of stage N-1's — nothing that's already hidden ever
+    // reappears. At the last rung (fully hidden, first-letters only, via
+    // the same hintWord() used by Progressive reveal) the user recalls the
+    // verse from memory and self-grades.
+    build(verse, config){
+      const words = verse.text.split(' ');
+      const order = words.map((_,i)=>i);
+      for(let i = order.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      return { words, order, stage: 0, stageRatios: config.stageRatios, checked:false, allCorrect:false };
+    },
+    render(state){
+      const {words, order, stage, stageRatios} = state;
+      const lastStage = stage >= stageRatios.length - 1;
+      const hideCount = Math.round(words.length * stageRatios[stage]);
+      const hidden = new Set(order.slice(0, hideCount));
+      const label = stage === 0 ? 'Full text' : lastStage ? 'Recall time' : `${Math.round(stageRatios[stage]*100)}% hidden`;
+      const body = words.map((w,i)=> hidden.has(i) ? hintWord(w) : esc(w)).join(' ');
+      return `<div class="field-hint" style="margin-bottom:8px;">${esc(label)}</div>${body}`;
+    },
+    interact(state, ds){
+      if(ds.advance !== undefined){
+        state.stage = Math.min(state.stage + 1, state.stageRatios.length - 1);
+      }else if(ds.selfgrade !== undefined){
+        state.checked = true;
+        state.allCorrect = ds.selfgrade === 'correct';
+      }
+    },
+    controls(state){
+      if(state.stage < state.stageRatios.length - 1){
+        return `<button class="btn primary block" data-action="practice-interact" data-advance="1"><i class="ti ti-arrow-down"></i> Hide more</button>`;
+      }
+      return `<div style="display:flex;gap:8px;">
+        <button class="btn block" style="flex:1;" data-action="practice-interact" data-selfgrade="wrong">Missed it</button>
+        <button class="btn primary block" style="flex:1;" data-action="practice-interact" data-selfgrade="correct">Got it</button>
+      </div>`;
+    },
+    score(state){ return state.allCorrect ? 1 : 0; }
   }
 };
 /* First letter of each word kept, every other letter blanked to an

@@ -339,7 +339,7 @@ outside the content overlay (nothing here is user-editable yet).
 
 ---
 
-## 3. Challenge system — *partial* (interface + 3 types)
+## 3. Challenge system — *partial* (interface + 4 types)
 
 Challenge types are **data-described and pluggable**, not a hardcoded switch
 (design philosophy #5). Implemented in `index.html` as the `CHALLENGE_TYPES`
@@ -391,12 +391,28 @@ own recall — there's no DOM input to check a string against, which is why this
 type needed `interact` + `controls` rather than the `check`-button path. This
 is the type that proved those two additions to the interface were worth having.
 
+**challenge_verse_ladder** ("Verse ladder") — **self-graded**, same family as
+Progressive reveal, built the same day as a Tier 1 engagement feature (see
+§8's checklist). Instead of one reveal/hide toggle, words disappear in
+graduated steps — `config.stageRatios: [0, 0.25, 0.5, 0.75, 1]` — climbing
+from the full text down to first-letters-only (`hintWord()`, the same
+helper `challenge_first_letters` uses). `build()` picks one random word
+order and keeps it fixed for the whole climb, so each stage's hidden set is
+always a **superset** of the one before — nothing that's already hidden
+ever reappears, which is what makes it feel like a ladder rather than a
+reshuffle. `interact()` handles two different taps: `data-advance` moves to
+the next rung without finalizing (a plain re-render, same as scramble's
+tap-to-place), `data-selfgrade` finalizes at the last rung exactly like
+Progressive reveal's Got it/Missed it. `controls()` switches between a
+single "Hide more" button and the two-button self-grade pair depending on
+which rung the state is on.
+
 Planned types (all `appliesToEntityTypes: ["verse"]` unless noted):
 `challenge_fill_blank` (built), `challenge_scramble` (built),
-`challenge_first_letters` (built), `challenge_type_it_out`,
-`challenge_reference_match`, `challenge_story_order` (`["story"]`),
-`challenge_character_match` (`["character"]`). Adding one = a new registry
-entry, nothing else.
+`challenge_first_letters` (built), `challenge_verse_ladder` (built),
+`challenge_type_it_out`, `challenge_reference_match`,
+`challenge_story_order` (`["story"]`), `challenge_character_match`
+(`["character"]`). Adding one = a new registry entry, nothing else.
 
 ---
 
@@ -1139,6 +1155,19 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     `computeStreak()` depends on it and it's the obvious data source to
     reuse if a heatmap comes back. The streak stat card and mastery labels
     from this same pass were **not** part of the complaint and stayed as-is.
+
+28. **Verse Ladder, a 4th challenge type (§3).** **Done (2026-09-09).**
+    Second Tier 1 engagement feature. Progressive word-stripping — full
+    text down to first-letters-only across 5 graduated stages, self-graded
+    at the end. No changes needed anywhere outside the `CHALLENGE_TYPES`
+    registry itself — `startPractice`/`renderPractice`/`practiceInteract`
+    stayed untouched, which is exactly the payoff the pluggable interface
+    (§8.5) was built for. Full test coverage including a real end-to-end
+    session run through the actual `startPractice()`/`practiceInteract()`
+    dispatch (not just calling the type object's methods directly), which
+    is what actually proves `interact()`'s "advance without finalizing,
+    then finalize on the last tap" two-mode behavior works through the
+    real event-handling path, not just in isolation.
 
 ---
 

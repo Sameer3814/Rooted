@@ -47,8 +47,9 @@ The schema was deliberately designed so all of the above can be added
   detail, Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories, pattern badges), Stories list,
   Story detail (related stories, pattern badges), Patterns list,
-  Pattern detail, Add Verse, Add Character, Practice (three challenge
-  types: fill-in-blank, scramble, and self-graded progressive reveal),
+  Pattern detail, Add Verse, Add Character, Practice (four challenge
+  types: fill-in-blank, scramble, self-graded progressive reveal, and
+  self-graded verse ladder),
   and **Settings** (gear icon, top-right of Home) — the account bar for
   optional cloud sync and the "Your data" export/import card live here,
   not on Home. They started on Home (2026-09-08) and were moved the same
@@ -255,10 +256,13 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types. Three built (`CHALLENGE_TYPES` in `index.html`,
-   `DATA_MODEL.md` §3): fill-in-blank, scramble, and self-graded
-   `challenge_first_letters`, with a Home picker persisted to
-   `rooted-settings`. Next: matching / ordering (`challenge_story_order`,
+1. More challenge types. Four built (`CHALLENGE_TYPES` in `index.html`,
+   `DATA_MODEL.md` §3): fill-in-blank, scramble, self-graded
+   `challenge_first_letters`, and self-graded `challenge_verse_ladder`
+   (progressive word-stripping across 5 stages, 2026-09-09 — a Tier 1
+   engagement feature), with a Home picker persisted to `rooted-settings`.
+   Next: reference↔text matching (`challenge_reference_match`, next Tier 1
+   item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
 2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
