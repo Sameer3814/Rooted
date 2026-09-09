@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rooted — Scripture Memory</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#FAF6EC">
+<meta name="theme-color" content="#F8F5EE">
 <link rel="apple-touch-icon" href="icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,23 +15,30 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
   :root{
-    --paper:#FAF6EC;
-    --paper-raised:#FFFDF7;
-    --ink:#3A2E22;
-    --ink-soft:#7A6A55;
-    --ink-faint:#B4A488;
-    --line:#E7D9BC;
-    --gold:#D9A02C;
+    /* v2 visual system (2026-09-09) — surface elevation over hard outlines,
+       one unified accent palette (gold/sage/tan), replacing the flat
+       border-heavy v1 look. See DATA_MODEL.md §29 for the full rationale. */
+    --paper:#F8F5EE;
+    --paper-raised:#FFFFFF;
+    --surface-sunken:#F1ECE1;
+    --ink:#2C221E;
+    --ink-soft:#756B63;
+    --ink-faint:#A79C8E;
+    --line:rgba(44,34,30,.08);
+    --gold:#D49E35;
     --gold-deep:#8A5F13;
     --gold-wash:#F6E7C4;
-    --sage:#6E8F4E;
-    --sage-deep:#3E5A28;
-    --sage-wash:#E4EEDA;
-    --plum:#6B3F5C;
-    --plum-deep:#432840;
-    --plum-wash:#EDE1EA;
+    --sage:#2E7D32;
+    --sage-deep:#2E7D32;
+    --sage-wash:#E8F5E9;
+    --tan-deep:#8C7357;
+    --tan-wash:#F1E9DA;
     --danger:#B3492F;
-    --radius-card:18px;
+    --shadow-card:0 4px 20px rgba(44,34,30,.05);
+    --shadow-hero:0 14px 40px rgba(44,34,30,.08);
+    --shadow-nav:0 10px 30px rgba(44,34,30,.12);
+    --shadow-pop:0 2px 8px rgba(44,34,30,.06);
+    --radius-card:20px;
     --radius-ctl:12px;
   }
   *{box-sizing:border-box;}
@@ -42,7 +49,7 @@
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
-    padding-bottom:78px;
+    padding-bottom:104px;
   }
   h1,h2,h3,.headline{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);margin:0;}
   h1{font-size:26px;}
@@ -55,32 +62,38 @@
   .topbar .brand{display:flex;align-items:center;gap:8px;}
   .topbar .brand i{font-size:22px;color:var(--gold-deep);}
   .stat-row{display:flex;gap:10px;margin-bottom:20px;}
-  .stat-card{flex:1;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-card);padding:14px;}
+  .stat-card{flex:1;background:var(--paper-raised);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:14px;}
   .stat-card .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;}
   .stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
   .section-label{font-size:13px;color:var(--ink-soft);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between;}
   .card{
     background:var(--paper-raised);
-    border:1px solid var(--line);
     border-radius:var(--radius-card);
+    box-shadow:var(--shadow-card);
     padding:16px;
     margin-bottom:12px;
   }
-  .card.tap{cursor:pointer;transition:border-color .15s ease;}
-  .card.tap:active{border-color:var(--gold);}
+  .card.tap{cursor:pointer;transition:box-shadow .15s ease;}
+  .card.tap:active{box-shadow:0 2px 10px rgba(44,34,30,.08);}
   .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
   .verse-card .text{font-family:'Fraunces',serif;font-size:17px;line-height:1.5;color:var(--ink);}
   .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-  .tag{font-size:12px;padding:3px 10px;border-radius:100px;background:var(--sage-wash);color:var(--sage-deep);}
-  .tag.plum{background:var(--plum-wash);color:var(--plum-deep);}
+  /* Unified badge system (rule 3): gold = primary action / urgency, sage =
+     progress / mastery, tan = plain metadata. Replaces the old single
+     `.tag` (sage-only) + `.tag.plum` (doing two unrelated jobs — see
+     DATA_MODEL.md §29 for why that got split rather than recolored). */
+  .tag{font-size:12px;font-weight:600;padding:4px 11px;border-radius:100px;}
+  .tag--gold{background:var(--gold-wash);color:var(--gold-deep);}
+  .tag--sage{background:var(--sage-wash);color:var(--sage);}
+  .tag--tan{background:var(--tan-wash);color:var(--tan-deep);}
   .empty{text-align:center;padding:40px 20px;color:var(--ink-soft);}
   .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
   .empty .cta{margin-top:14px;}
 
   /* buttons */
   .btn{
-    border:1px solid var(--line);
-    background:var(--paper-raised);
+    border:none;
+    background:var(--surface-sunken);
     color:var(--ink);
     border-radius:var(--radius-ctl);
     padding:11px 16px;
@@ -90,11 +103,11 @@
     align-items:center;
     gap:6px;
   }
-  .btn.primary{background:var(--gold);border-color:var(--gold);color:#3A2400;}
+  .btn.primary{background:var(--gold);color:#3A2400;box-shadow:0 6px 16px rgba(212,158,53,.32);}
   .btn.primary:active{background:var(--gold-deep);}
-  .btn.ghost{background:transparent;border-color:transparent;color:var(--ink-soft);}
+  .btn.ghost{background:transparent;color:var(--ink-soft);}
   .btn.block{width:100%;justify-content:center;padding:13px;}
-  .btn.sage{background:var(--sage);border-color:var(--sage);color:#fff;}
+  .btn.sage{background:var(--sage);color:#fff;}
   .btn:disabled{opacity:.45;}
 
   /* forms */
@@ -102,8 +115,8 @@
   label:first-child{margin-top:0;}
   input[type=text],textarea,select{
     width:100%;
-    border:1px solid var(--line);
-    background:var(--paper);
+    border:1px solid transparent;
+    background:var(--surface-sunken);
     border-radius:var(--radius-ctl);
     padding:11px 12px;
     font-size:15px;
@@ -113,31 +126,57 @@
   textarea{min-height:80px;resize:vertical;font-family:'Fraunces',serif;font-size:16px;line-height:1.5;}
   input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
 
-  /* nav */
+  /* nav — floating frosted overlay, lifted off the edge (rule 6) */
   .navbar{
-    position:fixed;bottom:0;left:0;right:0;
-    background:var(--paper-raised);
-    border-top:1px solid var(--line);
+    position:fixed;left:16px;right:16px;bottom:16px;
+    max-width:448px;margin:0 auto;
+    background:rgba(255,255,255,.88);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border-radius:22px;
+    box-shadow:var(--shadow-nav);
     display:flex;
-    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    padding:9px 6px calc(9px + env(safe-area-inset-bottom));
     z-index:10;
   }
   .navbar .navitem{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
-    background:none;border:none;color:var(--ink-faint);padding:6px 0;border-radius:10px;
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    background:none;border:none;color:var(--ink-faint);padding:5px 0;
   }
-  .navbar .navitem i{font-size:21px;}
-  .navbar .navitem span{font-size:11px;}
+  .navbar .navitem .dot{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+  .navbar .navitem i{font-size:19px;}
+  .navbar .navitem span{font-size:10.5px;font-weight:500;}
+  /* Filled chip = active, not a font-glyph swap — the pinned Tabler webfont
+     doesn't reliably ship true filled/outline pairs for every icon. */
   .navbar .navitem.active{color:var(--gold-deep);}
+  .navbar .navitem.active .dot{background:var(--gold-wash);}
 
   /* avatar */
   .avatar{
     width:46px;height:46px;border-radius:13px;
     display:flex;align-items:center;justify-content:center;
-    background:var(--plum-wash);color:var(--plum-deep);font-size:22px;flex-shrink:0;
+    background:var(--tan-wash);color:var(--tan-deep);font-size:22px;flex-shrink:0;
   }
   .char-row{display:flex;align-items:center;gap:12px;}
   .char-row .meta{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  /* list rows (rule 4) — borderless, hairline-divided, for book/people
+     browsers. Cards stay reserved for hero metrics and featured content
+     (verse cards, stat cards) per the same rule. */
+  .list-row{display:flex;align-items:center;gap:13px;padding:13px 2px;border-bottom:1px solid var(--line);}
+  .list-row:last-child{border-bottom:none;}
+  .list-row .list-avatar{width:40px;height:40px;border-radius:12px;background:var(--tan-wash);color:var(--tan-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+  .list-row .name{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;color:var(--ink);}
+  .list-row .meta{font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
+  .list-row .chev{margin-left:auto;color:var(--ink-faint);flex-shrink:0;}
+
+  /* hero header (rule 5) — character/story detail, replacing the old
+     screen-head + cramped 56px-avatar card. */
+  .hero{background:var(--paper-raised);border-radius:var(--radius-card);box-shadow:var(--shadow-hero);padding:30px 22px 24px;text-align:center;margin-bottom:22px;}
+  .hero-avatar{width:88px;height:88px;border-radius:26px;background:var(--gold-wash);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;}
+  .hero h1{font-size:28px;font-weight:700;margin-bottom:8px;}
+  .hero .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .hero .era{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:5px;justify-content:center;margin-bottom:14px;}
+  .hero p.summary{font-size:13.5px;color:var(--ink-soft);line-height:1.6;text-align:left;}
 
   /* practice */
   .practice-verse{
@@ -168,15 +207,15 @@
   /* scramble challenge */
   .chip{
     display:inline-block;font-family:'Fraunces',serif;font-size:16px;line-height:1.2;
-    padding:7px 13px;border:1px solid var(--line);border-radius:100px;
-    background:var(--paper);color:var(--ink);
+    padding:7px 13px;border:1px solid transparent;border-radius:100px;
+    background:var(--surface-sunken);color:var(--ink);
   }
   .chip.picked{background:var(--gold-wash);border-color:var(--gold);color:var(--gold-deep);}
   .chip.chip-correct{background:var(--sage-wash);border-color:var(--sage);color:var(--sage-deep);}
   .chip.chip-wrong{background:#F6E4DD;border-color:var(--danger);color:var(--danger);}
   .scramble-build{
     min-height:46px;padding:9px 10px;margin-bottom:12px;
-    border:1px dashed var(--line);border-radius:var(--radius-ctl);
+    background:var(--surface-sunken);border-radius:var(--radius-ctl);
     line-height:2.4;
   }
   .scramble-pool{line-height:2.6;}
@@ -184,7 +223,7 @@
   .scramble-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
 
   /* segmented control (practice mode picker) */
-  .segmented{display:flex;gap:4px;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-ctl);padding:4px;margin-bottom:12px;}
+  .segmented{display:flex;gap:4px;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:4px;margin-bottom:12px;}
   .segmented button{
     flex:1;border:none;background:transparent;color:var(--ink-soft);
     font-size:13px;font-weight:500;padding:8px 6px;border-radius:9px;
@@ -214,7 +253,7 @@
   .crumbs button{border:none;background:none;color:var(--gold-deep);font-size:13px;font-weight:500;padding:0;}
   .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;}
   .chapter-cell{
-    background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-ctl);
+    background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);
     padding:12px 4px;font-family:'Fraunces',serif;font-size:16px;color:var(--ink);
   }
   .chapter-cell:active{border-color:var(--gold);}
@@ -224,7 +263,7 @@
 
   /* header w/ back */
   .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
-  .back-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--paper-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .back-btn{width:36px;height:36px;border-radius:10px;border:none;background:var(--paper-raised);box-shadow:var(--shadow-pop);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .err{color:var(--danger);font-size:13px;margin-top:6px;}
   .field-hint{font-size:12px;color:var(--ink-faint);margin-top:4px;}
 </style>
@@ -233,11 +272,11 @@
 <div class="app" id="app"></div>
 
 <nav class="navbar">
-  <button class="navitem" data-nav="home"><i class="ti ti-home-2"></i><span>Home</span></button>
-  <button class="navitem" data-nav="browse"><i class="ti ti-search"></i><span>Browse</span></button>
-  <button class="navitem" data-nav="topics"><i class="ti ti-tags"></i><span>Topics</span></button>
-  <button class="navitem" data-nav="characters"><i class="ti ti-users"></i><span>People</span></button>
-  <button class="navitem" data-nav="add"><i class="ti ti-plus"></i><span>Add</span></button>
+  <button class="navitem" data-nav="home"><span class="dot"><i class="ti ti-home-2"></i></span><span>Home</span></button>
+  <button class="navitem" data-nav="browse"><span class="dot"><i class="ti ti-search"></i></span><span>Browse</span></button>
+  <button class="navitem" data-nav="topics"><span class="dot"><i class="ti ti-tags"></i></span><span>Topics</span></button>
+  <button class="navitem" data-nav="characters"><span class="dot"><i class="ti ti-users"></i></span><span>People</span></button>
+  <button class="navitem" data-nav="add"><span class="dot"><i class="ti ti-plus"></i></span><span>Add</span></button>
 </nav>
 
 <script>
@@ -999,11 +1038,10 @@ function renderBrowseResults(){
   }
 
   return corpusIndex.map(b=>`
-    <div class="card tap" data-action="browse-book" data-id="${esc(b.book)}">
-      <div class="char-row" style="justify-content:space-between;">
-        <div><h3>${esc(b.book)}</h3><div class="meta">${b.chapters.length} chapters</div></div>
-        <span class="tag">${b.count.toLocaleString()} verses</span>
-      </div>
+    <div class="list-row tap" data-action="browse-book" data-id="${esc(b.book)}">
+      <div class="list-avatar"><i class="ti ti-book"></i></div>
+      <div><div class="name">${esc(b.book)}</div><div class="meta">${b.chapters.length} chapters · ${b.count.toLocaleString()} verses</div></div>
+      <i class="ti ti-chevron-right chev"></i>
     </div>`).join('');
 }
 function renderCrumbs(){
@@ -1048,13 +1086,13 @@ function renderChallengePicker(){
   ).join('')}</div>`;
 }
 function renderVerseCard(v){
-  const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag">mastered</span>' : (isDue(v) ? '<span class="tag plum">due</span>' : '');
+  const statusTag = getProgress(v.id).status==='mastered' ? '<span class="tag tag--sage">Mastered</span>' : (isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '');
   return `
     <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
       <div class="ref">${esc(v.reference)}</div>
       <div class="text">${esc(v.text)}</div>
       <div class="tag-row">
-        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag">${esc(t.name)}</span>`:'';}).join('')}
+        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--tan">${esc(t.name)}</span>`:'';}).join('')}
         ${statusTag}
       </div>
     </div>`;
@@ -1087,7 +1125,7 @@ function renderVerseDetail(id){
     <div class="card verse-card">
       <div class="ref">${esc(v.reference)}${v.translation? ' · '+esc(v.translation):''}</div>
       <div class="text" style="font-size:20px;line-height:1.55;">${esc(v.text)}</div>
-      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
     <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}"><i class="ti ti-swords"></i> Practice this verse</button>
     <div class="section-label">Progress</div>
@@ -1112,7 +1150,7 @@ function renderTopics(){
       <div class="card tap" data-action="open-topic" data-id="${t.id}">
         <h3>${esc(t.name)}</h3>
         <p class="field-hint" style="margin-top:4px;">${esc(t.description||'')}</p>
-        <div class="tag-row"><span class="tag">${topicVerseCount(t.id)} verse${topicVerseCount(t.id)===1?'':'s'}</span></div>
+        <div class="tag-row"><span class="tag tag--tan">${topicVerseCount(t.id)} verse${topicVerseCount(t.id)===1?'':'s'}</span></div>
       </div>`).join('') : `<div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`}
   `;
 }
@@ -1130,7 +1168,7 @@ function renderTopicDetail(id){
     ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}"><i class="ti ti-swords"></i> Practice this topic</button>` : ''}
     <div class="section-label">Verses</div>
     ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
-    ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag plum tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
+    ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
   `;
 }
 
@@ -1175,11 +1213,10 @@ function renderCharacters(){
 }
 function renderCharacterRow(c, action){
   return `
-    <div class="card tap" data-action="${action || 'open-character'}" data-id="${c.id}">
-      <div class="char-row">
-        <div class="avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
-        <div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(' · '))}</div></div>
-      </div>
+    <div class="list-row tap" data-action="${action || 'open-character'}" data-id="${c.id}">
+      <div class="list-avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
+      <div><div class="name">${esc(c.name)}</div><div class="meta">${esc((c.roles||[]).join(' · '))}</div></div>
+      <i class="ti ti-chevron-right chev"></i>
     </div>`;
 }
 function renderStoryCard(s){
@@ -1200,19 +1237,13 @@ function renderCharacterDetail(id){
   const alsoWith = sharesScenesWith(id);
   const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
-      <h2>${esc(c.name)}</h2>
-    </div>
-    <div class="card">
-      <div class="char-row" style="margin-bottom:10px;">
-        <div class="avatar" style="width:56px;height:56px;font-size:26px;"><i class="ti ${charIcon(c.roles)}"></i></div>
-        <div>
-          <div class="tag-row" style="margin-top:0;">${(c.roles||[]).map(r=>`<span class="tag plum">${esc(r)}</span>`).join('')}</div>
-          ${c.eraId ? `<div class="meta" style="margin-top:6px;"><i class="ti ti-clock" style="font-size:13px;vertical-align:-1px;"></i> ${esc(eraName(c.eraId))}</div>` : ''}
-        </div>
-      </div>
-      <p>${esc(c.summary||'')}</p>
+    <button class="back-btn" data-action="back-to-characters" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <div class="hero">
+      <div class="hero-avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
+      <h1>${esc(c.name)}</h1>
+      <div class="tags">${(c.roles||[]).map(r=>`<span class="tag tag--tan">${esc(r)}</span>`).join('')}</div>
+      ${c.eraId ? `<div class="era"><i class="ti ti-clock" style="font-size:13px;"></i> ${esc(eraName(c.eraId))}</div>` : ''}
+      <p class="summary">${esc(c.summary||'')}</p>
     </div>
 
     ${timeline.length ? `
@@ -1254,15 +1285,13 @@ function renderStoryDetail(id){
   const moments = lore.lifeEvents.filter(e=>e.storyId===id);
   const related = relatedStories(id);
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>Story</h2>
-    </div>
-    <div class="card">
-      <div class="ref">${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
-      <h2 style="margin:6px 0 8px;">${esc(s.title)}</h2>
-      <p style="color:var(--ink-soft);">${esc(s.summary)}</p>
-      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+    <button class="back-btn" data-action="story-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <div class="hero">
+      <div class="hero-avatar"><i class="ti ti-book-2"></i></div>
+      <h1 style="font-size:24px;">${esc(s.title)}</h1>
+      ${topics.length ? `<div class="tags">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+      <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
+      <p class="summary">${esc(s.summary)}</p>
     </div>
     ${chars.length ? `<div class="section-label">Who's in it</div>${chars.map(o=>renderCharacterRow(o)).join('')}` : ''}
     ${moments.length ? `<div class="section-label">Moments</div>
@@ -1280,7 +1309,7 @@ function renderStoryDetail(id){
     ${renderMotifBadges(motifsFor('story', id))}
     ${related.length ? `<div class="section-label">Related stories</div>${related.map(r=>`
       <div class="card tap" data-action="open-story" data-id="${r.story.id}">
-        <div class="tag plum" style="margin-bottom:6px;display:inline-block;">${esc(r.type)}</div>
+        <div class="tag tag--tan" style="margin-bottom:6px;display:inline-block;">${esc(r.type)}</div>
         <h3>${esc(r.story.title)}</h3>
         <div class="ref" style="margin-top:3px;">${esc(r.story.primaryReference)}</div>
       </div>`).join('')}` : ''}
@@ -1311,7 +1340,7 @@ function renderMotifBadges(list){
   if(!list.length) return '';
   return `<div class="section-label">Pattern</div>
     <div class="tag-row" style="margin-bottom:12px;">
-      ${list.map(m=>`<span class="tag plum tap" data-action="open-motif" data-id="${m.id}" style="cursor:pointer;"><i class="ti ti-sparkles" style="font-size:12px;vertical-align:-1px;"></i> ${esc(m.name)}</span>`).join('')}
+      ${list.map(m=>`<span class="tag tag--gold tap" data-action="open-motif" data-id="${m.id}" style="cursor:pointer;"><i class="ti ti-sparkles" style="font-size:12px;vertical-align:-1px;"></i> ${esc(m.name)}</span>`).join('')}
     </div>`;
 }
 function renderMotifCard(m){
@@ -1320,7 +1349,7 @@ function renderMotifCard(m){
     <div class="card tap" data-action="open-motif" data-id="${m.id}">
       <h3>${esc(m.name)}</h3>
       <p class="field-hint" style="margin-top:6px;line-height:1.5;">${esc(m.description)}</p>
-      <div class="tag-row"><span class="tag">${count} instance${count===1?'':'s'}</span></div>
+      <div class="tag-row"><span class="tag tag--tan">${count} instance${count===1?'':'s'}</span></div>
     </div>`;
 }
 function renderMotifs(){

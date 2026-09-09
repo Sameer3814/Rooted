@@ -241,12 +241,26 @@ the "what."
 
 ## Visual direction — decided, don't relitigate without asking
 
-Style: **warm storybook.** Rounded cards, warm gold/sage/plum accent
+Style: **warm storybook.** Rounded cards, warm gold/sage/tan accent
 palette on a cream background, Fraunces (serif) for verse text and
 headings, Inter (sans) for UI text, Tabler icon font for
 placeholder "portraits" until real character illustrations exist.
 Two other directions (minimal/modern, rich/classical) were shown and
 explicitly rejected in favor of this one.
+
+**Visual system v2 — done (2026-09-09).** The direction above is
+unchanged; this was an execution pass, not a redirection, in response to
+"doesn't look like a polished app in the market... looks basic." Surface
+elevation replaced hard 1px borders (soft `box-shadow`, pure-white card
+fills on a warm stone `#F8F5EE` ground), the accent palette collapsed
+from four colors to three clear roles (gold = action/urgency, sage =
+progress/mastery, tan = plain metadata — **plum is retired**, not
+recolored), book/people lists became borderless hairline-divided rows
+instead of full cards, character and story detail pages open on a real
+hero header instead of a cramped 56px icon box, and the bottom nav now
+floats as a frosted, rounded overlay instead of a flush bottom bar. Full
+rationale, every token's new value, and which call sites changed: see
+DATA_MODEL.md §29.
 
 ## Known gaps / not-yet-built (in likely priority order)
 

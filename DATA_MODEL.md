@@ -1169,6 +1169,85 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     then finalize on the last tap" two-mode behavior works through the
     real event-handling path, not just in isolation.
 
+29. **Visual system v2 — surfaces over outlines, one accent system.**
+    **Done (2026-09-09).** Direct response to owner feedback that the app
+    "doesn't look like a polished app in the market... looks basic" and
+    should read as premium — the same **warm-storybook direction**
+    (unchanged, still the decision on record; see "Visual direction"
+    below), executed with real elevation and hierarchy instead of flat
+    fills and 1px borders everywhere. The owner supplied a precise brief
+    (six numbered rules, exact hex values) after reviewing a design-system
+    artifact showing the direction across four real screens before
+    anything touched the live app. Six changes, all in `index.html`:
+
+    - **Surfaces, not outlines.** `--paper` → `#F8F5EE` (warm stone), card
+      surfaces (`--paper-raised`) → pure `#FFFFFF`, every `border:1px
+      solid var(--line)` on a content surface (`.card`, `.stat-card`,
+      `.navbar`, buttons, inputs, `.segmented`, `.chapter-cell`, chips,
+      `.back-btn`) replaced by `box-shadow:var(--shadow-card)` (`0 4px
+      20px rgba(44,34,30,.05)`) or, for small controls, dropped to a
+      filled `--surface-sunken` background instead. `--line` itself is
+      redefined from a solid hex to `rgba(44,34,30,.08)` — an actual
+      hairline, used only for dividers now (§4 below), never a card edge.
+      Where a border carried real *state* meaning rather than decoration
+      — scramble chip correct/wrong/picked, chapter-cell `:active` — the
+      border stayed, just moved to `border:1px solid transparent` as its
+      neutral resting state so the colored state override still has
+      something to color.
+    - **Legible ink.** `--ink` → `#2C221E` (was `#3A2E22`), `--ink-soft` →
+      `#756B63` (was `#7A6A55`), `--ink-faint` → `#A79C8E`.
+    - **One accent system, three roles.** Gold (`--gold #D49E35`) for
+      primary actions and urgency ("Due today"); sage (`--sage #2E7D32`
+      on `--sage-wash #E8F5E9`) for progress/mastery ("Mastered"); a new
+      neutral, tan (`--tan-deep #8C7357` on `--tan-wash #F1E9DA`), for
+      plain metadata (topic tags, character roles, relationship-type
+      labels) and avatar-placeholder fills. `--plum`/`--plum-deep`/
+      `--plum-wash` are **removed entirely**, not recolored in place —
+      `.tag.plum` had been doing two unrelated jobs (a verse's "due"
+      status *and* a character's role pills), which is exactly the kind
+      of accidental reuse "mismatched" badge colors usually comes from.
+      Split into real modifier classes — `.tag--gold`, `.tag--sage`,
+      `.tag--tan` — one semantic role each, fixed at both call sites
+      (`renderVerseCard`'s status tag, `renderCharacterDetail`'s roles).
+      Motif "Pattern" badges (`renderMotifBadges`) went to `tag--gold` —
+      a discovery worth noticing, not neutral metadata.
+    - **Rows over cards.** New `.list-row` pattern — borderless,
+      `border-bottom:1px solid var(--line)` between rows, no fill of its
+      own. Replaces `.card` in `renderCharacterRow()` (used by the People
+      list, "Family," and "Appears alongside") and the Browse book list
+      in `renderBrowseResults()`. Verse cards and stat cards **stay**
+      cards — they're the hero/featured content this rule explicitly
+      carves out, not plain rows.
+    - **Hero headers.** New `.hero` pattern — big centered avatar (88px,
+      up from a cramped 56px box), name as a real `<h1>`, tags, meta line,
+      left-aligned summary below — replacing the old `.screen-head` +
+      modest `.card` combo on **both** `renderCharacterDetail()` and
+      `renderStoryDetail()` (story's hero uses a book icon in place of an
+      avatar, and its title in the `<h1>` slot instead of a name).
+    - **Floating frosted nav.** `.navbar` lifted off the screen edge
+      (`left/right:16px; bottom:16px`), rounded (`border-radius:22px`),
+      `backdrop-filter:blur(12px)` over `rgba(255,255,255,.88)`,
+      `box-shadow:var(--shadow-nav)`. Active/inactive is a filled gold
+      chip (new `.dot` wrapper span around each icon) rather than a
+      filled/outline glyph swap — the pinned Tabler webfont version
+      doesn't reliably ship true filled/outline pairs for every icon, so
+      building the distinction into markup+CSS is more robust than
+      depending on font variants that may not exist. `body`'s
+      `padding-bottom` bumped 78px → 104px to clear the now-floating bar.
+
+    Deliberately **not** touched: the Fraunces/Inter pairing (the brief
+    was about surfaces/color/hierarchy, not typefaces), `--danger` (no
+    complaint about it, already warm-toned), `.blank`/`.progress-track`/
+    `.timeline::before`'s use of `--line` as a functional fill/connector
+    color rather than a border (still correct at the new lighter value).
+
+    Full regression suite (all prior feature passes) stayed green
+    throughout — this was a pure presentation-layer pass, verified by a
+    new dedicated test asserting the new patterns actually render
+    (`.list-row` not `.card` in the right places, `.hero` present on both
+    detail pages, zero remaining functional references to `plum`) rather
+    than just trusting the diff.
+
 ---
 
 ## 9. How the app reads this data
