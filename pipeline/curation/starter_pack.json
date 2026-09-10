@@ -10169,6 +10169,300 @@
       "characterIds": [
         "char_paul"
       ]
+    },
+    {
+      "id": "verse_hebrews_4_12",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_4_15",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_4_16",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_11_1",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_11_6",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_12_1",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_12_2",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_13_5",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hebrews_13_8",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_2",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_3",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_5",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_12",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_17",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_19",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_1_22",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_2_17",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_4_7",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_4_8",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_james_5_16",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_1_3",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_2_9",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_2_24",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_3_15",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_4_8",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_5_7",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1peter_5_8",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2peter_1_3",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2peter_1_21",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2peter_3_9",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2peter_3_18",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_1_9",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_3_1",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_4_7",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_4_8",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_4_18",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_4_19",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1john_5_14",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2john_1_5",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_3john_1_11",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jude_1_24",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jude_1_25",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
