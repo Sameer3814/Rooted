@@ -4944,6 +4944,49 @@
         "topic_deliverance",
         "topic_thanksgiving"
       ]
+    },
+    {
+      "id": "story_stephen_martyred",
+      "title": "Stephen's martyrdom",
+      "summary": "Stephen, one of seven men chosen to help the growing church, performs signs and argues with such wisdom that his opponents can't out-debate him -- so they get him falsely accused of blasphemy and dragged before the council. As he finishes a long defense retracing Israel's history, his accusers are enraged; Stephen, full of the Holy Spirit, looks up and sees Jesus standing at God's right hand. They drag him out of the city and stone him while a young man named Saul watches, holding the coats of the witnesses. Stephen dies praying, like Jesus before him, for his killers' forgiveness.",
+      "primaryReference": "Acts 6:8-8:1",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2830,
+      "verseIds": [
+        "verse_acts_7_56",
+        "verse_acts_7_58",
+        "verse_acts_7_59",
+        "verse_acts_7_60"
+      ],
+      "characterIds": [
+        "char_stephen",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_pauls_conversion",
+      "title": "Saul's conversion on the road to Damascus",
+      "summary": "Still breathing threats against the church, Saul is on his way to Damascus with authority to arrest believers when a blinding light stops him and a voice asks, \"Saul, Saul, why do you persecute me?\" It's Jesus himself. Blind for three days, Saul is found by a reluctant disciple named Ananias, who's told in a vision that this feared persecutor is God's chosen instrument to carry his name to the nations. Ananias lays hands on him; something like scales fall from Saul's eyes, and he's baptized, immediately beginning to preach the very faith he came to destroy.",
+      "primaryReference": "Acts 9:1-22",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2840,
+      "verseIds": [
+        "verse_acts_9_4",
+        "verse_acts_9_15",
+        "verse_acts_9_18",
+        "verse_acts_9_20"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_calling"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10367,6 +10410,33 @@
       "reference": "Acts 3:1-10",
       "storyId": "story_peter_heals_lame_man",
       "sequenceInLife": 50
+    },
+    {
+      "id": "event_stephen_martyred",
+      "characterId": "char_stephen",
+      "title": "Is stoned to death, forgiving his killers",
+      "description": "Sees a vision of Jesus and dies praying for his executioners.",
+      "reference": "Acts 6:8-8:1",
+      "storyId": "story_stephen_martyred",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_paul_watches_stephen_die",
+      "characterId": "char_paul",
+      "title": "Watches Stephen's stoning as a young persecutor",
+      "description": "Holds the coats of the witnesses while approving of Stephen's death.",
+      "reference": "Acts 6:8-8:1",
+      "storyId": "story_stephen_martyred",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_paul_converted",
+      "characterId": "char_paul",
+      "title": "Is converted on the road to Damascus",
+      "description": "Is blinded by a vision of the risen Jesus and begins preaching the faith he once persecuted.",
+      "reference": "Acts 9:1-22",
+      "storyId": "story_pauls_conversion",
+      "sequenceInLife": 20
     }
   ]
 }

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (155 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, all four Gospels complete, Acts underway: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection, 2 for the start of Acts — Matthew, Matthias)
+### Character — *live* (157 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, all four Gospels complete, Acts underway: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection, 2 for the start of Acts, 2 for Stephen and Paul)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,120 verses + 38 topics + 155 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,128 verses + 38 topics + 157 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 226 stories, 512 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 228 stories, 515 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,120-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,128-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2062,6 +2062,33 @@ inventing a new principle:
     2 new characters: Matthew (the tax collector, one of the twelve,
     traditionally the Gospel's author); Matthias (chosen to replace
     Judas). 16 curated verses, no new topics.
+
+52. **Stephen's martyrdom and Saul's conversion.** **Done
+    (2026-09-10).** 2 stories in `era_early_church`. **Stephen's
+    martyrdom** (Acts 6:8-8:1) — the first Christian death, dying with
+    words that echo Jesus's own on the cross ("Lord, don't hold this
+    sin against them," compare Luke 23:34, item 49). **Saul's
+    conversion** (Acts 9:1-22) — the Damascus road, Ananias's
+    reluctant obedience, the scales falling from Saul's eyes.
+
+    A naming decision worth stating plainly, since it governs every
+    future Acts/epistle Connection and verse tag: **the id and
+    canonical `name` are `char_paul`, "Paul," even in these early
+    scenes where the text calls him "Saul."** Same precedent as
+    `char_peter` (kept as "Peter" even for events before his renaming
+    from Simon) and `char_jacob` (kept as "Jacob" despite becoming
+    "Israel") — one Character record per person for their whole life,
+    using whichever name is dominant across their total appearances,
+    not whichever name the text happens to use in a given scene. Paul
+    goes by "Paul" for the overwhelming majority of the NT (13
+    epistles carry his name), so that's the id chosen now, before any
+    of those epistles are curated — deciding it this early avoids ever
+    having to rename it later once dozens of Connections and
+    curated-verse `characterIds` already reference it.
+
+    2 new characters: Stephen; Paul (first Character record — he was
+    only referenced by name inside Stephen's own story text before
+    this). 8 curated verses, no new topics.
 
 ---
 
