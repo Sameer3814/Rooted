@@ -126,26 +126,30 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **709 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  first run: **781 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
   Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, and Esther, WEB
-  translation) across **35 topics** (topics linked to related topics),
-  plus **105 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus,
-  4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings,
-  12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther) with real
-  relationships (father of, wife of, brother of, successor of, servant
-  of, worked alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 105 characters, standalone. Generated
+  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job,
+  Proverbs, Ecclesiastes, and Song of Solomon, WEB translation) across
+  **38 topics** (topics linked to related topics), plus **107
+  characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
+  2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings,
+  9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job) with real relationships
+  (father of, wife of, brother of, successor of, servant of, worked
+  alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 107 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel,
-  2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah,
-  and Esther (15,331 verses, WEB translation, public domain). Lazily
-  fetched by the Browse screen the first time it's opened, never at boot.
-  It is *reference material*, kept separate from the user's library —
-  adding a verse from Browse copies it into the user's overlay. Only the
-  709 seed verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 11 eras, **154 stories and 366 life events**.
+  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges,
+  1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra,
+  Nehemiah, Esther, Job, Proverbs, Ecclesiastes, and Song of Solomon
+  (17,655 verses, WEB translation, public domain) — every OT book
+  curated so far, matching `DEFAULT_BOOKS` in `parse_books.py`. Lazily
+  fetched by the Browse screen the first time it's opened, never at
+  boot. It is *reference material*, kept separate from the user's
+  library — adding a verse from Browse copies it into the user's
+  overlay. Only the 781 seed verses are topic-tagged; the rest of the
+  corpus isn't yet.
+- `data/stories.json` — 12 eras, **158 stories and 372 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -159,11 +163,14 @@ The schema was deliberately designed so all of the above can be added
   Zerubbabel and Jeshua rebuild the altar and temple against local
   opposition, Ezra brings the law back to the center of the people's
   life, and Nehemiah rebuilds Jerusalem's walls and enforces reform —
-  and now `era_esther` — the Jews who stayed in Persia, where Esther
-  becomes queen and, with Mordecai, overturns Haman's plot to destroy
-  them, establishing Purim. Loaded at boot (it's small). Drives the
-  character life timeline, the Stories screens, People-grouped-by-era,
-  and "appears alongside".
+  `era_esther` — the Jews who stayed in Persia, where Esther becomes
+  queen and, with Mordecai, overturns Haman's plot to destroy them,
+  establishing Purim — and now `era_job` — outside Israel's own history
+  entirely, a blameless man in the land of Uz loses everything, argues
+  honestly with God and three friends who insist his suffering must be
+  deserved, and is answered out of a whirlwind. Loaded at boot (it's
+  small). Drives the character life timeline, the Stories screens,
+  People-grouped-by-era, and "appears alongside".
 - `data/motifs.json` — **17** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
   occurrences. Newest: `motif_hidden_identity_saves_the_people` (Joseph
@@ -182,7 +189,8 @@ The schema was deliberately designed so all of the above can be added
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
     whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
     Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther.
+    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job,
+    Proverbs, Ecclesiastes, Song of Solomon.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -331,10 +339,15 @@ hand-curate all the content before building.
    distinct group (the Jews who stayed in Persia rather than returning),
    placed after Ezra/Nehemiah in era order to match Bible book order
    even though its events happen decades earlier historically (see
-   DATA_MODEL.md §8.26). This closes out the Old Testament historical
-   narrative books; **the poetic/wisdom books (Job, Proverbs,
-   Ecclesiastes, Song of Songs) and the Prophets remain** if continuing
-   canonically.
+   DATA_MODEL.md §8.26), which closed out the Old Testament's historical
+   narrative books. Now underway (2026-09-10, owner's direction: finish
+   the rest of the Old Testament in one continuous pass): the
+   poetic/wisdom books — **Job done** (own new era, `era_job`, since it's
+   undated and outside Israel's own history — see DATA_MODEL.md §8.27),
+   Proverbs/Ecclesiastes/Song of Solomon done as a lighter
+   verses-and-topics pass (no narrative to build stories from). **The
+   Prophets remain**: Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel,
+   then the Twelve (Hosea through Malachi).
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -608,7 +621,29 @@ of `"raised"` outside Eli/Samuel and Jehoiada/Joash (Mordecai/Esther). A
 new motif, `motif_hidden_identity_saves_the_people`, connects Joseph
 revealing himself to his brothers to Esther revealing she is a Jew to
 save her people — the same shape of a Hebrew concealed in a foreign
-court, revealed at exactly the moment it can save their people.
+court, revealed at exactly the moment it can save their people. Then
+the Wisdom books, done as one pass. Job got its own new era, `era_job`
+— undated and set outside Israel's own history (the land of Uz), so it
+doesn't belong in any existing era. 4 stories following the book's real
+narrative frame: Job tested (loses his children, wealth, and health in
+a single day at Satan's challenge, refuses to curse God); Job's
+complaint and his friends' answers (Eliphaz leads the argument that his
+suffering must be deserved; Job protests his innocence across many
+chapters, at one point declaring "I know that my Redeemer lives"); God
+answers out of the whirlwind (no explanation for the suffering, just an
+overwhelming display of creation Job can't explain or control — he
+repents not because he understands but because he has now seen God);
+and Job restored (double what he had before, ten more children, a long
+life). 2 new characters (Job, Eliphaz). Proverbs, Ecclesiastes, and
+Song of Solomon got the lighter verses-and-topics treatment established
+with Leviticus — no narrative to build stories from. 3 new topics:
+`topic_anger` (explicitly named in this file's own "vision" section as
+an example practice topic, and heavily represented in Proverbs —
+"a gentle answer turns away wrath"), `topic_friendship` ("a friend
+loves at all times," "iron sharpens iron"), and `topic_speech` ("death
+and life are in the power of the tongue"). 72 new curated verses total
+across the four books (14 Job, 37 Proverbs, 14 Ecclesiastes, 7 Song of
+Solomon).
 
 ## Source data provenance
 

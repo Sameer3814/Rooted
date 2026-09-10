@@ -5822,6 +5822,540 @@
       "characterIds": [
         "char_mordecai"
       ]
+    },
+    {
+      "id": "verse_job_1_21",
+      "topicIds": [
+        "topic_trust",
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_2_10",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_13_15",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_16_2",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_19_25",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_23_10",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_28_28",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_job_38_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_job_38_7",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_job_40_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_42_2",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_42_5",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_42_6",
+      "topicIds": [
+        "topic_repentance",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_job"
+      ]
+    },
+    {
+      "id": "verse_job_42_10",
+      "topicIds": [
+        "topic_blessing",
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_job",
+        "char_eliphaz"
+      ]
+    },
+    {
+      "id": "verse_proverbs_1_7",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_3_5",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_3_6",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_3_9",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_4_23",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_6_6",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_10_4",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_10_12",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_10_19",
+      "topicIds": [
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_11_25",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_12_15",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_12_22",
+      "topicIds": [
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_13_20",
+      "topicIds": [
+        "topic_friendship",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_14_29",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_15_1",
+      "topicIds": [
+        "topic_anger",
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_16_3",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_16_9",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_16_18",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_16_24",
+      "topicIds": [
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_16_32",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_17_17",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_17_22",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_18_10",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_18_21",
+      "topicIds": [
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_18_24",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_19_11",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_19_17",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_21_1",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_22_6",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_24_16",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_25_11",
+      "topicIds": [
+        "topic_speech"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_27_6",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_27_17",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_28_13",
+      "topicIds": [
+        "topic_repentance",
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_29_11",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_29_25",
+      "topicIds": [
+        "topic_trust",
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_31_30",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_1_2",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_1_9",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_2_24",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_3_1",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_3_4",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_3_11",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_4_9",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_4_12",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_5_10",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_7_8",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_9_10",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_12_1",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_12_13",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ecclesiastes_12_14",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_2_10",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_2_11",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_2_12",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_2_16",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_6_3",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_8_6",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_songofsolomon_8_7",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -6181,6 +6715,36 @@
         "topic_guidance",
         "topic_prayer",
         "topic_worship"
+      ]
+    },
+    {
+      "id": "topic_anger",
+      "name": "Anger",
+      "description": "Verses on quick tempers, slow-to-anger patience, and what to do with wrath before it does damage.",
+      "relatedTopicIds": [
+        "topic_humility",
+        "topic_peace",
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "topic_friendship",
+      "name": "Friendship",
+      "description": "Verses on the people who stay close, tell the truth, and sharpen you.",
+      "relatedTopicIds": [
+        "topic_loyalty",
+        "topic_love",
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "topic_speech",
+      "name": "Speech",
+      "description": "Verses on the weight of words -- the damage they can do, and the healing they can bring.",
+      "relatedTopicIds": [
+        "topic_wisdom",
+        "topic_anger",
+        "topic_love"
       ]
     }
   ],
@@ -7342,6 +7906,26 @@
       ],
       "eraId": "era_esther",
       "summary": "Queen of Persia, deposed by King Ahasuerus after she refused to be displayed before his feast — a vacancy that opened the way for Esther to become queen in her place.",
+      "verseIds": []
+    },
+    {
+      "id": "char_job",
+      "name": "Job",
+      "roles": [
+        "the blameless man whose faith survived total loss"
+      ],
+      "eraId": "era_job",
+      "summary": "A blameless and upright man from the land of Uz, the greatest of all the people of the east in wealth and family, tested by catastrophic loss at Satan's challenge and Yahweh's permission. He refused to curse God through the loss of his children, his wealth, and his health, wrestled honestly with God through chapters of grief and his friends' bad theology, and was restored with double what he had before after Yahweh answered him out of the whirlwind.",
+      "verseIds": []
+    },
+    {
+      "id": "char_eliphaz",
+      "name": "Eliphaz",
+      "roles": [
+        "the friend whose theology Yahweh rebuked by name"
+      ],
+      "eraId": "era_job",
+      "summary": "The Temanite, first and most prominent of Job's three friends, who insisted Job's suffering must be deserved. Yahweh rebuked him and his companions by name for not speaking rightly about him, and accepted Job's prayer on their behalf only after they offered sacrifices.",
       "verseIds": []
     }
   ]

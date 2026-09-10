@@ -239,6 +239,25 @@ Worth knowing:
   follow canonical Bible book order for anything past Ruth, not
   re-sequence by history. `order` is a display/grouping field, not a
   historical timeline — don't try to make it one.
+- **Not every book needs a new era, and not every book needs an era at
+  all.** Job got a new one (`era_job`) because it's genuinely undated
+  and outside Israel's own history — no existing era honestly fits.
+  Proverbs, Ecclesiastes, and Song of Solomon needed **no** era at all —
+  they have no narrative, so no Stories, so nothing that requires
+  `eraId`; they're just curated verses. Don't manufacture a Story or an
+  Era for a book just to give it "the full treatment" — match the
+  treatment to what the book actually is (Leviticus set this precedent
+  first; the wisdom books confirm it generalizes).
+- **`DEFAULT_BOOKS` and `data/verses.json` should track what's actually
+  curated, not what's merely been read.** While curating the wisdom
+  books, all 21 remaining OT books' raw text got parsed at once (adding
+  every slug to `DEFAULT_BOOKS` in one edit) purely to make reading
+  ahead easier. That was reverted before committing — `DEFAULT_BOOKS`
+  was scoped back down to only the books actually curated at that
+  commit, and `data/verses.json` regenerated to match. Reading ahead for
+  your own research is fine; shipping a corpus that's ahead of the
+  curation it claims to represent isn't — CLAUDE.md's own description of
+  `data/verses.json` says it tracks `DEFAULT_BOOKS` exactly.
 
 ## Copyright
 

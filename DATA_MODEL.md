@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (105 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther)
+### Character — *live* (107 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 709 verses + 35 topics + 105 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 781 verses + 38 topics + 107 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (15,331 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (17,655 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 11 eras, 154 stories, 366 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 158 stories, 372 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 126 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 709-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 781-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1505,6 +1505,61 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     the poetic/wisdom books (Job, Psalms — already partly seeded,
     Proverbs, Ecclesiastes, Song of Songs) and the Prophets are what's
     left.
+
+35. **Job, Proverbs, Ecclesiastes, Song of Solomon.** **Done
+    (2026-09-10).** The owner asked to finish the rest of the Old
+    Testament in one continuous pass; this is the first installment —
+    the poetic/wisdom books.
+
+    **Job** got the full playbook, including a new era — `era_job`,
+    order 12. Deliberately not folded into any existing era: Job is set
+    in "the land of Uz," never explicitly tied to Israel's own history,
+    and its date is traditionally reckoned as very old, possibly
+    pre-dating the patriarchs — there is no existing era it honestly
+    belongs to. 4 stories track the book's real narrative frame (it
+    isn't *only* poetry): **Job tested** — Satan argues Job's faith is
+    only rewarded loyalty, and is allowed to take his children, wealth,
+    and health in short order; Job refuses to curse God ("Yahweh gave,
+    and Yahweh has taken away"). **Job's complaint and his friends'
+    answers** (Job 3-37, one story spanning the whole poetic dialogue —
+    splitting it further would fragment a single sustained argument) —
+    Eliphaz leads the friends' case that suffering must be deserved;
+    Job insists on his innocence while still crying out to God, and in
+    the middle of despair declares "I know that my Redeemer lives."
+    **Yahweh answers out of the whirlwind** — not with an explanation,
+    but with a tour of creation's wonders Job cannot explain or
+    control; Job repents not because his questions were answered but
+    because he has now seen God himself ("I had heard of you by the
+    hearing of the ear, but now my eye sees you"). **Job restored** —
+    Yahweh rebukes Eliphaz and his companions by name, accepts Job's
+    prayer for them, and gives Job double what he had before. 2 new
+    characters: Job, and Eliphaz (the only one of the three friends
+    given an individual Character record — he's the one Yahweh
+    addresses by name in the rebuke, giving him real distinguishing
+    significance the other two only share by association; Bildad and
+    Zophar are named in the story text but don't get their own
+    records). 14 curated verses.
+
+    **Proverbs, Ecclesiastes, and Song of Solomon** got the lighter
+    verses-and-topics treatment established with Leviticus — none of
+    the three has a narrative to build Stories from. Proverbs alone
+    contributed 37 curated verses (denser per chapter than almost
+    anything curated so far — nearly every verse is independently
+    quotable), Ecclesiastes 14, Song of Solomon 7 (chosen for taste as
+    much as theme — the book's more explicit physical-description verses
+    were skipped in favor of its more universally-resonant lines on
+    love itself: "many waters can't quench love," "set me as a seal on
+    your heart"). 3 new topics, all genuinely needed rather than
+    force-fit: `topic_anger` (CLAUDE.md's own "vision" section names
+    anger as an example practice topic, and Proverbs is saturated with
+    it — "a gentle answer turns away wrath," "he who is slow to anger
+    has great understanding"), `topic_friendship` ("a friend loves at
+    all times," "iron sharpens iron," Ecclesiastes' "two are better
+    than one"), and `topic_speech` ("death and life are in the power of
+    the tongue," "a word fitly spoken is like apples of gold").
+
+    Next: the Prophets — Isaiah, Jeremiah, Lamentations, Ezekiel,
+    Daniel, then the Twelve (Hosea through Malachi).
 
 ---
 

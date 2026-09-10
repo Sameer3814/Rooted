@@ -77,6 +77,13 @@
       "summary": "Not every exile returned. In the Persian capital of Susa, decades after the first return to Jerusalem, a Jewish orphan named Esther becomes queen, and when a powerful official plots to annihilate her people empire-wide, her hidden identity and a cousin's courage become Israel's only defense — with God's name never once mentioned, but his hand unmistakable throughout.",
       "order": 11,
       "approxRange": "The Jews who remained in the Persian empire, under King Ahasuerus"
+    },
+    {
+      "id": "era_job",
+      "name": "Job's Testing",
+      "summary": "Outside Israel's own history entirely — a blameless man in the land of Uz loses everything in a single day, then spends the rest of the book arguing honestly with God and three friends who insist his suffering must be deserved, until Yahweh himself answers him out of a whirlwind.",
+      "order": 12,
+      "approxRange": "Undated, traditionally reckoned among the oldest stories in the Bible"
     }
   ],
   "stories": [
@@ -3348,6 +3355,91 @@
       "topicIds": [
         "topic_thanksgiving",
         "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_job_tested",
+      "title": "Job tested",
+      "summary": "Job, the greatest man of the east in wealth and family, is described to Satan by Yahweh as blameless and upright. Satan argues Job's faith is only rewarded loyalty, and is given permission to take everything: his oxen, sheep, camels, servants, and all ten of his children in a single day, then his own health, leaving him covered in sores and sitting in ashes. Job tears his robe and shaves his head, but refuses to curse God — \"Yahweh gave, and Yahweh has taken away. Blessed be Yahweh's name.\" His wife urges him to curse God and die; he refuses. Three friends arrive and sit with him in silence for seven days, too stunned by his suffering to speak.",
+      "primaryReference": "Job 1:1-2:13",
+      "eraId": "era_job",
+      "canonicalOrder": 2000,
+      "verseIds": [
+        "verse_job_1_21",
+        "verse_job_2_10"
+      ],
+      "characterIds": [
+        "char_job"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_jobs_complaint_and_friends",
+      "title": "Job's complaint and his friends' answers",
+      "summary": "Across many rounds of debate, Job's three friends insist his suffering must be punishment for some hidden sin — Eliphaz leads the argument. Job refuses to accept their explanation, protesting his innocence and demanding an answer from God directly, even while sinking into despair. In the middle of his darkest arguments he still declares, \"I know that my Redeemer lives\" — a flash of hope he can't yet explain or hold onto consistently.",
+      "primaryReference": "Job 3:1-37:24",
+      "eraId": "era_job",
+      "canonicalOrder": 2010,
+      "verseIds": [
+        "verse_job_13_15",
+        "verse_job_16_2",
+        "verse_job_19_25",
+        "verse_job_23_10",
+        "verse_job_28_28"
+      ],
+      "characterIds": [
+        "char_job",
+        "char_eliphaz"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_trust",
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "story_god_answers_job",
+      "title": "Yahweh answers out of the whirlwind",
+      "summary": "Yahweh finally answers Job — not with an explanation for his suffering, but with a sweeping tour of creation's wonders Job cannot explain or control: the foundations of the earth, the morning stars singing at creation, the wild animals no human can tame. Job doesn't get his questions answered. He repents anyway — not because he now understands, but because he has now seen God himself: \"I had heard of you by the hearing of the ear, but now my eye sees you.\"",
+      "primaryReference": "Job 38:1-42:6",
+      "eraId": "era_job",
+      "canonicalOrder": 2020,
+      "verseIds": [
+        "verse_job_38_4",
+        "verse_job_38_7",
+        "verse_job_40_4",
+        "verse_job_42_2",
+        "verse_job_42_5",
+        "verse_job_42_6"
+      ],
+      "characterIds": [
+        "char_job"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "story_jobs_restoration",
+      "title": "Job restored",
+      "summary": "Yahweh rebukes Eliphaz and his two companions for not speaking rightly about him, as Job had, and tells them to offer sacrifices while Job prays for them — which Yahweh accepts. Then Yahweh restores Job's fortunes, giving him double what he had before: more sheep, camels, oxen, and donkeys than at the start, seven more sons and three more daughters as beautiful as any in the land, and a long life to see four generations of his family.",
+      "primaryReference": "Job 42:7-17",
+      "eraId": "era_job",
+      "canonicalOrder": 2030,
+      "verseIds": [
+        "verse_job_42_10"
+      ],
+      "characterIds": [
+        "char_job",
+        "char_eliphaz"
+      ],
+      "topicIds": [
+        "topic_blessing",
+        "topic_forgiveness"
       ]
     }
   ],
@@ -7458,6 +7550,60 @@
       "reference": "Esther 8:1-17",
       "storyId": "story_decree_reversed",
       "sequenceInLife": 50
+    },
+    {
+      "id": "event_job_tested",
+      "characterId": "char_job",
+      "title": "Loses everything but refuses to curse God",
+      "description": "Loses his children, wealth, and health in a single day and refuses to curse God.",
+      "reference": "Job 1:1-2:13",
+      "storyId": "story_job_tested",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_job_complains",
+      "characterId": "char_job",
+      "title": "Laments his suffering and rejects his friends' theology",
+      "description": "Argues his innocence against his friends' insistence that his suffering is deserved.",
+      "reference": "Job 3:1-37:24",
+      "storyId": "story_jobs_complaint_and_friends",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_job_answered",
+      "characterId": "char_job",
+      "title": "Is answered by Yahweh out of the whirlwind and repents",
+      "description": "Sees God's power displayed in creation and repents in dust and ashes.",
+      "reference": "Job 38:1-42:6",
+      "storyId": "story_god_answers_job",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_job_restored",
+      "characterId": "char_job",
+      "title": "Is restored with double what he had before",
+      "description": "Receives double his former wealth, ten more children, and a long life.",
+      "reference": "Job 42:7-17",
+      "storyId": "story_jobs_restoration",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_eliphaz_argues",
+      "characterId": "char_eliphaz",
+      "title": "Argues that Job's suffering must be deserved",
+      "description": "Leads the friends' argument that Job's suffering is punishment for hidden sin.",
+      "reference": "Job 3:1-37:24",
+      "storyId": "story_jobs_complaint_and_friends",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_eliphaz_rebuked",
+      "characterId": "char_eliphaz",
+      "title": "Is rebuked by God and asks for Job's prayer",
+      "description": "Is told his theology was wrong and offers sacrifice as Job prays for him.",
+      "reference": "Job 42:7-17",
+      "storyId": "story_jobs_restoration",
+      "sequenceInLife": 20
     }
   ]
 }
