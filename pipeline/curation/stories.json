@@ -4235,6 +4235,109 @@
         "topic_forgiveness",
         "topic_love"
       ]
+    },
+    {
+      "id": "story_calming_the_storm",
+      "title": "Jesus calms the storm",
+      "summary": "Crossing the lake by boat, Jesus falls asleep in the stern while a violent storm fills the boat with water. His disciples wake him, panicked -- \"don't you care that we are dying?\" He rebukes the wind and says to the sea, \"Peace! Be still!\" and it goes suddenly, completely calm. More frightened by this than by the storm, the disciples ask each other what kind of man commands even the wind and the waves.",
+      "primaryReference": "Mark 4:35-41",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2400,
+      "verseIds": [
+        "verse_mark_4_39",
+        "verse_mark_4_41"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_peace",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_feeding_the_5000",
+      "title": "Feeding the five thousand",
+      "summary": "A crowd of thousands follows Jesus to a remote place, and by evening the disciples want to send everyone off to buy food. Jesus tells them to feed the crowd themselves; all they have is five loaves and two fish. He blesses and breaks the food, the disciples distribute it, and everyone -- about five thousand men, plus women and children -- eats until full, with twelve baskets of leftovers. It's the one miracle told in all four Gospels.",
+      "primaryReference": "Matthew 14:13-21; Mark 6:30-44; Luke 9:10-17; John 6:1-14",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2410,
+      "verseIds": [
+        "verse_matthew_14_16",
+        "verse_matthew_14_19",
+        "verse_matthew_14_20"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_provision"
+      ]
+    },
+    {
+      "id": "story_jesus_walks_on_water",
+      "title": "Jesus walks on water",
+      "summary": "After sending the crowds home, Jesus sends the disciples ahead by boat and goes up a mountain alone to pray. Late that night, with the boat fighting a strong headwind, he comes to them walking on the sea; they scream, thinking he's a ghost, until he calls out, \"Cheer up! It is I. Don't be afraid.\" Peter asks to come to him on the water and does, until he notices the wind and starts to sink -- \"Lord, save me!\" Jesus catches him immediately, asking why he doubted. Once they're both in the boat, the wind stops, and everyone worships him: \"you are truly the Son of God.\"",
+      "primaryReference": "Matthew 14:22-33",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2420,
+      "verseIds": [
+        "verse_matthew_14_27",
+        "verse_matthew_14_29",
+        "verse_matthew_14_31",
+        "verse_matthew_14_33"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_peters_confession",
+      "title": "Peter's confession",
+      "summary": "At Caesarea Philippi, Jesus asks who people say he is, then who the disciples themselves say he is. Peter answers, \"you are the Christ, the Son of the living God\" -- a revelation Jesus says could only have come from the Father. Jesus begins telling them plainly that he must suffer, be killed, and rise on the third day; Peter, appalled, tries to talk him out of it, and Jesus rebukes him sharply -- \"get behind me, Satan\" -- before telling all the disciples that following him means denying themselves and taking up a cross, because whoever tries to save their life will lose it.",
+      "primaryReference": "Matthew 16:13-28",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2430,
+      "verseIds": [
+        "verse_matthew_16_16",
+        "verse_matthew_16_24",
+        "verse_matthew_16_25"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_identity",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_transfiguration",
+      "title": "The Transfiguration",
+      "summary": "Jesus takes Peter, James, and John up a mountain, where he is transformed before them -- his face shining like the sun, his clothes dazzling white -- and Moses and Elijah appear, talking with him. Peter, overwhelmed, offers to build three shelters, but a bright cloud overshadows them and a voice says, \"this is my beloved Son, in whom I am well pleased -- listen to him.\" The disciples fall down terrified; when they look up, only Jesus remains.",
+      "primaryReference": "Matthew 17:1-13",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2440,
+      "verseIds": [
+        "verse_matthew_17_2",
+        "verse_matthew_17_5"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter",
+        "char_james_son_of_zebedee",
+        "char_john_apostle"
+      ],
+      "topicIds": [
+        "topic_identity",
+        "topic_worship"
+      ]
     }
   ],
   "lifeEvents": [
@@ -9064,6 +9167,96 @@
       "reference": "Luke 15:11-32",
       "storyId": "story_prodigal_son",
       "sequenceInLife": 130
+    },
+    {
+      "id": "event_jesus_calms_storm",
+      "characterId": "char_jesus",
+      "title": "Calms a storm with a word",
+      "description": "Rebukes the wind and sea while crossing the lake by boat.",
+      "reference": "Mark 4:35-41",
+      "storyId": "story_calming_the_storm",
+      "sequenceInLife": 140
+    },
+    {
+      "id": "event_jesus_feeds_5000",
+      "characterId": "char_jesus",
+      "title": "Feeds five thousand with five loaves and two fish",
+      "description": "Multiplies a small meal to feed a huge crowd, with baskets of leftovers.",
+      "reference": "Matthew 14:13-21; Mark 6:30-44; Luke 9:10-17; John 6:1-14",
+      "storyId": "story_feeding_the_5000",
+      "sequenceInLife": 150
+    },
+    {
+      "id": "event_jesus_walks_on_water",
+      "characterId": "char_jesus",
+      "title": "Walks on water and rescues Peter",
+      "description": "Comes to the disciples' boat walking on the sea and catches Peter as he sinks.",
+      "reference": "Matthew 14:22-33",
+      "storyId": "story_jesus_walks_on_water",
+      "sequenceInLife": 160
+    },
+    {
+      "id": "event_jesus_receives_confession",
+      "characterId": "char_jesus",
+      "title": "Receives Peter's confession and predicts his death",
+      "description": "Is confessed as the Christ, then foretells his suffering, death, and resurrection for the first time.",
+      "reference": "Matthew 16:13-28",
+      "storyId": "story_peters_confession",
+      "sequenceInLife": 170
+    },
+    {
+      "id": "event_jesus_transfigured",
+      "characterId": "char_jesus",
+      "title": "Is transfigured before Peter, James, and John",
+      "description": "Shines with glory alongside Moses and Elijah while the Father speaks from a cloud.",
+      "reference": "Matthew 17:1-13",
+      "storyId": "story_transfiguration",
+      "sequenceInLife": 180
+    },
+    {
+      "id": "event_peter_sinks_on_water",
+      "characterId": "char_peter",
+      "title": "Walks on water, then sinks in doubt",
+      "description": "Steps out onto the water toward Jesus, then begins to sink and is caught.",
+      "reference": "Matthew 14:22-33",
+      "storyId": "story_jesus_walks_on_water",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_peter_confesses_christ",
+      "characterId": "char_peter",
+      "title": "Confesses Jesus as the Christ, then rebukes him",
+      "description": "Declares Jesus the Son of the living God, then objects to his prediction of suffering.",
+      "reference": "Matthew 16:13-28",
+      "storyId": "story_peters_confession",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_peter_sees_transfiguration",
+      "characterId": "char_peter",
+      "title": "Witnesses the Transfiguration",
+      "description": "Sees Jesus transfigured with Moses and Elijah and offers to build three shelters.",
+      "reference": "Matthew 17:1-13",
+      "storyId": "story_transfiguration",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_james_zebedee_sees_transfiguration",
+      "characterId": "char_james_son_of_zebedee",
+      "title": "Witnesses the Transfiguration",
+      "description": "Is one of the three disciples who sees Jesus transfigured.",
+      "reference": "Matthew 17:1-13",
+      "storyId": "story_transfiguration",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_john_apostle_sees_transfiguration",
+      "characterId": "char_john_apostle",
+      "title": "Witnesses the Transfiguration",
+      "description": "Is one of the three disciples who sees Jesus transfigured.",
+      "reference": "Matthew 17:1-13",
+      "storyId": "story_transfiguration",
+      "sequenceInLife": 20
     }
   ]
 }

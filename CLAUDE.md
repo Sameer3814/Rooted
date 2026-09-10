@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,012 verses** — the entire Old Testament plus the New
+  first run: **1,026 verses** — the entire Old Testament plus the New
   Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the exact book list, "Known gaps" item 9 for how
   the NT is being approached, and DATA_MODEL.md §8 for the full,
@@ -149,9 +149,9 @@ The schema was deliberately designed so all of the above can be added
   `parse_books.py`. Lazily fetched by the Browse screen the first time
   it's opened, never at boot. It is *reference material*, kept separate
   from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 1,012 seed verses are topic-tagged; the
+  the user's overlay. Only the 1,026 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
-- `data/stories.json` — 14 eras, **194 stories and 446 life events**.
+- `data/stories.json` — 14 eras, **199 stories and 456 life events**.
   All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
   `era_jesus_ministry` so far (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
@@ -417,13 +417,14 @@ hand-curate all the content before building.
    **Progress: the birth of Jesus is done**, and Jesus's public
    ministry is underway — `era_jesus_ministry` has his baptism,
    temptation, first disciples, the call of the fishermen, the Sermon
-   on the Mount, and three major parables (the sower, the good
-   Samaritan, the prodigal son). Full detail in DATA_MODEL.md §8, items
-   41 onward, as each installment lands (that's now the authoritative
-   running log — this file's own "Done" changelog below stops
-   narrating every NT installment in full prose, to stay sustainable
-   across what's a much larger body of work
-   than the OT already was).
+   on the Mount, three major parables, and now the calming of the
+   storm, feeding the five thousand, walking on water, Peter's
+   confession, and the Transfiguration. Full detail in DATA_MODEL.md
+   §8, items 41 onward, as each installment lands (that's now the
+   authoritative running log — this file's own "Done" changelog below
+   stops narrating every NT installment in full prose, to stay
+   sustainable across what's a much larger body of work than the OT
+   already was).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

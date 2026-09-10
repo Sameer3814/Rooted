@@ -8207,6 +8207,129 @@
         "topic_love"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_mark_4_39",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_mark_4_41",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_14_16",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_14_19",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_14_20",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_14_27",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_14_29",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_14_31",
+      "topicIds": [
+        "topic_faith",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_14_33",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_16_16",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_16_24",
+      "topicIds": [
+        "topic_calling",
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_16_25",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_17_2",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_17_5",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
     }
   ],
   "topics": [

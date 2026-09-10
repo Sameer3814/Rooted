@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,012 verses + 38 topics + 136 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,026 verses + 38 topics + 136 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 14 eras, 194 stories, 446 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 14 eras, 199 stories, 456 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,012-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,026-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1851,6 +1851,30 @@ inventing a new principle:
     density to how Proverbs (item 35) needed no new topics either
     despite being one of the most quotable stretches of text curated
     so far.
+
+44. **Major miracles, Peter's confession, the Transfiguration.**
+    **Done (2026-09-10).** 5 stories, no new characters. **The calming
+    of the storm** (Mark 4:35-41 — used as `primaryReference` over
+    Matthew 8:23-27/Luke 8:22-25's shorter parallels, Mark's being the
+    most vivid: Jesus asleep on a cushion, the disciples' "don't you
+    care that we are dying?"). **Feeding the five thousand** — the
+    *only* miracle all four Gospels record; `primaryReference` cites
+    all four rather than picking one, since none is meaningfully fuller
+    than the others (unlike the calming of the storm or the calling of
+    the fishermen, where one telling was genuinely richer — the "draw
+    from whichever Gospel tells it fullest" rule from item 41 only
+    applies when there's an actual difference in fullness to draw
+    from). **Jesus walks on water**, including Peter's own attempt and
+    near-sinking — Matthew-only among the Synoptics (Mark and John also
+    have the walking-on-water itself, but only Matthew has the Peter
+    material, so Matthew is `primaryReference`). **Peter's confession**
+    at Caesarea Philippi ("you are the Christ, the Son of the living
+    God") and Jesus's first prediction of his own death, met by Peter's
+    rebuke and Jesus's sharp "get behind me, Satan." **The
+    Transfiguration** — Moses and Elijah, the Father's voice repeating
+    almost verbatim what was said at Jesus's baptism ("this is my
+    beloved Son... listen to him"), witnessed by Peter, James, and John.
+    14 curated verses, no new topics.
 
 ---
 
