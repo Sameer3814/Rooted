@@ -5011,6 +5011,92 @@
         "topic_love",
         "topic_justice"
       ]
+    },
+    {
+      "id": "story_pauls_first_missionary_journey",
+      "title": "Paul's first missionary journey",
+      "summary": "At Antioch, the Holy Spirit tells the church leaders to set apart Barnabas and Saul for the work he has called them to; after fasting and prayer, they're sent off. Traveling through Cyprus and into Asia Minor, preaching in synagogues and facing both belief and violent opposition, Saul increasingly goes by his Roman name, Paul -- and increasingly leads. The journey establishes the pattern for everything that follows: preach first to the Jews, then to the Gentiles who respond, and press on despite real danger.",
+      "primaryReference": "Acts 13:1-14:28",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2860,
+      "verseIds": [
+        "verse_acts_13_2",
+        "verse_acts_13_9"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_jerusalem_council",
+      "title": "The Jerusalem council",
+      "summary": "Some believers insist Gentile converts must be circumcised and keep the law of Moses to be saved. Paul and Barnabas dispute this sharply enough that the church sends them to Jerusalem to settle it with the apostles and elders. After much debate, Peter reminds everyone that God gave the Gentiles the Holy Spirit without distinction, \"cleansing their hearts by faith\" -- salvation is by grace, not a burden their own ancestors couldn't carry either. The council agrees, asking only that Gentile believers avoid a short list of specific practices, rather than the whole law -- a decision they describe as seeming good \"to the Holy Spirit, and to us.\"",
+      "primaryReference": "Acts 15:1-29",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2870,
+      "verseIds": [
+        "verse_acts_15_9",
+        "verse_acts_15_11",
+        "verse_acts_15_28"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_paul",
+        "char_barnabas"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_deliverance",
+        "topic_guidance"
+      ]
+    },
+    {
+      "id": "story_philippian_jailer",
+      "title": "The Philippian jailer",
+      "summary": "Arrested and beaten in Philippi, Paul and Silas spend midnight praying and singing hymns in prison instead of despairing -- until a sudden earthquake throws open every door and loosens every chain. The jailer wakes, assumes his prisoners have escaped, and draws his sword to kill himself rather than face the consequences, but Paul stops him: everyone is still there. Trembling, the jailer asks what he must do to be saved. Paul and Silas tell him to believe in the Lord Jesus -- and he and his entire household are baptized that same night.",
+      "primaryReference": "Acts 16:16-34",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2880,
+      "verseIds": [
+        "verse_acts_16_28",
+        "verse_acts_16_30",
+        "verse_acts_16_31"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_silas",
+        "char_philippian_jailer"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_areopagus_speech",
+      "title": "Paul at the Areopagus",
+      "summary": "Waiting in Athens and disturbed by the city's idols, Paul is invited to explain his teaching to the philosophers at the Areopagus. He starts from common ground -- an altar he'd noticed inscribed \"TO AN UNKNOWN GOD\" -- and announces that this unknown God is the one who made the world, doesn't live in temples, and isn't far from anyone: \"in him we live, move, and have our being.\" He calls his listeners to repent, since God has fixed a day of judgment and given proof of it by raising Jesus from the dead. Some mock the idea of resurrection; a few believe.",
+      "primaryReference": "Acts 17:16-34",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2890,
+      "verseIds": [
+        "verse_acts_17_24",
+        "verse_acts_17_27",
+        "verse_acts_17_28",
+        "verse_acts_17_30"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_seeking_god",
+        "topic_repentance"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10478,6 +10564,78 @@
       "description": "Is told in a vision to send for Peter, then receives the Holy Spirit and baptism.",
       "reference": "Acts 10:1-48",
       "storyId": "story_peter_and_cornelius",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_paul_first_journey",
+      "characterId": "char_paul",
+      "title": "Is set apart with Barnabas for missionary work",
+      "description": "Begins the first missionary journey and increasingly goes by his Roman name, Paul.",
+      "reference": "Acts 13:1-14:28",
+      "storyId": "story_pauls_first_missionary_journey",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_paul_jerusalem_council",
+      "characterId": "char_paul",
+      "title": "Argues for Gentile freedom from the law at the Jerusalem council",
+      "description": "Disputes the circumcision requirement and is vindicated by the council's decision.",
+      "reference": "Acts 15:1-29",
+      "storyId": "story_jerusalem_council",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_paul_philippian_jail",
+      "characterId": "char_paul",
+      "title": "Sings hymns in a Philippian jail and leads the jailer to faith",
+      "description": "Is freed by an earthquake and stops the jailer from killing himself.",
+      "reference": "Acts 16:16-34",
+      "storyId": "story_philippian_jailer",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_paul_areopagus",
+      "characterId": "char_paul",
+      "title": "Preaches to the philosophers at the Areopagus",
+      "description": "Uses an altar to an unknown God as a bridge to proclaim the resurrection.",
+      "reference": "Acts 17:16-34",
+      "storyId": "story_areopagus_speech",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_barnabas_first_journey",
+      "characterId": "char_barnabas",
+      "title": "Partners with Paul on the first missionary journey",
+      "description": "Is set apart alongside Paul by the Holy Spirit for missionary work.",
+      "reference": "Acts 13:1-14:28",
+      "storyId": "story_pauls_first_missionary_journey",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_barnabas_jerusalem_council",
+      "characterId": "char_barnabas",
+      "title": "Supports Paul at the Jerusalem council",
+      "description": "Joins Paul in disputing the circumcision requirement for Gentiles.",
+      "reference": "Acts 15:1-29",
+      "storyId": "story_jerusalem_council",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_silas_philippian_jail",
+      "characterId": "char_silas",
+      "title": "Sings hymns with Paul in a Philippian jail",
+      "description": "Is imprisoned alongside Paul and freed by the same earthquake.",
+      "reference": "Acts 16:16-34",
+      "storyId": "story_philippian_jailer",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jailer_converted",
+      "characterId": "char_philippian_jailer",
+      "title": "Is saved from suicide and comes to faith",
+      "description": "Asks Paul what he must do to be saved and is baptized with his household.",
+      "reference": "Acts 16:16-34",
+      "storyId": "story_philippian_jailer",
       "sequenceInLife": 10
     }
   ]

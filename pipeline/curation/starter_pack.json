@@ -9283,6 +9283,114 @@
       "characterIds": [
         "char_peter"
       ]
+    },
+    {
+      "id": "verse_acts_13_2",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_barnabas",
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_13_9",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_15_9",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_15_11",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_15_28",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_16_28",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_16_30",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_philippian_jailer"
+      ]
+    },
+    {
+      "id": "verse_acts_16_31",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_silas"
+      ]
+    },
+    {
+      "id": "verse_acts_17_24",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_17_27",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_17_28",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_17_30",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
     }
   ],
   "topics": [
@@ -11363,6 +11471,36 @@
       ],
       "eraId": "era_early_church",
       "summary": "A Roman centurion in Caesarea known for his generosity to the poor and constant prayer, though not a Jew. Told in a vision to send for Peter, his household became the first Gentiles to receive the Holy Spirit and be baptized -- proof, to Peter and the watching Jewish believers, that God's promise wasn't for Israel alone.",
+      "verseIds": []
+    },
+    {
+      "id": "char_barnabas",
+      "name": "Barnabas",
+      "roles": [
+        "the encourager who first vouched for Paul and partnered with him in ministry"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A Levite from Cyprus whose name means \"son of encouragement,\" one of the first to accept the converted Saul when the other disciples were still afraid of him. Set apart with Paul by the Holy Spirit for missionary work, he became his partner on the first missionary journey and a key voice at the Jerusalem council.",
+      "verseIds": []
+    },
+    {
+      "id": "char_silas",
+      "name": "Silas",
+      "roles": [
+        "Paul's companion who sang hymns with him in a Philippian jail"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A leading member of the Jerusalem church who accompanied Paul on his second missionary journey after his split with Barnabas. Imprisoned alongside Paul in Philippi, he was singing hymns with him at midnight when an earthquake shook open the prison doors.",
+      "verseIds": []
+    },
+    {
+      "id": "char_philippian_jailer",
+      "name": "the Philippian jailer",
+      "roles": [
+        "the jailer who nearly killed himself before asking how to be saved"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A Roman jailer in Philippi who, waking to find the prison doors open after an earthquake, drew his sword to kill himself rather than face the consequences of an escape -- until Paul called out that all the prisoners were still there. He asked what he must do to be saved, and he and his whole household were baptized that same night.",
       "verseIds": []
     }
   ]

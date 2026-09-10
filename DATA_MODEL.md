@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (158 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, all four Gospels complete, Acts underway: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection, 2 for the start of Acts, 2 for Stephen and Paul, 1 for Cornelius)
+### Character — *live* (161 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, all four Gospels complete, Acts underway: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection, 2 for the start of Acts, 2 for Stephen and Paul, 1 for Cornelius, 3 for Paul's missionary journeys — Barnabas, Silas, the Philippian jailer)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,133 verses + 38 topics + 158 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,145 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 229 stories, 517 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 233 stories, 525 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,133-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,145-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2099,6 +2099,29 @@ inventing a new principle:
     watching believers as unambiguous proof God's promise wasn't for
     Israel alone. 1 new character: Cornelius. 5 curated verses, no new
     topics.
+
+54. **Paul's first missionary journey, the Jerusalem council, the
+    Philippian jailer, the Areopagus.** **Done (2026-09-10).** 4
+    stories in `era_early_church`. **Paul's first missionary journey**
+    (Acts 13:1-14:28, kept light/summary-level rather than
+    city-by-city, since the chapters cover many stops with similar
+    shape — preach to Jews first, then Gentiles, face opposition, move
+    on; Acts 13:9, "Saul, who is also called Paul," is the text's own
+    hinge point for the name Paul becoming primary, confirming the
+    naming call already made in item 52). **The Jerusalem council**
+    (Acts 15:1-29 — the first church-wide theological dispute, resolved
+    without requiring Gentile converts to keep the Mosaic law).
+    **The Philippian jailer** (Acts 16:16-34 — the earthquake, the
+    jailer's near-suicide, "what must I do to be saved?"). **Paul at
+    the Areopagus** (Acts 17:16-34 — the "unknown God" altar used as
+    common ground, "in him we live, move, and have our being").
+
+    3 new characters: Barnabas (first Character record, though he
+    exists earlier in Acts' own narrative — his defining acts, per
+    established practice, are what's curated, not his first
+    mention); Silas; the Philippian jailer (unnamed in the text, same
+    treatment as the Samaritan woman and the rich young ruler, items
+    45-46). 12 curated verses, no new topics.
 
 ---
 
