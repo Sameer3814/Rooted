@@ -8705,6 +8705,109 @@
         "topic_scripture"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_matthew_26_63",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_caiaphas"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_64",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_65",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_caiaphas"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_70",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_74",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_75",
+      "topicIds": [
+        "topic_sorrow",
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_4",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_judas_iscariot"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_5",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_judas_iscariot"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_22",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_pilate"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_24",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_pilate"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_26",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_pilate",
+        "char_barabbas"
+      ]
     }
   ],
   "topics": [
@@ -10655,6 +10758,36 @@
       ],
       "eraId": "era_passion_and_resurrection",
       "summary": "One of the twelve, treasurer of the group, who agreed to betray Jesus to the chief priests and identified him with a kiss in Gethsemane. His betrayal set in motion Jesus's arrest, trial, and crucifixion.",
+      "verseIds": []
+    },
+    {
+      "id": "char_caiaphas",
+      "name": "Caiaphas",
+      "roles": [
+        "the high priest who condemned Jesus for blasphemy"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "The high priest who presided over Jesus's nighttime trial before the Jewish council, tore his own robes at Jesus's claim to be the Son of Man seated at God's right hand, and declared it blasphemy worthy of death.",
+      "verseIds": []
+    },
+    {
+      "id": "char_pilate",
+      "name": "Pilate",
+      "roles": [
+        "the Roman governor who washed his hands of Jesus's death"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "The Roman governor of Judea who found no real charge against Jesus, tried to release him instead of the convicted Barabbas, and finally caved to the crowd's demand for crucifixion -- washing his hands in a public but empty gesture of innocence.",
+      "verseIds": []
+    },
+    {
+      "id": "char_barabbas",
+      "name": "Barabbas",
+      "roles": [
+        "the convicted prisoner released instead of Jesus"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "A notorious prisoner held by Rome, released by Pilate at the crowd's demand in Jesus's place -- freedom traded directly for Jesus's death.",
       "verseIds": []
     }
   ]

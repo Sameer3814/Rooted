@@ -4593,6 +4593,89 @@
         "topic_betrayal",
         "topic_peace"
       ]
+    },
+    {
+      "id": "story_jesus_before_the_council",
+      "title": "Jesus before the council",
+      "summary": "Jesus is brought to Caiaphas the high priest, where the council searches for testimony to justify a death sentence, but the false witnesses can't even agree with each other. Jesus stays silent until Caiaphas demands, under oath, whether he is the Christ, the Son of God. Jesus answers plainly and adds that they will see him at God's right hand, coming on the clouds -- and Caiaphas tears his robes, calling it blasphemy. The council condemns him, and the guards spit on him, beat him, and mock him.",
+      "primaryReference": "Matthew 26:57-68",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2660,
+      "verseIds": [
+        "verse_matthew_26_63",
+        "verse_matthew_26_64",
+        "verse_matthew_26_65"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_caiaphas"
+      ],
+      "topicIds": [
+        "topic_identity",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_peters_denial",
+      "title": "Peter's denial",
+      "summary": "While Jesus is on trial inside, Peter waits in the courtyard outside. Three times he's recognized as one of Jesus's followers, and three times he denies it -- the last time with cursing and an oath. The moment he finishes, a rooster crows, and Peter remembers Jesus's own prediction that he would deny him three times before it did. He goes out and weeps bitterly.",
+      "primaryReference": "Matthew 26:69-75",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2670,
+      "verseIds": [
+        "verse_matthew_26_70",
+        "verse_matthew_26_74",
+        "verse_matthew_26_75"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_judas_remorse",
+      "title": "Judas's remorse",
+      "summary": "Seeing Jesus condemned, Judas is overcome with remorse and tries to return the thirty pieces of silver to the chief priests, confessing he has betrayed innocent blood. They refuse to take responsibility -- \"what is that to us? You see to it\" -- so he throws the money into the temple and hangs himself. The priests, unwilling to put blood money into the treasury, use it to buy a field to bury foreigners in, later called the Field of Blood.",
+      "primaryReference": "Matthew 27:3-10",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2680,
+      "verseIds": [
+        "verse_matthew_27_4",
+        "verse_matthew_27_5"
+      ],
+      "characterIds": [
+        "char_judas_iscariot"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_jesus_before_pilate",
+      "title": "Jesus before Pilate",
+      "summary": "Handed to the Roman governor Pilate, Jesus gives almost no answer to the accusations against him, leaving Pilate amazed. Trying to release him under a Passover custom of freeing one prisoner, Pilate offers the crowd a choice between Jesus and a notorious prisoner, Barabbas -- and, stirred up by the chief priests, they choose Barabbas and demand Jesus be crucified. Warned by his wife's troubling dream, Pilate senses Jesus's innocence but gives in to avoid a riot, washing his hands in a public disclaimer before having Jesus flogged and handed over to be crucified.",
+      "primaryReference": "Matthew 27:11-26",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2690,
+      "verseIds": [
+        "verse_matthew_27_22",
+        "verse_matthew_27_24",
+        "verse_matthew_27_26"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_pilate",
+        "char_barabbas"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_sorrow"
+      ]
     }
   ],
   "lifeEvents": [
@@ -9727,6 +9810,69 @@
       "description": "Leads an armed crowd to Jesus and identifies him with a prearranged signal.",
       "reference": "Matthew 26:47-56",
       "storyId": "story_betrayal_and_arrest",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_before_council",
+      "characterId": "char_jesus",
+      "title": "Is condemned by the council for claiming to be the Christ",
+      "description": "Answers Caiaphas's demand plainly and is condemned for blasphemy.",
+      "reference": "Matthew 26:57-68",
+      "storyId": "story_jesus_before_the_council",
+      "sequenceInLife": 300
+    },
+    {
+      "id": "event_jesus_before_pilate",
+      "characterId": "char_jesus",
+      "title": "Is condemned by Pilate and handed over to be crucified",
+      "description": "Is chosen for death over Barabbas and flogged before crucifixion.",
+      "reference": "Matthew 27:11-26",
+      "storyId": "story_jesus_before_pilate",
+      "sequenceInLife": 310
+    },
+    {
+      "id": "event_caiaphas_condemns_jesus",
+      "characterId": "char_caiaphas",
+      "title": "Condemns Jesus for blasphemy",
+      "description": "Tears his robes and declares Jesus's claim to be the Son of Man blasphemy.",
+      "reference": "Matthew 26:57-68",
+      "storyId": "story_jesus_before_the_council",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_peter_denies_jesus",
+      "characterId": "char_peter",
+      "title": "Denies knowing Jesus three times",
+      "description": "Denies Jesus in the high priest's courtyard, then weeps bitterly when the rooster crows.",
+      "reference": "Matthew 26:69-75",
+      "storyId": "story_peters_denial",
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_judas_hangs_himself",
+      "characterId": "char_judas_iscariot",
+      "title": "Returns the silver and hangs himself",
+      "description": "Confesses his sin to the unmoved chief priests and takes his own life.",
+      "reference": "Matthew 27:3-10",
+      "storyId": "story_judas_remorse",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_pilate_condemns_jesus",
+      "characterId": "char_pilate",
+      "title": "Releases Barabbas and condemns Jesus",
+      "description": "Washes his hands of the decision while giving in to the crowd's demand.",
+      "reference": "Matthew 27:11-26",
+      "storyId": "story_jesus_before_pilate",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_barabbas_released",
+      "characterId": "char_barabbas",
+      "title": "Is released in Jesus's place",
+      "description": "Is freed by the crowd's demand while Jesus is condemned instead.",
+      "reference": "Matthew 27:11-26",
+      "storyId": "story_jesus_before_pilate",
       "sequenceInLife": 10
     }
   ]
