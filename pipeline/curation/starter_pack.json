@@ -9772,6 +9772,229 @@
       "characterIds": [
         "char_paul"
       ]
+    },
+    {
+      "id": "verse_galatians_2_20",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_galatians_3_28",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_galatians_5_1",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_galatians_5_22",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_galatians_5_23",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_galatians_6_2",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_galatians_6_9",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_2_8",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_2_9",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_2_10",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_4_32",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_5_25",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_6_10",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_6_11",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ephesians_6_12",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_1_6",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_1_21",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_philippians_2_3",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_2_9",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_2_10",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_4_6",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_4_7",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philippians_4_13",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_philippians_4_19",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_1_15",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_1_16",
+      "topicIds": [
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_1_17",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_2_6",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_3_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_3_12",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_colossians_3_23",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [

@@ -430,7 +430,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,196 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,227 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,196-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,227-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2186,6 +2186,26 @@ inventing a new principle:
     and "my grace is sufficient for you... when I am weak, then I am
     strong" (12:9-10, tagged to `char_paul` as his own testimony, not
     detached doctrine). No new topics.
+
+58. **Galatians, Ephesians, Philippians, Colossians.** **Done
+    (2026-09-10).** Grouped as one pass since all four are short,
+    Pauline, and (per tradition) written from prison around the same
+    period. No Story records, no new characters. 31 curated verses:
+    Galatians — freedom in Christ (2:20, 5:1), "neither Jew nor
+    Greek... male nor female" (3:28), the fruit of the Spirit
+    (5:22-23), bearing one another's burdens (6:2), not growing weary
+    in doing good (6:9). Ephesians — salvation by grace through faith,
+    not works (2:8-10), forgiving as God forgave (4:32), the armor of
+    God (6:10-12). Philippians — "to live is Christ, to die is gain"
+    (1:21), Christ's humility as the pattern for the church's (2:3-10),
+    "be anxious for nothing" and the peace that guards hearts (4:6-7),
+    "I can do all things through Christ" (4:13, tagged to `char_paul`),
+    God supplying every need (4:19). Colossians — Christ as the image
+    of the invisible God and sustainer of all creation (1:15-17),
+    seeking the things above (3:1), working heartily as for the Lord
+    (3:23). No new topics — 38 topics have now carried 8 epistles and
+    the whole Old and New Testament narrative without needing to grow
+    since item 40 (the Twelve, end of the Old Testament).
 
 ---
 
