@@ -6833,6 +6833,148 @@
         "topic_repentance"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_1_28",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_2_3",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_3_17",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_3_18",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_4_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_4_4",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_18_4",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_18_23",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_18_32",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_24_16",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_24_18",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_34_11",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_36_26",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_36_27",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_37_3",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ]
+    },
+    {
+      "id": "verse_ezekiel_37_5",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_37_11",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezekiel_37_14",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -8443,6 +8585,16 @@
       ],
       "eraId": "era_exile",
       "summary": "Appointed governor over the remnant left in Judah after Jerusalem's fall. Jeremiah went to live under his protection, but he was assassinated by Ishmael son of Nethaniah within months, throwing the remaining community into panic and flight.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ezekiel",
+      "name": "Ezekiel",
+      "roles": [
+        "the priest-prophet among the exiles whose visions embodied Israel's coming restoration"
+      ],
+      "eraId": "era_exile",
+      "summary": "A priest carried into exile with Jehoiachin, called by a vision of Yahweh's glory by the river Chebar and made a watchman over Israel -- responsible to warn, though not for whether anyone listens. He acted out the coming siege and exile in his own body, was forbidden to mourn his wife's sudden death as a sign to the people, and saw a valley of dry bones rise up as a living army -- Yahweh's promise that even a nation as dead as scattered bones could live again.",
       "verseIds": []
     }
   ]

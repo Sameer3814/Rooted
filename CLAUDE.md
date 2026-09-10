@@ -126,25 +126,26 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **845 verses** across every OT book curated so far (WEB
+  first run: **863 verses** across every OT book curated so far (WEB
   translation — see `DEFAULT_BOOKS` in `parse_books.py` for the exact
   book list, kept in sync with curation, not just parsing) and **38
-  topics** (topics linked to related topics), plus **111 characters**
+  topics** (topics linked to related topics), plus **112 characters**
   (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua,
   10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9
-  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah) with real
-  relationships (father of, wife of, brother of, successor of, servant
-  of, worked alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 111 characters, standalone. Generated
+  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel)
+  with real relationships (father of, wife of, brother of, successor
+  of, servant of, worked alongside, raised, etc. — see Connection,
+  below).
+- `data/characters.json` — the same 112 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: every OT book curated
-  so far (20,465 verses, WEB translation, public domain), matching
+  so far (21,738 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 845 seed
+  from Browse copies it into the user's overlay. Only the 863 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 12 eras, **165 stories and 383 life events**.
+- `data/stories.json` — 12 eras, **168 stories and 386 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -358,8 +359,13 @@ hand-curate all the content before building.
    instance of `motif_who_am_i_reluctant_call`. Lamentations, having no
    narrative of its own, mostly stands as independent curated verses,
    with one verse folded into the *existing* `story_fall_of_jerusalem`
-   rather than a new story. **The Prophets remaining**: Ezekiel, Daniel,
-   then the Twelve (Hosea through Malachi).
+   rather than a new story. **Ezekiel done**: 1 new character
+   (Ezekiel) and 3 new stories, all in the existing `era_exile` — his
+   call vision by the river Chebar; acting out Jerusalem's siege with
+   his own body and being forbidden to mourn his wife's death as a sign;
+   and the valley of dry bones, Israel's national restoration pictured
+   as a dead army brought back to life. **The Prophets remaining**:
+   Daniel, then the Twelve (Hosea through Malachi).
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -672,7 +678,11 @@ forcing Jeremiah to Egypt against his own counsel. Split across
 `era_divided_kingdom` (pre-fall) and `era_exile` (fall and aftermath)
 by each story's own date, not one era per character. 19 new curated
 verses. Lamentations added 6 more, one folded into the existing
-`story_fall_of_jerusalem` rather than a new story.
+`story_fall_of_jerusalem` rather than a new story. Then Ezekiel: 1 new
+character and 3 new stories, all fitting the existing `era_exile` —
+his call vision, the symbolic acts (besieging a tile of Jerusalem,
+lying bound on his side, forbidden to mourn his wife), and the valley
+of dry bones. 18 new curated verses, no new topics or motifs.
 
 ## Source data provenance
 

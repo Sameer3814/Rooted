@@ -3574,6 +3574,69 @@
       "topicIds": [
         "topic_obedience"
       ]
+    },
+    {
+      "id": "story_ezekiels_call",
+      "title": "Ezekiel's call",
+      "summary": "Among the exiles by the river Chebar, Ezekiel sees a vision of Yahweh's glory -- a storm of fire, wheels within wheels, living creatures, and above it all a throne like sapphire. He falls on his face; a voice tells him to stand, calls him \"son of man,\" and sends him to a rebellious people. He's told to eat a scroll of lament before he can speak it, then made a watchman: responsible to warn Israel of coming judgment, though the outcome is on their own heads if they refuse to listen.",
+      "primaryReference": "Ezekiel 1:1-3:27",
+      "eraId": "era_exile",
+      "canonicalOrder": 1592,
+      "verseIds": [
+        "verse_ezekiel_1_28",
+        "verse_ezekiel_2_3",
+        "verse_ezekiel_3_17",
+        "verse_ezekiel_3_18"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_ezekiels_symbolic_acts",
+      "title": "Ezekiel's symbolic acts",
+      "summary": "Ezekiel acts out Jerusalem's coming siege with his own body -- laying siege to a clay tile of the city, lying bound on his side for the number of years of Israel's and Judah's sin, eating rationed food. Later, told his wife will die suddenly and he is forbidden to mourn her publicly, he obeys -- and when the exiles ask why, he tells them Jerusalem's fall will be a grief too great for even that kind of mourning.",
+      "primaryReference": "Ezekiel 4:1-5:17; 24:15-27",
+      "eraId": "era_exile",
+      "canonicalOrder": 1593,
+      "verseIds": [
+        "verse_ezekiel_4_1",
+        "verse_ezekiel_4_4",
+        "verse_ezekiel_24_16",
+        "verse_ezekiel_24_18"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_valley_of_dry_bones",
+      "title": "The valley of dry bones",
+      "summary": "Yahweh sets Ezekiel down in a valley full of dry bones and asks, \"can these bones live?\" Ezekiel prophesies as commanded, and the bones come together, grow flesh, and breathe -- an exceedingly great army rising from what had been total despair. Yahweh explains: the bones are all Israel, who have said \"our hope is lost.\" He will open their graves, bring them back to their own land, and put his own Spirit in them.",
+      "primaryReference": "Ezekiel 37:1-14",
+      "eraId": "era_exile",
+      "canonicalOrder": 1608,
+      "verseIds": [
+        "verse_ezekiel_37_3",
+        "verse_ezekiel_37_5",
+        "verse_ezekiel_37_11",
+        "verse_ezekiel_37_14"
+      ],
+      "characterIds": [
+        "char_ezekiel"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_waiting"
+      ]
     }
   ],
   "lifeEvents": [
@@ -7836,6 +7899,33 @@
       "reference": "Jeremiah 40:1-41:18",
       "storyId": "story_gedaliah_assassinated",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_ezekiel_called",
+      "characterId": "char_ezekiel",
+      "title": "Sees Yahweh's glory and is made a watchman",
+      "description": "Is called by a vision of Yahweh's throne and made responsible to warn Israel.",
+      "reference": "Ezekiel 1:1-3:27",
+      "storyId": "story_ezekiels_call",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ezekiel_acts_out_siege",
+      "characterId": "char_ezekiel",
+      "title": "Acts out Jerusalem's siege and his wife's death as signs",
+      "description": "Portrays the coming siege with his own body and is forbidden to mourn his wife publicly.",
+      "reference": "Ezekiel 4:1-5:17; 24:15-27",
+      "storyId": "story_ezekiels_symbolic_acts",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ezekiel_dry_bones",
+      "characterId": "char_ezekiel",
+      "title": "Prophesies life into a valley of dry bones",
+      "description": "Sees Israel's national restoration pictured as dry bones rising as a living army.",
+      "reference": "Ezekiel 37:1-14",
+      "storyId": "story_valley_of_dry_bones",
+      "sequenceInLife": 30
     }
   ]
 }

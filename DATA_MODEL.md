@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (111 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah)
+### Character — *live* (112 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 845 verses + 38 topics + 111 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 863 verses + 38 topics + 112 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (20,465 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (21,738 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 165 stories, 383 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 168 stories, 386 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 127 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 845-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 863-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1616,6 +1616,32 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     except one (Lamentations 1:12) folded into the *existing*
     `story_fall_of_jerusalem`'s `verseIds` rather than spawning a new
     story — continuing the "extend, don't clone" rule.
+
+38. **Ezekiel.** **Done (2026-09-10).** No new era needed — Ezekiel
+    prophesies entirely among the Babylonian exiles, so all 3 new
+    stories fit the existing `era_exile`: his call vision by the river
+    Chebar (the wheels-within-wheels throne vision, eating a scroll,
+    made a watchman responsible to warn but not for whether Israel
+    listens); his symbolic acts (besieging a clay tile of Jerusalem,
+    lying bound on his side for the number of years of the nation's
+    sin, then being forbidden to mourn his wife's sudden death as a
+    sign that Jerusalem's fall will be too great a grief for ordinary
+    mourning); and the valley of dry bones (Ezekiel 37 — a dead army of
+    bones brought back to life as Yahweh's picture of national
+    restoration for a people who had said "our hope is lost"). 1 new
+    character (Ezekiel). `story_ezekiels_call` and
+    `story_ezekiels_symbolic_acts` are both dated *before* Jerusalem's
+    fall (canonicalOrder 1592, 1593 — ahead of
+    `story_jeremiah_in_the_cistern` at 1595), while `story_valley_of_dry_bones`
+    is dated after it (1608, following ch33's news that the city has
+    fallen) — another case of a prophet's ministry needing per-story
+    dating rather than one block placement, same lesson as item 37.
+    18 curated verses, no new topics or motifs — the individual-
+    responsibility oracle (Ezekiel 18, "the soul who sins shall die,"
+    "I have no pleasure in the death of the wicked") and the new-heart
+    oracle (Ezekiel 36:26-27) stand as independent curated verses
+    rather than forced into a story, since they're declarative oracles,
+    not narrated scenes.
 
 ---
 
