@@ -8330,6 +8330,136 @@
       "characterIds": [
         "char_jesus"
       ]
+    },
+    {
+      "id": "verse_john_3_3",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_nicodemus"
+      ]
+    },
+    {
+      "id": "verse_john_3_16",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_3_17",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_4_10",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_samaritan_woman"
+      ]
+    },
+    {
+      "id": "verse_john_4_14",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_4_24",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_4_26",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_4_29",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_samaritan_woman"
+      ]
+    },
+    {
+      "id": "verse_john_4_39",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_samaritan_woman"
+      ]
+    },
+    {
+      "id": "verse_john_11_21",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_martha"
+      ]
+    },
+    {
+      "id": "verse_john_11_25",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_11_35",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_11_40",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_martha"
+      ]
+    },
+    {
+      "id": "verse_john_11_43",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_lazarus"
+      ]
     }
   ],
   "topics": [
@@ -10190,6 +10320,66 @@
       ],
       "eraId": "era_jesus_ministry",
       "summary": "A man from Cana, skeptical that anything good could come from Nazareth until Jesus told him he had seen him under a fig tree before Philip ever called him -- convincing him instantly that Jesus was the Son of God. Also known as Bartholomew.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nicodemus",
+      "name": "Nicodemus",
+      "roles": [
+        "the Pharisee who came to Jesus by night and later helped bury him"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A Pharisee and ruler of the Jews who came to Jesus secretly at night, unable to understand how someone could be \"born again.\" Jesus used his confusion to explain God's love for the world and the gift of eternal life through the Son. He later helped provide for Jesus's burial.",
+      "verseIds": []
+    },
+    {
+      "id": "char_samaritan_woman",
+      "name": "the Samaritan woman",
+      "roles": [
+        "the Samaritan woman whose testimony brought her whole town to Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A woman of Sychar in Samaria, married five times and living with a man who wasn't her husband, whom Jesus met at Jacob's well and offered \"living water.\" Surprised that a Jew would speak to her at all, she recognized him as the Messiah after he described her whole life, then brought her entire town out to meet him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_lazarus",
+      "name": "Lazarus",
+      "roles": [
+        "the friend Jesus raised from the dead after four days in the tomb"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A man of Bethany, brother of Mary and Martha, whom Jesus loved. He died and had been in the tomb four days by the time Jesus arrived, who then called him back to life in front of a crowd -- the last and greatest of his signs before his own death.",
+      "verseIds": []
+    },
+    {
+      "id": "char_martha",
+      "name": "Martha",
+      "roles": [
+        "the sister who met Jesus with grief and a confession of faith"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Lazarus's sister, who went out to meet Jesus on the road with both grief -- \"if you would have been here, my brother wouldn't have died\" -- and faith, confessing him as the Christ, the Son of God, before he raised her brother.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mary_of_bethany",
+      "name": "Mary of Bethany",
+      "roles": [
+        "the sister who fell at Jesus's feet weeping for her brother"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Lazarus's sister, who stayed home grieving until Jesus called for her, then fell at his feet with the same words as Martha. Identified in John as the woman who later anointed Jesus's feet with expensive perfume.",
+      "verseIds": []
+    },
+    {
+      "id": "char_thomas",
+      "name": "Thomas",
+      "roles": [
+        "the disciple ready to die with Jesus, later famous for doubting his resurrection"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "One of the twelve, first mentioned urging the other disciples to go with Jesus into danger at Bethany even if it meant dying with him -- \"let's go also, that we may die with him.\"",
       "verseIds": []
     }
   ]

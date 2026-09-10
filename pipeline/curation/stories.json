@@ -4338,6 +4338,79 @@
         "topic_identity",
         "topic_worship"
       ]
+    },
+    {
+      "id": "story_nicodemus",
+      "title": "Nicodemus and being born again",
+      "summary": "Nicodemus, a Pharisee and ruler of the Jews, comes to Jesus at night, acknowledging he must be a teacher sent from God. Jesus tells him no one can see God's kingdom without being \"born again\" -- born of water and the Spirit, not merely of flesh. Nicodemus can't understand how an old man could be born a second time; Jesus presses further, comparing the Spirit to wind that can't be seen but is unmistakably real, then explains why he came at all: \"God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.\"",
+      "primaryReference": "John 3:1-21",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2450,
+      "verseIds": [
+        "verse_john_3_3",
+        "verse_john_3_16",
+        "verse_john_3_17"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_nicodemus"
+      ],
+      "topicIds": [
+        "topic_love",
+        "topic_repentance"
+      ]
+    },
+    {
+      "id": "story_woman_at_the_well",
+      "title": "The woman at the well",
+      "summary": "Tired from traveling through Samaria, Jesus rests at Jacob's well and asks a Samaritan woman for a drink -- crossing two social lines at once, since Jews avoided Samaritans and men didn't speak alone with unfamiliar women. He offers her \"living water\" that permanently satisfies, then reveals he already knows she's had five husbands and isn't married to the man she's with now. Recognizing him as a prophet, she raises the old dispute over where God should be worshiped; Jesus tells her true worship is about spirit and truth, not location, and when she mentions the coming Messiah, he tells her plainly: \"I am he.\" She leaves her water pot and runs to tell the whole town, and many Samaritans come to believe in him because of her testimony.",
+      "primaryReference": "John 4:1-42",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2460,
+      "verseIds": [
+        "verse_john_4_10",
+        "verse_john_4_14",
+        "verse_john_4_24",
+        "verse_john_4_26",
+        "verse_john_4_29",
+        "verse_john_4_39"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_samaritan_woman"
+      ],
+      "topicIds": [
+        "topic_provision",
+        "topic_identity",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_raising_lazarus",
+      "title": "Lazarus raised from the dead",
+      "summary": "Jesus's friend Lazarus falls sick, and though he loves the family, Jesus deliberately delays two days before heading to Bethany -- by the time he arrives, Lazarus has been in the tomb four days. Martha meets him on the road, grieving but still confessing faith; Jesus tells her, \"I am the resurrection and the life,\" and asks if she believes it. At the tomb, seeing Mary and the mourners weeping, Jesus himself weeps. He has the stone rolled away over Martha's protest about the smell, thanks the Father aloud for the crowd's sake, and calls out, \"Lazarus, come out!\" Lazarus walks out still wrapped in his graveclothes.",
+      "primaryReference": "John 11:1-44",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2470,
+      "verseIds": [
+        "verse_john_11_21",
+        "verse_john_11_25",
+        "verse_john_11_35",
+        "verse_john_11_40",
+        "verse_john_11_43"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_lazarus",
+        "char_martha",
+        "char_mary_of_bethany",
+        "char_thomas"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_deliverance",
+        "topic_faith"
+      ]
     }
   ],
   "lifeEvents": [
@@ -9257,6 +9330,87 @@
       "reference": "Matthew 17:1-13",
       "storyId": "story_transfiguration",
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_jesus_teaches_nicodemus",
+      "characterId": "char_jesus",
+      "title": "Teaches Nicodemus about being born again",
+      "description": "Explains the new birth and God's love for the world to a Pharisee who comes to him at night.",
+      "reference": "John 3:1-21",
+      "storyId": "story_nicodemus",
+      "sequenceInLife": 190
+    },
+    {
+      "id": "event_jesus_at_the_well",
+      "characterId": "char_jesus",
+      "title": "Reveals himself as the Messiah to a Samaritan woman",
+      "description": "Offers living water and tells a Samaritan woman plainly that he is the Christ.",
+      "reference": "John 4:1-42",
+      "storyId": "story_woman_at_the_well",
+      "sequenceInLife": 200
+    },
+    {
+      "id": "event_jesus_raises_lazarus",
+      "characterId": "char_jesus",
+      "title": "Raises Lazarus from the dead",
+      "description": "Weeps at Lazarus's tomb, then calls him back to life after four days.",
+      "reference": "John 11:1-44",
+      "storyId": "story_raising_lazarus",
+      "sequenceInLife": 210
+    },
+    {
+      "id": "event_nicodemus_visits_jesus",
+      "characterId": "char_nicodemus",
+      "title": "Visits Jesus at night",
+      "description": "Comes to Jesus secretly and is taught about the new birth.",
+      "reference": "John 3:1-21",
+      "storyId": "story_nicodemus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_samaritan_woman_meets_jesus",
+      "characterId": "char_samaritan_woman",
+      "title": "Meets Jesus at Jacob's well and believes",
+      "description": "Is offered living water and recognizes Jesus as the Messiah.",
+      "reference": "John 4:1-42",
+      "storyId": "story_woman_at_the_well",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_lazarus_dies_and_rises",
+      "characterId": "char_lazarus",
+      "title": "Dies and is raised by Jesus after four days",
+      "description": "Is called out of the tomb still wrapped in graveclothes.",
+      "reference": "John 11:1-44",
+      "storyId": "story_raising_lazarus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_martha_confesses_christ",
+      "characterId": "char_martha",
+      "title": "Confesses Jesus as the Christ despite her grief",
+      "description": "Meets Jesus on the road grieving her brother, but still confesses him as the Son of God.",
+      "reference": "John 11:1-44",
+      "storyId": "story_raising_lazarus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_mary_bethany_weeps",
+      "characterId": "char_mary_of_bethany",
+      "title": "Falls at Jesus's feet weeping for Lazarus",
+      "description": "Grieves her brother's death and moves Jesus to tears.",
+      "reference": "John 11:1-44",
+      "storyId": "story_raising_lazarus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_thomas_ready_to_die",
+      "characterId": "char_thomas",
+      "title": "Urges the disciples to go with Jesus even if it means dying",
+      "description": "Says \"let's go also, that we may die with him\" when Jesus heads toward danger at Bethany.",
+      "reference": "John 11:1-44",
+      "storyId": "story_raising_lazarus",
+      "sequenceInLife": 10
     }
   ]
 }
