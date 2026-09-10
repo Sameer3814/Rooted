@@ -128,10 +128,10 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,293 verses** — the entire Old Testament plus the New
-  Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
-  `parse_books.py` for the exact book list, "Known gaps" item 9 for how
-  the NT is being approached, and DATA_MODEL.md §8 for the full,
+  first run: **1,339 verses** — the entire Bible, Old and New Testament,
+  is now curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
+  `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
+  the NT was approached, and DATA_MODEL.md §8 for the full,
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
@@ -143,17 +143,15 @@ The schema was deliberately designed so all of the above can be added
   named/identifiable people do, same as every OT figure.
 - `data/characters.json` — the same 161 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed corpus: the entire Old
-  Testament plus the New Testament books curated so far (26,923 verses,
-  WEB translation, public domain), matching `DEFAULT_BOOKS` in
-  `parse_books.py`. Lazily fetched by the Browse screen the first time
-  it's opened, never at boot. It is *reference material*, kept separate
-  from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 1,293 seed verses are topic-tagged; the
-  rest of the corpus isn't yet.
-- `data/stories.json` — 16 eras, **236 stories and 528 life events**.
-  All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
-  `era_jesus_ministry` so far (see DATA_MODEL.md §8 for what's in each
+- `data/verses.json` — the **full** parsed corpus: the entire 66-book
+  Bible (31,098 verses, WEB translation, public domain), matching
+  `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
+  screen the first time it's opened, never at boot. It is *reference
+  material*, kept separate from the user's library — adding a verse
+  from Browse copies it into the user's overlay. Only the 1,339 seed
+  verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 16 eras, **237 stories and 529 life events**,
+  covering the whole Bible (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
   People-grouped-by-era, and "appears alongside".
@@ -420,15 +418,18 @@ hand-curate all the content before building.
    church's founding, Stephen's martyrdom, Saul's conversion, Peter and
    Cornelius, Paul's missionary journeys, the Jerusalem council, and
    his arrest, shipwreck, and two years preaching freely under house
-   arrest in Rome — the note Acts itself ends on. **All 21 epistles are
-   now done** (light verses-and-topics treatment, per item 9's design
-   note — none has narrative): Romans through Jude. **Revelation is the
-   last book left.** Full detail in DATA_MODEL.md §8, items 41
-   onward, as each
-   installment lands (that's now the authoritative running log —
-   this file's own "Done" changelog below stops narrating every NT
-   installment in full prose, to stay sustainable across what's a much
-   larger body of work than the OT already was).
+   arrest in Rome — the note Acts itself ends on. All 21 epistles are
+   done (light verses-and-topics treatment, per item 9's design
+   note — none has narrative): Romans through Jude. **Revelation is
+   now curated too — a Story for John's vision on Patmos (same
+   treatment as Ezekiel's/Daniel's call narratives), then
+   verses-and-topics for the seven letters, the throne room, the
+   judgments, and the new heaven and new earth. The entire 66-book
+   Bible is now fully curated.** Full detail in DATA_MODEL.md §8, items
+   41 onward (that's the authoritative running log — this file's own
+   "Done" changelog below stopped narrating every NT installment in
+   full prose partway through, to stay sustainable across what's a
+   much larger body of work than the OT already was).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

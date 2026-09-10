@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,293 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,339 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 236 stories, 528 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 237 stories, 529 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,293-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,339-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2265,6 +2265,40 @@ inventing a new principle:
     carried the entire epistolary corpus without needing to grow since
     item 40. **Revelation is the only book of the 66-book Bible left to
     curate.**
+
+61. **Revelation — the entire 66-book Bible is now curated.** **Done
+    (2026-09-10).** One Story, `story_johns_vision_on_patmos`
+    (Revelation 1:9-20), for John's own framing vision — the same
+    treatment given to Ezekiel's and Daniel's call/vision narratives in
+    the Old Testament: exiled on Patmos, John is caught up in the
+    Spirit, sees the risen Christ among seven lampstands ("I am the
+    first and the last, and the Living one... I have the keys of Death
+    and of Hades"), and is commissioned to write what he sees. No new
+    Character — John the apostle already exists (`char_john_apostle`,
+    item 42); this is simply his next life event, `sequenceInLife` 60
+    (queried his existing values, `[10, 20, 30, 40, 50]`, before
+    assigning — the recurring-character collision lesson from item 47
+    still applies even at the very last character added to the whole
+    project). The rest of the book — the seven letters, the throne-room
+    worship, the martyrs under the altar, the great multitude, the
+    dragon thrown down, "worthy is the Lamb," the thousand years and
+    the final judgment, and the new heaven and new earth — got the
+    light verses-and-topics treatment, since almost none of it is
+    narrated action in the Story sense: 46 curated verses (including
+    the one, Revelation 1:9, pulled in to satisfy the Story's own
+    `verseIds` reference), all tagged to existing topics
+    (`topic_worship` for the throne-room material, `topic_justice` for
+    the judgment scenes, `topic_faithfulness` for "worthy... for you
+    were slain," `topic_sorrow`/`topic_provision` for "he will wipe
+    away every tear," `topic_waiting` for "surely I come quickly. Amen.
+    Come, Lord Jesus"). No new topics — the same 38 that closed out the
+    Old Testament (item 40) carried the entire New Testament, Gospels
+    through Revelation, without ever needing to grow. **This completes
+    the whole Bible: 66 books, 1,339 curated verses, 161 characters,
+    237 stories, 529 life events, 20 motifs, 135 connections** — the
+    entire arc from "let there be light" (Genesis 1:3) to "the grace of
+    the Lord Jesus Christ be with all the saints. Amen" (Revelation
+    22:21).
 
 ---
 

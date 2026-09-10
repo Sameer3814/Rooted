@@ -10463,6 +10463,347 @@
         "topic_worship"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_revelation_1_3",
+      "topicIds": [
+        "topic_scripture",
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_1_8",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_1_17",
+      "topicIds": [
+        "topic_fear",
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_john_apostle"
+      ]
+    },
+    {
+      "id": "verse_revelation_1_18",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_2_4",
+      "topicIds": [
+        "topic_repentance",
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_2_10",
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_3_15",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_3_16",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_3_20",
+      "topicIds": [
+        "topic_presence",
+        "topic_calling"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_4_8",
+      "topicIds": [
+        "topic_worship",
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_4_11",
+      "topicIds": [
+        "topic_worship",
+        "topic_creation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_5_9",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_5_12",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_5_13",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_6_10",
+      "topicIds": [
+        "topic_justice",
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_7_9",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_7_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_7_17",
+      "topicIds": [
+        "topic_provision",
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_12_9",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_12_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_12_11",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_13_8",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_17_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_19_6",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_19_9",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_19_16",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_20_6",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_20_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_20_11",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_20_12",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_20_15",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_1",
+      "topicIds": [
+        "topic_creation",
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_2",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_3",
+      "topicIds": [
+        "topic_presence",
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_4",
+      "topicIds": [
+        "topic_sorrow",
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_5",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_6",
+      "topicIds": [
+        "topic_provision",
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_21_27",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_1",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_3",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_5",
+      "topicIds": [
+        "topic_worship",
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_12",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_13",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_17",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_22_20",
+      "topicIds": [
+        "topic_waiting",
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_revelation_1_9",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_john_apostle"
+      ]
     }
   ],
   "topics": [

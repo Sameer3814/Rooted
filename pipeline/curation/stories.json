@@ -5155,6 +5155,27 @@
       "topicIds": [
         "topic_calling"
       ]
+    },
+    {
+      "id": "story_johns_vision_on_patmos",
+      "title": "John's vision on Patmos",
+      "summary": "Exiled on the island of Patmos \"for the word of God, and for the testimony of Jesus Christ,\" John is caught up in the Spirit on the Lord's day and hears a voice like a trumpet behind him. Turning, he sees seven golden lampstands and, among them, one like a son of man -- robed, hair white as snow, eyes like fire, feet like burnished brass, a sword from his mouth, his face shining like the sun. John falls at his feet like a dead man. The risen Christ lays his hand on him: \"Don't be afraid... I am the first and the last, and the Living one. I was dead, and behold, I am alive forever and ever... I have the keys of Death and of Hades.\" He is commissioned to write what he has seen, what is, and what will be, and sent with letters to seven churches in Asia -- the vision that becomes the whole book of Revelation.",
+      "primaryReference": "Revelation 1:9-20",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2930,
+      "verseIds": [
+        "verse_revelation_1_9",
+        "verse_revelation_1_17",
+        "verse_revelation_1_18"
+      ],
+      "characterIds": [
+        "char_john_apostle"
+      ],
+      "topicIds": [
+        "topic_fear",
+        "topic_presence",
+        "topic_calling"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10722,6 +10743,15 @@
       "reference": "Acts 28:11-31",
       "storyId": "story_paul_in_rome",
       "sequenceInLife": 90
+    },
+    {
+      "id": "event_john_apostle_patmos_vision",
+      "characterId": "char_john_apostle",
+      "storyId": "story_johns_vision_on_patmos",
+      "sequenceInLife": 60,
+      "title": "Exiled on Patmos, receives the Revelation",
+      "description": "Exiled on Patmos, receives and writes down the Revelation of Jesus Christ.",
+      "reference": "Revelation 1:9-20"
     }
   ]
 }
