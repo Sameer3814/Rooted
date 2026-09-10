@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (107 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job)
+### Character — *live* (111 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah)
 ```json
 {
   "id": "char_jacob",
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 820 verses + 38 topics + 107 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 845 verses + 38 topics + 111 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (18,947 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (20,465 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 159 stories, 373 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 165 stories, 383 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 126 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 127 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 820-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 845-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1587,6 +1587,35 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     existing description ("the long gap between promise and
     fulfillment") already covers Isaiah's hope-in-exile material without
     needing a dedicated `topic_hope`.
+
+37. **Jeremiah, Lamentations.** **Done (2026-09-10).** Unlike Isaiah,
+    Jeremiah has substantial unique narrative content, so this got the
+    full playbook: 4 new characters (Jeremiah; Baruch, his scribe;
+    Ebed-Melech, the Ethiopian official who saved him from a cistern;
+    Gedaliah, the governor assassinated within months of his
+    appointment) and 6 new stories. Split across two *existing* eras by
+    each story's own date rather than one fixed era per character —
+    `era_divided_kingdom` for his call, the potter's house/temple-sermon
+    persecution, and Baruch's burned-then-rewritten scroll (all
+    pre-fall, under Josiah then Jehoiakim); `era_exile` for the cistern,
+    Gedaliah's assassination, and the forced flight to Egypt (fall and
+    aftermath, under Zedekiah and after). This meant threading new
+    canonicalOrder values into an already-tight range (`story_jeremiahs_call`
+    at 1508, between Manasseh's repentance at 1505 and Josiah's law
+    rediscovery at 1510 — Jeremiah's call, in Josiah's 13th year,
+    predates the law's rediscovery in his 18th) — a live example of why
+    the pipeline README's "leave more canonicalOrder headroom than
+    feels necessary" lesson (from Numbers bumping Ruth) matters even
+    years into a project. Jeremiah's own protest at his call ("I don't
+    know how to speak; I am a child," Jeremiah 1:6) is a clean 4th
+    instance of `motif_who_am_i_reluctant_call` (Moses, Gideon, Saul) —
+    added as a Connection, with the motif's `exampleReferences` updated
+    to match. 19 curated verses for Jeremiah, no new topics. Lamentations,
+    having no narrative of its own (it's poetry mourning an event
+    already told), got 6 more curated verses standing independently,
+    except one (Lamentations 1:12) folded into the *existing*
+    `story_fall_of_jerusalem`'s `verseIds` rather than spawning a new
+    story — continuing the "extend, don't clone" rule.
 
 ---
 

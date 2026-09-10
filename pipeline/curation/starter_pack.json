@@ -6636,6 +6636,203 @@
         "topic_peace"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_1_5",
+      "topicIds": [
+        "topic_calling",
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_1_6",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_1_8",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_18_6",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_20_9",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_26_15",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_29_11",
+      "topicIds": [
+        "topic_trust",
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_29_13",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_31_3",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_31_33",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_31_34",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_32_17",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_33_3",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_36_23",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jeremiah_38_6",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_38_10",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_ebedmelech"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_41_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_gedaliah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_43_7",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ]
+    },
+    {
+      "id": "verse_jeremiah_45_5",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_baruch"
+      ]
+    },
+    {
+      "id": "verse_lamentations_1_12",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_lamentations_3_22",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_lamentations_3_23",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_lamentations_3_24",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_lamentations_3_25",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_lamentations_5_21",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -8206,6 +8403,46 @@
       ],
       "eraId": "era_job",
       "summary": "The Temanite, first and most prominent of Job's three friends, who insisted Job's suffering must be deserved. Yahweh rebuked him and his companions by name for not speaking rightly about him, and accepted Job's prayer on their behalf only after they offered sacrifices.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jeremiah",
+      "name": "Jeremiah",
+      "roles": [
+        "the weeping prophet who watched Jerusalem fall exactly as he warned"
+      ],
+      "eraId": "era_exile",
+      "summary": "A priest from Anathoth called as a prophet to the nations while still young -- \"before I formed you in the womb, I knew you.\" He confronted kings and priests with unwelcome warnings for forty years, was thrown into a cistern to die for it, watched Jerusalem fall exactly as he had prophesied, and was carried off to Egypt against his will by the very remnant he had tried to save.",
+      "verseIds": []
+    },
+    {
+      "id": "char_baruch",
+      "name": "Baruch",
+      "roles": [
+        "the scribe who wrote Jeremiah's words and shared his fate"
+      ],
+      "eraId": "era_exile",
+      "summary": "Jeremiah's scribe, who wrote his prophecies onto a scroll from his dictation -- twice, after King Jehoiakim burned the first copy. He stayed with Jeremiah through the fall of Jerusalem and was carried to Egypt alongside him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ebedmelech",
+      "name": "Ebed-Melech",
+      "roles": [
+        "the Ethiopian official who saved Jeremiah from the cistern"
+      ],
+      "eraId": "era_exile",
+      "summary": "An Ethiopian eunuch in King Zedekiah's court who, alone among the officials, pleaded for Jeremiah's life when he had been left to die in a muddy cistern, then organized his rescue.",
+      "verseIds": []
+    },
+    {
+      "id": "char_gedaliah",
+      "name": "Gedaliah",
+      "roles": [
+        "the governor appointed over Judah's ruins, assassinated within months"
+      ],
+      "eraId": "era_exile",
+      "summary": "Appointed governor over the remnant left in Judah after Jerusalem's fall. Jeremiah went to live under his protection, but he was assassinated by Ishmael son of Nethaniah within months, throwing the remaining community into panic and flight.",
       "verseIds": []
     }
   ]

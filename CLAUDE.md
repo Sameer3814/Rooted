@@ -126,26 +126,25 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **820 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
-  Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job,
-  Proverbs, Ecclesiastes, Song of Solomon, and Isaiah, WEB translation)
-  across **38 topics** (topics linked to related topics), plus **107
-  characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
-  2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings,
-  9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job) with real relationships
-  (father of, wife of, brother of, successor of, servant of, worked
-  alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 107 characters, standalone. Generated
+  first run: **845 verses** across every OT book curated so far (WEB
+  translation — see `DEFAULT_BOOKS` in `parse_books.py` for the exact
+  book list, kept in sync with curation, not just parsing) and **38
+  topics** (topics linked to related topics), plus **111 characters**
+  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua,
+  10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9
+  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah) with real
+  relationships (father of, wife of, brother of, successor of, servant
+  of, worked alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 111 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: every OT book curated
-  so far (18,947 verses, WEB translation, public domain), matching
+  so far (20,465 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 820 seed
+  from Browse copies it into the user's overlay. Only the 845 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 12 eras, **159 stories and 373 life events**.
+- `data/stories.json` — 12 eras, **165 stories and 383 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -174,7 +173,7 @@ The schema was deliberately designed so all of the above can be added
   to save her people — a Hebrew concealed in a foreign court, revealed
   at the decisive moment). Loaded at boot. Drives the Patterns screens
   and the "Pattern" badges on Character, Story, and Verse detail pages.
-- `data/connections.json` — 126 generic Connection edges (Design
+- `data/connections.json` — 127 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -349,8 +348,18 @@ hand-curate all the content before building.
    is a verses-and-topics pass across the book's judgment and comfort
    oracles (Isaiah 36-39's Hezekiah/Sennacherib narrative is nearly
    identical to 2 Kings 18-20, already curated there, so it wasn't
-   duplicated). **The Prophets remaining**: Jeremiah, Lamentations,
-   Ezekiel, Daniel, then the Twelve (Hosea through Malachi).
+   duplicated). **Jeremiah/Lamentations done**: unlike Isaiah, Jeremiah
+   has substantial unique narrative — 4 new characters (Jeremiah,
+   Baruch, Ebed-Melech, Gedaliah) and 6 new stories, split across
+   `era_divided_kingdom` (his call, the potter's house, Baruch's
+   burned-then-rewritten scroll) and `era_exile` (the cistern, Gedaliah's
+   assassination, the forced flight to Egypt) depending on each story's
+   own date, not one fixed era per character. His call became the 4th
+   instance of `motif_who_am_i_reluctant_call`. Lamentations, having no
+   narrative of its own, mostly stands as independent curated verses,
+   with one verse folded into the *existing* `story_fall_of_jerusalem`
+   rather than a new story. **The Prophets remaining**: Ezekiel, Daniel,
+   then the Twelve (Hosea through Malachi).
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -652,7 +661,18 @@ call vision ("Holy, holy, holy... here am I, send me," Isaiah 6), slots
 into the existing `era_divided_kingdom`. The rest is 39 curated verses
 across Isaiah's judgment and comfort oracles — no new topics needed.
 Isaiah 36-39 (Hezekiah and Sennacherib) is nearly word-for-word 2 Kings
-18-20, already curated there, so it wasn't duplicated.
+18-20, already curated there, so it wasn't duplicated. Then
+Jeremiah/Lamentations: 4 new characters (Jeremiah, Baruch, Ebed-Melech,
+Gedaliah) and 6 new stories — his call (a 4th instance of
+`motif_who_am_i_reluctant_call`), the potter's house and the temple
+sermon that nearly got him killed, Baruch's scroll burned and rewritten,
+being lowered into a cistern to die and rescued by Ebed-Melech,
+Gedaliah's brief governorship and assassination, and the remnant
+forcing Jeremiah to Egypt against his own counsel. Split across
+`era_divided_kingdom` (pre-fall) and `era_exile` (fall and aftermath)
+by each story's own date, not one era per character. 19 new curated
+verses. Lamentations added 6 more, one folded into the existing
+`story_fall_of_jerusalem` rather than a new story.
 
 ## Source data provenance
 

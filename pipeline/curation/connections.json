@@ -1137,6 +1137,15 @@
       "toType": "story",
       "toId": "story_hamans_fall",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_reluctant_call_instance_jeremiah",
+      "fromType": "motif",
+      "fromId": "motif_who_am_i_reluctant_call",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_jeremiahs_call",
+      "inverse": "has motif"
     }
   ]
 }

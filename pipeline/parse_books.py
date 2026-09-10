@@ -49,7 +49,7 @@ CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".cache")
 DEFAULT_OUT = os.path.join(REPO_ROOT, "data", "verses.json")
 
 # The books currently shipped in data/verses.json.
-DEFAULT_BOOKS = ["genesis", "psalms", "exodus", "ruth", "leviticus", "numbers", "deuteronomy", "joshua", "judges", "1samuel", "2samuel", "1kings", "2kings", "1chronicles", "2chronicles", "ezra", "nehemiah", "esther", "job", "proverbs", "ecclesiastes", "songofsolomon", "isaiah"]
+DEFAULT_BOOKS = ["genesis", "psalms", "exodus", "ruth", "leviticus", "numbers", "deuteronomy", "joshua", "judges", "1samuel", "2samuel", "1kings", "2kings", "1chronicles", "2chronicles", "ezra", "nehemiah", "esther", "job", "proverbs", "ecclesiastes", "songofsolomon", "isaiah", "jeremiah", "lamentations"]
 
 # slug (== source filename stem, == the slug used in verse ids) -> display name
 BOOKS = {

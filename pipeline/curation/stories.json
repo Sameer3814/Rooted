@@ -2687,7 +2687,8 @@
         "verse_2kings_25_1",
         "verse_2kings_25_7",
         "verse_2kings_25_9",
-        "verse_2kings_25_21"
+        "verse_2kings_25_21",
+        "verse_lamentations_1_12"
       ],
       "characterIds": [
         "char_nebuchadnezzar",
@@ -3459,6 +3460,119 @@
       "topicIds": [
         "topic_worship",
         "topic_calling"
+      ]
+    },
+    {
+      "id": "story_jeremiahs_call",
+      "title": "Jeremiah's call",
+      "summary": "In the thirteenth year of King Josiah, Yahweh tells Jeremiah he was appointed a prophet to the nations before he was even born. Jeremiah protests that he's too young and doesn't know how to speak; Yahweh touches his mouth, puts words in it, and tells him not to be afraid -- he is being sent to uproot and tear down, but also to build and to plant.",
+      "primaryReference": "Jeremiah 1:1-19",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1508,
+      "verseIds": [
+        "verse_jeremiah_1_5",
+        "verse_jeremiah_1_6",
+        "verse_jeremiah_1_8"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_potters_house_and_persecution",
+      "title": "The potter's house and the price of the message",
+      "summary": "Yahweh sends Jeremiah to watch a potter reshape a marred vessel into a new one -- a picture of his power over the nation. Jeremiah's actual preaching costs him: after a temple sermon warning Jerusalem it could be destroyed like Shiloh, the priests and prophets seize him and demand his death. He tells them plainly that killing him will bring innocent blood on the city, and is spared, though the message that burns in his bones like fire never stops costing him.",
+      "primaryReference": "Jeremiah 18:1-6; 20:7-9; 26:1-24",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1520,
+      "verseIds": [
+        "verse_jeremiah_18_6",
+        "verse_jeremiah_20_9",
+        "verse_jeremiah_26_15"
+      ],
+      "characterIds": [
+        "char_jeremiah"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_baruchs_scroll",
+      "title": "Baruch's scroll",
+      "summary": "Jeremiah dictates all his prophecies to his scribe Baruch, who writes them on a scroll. When King Jehoiakim hears it read, he cuts off each section with a penknife and burns it in a brazier, unmoved. Yahweh has Jeremiah dictate it again to Baruch, with more added -- the burned scroll didn't burn the message. Around this same time, Jeremiah tells Baruch not to seek great things for himself in the coming catastrophe, only to be grateful his life will be spared.",
+      "primaryReference": "Jeremiah 36:1-32; 45:1-5",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1530,
+      "verseIds": [
+        "verse_jeremiah_36_23",
+        "verse_jeremiah_45_5"
+      ],
+      "characterIds": [
+        "char_jeremiah",
+        "char_baruch"
+      ],
+      "topicIds": [
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_jeremiah_in_the_cistern",
+      "title": "Jeremiah in the cistern",
+      "summary": "With Jerusalem under siege, Jeremiah's warnings that resistance is futile are called treason. The city's officials get King Zedekiah's permission and lower Jeremiah into a muddy cistern to die. Ebed-Melech, an Ethiopian official in the king's house, is the only one who speaks up for him -- he gets permission to pull Jeremiah out before he starves, using old rags to pad the ropes under his arms.",
+      "primaryReference": "Jeremiah 38:1-13",
+      "eraId": "era_exile",
+      "canonicalOrder": 1595,
+      "verseIds": [
+        "verse_jeremiah_38_6",
+        "verse_jeremiah_38_10"
+      ],
+      "characterIds": [
+        "char_jeremiah",
+        "char_ebedmelech",
+        "char_zedekiah"
+      ],
+      "topicIds": [
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_gedaliah_assassinated",
+      "title": "Gedaliah assassinated",
+      "summary": "After Jerusalem falls, the Babylonians appoint Gedaliah governor over the ruins of Judah, and Jeremiah goes to live under his protection along with the remnant left in the land. Within months, Ishmael son of Nethaniah -- of the royal line, and apparently resentful of a governor not descended from David -- assassinates Gedaliah and the men with him, throwing the fragile remaining community into panic.",
+      "primaryReference": "Jeremiah 40:1-41:18",
+      "eraId": "era_exile",
+      "canonicalOrder": 1602,
+      "verseIds": [
+        "verse_jeremiah_41_2"
+      ],
+      "characterIds": [
+        "char_gedaliah",
+        "char_jeremiah"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_flight_to_egypt",
+      "title": "Flight to Egypt",
+      "summary": "Fearing Babylonian reprisal for Gedaliah's murder, the remaining leaders ask Jeremiah to seek Yahweh's word on whether to flee to Egypt. He tells them plainly to stay in the land. They refuse, accuse him of being manipulated by Baruch, and force both of them to Egypt anyway -- disobeying the very voice they claimed to be seeking.",
+      "primaryReference": "Jeremiah 42:1-44:30",
+      "eraId": "era_exile",
+      "canonicalOrder": 1604,
+      "verseIds": [
+        "verse_jeremiah_43_7"
+      ],
+      "characterIds": [
+        "char_jeremiah",
+        "char_baruch"
+      ],
+      "topicIds": [
+        "topic_obedience"
       ]
     }
   ],
@@ -7632,6 +7746,96 @@
       "reference": "Isaiah 6:1-13",
       "storyId": "story_isaiahs_call",
       "sequenceInLife": 5
+    },
+    {
+      "id": "event_jeremiah_called",
+      "characterId": "char_jeremiah",
+      "title": "Is called as a prophet to the nations while still young",
+      "description": "Protests his youth but is sent with Yahweh's words put in his mouth.",
+      "reference": "Jeremiah 1:1-19",
+      "storyId": "story_jeremiahs_call",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jeremiah_persecuted",
+      "characterId": "char_jeremiah",
+      "title": "Is nearly killed for his temple sermon",
+      "description": "Warns Jerusalem could be destroyed like Shiloh and is seized by priests and prophets demanding his death.",
+      "reference": "Jeremiah 18:1-6; 20:7-9; 26:1-24",
+      "storyId": "story_potters_house_and_persecution",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jeremiah_dictates_scroll",
+      "characterId": "char_jeremiah",
+      "title": "Dictates his prophecies to Baruch, twice",
+      "description": "Has the scroll rewritten after King Jehoiakim burns the first copy.",
+      "reference": "Jeremiah 36:1-32; 45:1-5",
+      "storyId": "story_baruchs_scroll",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jeremiah_cistern",
+      "characterId": "char_jeremiah",
+      "title": "Is thrown in a cistern and rescued by Ebed-Melech",
+      "description": "Is lowered into a muddy cistern to die and pulled out on Ebed-Melech's plea.",
+      "reference": "Jeremiah 38:1-13",
+      "storyId": "story_jeremiah_in_the_cistern",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_jeremiah_under_gedaliah",
+      "characterId": "char_jeremiah",
+      "title": "Lives under Gedaliah's brief governorship",
+      "description": "Stays in Judah under the governor appointed over the land's remnant.",
+      "reference": "Jeremiah 40:1-41:18",
+      "storyId": "story_gedaliah_assassinated",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_jeremiah_forced_to_egypt",
+      "characterId": "char_jeremiah",
+      "title": "Is forced to Egypt against Yahweh's word through him",
+      "description": "Warns the remnant to stay in Judah, then is taken to Egypt against his own counsel anyway.",
+      "reference": "Jeremiah 42:1-44:30",
+      "storyId": "story_flight_to_egypt",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_baruch_writes_scroll",
+      "characterId": "char_baruch",
+      "title": "Writes Jeremiah's prophecies onto a scroll, twice",
+      "description": "Serves as Jeremiah's scribe and is told not to seek great things for himself.",
+      "reference": "Jeremiah 36:1-32; 45:1-5",
+      "storyId": "story_baruchs_scroll",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_baruch_to_egypt",
+      "characterId": "char_baruch",
+      "title": "Is carried to Egypt with Jeremiah",
+      "description": "Is blamed for influencing Jeremiah and forced to Egypt along with him.",
+      "reference": "Jeremiah 42:1-44:30",
+      "storyId": "story_flight_to_egypt",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ebedmelech_rescues_jeremiah",
+      "characterId": "char_ebedmelech",
+      "title": "Pleads for Jeremiah's life and organizes his rescue",
+      "description": "Is the only official to speak up for Jeremiah, left to die in a cistern, and gets him pulled out.",
+      "reference": "Jeremiah 38:1-13",
+      "storyId": "story_jeremiah_in_the_cistern",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_gedaliah_governs_and_dies",
+      "characterId": "char_gedaliah",
+      "title": "Governs the remnant of Judah and is assassinated",
+      "description": "Is appointed governor over Judah's ruins and assassinated within months by Ishmael son of Nethaniah.",
+      "reference": "Jeremiah 40:1-41:18",
+      "storyId": "story_gedaliah_assassinated",
+      "sequenceInLife": 10
     }
   ]
 }
