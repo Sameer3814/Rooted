@@ -4727,6 +4727,128 @@
       "topicIds": [
         "topic_justice"
       ]
+    },
+    {
+      "id": "story_the_empty_tomb",
+      "title": "The empty tomb",
+      "summary": "At dawn on the first day of the week, Mary Magdalene and the other Mary come to the tomb and find it opened by an earthquake and an angel, whose appearance terrifies the guards into a dead faint. The angel tells the women Jesus has risen, just as he said, and sends them to tell the disciples. Running to spread the news, they meet Jesus himself, who greets them and repeats the instruction to go to Galilee. Meanwhile, the guards report everything to the chief priests, who bribe them to say the disciples stole the body while they slept.",
+      "primaryReference": "Matthew 28:1-15",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2720,
+      "verseIds": [
+        "verse_matthew_28_6",
+        "verse_matthew_28_9",
+        "verse_matthew_28_13"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary_magdalene"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_jesus_appears_to_mary_magdalene",
+      "title": "Jesus appears to Mary Magdalene",
+      "summary": "Weeping alone outside the empty tomb, Mary Magdalene sees a man she assumes is the gardener and asks where the body has been taken. He says just one word -- her name, \"Mary\" -- and she recognizes Jesus instantly, crying out \"Rabboni!\" He tells her not to cling to him, since he hasn't yet ascended, but to go tell the disciples. She becomes the first witness of the resurrection to carry the news.",
+      "primaryReference": "John 20:11-18",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2730,
+      "verseIds": [
+        "verse_john_20_16",
+        "verse_john_20_17"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary_magdalene"
+      ],
+      "topicIds": [
+        "topic_identity",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_road_to_emmaus",
+      "title": "The road to Emmaus",
+      "summary": "Two disciples, including one named Cleopas, walk to the village of Emmaus discussing everything that has happened, joined by Jesus himself -- though they don't recognize him. He asks what they're discussing, then, hearing their grief and confusion, calls them slow to believe and walks them through the Scriptures, showing how the Christ had to suffer before entering his glory. Invited to stay for the evening, he takes bread, gives thanks, and breaks it -- and in that instant they recognize him, just before he vanishes. They rush back to Jerusalem the same hour to tell the others.",
+      "primaryReference": "Luke 24:13-35",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2740,
+      "verseIds": [
+        "verse_luke_24_27",
+        "verse_luke_24_31",
+        "verse_luke_24_32"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_cleopas"
+      ],
+      "topicIds": [
+        "topic_scripture",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_doubting_thomas",
+      "title": "Doubting Thomas",
+      "summary": "Thomas, absent when Jesus first appeared to the other disciples, refuses to believe without physical proof -- seeing and touching the wounds himself. A week later Jesus appears again, this time with Thomas present, and invites him to touch his hands and side directly. Thomas responds with the clearest confession in the Gospels: \"my Lord and my God!\" Jesus tells him that those who believe without seeing are the ones who will be blessed.",
+      "primaryReference": "John 20:24-29",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2750,
+      "verseIds": [
+        "verse_john_20_25",
+        "verse_john_20_28",
+        "verse_john_20_29"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_thomas"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_great_commission",
+      "title": "The Great Commission",
+      "summary": "On a mountain in Galilee, the eleven remaining disciples meet the risen Jesus -- worshiping him, though some still doubt. He tells them all authority in heaven and earth has been given to him, and sends them out to make disciples of every nation, baptizing them and teaching them everything he commanded, with a final promise: \"I am with you always, even to the end of the age.\"",
+      "primaryReference": "Matthew 28:16-20",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2760,
+      "verseIds": [
+        "verse_matthew_28_18",
+        "verse_matthew_28_19",
+        "verse_matthew_28_20"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_presence"
+      ]
+    },
+    {
+      "id": "story_ascension",
+      "title": "The ascension",
+      "summary": "Jesus leads his disciples out to Bethany, lifts his hands, and blesses them -- and as he does, he is carried up into heaven. The disciples worship him and return to Jerusalem overflowing with joy, spending their time in the temple praising God, waiting for what he had promised would come next.",
+      "primaryReference": "Luke 24:50-53",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2770,
+      "verseIds": [
+        "verse_luke_24_51",
+        "verse_luke_24_52"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_thanksgiving"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10006,6 +10128,96 @@
       "reference": "Matthew 27:57-66",
       "storyId": "story_jesus_buried",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_resurrected",
+      "characterId": "char_jesus",
+      "title": "Rises from the dead",
+      "description": "Is found alive by the women at the tomb, exactly as he had said.",
+      "reference": "Matthew 28:1-15",
+      "storyId": "story_the_empty_tomb",
+      "sequenceInLife": 340
+    },
+    {
+      "id": "event_jesus_appears_mary_magdalene",
+      "characterId": "char_jesus",
+      "title": "Appears first to Mary Magdalene",
+      "description": "Reveals himself by speaking her name outside the empty tomb.",
+      "reference": "John 20:11-18",
+      "storyId": "story_jesus_appears_to_mary_magdalene",
+      "sequenceInLife": 350
+    },
+    {
+      "id": "event_jesus_emmaus_road",
+      "characterId": "char_jesus",
+      "title": "Walks unrecognized with two disciples to Emmaus",
+      "description": "Explains the Scriptures concerning himself, then is recognized in the breaking of bread.",
+      "reference": "Luke 24:13-35",
+      "storyId": "story_road_to_emmaus",
+      "sequenceInLife": 360
+    },
+    {
+      "id": "event_jesus_convinces_thomas",
+      "characterId": "char_jesus",
+      "title": "Shows Thomas his wounds",
+      "description": "Invites doubting Thomas to touch his hands and side.",
+      "reference": "John 20:24-29",
+      "storyId": "story_doubting_thomas",
+      "sequenceInLife": 370
+    },
+    {
+      "id": "event_jesus_great_commission",
+      "characterId": "char_jesus",
+      "title": "Sends the disciples to make disciples of all nations",
+      "description": "Claims all authority and commissions the eleven before his ascension.",
+      "reference": "Matthew 28:16-20",
+      "storyId": "story_great_commission",
+      "sequenceInLife": 380
+    },
+    {
+      "id": "event_jesus_ascends",
+      "characterId": "char_jesus",
+      "title": "Ascends to heaven",
+      "description": "Blesses the disciples at Bethany and is carried up into heaven.",
+      "reference": "Luke 24:50-53",
+      "storyId": "story_ascension",
+      "sequenceInLife": 390
+    },
+    {
+      "id": "event_mary_magdalene_finds_tomb_empty",
+      "characterId": "char_mary_magdalene",
+      "title": "Finds the tomb empty and tells the disciples",
+      "description": "Discovers the stone rolled away and is met by Jesus himself.",
+      "reference": "Matthew 28:1-15",
+      "storyId": "story_the_empty_tomb",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_mary_magdalene_sees_risen_jesus",
+      "characterId": "char_mary_magdalene",
+      "title": "Is the first to see the risen Jesus",
+      "description": "Recognizes Jesus when he speaks her name and carries the news to the disciples.",
+      "reference": "John 20:11-18",
+      "storyId": "story_jesus_appears_to_mary_magdalene",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_cleopas_meets_risen_jesus",
+      "characterId": "char_cleopas",
+      "title": "Walks with the risen Jesus without recognizing him",
+      "description": "Recognizes Jesus only when he breaks bread at the table in Emmaus.",
+      "reference": "Luke 24:13-35",
+      "storyId": "story_road_to_emmaus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_thomas_doubts_and_believes",
+      "characterId": "char_thomas",
+      "title": "Doubts the resurrection, then confesses Jesus as Lord and God",
+      "description": "Refuses to believe without touching Jesus's wounds, then does exactly that.",
+      "reference": "John 20:24-29",
+      "storyId": "story_doubting_thomas",
+      "sequenceInLife": 20
     }
   ]
 }

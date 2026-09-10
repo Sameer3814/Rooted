@@ -8892,6 +8892,146 @@
         "topic_justice"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_matthew_28_6",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_mary_magdalene"
+      ]
+    },
+    {
+      "id": "verse_matthew_28_9",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary_magdalene"
+      ]
+    },
+    {
+      "id": "verse_matthew_28_13",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_20_16",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary_magdalene"
+      ]
+    },
+    {
+      "id": "verse_john_20_17",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_24_27",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_24_31",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_cleopas"
+      ]
+    },
+    {
+      "id": "verse_luke_24_32",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_cleopas"
+      ]
+    },
+    {
+      "id": "verse_john_20_25",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_thomas"
+      ]
+    },
+    {
+      "id": "verse_john_20_28",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_thomas"
+      ]
+    },
+    {
+      "id": "verse_john_20_29",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_28_18",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_28_19",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_28_20",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_24_51",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_24_52",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -10912,6 +11052,16 @@
       ],
       "eraId": "era_passion_and_resurrection",
       "summary": "A rich man from Arimathea and secret disciple of Jesus who asked Pilate for the body, wrapped it himself, and laid it in his own new, unused tomb cut into the rock.",
+      "verseIds": []
+    },
+    {
+      "id": "char_cleopas",
+      "name": "Cleopas",
+      "roles": [
+        "one of two disciples who recognized the risen Jesus in the breaking of bread"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "One of two disciples walking to Emmaus on the day of the resurrection, joined unknowingly by the risen Jesus, who explained how the Scriptures pointed to his suffering and glory -- recognized only when Jesus broke bread with them at the table.",
       "verseIds": []
     }
   ]

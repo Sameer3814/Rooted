@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (152 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial — Mary Magdalene, Simon of Cyrene, the penitent thief, Joseph of Arimathea)
+### Character — *live* (153 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, all four Gospels now complete: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection — Cleopas)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,088 verses + 38 topics + 152 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,104 verses + 38 topics + 153 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 15 eras, 216 stories, 496 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 15 eras, 222 stories, 506 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,088-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,104-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1998,6 +1998,39 @@ inventing a new principle:
     unnamed in the text, same treatment as the Samaritan woman and the
     rich young ruler, items 45–46); Joseph of Arimathea. 10 curated
     verses, no new topics.
+
+50. **The resurrection, appearances, Great Commission, ascension.**
+    **Done (2026-09-10).** Closes out `era_passion_and_resurrection` —
+    **all four Gospels are now fully curated.** 6 stories: **the empty
+    tomb** (Matthew 28:1-15 — the angel, the women, the guards'
+    bribe); **Jesus appears to Mary Magdalene** (John 20:11-18,
+    John-unique — recognized only when he says her name); **the road
+    to Emmaus** (Luke 24:13-35, Luke-unique — recognized only in the
+    breaking of bread); **doubting Thomas** (John 20:24-29,
+    John-unique — "my Lord and my God"); **the Great Commission**
+    (Matthew 28:16-20); **the ascension** (Luke 24:50-53 —
+    `primaryReference` is Luke alone for now; Acts 1:9-11 retells the
+    same event from Luke's own second volume, so when Acts is curated
+    next it should extend this story's `verseIds` rather than spawn a
+    duplicate, the same "extend, don't clone" call as the crucifixion
+    batch made for material split across Gospels).
+
+    1 new character: Cleopas (named in Luke's Emmaus account; the
+    second disciple on the road is never named). 16 curated verses, no
+    new topics.
+
+    **With this, the Gospels are done: 4 books, 3 eras
+    (`era_birth_of_jesus`, `era_jesus_ministry`,
+    `era_passion_and_resurrection`), and the full unified life of
+    Jesus from Gabriel's announcement to the ascension — 44 curated
+    stories in total across items 41–50, built exactly per the
+    harmonization design from item 41's opening note: one Story per
+    event regardless of how many Gospels tell it, each Gospel's real
+    unique material preserved as its own Story rather than lost to
+    harmonizing, one Character record per person no matter how many
+    Gospels mention them. Next: Acts (the early church, a new era,
+    `era_early_church`), then the epistles (light verses-and-topics
+    treatment, per item 41's design note), then Revelation.**
 
 ---
 
