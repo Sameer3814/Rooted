@@ -84,6 +84,13 @@
       "summary": "Outside Israel's own history entirely — a blameless man in the land of Uz loses everything in a single day, then spends the rest of the book arguing honestly with God and three friends who insist his suffering must be deserved, until Yahweh himself answers him out of a whirlwind.",
       "order": 12,
       "approxRange": "Undated, traditionally reckoned among the oldest stories in the Bible"
+    },
+    {
+      "id": "era_birth_of_jesus",
+      "name": "The Birth of Jesus",
+      "summary": "Gabriel announces two impossible births -- John to the aged priest Zacharias and Elizabeth, then Jesus to a virgin named Mary. Jesus is born in Bethlehem to a census-displaced family, worshiped by shepherds and, later, foreign astrologers, and hunted by a jealous king before his family flees to Egypt and settles in Nazareth.",
+      "order": 13,
+      "approxRange": "The births of John the Baptist and Jesus, under Herod the Great"
     }
   ],
   "stories": [
@@ -3857,6 +3864,146 @@
       "topicIds": [
         "topic_calling",
         "topic_justice"
+      ]
+    },
+    {
+      "id": "story_gabriels_announcements",
+      "title": "Gabriel's announcements",
+      "summary": "The angel Gabriel appears to the priest Zacharias in the temple, promising a son, John, to his barren, aging wife Elizabeth -- but Zacharias doubts and is struck mute until the birth. Six months later Gabriel appears to Mary, a virgin in Nazareth pledged to Joseph, telling her she will conceive by the Holy Spirit and bear the Son of the Most High. Mary answers, \"let it be done to me according to your word,\" then hurries to visit Elizabeth, whose unborn son leaps for joy at Mary's greeting. Mary responds with a song of praise -- the Magnificat -- celebrating God's reversal of the proud and the lowly.",
+      "primaryReference": "Luke 1:5-56",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2100,
+      "verseIds": [
+        "verse_luke_1_13",
+        "verse_luke_1_31",
+        "verse_luke_1_37",
+        "verse_luke_1_38",
+        "verse_luke_1_46",
+        "verse_luke_1_52"
+      ],
+      "characterIds": [
+        "char_zacharias",
+        "char_elizabeth",
+        "char_mary",
+        "char_john_the_baptist",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_obedience",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_john_the_baptist_is_born",
+      "title": "John the Baptist is born",
+      "summary": "Elizabeth gives birth, and when the neighbors assume the baby will be named after his father, she and the still-mute Zacharias both insist on the name John, exactly as the angel commanded. Zacharias's speech returns immediately, and he prophesies over his infant son -- that he will go before the Lord to prepare his way and give people knowledge of salvation through the forgiveness of their sins.",
+      "primaryReference": "Luke 1:57-80",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2110,
+      "verseIds": [
+        "verse_luke_1_76",
+        "verse_luke_1_78"
+      ],
+      "characterIds": [
+        "char_zacharias",
+        "char_elizabeth",
+        "char_john_the_baptist"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_jesus_is_born",
+      "title": "Jesus is born in Bethlehem",
+      "summary": "A Roman census forces Joseph and the pregnant Mary to travel to Bethlehem, David's city, where Jesus is born and laid in a feeding trough for lack of room at the inn. That same night an angel announces the birth to shepherds in the fields nearby -- \"good news of great joy\" -- and a multitude of angels praises God. The shepherds hurry to see for themselves, then spread the word, while Mary quietly treasures everything that has happened.",
+      "primaryReference": "Luke 2:1-20",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2120,
+      "verseIds": [
+        "verse_luke_2_10",
+        "verse_luke_2_11",
+        "verse_luke_2_14"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary",
+        "char_joseph_husband_of_mary"
+      ],
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_deliverance",
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "story_jesus_presented_at_the_temple",
+      "title": "Jesus presented at the temple",
+      "summary": "Mary and Joseph bring the infant Jesus to Jerusalem to complete the rites required by the law. Simeon, promised by the Holy Spirit that he would not die before seeing the Messiah, takes the child in his arms and blesses God -- \"my eyes have seen your salvation\" -- then warns Mary that her own soul will be pierced by what's coming. The prophetess Anna, who has spent decades in the temple in prayer and fasting, also recognizes the child and speaks of him to everyone looking for Jerusalem's redemption.",
+      "primaryReference": "Luke 2:21-40",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2130,
+      "verseIds": [
+        "verse_luke_2_29",
+        "verse_luke_2_32",
+        "verse_luke_2_35"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary",
+        "char_joseph_husband_of_mary"
+      ],
+      "topicIds": [
+        "topic_peace",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_wise_men_and_flight_to_egypt",
+      "title": "The wise men and the flight to Egypt",
+      "summary": "Joseph, told in a dream that Mary's pregnancy is from the Holy Spirit, marries her and names the child Jesus as instructed. Wise men from the east, following a star, come to Jerusalem asking for the newborn King of the Jews; Herod, threatened, sends them to Bethlehem under the pretense of wanting to worship him too. The wise men find the child, worship him, and give gold, frankincense, and myrrh, then are warned in a dream not to return to Herod. Warned himself, Joseph flees with Mary and Jesus to Egypt, escaping just before Herod, enraged at being outwitted, kills every boy in Bethlehem two years old and under. After Herod's death the family returns, but settles in Nazareth rather than risk Judea under his son.",
+      "primaryReference": "Matthew 1:18-2:23",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2140,
+      "verseIds": [
+        "verse_matthew_1_21",
+        "verse_matthew_1_23",
+        "verse_matthew_2_2",
+        "verse_matthew_2_11"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary",
+        "char_joseph_husband_of_mary"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_deliverance",
+        "topic_presence"
+      ]
+    },
+    {
+      "id": "story_boy_jesus_at_the_temple",
+      "title": "The boy Jesus at the temple",
+      "summary": "At twelve, Jesus travels with his family to Jerusalem for Passover. When his parents head home, they don't realize he has stayed behind; after three days of searching, they find him in the temple, sitting among the teachers, listening and asking questions that leave everyone amazed. To his mother's relief and confusion he answers simply: \"didn't you know that I must be in my Father's house?\" He returns with them to Nazareth and grows in wisdom and stature.",
+      "primaryReference": "Luke 2:41-52",
+      "eraId": "era_birth_of_jesus",
+      "canonicalOrder": 2150,
+      "verseIds": [
+        "verse_luke_2_49",
+        "verse_luke_2_52"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary",
+        "char_joseph_husband_of_mary"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_identity",
+        "topic_wisdom"
       ]
     }
   ],
@@ -8344,6 +8491,168 @@
       "description": "Supports Zerubbabel with visions reminding the exiles the work will finish by God's Spirit, not their own strength.",
       "reference": "Zechariah 1:1-8:23",
       "storyId": "story_temple_completed",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zacharias_visited_by_gabriel",
+      "characterId": "char_zacharias",
+      "title": "Is visited by Gabriel and struck mute for doubting",
+      "description": "Is told his wife will bear a son and loses his speech until the birth.",
+      "reference": "Luke 1:5-56",
+      "storyId": "story_gabriels_announcements",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zacharias_prophesies",
+      "characterId": "char_zacharias",
+      "title": "Regains his speech and prophesies over John",
+      "description": "Names his son John as instructed and prophesies over his future.",
+      "reference": "Luke 1:57-80",
+      "storyId": "story_john_the_baptist_is_born",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_elizabeth_conceives",
+      "characterId": "char_elizabeth",
+      "title": "Conceives John in her old age",
+      "description": "Bears a son after decades of barrenness, as the angel promised Zacharias.",
+      "reference": "Luke 1:5-56",
+      "storyId": "story_gabriels_announcements",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elizabeth_gives_birth",
+      "characterId": "char_elizabeth",
+      "title": "Gives birth to John",
+      "description": "Insists on the name John against the expectation he'd be named for his father.",
+      "reference": "Luke 1:57-80",
+      "storyId": "story_john_the_baptist_is_born",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_mary_visited_by_gabriel",
+      "characterId": "char_mary",
+      "title": "Is told by Gabriel she will bear the Messiah",
+      "description": "Answers \"let it be done to me\" and visits Elizabeth, who recognizes her unborn son.",
+      "reference": "Luke 1:5-56",
+      "storyId": "story_gabriels_announcements",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_mary_gives_birth",
+      "characterId": "char_mary",
+      "title": "Gives birth to Jesus in Bethlehem",
+      "description": "Gives birth away from home during a Roman census and is visited by shepherds.",
+      "reference": "Luke 2:1-20",
+      "storyId": "story_jesus_is_born",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_mary_hears_simeon",
+      "characterId": "char_mary",
+      "title": "Is warned by Simeon that a sword will pierce her soul",
+      "description": "Presents Jesus at the temple and hears Simeon's blessing and warning.",
+      "reference": "Luke 2:21-40",
+      "storyId": "story_jesus_presented_at_the_temple",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_mary_flees_to_egypt",
+      "characterId": "char_mary",
+      "title": "Flees to Egypt with Joseph and Jesus",
+      "description": "Escapes Herod's slaughter of the infants in Bethlehem.",
+      "reference": "Matthew 1:18-2:23",
+      "storyId": "story_wise_men_and_flight_to_egypt",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_mary_searches_for_jesus",
+      "characterId": "char_mary",
+      "title": "Searches three days for the missing boy Jesus",
+      "description": "Finds him in the temple among the teachers.",
+      "reference": "Luke 2:41-52",
+      "storyId": "story_boy_jesus_at_the_temple",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_joseph_told_in_dream",
+      "characterId": "char_joseph_husband_of_mary",
+      "title": "Is told in a dream to take Mary as his wife",
+      "description": "Learns Mary's pregnancy is from the Holy Spirit and names the child Jesus.",
+      "reference": "Matthew 1:18-2:23",
+      "storyId": "story_wise_men_and_flight_to_egypt",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joseph_travels_to_bethlehem",
+      "characterId": "char_joseph_husband_of_mary",
+      "title": "Travels to Bethlehem for the census",
+      "description": "Brings Mary to his ancestral city, where Jesus is born.",
+      "reference": "Luke 2:1-20",
+      "storyId": "story_jesus_is_born",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_joseph_presents_jesus",
+      "characterId": "char_joseph_husband_of_mary",
+      "title": "Presents Jesus at the temple",
+      "description": "Marvels at Simeon's and Anna's recognition of the child.",
+      "reference": "Luke 2:21-40",
+      "storyId": "story_jesus_presented_at_the_temple",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_joseph_flees_to_egypt",
+      "characterId": "char_joseph_husband_of_mary",
+      "title": "Flees to Egypt, then settles in Nazareth",
+      "description": "Follows repeated dream-warnings to protect Jesus, ending in Nazareth.",
+      "reference": "Matthew 1:18-2:23",
+      "storyId": "story_wise_men_and_flight_to_egypt",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_jesus_born",
+      "characterId": "char_jesus",
+      "title": "Is born in Bethlehem",
+      "description": "Is born to Mary during a Roman census and laid in a feeding trough.",
+      "reference": "Luke 2:1-20",
+      "storyId": "story_jesus_is_born",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_presented",
+      "characterId": "char_jesus",
+      "title": "Is presented at the temple and recognized by Simeon and Anna",
+      "description": "Is blessed by Simeon, who calls him God's salvation for all peoples.",
+      "reference": "Luke 2:21-40",
+      "storyId": "story_jesus_presented_at_the_temple",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jesus_worshiped_by_magi",
+      "characterId": "char_jesus",
+      "title": "Is worshiped by wise men and flees to Egypt as a child",
+      "description": "Receives gold, frankincense, and myrrh, then escapes Herod's slaughter of the infants.",
+      "reference": "Matthew 1:18-2:23",
+      "storyId": "story_wise_men_and_flight_to_egypt",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jesus_at_temple_age_12",
+      "characterId": "char_jesus",
+      "title": "Is found teaching in the temple at twelve",
+      "description": "Amazes the teachers with his understanding and calls the temple \"my Father's house.\"",
+      "reference": "Luke 2:41-52",
+      "storyId": "story_boy_jesus_at_the_temple",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_john_baptist_born",
+      "characterId": "char_john_the_baptist",
+      "title": "Is born to Zacharias and Elizabeth",
+      "description": "Is born and named John, exactly as the angel Gabriel instructed.",
+      "reference": "Luke 1:57-80",
+      "storyId": "story_john_the_baptist_is_born",
       "sequenceInLife": 10
     }
   ]

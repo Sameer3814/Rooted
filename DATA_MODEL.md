@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (124 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament coverage as of 2026-09-10)
+### Character — *live* (130 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 949 verses + 38 topics + 124 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 971 verses + 38 topics + 130 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus — **the entire Old Testament** (23,145 verses; `DEFAULT_BOOKS` in `parse_books.py` lists all 39 books) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 178 stories, 408 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 13 eras, 184 stories, 426 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 949-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 971-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1726,6 +1726,80 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     to worship and trust anyway; a real second instance that turned an
     isolated fact about Job into an actual pattern, the same test every
     motif in this dataset has had to pass.
+
+### The New Testament (started 2026-09-10)
+
+All 39 OT books are curated as of item 40. The owner asked the same day
+to continue into the NT. Before any content work, a real design
+decision had to be made that the OT never faced: **how to handle four
+Gospels that each retell the same life of Jesus.** Full rationale in
+CLAUDE.md "Known gaps" item 9; the short version, extending the
+project's existing "extend, don't clone" rule (Chronicles/Kings,
+Isaiah 36-39/2 Kings 18-20, Haggai-Zechariah/Ezra) rather than
+inventing a new principle:
+
+- **One unified Story per event**, not four parallel retellings.
+  `primaryReference` cites every Gospel that carries the event; curated
+  verses can be drawn from more than one Gospel's account when each
+  contributes something distinctive.
+- **Each Gospel's genuinely unique material gets its own Story** — this
+  is where real Gospel distinctiveness survives harmonizing, not where
+  it gets lost. Luke: the fullest nativity, the prodigal son, the good
+  Samaritan, Zacchaeus, Emmaus. Matthew: the magi, the fullest Sermon
+  on the Mount, the Great Commission. John: Cana, Nicodemus, the woman
+  at the well, Lazarus, the "I am" statements, foot-washing, doubting
+  Thomas. Mark contributes almost no unique narrative — expected, not a
+  gap, since its distinctiveness is pace and compression, not content.
+- **One Character record per person** regardless of how many Gospels
+  mention them.
+- **New eras**: `era_birth_of_jesus`, `era_jesus_ministry`,
+  `era_passion_and_resurrection` (Jesus's life), then
+  `era_early_church` (Acts).
+- **Epistles get the light verses-and-topics treatment** (Leviticus/
+  Proverbs precedent) — they're letters, not narrative.
+- **Revelation** gets a light Story for John's own framing vision (same
+  treatment as Ezekiel's/Daniel's call narratives), then
+  verses-and-topics for the rest.
+
+41. **The birth of Jesus.** **Done (2026-09-10).** A new era,
+    `era_birth_of_jesus`, order 13. 6 stories, matching Luke's and
+    Matthew's own narrative units rather than splitting further:
+    **Gabriel's announcements** (Luke 1:5-56 — the angel's visit to
+    Zacharias in the temple and to Mary in Nazareth, plus Mary's visit
+    to Elizabeth and her Magnificat, kept as one story since Luke tells
+    them as a single interleaved unit); **John the Baptist is born**
+    (Luke 1:57-80 — Zacharias's speech restored, his prophecy over his
+    son); **Jesus is born in Bethlehem** (Luke 2:1-20); **Jesus
+    presented at the temple** (Luke 2:21-40 — Simeon and Anna); **the
+    wise men and the flight to Egypt** (Matthew 1:18-2:23 — Matthew's
+    own, unique account of the same birth, including the angel's visit
+    to Joseph rather than Mary, the magi, Herod's slaughter of the
+    infants, and the family's escape); **the boy Jesus at the temple**
+    (Luke 2:41-52 — age twelve).
+
+    6 new characters: Jesus, Mary, Joseph, John the Baptist, Zacharias,
+    Elizabeth. Joseph needed a non-obvious id, `char_joseph_husband_of_mary`
+    — `char_joseph` was already taken by Genesis's Joseph, and reusing
+    it produced a real build failure the first time through this pass
+    (`build_stories.py` caught two people's life events colliding on
+    the same `sequenceInLife` numbers under one shared id — exactly the
+    kind of validation this pipeline exists to catch). Both display as
+    "Joseph" (their real, accurate names) and are disambiguated by era
+    grouping and by their own roles/summary on the Character detail
+    page — the same pattern already used for the two unrelated
+    Zechariahs (`char_zechariah`, the priest Joash had stoned; and
+    `char_zechariah_prophet`, item 40).
+
+    22 curated verses, no new topics — the existing 38 covered
+    everything, including John's prologue ("In the beginning was the
+    Word," John 1:1, 1:14), curated as standalone verses rather than
+    forced into a Story since they're theological framing, not
+    narrated action. `char_jesus`'s and `char_john_the_baptist`'s
+    `eraId` is set to `era_birth_of_jesus` for now, since it's the only
+    NT era that exists yet; both will move to `era_jesus_ministry` once
+    that era is built next — the same "`eraId` is where a character's
+    own arc is centered, not merely their first appearance" rule
+    already applied to OT figures like Cyrus and Nebuchadnezzar.
 
 ---
 

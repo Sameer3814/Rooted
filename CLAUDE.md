@@ -21,9 +21,11 @@ The owner's goal isn't just verse memorization — it's a study companion:
 - Practice by **topic** (anger, greed, lust, forgiveness...), where topics
   connect to each other (greed relates to contentment, envy, etc.), not a
   flat tag list
-- Explore **Old Testament characters and stories** and how they connect —
-  family trees, "who else lived at this time," parallel/foreshadowing
-  stories, cultural context
+- Explore **Bible characters and stories** and how they connect — family
+  trees, "who else lived at this time," parallel/foreshadowing stories,
+  cultural context (the content was Old-Testament-only through
+  2026-09-10; the New Testament curation started the same day, owner's
+  direction, and follows the same additive design)
 - A **person search / deep-dive view**: search a character, see life
   highlights as a timeline, contemporaries, and parallel stories happening
   at the same time
@@ -126,43 +128,35 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **949 verses** across **every book of the Old Testament**
-  (WEB translation — see `DEFAULT_BOOKS` in `parse_books.py`, which as
-  of 2026-09-10 lists all 39) and **38 topics** (topics linked to
-  related topics), plus **124 characters** (17 Genesis, 8 Exodus,
-  5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel,
-  9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah,
-  5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve) with
-  real relationships (father of, wife of, brother of, successor of,
-  servant of, worked alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 124 characters, standalone. Generated
+  first run: **971 verses** — the entire Old Testament plus the New
+  Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
+  `parse_books.py` for the exact book list, and "Known gaps" item 9 for
+  how the NT is being approached) — across **38 topics** (topics linked
+  to related topics), plus **130 characters** (see DATA_MODEL.md for
+  the full per-book breakdown; NT so far: 6 for the birth of Jesus —
+  Jesus, Mary, `char_joseph_husband_of_mary` — a distinct id from
+  Genesis's `char_joseph`, since both are real, unrelated people named
+  Joseph — John the Baptist, Zacharias, Elizabeth) with real
+  relationships (father of, wife of, brother of, successor of, servant
+  of, worked alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 130 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed corpus: **the entire Old
-  Testament** (23,145 verses, WEB translation, public domain), matching
-  `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
-  screen the first time it's opened, never at boot. It is *reference
-  material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 949 seed
-  verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 12 eras, **178 stories and 408 life events**.
-  Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
-  wilderness narrative, Deuteronomy's ending, Joshua's conquest of
-  Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
-  (Hannah through Solomon — now also David's temple preparations and
-  prayer of blessing from 1 Chronicles), `era_divided_kingdom` (the
-  kingdom splitting, the Elijah/Elisha cycle, 2 Kings, the Chronicles
-  kings of Judah, and now Isaiah's and Jeremiah's calls, Hosea's
-  marriage, Amos's confrontation with Amaziah, and Jonah's flight and
-  Nineveh), `era_exile` (Jerusalem falls to Nebuchadnezzar, and now also
-  Jeremiah's cistern and forced flight to Egypt, Ezekiel's visions, and
-  Daniel's court from Nebuchadnezzar through Darius the Mede),
-  `era_return_from_exile` (Zerubbabel and Jeshua rebuild the temple —
-  now with Haggai's and Zechariah's own prophetic support folded in —
-  and Ezra and Nehemiah rebuild the law and the walls), `era_esther`
-  (the Jews who stayed in Persia), and `era_job` (outside Israel's own
-  history entirely). Loaded at boot (it's small). Drives the character
-  life timeline, the Stories screens, People-grouped-by-era, and
-  "appears alongside".
+- `data/verses.json` — the **full** parsed corpus: the entire Old
+  Testament plus the New Testament books curated so far (26,923 verses,
+  WEB translation, public domain), matching `DEFAULT_BOOKS` in
+  `parse_books.py`. Lazily fetched by the Browse screen the first time
+  it's opened, never at boot. It is *reference material*, kept separate
+  from the user's library — adding a verse from Browse copies it into
+  the user's overlay. Only the 971 seed verses are topic-tagged; the
+  rest of the corpus isn't yet.
+- `data/stories.json` — 13 eras, **184 stories and 426 life events**.
+  All 12 OT eras (Genesis through `era_job` — see DATA_MODEL.md for the
+  full list) plus the first NT era, `era_birth_of_jesus` — Gabriel's
+  two announcements, John the Baptist's birth, Jesus's birth in
+  Bethlehem, his presentation at the temple, the wise men and the
+  flight to Egypt, and the boy Jesus in the temple at twelve. Loaded at
+  boot (it's small). Drives the character life timeline, the Stories
+  screens, People-grouped-by-era, and "appears alongside".
 - `data/motifs.json` — **20** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
   occurrences. Newest: `motif_gracious_and_merciful_formula` (the same
@@ -183,12 +177,12 @@ The schema was deliberately designed so all of the above can be added
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. **Default set is now all 39 Old Testament books** —
-    the entire OT is curated as of 2026-09-10 (see "Known gaps" below).
-    `--books`/`--all` remain for parsing New Testament books ad hoc, if
-    that's ever undertaken; `DEFAULT_BOOKS` should only grow to match
-    what's actually curated, not what's merely been read (see
-    `pipeline/README.md`'s lessons for why).
+    whole Bible. All 39 Old Testament books are in the default set
+    (curated as of 2026-09-10), plus the New Testament books curated so
+    far — Matthew, Mark, Luke, John as of the birth-of-Jesus pass.
+    `DEFAULT_BOOKS` should only grow to match what's actually curated,
+    not what's merely been read (see `pipeline/README.md`'s lessons for
+    why — this bit the wisdom-books pass once already).
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -381,6 +375,54 @@ hand-curate all the content before building.
    `practiceCountsByDay()` (DATA_MODEL.md §7) is still there and is the
    data source to reuse if/when this comes back — just `renderHeatmap()`
    and its CSS were deleted.
+9. **Expanding into the New Testament — started 2026-09-10, owner's
+   direction, immediately after the OT was finished.** The WEB source
+   covers the whole 66-book Bible (verified: `parse_books.py --books
+   matthew` downloads and parses cleanly from the same
+   `TehShrike/world-english-bible` source, same public-domain status as
+   the OT — no licensing change needed). The real work
+   here is a genuinely new design decision the OT never had to make:
+   **how to handle four Gospels that each retell the same life.**
+   Decided, extending the project's existing "extend, don't clone"
+   rule (Chronicles/Kings, Isaiah 36-39/2 Kings 18-20, Haggai-
+   Zechariah/Ezra) rather than inventing a new principle for it:
+   - **"The life of Jesus" is one unified chronological narrative**,
+     not four separate retellings. Each event gets **one** Story, drawn
+     from whichever Gospel(s) tell it most fully — `primaryReference`
+     cites every Gospel that carries the event (e.g. the feeding of the
+     five thousand cites all four), and curated verses can be pulled
+     from more than one Gospel's account of the same event when each
+     contributes something distinctive.
+   - **Each Gospel's genuinely unique material still gets its own
+     Story** — this is where each Gospel's real distinctiveness shows
+     up, not lost by harmonizing. Luke alone has the fullest nativity,
+     the prodigal son, the good Samaritan, Zacchaeus, the Emmaus road.
+     Matthew alone has the magi, the fullest Sermon on the Mount, the
+     Great Commission. John alone has Cana, Nicodemus, the woman at the
+     well, Lazarus, the "I am" statements, foot-washing, doubting
+     Thomas. Mark, the earliest and most concise Gospel, contributes
+     almost no unique narrative of its own — that's expected, not a
+     gap to fill artificially; its distinctiveness is pace and
+     compression, not unique content.
+   - **One Character record per person regardless of how many Gospels
+     mention them** — Jesus, Peter, the Twelve, Mary, and so on are
+     never duplicated per Gospel, same as any OT figure who appears in
+     both Kings and Chronicles.
+   - **New eras**, since none of the OT eras fit: `era_birth_of_jesus`,
+     `era_jesus_ministry`, `era_passion_and_resurrection` (Jesus's life,
+     roughly the Gospels' own three-act shape), then `era_early_church`
+     for Acts.
+   - **Epistles get the light verses-and-topics treatment** established
+     with Leviticus/Proverbs — they're letters, not narrative, so no
+     Story records for most of them (a few have real autobiographical
+     narrative worth a Story, decided case by case as each is curated).
+   - **Revelation** gets a light Story for John's own framing vision
+     (the same treatment as Ezekiel's or Daniel's call/vision
+     narratives), then verses-and-topics for the rest, since most of
+     the book isn't narrated action in the Story sense.
+   **Progress: the birth of Jesus is done** (`era_birth_of_jesus`, 6
+   stories, 6 characters — see the "Done" changelog below). Full detail
+   in DATA_MODEL.md §8, items 41 onward, as each installment lands.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
@@ -693,15 +735,35 @@ of God turning them from demanding answers to worship anyway.
 seed verses, 124 characters, 178 stories, 408 life events, 20 motifs,
 and 135 connections, built one book at a time across this project's
 life, from Genesis's first pass through this final push through the
-Twelve. Whoever picks this project up next: the natural continuation is
-either the New Testament (a new canon, likely warranting its own
-discussion with the owner before starting — different translation
-licensing may apply depending on choices made, and the era/timeline
-model would need real thought for a very different kind of narrative
-span) or turning attention back to the other "Known gaps" above (more
-challenge types, real character art, the account/guest-mode direction
-in the `rooted-product-vision` memory) now that content isn't the
-bottleneck.
+Twelve. The owner asked the same day to continue straight into the New
+Testament — see "Known gaps" item 9 below, and DATA_MODEL.md §8 items
+41+ for that work as it lands. The WEB source
+(`TehShrike/world-english-bible`) covers the full 66-book Bible, so no
+translation/licensing change was needed to start it; the era/timeline
+model does need real new design for the NT's different shape (four
+Gospels retelling the same life, then letters rather than narrative) —
+see item 9's opening note for the approach taken.
+
+**New Testament, installment 1: the birth of Jesus.** A new era,
+`era_birth_of_jesus` (order 13). 6 stories: Gabriel's two announcements
+(to Zacharias, then to Mary — one story, since Luke tells them as one
+interleaved unit ending in Mary's visit to Elizabeth and her
+Magnificat); John the Baptist's birth (Zacharias's speech restored, his
+prophecy over his son); Jesus's birth in Bethlehem; his presentation at
+the temple (Simeon and Anna); the wise men and the flight to Egypt
+(Matthew's unique material, including his own account of the
+annunciation to Joseph); and the boy Jesus found teaching in the temple
+at twelve. 6 new characters: Jesus, Mary, Joseph (id
+`char_joseph_husband_of_mary` — the id `char_joseph` was already taken
+by Genesis's Joseph; caught by a real build failure the first time
+through, "two life events at sequenceInLife 10/20/30/40", since Genesis
+Joseph's own ids like `event_joseph_dreams` don't collide but the
+generic id itself did), John the Baptist, Zacharias, Elizabeth. 22
+curated verses, no new topics. Jesus's and John the Baptist's `eraId`
+is set to `era_birth_of_jesus` for now (the only NT era that exists
+yet) and will move to `era_jesus_ministry` once that era exists next —
+same pattern as any OT character whose `eraId` reflects where their
+arc is centered, not merely the first story they appear in.
 
 ## Source data provenance
 

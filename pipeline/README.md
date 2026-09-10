@@ -271,6 +271,19 @@ Worth knowing:
   without deliberately checking new content against what's already
   there. When curating late books, actively look for echoes of already-
   curated verses, not just new content in isolation.
+- **Common names collide once the canon gets big enough to have real
+  duplicates.** Starting the New Testament, `char_joseph` was reused
+  for Mary's husband without checking — Genesis's Joseph already had
+  that id. `build_stories.py` caught it immediately (both Josephs'
+  life events collided on the same `sequenceInLife` numbers under one
+  shared character id), but check for an existing id *before* writing
+  a character record, not after the builder complains. The fix,
+  `char_joseph_husband_of_mary`, follows the same pattern already used
+  for the two Zechariahs (`char_zechariah` the priest, `char_zechariah_prophet`
+  the minor prophet) — both people keep their real, accurate `name`
+  ("Joseph," "Zechariah"), disambiguated by a longer `id`, era
+  grouping, and their own summary, not by inventing a nickname that
+  isn't in the text.
 
 ## Copyright
 

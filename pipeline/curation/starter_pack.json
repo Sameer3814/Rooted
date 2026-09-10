@@ -7652,6 +7652,195 @@
         "topic_love"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_luke_1_13",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_zacharias"
+      ]
+    },
+    {
+      "id": "verse_luke_1_31",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_mary",
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_1_37",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_1_38",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_luke_1_46",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_luke_1_52",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_luke_1_76",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_zacharias",
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_luke_1_78",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_2_10",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_2_11",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_2_14",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_2_29",
+      "topicIds": [
+        "topic_peace",
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_2_32",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_2_35",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_matthew_1_21",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_joseph_husband_of_mary"
+      ]
+    },
+    {
+      "id": "verse_matthew_1_23",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_2_2",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_2_11",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_2_49",
+      "topicIds": [
+        "topic_calling",
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_2_52",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_1_1",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_1_14",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
     }
   ],
   "topics": [
@@ -9392,6 +9581,66 @@
       ],
       "eraId": "era_return_from_exile",
       "summary": "A prophet who supported Zerubbabel and the returned exiles with a series of visions during the temple's rebuilding, reminding them the work would be finished \"not by might, nor by power, but by my Spirit.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_jesus",
+      "name": "Jesus",
+      "roles": [
+        "the Messiah whose birth, life, death, and resurrection are the center of the New Testament"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "Conceived by the Holy Spirit and born to Mary in Bethlehem, he grew up in Nazareth, was baptized by his cousin John, and spent roughly three years teaching, healing, and calling people to himself before his death and resurrection in Jerusalem. Called the Messiah, the Son of God, and the Word made flesh.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mary",
+      "name": "Mary",
+      "roles": [
+        "the virgin who bore Jesus and treasured what she didn't yet understand"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "A young woman of Nazareth, engaged to Joseph, told by the angel Gabriel she would bear the Messiah by the Holy Spirit. She visited her relative Elizabeth, sang a song of praise anticipating God's reversal of the proud and the lowly, and treasured the things said about her son without fully understanding them.",
+      "verseIds": []
+    },
+    {
+      "id": "char_joseph_husband_of_mary",
+      "name": "Joseph",
+      "roles": [
+        "the carpenter who protected Mary and Jesus through visions in his sleep"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "A descendant of David engaged to Mary, who nearly divorced her quietly on finding her pregnant before an angel explained the child was from the Holy Spirit. He named Jesus as instructed, and three more times acted on warnings in his dreams -- fleeing to Egypt, then returning to settle in Nazareth instead of Judea.",
+      "verseIds": []
+    },
+    {
+      "id": "char_john_the_baptist",
+      "name": "John the Baptist",
+      "roles": [
+        "the forerunner who prepared the way for Jesus"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "Son of Zacharias and Elizabeth, born after his father was struck silent for disbelieving the angel's announcement. Grew up to become a wilderness prophet who baptized Jesus and prepared people for his coming, \"in the spirit and power of Elijah.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_zacharias",
+      "name": "Zacharias",
+      "roles": [
+        "the priest struck silent for doubting his son's promised birth"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "A priest of the division of Abijah who, burning incense in the temple, was told by the angel Gabriel that his elderly, childless wife Elizabeth would bear a son. He doubted and was struck mute until the child was born and named John as instructed, after which he prophesied over his son's future.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elizabeth",
+      "name": "Elizabeth",
+      "roles": [
+        "Zacharias's wife, whose unlikely pregnancy in old age recognized Mary's greater one"
+      ],
+      "eraId": "era_birth_of_jesus",
+      "summary": "A relative of Mary who conceived John in her old age after decades of barrenness. When the pregnant Mary visited her, the baby leaped in her womb and she was filled with the Holy Spirit, recognizing Mary as \"the mother of my Lord\" before anyone had told her.",
       "verseIds": []
     }
   ]
