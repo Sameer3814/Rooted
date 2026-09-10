@@ -430,7 +430,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,227 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,251 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,227-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,251-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2206,6 +2206,35 @@ inventing a new principle:
     (3:23). No new topics — 38 topics have now carried 8 epistles and
     the whole Old and New Testament narrative without needing to grow
     since item 40 (the Twelve, end of the Old Testament).
+
+59. **1-2 Thessalonians, 1-2 Timothy, Titus, Philemon.** **Done
+    (2026-09-10).** Grouped as one pass — the remaining shorter
+    Pauline letters (Thessalonian correspondence, then the three
+    "pastoral" letters to individuals, then the one-page personal
+    appeal to Philemon). No Story records, no new characters. 24
+    curated verses: 1 Thessalonians — the resurrection of the dead in
+    Christ and being caught up to meet the Lord (4:14, 4:16-17), four
+    short, independently famous imperatives from chapter 5 (rejoice
+    always, pray without ceasing, give thanks in everything, test all
+    things). 2 Thessalonians — God's faithfulness to guard against the
+    evil one (3:3), not growing weary in doing right (3:13). 1 Timothy
+    — Paul calling himself the foremost of sinners Christ came to save
+    (1:15, tagged to `char_paul`), contentment as great gain (6:6),
+    the love of money as a root of evil (6:10), fighting the good
+    fight of faith (6:12). 2 Timothy — no spirit of fear but of power,
+    love, and self-control (1:7), Scripture as God-breathed and
+    equipping (3:16-17), Paul's own summary near the end of his life,
+    "I have fought the good fight... I have kept the faith" (4:7,
+    tagged to `char_paul`). Titus — grace instructing believers to
+    live godly lives (2:11-12), salvation by mercy, not works (3:5).
+    Philemon — Paul's appeal for Onesimus to be received "no longer as
+    a slave, but... a beloved brother" (1:16), and to charge any debt
+    to Paul's own account instead (1:18, tagged to `char_paul` as his
+    own offer, not a general doctrine) — the two verses that carry the
+    whole letter's point without needing the full backstory of
+    Onesimus curated as a Character, since he never appears again in
+    what this project curates and his story here is entirely
+    Philemon's decision, not his own action. No new topics.
 
 ---
 

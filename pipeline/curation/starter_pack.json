@@ -9995,6 +9995,180 @@
         "topic_obedience"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_4_14",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_4_16",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_4_17",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_5_16",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_5_17",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_5_18",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1thessalonians_5_21",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2thessalonians_3_3",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2thessalonians_3_13",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1timothy_1_15",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_1timothy_4_12",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1timothy_6_6",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1timothy_6_10",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1timothy_6_12",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2timothy_1_7",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2timothy_2_15",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2timothy_3_16",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2timothy_3_17",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2timothy_4_7",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_titus_2_11",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_titus_2_12",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_titus_3_5",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philemon_1_16",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_philemon_1_18",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
     }
   ],
   "topics": [

@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,227 verses** — the entire Old Testament plus the New
+  first run: **1,251 verses** — the entire Old Testament plus the New
   Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the exact book list, "Known gaps" item 9 for how
   the NT is being approached, and DATA_MODEL.md §8 for the full,
@@ -149,7 +149,7 @@ The schema was deliberately designed so all of the above can be added
   `parse_books.py`. Lazily fetched by the Browse screen the first time
   it's opened, never at boot. It is *reference material*, kept separate
   from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 1,227 seed verses are topic-tagged; the
+  the user's overlay. Only the 1,251 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
 - `data/stories.json` — 16 eras, **236 stories and 528 life events**.
   All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
@@ -423,9 +423,10 @@ hand-curate all the content before building.
    arrest in Rome — the note Acts itself ends on. **The epistles are
    underway** (light verses-and-topics treatment, per item 9's design
    note — most have no narrative): Romans, 1-2 Corinthians, Galatians,
-   Ephesians, Philippians, and Colossians done. 14 more epistles to go,
-   then Revelation. Full detail in DATA_MODEL.md §8, items 41 onward,
-   as each
+   Ephesians, Philippians, Colossians, 1-2 Thessalonians, 1-2 Timothy,
+   Titus, and Philemon done. 8 more epistles to go (Hebrews through
+   Jude), then Revelation. Full detail in DATA_MODEL.md §8, items 41
+   onward, as each
    installment lands (that's now the authoritative running log —
    this file's own "Done" changelog below stops narrating every NT
    installment in full prose, to stay sustainable across what's a much
