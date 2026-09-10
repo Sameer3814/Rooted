@@ -4140,6 +4140,101 @@
         "topic_calling",
         "topic_humility"
       ]
+    },
+    {
+      "id": "story_sermon_on_the_mount",
+      "title": "The Sermon on the Mount",
+      "summary": "Seeing the crowds, Jesus goes up a mountain and teaches his disciples at length -- the Beatitudes (\"blessed are the poor in spirit... the merciful... the peacemakers\"), calling his followers salt and light, and insisting he came to fulfill the law, not abolish it, by pressing it deeper than outward behavior into the heart (anger as a seed of murder, lust as a seed of adultery, loving enemies instead of just neighbors). He teaches them to pray simply (the Lord's Prayer), to store up treasure in heaven rather than on earth, not to be anxious since God feeds the birds and clothes the flowers, not to judge others while ignoring their own faults, to ask/seek/knock in prayer, and to treat others as they want to be treated. He closes with the choice between a narrow gate and a wide one, and a wise builder whose house survives the storm because it's built on rock. The crowds are astonished -- he teaches with real authority, not like their scribes.",
+      "primaryReference": "Matthew 5:1-7:29",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2300,
+      "verseIds": [
+        "verse_matthew_5_3",
+        "verse_matthew_5_7",
+        "verse_matthew_5_9",
+        "verse_matthew_5_16",
+        "verse_matthew_5_44",
+        "verse_matthew_6_9",
+        "verse_matthew_6_12",
+        "verse_matthew_6_21",
+        "verse_matthew_6_25",
+        "verse_matthew_6_33",
+        "verse_matthew_7_1",
+        "verse_matthew_7_7",
+        "verse_matthew_7_12",
+        "verse_matthew_7_24"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_love",
+        "topic_trust",
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_parable_of_the_sower",
+      "title": "The parable of the sower",
+      "summary": "Teaching a crowd from a boat, Jesus tells of a farmer scattering seed: some falls on the path and is eaten by birds, some on rocky soil and withers without root, some among thorns and is choked out, and some on good soil, yielding a huge harvest. Asked privately why he teaches in parables, he explains that the seed is the word of God and the soils are different ways people receive it -- distracted, shallow, choked by worry and riches, or genuinely fruitful.",
+      "primaryReference": "Matthew 13:1-23",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2310,
+      "verseIds": [
+        "verse_matthew_13_8",
+        "verse_matthew_13_9",
+        "verse_matthew_13_23"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_wisdom",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_good_samaritan",
+      "title": "The good Samaritan",
+      "summary": "A legal expert, testing Jesus, asks what he must do to inherit eternal life; Jesus points him back to the law -- love God and love your neighbor -- and the man, looking to justify himself, asks \"who is my neighbor?\" Jesus answers with a story: a man is beaten and left half-dead on the Jericho road, and both a priest and a Levite -- men who should know the law best -- pass by on the other side. It's a Samaritan, someone from a people Jews despised, who stops, bandages his wounds, and pays for his care at an inn. Jesus asks which of the three was a neighbor, then tells the lawyer to go and do the same.",
+      "primaryReference": "Luke 10:25-37",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2320,
+      "verseIds": [
+        "verse_luke_10_27",
+        "verse_luke_10_33",
+        "verse_luke_10_37"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_love",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_prodigal_son",
+      "title": "The prodigal son",
+      "summary": "A younger son demands his inheritance early, leaves for a distant country, and squanders it all on reckless living until a famine leaves him feeding pigs and envying their food. Coming to his senses, he heads home to beg to be taken back as a hired servant -- but while he's still far off, his father sees him, runs to him, and embraces him before he can even finish his rehearsed apology, calling for a robe, a ring, and a celebration feast: \"this son of mine was dead, and is alive again.\" The older son, who stayed and obeyed, refuses to join the celebration, resentful that his years of faithfulness were never celebrated like this. His father goes out to him too: \"you are always with me, and all that is mine is yours\" -- but this brother, once lost, had to be celebrated for coming home.",
+      "primaryReference": "Luke 15:11-32",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2330,
+      "verseIds": [
+        "verse_luke_15_18",
+        "verse_luke_15_20",
+        "verse_luke_15_24",
+        "verse_luke_15_31"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_forgiveness",
+        "topic_love"
+      ]
     }
   ],
   "lifeEvents": [
@@ -8933,6 +9028,42 @@
       "reference": "John 1:35-51",
       "storyId": "story_first_disciples_follow",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_sermon_on_mount",
+      "characterId": "char_jesus",
+      "title": "Teaches the Sermon on the Mount",
+      "description": "Delivers the Beatitudes and his core teaching on the law, prayer, worry, and judgment.",
+      "reference": "Matthew 5:1-7:29",
+      "storyId": "story_sermon_on_the_mount",
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_jesus_teaches_sower",
+      "characterId": "char_jesus",
+      "title": "Teaches the parable of the sower",
+      "description": "Explains why he teaches in parables and what the different soils represent.",
+      "reference": "Matthew 13:1-23",
+      "storyId": "story_parable_of_the_sower",
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_jesus_tells_good_samaritan",
+      "characterId": "char_jesus",
+      "title": "Tells the parable of the good Samaritan",
+      "description": "Answers \"who is my neighbor?\" with a story about a despised outsider showing real mercy.",
+      "reference": "Luke 10:25-37",
+      "storyId": "story_good_samaritan",
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_jesus_tells_prodigal_son",
+      "characterId": "char_jesus",
+      "title": "Tells the parable of the prodigal son",
+      "description": "Pictures God's welcome for the repentant and his appeal to the resentful obedient son.",
+      "reference": "Luke 15:11-32",
+      "storyId": "story_prodigal_son",
+      "sequenceInLife": 130
     }
   ]
 }

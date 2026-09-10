@@ -7992,6 +7992,221 @@
         "char_james_son_of_zebedee",
         "char_john_apostle"
       ]
+    },
+    {
+      "id": "verse_matthew_5_3",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_5_7",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_5_9",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_5_16",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_5_44",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_6_9",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_6_12",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_6_21",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_6_25",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_6_33",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_7_1",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_7_7",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_7_12",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_7_24",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_13_8",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_13_9",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_13_23",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_10_27",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_10_33",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_10_37",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_15_7",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_15_18",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_20",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_24",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_31",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [

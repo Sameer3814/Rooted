@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 987 verses + 38 topics + 136 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,012 verses + 38 topics + 136 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 14 eras, 190 stories, 442 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 14 eras, 194 stories, 446 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 987-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,012-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1827,6 +1827,30 @@ inventing a new principle:
     `char_john_the_baptist` — two Johns, same disambiguation-by-id
     pattern as the Josephs and Zechariahs), Philip, Nathanael. 16
     curated verses, no new topics.
+
+43. **The Sermon on the Mount and three parables.** **Done
+    (2026-09-10).** Establishes a new precedent worth stating plainly:
+    **fictional figures inside Jesus's parables do not get Character
+    records** — the good Samaritan, the priest and Levite who pass by,
+    the prodigal son and his father and brother are not real,
+    identifiable historical people the way every other Character in
+    this dataset is (even unnamed-but-real figures like "the widow of
+    Zarephath" describe one specific historical person). Their stories'
+    `characterIds` carry only `char_jesus`, the one actually speaking.
+    4 stories: **the Sermon on the Mount** (Matthew 5-7, kept as one
+    story despite its length and range — Beatitudes, salt and light,
+    the deeper law, the Lord's Prayer, treasure in heaven, anxiety,
+    judging, the golden rule, the narrow gate, the wise and foolish
+    builders — because it's genuinely one continuous discourse in one
+    setting, the same reasoning that kept Job's friends' dialogue as
+    one story across 35 chapters, item 35); **the parable of the sower**
+    (Matthew 13:1-23, including Jesus's own explanation of it); **the
+    good Samaritan** (Luke 10:25-37, Luke-unique); **the prodigal son**
+    (Luke 15:11-32, Luke-unique). No new characters. 24 curated verses,
+    no new topics — the Sermon alone contributed 14, comparable in
+    density to how Proverbs (item 35) needed no new topics either
+    despite being one of the most quotable stretches of text curated
+    so far.
 
 ---
 
