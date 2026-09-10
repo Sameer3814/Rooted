@@ -9240,6 +9240,49 @@
       "characterIds": [
         "char_paul"
       ]
+    },
+    {
+      "id": "verse_acts_10_15",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_10_28",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_10_34",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_10_44",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_10_47",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
     }
   ],
   "topics": [
@@ -11310,6 +11353,16 @@
       ],
       "eraId": "era_early_church",
       "summary": "Originally named Saul, a zealous persecutor of the church who held the coats of those who stoned Stephen and hunted believers from city to city -- until a blinding light and the voice of the risen Jesus on the road to Damascus stopped him entirely. Baptized and filled with the Holy Spirit after three days of blindness, he immediately began proclaiming the very faith he'd tried to destroy, eventually becoming the New Testament's most prolific writer and its most tireless missionary.",
+      "verseIds": []
+    },
+    {
+      "id": "char_cornelius",
+      "name": "Cornelius",
+      "roles": [
+        "the Roman centurion whose household became the first Gentile converts"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A Roman centurion in Caesarea known for his generosity to the poor and constant prayer, though not a Jew. Told in a vision to send for Peter, his household became the first Gentiles to receive the Holy Spirit and be baptized -- proof, to Peter and the watching Jewish believers, that God's promise wasn't for Israel alone.",
       "verseIds": []
     }
   ]

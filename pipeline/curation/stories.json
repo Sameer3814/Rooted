@@ -4987,6 +4987,30 @@
         "topic_repentance",
         "topic_calling"
       ]
+    },
+    {
+      "id": "story_peter_and_cornelius",
+      "title": "Peter and Cornelius",
+      "summary": "Cornelius, a devout Roman centurion, is told in a vision to send for Peter. The next day, Peter himself has a vision -- a sheet full of animals he's told to kill and eat, including foods forbidden under Jewish law. When he refuses, a voice tells him three times, \"what God has cleansed, you must not call unclean.\" As he's puzzling over it, Cornelius's messengers arrive, and Peter goes with them, now understanding the vision was never about food: \"God has shown me that I shouldn't call any man unholy or unclean.\" Preaching to Cornelius's household, Peter declares that God shows no favoritism between nations -- and while he's still speaking, the Holy Spirit falls on the Gentiles gathered there, exactly as it did on the disciples at Pentecost. Peter has them baptized on the spot, opening the church to the Gentile world.",
+      "primaryReference": "Acts 10:1-48",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2850,
+      "verseIds": [
+        "verse_acts_10_15",
+        "verse_acts_10_28",
+        "verse_acts_10_34",
+        "verse_acts_10_44",
+        "verse_acts_10_47"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_cornelius"
+      ],
+      "topicIds": [
+        "topic_holiness",
+        "topic_love",
+        "topic_justice"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10437,6 +10461,24 @@
       "reference": "Acts 9:1-22",
       "storyId": "story_pauls_conversion",
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_peter_vision_and_cornelius",
+      "characterId": "char_peter",
+      "title": "Learns God shows no favoritism between nations",
+      "description": "Has a vision reinterpreting clean and unclean, then baptizes a Gentile household.",
+      "reference": "Acts 10:1-48",
+      "storyId": "story_peter_and_cornelius",
+      "sequenceInLife": 120
+    },
+    {
+      "id": "event_cornelius_receives_spirit",
+      "characterId": "char_cornelius",
+      "title": "Becomes one of the first Gentile converts",
+      "description": "Is told in a vision to send for Peter, then receives the Holy Spirit and baptism.",
+      "reference": "Acts 10:1-48",
+      "storyId": "story_peter_and_cornelius",
+      "sequenceInLife": 10
     }
   ]
 }
