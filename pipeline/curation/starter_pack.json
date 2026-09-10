@@ -8543,6 +8543,168 @@
       "characterIds": [
         "char_jesus"
       ]
+    },
+    {
+      "id": "verse_matthew_26_21",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_26",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_28",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_13_8",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_13_14",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_13_34",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_14_1",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_14_6",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_14_27",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_15_5",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_15_13",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_16_33",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_38",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_39",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_41",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_50",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_judas_iscariot"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_52",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_26_56",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -10483,6 +10645,16 @@
       ],
       "eraId": "era_jesus_ministry",
       "summary": "A young man who kept every commandment from his youth but walked away grieved when Jesus told him to sell everything, give to the poor, and follow him -- unwilling to trade his great wealth for treasure in heaven.",
+      "verseIds": []
+    },
+    {
+      "id": "char_judas_iscariot",
+      "name": "Judas Iscariot",
+      "roles": [
+        "the disciple who betrayed Jesus for thirty pieces of silver"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "One of the twelve, treasurer of the group, who agreed to betray Jesus to the chief priests and identified him with a kiss in Gethsemane. His betrayal set in motion Jesus's arrest, trial, and crucifixion.",
       "verseIds": []
     }
   ]

@@ -284,6 +284,21 @@ Worth knowing:
   ("Joseph," "Zechariah"), disambiguated by a longer `id`, era
   grouping, and their own summary, not by inventing a nickname that
   isn't in the text.
+- **Recurring NT characters (Jesus, Peter, the inner circle) need their
+  current max `sequenceInLife` checked before every new batch, not
+  assumed.** Unlike most OT figures, who accumulate life events across
+  months-apart passes on unrelated books, Jesus and Peter pick up new
+  events in nearly *every single* NT curation batch, since they're in
+  almost every story. Reusing round numbers (this pipeline's usual
+  10/20/30 spacing) without checking the actual current max caused a
+  real collision adding the Last Supper batch — `char_peter` already
+  had events at 40 and 50 from two *different* earlier batches (the
+  Transfiguration pass and the Peter's-confession pass), and the new
+  foot-washing/Gethsemane events picked the same numbers by coincidence.
+  `build_stories.py` catches it immediately, but for characters this
+  central, query their existing `sequenceInLife` values first
+  (`py -c "..."` one-liner against `pipeline/curation/stories.json` is
+  fast) rather than guessing round numbers and fixing after the fact.
 
 ## Copyright
 

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (144 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem — Zacchaeus, the rich young ruler)
+### Character — *live* (145 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper — Judas Iscariot)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,049 verses + 38 topics + 144 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,067 verses + 38 topics + 145 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 15 eras, 205 stories, 470 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 15 eras, 210 stories, 480 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,049-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,067-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1929,6 +1929,36 @@ inventing a new principle:
     `char_rich_young_ruler` — unnamed in the text, same "real person,
     no name given" treatment as the Samaritan woman, item 45, and the
     OT's widow of Zarephath). 9 curated verses, no new topics.
+
+47. **The Last Supper through the arrest.** **Done (2026-09-10).** 5
+    stories in `era_passion_and_resurrection`: **the Last Supper**
+    (Matthew 26:17-30 — betrayal foretold, the bread and cup);
+    **Jesus washes his disciples' feet** (John 13:1-17, 34-35,
+    John-unique — servant leadership and the new commandment to love
+    one another); **Jesus comforts his disciples** (John 14:1-16:33,
+    John-unique — kept as one story covering the whole farewell
+    discourse rather than one per chapter, since it's a single
+    continuous address like the Sermon on the Mount, item 43: "I am
+    the way, the truth, and the life," the vine and the branches,
+    "in me you may have peace"); **Gethsemane** (Matthew 26:36-46 —
+    the threefold prayer, the sleeping disciples); **betrayal and
+    arrest** (Matthew 26:47-56 — Judas's kiss, the severed ear, "all
+    those who take the sword will die by the sword").
+
+    1 new character: Judas Iscariot (first Character record, though
+    referenced earlier in narrative text — his `eraId` is
+    `era_passion_and_resurrection`, where his one defining act
+    happens). 18 curated verses, no new topics. Hit a real
+    `sequenceInLife` collision building this batch — `char_peter`
+    already had events at 40 and 50 from two earlier, unrelated
+    batches (Peter's confession, and the Transfiguration), and this
+    batch's new foot-washing and Gethsemane events picked the same
+    numbers independently. Fixed by querying Peter's actual existing
+    values before renumbering (60, 70) rather than guessing; see
+    `pipeline/README.md`'s new lesson on checking `sequenceInLife` for
+    high-frequency NT characters before each batch, not just OT
+    figures who rarely collide since their appearances are spread
+    across months-apart passes.
 
 ---
 

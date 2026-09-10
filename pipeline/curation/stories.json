@@ -4480,6 +4480,119 @@
         "topic_humility",
         "topic_worship"
       ]
+    },
+    {
+      "id": "story_last_supper",
+      "title": "The Last Supper",
+      "summary": "Jesus shares a final Passover meal with the twelve, telling them plainly that one of them will betray him -- each asks in turn, \"it isn't me, is it, Lord?\" He takes bread, gives thanks, breaks it, and says, \"take, eat; this is my body,\" then the cup: \"this is my blood of the new covenant, poured out for many for the remission of sins.\" After singing a hymn, they leave for the Mount of Olives.",
+      "primaryReference": "Matthew 26:17-30",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2610,
+      "verseIds": [
+        "verse_matthew_26_21",
+        "verse_matthew_26_26",
+        "verse_matthew_26_28"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter",
+        "char_judas_iscariot"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_foot_washing",
+      "title": "Jesus washes his disciples' feet",
+      "summary": "During the same meal, Jesus gets up, wraps a towel around his waist, and washes his disciples' feet -- a servant's job. Peter objects, then overcorrects, wanting his hands and head washed too; Jesus tells him this act is an example to follow: \"if I then, the Lord and the Teacher, have washed your feet, you also ought to wash one another's feet.\" He adds a new commandment -- to love one another as he has loved them, the mark by which everyone will know they are his disciples.",
+      "primaryReference": "John 13:1-17, 34-35",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2620,
+      "verseIds": [
+        "verse_john_13_8",
+        "verse_john_13_14",
+        "verse_john_13_34"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_love"
+      ]
+    },
+    {
+      "id": "story_farewell_discourse",
+      "title": "Jesus comforts his disciples",
+      "summary": "Knowing what's coming, Jesus spends the rest of the meal comforting and preparing the disciples: \"don't let your heart be troubled... I am the way, the truth, and the life,\" a promise of peace unlike anything the world gives, an image of himself as a vine and them as branches who can do nothing apart from him, and a warning that they'll have trouble in the world but can take heart, because he has overcome it.",
+      "primaryReference": "John 14:1-16:33",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2630,
+      "verseIds": [
+        "verse_john_14_1",
+        "verse_john_14_6",
+        "verse_john_14_27",
+        "verse_john_15_5",
+        "verse_john_15_13",
+        "verse_john_16_33"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_peace",
+        "topic_trust",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_gethsemane",
+      "title": "Gethsemane",
+      "summary": "In the garden of Gethsemane, Jesus takes Peter, James, and John further with him, telling them his soul is sorrowful to the point of death. He prays three times, alone, that the coming suffering might pass -- \"nevertheless, not what I desire, but what you desire\" -- while the three keep falling asleep instead of keeping watch with him. He wakes them a final time: the hour has come, and his betrayer is near.",
+      "primaryReference": "Matthew 26:36-46",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2640,
+      "verseIds": [
+        "verse_matthew_26_38",
+        "verse_matthew_26_39",
+        "verse_matthew_26_41"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter",
+        "char_james_son_of_zebedee",
+        "char_john_apostle"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_obedience",
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "story_betrayal_and_arrest",
+      "title": "Betrayal and arrest",
+      "summary": "Judas arrives with an armed crowd sent by the chief priests, identifying Jesus with a prearranged kiss. Jesus doesn't resist -- when one of his own strikes off the ear of the high priest's servant, Jesus tells him to put the sword away, pointing out he could call down legions of angels if he wanted rescue. He lets himself be taken, noting they came at him with weapons as if he were a criminal, though he'd taught openly in the temple every day. All the disciples run.",
+      "primaryReference": "Matthew 26:47-56",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2650,
+      "verseIds": [
+        "verse_matthew_26_50",
+        "verse_matthew_26_52",
+        "verse_matthew_26_56"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_judas_iscariot",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_peace"
+      ]
     }
   ],
   "lifeEvents": [
@@ -9524,6 +9637,96 @@
       "description": "Cannot bring himself to give up his wealth to follow Jesus.",
       "reference": "Matthew 19:16-26",
       "storyId": "story_rich_young_ruler",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_last_supper",
+      "characterId": "char_jesus",
+      "title": "Shares a final Passover meal and institutes communion",
+      "description": "Foretells his betrayal and gives the bread and cup new meaning.",
+      "reference": "Matthew 26:17-30",
+      "storyId": "story_last_supper",
+      "sequenceInLife": 250
+    },
+    {
+      "id": "event_jesus_washes_feet",
+      "characterId": "char_jesus",
+      "title": "Washes his disciples' feet",
+      "description": "Models servant leadership and gives a new commandment to love one another.",
+      "reference": "John 13:1-17, 34-35",
+      "storyId": "story_foot_washing",
+      "sequenceInLife": 260
+    },
+    {
+      "id": "event_jesus_farewell_discourse",
+      "characterId": "char_jesus",
+      "title": "Comforts his disciples before his death",
+      "description": "Promises peace, describes himself as the way and the vine, and warns of trouble ahead.",
+      "reference": "John 14:1-16:33",
+      "storyId": "story_farewell_discourse",
+      "sequenceInLife": 270
+    },
+    {
+      "id": "event_jesus_gethsemane",
+      "characterId": "char_jesus",
+      "title": "Prays in Gethsemane before his arrest",
+      "description": "Asks three times that the coming suffering might pass, then submits to it.",
+      "reference": "Matthew 26:36-46",
+      "storyId": "story_gethsemane",
+      "sequenceInLife": 280
+    },
+    {
+      "id": "event_jesus_arrested",
+      "characterId": "char_jesus",
+      "title": "Is betrayed with a kiss and arrested",
+      "description": "Is identified by Judas and taken without resistance.",
+      "reference": "Matthew 26:47-56",
+      "storyId": "story_betrayal_and_arrest",
+      "sequenceInLife": 290
+    },
+    {
+      "id": "event_peter_protests_foot_washing",
+      "characterId": "char_peter",
+      "title": "Protests, then wants his hands and head washed too",
+      "description": "Objects to Jesus washing his feet, then overcorrects.",
+      "reference": "John 13:1-17, 34-35",
+      "storyId": "story_foot_washing",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_peter_falls_asleep_gethsemane",
+      "characterId": "char_peter",
+      "title": "Falls asleep instead of keeping watch with Jesus",
+      "description": "Is unable to stay awake through Jesus's prayer in Gethsemane.",
+      "reference": "Matthew 26:36-46",
+      "storyId": "story_gethsemane",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_james_zebedee_gethsemane",
+      "characterId": "char_james_son_of_zebedee",
+      "title": "Falls asleep in Gethsemane",
+      "description": "Is one of the three taken further into the garden with Jesus.",
+      "reference": "Matthew 26:36-46",
+      "storyId": "story_gethsemane",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_john_apostle_gethsemane",
+      "characterId": "char_john_apostle",
+      "title": "Falls asleep in Gethsemane",
+      "description": "Is one of the three taken further into the garden with Jesus.",
+      "reference": "Matthew 26:36-46",
+      "storyId": "story_gethsemane",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_judas_betrays_jesus",
+      "characterId": "char_judas_iscariot",
+      "title": "Betrays Jesus with a kiss",
+      "description": "Leads an armed crowd to Jesus and identifies him with a prearranged signal.",
+      "reference": "Matthew 26:47-56",
+      "storyId": "story_betrayal_and_arrest",
       "sequenceInLife": 10
     }
   ]
