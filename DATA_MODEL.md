@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 781 verses + 38 topics + 107 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 820 verses + 38 topics + 107 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (17,655 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (18,947 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 158 stories, 372 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 159 stories, 373 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 126 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 781-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 820-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1560,6 +1560,33 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
 
     Next: the Prophets — Isaiah, Jeremiah, Lamentations, Ezekiel,
     Daniel, then the Twelve (Hosea through Malachi).
+
+36. **Isaiah.** **Done (2026-09-10).** No new era, no new characters —
+    `char_isaiah` already existed (2 Kings pass, `eraId: era_divided_kingdom`),
+    so this extended him rather than duplicating. His one real narrative
+    beat, the call vision (Isaiah 6 — the seraphim's "Holy, holy, holy,"
+    the coal that purifies his lips, "here am I, send me"), became
+    `story_isaiahs_call`, slotted into the existing `era_divided_kingdom`
+    at `canonicalOrder: 1478` (right at Uzziah's death, which the
+    chapter dates itself by — between `story_uzziahs_pride` at 1475 and
+    `story_fall_of_israel` at 1480). His single life event uses
+    `sequenceInLife: 5`, before his two existing 2 Kings events (10, 20)
+    — the call happens decades before Hezekiah's reign, and
+    `sequenceInLife` only needs to be unique per character, not
+    increment by a fixed step, so a value that sorts correctly ahead of
+    existing events was enough. Isaiah 36-39 (Hezekiah and Sennacherib)
+    is nearly word-for-word identical to 2 Kings 18-20 — already
+    curated as `story_hezekiah_and_sennacherib` / `story_hezekiahs_illness`
+    — so it was deliberately **not** re-curated as a duplicate story,
+    continuing the "extend, don't clone" rule from the Chronicles pass
+    (§8.24). The rest of the book (oracles of judgment and comfort, no
+    narrative) got 39 curated verses spanning famous passages across all
+    66 chapters — the call vision, the suffering-servant songs (Isaiah
+    53), and the "comfort my people" / "those who wait for Yahweh"
+    sequence in 40-66 — with **no new topics**: `topic_waiting`'s
+    existing description ("the long gap between promise and
+    fulfillment") already covers Isaiah's hope-in-exile material without
+    needing a dedicated `topic_hope`.
 
 ---
 

@@ -126,11 +126,11 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **781 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  first run: **820 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
   Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
   2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job,
-  Proverbs, Ecclesiastes, and Song of Solomon, WEB translation) across
-  **38 topics** (topics linked to related topics), plus **107
+  Proverbs, Ecclesiastes, Song of Solomon, and Isaiah, WEB translation)
+  across **38 topics** (topics linked to related topics), plus **107
   characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers,
   2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings,
   9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job) with real relationships
@@ -138,18 +138,14 @@ The schema was deliberately designed so all of the above can be added
   alongside, raised, etc. — see Connection, below).
 - `data/characters.json` — the same 107 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
-  Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges,
-  1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra,
-  Nehemiah, Esther, Job, Proverbs, Ecclesiastes, and Song of Solomon
-  (17,655 verses, WEB translation, public domain) — every OT book
-  curated so far, matching `DEFAULT_BOOKS` in `parse_books.py`. Lazily
-  fetched by the Browse screen the first time it's opened, never at
-  boot. It is *reference material*, kept separate from the user's
-  library — adding a verse from Browse copies it into the user's
-  overlay. Only the 781 seed verses are topic-tagged; the rest of the
-  corpus isn't yet.
-- `data/stories.json` — 12 eras, **158 stories and 372 life events**.
+- `data/verses.json` — the **full** parsed corpus: every OT book curated
+  so far (18,947 verses, WEB translation, public domain), matching
+  `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
+  screen the first time it's opened, never at boot. It is *reference
+  material*, kept separate from the user's library — adding a verse
+  from Browse copies it into the user's overlay. Only the 820 seed
+  verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 12 eras, **159 stories and 373 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -345,9 +341,16 @@ hand-curate all the content before building.
    poetic/wisdom books — **Job done** (own new era, `era_job`, since it's
    undated and outside Israel's own history — see DATA_MODEL.md §8.27),
    Proverbs/Ecclesiastes/Song of Solomon done as a lighter
-   verses-and-topics pass (no narrative to build stories from). **The
-   Prophets remain**: Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel,
-   then the Twelve (Hosea through Malachi).
+   verses-and-topics pass (no narrative to build stories from) — and
+   **Isaiah done**: no new era or characters needed (`char_isaiah`
+   already existed from the 2 Kings pass, and his one real narrative
+   beat — the call vision, "Holy, holy, holy... here am I, send me,"
+   Isaiah 6 — slots into the existing `era_divided_kingdom`); the rest
+   is a verses-and-topics pass across the book's judgment and comfort
+   oracles (Isaiah 36-39's Hezekiah/Sennacherib narrative is nearly
+   identical to 2 Kings 18-20, already curated there, so it wasn't
+   duplicated). **The Prophets remaining**: Jeremiah, Lamentations,
+   Ezekiel, Daniel, then the Twelve (Hosea through Malachi).
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -643,7 +646,13 @@ an example practice topic, and heavily represented in Proverbs —
 loves at all times," "iron sharpens iron"), and `topic_speech` ("death
 and life are in the power of the tongue"). 72 new curated verses total
 across the four books (14 Job, 37 Proverbs, 14 Ecclesiastes, 7 Song of
-Solomon).
+Solomon). Then Isaiah: no new era or characters — `char_isaiah` already
+existed (from the 2 Kings pass), and his one real narrative moment, the
+call vision ("Holy, holy, holy... here am I, send me," Isaiah 6), slots
+into the existing `era_divided_kingdom`. The rest is 39 curated verses
+across Isaiah's judgment and comfort oracles — no new topics needed.
+Isaiah 36-39 (Hezekiah and Sennacherib) is nearly word-for-word 2 Kings
+18-20, already curated there, so it wasn't duplicated.
 
 ## Source data provenance
 

@@ -6356,6 +6356,286 @@
         "topic_love"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_1_18",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_6_3",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_isaiah"
+      ]
+    },
+    {
+      "id": "verse_isaiah_6_8",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_isaiah"
+      ]
+    },
+    {
+      "id": "verse_isaiah_7_14",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_9_6",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_11_6",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_12_2",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_25_8",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_26_3",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_30_15",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_30_21",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_35_10",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_40_1",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_40_8",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_40_11",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_40_31",
+      "topicIds": [
+        "topic_strength",
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_41_10",
+      "topicIds": [
+        "topic_fear",
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_43_1",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_43_2",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_43_19",
+      "topicIds": [
+        "topic_guidance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_43_25",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_49_15",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_52_7",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_53_5",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_53_6",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_55_1",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_55_6",
+      "topicIds": [
+        "topic_seeking_god"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_55_8",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_55_9",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_56_7",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_57_15",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_58_6",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_58_11",
+      "topicIds": [
+        "topic_guidance",
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_61_1",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_61_3",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_64_6",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_64_8",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_65_17",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_isaiah_66_13",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -7672,10 +7952,10 @@
       "id": "char_isaiah",
       "name": "Isaiah",
       "roles": [
-        "the prophet who counseled Hezekiah through the Assyrian crisis"
+        "the prophet whose call vision and oracles of judgment and comfort span decades of Judah's kings"
       ],
       "eraId": "era_divided_kingdom",
-      "summary": "A prophet in Judah during Hezekiah's reign, who assured the king that Jerusalem would stand against Assyria and later that his life would be extended.",
+      "summary": "A prophet in Judah across the reigns of Uzziah, Jotham, Ahaz, and Hezekiah, called in a vision of Yahweh's holiness that left him undone until a coal from the altar purified his lips. He warned of coming judgment, assured Hezekiah that Jerusalem would stand against Assyria and that his life would be extended, and spoke some of the Old Testament's most enduring words of comfort and hope for a people not yet delivered.",
       "verseIds": []
     },
     {

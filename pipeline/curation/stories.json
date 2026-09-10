@@ -3441,6 +3441,25 @@
         "topic_blessing",
         "topic_forgiveness"
       ]
+    },
+    {
+      "id": "story_isaiahs_call",
+      "title": "Isaiah's call",
+      "summary": "In the year King Uzziah dies, Isaiah sees Yahweh high and lifted up in the temple, with seraphim calling \"Holy, holy, holy\" to one another until the door frames shake. Overwhelmed by his own uncleanness before God's holiness, he is purified by a coal from the altar — then volunteers the instant Yahweh asks who will go: \"Here I am. Send me!\"",
+      "primaryReference": "Isaiah 6:1-13",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1478,
+      "verseIds": [
+        "verse_isaiah_6_3",
+        "verse_isaiah_6_8"
+      ],
+      "characterIds": [
+        "char_isaiah"
+      ],
+      "topicIds": [
+        "topic_worship",
+        "topic_calling"
+      ]
     }
   ],
   "lifeEvents": [
@@ -7604,6 +7623,15 @@
       "reference": "Job 42:7-17",
       "storyId": "story_jobs_restoration",
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_isaiah_called",
+      "characterId": "char_isaiah",
+      "title": "Sees Yahweh's holiness and volunteers to be sent",
+      "description": "Is purified by a coal from the altar and answers Yahweh's call with \"here I am, send me.\"",
+      "reference": "Isaiah 6:1-13",
+      "storyId": "story_isaiahs_call",
+      "sequenceInLife": 5
     }
   ]
 }
