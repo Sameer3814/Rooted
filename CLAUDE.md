@@ -128,18 +128,17 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **971 verses** — the entire Old Testament plus the New
+  first run: **987 verses** — the entire Old Testament plus the New
   Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
-  `parse_books.py` for the exact book list, and "Known gaps" item 9 for
-  how the NT is being approached) — across **38 topics** (topics linked
-  to related topics), plus **130 characters** (see DATA_MODEL.md for
-  the full per-book breakdown; NT so far: 6 for the birth of Jesus —
-  Jesus, Mary, `char_joseph_husband_of_mary` — a distinct id from
-  Genesis's `char_joseph`, since both are real, unrelated people named
-  Joseph — John the Baptist, Zacharias, Elizabeth) with real
+  `parse_books.py` for the exact book list, "Known gaps" item 9 for how
+  the NT is being approached, and DATA_MODEL.md §8 for the full,
+  current per-book/per-era breakdown of everything below — this section
+  intentionally stopped enumerating every book by name once the count
+  made that unsustainable to keep current) — across **38 topics**
+  (topics linked to related topics), plus **136 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 130 characters, standalone. Generated
+- `data/characters.json` — the same 136 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire Old
   Testament plus the New Testament books curated so far (26,923 verses,
@@ -147,27 +146,19 @@ The schema was deliberately designed so all of the above can be added
   `parse_books.py`. Lazily fetched by the Browse screen the first time
   it's opened, never at boot. It is *reference material*, kept separate
   from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 971 seed verses are topic-tagged; the
+  the user's overlay. Only the 987 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
-- `data/stories.json` — 13 eras, **184 stories and 426 life events**.
-  All 12 OT eras (Genesis through `era_job` — see DATA_MODEL.md for the
-  full list) plus the first NT era, `era_birth_of_jesus` — Gabriel's
-  two announcements, John the Baptist's birth, Jesus's birth in
-  Bethlehem, his presentation at the temple, the wise men and the
-  flight to Egypt, and the boy Jesus in the temple at twelve. Loaded at
-  boot (it's small). Drives the character life timeline, the Stories
-  screens, People-grouped-by-era, and "appears alongside".
+- `data/stories.json` — 14 eras, **190 stories and 442 life events**.
+  All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
+  `era_jesus_ministry` so far (see DATA_MODEL.md §8 for what's in each
+  era — kept current there, not duplicated here). Loaded at boot (it's
+  small). Drives the character life timeline, the Stories screens,
+  People-grouped-by-era, and "appears alongside".
 - `data/motifs.json` — **20** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Newest: `motif_gracious_and_merciful_formula` (the same
-  description of Yahweh — "gracious and merciful, slow to anger" —
-  recurs almost word-for-word from Exodus 34:6 through Nehemiah's
-  confession to Joel's call to repentance to Jonah's own complaint that
-  God is too merciful) and `motif_trust_beyond_understanding` (Job and
-  Habakkuk both end not with their questions answered, but with a
-  fuller sight of God turning them from demanding answers to worship
-  anyway). Loaded at boot. Drives the Patterns screens and the
-  "Pattern" badges on Character, Story, and Verse detail pages.
+  occurrences (see DATA_MODEL.md §8 for the newest). Loaded at boot.
+  Drives the Patterns screens and the "Pattern" badges on Character,
+  Story, and Verse detail pages.
 - `data/connections.json` — 135 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
@@ -420,9 +411,14 @@ hand-curate all the content before building.
      (the same treatment as Ezekiel's or Daniel's call/vision
      narratives), then verses-and-topics for the rest, since most of
      the book isn't narrated action in the Story sense.
-   **Progress: the birth of Jesus is done** (`era_birth_of_jesus`, 6
-   stories, 6 characters — see the "Done" changelog below). Full detail
-   in DATA_MODEL.md §8, items 41 onward, as each installment lands.
+   **Progress: the birth of Jesus is done**, and Jesus's public
+   ministry is underway — `era_jesus_ministry` opened with his baptism,
+   temptation, first disciples, and the call of the fishermen. Full
+   detail in DATA_MODEL.md §8, items 41 onward, as each installment
+   lands (that's now the authoritative running log — this file's own
+   "Done" changelog below stops narrating every NT installment in full
+   prose, to stay sustainable across what's a much larger body of work
+   than the OT already was).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

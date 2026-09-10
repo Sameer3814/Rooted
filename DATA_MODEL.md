@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (130 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus)
+### Character — *live* (136 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 971 verses + 38 topics + 130 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 987 verses + 38 topics + 136 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 13 eras, 184 stories, 426 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 14 eras, 190 stories, 442 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 971-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 987-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1800,6 +1800,33 @@ inventing a new principle:
     that era is built next — the same "`eraId` is where a character's
     own arc is centered, not merely their first appearance" rule
     already applied to OT figures like Cyrus and Nebuchadnezzar.
+
+42. **Jesus's ministry begins.** **Done (2026-09-10).** A new era,
+    `era_jesus_ministry` (order 14) — `char_jesus` and
+    `char_john_the_baptist` moved into it from the placeholder
+    `era_birth_of_jesus` assignment item 41 used. 6 stories:
+    **John the Baptist's ministry**; **Jesus is baptized** (the Spirit
+    descending, the Father's voice); **Jesus is tempted** in the
+    wilderness (three temptations, each answered with Scripture);
+    **the first disciples follow Jesus** (John 1:35-51 — John's own,
+    unique account of Andrew, Peter, Philip, and Nathanael meeting
+    Jesus near the Jordan, distinct from and earlier than the Synoptics'
+    by-the-lake calling); **water into wine at Cana** (John's first
+    sign, John-unique); **Jesus calls the fishermen** (Luke 5:1-11's
+    miraculous catch, used as `primaryReference` over Matthew
+    4:18-22/Mark 1:16-20's much shorter parallel telling of the same
+    formal call, since Luke's version is the fuller, more specific
+    account — a direct application of "draw from whichever Gospel tells
+    it most fully," item 41's stated rule, now applied for the first
+    time to an event more than one Gospel actually tells).
+
+    6 new characters: Peter, Andrew, James (id `char_james_son_of_zebedee`
+    — there will be at least one more James in this canon, the Lord's
+    brother, so the disambiguating id was chosen now rather than
+    retrofitted later), John (id `char_john_apostle`, distinct from
+    `char_john_the_baptist` — two Johns, same disambiguation-by-id
+    pattern as the Josephs and Zechariahs), Philip, Nathanael. 16
+    curated verses, no new topics.
 
 ---
 

@@ -91,6 +91,13 @@
       "summary": "Gabriel announces two impossible births -- John to the aged priest Zacharias and Elizabeth, then Jesus to a virgin named Mary. Jesus is born in Bethlehem to a census-displaced family, worshiped by shepherds and, later, foreign astrologers, and hunted by a jealous king before his family flees to Egypt and settles in Nazareth.",
       "order": 13,
       "approxRange": "The births of John the Baptist and Jesus, under Herod the Great"
+    },
+    {
+      "id": "era_jesus_ministry",
+      "name": "Jesus's Ministry",
+      "summary": "For roughly three years, Jesus teaches, heals, and calls people to follow him across Galilee and Judea -- announcing the kingdom of God through parables, confronting religious leaders, performing miracles that reveal who he is, and gathering twelve disciples to carry the message forward.",
+      "order": 14,
+      "approxRange": "Jesus's public ministry, from his baptism to his final journey to Jerusalem"
     }
   ],
   "stories": [
@@ -4004,6 +4011,134 @@
         "topic_calling",
         "topic_identity",
         "topic_wisdom"
+      ]
+    },
+    {
+      "id": "story_john_the_baptist_ministry",
+      "title": "John the Baptist's ministry",
+      "summary": "John preaches in the Judean wilderness, dressed in camel's hair and living on locusts and wild honey, calling people to repent because the kingdom of heaven is near. Crowds come from Jerusalem and beyond to be baptized in the Jordan, confessing their sins; he confronts the religious leaders who come only to be seen, and tells everyone that one far greater than him is coming, who will baptize with the Holy Spirit.",
+      "primaryReference": "Matthew 3:1-12",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2200,
+      "verseIds": [
+        "verse_matthew_3_2",
+        "verse_matthew_3_11"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_jesus_baptized",
+      "title": "Jesus is baptized",
+      "summary": "Jesus comes from Galilee to be baptized by John, who objects that it should be the other way around. Jesus insists, \"to fulfill all righteousness,\" and John agrees. As Jesus comes up out of the water, the heavens open, the Spirit descends on him like a dove, and a voice from heaven declares, \"this is my beloved Son, with whom I am well pleased.\"",
+      "primaryReference": "Matthew 3:13-17",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2210,
+      "verseIds": [
+        "verse_matthew_3_15",
+        "verse_matthew_3_16",
+        "verse_matthew_3_17"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_john_the_baptist"
+      ],
+      "topicIds": [
+        "topic_identity",
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_jesus_tempted",
+      "title": "Jesus is tempted in the wilderness",
+      "summary": "Led by the Spirit into the wilderness, Jesus fasts forty days and is tempted three times by the devil -- to turn stones to bread, to throw himself from the temple to force God's rescue, and to worship the devil in exchange for the world's kingdoms. Each time Jesus answers with Scripture rather than his own power, and the devil finally leaves him.",
+      "primaryReference": "Matthew 4:1-11",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2220,
+      "verseIds": [
+        "verse_matthew_4_4",
+        "verse_matthew_4_10"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_temptation",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_first_disciples_follow",
+      "title": "The first disciples follow Jesus",
+      "summary": "John points two of his own disciples, including Andrew, to Jesus as \"the Lamb of God.\" Andrew follows, then finds his brother Simon and brings him to Jesus, who renames him Peter. The next day Jesus calls Philip directly; Philip finds his skeptical friend Nathanael, whose doubt dissolves the moment Jesus reveals he already knew him, sitting under a fig tree before they'd even met.",
+      "primaryReference": "John 1:35-51",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2230,
+      "verseIds": [
+        "verse_john_1_41",
+        "verse_john_1_42",
+        "verse_john_1_49"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_john_the_baptist",
+        "char_andrew",
+        "char_peter",
+        "char_philip_apostle",
+        "char_nathanael"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_identity"
+      ]
+    },
+    {
+      "id": "story_water_to_wine",
+      "title": "Water into wine at Cana",
+      "summary": "At a wedding in Cana, the wine runs out. Jesus's mother tells the servants to do whatever he says; he has them fill six stone jars with water, then has it drawn out and taken to the master of the feast, who is amazed to find the best wine has been saved for last. It's the first of Jesus's signs, and his disciples believe in him because of it.",
+      "primaryReference": "John 2:1-11",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2240,
+      "verseIds": [
+        "verse_john_2_5",
+        "verse_john_2_11"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_jesus_calls_fishermen",
+      "title": "Jesus calls the fishermen",
+      "summary": "Teaching from Simon's boat on the lake of Gennesaret, Jesus tells him to put out into deep water and let down the nets, even though he's fished all night with nothing to show for it. The catch is so large the nets start breaking and both boats nearly sink. Overwhelmed, Peter falls at Jesus's knees, calling himself a sinful man -- but Jesus tells him not to be afraid: \"from now on you will be catching people.\" Peter, Andrew, James, and John bring their boats to land and leave everything to follow him.",
+      "primaryReference": "Luke 5:1-11",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2250,
+      "verseIds": [
+        "verse_luke_5_5",
+        "verse_luke_5_8",
+        "verse_luke_5_10",
+        "verse_luke_5_11"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter",
+        "char_andrew",
+        "char_james_son_of_zebedee",
+        "char_john_apostle"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_humility"
       ]
     }
   ],
@@ -8653,6 +8788,150 @@
       "description": "Is born and named John, exactly as the angel Gabriel instructed.",
       "reference": "Luke 1:57-80",
       "storyId": "story_john_the_baptist_is_born",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_john_baptist_preaches",
+      "characterId": "char_john_the_baptist",
+      "title": "Preaches repentance and baptizes in the Jordan",
+      "description": "Calls Israel to repent and points ahead to the one coming after him.",
+      "reference": "Matthew 3:1-12",
+      "storyId": "story_john_the_baptist_ministry",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_john_baptist_baptizes_jesus",
+      "characterId": "char_john_the_baptist",
+      "title": "Baptizes Jesus",
+      "description": "Objects, then baptizes Jesus and witnesses the Spirit descend on him.",
+      "reference": "Matthew 3:13-17",
+      "storyId": "story_jesus_baptized",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_john_baptist_points_to_jesus",
+      "characterId": "char_john_the_baptist",
+      "title": "Points his own disciples toward Jesus",
+      "description": "Calls Jesus \"the Lamb of God,\" prompting Andrew to follow him.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_jesus_baptized",
+      "characterId": "char_jesus",
+      "title": "Is baptized by John and affirmed by the Father",
+      "description": "Is baptized in the Jordan; the Spirit descends and a voice from heaven affirms him.",
+      "reference": "Matthew 3:13-17",
+      "storyId": "story_jesus_baptized",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_jesus_tempted",
+      "characterId": "char_jesus",
+      "title": "Resists three temptations in the wilderness",
+      "description": "Fasts forty days and answers the devil's three temptations with Scripture.",
+      "reference": "Matthew 4:1-11",
+      "storyId": "story_jesus_tempted",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_jesus_gathers_first_disciples",
+      "characterId": "char_jesus",
+      "title": "Gathers his first disciples near the Jordan",
+      "description": "Is followed by Andrew and Peter, then calls Philip, who brings Nathanael.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_jesus_first_sign",
+      "characterId": "char_jesus",
+      "title": "Turns water to wine at a wedding in Cana",
+      "description": "Performs his first sign, revealing his glory to his new disciples.",
+      "reference": "John 2:1-11",
+      "storyId": "story_water_to_wine",
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_jesus_calls_fishermen",
+      "characterId": "char_jesus",
+      "title": "Calls Peter, Andrew, James, and John to full-time discipleship",
+      "description": "Gives Simon a miraculous catch of fish, then calls the four fishermen to leave everything and follow him.",
+      "reference": "Luke 5:1-11",
+      "storyId": "story_jesus_calls_fishermen",
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_peter_meets_jesus",
+      "characterId": "char_peter",
+      "title": "Is brought to Jesus by his brother Andrew and renamed",
+      "description": "Is renamed Cephas/Peter the first time he meets Jesus.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_peter_miraculous_catch",
+      "characterId": "char_peter",
+      "title": "Falls at Jesus's feet after a miraculous catch of fish",
+      "description": "Calls himself a sinful man, then leaves everything to follow Jesus.",
+      "reference": "Luke 5:1-11",
+      "storyId": "story_jesus_calls_fishermen",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_andrew_follows_jesus",
+      "characterId": "char_andrew",
+      "title": "Follows Jesus and brings his brother Peter",
+      "description": "Is the first to follow Jesus after hearing John call him the Lamb of God.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_andrew_leaves_nets",
+      "characterId": "char_andrew",
+      "title": "Leaves his nets to follow Jesus full-time",
+      "description": "Leaves everything after the miraculous catch of fish.",
+      "reference": "Luke 5:1-11",
+      "storyId": "story_jesus_calls_fishermen",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_james_zebedee_called",
+      "characterId": "char_james_son_of_zebedee",
+      "title": "Leaves his father's boat to follow Jesus",
+      "description": "Is called with his brother John after the miraculous catch of fish.",
+      "reference": "Luke 5:1-11",
+      "storyId": "story_jesus_calls_fishermen",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_john_apostle_called",
+      "characterId": "char_john_apostle",
+      "title": "Leaves his father's boat to follow Jesus",
+      "description": "Is called with his brother James after the miraculous catch of fish.",
+      "reference": "Luke 5:1-11",
+      "storyId": "story_jesus_calls_fishermen",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_philip_called",
+      "characterId": "char_philip_apostle",
+      "title": "Is called directly by Jesus and brings Nathanael",
+      "description": "Follows Jesus's simple \"follow me,\" then finds his friend Nathanael.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nathanael_convinced",
+      "characterId": "char_nathanael",
+      "title": "Is convinced Jesus is the Son of God",
+      "description": "Moves from skepticism to belief the moment Jesus reveals he already knew him.",
+      "reference": "John 1:35-51",
+      "storyId": "story_first_disciples_follow",
       "sequenceInLife": 10
     }
   ]

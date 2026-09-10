@@ -7841,6 +7841,157 @@
       "characterIds": [
         "char_jesus"
       ]
+    },
+    {
+      "id": "verse_matthew_3_2",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_matthew_3_11",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_matthew_3_15",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_3_16",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_3_17",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_4_4",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_4_10",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_john_1_41",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_andrew",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_1_42",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_1_49",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_nathanael"
+      ]
+    },
+    {
+      "id": "verse_john_2_5",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_john_2_11",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_5_5",
+      "topicIds": [
+        "topic_obedience",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_luke_5_8",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_luke_5_10",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_luke_5_11",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_andrew",
+        "char_james_son_of_zebedee",
+        "char_john_apostle"
+      ]
     }
   ],
   "topics": [
@@ -9589,7 +9740,7 @@
       "roles": [
         "the Messiah whose birth, life, death, and resurrection are the center of the New Testament"
       ],
-      "eraId": "era_birth_of_jesus",
+      "eraId": "era_jesus_ministry",
       "summary": "Conceived by the Holy Spirit and born to Mary in Bethlehem, he grew up in Nazareth, was baptized by his cousin John, and spent roughly three years teaching, healing, and calling people to himself before his death and resurrection in Jerusalem. Called the Messiah, the Son of God, and the Word made flesh.",
       "verseIds": []
     },
@@ -9619,7 +9770,7 @@
       "roles": [
         "the forerunner who prepared the way for Jesus"
       ],
-      "eraId": "era_birth_of_jesus",
+      "eraId": "era_jesus_ministry",
       "summary": "Son of Zacharias and Elizabeth, born after his father was struck silent for disbelieving the angel's announcement. Grew up to become a wilderness prophet who baptized Jesus and prepared people for his coming, \"in the spirit and power of Elijah.\"",
       "verseIds": []
     },
@@ -9641,6 +9792,66 @@
       ],
       "eraId": "era_birth_of_jesus",
       "summary": "A relative of Mary who conceived John in her old age after decades of barrenness. When the pregnant Mary visited her, the baby leaped in her womb and she was filled with the Holy Spirit, recognizing Mary as \"the mother of my Lord\" before anyone had told her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_peter",
+      "name": "Peter",
+      "roles": [
+        "the fisherman who became the foremost of the twelve apostles"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A fisherman from Galilee, brought to Jesus by his brother Andrew and renamed Cephas -- Peter, \"the rock.\" After a miraculous catch of fish left him overwhelmed at his own sinfulness, he left everything to follow Jesus and became the most prominent of the twelve.",
+      "verseIds": []
+    },
+    {
+      "id": "char_andrew",
+      "name": "Andrew",
+      "roles": [
+        "the disciple who first brought his brother Peter to Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A fisherman and former disciple of John the Baptist, the first to follow Jesus after hearing John call him \"the Lamb of God.\" He immediately found his brother Simon and brought him to Jesus too.",
+      "verseIds": []
+    },
+    {
+      "id": "char_james_son_of_zebedee",
+      "name": "James",
+      "roles": [
+        "one of the sons of Zebedee, part of Jesus's inner circle"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A fisherman, son of Zebedee and brother of John, called from his father's boat to follow Jesus after a miraculous catch of fish. Part of Jesus's closest inner circle among the twelve.",
+      "verseIds": []
+    },
+    {
+      "id": "char_john_apostle",
+      "name": "John",
+      "roles": [
+        "the disciple whose Gospel calls him \"the one Jesus loved\""
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A fisherman, son of Zebedee and brother of James, called from his father's boat to follow Jesus. Part of Jesus's closest inner circle, and traditionally credited with the Gospel of John, three letters, and Revelation.",
+      "verseIds": []
+    },
+    {
+      "id": "char_philip_apostle",
+      "name": "Philip",
+      "roles": [
+        "the disciple who brought Nathanael to Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A disciple from Bethsaida called directly by Jesus, who then found his friend Nathanael and brought him too, answering his skepticism with \"come and see.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_nathanael",
+      "name": "Nathanael",
+      "roles": [
+        "the skeptic Jesus surprised by already knowing him"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A man from Cana, skeptical that anything good could come from Nazareth until Jesus told him he had seen him under a fig tree before Philip ever called him -- convincing him instantly that Jesus was the Son of God. Also known as Bartholomew.",
       "verseIds": []
     }
   ]
