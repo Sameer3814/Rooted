@@ -98,6 +98,13 @@
       "summary": "For roughly three years, Jesus teaches, heals, and calls people to follow him across Galilee and Judea -- announcing the kingdom of God through parables, confronting religious leaders, performing miracles that reveal who he is, and gathering twelve disciples to carry the message forward.",
       "order": 14,
       "approxRange": "Jesus's public ministry, from his baptism to his final journey to Jerusalem"
+    },
+    {
+      "id": "era_passion_and_resurrection",
+      "name": "The Passion and Resurrection",
+      "summary": "Jesus enters Jerusalem to a crowd's shouts of praise, teaches and confronts religious leaders in the temple all week, shares a final meal with his disciples, is betrayed, arrested, tried, and crucified -- then rises from the dead on the third day, appearing to his followers before ascending to heaven.",
+      "order": 15,
+      "approxRange": "Jesus's final week in Jerusalem, through his resurrection and ascension"
     }
   ],
   "stories": [
@@ -4410,6 +4417,68 @@
         "topic_sorrow",
         "topic_deliverance",
         "topic_faith"
+      ]
+    },
+    {
+      "id": "story_zacchaeus",
+      "title": "Zacchaeus",
+      "summary": "Passing through Jericho, Jesus draws such a crowd that Zacchaeus, a short and wealthy chief tax collector, climbs a sycamore tree just to see him. Jesus stops, looks up, and invites himself to Zacchaeus's house -- to the crowd's disgust, since tax collectors were seen as collaborators and cheats. Zacchaeus responds on the spot: half his wealth to the poor, and fourfold repayment to anyone he's defrauded. Jesus declares that salvation has come to his house, \"for the Son of Man came to seek and to save that which was lost.\"",
+      "primaryReference": "Luke 19:1-10",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2500,
+      "verseIds": [
+        "verse_luke_19_5",
+        "verse_luke_19_8",
+        "verse_luke_19_9",
+        "verse_luke_19_10"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_zacchaeus"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_rich_young_ruler",
+      "title": "The rich young ruler",
+      "summary": "A young man who has kept the commandments since his youth asks Jesus what he still lacks for eternal life. Jesus tells him to sell everything, give it to the poor, and follow him -- and the man leaves grieving, because he is very wealthy. Jesus tells his stunned disciples that it's easier for a camel to pass through a needle's eye than for a rich man to enter God's kingdom, though what's impossible for people is possible for God.",
+      "primaryReference": "Matthew 19:16-26",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2510,
+      "verseIds": [
+        "verse_matthew_19_21",
+        "verse_matthew_19_24",
+        "verse_matthew_19_26"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_rich_young_ruler"
+      ],
+      "topicIds": [
+        "topic_obedience",
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "story_triumphal_entry",
+      "title": "The triumphal entry",
+      "summary": "Approaching Jerusalem, Jesus sends two disciples ahead for a donkey and its colt, fulfilling Zechariah's prophecy of a king who comes humble, riding on a donkey. Crowds spread their cloaks and palm branches on the road and shout \"Hosanna to the son of David!\" as he enters the city, which is thrown into an uproar asking who he is. It's the beginning of his final week.",
+      "primaryReference": "Matthew 21:1-11; Mark 11:1-11; Luke 19:28-44; John 12:12-19",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2600,
+      "verseIds": [
+        "verse_matthew_21_5",
+        "verse_matthew_21_9"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_humility",
+        "topic_worship"
       ]
     }
   ],
@@ -9410,6 +9479,51 @@
       "description": "Says \"let's go also, that we may die with him\" when Jesus heads toward danger at Bethany.",
       "reference": "John 11:1-44",
       "storyId": "story_raising_lazarus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_meets_zacchaeus",
+      "characterId": "char_jesus",
+      "title": "Invites himself to Zacchaeus's house",
+      "description": "Calls a despised tax collector down from a tree and brings salvation to his house.",
+      "reference": "Luke 19:1-10",
+      "storyId": "story_zacchaeus",
+      "sequenceInLife": 220
+    },
+    {
+      "id": "event_jesus_rich_young_ruler",
+      "characterId": "char_jesus",
+      "title": "Tells a wealthy man to sell everything and follow him",
+      "description": "Watches a rich young man walk away sad rather than give up his possessions.",
+      "reference": "Matthew 19:16-26",
+      "storyId": "story_rich_young_ruler",
+      "sequenceInLife": 230
+    },
+    {
+      "id": "event_jesus_triumphal_entry",
+      "characterId": "char_jesus",
+      "title": "Enters Jerusalem on a donkey to shouts of Hosanna",
+      "description": "Fulfills Zechariah's prophecy of a humble king entering the city.",
+      "reference": "Matthew 21:1-11; Mark 11:1-11; Luke 19:28-44; John 12:12-19",
+      "storyId": "story_triumphal_entry",
+      "sequenceInLife": 240
+    },
+    {
+      "id": "event_zacchaeus_repents",
+      "characterId": "char_zacchaeus",
+      "title": "Gives half his wealth to the poor and repays those he cheated",
+      "description": "Responds to Jesus's visit by making sweeping restitution on the spot.",
+      "reference": "Luke 19:1-10",
+      "storyId": "story_zacchaeus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_rich_young_ruler_walks_away",
+      "characterId": "char_rich_young_ruler",
+      "title": "Walks away sad rather than sell his possessions",
+      "description": "Cannot bring himself to give up his wealth to follow Jesus.",
+      "reference": "Matthew 19:16-26",
+      "storyId": "story_rich_young_ruler",
       "sequenceInLife": 10
     }
   ]

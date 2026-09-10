@@ -8460,6 +8460,89 @@
         "char_jesus",
         "char_lazarus"
       ]
+    },
+    {
+      "id": "verse_luke_19_5",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_zacchaeus"
+      ]
+    },
+    {
+      "id": "verse_luke_19_8",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_zacchaeus"
+      ]
+    },
+    {
+      "id": "verse_luke_19_9",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_19_10",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_19_21",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_rich_young_ruler"
+      ]
+    },
+    {
+      "id": "verse_matthew_19_24",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_19_26",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_21_5",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_21_9",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
     }
   ],
   "topics": [
@@ -10380,6 +10463,26 @@
       ],
       "eraId": "era_jesus_ministry",
       "summary": "One of the twelve, first mentioned urging the other disciples to go with Jesus into danger at Bethany even if it meant dying with him -- \"let's go also, that we may die with him.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_zacchaeus",
+      "name": "Zacchaeus",
+      "roles": [
+        "the wealthy tax collector who climbed a tree to see Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A short, wealthy chief tax collector in Jericho, despised for exploiting his own people on Rome's behalf, who climbed a sycamore tree just to see Jesus over the crowd. Jesus invited himself to stay at his house, and Zacchaeus responded by giving half his wealth to the poor and repaying everyone he'd cheated four times over.",
+      "verseIds": []
+    },
+    {
+      "id": "char_rich_young_ruler",
+      "name": "the rich young ruler",
+      "roles": [
+        "the wealthy man who walked away sad rather than give up his possessions"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A young man who kept every commandment from his youth but walked away grieved when Jesus told him to sell everything, give to the poor, and follow him -- unwilling to trade his great wealth for treasure in heaven.",
       "verseIds": []
     }
   ]

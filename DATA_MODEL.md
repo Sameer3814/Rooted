@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (142 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material — Nicodemus, the Samaritan woman, Lazarus, Martha, Mary of Bethany, Thomas)
+### Character — *live* (144 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem — Zacchaeus, the rich young ruler)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,040 verses + 38 topics + 142 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,049 verses + 38 topics + 144 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 14 eras, 202 stories, 465 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 15 eras, 205 stories, 470 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,040-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,049-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1900,6 +1900,35 @@ inventing a new principle:
     (first appearance — "let's go also, that we may die with him,"
     well before his famous doubt, which comes much later after the
     resurrection). 14 curated verses, no new topics.
+
+46. **The road to Jerusalem, and the triumphal entry.** **Done
+    (2026-09-10).** Closes out `era_jesus_ministry` and opens a new
+    era, `era_passion_and_resurrection` (order 15). Two contrasting
+    stories on the road to Jerusalem, both staying in
+    `era_jesus_ministry`: **Zacchaeus** (Luke 19:1-10, Luke-unique) —
+    a wealthy, despised tax collector gives away half his wealth on
+    the spot, unprompted; **the rich young ruler** (Matthew 19:16-26)
+    — a wealthy, law-keeping young man refuses the same invitation and
+    walks away grieved. Deliberately *not* formalized as a Connection
+    or motif — it's a real thematic contrast worth noting in prose (and
+    noted in both stories' summaries), but it's two isolated character
+    studies, not a recurring narrative shape told more than once the
+    way an actual motif requires. Then **the triumphal entry**
+    (Matthew 21:1-11, with Mark/Luke/John parallels cited in
+    `primaryReference`) — the first story in the new era, at
+    `canonicalOrder: 2600` (a clean jump from `era_jesus_ministry`'s
+    2000s range, leaving obvious headroom for everything still ahead
+    in Jesus's final week). Matthew 21:5's own citation of Zechariah
+    9:9 ("your King comes to you, humble, and riding on a donkey") is
+    curated as its own verse, `verse_matthew_21_5` — distinct from
+    `verse_zechariah_9_9` (item 40) even though the words are nearly
+    identical, since each captures a different moment: the prophecy
+    and its fulfillment are two different verses to curate, not one.
+
+    2 new characters: Zacchaeus; the rich young ruler (id
+    `char_rich_young_ruler` — unnamed in the text, same "real person,
+    no name given" treatment as the Samaritan woman, item 45, and the
+    OT's widow of Zarephath). 9 curated verses, no new topics.
 
 ---
 
