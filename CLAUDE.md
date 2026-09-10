@@ -126,26 +126,26 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **686 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  first run: **709 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
   Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, and Nehemiah, WEB
+  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, and Esther, WEB
   translation) across **35 topics** (topics linked to related topics),
-  plus **100 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus,
+  plus **105 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus,
   4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings,
-  12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah) with real relationships
-  (father of, wife of, brother of, successor of, servant of, worked
-  alongside, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 100 characters, standalone. Generated
+  12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther) with real
+  relationships (father of, wife of, brother of, successor of, servant
+  of, worked alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 105 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
   Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel,
-  2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, and
-  Nehemiah (15,164 verses, WEB translation, public domain). Lazily
+  2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah,
+  and Esther (15,331 verses, WEB translation, public domain). Lazily
   fetched by the Browse screen the first time it's opened, never at boot.
   It is *reference material*, kept separate from the user's library —
   adding a verse from Browse copies it into the user's overlay. Only the
-  686 seed verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 10 eras, **146 stories and 345 life events**.
+  709 seed verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 11 eras, **154 stories and 366 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -155,21 +155,23 @@ The schema was deliberately designed so all of the above can be added
   kings of Judah — Abijah, Asa, Jehoshaphat, Joash and Zechariah,
   Uzziah's pride, Hezekiah's Passover, Manasseh's repentance), `era_exile`
   — Jerusalem falls to Nebuchadnezzar, and Chronicles closes it on the
-  decree of Cyrus opening the road home — and now `era_return_from_exile`
-  — Zerubbabel and Jeshua rebuild the altar and temple against local
+  decree of Cyrus opening the road home — `era_return_from_exile` —
+  Zerubbabel and Jeshua rebuild the altar and temple against local
   opposition, Ezra brings the law back to the center of the people's
-  life, and Nehemiah rebuilds Jerusalem's walls and enforces reform.
-  Loaded at boot (it's small). Drives the character life timeline, the
-  Stories screens, People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **16** recurring biblical patterns, each with real
+  life, and Nehemiah rebuilds Jerusalem's walls and enforces reform —
+  and now `era_esther` — the Jews who stayed in Persia, where Esther
+  becomes queen and, with Mordecai, overturns Haman's plot to destroy
+  them, establishing Purim. Loaded at boot (it's small). Drives the
+  character life timeline, the Stories screens, People-grouped-by-era,
+  and "appears alongside".
+- `data/motifs.json` — **17** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Newest: `motif_the_forgotten_law_rediscovered` (Josiah's
-  rediscovery of the Book of the Law in 2 Kings, and Ezra reading it
-  aloud to a weeping, then reforming, assembly in Nehemiah 8 — both
-  grief at how far the people had drifted, then renewed covenant).
-  Loaded at boot. Drives the Patterns screens and the "Pattern" badges on
-  Character, Story, and Verse detail pages.
-- `data/connections.json` — 121 generic Connection edges (Design
+  occurrences. Newest: `motif_hidden_identity_saves_the_people` (Joseph
+  revealing himself to his brothers, and Esther revealing she is a Jew
+  to save her people — a Hebrew concealed in a foreign court, revealed
+  at the decisive moment). Loaded at boot. Drives the Patterns screens
+  and the "Pattern" badges on Character, Story, and Verse detail pages.
+- `data/connections.json` — 126 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -180,7 +182,7 @@ The schema was deliberately designed so all of the above can be added
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
     whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
     Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah.
+    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -323,9 +325,16 @@ hand-curate all the content before building.
    Kings covers thinly — Abijah, Asa, Jehoshaphat's "the battle is not
    yours but God's," Joash killing the priest Zechariah, Uzziah's pride,
    Hezekiah's Passover, Manasseh's repentance in Babylon, and the decree
-   of Cyrus — see DATA_MODEL.md §8.24), and now Ezra/Nehemiah — the return
+   of Cyrus — see DATA_MODEL.md §8.24), then Ezra/Nehemiah — the return
    from exile, genuinely new narrative rather than a retelling (see
-   DATA_MODEL.md §8.25). Next up if continuing canonically: Esther.
+   DATA_MODEL.md §8.25) — and now Esther, its own era since it's a
+   distinct group (the Jews who stayed in Persia rather than returning),
+   placed after Ezra/Nehemiah in era order to match Bible book order
+   even though its events happen decades earlier historically (see
+   DATA_MODEL.md §8.26). This closes out the Old Testament historical
+   narrative books; **the poetic/wisdom books (Job, Proverbs,
+   Ecclesiastes, Song of Songs) and the Prophets remain** if continuing
+   canonically.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -579,7 +588,27 @@ seeking God — covered the material without strain). A new
 and Ezra/Nehemiah, and a new motif, `motif_the_forgotten_law_rediscovered`,
 ties Josiah's rediscovery of the Book of the Law (2 Kings 22) to Ezra's
 public reading of it (Nehemiah 8) — the same shape of a forgotten law
-found, met first with grief, then renewed covenant.
+found, met first with grief, then renewed covenant. Then Esther — its
+own era, `era_esther`, for the Jews who stayed in the Persian diaspora
+rather than returning to Jerusalem, a genuinely distinct group and
+setting from Ezra/Nehemiah's Judah-centered narrative. 8 stories: Vashti
+deposed for refusing the king's summons; Esther crowned queen without
+revealing she's a Jew, and Mordecai's uncovered assassination plot;
+Haman's promotion, Mordecai's refusal to bow, and the empire-wide decree
+to destroy the Jews; Mordecai's plea ("who knows if you haven't come to
+the kingdom for such a time as this?") and Esther's answer ("if I
+perish, I perish"); Esther's banquet, Haman's gallows built for
+Mordecai, and Mordecai's unplanned honor that same night; Haman exposed
+and hanged on his own gallows; the decree reversed and Mordecai
+promoted; and the Jews' deliverance and the establishing of Purim. 5 new
+characters (Esther, Mordecai, Haman, Ahasuerus, Vashti), 23 new verses,
+no new topics. Two new relationship instances of the existing
+`"husband of"` type (Ahasuerus/Esther, Ahasuerus/Vashti) and a first use
+of `"raised"` outside Eli/Samuel and Jehoiada/Joash (Mordecai/Esther). A
+new motif, `motif_hidden_identity_saves_the_people`, connects Joseph
+revealing himself to his brothers to Esther revealing she is a Jew to
+save her people — the same shape of a Hebrew concealed in a foreign
+court, revealed at exactly the moment it can save their people.
 
 ## Source data provenance
 

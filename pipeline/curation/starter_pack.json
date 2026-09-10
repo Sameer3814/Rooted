@@ -5636,6 +5636,192 @@
       "characterIds": [
         "char_nehemiah"
       ]
+    },
+    {
+      "id": "verse_esther_1_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_vashti"
+      ]
+    },
+    {
+      "id": "verse_esther_1_19",
+      "topicIds": [],
+      "characterIds": [
+        "char_ahasuerus"
+      ]
+    },
+    {
+      "id": "verse_esther_2_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther",
+        "char_mordecai"
+      ]
+    },
+    {
+      "id": "verse_esther_2_10",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_2_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther",
+        "char_ahasuerus"
+      ]
+    },
+    {
+      "id": "verse_esther_2_22",
+      "topicIds": [],
+      "characterIds": [
+        "char_mordecai",
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_3_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_haman",
+        "char_mordecai"
+      ]
+    },
+    {
+      "id": "verse_esther_3_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_haman"
+      ]
+    },
+    {
+      "id": "verse_esther_3_13",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_haman"
+      ]
+    },
+    {
+      "id": "verse_esther_4_14",
+      "topicIds": [
+        "topic_calling",
+        "topic_guidance"
+      ],
+      "characterIds": [
+        "char_mordecai",
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_4_16",
+      "topicIds": [
+        "topic_trust",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_5_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther",
+        "char_ahasuerus"
+      ]
+    },
+    {
+      "id": "verse_esther_6_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_haman",
+        "char_mordecai",
+        "char_ahasuerus"
+      ]
+    },
+    {
+      "id": "verse_esther_6_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_haman"
+      ]
+    },
+    {
+      "id": "verse_esther_7_3",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_7_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_7_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_haman"
+      ]
+    },
+    {
+      "id": "verse_esther_8_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther"
+      ]
+    },
+    {
+      "id": "verse_esther_8_16",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_esther_8_17",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_esther_9_22",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_mordecai"
+      ]
+    },
+    {
+      "id": "verse_esther_9_28",
+      "topicIds": [],
+      "characterIds": [
+        "char_esther",
+        "char_mordecai"
+      ]
+    },
+    {
+      "id": "verse_esther_10_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_mordecai"
+      ]
     }
   ],
   "topics": [
@@ -7106,6 +7292,56 @@
       ],
       "eraId": "era_return_from_exile",
       "summary": "Governor of Samaria and the chief opponent of Jerusalem's rebuilding. He mocked the wall-builders, conspired to attack them, and later tried to lure Nehemiah into a trap and hire a false prophet against him—every attempt failing.",
+      "verseIds": []
+    },
+    {
+      "id": "char_esther",
+      "name": "Esther",
+      "roles": [
+        "the Jewish orphan who became queen and risked her life for her people"
+      ],
+      "eraId": "era_esther",
+      "summary": "A Jewish orphan raised by her cousin Mordecai in the Persian citadel of Susa, chosen queen after Vashti's fall without anyone knowing her people. When Haman's decree threatened every Jew in the empire, she risked her life by approaching the king uninvited, exposed Haman's plot at a banquet, and won a reversal that saved her people — establishing the feast of Purim.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mordecai",
+      "name": "Mordecai",
+      "roles": [
+        "the cousin who raised Esther and uncovered Haman's plot"
+      ],
+      "eraId": "era_esther",
+      "summary": "A Jew of the tribe of Benjamin living in Susa who raised his orphaned cousin Esther as his own daughter. He uncovered a plot against the king's life, refused to bow to the newly promoted Haman, and pressed Esther to risk everything for her people — \"who knows if you haven't come to the kingdom for such a time as this?\" He was honored by the king the very night Haman planned to hang him, and rose to become second only to Ahasuerus.",
+      "verseIds": []
+    },
+    {
+      "id": "char_haman",
+      "name": "Haman",
+      "roles": [
+        "the official whose plot to destroy the Jews backfired on himself"
+      ],
+      "eraId": "era_esther",
+      "summary": "An official promoted above all the king's other princes, whose fury at Mordecai's one refusal to bow grew into a plot to destroy every Jew in the Persian empire. Exposed by Esther at her own banquet, he was hanged on the gallows he had built for Mordecai.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ahasuerus",
+      "name": "Ahasuerus",
+      "roles": [
+        "the Persian king whose queen and decrees turned on a hidden secret"
+      ],
+      "eraId": "era_esther",
+      "summary": "The Persian king who deposed Queen Vashti for refusing his summons, chose Esther as her replacement without learning she was a Jew, and — persuaded first by Haman, then reversed by Esther — held the fate of every Jew in his empire in a signet ring.",
+      "verseIds": []
+    },
+    {
+      "id": "char_vashti",
+      "name": "Vashti",
+      "roles": [
+        "the queen deposed for refusing the king's command, opening the way for Esther"
+      ],
+      "eraId": "era_esther",
+      "summary": "Queen of Persia, deposed by King Ahasuerus after she refused to be displayed before his feast — a vacancy that opened the way for Esther to become queen in her place.",
       "verseIds": []
     }
   ]

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (100 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah)
+### Character — *live* (105 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther)
 ```json
 {
   "id": "char_jacob",
@@ -245,7 +245,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (16 motifs)
+### Motif — *live* (17 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 686 verses + 35 topics + 100 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 709 verses + 35 topics + 105 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (15,164 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (15,331 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 10 eras, 146 stories, 345 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 16 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 121 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 11 eras, 154 stories, 366 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 126 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 686-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 709-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1456,6 +1456,55 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     assembly (Neh 8) — the same shape of a forgotten law found, met first
     with grief, then renewed covenant; a real second instance turned an
     isolated fact about Josiah into an actual pattern.
+
+34. **Esther.** **Done (2026-09-10).** Full playbook, its own new era —
+    `era_esther`, order 11. Deliberately **not** folded into
+    `era_return_from_exile`: Esther's Jews never returned to Jerusalem at
+    all, and the book's setting (the Persian court at Susa), cast, and
+    concerns (survival as a minority under threat, not temple or wall
+    rebuilding) are genuinely distinct from Ezra/Nehemiah's. Placed
+    *after* `era_return_from_exile` in era order to match the project's
+    stated policy of following Bible book order going forward (CLAUDE.md
+    "Known gaps" §3, owner's direction 2026-09-04), even though
+    Esther's events (under Ahasuerus/Xerxes, ~486-465 BC) fall
+    chronologically *before* Ezra's and Nehemiah's returns (under
+    Artaxerxes I, 458 and 445 BC) — the same trade-off already accepted
+    for Ruth's placement. 8 stories, tracking the book's own tight plot
+    beat for beat: Vashti deposed for refusing the king's summons; Esther
+    crowned queen while concealing her people, and Mordecai's uncovered
+    assassination plot (folded into the same story — both are Esther
+    2, and the plot's payoff needs the character already established);
+    Haman's promotion, Mordecai's refusal to bow, and the empire-wide
+    decree to destroy the Jews; Mordecai's "for such a time as this" and
+    Esther's "if I perish, I perish"; Esther's banquet invitation
+    alongside Haman's gallows and his unplanned honoring of Mordecai
+    (Esther 5-6, one story — the dramatic irony only lands if both
+    halves of that night are together); Haman named and hanged on his
+    own gallows; the decree reversed and Mordecai promoted; and the
+    Jews' self-defense and the establishing of Purim (Esther 9-10, one
+    story).
+
+    5 new characters (Esther, Mordecai, Haman, Ahasuerus, Vashti). 23
+    curated verses. No new topics — `topic_identity`, `topic_calling`,
+    `topic_trust`, `topic_fear`, `topic_justice`, `topic_deliverance`,
+    `topic_thanksgiving` already covered it. 3 new Connections: a third
+    use of the `"raised"` relationship (introduced item 20, Eli/Samuel;
+    reused item 24, Jehoiada/Joash) — Mordecai raised his orphaned cousin
+    Esther as his own daughter — and two more `"husband of"` edges
+    (Ahasuerus/Esther, Ahasuerus/Vashti). One new motif, `motif_hidden_identity_saves_the_people`
+    — Joseph revealing himself to his brothers (Genesis 45:3, already
+    curated) and Esther revealing she is a Jew to save her people
+    (Esther 7:3-4) — the same shape of a Hebrew rising unrecognized in a
+    foreign court, then revealing their identity at exactly the moment
+    it can save their own people; a real second instance, not force-fit,
+    since both stories independently hinge on concealment-then-reveal as
+    the actual turning point, not an incidental detail.
+
+    This closes out the Old Testament's historical narrative books
+    (Joshua through Esther in Bible order). If continuing canonically,
+    the poetic/wisdom books (Job, Psalms — already partly seeded,
+    Proverbs, Ecclesiastes, Song of Songs) and the Prophets are what's
+    left.
 
 ---
 

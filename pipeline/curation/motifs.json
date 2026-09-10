@@ -158,6 +158,15 @@
         "2 Kings 22:8",
         "Nehemiah 8:9"
       ]
+    },
+    {
+      "id": "motif_hidden_identity_saves_the_people",
+      "name": "A hidden identity revealed to save the people",
+      "description": "A Hebrew rises to power in a foreign court while concealing who they really are, then reveals their identity at exactly the moment it can save their own people from disaster.",
+      "exampleReferences": [
+        "Genesis 45:3",
+        "Esther 7:3-4"
+      ]
     }
   ]
 }

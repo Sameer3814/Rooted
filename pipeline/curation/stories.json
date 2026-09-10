@@ -70,6 +70,13 @@
       "summary": "Cyrus of Persia's decree lets the exiles go home. Zerubbabel and Jeshua rebuild the altar and temple against fierce local opposition; a generation later Ezra brings the law back to the center of the people's life, and Nehemiah leaves the king's palace to rebuild Jerusalem's broken walls and enforce what the law demands.",
       "order": 10,
       "approxRange": "The return to Judah and rebuilding of Jerusalem under Persian rule"
+    },
+    {
+      "id": "era_esther",
+      "name": "Esther and the Persian Diaspora",
+      "summary": "Not every exile returned. In the Persian capital of Susa, decades after the first return to Jerusalem, a Jewish orphan named Esther becomes queen, and when a powerful official plots to annihilate her people empire-wide, her hidden identity and a cousin's courage become Israel's only defense — with God's name never once mentioned, but his hand unmistakable throughout.",
+      "order": 11,
+      "approxRange": "The Jews who remained in the Persian empire, under King Ahasuerus"
     }
   ],
   "stories": [
@@ -3174,6 +3181,173 @@
       "topicIds": [
         "topic_justice",
         "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_vashti_deposed",
+      "title": "Vashti deposed",
+      "summary": "At a lavish feast in Susa, King Ahasuerus commands Queen Vashti to display her beauty before his guests. She refuses, and the king's advisors — fearing every wife in the empire will follow her example — persuade him to depose her by irrevocable decree, opening the search for a new queen.",
+      "primaryReference": "Esther 1:1-22",
+      "eraId": "era_esther",
+      "canonicalOrder": 1900,
+      "verseIds": [
+        "verse_esther_1_12",
+        "verse_esther_1_19"
+      ],
+      "characterIds": [
+        "char_vashti",
+        "char_ahasuerus"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_esther_becomes_queen",
+      "title": "Esther becomes queen",
+      "summary": "Mordecai's orphaned cousin Esther is taken into the king's harem and, on his instruction, tells no one she is a Jew. She wins favor with everyone who sees her and is crowned queen in Vashti's place. Soon after, Mordecai overhears two eunuchs plotting to kill the king, reports it through Esther, and the plot is foiled and recorded — though Mordecai goes unrewarded for it.",
+      "primaryReference": "Esther 2:1-23",
+      "eraId": "era_esther",
+      "canonicalOrder": 1910,
+      "verseIds": [
+        "verse_esther_2_7",
+        "verse_esther_2_10",
+        "verse_esther_2_17",
+        "verse_esther_2_22"
+      ],
+      "characterIds": [
+        "char_esther",
+        "char_mordecai",
+        "char_ahasuerus"
+      ],
+      "topicIds": [
+        "topic_identity"
+      ]
+    },
+    {
+      "id": "story_hamans_plot",
+      "title": "Haman's plot",
+      "summary": "The king promotes Haman above all his other officials, and everyone bows to him — except Mordecai, who won't. Haman's fury curdles into a plan to destroy not just Mordecai but every Jew in the empire; he casts lots for the date, pays for the king's permission, and sends out a sealed decree ordering their annihilation in a single day.",
+      "primaryReference": "Esther 3:1-15",
+      "eraId": "era_esther",
+      "canonicalOrder": 1920,
+      "verseIds": [
+        "verse_esther_3_5",
+        "verse_esther_3_6",
+        "verse_esther_3_13"
+      ],
+      "characterIds": [
+        "char_haman",
+        "char_mordecai",
+        "char_ahasuerus"
+      ],
+      "topicIds": [
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_for_such_a_time_as_this",
+      "title": "\"For such a time as this\"",
+      "summary": "Mordecai tears his clothes and mourns publicly when the decree goes out. He sends word urging Esther to plead with the king for her people, but approaching the king uninvited is a capital offense even for the queen. Mordecai presses her: if she stays silent, deliverance will come from elsewhere and she will perish anyway — \"who knows if you haven't come to the kingdom for such a time as this?\" Esther asks all the Jews in Susa to fast with her for three days, then answers: \"I will go in to the king, which is against the law; and if I perish, I perish.\"",
+      "primaryReference": "Esther 4:1-17",
+      "eraId": "era_esther",
+      "canonicalOrder": 1930,
+      "verseIds": [
+        "verse_esther_4_14",
+        "verse_esther_4_16"
+      ],
+      "characterIds": [
+        "char_mordecai",
+        "char_esther"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_esther_banquet_and_hamans_pride",
+      "title": "Esther's banquet and Haman's pride",
+      "summary": "Esther approaches the king unsummoned and he extends the golden scepter; instead of stating her request, she invites him and Haman to a private banquet, then a second one the next day. Haman leaves elated, until he passes Mordecai, who still won't bow — and at his wife's suggestion, has a gallows built to hang him on. That same sleepless night, the king has the royal chronicles read to him, discovers Mordecai was never rewarded for exposing the assassination plot, and — without realizing who he's describing — makes Haman personally lead Mordecai through the city in royal honor.",
+      "primaryReference": "Esther 5:1-6:14",
+      "eraId": "era_esther",
+      "canonicalOrder": 1940,
+      "verseIds": [
+        "verse_esther_5_3",
+        "verse_esther_6_10",
+        "verse_esther_6_13"
+      ],
+      "characterIds": [
+        "char_esther",
+        "char_haman",
+        "char_mordecai",
+        "char_ahasuerus"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_hamans_fall",
+      "title": "Haman exposed and hanged",
+      "summary": "At her second banquet, Esther finally names her request: her life, and her people's — \"we are sold, I and my people, to be destroyed.\" When the king demands to know who dared, she names Haman to his face. Haman is hanged that same day on the gallows he built for Mordecai.",
+      "primaryReference": "Esther 7:1-10",
+      "eraId": "era_esther",
+      "canonicalOrder": 1950,
+      "verseIds": [
+        "verse_esther_7_3",
+        "verse_esther_7_4",
+        "verse_esther_7_10"
+      ],
+      "characterIds": [
+        "char_esther",
+        "char_haman",
+        "char_ahasuerus"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_decree_reversed",
+      "title": "The decree reversed",
+      "summary": "The king gives Esther Haman's estate and sets Mordecai over it. Esther pleads again, in tears, for her people, and the king lets Mordecai write a new decree in his name — one that cannot cancel Haman's, since Persian law forbids reversing a sealed decree, but that lets the Jews defend themselves and fight back when the day comes. Susa erupts in relief and celebration, and many among the surrounding peoples, afraid of the Jews, join them.",
+      "primaryReference": "Esther 8:1-17",
+      "eraId": "era_esther",
+      "canonicalOrder": 1960,
+      "verseIds": [
+        "verse_esther_8_6",
+        "verse_esther_8_16",
+        "verse_esther_8_17"
+      ],
+      "characterIds": [
+        "char_esther",
+        "char_mordecai",
+        "char_ahasuerus"
+      ],
+      "topicIds": [
+        "topic_deliverance",
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "story_purim_established",
+      "title": "Purim established",
+      "summary": "When the appointed day arrives, the Jews throughout the empire defend themselves and defeat those who rise against them, turning what was meant to be their destruction into deliverance. Mordecai and Esther write letters establishing the fourteenth and fifteenth of Adar as Purim, an annual feast of remembrance, gladness, and gifts to the needy — and Mordecai, now second only to the king, spends his position seeking the good of his people.",
+      "primaryReference": "Esther 9:1-10:3",
+      "eraId": "era_esther",
+      "canonicalOrder": 1970,
+      "verseIds": [
+        "verse_esther_9_22",
+        "verse_esther_9_28",
+        "verse_esther_10_3"
+      ],
+      "characterIds": [
+        "char_mordecai",
+        "char_esther"
+      ],
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_deliverance"
       ]
     }
   ],
@@ -7095,6 +7269,195 @@
       "reference": "Nehemiah 6:1-19",
       "storyId": "story_wall_finished",
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_vashti_deposed",
+      "characterId": "char_vashti",
+      "title": "Refuses the king's summons and loses her crown",
+      "description": "Refuses to be displayed before the king's feast and is deposed by irrevocable decree.",
+      "reference": "Esther 1:1-22",
+      "storyId": "story_vashti_deposed",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_esther_becomes_queen",
+      "characterId": "char_esther",
+      "title": "Becomes queen without revealing she is a Jew",
+      "description": "Is taken into the king's harem, wins his favor, and is crowned queen in Vashti's place.",
+      "reference": "Esther 2:1-23",
+      "storyId": "story_esther_becomes_queen",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_esther_agrees_to_intervene",
+      "characterId": "char_esther",
+      "title": "Agrees to risk her life and approach the king uninvited",
+      "description": "Answers Mordecai's plea with \"if I perish, I perish\" and calls for a three-day fast.",
+      "reference": "Esther 4:1-17",
+      "storyId": "story_for_such_a_time_as_this",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_esther_hosts_banquet",
+      "characterId": "char_esther",
+      "title": "Invites the king and Haman to a private banquet",
+      "description": "Approaches the king uninvited and, instead of stating her request, invites him and Haman to two banquets.",
+      "reference": "Esther 5:1-6:14",
+      "storyId": "story_esther_banquet_and_hamans_pride",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_esther_exposes_haman",
+      "characterId": "char_esther",
+      "title": "Exposes Haman's plot and pleads for her people's lives",
+      "description": "Names Haman to the king's face as the enemy plotting to destroy her and her people.",
+      "reference": "Esther 7:1-10",
+      "storyId": "story_hamans_fall",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_esther_receives_estate",
+      "characterId": "char_esther",
+      "title": "Receives Haman's house and secures a reversing decree",
+      "description": "Is given Haman's estate and pleads again for a decree letting the Jews defend themselves.",
+      "reference": "Esther 8:1-17",
+      "storyId": "story_decree_reversed",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_esther_establishes_purim",
+      "characterId": "char_esther",
+      "title": "Establishes Purim as an annual feast with Mordecai",
+      "description": "Writes with Mordecai to confirm Purim as a permanent yearly observance.",
+      "reference": "Esther 9:1-10:3",
+      "storyId": "story_purim_established",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_mordecai_raises_esther_and_uncovers_plot",
+      "characterId": "char_mordecai",
+      "title": "Raises Esther and uncovers a plot against the king",
+      "description": "Raises his orphaned cousin as his own daughter, then reports an assassination plot through her.",
+      "reference": "Esther 2:1-23",
+      "storyId": "story_esther_becomes_queen",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_mordecai_refuses_to_bow",
+      "characterId": "char_mordecai",
+      "title": "Refuses to bow to Haman, provoking his plot against the Jews",
+      "description": "Will not bow to the newly promoted Haman, who turns his wrath on all the Jews as a result.",
+      "reference": "Esther 3:1-15",
+      "storyId": "story_hamans_plot",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_mordecai_urges_esther",
+      "characterId": "char_mordecai",
+      "title": "Urges Esther to intercede for her people",
+      "description": "Presses Esther that she may have come to her position \"for such a time as this.\"",
+      "reference": "Esther 4:1-17",
+      "storyId": "story_for_such_a_time_as_this",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_mordecai_honored",
+      "characterId": "char_mordecai",
+      "title": "Is honored by the king the night Haman planned to hang him",
+      "description": "Is led through the city in royal honor by Haman himself, the same night Haman built a gallows for him.",
+      "reference": "Esther 5:1-6:14",
+      "storyId": "story_esther_banquet_and_hamans_pride",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_mordecai_promoted",
+      "characterId": "char_mordecai",
+      "title": "Is promoted to Haman's former position",
+      "description": "Is set over Haman's house and given his signet ring.",
+      "reference": "Esther 8:1-17",
+      "storyId": "story_decree_reversed",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_mordecai_second_to_king",
+      "characterId": "char_mordecai",
+      "title": "Establishes Purim and becomes second only to the king",
+      "description": "Rises to be next to King Ahasuerus, seeking the good of his people.",
+      "reference": "Esther 9:1-10:3",
+      "storyId": "story_purim_established",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_haman_plots",
+      "characterId": "char_haman",
+      "title": "Plots to destroy all the Jews after Mordecai's refusal to bow",
+      "description": "Secures the king's permission and seal for a decree to annihilate every Jew in the empire.",
+      "reference": "Esther 3:1-15",
+      "storyId": "story_hamans_plot",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_haman_builds_gallows",
+      "characterId": "char_haman",
+      "title": "Builds a gallows for Mordecai, then is forced to honor him instead",
+      "description": "Has a gallows built for Mordecai, then is made to lead him through the city in royal honor.",
+      "reference": "Esther 5:1-6:14",
+      "storyId": "story_esther_banquet_and_hamans_pride",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_haman_hanged",
+      "characterId": "char_haman",
+      "title": "Is exposed by Esther and hanged on his own gallows",
+      "description": "Is named by Esther as the Jews' enemy and hanged on the gallows he built for Mordecai.",
+      "reference": "Esther 7:1-10",
+      "storyId": "story_hamans_fall",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_ahasuerus_deposes_vashti",
+      "characterId": "char_ahasuerus",
+      "title": "Deposes Vashti for refusing his summons",
+      "description": "Deposes Queen Vashti by irrevocable decree after she refuses to appear before his feast.",
+      "reference": "Esther 1:1-22",
+      "storyId": "story_vashti_deposed",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ahasuerus_crowns_esther",
+      "characterId": "char_ahasuerus",
+      "title": "Chooses Esther as queen without learning she is a Jew",
+      "description": "Loves Esther more than all the other women and crowns her queen.",
+      "reference": "Esther 2:1-23",
+      "storyId": "story_esther_becomes_queen",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ahasuerus_grants_haman_authority",
+      "characterId": "char_ahasuerus",
+      "title": "Grants Haman authority to destroy the Jews",
+      "description": "Gives Haman his signet ring and authority to do as he sees fit with \"a certain people.\"",
+      "reference": "Esther 3:1-15",
+      "storyId": "story_hamans_plot",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_ahasuerus_hangs_haman",
+      "characterId": "char_ahasuerus",
+      "title": "Has Haman hanged after Esther exposes his plot",
+      "description": "Orders Haman hanged on the gallows built for Mordecai once Esther names him as the enemy.",
+      "reference": "Esther 7:1-10",
+      "storyId": "story_hamans_fall",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_ahasuerus_reverses_decree",
+      "characterId": "char_ahasuerus",
+      "title": "Gives Esther Haman's estate and lets a new decree be written",
+      "description": "Gives Esther Haman's house and lets Mordecai write a decree letting the Jews defend themselves.",
+      "reference": "Esther 8:1-17",
+      "storyId": "story_decree_reversed",
+      "sequenceInLife": 50
     }
   ]
 }

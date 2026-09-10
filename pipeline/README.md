@@ -230,6 +230,15 @@ Worth knowing:
   `"worked alongside"` (symmetric) — a reminder that Connection
   relationship strings are free-form data (design philosophy #1), not a
   fixed list to pick from.
+- **Esther's era placement follows Bible book order, not strict
+  chronology** — and that's a deliberate, previously-made call, not a
+  new exception. Esther's story (under Ahasuerus/Xerxes) actually happens
+  *before* Ezra's and Nehemiah's returns (under Artaxerxes), but
+  `era_esther`'s `order` still comes after `era_return_from_exile`,
+  because this project's stated policy (CLAUDE.md "Known gaps" §3) is to
+  follow canonical Bible book order for anything past Ruth, not
+  re-sequence by history. `order` is a display/grouping field, not a
+  historical timeline — don't try to make it one.
 
 ## Copyright
 

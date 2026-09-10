@@ -1092,6 +1092,51 @@
       "toType": "story",
       "toId": "story_ezra_reads_the_law",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_mordecai_raised_esther",
+      "fromType": "character",
+      "fromId": "char_mordecai",
+      "relationship": "raised",
+      "toType": "character",
+      "toId": "char_esther",
+      "inverse": "raised by"
+    },
+    {
+      "id": "conn_ahasuerus_husband_of_esther",
+      "fromType": "character",
+      "fromId": "char_ahasuerus",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_esther",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_ahasuerus_husband_of_vashti",
+      "fromType": "character",
+      "fromId": "char_ahasuerus",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_vashti",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_hidden_identity_instance_joseph",
+      "fromType": "motif",
+      "fromId": "motif_hidden_identity_saves_the_people",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_joseph_reveals_himself",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_hidden_identity_instance_esther",
+      "fromType": "motif",
+      "fromId": "motif_hidden_identity_saves_the_people",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_hamans_fall",
+      "inverse": "has motif"
     }
   ]
 }
