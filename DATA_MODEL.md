@@ -430,7 +430,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,154 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,174 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,154-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,174-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2150,6 +2150,24 @@ inventing a new principle:
     verses-and-topics treatment established with Leviticus (item 41's
     design note), since they're letters, not narrative; then
     Revelation.**
+
+56. **Romans.** **Done (2026-09-10).** The first epistle, and the
+    template for how the rest will be handled: no Story records (no
+    narrative — it's a letter), no new characters (Paul already
+    exists), just curated verses tagged to existing topics. 20 verses
+    covering the letter's core theology, chosen for how frequently
+    they're quoted/memorized independent of this project: justification
+    by faith (1:16-17, 3:23-24, 5:1), Christ's death for sinners while
+    still sinners (5:8), death and resurrection in baptism (6:4),
+    "the wages of sin is death" (6:23), no condemnation for those in
+    Christ (8:1), "all things work together for good" (8:28), nothing
+    able to separate us from God's love (8:31, 8:38-39), confessing
+    Jesus as Lord (10:9), faith by hearing (10:17), the "living
+    sacrifice" call to worship (12:1-2), overcoming evil with good
+    (12:21), submission to authority (13:1), and a closing benediction
+    on hope (15:13). No new topics — the existing 38 covered
+    everything, including some of the New Testament's most quoted
+    verses.
 
 ---
 

@@ -9468,6 +9468,152 @@
       "characterIds": [
         "char_paul"
       ]
+    },
+    {
+      "id": "verse_romans_1_16",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_romans_1_17",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_3_23",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_3_24",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_5_1",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_5_8",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_6_4",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_6_23",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_8_1",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_8_28",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_8_31",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_8_38",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_8_39",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_10_9",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_10_17",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_12_1",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_romans_12_2",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_romans_12_21",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_13_1",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_romans_15_13",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
