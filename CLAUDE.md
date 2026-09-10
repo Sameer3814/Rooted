@@ -128,20 +128,20 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,104 verses** — the entire Old Testament plus the New
+  first run: **1,120 verses** — the entire Old Testament plus the New
   Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the exact book list, "Known gaps" item 9 for how
   the NT is being approached, and DATA_MODEL.md §8 for the full,
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
-  (topics linked to related topics), plus **153 characters** with real
+  (topics linked to related topics), plus **155 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below). Note:
   fictional figures inside Jesus's parables (the good Samaritan, the
   prodigal son, etc.) do **not** get Character records — only real,
   named/identifiable people do, same as every OT figure.
-- `data/characters.json` — the same 153 characters, standalone. Generated
+- `data/characters.json` — the same 155 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire Old
   Testament plus the New Testament books curated so far (26,923 verses,
@@ -149,9 +149,9 @@ The schema was deliberately designed so all of the above can be added
   `parse_books.py`. Lazily fetched by the Browse screen the first time
   it's opened, never at boot. It is *reference material*, kept separate
   from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 1,104 seed verses are topic-tagged; the
+  the user's overlay. Only the 1,120 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
-- `data/stories.json` — 15 eras, **222 stories and 506 life events**.
+- `data/stories.json` — 16 eras, **226 stories and 512 life events**.
   All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
   `era_jesus_ministry` so far (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
@@ -419,9 +419,10 @@ hand-curate all the content before building.
    Resurrection narrative: the triumphal entry through the trials, the
    crucifixion, the empty tomb, the resurrection appearances
    (Mary Magdalene, the road to Emmaus, doubting Thomas), the Great
-   Commission, and the ascension. Acts — the early church — is next,
-   opening a new era, `era_early_church`. Full detail in DATA_MODEL.md
-   §8, items 41 onward, as each
+   Commission, and the ascension. A new era, `era_early_church`, has
+   opened with Matthias chosen to replace Judas, Pentecost, and Peter
+   healing a lame man at the temple gate — Acts is underway. Full
+   detail in DATA_MODEL.md §8, items 41 onward, as each
    installment lands (that's now the authoritative running log —
    this file's own "Done" changelog below stops narrating every NT
    installment in full prose, to stay sustainable across what's a much

@@ -105,6 +105,13 @@
       "summary": "Jesus enters Jerusalem to a crowd's shouts of praise, teaches and confronts religious leaders in the temple all week, shares a final meal with his disciples, is betrayed, arrested, tried, and crucified -- then rises from the dead on the third day, appearing to his followers before ascending to heaven.",
       "order": 15,
       "approxRange": "Jesus's final week in Jerusalem, through his resurrection and ascension"
+    },
+    {
+      "id": "era_early_church",
+      "name": "The Early Church",
+      "summary": "Filled with the Holy Spirit at Pentecost, the apostles proclaim the risen Jesus in Jerusalem and beyond, performing signs, sharing everything in common, and facing growing opposition -- while the gospel spreads from a persecuted Jewish sect into a movement reaching Samaritans, Gentiles, and eventually Rome itself.",
+      "order": 16,
+      "approxRange": "From Pentecost through the spread of the church across the Roman world"
     }
   ],
   "stories": [
@@ -4840,13 +4847,101 @@
       "canonicalOrder": 2770,
       "verseIds": [
         "verse_luke_24_51",
-        "verse_luke_24_52"
+        "verse_luke_24_52",
+        "verse_acts_1_8",
+        "verse_acts_1_11"
       ],
       "characterIds": [
         "char_jesus"
       ],
       "topicIds": [
         "topic_worship",
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "story_calling_of_matthew",
+      "title": "The calling of Matthew",
+      "summary": "Passing a tax collection booth, Jesus tells the tax collector Matthew, \"follow me\" -- and he gets up immediately and follows. At a feast in Matthew's house full of tax collectors and other people the Pharisees considered sinners, the Pharisees ask why Jesus eats with such people. Jesus answers that it's the sick who need a doctor, not the healthy: \"I came not to call the righteous, but sinners to repentance.\"",
+      "primaryReference": "Matthew 9:9-13",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2260,
+      "verseIds": [
+        "verse_matthew_9_9",
+        "verse_matthew_9_12",
+        "verse_matthew_9_13"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_matthew"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_repentance"
+      ]
+    },
+    {
+      "id": "story_choosing_matthias",
+      "title": "Choosing Matthias",
+      "summary": "Back in Jerusalem after the ascension, the disciples devote themselves to prayer together with the women, Mary the mother of Jesus, and his brothers. Peter stands up before the group of about a hundred twenty believers and explains that Judas's betrayal and death leave his place among the twelve empty. Two candidates are put forward; after prayer, they cast lots, and it falls to Matthias, who is counted among the eleven apostles.",
+      "primaryReference": "Acts 1:12-26",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2800,
+      "verseIds": [
+        "verse_acts_1_24",
+        "verse_acts_1_26"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_matthias"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_guidance"
+      ]
+    },
+    {
+      "id": "story_pentecost",
+      "title": "Pentecost",
+      "summary": "On the day of Pentecost, a sound like a rushing wind fills the house where the disciples are gathered, and what looks like tongues of fire rests on each of them; they're filled with the Holy Spirit and begin speaking in other languages. Peter stands and preaches to the crowd that has gathered, explaining that this Jesus, whom they crucified, God has raised up and made both Lord and Christ. Cut to the heart, the crowd asks what they should do; Peter tells them to repent and be baptized for the forgiveness of sins. About three thousand are added that day, and the new believers devote themselves to the apostles' teaching, fellowship, the breaking of bread, and prayer -- sharing everything they have and growing daily.",
+      "primaryReference": "Acts 2:1-47",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2810,
+      "verseIds": [
+        "verse_acts_2_4",
+        "verse_acts_2_24",
+        "verse_acts_2_36",
+        "verse_acts_2_38",
+        "verse_acts_2_42",
+        "verse_acts_2_44",
+        "verse_acts_2_47"
+      ],
+      "characterIds": [
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_love",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_peter_heals_lame_man",
+      "title": "Peter heals a lame man",
+      "summary": "Going up to the temple to pray, Peter and John pass a man lame from birth, begging at the gate called Beautiful. Peter tells him, \"I have no silver or gold, but what I have, I give you: in the name of Jesus Christ of Nazareth, get up and walk.\" He pulls the man up by the hand, and his feet and ankles are instantly strong -- he walks into the temple with them, leaping and praising God, to the astonishment of everyone who recognizes him as the beggar who used to sit there.",
+      "primaryReference": "Acts 3:1-10",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2820,
+      "verseIds": [
+        "verse_acts_3_6",
+        "verse_acts_3_8"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_john_apostle"
+      ],
+      "topicIds": [
+        "topic_deliverance",
         "topic_thanksgiving"
       ]
     }
@@ -10218,6 +10313,60 @@
       "reference": "John 20:24-29",
       "storyId": "story_doubting_thomas",
       "sequenceInLife": 20
+    },
+    {
+      "id": "event_matthew_called",
+      "characterId": "char_matthew",
+      "title": "Is called from his tax booth to follow Jesus",
+      "description": "Follows Jesus immediately and hosts a feast for tax collectors and sinners.",
+      "reference": "Matthew 9:9-13",
+      "storyId": "story_calling_of_matthew",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_matthias_chosen",
+      "characterId": "char_matthias",
+      "title": "Is chosen by lot to replace Judas",
+      "description": "Is selected over Joseph Barsabbas to complete the twelve apostles.",
+      "reference": "Acts 1:12-26",
+      "storyId": "story_choosing_matthias",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_peter_leads_matthias_choice",
+      "characterId": "char_peter",
+      "title": "Leads the choosing of Judas's replacement",
+      "description": "Explains the need to replace Judas and oversees the casting of lots.",
+      "reference": "Acts 1:12-26",
+      "storyId": "story_choosing_matthias",
+      "sequenceInLife": 90
+    },
+    {
+      "id": "event_peter_preaches_pentecost",
+      "characterId": "char_peter",
+      "title": "Preaches the first sermon of the church at Pentecost",
+      "description": "Explains the tongues of fire and calls the crowd to repent and be baptized.",
+      "reference": "Acts 2:1-47",
+      "storyId": "story_pentecost",
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_peter_heals_lame_man",
+      "characterId": "char_peter",
+      "title": "Heals a man lame from birth",
+      "description": "Heals a beggar at the temple gate in the name of Jesus.",
+      "reference": "Acts 3:1-10",
+      "storyId": "story_peter_heals_lame_man",
+      "sequenceInLife": 110
+    },
+    {
+      "id": "event_john_apostle_heals_lame_man",
+      "characterId": "char_john_apostle",
+      "title": "Is present when Peter heals a lame man",
+      "description": "Accompanies Peter to the temple and witnesses the healing.",
+      "reference": "Acts 3:1-10",
+      "storyId": "story_peter_heals_lame_man",
+      "sequenceInLife": 50
     }
   ]
 }
