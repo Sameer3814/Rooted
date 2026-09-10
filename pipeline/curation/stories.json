@@ -2997,11 +2997,17 @@
       "verseIds": [
         "verse_ezra_5_5",
         "verse_ezra_6_14",
-        "verse_ezra_6_16"
+        "verse_ezra_6_16",
+        "verse_haggai_2_4",
+        "verse_haggai_2_9",
+        "verse_zechariah_4_6",
+        "verse_zechariah_4_10"
       ],
       "characterIds": [
         "char_zerubbabel",
-        "char_jeshua_priest"
+        "char_jeshua_priest",
+        "char_haggai",
+        "char_zechariah_prophet"
       ],
       "topicIds": [
         "topic_presence",
@@ -3767,6 +3773,90 @@
       "topicIds": [
         "topic_prayer",
         "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_jonah_flees_and_the_fish",
+      "title": "Jonah flees, and the fish",
+      "summary": "Told to preach against Nineveh, Jonah instead books passage in the opposite direction. Yahweh sends a storm so violent the sailors throw cargo overboard and finally, at Jonah's own suggestion, throw him into the sea -- and the storm instantly stops. Yahweh sends a great fish to swallow him, and from its belly Jonah prays, remembering Yahweh even from what feels like the edge of death. After three days the fish vomits him onto dry land.",
+      "primaryReference": "Jonah 1:1-2:10",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1471,
+      "verseIds": [
+        "verse_jonah_1_3",
+        "verse_jonah_1_12",
+        "verse_jonah_2_2",
+        "verse_jonah_2_7"
+      ],
+      "characterIds": [
+        "char_jonah"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_jonah_and_nineveh",
+      "title": "Jonah and Nineveh",
+      "summary": "Given a second chance, Jonah goes to Nineveh and preaches one line: forty days until the city is overthrown. Remarkably, the whole city -- king included -- repents in sackcloth and ashes, and Yahweh relents. Jonah is furious rather than glad, admitting this mercy is exactly why he fled in the first place. Sulking outside the city, he's given shade by a plant, then angry all over again when it withers -- and Yahweh uses his misplaced grief over a plant to ask why he can't grieve for a hundred and twenty thousand people instead.",
+      "primaryReference": "Jonah 3:1-4:11",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1472,
+      "verseIds": [
+        "verse_jonah_3_4",
+        "verse_jonah_3_5",
+        "verse_jonah_3_10",
+        "verse_jonah_4_2",
+        "verse_jonah_4_11"
+      ],
+      "characterIds": [
+        "char_jonah"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_hoseas_marriage",
+      "title": "Hosea's marriage",
+      "summary": "Yahweh tells Hosea to marry Gomer, a woman who will be unfaithful to him, as a living picture of Israel's unfaithfulness to God. Their children are given names that are themselves prophecies of judgment -- Jezreel, Lo-Ruhamah (\"not pitied\"), Lo-Ammi (\"not my people\"). When Gomer eventually leaves him for other lovers, Yahweh tells Hosea to buy her back and love her again -- exactly as Yahweh continues loving an unfaithful Israel.",
+      "primaryReference": "Hosea 1:1-3:5",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1476,
+      "verseIds": [
+        "verse_hosea_1_2",
+        "verse_hosea_1_9",
+        "verse_hosea_3_1",
+        "verse_hosea_3_3"
+      ],
+      "characterIds": [
+        "char_hosea",
+        "char_gomer"
+      ],
+      "topicIds": [
+        "topic_love",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_amos_confronts_amaziah",
+      "title": "Amos confronts Amaziah",
+      "summary": "When Amos prophesies Israel's coming exile at the royal sanctuary in Bethel, the priest Amaziah reports him to the king and tells him to go back to Judah and prophesy there instead. Amos answers that he was never trained to be a prophet -- he was a shepherd and fig farmer until Yahweh took him from the flock and sent him -- and refuses to stop.",
+      "primaryReference": "Amos 7:10-17",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1477,
+      "verseIds": [
+        "verse_amos_7_14",
+        "verse_amos_7_15"
+      ],
+      "characterIds": [
+        "char_amos"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_justice"
       ]
     }
   ],
@@ -8191,6 +8281,69 @@
       "description": "Signs a decree forbidding prayer to anyone but himself and is forced to enforce it against Daniel.",
       "reference": "Daniel 6:1-28",
       "storyId": "story_lions_den",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jonah_flees",
+      "characterId": "char_jonah",
+      "title": "Flees Nineveh and is swallowed by a fish",
+      "description": "Boards a ship away from his call, is thrown overboard in a storm, and prays from inside a great fish.",
+      "reference": "Jonah 1:1-2:10",
+      "storyId": "story_jonah_flees_and_the_fish",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jonah_nineveh_repents",
+      "characterId": "char_jonah",
+      "title": "Preaches to Nineveh and resents its repentance",
+      "description": "Sees the whole city repent and is angry that Yahweh spares it.",
+      "reference": "Jonah 3:1-4:11",
+      "storyId": "story_jonah_and_nineveh",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_hosea_marries_gomer",
+      "characterId": "char_hosea",
+      "title": "Marries Gomer as a living picture of Israel's unfaithfulness",
+      "description": "Marries a woman who will be unfaithful, then buys her back and loves her again.",
+      "reference": "Hosea 1:1-3:5",
+      "storyId": "story_hoseas_marriage",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_gomer_bought_back",
+      "characterId": "char_gomer",
+      "title": "Is bought back and loved again after leaving",
+      "description": "Leaves Hosea for other lovers and is bought back by him at Yahweh's command.",
+      "reference": "Hosea 1:1-3:5",
+      "storyId": "story_hoseas_marriage",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_amos_confronts_amaziah",
+      "characterId": "char_amos",
+      "title": "Refuses to stop prophesying when ordered to leave",
+      "description": "Answers Amaziah's demand to leave Bethel by explaining Yahweh took him from shepherding to prophesy.",
+      "reference": "Amos 7:10-17",
+      "storyId": "story_amos_confronts_amaziah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_haggai_urges_rebuilding",
+      "characterId": "char_haggai",
+      "title": "Confronts the exiles for neglecting the temple",
+      "description": "Tells the returned exiles to consider their ways and get back to building Yahweh's house.",
+      "reference": "Haggai 1:1-2:23",
+      "storyId": "story_temple_completed",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zechariah_encourages_rebuilding",
+      "characterId": "char_zechariah_prophet",
+      "title": "Encourages the rebuilding with a series of visions",
+      "description": "Supports Zerubbabel with visions reminding the exiles the work will finish by God's Spirit, not their own strength.",
+      "reference": "Zechariah 1:1-8:23",
+      "storyId": "story_temple_completed",
       "sequenceInLife": 10
     }
   ]

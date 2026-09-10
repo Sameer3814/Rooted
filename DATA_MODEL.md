@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (118 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel)
+### Character — *live* (124 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament coverage as of 2026-09-10)
 ```json
 {
   "id": "char_jacob",
@@ -245,7 +245,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (18 motifs)
+### Motif — *live* (20 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 889 verses + 38 topics + 118 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 949 verses + 38 topics + 124 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (22,095 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus — **the entire Old Testament** (23,145 verses; `DEFAULT_BOOKS` in `parse_books.py` lists all 39 books) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 174 stories, 401 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 178 stories, 408 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 129 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 889-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 949-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1671,6 +1671,61 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     violate loyalty to God → sentenced to die for it → delivered in a
     way that makes the king himself acknowledge God), a real recurring
     pattern rather than two unrelated close calls.
+
+40. **The Twelve (Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum,
+    Habakkuk, Zephaniah, Haggai, Zechariah, Malachi).** **Done
+    (2026-09-10).** The final installment — with this, all 39 books of
+    the Old Testament are curated. No new eras: every book with real
+    narrative content fit an *existing* one. `era_divided_kingdom` took
+    Hosea, Amos, and Jonah — all roughly contemporary with Jeroboam II
+    of Israel, decades before the northern kingdom's fall, so they sit
+    early in that era's `canonicalOrder` range (1471-1477, clustered
+    just before `story_isaiahs_call` at 1478). `era_return_from_exile`
+    took Haggai and Zechariah, whose own books are literally about the
+    temple's rebuilding already curated from Ezra 5-6 — rather than new
+    stories, their content **extends the existing**
+    `story_temple_completed` (new `verseIds` — Haggai 2:4/2:9,
+    Zechariah 4:6/4:10 — and both prophets added to its
+    `characterIds`), continuing the "extend, don't clone" rule one more
+    time. The other seven books (Joel, Obadiah, Micah, Nahum, Habakkuk,
+    Zephaniah, Malachi) have no real narrative of their own, so they got
+    the lighter verses-and-topics treatment with **no new Character
+    records** for their authors — consistent with how Isaiah's and
+    Proverbs' oracle verses mostly carry empty `characterIds` too.
+
+    4 new stories: `story_hoseas_marriage` (Hosea marries Gomer, an
+    unfaithful wife, as a lived picture of Israel's unfaithfulness —
+    then is told to buy her back, picturing Yahweh's love anyway);
+    `story_amos_confronts_amaziah` (the priest at Bethel tries to expel
+    Amos, who answers that he was a shepherd, not a trained prophet,
+    before Yahweh sent him); `story_jonah_flees_and_the_fish` and
+    `story_jonah_and_nineveh` (split in two — the flight/storm/fish is
+    a complete arc on its own before the actual commission in ch3
+    begins; combining them would blur two different turning points). 6
+    new characters: Hosea, Gomer, Amos, Jonah, Haggai, and Zechariah
+    (`char_zechariah_prophet` — a distinct id from the existing
+    `char_zechariah`, the priest Joash had stoned in the Chronicles
+    pass; two real people named Zechariah already existed in the
+    Bible's own text before this pass, not a curation collision). 60
+    curated verses, no new topics — the existing 38 covered everything.
+
+    Two new motifs, both genuine cross-book connections this final
+    pass made possible: `motif_gracious_and_merciful_formula` — the
+    same description of Yahweh ("gracious and merciful, slow to anger,
+    abundant in loving kindness") recurs almost word-for-word from
+    Exodus 34:6 (already curated, Genesis-era pass) through Nehemiah
+    9:17 (already curated, the Ezra/Nehemiah pass) to Joel 2:13 to
+    Jonah 4:2 — four instances spanning three different curation passes
+    months apart, only recognizable as a pattern once the last piece
+    (Jonah) was in place; its Connections attach directly to **verses**,
+    not stories, since the recurrence is a repeated line, not a
+    repeated narrative beat. `motif_trust_beyond_understanding`
+    connects Job (`story_god_answers_job`) and Habakkuk 3:17-19 — both
+    end not with their hard questions answered, but with a fuller sight
+    of God's greatness that turns the sufferer from demanding answers
+    to worship and trust anyway; a real second instance that turned an
+    isolated fact about Job into an actual pattern, the same test every
+    motif in this dataset has had to pass.
 
 ---
 

@@ -126,56 +126,55 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **889 verses** across every OT book curated so far (WEB
-  translation — see `DEFAULT_BOOKS` in `parse_books.py` for the exact
-  book list, kept in sync with curation, not just parsing) and **38
-  topics** (topics linked to related topics), plus **118 characters**
-  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua,
-  10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9
-  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel,
-  6 Daniel) with real relationships (father of, wife of, brother of,
-  successor of, servant of, worked alongside, raised, etc. — see
-  Connection, below).
-- `data/characters.json` — the same 118 characters, standalone. Generated
+  first run: **949 verses** across **every book of the Old Testament**
+  (WEB translation — see `DEFAULT_BOOKS` in `parse_books.py`, which as
+  of 2026-09-10 lists all 39) and **38 topics** (topics linked to
+  related topics), plus **124 characters** (17 Genesis, 8 Exodus,
+  5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel,
+  9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah,
+  5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve) with
+  real relationships (father of, wife of, brother of, successor of,
+  servant of, worked alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 124 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
-- `data/verses.json` — the **full** parsed corpus: every OT book curated
-  so far (22,095 verses, WEB translation, public domain), matching
+- `data/verses.json` — the **full** parsed corpus: **the entire Old
+  Testament** (23,145 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 889 seed
+  from Browse copies it into the user's overlay. Only the 949 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 12 eras, **174 stories and 401 life events**.
+- `data/stories.json` — 12 eras, **178 stories and 408 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
   (Hannah through Solomon — now also David's temple preparations and
   prayer of blessing from 1 Chronicles), `era_divided_kingdom` (the
-  kingdom splitting, the Elijah/Elisha cycle, 2 Kings, and the Chronicles
-  kings of Judah — Abijah, Asa, Jehoshaphat, Joash and Zechariah,
-  Uzziah's pride, Hezekiah's Passover, Manasseh's repentance), `era_exile`
-  — Jerusalem falls to Nebuchadnezzar, and Chronicles closes it on the
-  decree of Cyrus opening the road home — `era_return_from_exile` —
-  Zerubbabel and Jeshua rebuild the altar and temple against local
-  opposition, Ezra brings the law back to the center of the people's
-  life, and Nehemiah rebuilds Jerusalem's walls and enforces reform —
-  `era_esther` — the Jews who stayed in Persia, where Esther becomes
-  queen and, with Mordecai, overturns Haman's plot to destroy them,
-  establishing Purim — and now `era_job` — outside Israel's own history
-  entirely, a blameless man in the land of Uz loses everything, argues
-  honestly with God and three friends who insist his suffering must be
-  deserved, and is answered out of a whirlwind. Loaded at boot (it's
-  small). Drives the character life timeline, the Stories screens,
-  People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **18** recurring biblical patterns, each with real
+  kingdom splitting, the Elijah/Elisha cycle, 2 Kings, the Chronicles
+  kings of Judah, and now Isaiah's and Jeremiah's calls, Hosea's
+  marriage, Amos's confrontation with Amaziah, and Jonah's flight and
+  Nineveh), `era_exile` (Jerusalem falls to Nebuchadnezzar, and now also
+  Jeremiah's cistern and forced flight to Egypt, Ezekiel's visions, and
+  Daniel's court from Nebuchadnezzar through Darius the Mede),
+  `era_return_from_exile` (Zerubbabel and Jeshua rebuild the temple —
+  now with Haggai's and Zechariah's own prophetic support folded in —
+  and Ezra and Nehemiah rebuild the law and the walls), `era_esther`
+  (the Jews who stayed in Persia), and `era_job` (outside Israel's own
+  history entirely). Loaded at boot (it's small). Drives the character
+  life timeline, the Stories screens, People-grouped-by-era, and
+  "appears alongside".
+- `data/motifs.json` — **20** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Newest: `motif_faithful_defiance_delivered` (the fiery
-  furnace and the lions' den — refuse a king's command that would
-  violate loyalty to God, be sentenced to die for it, and be delivered
-  in a way that makes even the king acknowledge God publicly). Loaded
-  at boot. Drives the Patterns screens and the "Pattern" badges on
-  Character, Story, and Verse detail pages.
-- `data/connections.json` — 129 generic Connection edges (Design
+  occurrences. Newest: `motif_gracious_and_merciful_formula` (the same
+  description of Yahweh — "gracious and merciful, slow to anger" —
+  recurs almost word-for-word from Exodus 34:6 through Nehemiah's
+  confession to Joel's call to repentance to Jonah's own complaint that
+  God is too merciful) and `motif_trust_beyond_understanding` (Job and
+  Habakkuk both end not with their questions answered, but with a
+  fuller sight of God turning them from demanding answers to worship
+  anyway). Loaded at boot. Drives the Patterns screens and the
+  "Pattern" badges on Character, Story, and Verse detail pages.
+- `data/connections.json` — 135 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -184,10 +183,12 @@ The schema was deliberately designed so all of the above can be added
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
-    whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
-    Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job,
-    Proverbs, Ecclesiastes, Song of Solomon.
+    whole Bible. **Default set is now all 39 Old Testament books** —
+    the entire OT is curated as of 2026-09-10 (see "Known gaps" below).
+    `--books`/`--all` remain for parsing New Testament books ad hoc, if
+    that's ever undertaken; `DEFAULT_BOOKS` should only grow to match
+    what's actually curated, not what's merely been read (see
+    `pipeline/README.md`'s lessons for why).
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -318,70 +319,34 @@ hand-curate all the content before building.
    `challenge_character_match`).
 2. Real character portrait illustrations in the warm-storybook style
    (currently icon placeholders); `Media` entity designed, not built.
-3. **Expanding beyond Genesis to other OT books — ongoing, in canonical
-   order** (owner's explicit direction, 2026-09-04: Exodus, Leviticus,
-   Numbers, and so on — Ruth landed earlier and stays, but books from here
-   follow Bible order). Completed so far: Exodus, Leviticus, Numbers,
-   Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings (see
-   prior entries below), and now 1–2 Chronicles as a pair (full playbook,
-   but scoped to Chronicles-*unique* material since it retells
-   Samuel–Kings: David's temple preparations and prayer of blessing; the
-   threshing floor that becomes the temple site; and the kings of Judah
-   Kings covers thinly — Abijah, Asa, Jehoshaphat's "the battle is not
-   yours but God's," Joash killing the priest Zechariah, Uzziah's pride,
-   Hezekiah's Passover, Manasseh's repentance in Babylon, and the decree
-   of Cyrus — see DATA_MODEL.md §8.24), then Ezra/Nehemiah — the return
-   from exile, genuinely new narrative rather than a retelling (see
-   DATA_MODEL.md §8.25) — and now Esther, its own era since it's a
-   distinct group (the Jews who stayed in Persia rather than returning),
-   placed after Ezra/Nehemiah in era order to match Bible book order
-   even though its events happen decades earlier historically (see
-   DATA_MODEL.md §8.26), which closed out the Old Testament's historical
-   narrative books. Now underway (2026-09-10, owner's direction: finish
-   the rest of the Old Testament in one continuous pass): the
-   poetic/wisdom books — **Job done** (own new era, `era_job`, since it's
-   undated and outside Israel's own history — see DATA_MODEL.md §8.27),
-   Proverbs/Ecclesiastes/Song of Solomon done as a lighter
-   verses-and-topics pass (no narrative to build stories from) — and
-   **Isaiah done**: no new era or characters needed (`char_isaiah`
-   already existed from the 2 Kings pass, and his one real narrative
-   beat — the call vision, "Holy, holy, holy... here am I, send me,"
-   Isaiah 6 — slots into the existing `era_divided_kingdom`); the rest
-   is a verses-and-topics pass across the book's judgment and comfort
-   oracles (Isaiah 36-39's Hezekiah/Sennacherib narrative is nearly
-   identical to 2 Kings 18-20, already curated there, so it wasn't
-   duplicated). **Jeremiah/Lamentations done**: unlike Isaiah, Jeremiah
-   has substantial unique narrative — 4 new characters (Jeremiah,
-   Baruch, Ebed-Melech, Gedaliah) and 6 new stories, split across
-   `era_divided_kingdom` (his call, the potter's house, Baruch's
-   burned-then-rewritten scroll) and `era_exile` (the cistern, Gedaliah's
-   assassination, the forced flight to Egypt) depending on each story's
-   own date, not one fixed era per character. His call became the 4th
-   instance of `motif_who_am_i_reluctant_call`. Lamentations, having no
-   narrative of its own, mostly stands as independent curated verses,
-   with one verse folded into the *existing* `story_fall_of_jerusalem`
-   rather than a new story. **Ezekiel done**: 1 new character
-   (Ezekiel) and 3 new stories, all in the existing `era_exile` — his
-   call vision by the river Chebar; acting out Jerusalem's siege with
-   his own body and being forbidden to mourn his wife's death as a sign;
-   and the valley of dry bones, Israel's national restoration pictured
-   as a dead army brought back to life. **Daniel done**: the most
-   narrative-dense of the Prophets — 6 new characters (Daniel, Shadrach,
-   Meshach, Abednego, Belshazzar, Darius the Mede — Nebuchadnezzar
-   himself already existed) and 6 new stories, all in `era_exile`: the
-   king's food, Nebuchadnezzar's statue dream, the fiery furnace,
-   Nebuchadnezzar's madness, the writing on the wall, and the lions' den.
-   The furnace and the lions' den are a matched pair — refuse the king's
-   command, be sentenced to die, and be delivered in a way that makes
-   the king himself acknowledge God — recognized as a new motif,
-   `motif_faithful_defiance_delivered`. **The Prophets remaining**: the
-   Twelve (Hosea through Malachi).
-   `parse_books.py --all` makes the text side trivial for any book; the
-   curation/content side is still real work per book, repeatable in the
-   same shape for narrative-heavy stretches (era → characters →
-   stories/events → verses/topics → connections/motifs); law/speech-heavy
-   stretches get the lighter verses-and-topics-first treatment established
-   with Leviticus.
+3. ~~**Expanding beyond Genesis to other OT books, in canonical
+   order.**~~ **Done — the entire Old Testament is curated
+   (2026-09-10).** Owner's direction, 2026-09-04: work through the rest
+   of the OT in Bible book order (Ruth stayed where it landed earlier).
+   Built one book (or small book-group) at a time — Exodus, Leviticus,
+   Numbers, Deuteronomy, Joshua, Judges, 1–2 Samuel, 1–2 Kings, 1–2
+   Chronicles (scoped to Chronicles-*unique* material since it retells
+   Samuel–Kings — DATA_MODEL.md §8.24), Ezra/Nehemiah (genuinely new
+   narrative — §8.25), Esther (own era, `era_esther`, placed by Bible
+   order rather than strict chronology — §8.26) — closing out the
+   historical narrative books — then, in one continuous push
+   (2026-09-10, owner's direction: finish the rest in one go): Job (own
+   era, `era_job`, since it's undated and outside Israel's own history —
+   §8.27), Proverbs/Ecclesiastes/Song of Solomon (light
+   verses-and-topics pass, no narrative), Isaiah, Jeremiah/Lamentations,
+   Ezekiel, Daniel (§§8.36–8.39 respectively — each reused an *existing*
+   era by story-level date rather than inventing new ones, and extended
+   existing stories instead of duplicating retold material, e.g. Isaiah
+   36-39 / 2 Kings 18-20), and finally the Twelve — Hosea, Joel, Amos,
+   Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah,
+   Malachi (§8.40) — closing the book. `DEFAULT_BOOKS` in
+   `parse_books.py` now lists all 39 OT books; `data/verses.json` is the
+   complete Old Testament (23,145 verses). Full per-book detail is in
+   the "Done" changelog below and DATA_MODEL.md §8, items 18–39.
+   Repeatable playbook for any future canon expansion (era → characters
+   → stories/events → verses/topics → connections/motifs for
+   narrative-heavy stretches; lighter verses-and-topics-first for
+   law/oracle/wisdom-heavy ones, established with Leviticus).
 4. ~~A UI for `settings.dailyGoal`.~~ **Done (2026-09-09).** A 5/10/15/20/25
    preset picker on the Settings screen, reusing the existing `.segmented`
    chip component. See DATA_MODEL.md §7/§31.
@@ -700,7 +665,43 @@ Nebuchadnezzar's madness, the writing on the wall, and the lions' den.
 26 new curated verses, no new topics. One new motif,
 `motif_faithful_defiance_delivered`, connects the furnace and the
 lions' den — refuse the king's command, be sentenced to die, and be
-delivered in a way that makes the king himself acknowledge God.
+delivered in a way that makes the king himself acknowledge God. Then
+the Twelve — Hosea through Malachi — done as one final pass, closing
+out the entire Old Testament. No new eras: every book fit either
+`era_divided_kingdom` (Hosea, Amos, Jonah — all roughly contemporary
+with Jeroboam II, before Israel's fall) or `era_return_from_exile`
+(Haggai and Zechariah, whose own books are literally about the temple's
+rebuilding). 4 new stories: Hosea's marriage to Gomer as a living
+picture of Israel's unfaithfulness; Amos confronting the priest
+Amaziah after refusing to stop prophesying; Jonah fleeing and being
+swallowed by a fish; Jonah resenting Nineveh's repentance. 6 new
+characters (Hosea, Gomer, Amos, Jonah, Haggai, Zechariah — distinct
+from the priest Zechariah stoned under Joash). Haggai's and
+Zechariah's own verses were folded into the *existing*
+`story_temple_completed` rather than new stories, since their books are
+about that same event. 60 new curated verses across all twelve books,
+no new topics. Two new motifs: `motif_gracious_and_merciful_formula`
+connects the same description of Yahweh — "gracious and merciful, slow
+to anger" — recurring almost word-for-word from Exodus 34:6 (already
+curated) through Nehemiah's confession (already curated) to Joel's call
+to repentance to Jonah's own complaint that God is too merciful for
+comfort; `motif_trust_beyond_understanding` connects Job and Habakkuk,
+both ending not with their questions answered but with a fuller sight
+of God turning them from demanding answers to worship anyway.
+
+**With this, all 39 books of the Old Testament are curated** — 949
+seed verses, 124 characters, 178 stories, 408 life events, 20 motifs,
+and 135 connections, built one book at a time across this project's
+life, from Genesis's first pass through this final push through the
+Twelve. Whoever picks this project up next: the natural continuation is
+either the New Testament (a new canon, likely warranting its own
+discussion with the owner before starting — different translation
+licensing may apply depending on choices made, and the era/timeline
+model would need real thought for a very different kind of narrative
+span) or turning attention back to the other "Known gaps" above (more
+challenge types, real character art, the account/guest-mode direction
+in the `rooted-product-vision` memory) now that content isn't the
+bottleneck.
 
 ## Source data provenance
 

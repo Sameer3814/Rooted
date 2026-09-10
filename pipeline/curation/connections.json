@@ -1164,6 +1164,60 @@
       "toType": "story",
       "toId": "story_lions_den",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_gracious_merciful_instance_exodus",
+      "fromType": "motif",
+      "fromId": "motif_gracious_and_merciful_formula",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_exodus_34_6",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gracious_merciful_instance_nehemiah",
+      "fromType": "motif",
+      "fromId": "motif_gracious_and_merciful_formula",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_nehemiah_9_17",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gracious_merciful_instance_joel",
+      "fromType": "motif",
+      "fromId": "motif_gracious_and_merciful_formula",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_joel_2_13",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_gracious_merciful_instance_jonah",
+      "fromType": "motif",
+      "fromId": "motif_gracious_and_merciful_formula",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_jonah_4_2",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_trust_beyond_understanding_instance_job",
+      "fromType": "motif",
+      "fromId": "motif_trust_beyond_understanding",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_god_answers_job",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_trust_beyond_understanding_instance_habakkuk",
+      "fromType": "motif",
+      "fromId": "motif_trust_beyond_understanding",
+      "relationship": "instance of",
+      "toType": "verse",
+      "toId": "verse_habakkuk_3_18",
+      "inverse": "has motif"
     }
   ]
 }

@@ -177,6 +177,24 @@
         "Daniel 3:17-18",
         "Daniel 6:22"
       ]
+    },
+    {
+      "id": "motif_gracious_and_merciful_formula",
+      "name": "\"Gracious and merciful, slow to anger\"",
+      "description": "The same description of Yahweh's character recurs almost word-for-word across centuries and very different circumstances -- first spoken to Moses, then echoed in national confession, in a call to repentance, and even in a prophet's complaint that God is too merciful for comfort.",
+      "exampleReferences": [
+        "Exodus 34:6",
+        "Jonah 4:2"
+      ]
+    },
+    {
+      "id": "motif_trust_beyond_understanding",
+      "name": "Trust that outlasts understanding",
+      "description": "Suffering or injustice goes unexplained, but a fuller sight of God's greatness turns the sufferer from demanding answers to worship and trust anyway.",
+      "exampleReferences": [
+        "Job 42:2-3",
+        "Habakkuk 3:17-19"
+      ]
     }
   ]
 }

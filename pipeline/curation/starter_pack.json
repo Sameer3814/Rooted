@@ -7203,6 +7203,455 @@
       "characterIds": [
         "char_daniel"
       ]
+    },
+    {
+      "id": "verse_hosea_1_2",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_hosea"
+      ]
+    },
+    {
+      "id": "verse_hosea_1_9",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hosea_3_1",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_hosea"
+      ]
+    },
+    {
+      "id": "verse_hosea_3_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_hosea",
+        "char_gomer"
+      ]
+    },
+    {
+      "id": "verse_hosea_6_6",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hosea_11_1",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hosea_11_8",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_hosea_14_4",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_joel_2_13",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_joel_2_25",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_joel_2_28",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_joel_2_32",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_amos_3_7",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_amos_5_14",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_amos_5_24",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_amos_7_14",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_amos"
+      ]
+    },
+    {
+      "id": "verse_amos_7_15",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_amos"
+      ]
+    },
+    {
+      "id": "verse_amos_9_13",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_obadiah_1_3",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_obadiah_1_15",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_obadiah_1_17",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jonah_1_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_1_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_2_2",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_2_7",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_3_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_3_5",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jonah_3_10",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_jonah_4_2",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jonah"
+      ]
+    },
+    {
+      "id": "verse_jonah_4_11",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_micah_5_2",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_micah_6_8",
+      "topicIds": [
+        "topic_justice",
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_micah_7_7",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_micah_7_18",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_micah_7_19",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_nahum_1_3",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_nahum_1_7",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_habakkuk_2_4",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_habakkuk_2_14",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_habakkuk_2_20",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_habakkuk_3_18",
+      "topicIds": [
+        "topic_trust",
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_habakkuk_3_19",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_zephaniah_3_12",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_zephaniah_3_14",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_zephaniah_3_17",
+      "topicIds": [
+        "topic_love",
+        "topic_peace"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_haggai_1_7",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_haggai"
+      ]
+    },
+    {
+      "id": "verse_haggai_2_4",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_haggai"
+      ]
+    },
+    {
+      "id": "verse_haggai_2_9",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_haggai"
+      ]
+    },
+    {
+      "id": "verse_zechariah_1_3",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_zechariah_prophet"
+      ]
+    },
+    {
+      "id": "verse_zechariah_4_6",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_zechariah_prophet"
+      ]
+    },
+    {
+      "id": "verse_zechariah_4_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_zechariah_prophet"
+      ]
+    },
+    {
+      "id": "verse_zechariah_8_16",
+      "topicIds": [
+        "topic_speech",
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_zechariah_9_9",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_zechariah_13_9",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_1_6",
+      "topicIds": [
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_3_6",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_3_10",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_4_2",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_4_5",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_malachi_4_6",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -8883,6 +9332,66 @@
       ],
       "eraId": "era_exile",
       "summary": "The king who received Belshazzar's fallen kingdom and, flattered into signing a decree forbidding prayer to anyone but himself, was forced by his own unchangeable law to have Daniel thrown to the lions -- then spent a sleepless night hoping for his rescue.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hosea",
+      "name": "Hosea",
+      "roles": [
+        "the prophet whose own marriage became a living picture of God's love for an unfaithful people"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A prophet to the northern kingdom of Israel, told to marry a woman who would be unfaithful to him and to keep loving and buying her back even after she left -- his own marriage acting out Yahweh's relentless love for an Israel that kept turning to other gods.",
+      "verseIds": []
+    },
+    {
+      "id": "char_gomer",
+      "name": "Gomer",
+      "roles": [
+        "the wife whose unfaithfulness, and Hosea's love for her anyway, pictured Israel and God"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Hosea's wife, whose unfaithfulness to him became a living picture of Israel's unfaithfulness to Yahweh -- and whose being bought back and loved again pictured Yahweh's relentless love for Israel anyway.",
+      "verseIds": []
+    },
+    {
+      "id": "char_amos",
+      "name": "Amos",
+      "roles": [
+        "the shepherd from Judah sent to confront Israel over injustice"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A shepherd and sycamore-fig farmer from Tekoa in Judah, sent by Yahweh to confront the northern kingdom over its injustice to the poor even during a time of prosperity. When the priest Amaziah told him to go prophesy back in his own country, Amos answered that he'd never trained to be a prophet -- Yahweh simply took him from the flock.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jonah",
+      "name": "Jonah",
+      "roles": [
+        "the prophet who fled his own call, then resented the mercy it produced"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "A prophet sent to warn Nineveh, Israel's enemy, of coming judgment. He fled by ship instead, was thrown overboard in a storm and swallowed by a great fish, then obeyed once given a second chance -- and was furious when Nineveh repented and Yahweh spared the city, since mercy for Israel's enemies was exactly what he'd fled to avoid.",
+      "verseIds": []
+    },
+    {
+      "id": "char_haggai",
+      "name": "Haggai",
+      "roles": [
+        "the prophet whose short, direct messages got the temple's rebuilding moving again"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "A prophet who confronted the returned exiles for finishing their own houses while Yahweh's temple lay unbuilt, and whose brief, direct messages -- \"be strong... and work, for I am with you\" -- helped restart the construction Ezra records being finished soon after.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zechariah_prophet",
+      "name": "Zechariah",
+      "roles": [
+        "the prophet whose visions encouraged the temple's rebuilding alongside Haggai"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "A prophet who supported Zerubbabel and the returned exiles with a series of visions during the temple's rebuilding, reminding them the work would be finished \"not by might, nor by power, but by my Spirit.\"",
       "verseIds": []
     }
   ]

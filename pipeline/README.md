@@ -258,6 +258,19 @@ Worth knowing:
   your own research is fine; shipping a corpus that's ahead of the
   curation it claims to represent isn't — CLAUDE.md's own description of
   `data/verses.json` says it tracks `DEFAULT_BOOKS` exactly.
+- **The last stretch (the Twelve) paid off every earlier "extend, don't
+  clone" and "reuse an existing era" call from this whole project.**
+  Haggai and Zechariah didn't need new stories because Ezra 5-6 already
+  told their moment — extending `story_temple_completed`'s `verseIds`
+  and `characterIds` took minutes, not a new curation pass. Hosea,
+  Amos, and Jonah didn't need a new era because `era_divided_kingdom`
+  already existed. And `motif_gracious_and_merciful_formula` was only
+  visible at all because Exodus 34:6 and Nehemiah 9:17 were sitting in
+  the curation from passes done weeks apart — a motif spanning that
+  much distance is exactly the kind of thing that's easy to miss
+  without deliberately checking new content against what's already
+  there. When curating late books, actively look for echoes of already-
+  curated verses, not just new content in isolation.
 
 ## Copyright
 
