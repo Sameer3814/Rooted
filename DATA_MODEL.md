@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (148 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials — Caiaphas, Pilate, Barabbas)
+### Character — *live* (152 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial — Mary Magdalene, Simon of Cyrene, the penitent thief, Joseph of Arimathea)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,078 verses + 38 topics + 148 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,088 verses + 38 topics + 152 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 15 eras, 214 stories, 487 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 15 eras, 216 stories, 496 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,078-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,088-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1973,6 +1973,31 @@ inventing a new principle:
     3 new characters: Caiaphas, Pilate, Barabbas — all `eraId:
     era_passion_and_resurrection`, since each exists in the curated
     narrative for exactly one event. 11 curated verses, no new topics.
+
+49. **The crucifixion and burial.** **Done (2026-09-10).** 2 stories.
+    **The crucifixion** (`primaryReference` cites all three of
+    Matthew 27:27-56, Luke 23:26-49, and John 19:16-30, since each
+    Gospel contributes real, non-overlapping content to the same
+    single event rather than one being fuller than the rest — Matthew
+    has the mocking, the darkness, the temple veil tearing, and the
+    centurion's confession; Luke alone has "Father, forgive them" and
+    the exchange with the penitent thief; John alone has Jesus
+    entrusting his mother to John's own care and the words "it is
+    finished." This is a different citation shape than "draw from
+    whichever Gospel tells it fullest" (item 41) — here no single
+    Gospel is fuller, so the curated verse set itself draws from all
+    three, each contributing its own distinct material to one Story).
+    **Jesus is buried** (Matthew 27:57-66 — Joseph of Arimathea's
+    tomb, the guard set to prevent a resurrection claim).
+
+    4 new characters: Mary Magdalene (first Character record, though a
+    significant figure across the ministry — her `eraId` is
+    `era_passion_and_resurrection`, where her defining moments, being
+    present at the cross and then first to the empty tomb, both fall);
+    Simon of Cyrene; the penitent thief (id `char_penitent_thief` —
+    unnamed in the text, same treatment as the Samaritan woman and the
+    rich young ruler, items 45–46); Joseph of Arimathea. 10 curated
+    verses, no new topics.
 
 ---
 

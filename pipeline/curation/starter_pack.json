@@ -8808,6 +8808,90 @@
         "char_pilate",
         "char_barabbas"
       ]
+    },
+    {
+      "id": "verse_matthew_27_46",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_23_34",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_23_43",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_penitent_thief"
+      ]
+    },
+    {
+      "id": "verse_john_19_26",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_mary"
+      ]
+    },
+    {
+      "id": "verse_john_19_30",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_23_46",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_51",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_27_54",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_27_60",
+      "topicIds": [],
+      "characterIds": [
+        "char_joseph_of_arimathea"
+      ]
+    },
+    {
+      "id": "verse_matthew_27_64",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -10788,6 +10872,46 @@
       ],
       "eraId": "era_passion_and_resurrection",
       "summary": "A notorious prisoner held by Rome, released by Pilate at the crowd's demand in Jesus's place -- freedom traded directly for Jesus's death.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mary_magdalene",
+      "name": "Mary Magdalene",
+      "roles": [
+        "the woman who followed Jesus from Galilee and stayed at the cross"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "A woman who followed and provided for Jesus from Galilee, present at the cross with the other women when the male disciples had fled -- and, as later curation will cover, the first person to see the risen Jesus.",
+      "verseIds": []
+    },
+    {
+      "id": "char_simon_of_cyrene",
+      "name": "Simon of Cyrene",
+      "roles": [
+        "the man forced to carry Jesus's cross"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "A man from Cyrene, compelled by Roman soldiers to carry Jesus's cross to Golgotha after Jesus, weakened by the flogging, could no longer carry it himself.",
+      "verseIds": []
+    },
+    {
+      "id": "char_penitent_thief",
+      "name": "the penitent thief",
+      "roles": [
+        "the criminal crucified beside Jesus who was promised paradise"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "One of two criminals crucified alongside Jesus, who -- unlike the other -- rebuked his fellow criminal's mockery and asked Jesus to remember him in his kingdom. Jesus promised him paradise that very day.",
+      "verseIds": []
+    },
+    {
+      "id": "char_joseph_of_arimathea",
+      "name": "Joseph of Arimathea",
+      "roles": [
+        "the secret disciple who gave Jesus his own tomb"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "A rich man from Arimathea and secret disciple of Jesus who asked Pilate for the body, wrapped it himself, and laid it in his own new, unused tomb cut into the rock.",
       "verseIds": []
     }
   ]

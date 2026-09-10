@@ -4676,6 +4676,57 @@
         "topic_justice",
         "topic_sorrow"
       ]
+    },
+    {
+      "id": "story_crucifixion",
+      "title": "The crucifixion",
+      "summary": "Soldiers mock Jesus with a crown of thorns and a scarlet robe before leading him to Golgotha, pressing Simon of Cyrene into carrying his cross. Crucified between two criminals, Jesus is mocked by passersby, priests, and one of the criminals -- but forgives his executioners (\"Father, forgive them, for they don't know what they are doing\") and promises the other, repentant criminal paradise that same day. He entrusts his mother to John's care, and after three hours of darkness cries out, \"My God, my God, why have you forsaken me?\" before his final words -- \"it is finished... Father, into your hands I commit my spirit\" -- and dies. The temple curtain tears in two, the earth shakes, and a Roman centurion watching declares, \"truly this was the Son of God.\"",
+      "primaryReference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2700,
+      "verseIds": [
+        "verse_matthew_27_46",
+        "verse_luke_23_34",
+        "verse_luke_23_43",
+        "verse_john_19_26",
+        "verse_john_19_30",
+        "verse_luke_23_46",
+        "verse_matthew_27_51",
+        "verse_matthew_27_54"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_simon_of_cyrene",
+        "char_penitent_thief",
+        "char_mary",
+        "char_john_apostle",
+        "char_mary_magdalene"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_sorrow",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_jesus_buried",
+      "title": "Jesus is buried",
+      "summary": "Joseph of Arimathea, a rich man and secret disciple, asks Pilate for Jesus's body, wraps it himself, and lays it in his own new tomb cut into the rock, rolling a great stone across the entrance. Mary Magdalene and another Mary sit watching, opposite the tomb. The next day, remembering Jesus's own prediction that he would rise on the third day, the chief priests get Pilate's permission to post a guard and seal the stone, determined to prevent any claim of resurrection.",
+      "primaryReference": "Matthew 27:57-66",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2710,
+      "verseIds": [
+        "verse_matthew_27_60",
+        "verse_matthew_27_64"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_joseph_of_arimathea",
+        "char_mary_magdalene"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
     }
   ],
   "lifeEvents": [
@@ -9873,6 +9924,87 @@
       "description": "Is freed by the crowd's demand while Jesus is condemned instead.",
       "reference": "Matthew 27:11-26",
       "storyId": "story_jesus_before_pilate",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_crucified",
+      "characterId": "char_jesus",
+      "title": "Is crucified and dies",
+      "description": "Is mocked, crucified between two criminals, and dies after forgiving his executioners.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 320
+    },
+    {
+      "id": "event_jesus_buried",
+      "characterId": "char_jesus",
+      "title": "Is buried in Joseph of Arimathea's tomb",
+      "description": "Is wrapped and laid in a new tomb, which is then sealed and guarded.",
+      "reference": "Matthew 27:57-66",
+      "storyId": "story_jesus_buried",
+      "sequenceInLife": 330
+    },
+    {
+      "id": "event_simon_carries_cross",
+      "characterId": "char_simon_of_cyrene",
+      "title": "Is compelled to carry Jesus's cross",
+      "description": "Is pulled from the crowd by soldiers to carry the cross to Golgotha.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_thief_promised_paradise",
+      "characterId": "char_penitent_thief",
+      "title": "Is promised paradise by the crucified Jesus",
+      "description": "Rebukes the other criminal's mockery and asks to be remembered in Jesus's kingdom.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_mary_at_cross",
+      "characterId": "char_mary",
+      "title": "Watches her son die and is entrusted to John",
+      "description": "Is present at the cross and given into John's care by Jesus.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_john_apostle_at_cross",
+      "characterId": "char_john_apostle",
+      "title": "Is entrusted with the care of Jesus's mother",
+      "description": "Takes Mary into his own home at Jesus's request from the cross.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_mary_magdalene_at_cross",
+      "characterId": "char_mary_magdalene",
+      "title": "Watches the crucifixion and burial",
+      "description": "Stays near Jesus through his death and sees where he is buried.",
+      "reference": "Matthew 27:27-56; Luke 23:26-49; John 19:16-30",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_mary_magdalene_sees_burial",
+      "characterId": "char_mary_magdalene",
+      "title": "Watches where Jesus is buried",
+      "description": "Sits opposite the tomb with another Mary after Joseph seals it.",
+      "reference": "Matthew 27:57-66",
+      "storyId": "story_jesus_buried",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_joseph_arimathea_buries_jesus",
+      "characterId": "char_joseph_of_arimathea",
+      "title": "Gives Jesus his own tomb",
+      "description": "Asks Pilate for the body and buries it in his own new tomb.",
+      "reference": "Matthew 27:57-66",
+      "storyId": "story_jesus_buried",
       "sequenceInLife": 10
     }
   ]
