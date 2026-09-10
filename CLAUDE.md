@@ -126,25 +126,26 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **652 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
+  first run: **686 verses** (Genesis, Psalms, Exodus, Ruth, Leviticus,
   Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-  2 Kings, 1 Chronicles, and 2 Chronicles, WEB translation) across
-  **35 topics** (topics linked to related topics), plus **95 characters**
-  (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua,
-  10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings,
-  9 Chronicles) with real relationships (father of, wife of, brother of,
-  successor of, servant of, raised, etc. — see Connection, below).
-- `data/characters.json` — the same 95 characters, standalone. Generated
+  2 Kings, 1 Chronicles, 2 Chronicles, Ezra, and Nehemiah, WEB
+  translation) across **35 topics** (topics linked to related topics),
+  plus **100 characters** (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus,
+  4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings,
+  12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah) with real relationships
+  (father of, wife of, brother of, successor of, servant of, worked
+  alongside, raised, etc. — see Connection, below).
+- `data/characters.json` — the same 100 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: Genesis, Psalms,
   Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel,
-  2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, and 2 Chronicles (14,478
-  verses, WEB translation, public domain). Lazily fetched by the Browse
-  screen the first time it's opened, never at boot. It is *reference
-  material*, kept separate from the user's library — adding a verse from
-  Browse copies it into the user's overlay. Only the 652 seed verses are
-  topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 9 eras, **134 stories and 329 life events**.
+  2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, and
+  Nehemiah (15,164 verses, WEB translation, public domain). Lazily
+  fetched by the Browse screen the first time it's opened, never at boot.
+  It is *reference material*, kept separate from the user's library —
+  adding a verse from Browse copies it into the user's overlay. Only the
+  686 seed verses are topic-tagged; the rest of the corpus isn't yet.
+- `data/stories.json` — 10 eras, **146 stories and 345 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -152,22 +153,23 @@ The schema was deliberately designed so all of the above can be added
   prayer of blessing from 1 Chronicles), `era_divided_kingdom` (the
   kingdom splitting, the Elijah/Elisha cycle, 2 Kings, and the Chronicles
   kings of Judah — Abijah, Asa, Jehoshaphat, Joash and Zechariah,
-  Uzziah's pride, Hezekiah's Passover, Manasseh's repentance), and
-  `era_exile` — Jerusalem falls to Nebuchadnezzar, and Chronicles closes
-  it on the decree of Cyrus opening the road home. Loaded at boot (it's
-  small). Drives the character life timeline, the Stories screens,
-  People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **15** recurring biblical patterns, each with real
+  Uzziah's pride, Hezekiah's Passover, Manasseh's repentance), `era_exile`
+  — Jerusalem falls to Nebuchadnezzar, and Chronicles closes it on the
+  decree of Cyrus opening the road home — and now `era_return_from_exile`
+  — Zerubbabel and Jeshua rebuild the altar and temple against local
+  opposition, Ezra brings the law back to the center of the people's
+  life, and Nehemiah rebuilds Jerusalem's walls and enforces reform.
+  Loaded at boot (it's small). Drives the character life timeline, the
+  Stories screens, People-grouped-by-era, and "appears alongside".
+- `data/motifs.json` — **16** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Two new from Chronicles: `motif_stand_still_and_see` (the
-  Red Sea and Jehoshaphat's army told in nearly the same words to stop
-  fighting and watch God win) and `motif_pride_before_the_fall` (a king
-  strong, then proud, then brought down — Rehoboam, Uzziah).
-  `motif_prophet_confronts_the_king` gained a 4th instance (Zechariah the
-  priest rebuking Joash, and stoned for it). Loaded at boot. Drives the
-  Patterns screens and the "Pattern" badges on Character, Story, and
-  Verse detail pages.
-- `data/connections.json` — 117 generic Connection edges (Design
+  occurrences. Newest: `motif_the_forgotten_law_rediscovered` (Josiah's
+  rediscovery of the Book of the Law in 2 Kings, and Ezra reading it
+  aloud to a weeping, then reforming, assembly in Nehemiah 8 — both
+  grief at how far the people had drifted, then renewed covenant).
+  Loaded at boot. Drives the Patterns screens and the "Pattern" badges on
+  Character, Story, and Verse detail pages.
+- `data/connections.json` — 121 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -178,7 +180,7 @@ The schema was deliberately designed so all of the above can be added
     text" grouped by verse). Knows all 66 book slugs; `--all` does the
     whole Bible. Default set: Genesis, Psalms, Exodus, Ruth, Leviticus,
     Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings,
-    2 Kings, 1 Chronicles, 2 Chronicles.
+    2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah.
   - `build_starter_pack.py` — joins `pipeline/curation/starter_pack.json`
     (hand-picked verse ids + topic/character links + the Topic and
     Character records) against the corpus → `data/starter-pack.json` and
@@ -321,9 +323,9 @@ hand-curate all the content before building.
    Kings covers thinly — Abijah, Asa, Jehoshaphat's "the battle is not
    yours but God's," Joash killing the priest Zechariah, Uzziah's pride,
    Hezekiah's Passover, Manasseh's repentance in Babylon, and the decree
-   of Cyrus — see DATA_MODEL.md §8.24). Next up if continuing
-   canonically: Ezra/Nehemiah (the return from exile — genuinely new
-   narrative) and Esther.
+   of Cyrus — see DATA_MODEL.md §8.24), and now Ezra/Nehemiah — the return
+   from exile, genuinely new narrative rather than a retelling (see
+   DATA_MODEL.md §8.25). Next up if continuing canonically: Esther.
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -547,7 +549,37 @@ on the existing Red Sea story) and `motif_pride_before_the_fall`
 `motif_prophet_confronts_the_king` (Zechariah/Joash, the one where the
 king kills the messenger instead of repenting). The famous 2 Chronicles
 7:14 ("if my people…") and 7:1 (fire at the dedication) were added to
-the existing 1 Kings temple story rather than a new one.
+the existing 1 Kings temple story rather than a new one. Then Ezra and
+Nehemiah, done as one pass — the first genuinely new narrative since
+Chronicles started retelling. A new era, `era_return_from_exile`, holds
+12 stories: Zerubbabel and the priest Jeshua lead the first return and
+rebuild the altar despite fear of the surrounding peoples, then lay the
+temple's foundation to a mix of weeping and shouting; local adversaries
+get the work halted by royal decree for years; Haggai and Zechariah spur
+a second start, Darius confirms Cyrus's decree, and the temple is
+finished and dedicated. A generation later Ezra leads a second return
+to teach the law, then confronts the people's intermarriage with a
+public confession. Nehemiah, cupbearer in Susa, weeps on hearing the
+walls lie broken, gets the king's leave, and inspects the ruins by
+night; Sanballat mocks and conspires against the rebuilding, so
+Nehemiah arms half the workers while the other half builds; he
+separately confronts the nobles over usury against the poor; the wall
+is finished in 52 days despite Sanballat's repeated traps. Ezra then
+reads the law aloud to the whole assembly — the people weep until told
+the day is holy, "the joy of Yahweh is your strength," and keep the
+Feast of Booths with the greatest gladness since Joshua's day, then
+confess corporately and seal a written covenant. Nehemiah's final
+chapter has him return to purge the temple of Tobiah, restore the
+Levites, and enforce the Sabbath and marriage law — closing on his own
+refrain, "Remember me, my God, for good." 5 new characters (Zerubbabel,
+Jeshua, Ezra, Nehemiah, Sanballat), 34 new verses, no new topics (the
+existing 35 — prayer, repentance, scripture, justice, faithfulness,
+seeking God — covered the material without strain). A new
+`"worked alongside"` symmetric relationship connects Zerubbabel/Jeshua
+and Ezra/Nehemiah, and a new motif, `motif_the_forgotten_law_rediscovered`,
+ties Josiah's rediscovery of the Book of the Law (2 Kings 22) to Ezra's
+public reading of it (Nehemiah 8) — the same shape of a forgotten law
+found, met first with grief, then renewed covenant.
 
 ## Source data provenance
 

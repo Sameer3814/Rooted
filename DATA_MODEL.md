@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (95 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles)
+### Character — *live* (100 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah)
 ```json
 {
   "id": "char_jacob",
@@ -245,7 +245,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (15 motifs)
+### Motif — *live* (16 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 652 verses + 35 topics + 95 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 686 verses + 35 topics + 100 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (14,478 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (15,164 verses: Genesis, Psalms, Exodus, Ruth, Leviticus, Numbers, Deuteronomy, Joshua, Judges, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 9 eras, 134 stories, 329 life events | **generated** by `build_stories.py`; loaded at boot (small) |
-| `data/motifs.json` | 15 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 117 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/stories.json` | 10 eras, 146 stories, 345 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/motifs.json` | 16 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
+| `data/connections.json` | 121 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 652-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 686-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1405,6 +1405,57 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     `navigator.vibrate` available at all, matching what a real un-supporting
     browser looks like. Full existing regression suite (10 files) stayed
     green throughout.
+
+33. **Ezra/Nehemiah.** **Done (2026-09-10).** Full playbook, done as one
+    pass across both books — the first genuinely new narrative since
+    Chronicles started retelling Samuel–Kings. A new era,
+    `era_return_from_exile` (order 10), holds 12 stories:
+    - **The first return** (Ezra 1–6): Zerubbabel and the priest Jeshua
+      lead the exiles home and rebuild the altar despite fear of the
+      surrounding peoples (Ezra 3); local adversaries get the work
+      halted by royal decree for years (Ezra 4); Haggai and Zechariah
+      spur a second start, Darius confirms Cyrus's original decree, and
+      the temple is finished and dedicated with a Passover celebration
+      (Ezra 5–6).
+    - **Ezra's return** (Ezra 7–10): a generation later, Ezra — a
+      priest-scribe who "set his heart to seek Yahweh's law, and to do
+      it, and to teach" (Ezra 7:10) — leads a second return under a full
+      grant of authority from Artaxerxes, then confronts the returned
+      exiles' intermarriage with the surrounding nations with a public
+      prayer of confession (Ezra 9–10).
+    - **Nehemiah rebuilds the wall** (Neh 1–6): cupbearer to Artaxerxes
+      in Susa, Nehemiah weeps and fasts on hearing the walls lie broken,
+      gets the king's leave, and inspects the ruins by night before
+      announcing his plan (Neh 1–2); Sanballat mocks and conspires
+      against the builders, so Nehemiah arms half the workers while the
+      other half builds (Neh 4); separately confronts the nobles over
+      usury against the poor (Neh 5); finishes the wall in 52 days
+      despite Sanballat's repeated traps and a hired false prophet
+      (Neh 6).
+    - **Renewal and reform** (Neh 8–13): Ezra reads the law aloud to the
+      whole assembly — the people weep until told the day is holy,
+      "the joy of Yahweh is your strength" (Neh 8:10) — and keep the
+      Feast of Booths with the greatest gladness since Joshua's day,
+      then confess corporately and seal a written covenant (Neh 8–9).
+      Nehemiah's closing chapter has him return from a stint back in
+      Persia to purge the temple of Tobiah, restore the Levites' pay,
+      and enforce the Sabbath and marriage law — closing the book on his
+      own recurring plea, "Remember me, my God, for good" (Neh 13:14).
+
+    5 new characters (Zerubbabel, Jeshua — id `char_jeshua_priest`, kept
+    distinct from Joshua son of Nun's `char_joshua` — Ezra, Nehemiah,
+    Sanballat). 34 curated verses. No new topics: the existing 35 —
+    `topic_prayer`, `topic_repentance`, `topic_scripture`,
+    `topic_justice`, `topic_faithfulness`, `topic_seeking_god` among
+    them — covered the material without strain. A new `"worked
+    alongside"` symmetric Connection (the first relationship type that
+    isn't family, succession, or servanthood) links Zerubbabel/Jeshua and
+    Ezra/Nehemiah. One new motif, `motif_the_forgotten_law_rediscovered`
+    — Josiah's rediscovery of the Book of the Law (2 Kings 22, already
+    curated) and Ezra's public reading of it to a weeping-then-reforming
+    assembly (Neh 8) — the same shape of a forgotten law found, met first
+    with grief, then renewed covenant; a real second instance turned an
+    isolated fact about Josiah into an actual pattern.
 
 ---
 

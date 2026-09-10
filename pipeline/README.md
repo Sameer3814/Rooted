@@ -218,6 +218,18 @@ Worth knowing:
   meant bumping Ruth's whole block up by 100 to make space. Cheap to fix (it's
   curation data — edit and re-run `build_stories.py`), but leave headroom
   between each book's range from the start and you won't need to.
+- **Ezra/Nehemiah was the opposite case from Chronicles**: genuinely new
+  narrative, not a retelling, so it got the full playbook and a clean new
+  era (`era_return_from_exile`) rather than Chronicles's
+  scoped-to-unique-material treatment. It also reused an existing
+  character across eras without moving him — `char_cyrus` (introduced in
+  the Chronicles pass, `eraId: era_exile`) appears in the new era's first
+  story too; a character's `eraId` is where their own arc is centered, not
+  every story they're mentioned in. And it introduced the first
+  relationship type that isn't family, succession, or servanthood —
+  `"worked alongside"` (symmetric) — a reminder that Connection
+  relationship strings are free-form data (design philosophy #1), not a
+  fixed list to pick from.
 
 ## Copyright
 

@@ -1056,6 +1056,42 @@
       "toType": "character",
       "toId": "char_rehoboam",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_zerubbabel_alongside_jeshua",
+      "fromType": "character",
+      "fromId": "char_zerubbabel",
+      "relationship": "worked alongside",
+      "toType": "character",
+      "toId": "char_jeshua_priest",
+      "symmetric": true
+    },
+    {
+      "id": "conn_ezra_alongside_nehemiah",
+      "fromType": "character",
+      "fromId": "char_ezra",
+      "relationship": "worked alongside",
+      "toType": "character",
+      "toId": "char_nehemiah",
+      "symmetric": true
+    },
+    {
+      "id": "conn_law_rediscovered_instance_josiah",
+      "fromType": "motif",
+      "fromId": "motif_the_forgotten_law_rediscovered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_josiah_and_the_book_of_the_law",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_law_rediscovered_instance_ezra_reads",
+      "fromType": "motif",
+      "fromId": "motif_the_forgotten_law_rediscovered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_ezra_reads_the_law",
+      "inverse": "has motif"
     }
   ]
 }

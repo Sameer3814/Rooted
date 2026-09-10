@@ -5329,6 +5329,313 @@
       "characterIds": [
         "char_hezekiah"
       ]
+    },
+    {
+      "id": "verse_ezra_1_1",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_cyrus"
+      ]
+    },
+    {
+      "id": "verse_ezra_1_3",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_cyrus"
+      ]
+    },
+    {
+      "id": "verse_ezra_3_3",
+      "topicIds": [
+        "topic_fear",
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_zerubbabel",
+        "char_jeshua_priest"
+      ]
+    },
+    {
+      "id": "verse_ezra_3_11",
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_worship"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezra_3_12",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezra_4_4",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezra_4_24",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezra_5_5",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_zerubbabel"
+      ]
+    },
+    {
+      "id": "verse_ezra_6_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_zerubbabel"
+      ]
+    },
+    {
+      "id": "verse_ezra_6_16",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_ezra_7_6",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_7_10",
+      "topicIds": [
+        "topic_scripture",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_8_21",
+      "topicIds": [
+        "topic_guidance",
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_8_22",
+      "topicIds": [
+        "topic_seeking_god",
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_9_6",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_9_9",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_ezra_10_11",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_1_4",
+      "topicIds": [
+        "topic_sorrow",
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_1_11",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_2_4",
+      "topicIds": [
+        "topic_prayer",
+        "topic_guidance"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_2_18",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_2_20",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_4_9",
+      "topicIds": [
+        "topic_prayer",
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_4_14",
+      "topicIds": [
+        "topic_fear",
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_5_9",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_5_15",
+      "topicIds": [
+        "topic_justice",
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_6_3",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_6_9",
+      "topicIds": [
+        "topic_strength",
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_6_16",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_8_10",
+      "topicIds": [
+        "topic_strength",
+        "topic_worship"
+      ],
+      "characterIds": [
+        "char_nehemiah",
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_8_12",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ]
+    },
+    {
+      "id": "verse_nehemiah_9_17",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_nehemiah_9_21",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_nehemiah_13_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ]
     }
   ],
   "topics": [
@@ -6749,6 +7056,56 @@
       ],
       "eraId": "era_exile",
       "summary": "The king of Persia who, after seventy years of exile, proclaimed that Yahweh had charged him to rebuild the temple in Jerusalem and that any of God's people who wished could go up.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zerubbabel",
+      "name": "Zerubbabel",
+      "roles": [
+        "the governor who led the first return and laid the temple's foundation"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "Descendant of David and governor of Judah who led the first wave of exiles home from Babylon under Cyrus's decree. With the priest Jeshua he rebuilt the altar despite fear of the surrounding peoples, then saw the temple's foundation laid and, years later, the house itself finished.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jeshua_priest",
+      "name": "Jeshua",
+      "roles": [
+        "the high priest who rebuilt the altar with Zerubbabel"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "The high priest who returned from exile alongside Zerubbabel. He rebuilt the altar of burnt offering before the temple's foundation was even laid, and stood at the head of the priests and Levites through years of opposition until the house was finished.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ezra",
+      "name": "Ezra",
+      "roles": [
+        "the priest and scribe who taught God's law and led Judah's reform"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "A priest and scribe descended from Aaron who set his heart to study, live, and teach the law of Yahweh. He led a second return from Babylon a generation after Zerubbabel, and when he found the returned exiles intermarried with the surrounding nations against the law, led them in public confession and reform.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nehemiah",
+      "name": "Nehemiah",
+      "roles": [
+        "the cupbearer who left the palace to rebuild Jerusalem's walls"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "Cupbearer to king Artaxerxes in Susa, who wept and fasted on hearing that Jerusalem's walls lay broken and its gates burned. Given leave and letters by the king, he inspected the ruins by night, rebuilt the wall in fifty-two days despite mockery and plots against his life, and later returned to enforce reforms the people had let slip.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sanballat",
+      "name": "Sanballat",
+      "roles": [
+        "the Samaritan governor who mocked and plotted against the wall-builders"
+      ],
+      "eraId": "era_return_from_exile",
+      "summary": "Governor of Samaria and the chief opponent of Jerusalem's rebuilding. He mocked the wall-builders, conspired to attack them, and later tried to lure Nehemiah into a trap and hire a false prophet against him—every attempt failing.",
       "verseIds": []
     }
   ]

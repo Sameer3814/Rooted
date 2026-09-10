@@ -63,6 +63,13 @@
       "summary": "Jerusalem falls to Nebuchadnezzar of Babylon. The temple Solomon built is burned, the last king of Judah is blinded and dragged away in chains, and the people are carried into captivity — the end of the monarchy and the start of seventy years in a foreign land.",
       "order": 9,
       "approxRange": "Judah carried into captivity in Babylon"
+    },
+    {
+      "id": "era_return_from_exile",
+      "name": "The Return from Exile",
+      "summary": "Cyrus of Persia's decree lets the exiles go home. Zerubbabel and Jeshua rebuild the altar and temple against fierce local opposition; a generation later Ezra brings the law back to the center of the people's life, and Nehemiah leaves the king's palace to rebuild Jerusalem's broken walls and enforce what the law demands.",
+      "order": 10,
+      "approxRange": "The return to Judah and rebuilding of Jerusalem under Persian rule"
     }
   ],
   "stories": [
@@ -2921,6 +2928,252 @@
         "topic_deliverance",
         "topic_faithfulness",
         "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_return_and_foundation",
+      "title": "The first return and the temple's foundation",
+      "summary": "Zerubbabel and the priest Jeshua lead the first wave of exiles home and rebuild the altar despite their fear of the surrounding peoples, restoring daily sacrifice before the temple itself is even begun. A year later the foundation is laid with trumpets, cymbals, and singing—old men who remembered the first temple weep aloud while everyone else shouts for joy, until the two sounds can no longer be told apart.",
+      "primaryReference": "Ezra 1:1-3:13",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1700,
+      "verseIds": [
+        "verse_ezra_1_1",
+        "verse_ezra_1_3",
+        "verse_ezra_3_3",
+        "verse_ezra_3_11",
+        "verse_ezra_3_12"
+      ],
+      "characterIds": [
+        "char_zerubbabel",
+        "char_jeshua_priest",
+        "char_cyrus"
+      ],
+      "topicIds": [
+        "topic_fear",
+        "topic_worship",
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "story_opposition_and_delay",
+      "title": "Opposition halts the work",
+      "summary": "Local adversaries offer to help build the temple, are refused, and turn to discouragement, hired counselors, and finally a letter to the Persian king accusing Jerusalem of rebellion. The king orders the work stopped by force, and it sits idle for years, until Darius comes to the throne.",
+      "primaryReference": "Ezra 4:1-24",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1710,
+      "verseIds": [
+        "verse_ezra_4_4",
+        "verse_ezra_4_24"
+      ],
+      "characterIds": [],
+      "topicIds": [
+        "topic_fear",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_temple_completed",
+      "title": "The temple finished and dedicated",
+      "summary": "Encouraged by the prophets Haggai and Zechariah, Zerubbabel and Jeshua resume building. The governor Tattenai questions their authority and writes to Darius, who searches the royal archives, confirms Cyrus's original decree, and orders the Persian treasury to fund the work instead of hindering it. The temple is finished and dedicated with sacrifices, and the returned exiles keep the Passover together for the first time since coming home.",
+      "primaryReference": "Ezra 5:1-6:22",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1720,
+      "verseIds": [
+        "verse_ezra_5_5",
+        "verse_ezra_6_14",
+        "verse_ezra_6_16"
+      ],
+      "characterIds": [
+        "char_zerubbabel",
+        "char_jeshua_priest"
+      ],
+      "topicIds": [
+        "topic_presence",
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_ezra_returns",
+      "title": "Ezra returns to teach the law",
+      "summary": "Decades later, Ezra—a priest and scribe who has set his heart to study, live, and teach Yahweh's law—leads a second return from Babylon under a sweeping grant of authority from king Artaxerxes. He gathers priests and Levites for the journey, refuses a royal military escort because he has already told the king that God's hand protects those who seek him, and arrives safely in Jerusalem with the temple treasures intact.",
+      "primaryReference": "Ezra 7:1-8:36",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1730,
+      "verseIds": [
+        "verse_ezra_7_6",
+        "verse_ezra_7_10",
+        "verse_ezra_8_21",
+        "verse_ezra_8_22"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ],
+      "topicIds": [
+        "topic_scripture",
+        "topic_seeking_god",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_ezras_reform",
+      "title": "Ezra's grief over intermarriage",
+      "summary": "Ezra learns that the returned exiles, priests and leaders included, have intermarried with the surrounding nations in violation of the law. He tears his robe, pulls out his own hair, and falls on his knees in a public prayer of confession before a crowd that gathers to weep with him. The people covenant to put away the foreign entanglements, and over several months the matter is investigated family by family.",
+      "primaryReference": "Ezra 9:1-10:44",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1740,
+      "verseIds": [
+        "verse_ezra_9_6",
+        "verse_ezra_9_9",
+        "verse_ezra_10_11"
+      ],
+      "characterIds": [
+        "char_ezra"
+      ],
+      "topicIds": [
+        "topic_repentance",
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_nehemiahs_burden",
+      "title": "Nehemiah's burden for Jerusalem",
+      "summary": "Nehemiah, cupbearer to king Artaxerxes in the Persian capital of Susa, asks his brother for news of Jerusalem and learns the wall lies broken and the gates burned, more than a century after the first return. He sits down and weeps, then fasts and prays for days, confessing his people's sin and asking God to grant him favor with the king.",
+      "primaryReference": "Nehemiah 1:1-11",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1750,
+      "verseIds": [
+        "verse_nehemiah_1_4",
+        "verse_nehemiah_1_11"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ],
+      "topicIds": [
+        "topic_sorrow",
+        "topic_prayer"
+      ]
+    },
+    {
+      "id": "story_nehemiah_sent",
+      "title": "Nehemiah is sent to rebuild",
+      "summary": "The king notices Nehemiah's sad face and asks what troubles him. Nehemiah, silently praying even as he answers, asks leave to go and rebuild the city of his fathers' tombs—and the king grants it, with letters of safe passage and timber for the gates. Three days after arriving in Jerusalem, Nehemiah rides out by night to inspect the ruined walls himself before telling anyone his plan.",
+      "primaryReference": "Nehemiah 2:1-20",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1760,
+      "verseIds": [
+        "verse_nehemiah_2_4",
+        "verse_nehemiah_2_18",
+        "verse_nehemiah_2_20"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_guidance",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_wall_under_threat",
+      "title": "Building with a sword in hand",
+      "summary": "Sanballat mocks the rebuilding as the work of feeble Jews, and he and his allies conspire to attack Jerusalem and stop the work by force. Nehemiah sets a guard, arms the people by family, and keeps half of them working while the other half stands ready with spears and shields—trusting that God will fight for them if the trumpet sounds.",
+      "primaryReference": "Nehemiah 4:1-23",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1770,
+      "verseIds": [
+        "verse_nehemiah_4_9",
+        "verse_nehemiah_4_14"
+      ],
+      "characterIds": [
+        "char_nehemiah",
+        "char_sanballat"
+      ],
+      "topicIds": [
+        "topic_fear",
+        "topic_strength"
+      ]
+    },
+    {
+      "id": "story_nehemiah_cancels_debts",
+      "title": "Nehemiah cancels the people's debts",
+      "summary": "While the wall goes up, the poor cry out—mortgaging fields and selling their own children into debt slavery to their wealthier countrymen just to eat. Nehemiah is angry, confronts the nobles publicly, and demands they return what they've taken and stop charging interest. They agree on the spot, and Nehemiah adds that he himself, unlike governors before him, has never taken the governor's allowance from the people.",
+      "primaryReference": "Nehemiah 5:1-19",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1780,
+      "verseIds": [
+        "verse_nehemiah_5_9",
+        "verse_nehemiah_5_15"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_wall_finished",
+      "title": "The wall finished in fifty-two days",
+      "summary": "With the wall nearly done, Sanballat tries four times to lure Nehemiah away to a meeting meant to harm him, then sends an open letter threatening to report him to the king for rebellion. Nehemiah refuses each time and sees through a hired false prophet sent to frighten him into hiding. The wall is finished in just fifty-two days, and even Jerusalem's enemies recognize that the work was done by God.",
+      "primaryReference": "Nehemiah 6:1-19",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1790,
+      "verseIds": [
+        "verse_nehemiah_6_3",
+        "verse_nehemiah_6_9",
+        "verse_nehemiah_6_16"
+      ],
+      "characterIds": [
+        "char_nehemiah",
+        "char_sanballat"
+      ],
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_strength"
+      ]
+    },
+    {
+      "id": "story_ezra_reads_the_law",
+      "title": "Ezra reads the law to the people",
+      "summary": "With the wall finished, the whole assembly gathers as one and asks Ezra to bring out the Book of the Law. He reads it aloud from early morning until midday while the people listen standing, and when they hear it they weep—until Nehemiah and Ezra tell them the day is holy, not for grief, and that the joy of Yahweh is their strength. They keep the Feast of Booths with a gladness Israel hadn't known since the days of Joshua, then gather again in sackcloth to confess their sins and recount everything God has done for them since Abraham, sealing a fresh written covenant.",
+      "primaryReference": "Nehemiah 8:1-9:38",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1800,
+      "verseIds": [
+        "verse_nehemiah_8_10",
+        "verse_nehemiah_8_12",
+        "verse_nehemiah_9_17",
+        "verse_nehemiah_9_21"
+      ],
+      "characterIds": [
+        "char_ezra",
+        "char_nehemiah"
+      ],
+      "topicIds": [
+        "topic_scripture",
+        "topic_worship",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_nehemiahs_final_reforms",
+      "title": "Nehemiah's final reforms",
+      "summary": "After time away in Persia, Nehemiah returns to Jerusalem to find how quickly things slipped: the priest Eliashib has given his ally Tobiah a room inside the temple itself, the Levites have gone unpaid and scattered back to their fields, merchants trade openly on the Sabbath, and the people are again intermarrying with surrounding nations. Nehemiah throws Tobiah's belongings out of the temple, restores the Levites' portions, shuts the city gates for the Sabbath, and confronts the offenders directly—closing the book with a final prayer: \"Remember me, my God, for good.\"",
+      "primaryReference": "Nehemiah 13:1-31",
+      "eraId": "era_return_from_exile",
+      "canonicalOrder": 1810,
+      "verseIds": [
+        "verse_nehemiah_13_14"
+      ],
+      "characterIds": [
+        "char_nehemiah"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_faithfulness"
       ]
     }
   ],
@@ -6698,6 +6951,150 @@
       "reference": "2 Chronicles 36:22-23",
       "storyId": "story_cyrus_decree",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_zerubbabel_leads_return",
+      "characterId": "char_zerubbabel",
+      "title": "Leads the first return and lays the temple's foundation",
+      "description": "Leads the first wave of exiles home from Babylon and, with Jeshua, rebuilds the altar before the temple's foundation is laid.",
+      "reference": "Ezra 1:1-3:13",
+      "storyId": "story_return_and_foundation",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zerubbabel_finishes_temple",
+      "characterId": "char_zerubbabel",
+      "title": "Finishes and dedicates the rebuilt temple",
+      "description": "Resumes and completes the temple's construction after Darius confirms Cyrus's decree.",
+      "reference": "Ezra 5:1-6:22",
+      "storyId": "story_temple_completed",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jeshua_builds_altar",
+      "characterId": "char_jeshua_priest",
+      "title": "Builds the altar and leads the priests home",
+      "description": "Returns from exile and rebuilds the altar of burnt offering alongside Zerubbabel.",
+      "reference": "Ezra 1:1-3:13",
+      "storyId": "story_return_and_foundation",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jeshua_sees_temple_finished",
+      "characterId": "char_jeshua_priest",
+      "title": "Sees the temple finished",
+      "description": "Leads the priests and Levites through the temple's completion and dedication.",
+      "reference": "Ezra 5:1-6:22",
+      "storyId": "story_temple_completed",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ezra_leads_second_return",
+      "characterId": "char_ezra",
+      "title": "Leads a second return, devoted to studying and teaching God's law",
+      "description": "Arrives in Jerusalem from Babylon with full royal backing to teach the law.",
+      "reference": "Ezra 7:1-8:36",
+      "storyId": "story_ezra_returns",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ezra_confronts_intermarriage",
+      "characterId": "char_ezra",
+      "title": "Confronts the people's intermarriage with a public confession",
+      "description": "Tears his robe and prays a public prayer of confession over the people's unfaithfulness.",
+      "reference": "Ezra 9:1-10:44",
+      "storyId": "story_ezras_reform",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ezra_reads_law",
+      "characterId": "char_ezra",
+      "title": "Reads the law aloud to the whole assembly",
+      "description": "Reads the Book of the Law to the people from dawn to midday at the water gate.",
+      "reference": "Nehemiah 8:1-9:38",
+      "storyId": "story_ezra_reads_the_law",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_nehemiah_hears_and_mourns",
+      "characterId": "char_nehemiah",
+      "title": "Weeps and prays on hearing Jerusalem's walls lie broken",
+      "description": "Fasts and prays for days after learning of Jerusalem's ruined state.",
+      "reference": "Nehemiah 1:1-11",
+      "storyId": "story_nehemiahs_burden",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nehemiah_sent_and_inspects",
+      "characterId": "char_nehemiah",
+      "title": "Asks the king's leave and inspects the ruined walls by night",
+      "description": "Receives royal letters and provisions, then surveys the wall secretly before announcing his plan.",
+      "reference": "Nehemiah 2:1-20",
+      "storyId": "story_nehemiah_sent",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_nehemiah_arms_builders",
+      "characterId": "char_nehemiah",
+      "title": "Arms the builders against threats and presses on",
+      "description": "Sets a guard and arms the people by family as Sanballat's alliance threatens attack.",
+      "reference": "Nehemiah 4:1-23",
+      "storyId": "story_wall_under_threat",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_nehemiah_cancels_debts",
+      "characterId": "char_nehemiah",
+      "title": "Confronts the nobles over usury against the poor",
+      "description": "Demands the nobles return what they've taken from the poor and stop charging interest.",
+      "reference": "Nehemiah 5:1-19",
+      "storyId": "story_nehemiah_cancels_debts",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_nehemiah_finishes_wall",
+      "characterId": "char_nehemiah",
+      "title": "Refuses Sanballat's trap; finishes the wall in 52 days",
+      "description": "Sees through repeated plots and completes the wall in fifty-two days.",
+      "reference": "Nehemiah 6:1-19",
+      "storyId": "story_wall_finished",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_nehemiah_joy_not_mourning",
+      "characterId": "char_nehemiah",
+      "title": "Tells the grieving people the day is holy, not for mourning",
+      "description": "Calms the weeping assembly with Ezra after the law is read, sending them to celebrate.",
+      "reference": "Nehemiah 8:1-9:38",
+      "storyId": "story_ezra_reads_the_law",
+      "sequenceInLife": 60
+    },
+    {
+      "id": "event_nehemiah_final_reforms",
+      "characterId": "char_nehemiah",
+      "title": "Returns to purge the temple, restore the Levites, and enforce the Sabbath",
+      "description": "Cleans out Tobiah's room, restores Levite support, and enforces Sabbath and marriage law.",
+      "reference": "Nehemiah 13:1-31",
+      "storyId": "story_nehemiahs_final_reforms",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_sanballat_mocks_builders",
+      "characterId": "char_sanballat",
+      "title": "Mocks and conspires against the wall-builders",
+      "description": "Ridicules the rebuilding effort and conspires with allies to attack Jerusalem.",
+      "reference": "Nehemiah 4:1-23",
+      "storyId": "story_wall_under_threat",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_sanballat_sets_trap",
+      "characterId": "char_sanballat",
+      "title": "Tries to lure Nehemiah into a trap",
+      "description": "Repeatedly invites Nehemiah to a meeting meant to harm him, then hires a false prophet against him.",
+      "reference": "Nehemiah 6:1-19",
+      "storyId": "story_wall_finished",
+      "sequenceInLife": 20
     }
   ]
 }
