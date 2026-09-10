@@ -5097,6 +5097,64 @@
         "topic_seeking_god",
         "topic_repentance"
       ]
+    },
+    {
+      "id": "story_pauls_arrest",
+      "title": "Paul's arrest in Jerusalem",
+      "summary": "Back in Jerusalem, Paul is seized in the temple by a mob who wrongly believe he's brought a Gentile past the temple's sacred boundary, and is beaten nearly to death before Roman soldiers pull him out and arrest him. The following night, Jesus himself stands by Paul and tells him to take courage: just as he has testified about him in Jerusalem, he must testify in Rome too -- a promise that sets up everything left in Acts. Years of trials before the governors Felix and Festus and King Agrippa follow, none of them finding real grounds for a charge; when Agrippa half-jokes that Paul is nearly persuading him to become a Christian, Paul answers that he wishes everyone listening could become as he is, chains excepted.",
+      "primaryReference": "Acts 21:27-26:32",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2900,
+      "verseIds": [
+        "verse_acts_21_36",
+        "verse_acts_23_11",
+        "verse_acts_26_29"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_shipwreck",
+      "title": "Shipwrecked on the way to Rome",
+      "summary": "Having appealed to Caesar, Paul is sent toward Rome by ship and sails into a storm so violent that all hope of survival is lost -- until an angel tells him no lives will be lost, only the ship. Fourteen days adrift, the ship finally runs aground and breaks apart in the surf, but everyone reaches the island of Malta safely, exactly as Paul had said. There, gathering firewood, a viper bites his hand; when he simply shakes it off unharmed, the islanders decide he must be a god.",
+      "primaryReference": "Acts 27:1-28:10",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2910,
+      "verseIds": [
+        "verse_acts_27_22",
+        "verse_acts_27_24",
+        "verse_acts_27_44",
+        "verse_acts_28_5"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_trust",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_paul_in_rome",
+      "title": "Paul in Rome",
+      "summary": "After finally reaching Rome, Paul spends two full years under house arrest at his own expense, welcoming everyone who comes to him and preaching the kingdom of God and the Lord Jesus Christ with total boldness, completely unhindered -- the note Acts ends on, the gospel having traveled from a locked upper room in Jerusalem to the capital of the empire.",
+      "primaryReference": "Acts 28:11-31",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2920,
+      "verseIds": [
+        "verse_acts_28_30",
+        "verse_acts_28_31"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
     }
   ],
   "lifeEvents": [
@@ -10637,6 +10695,33 @@
       "reference": "Acts 16:16-34",
       "storyId": "story_philippian_jailer",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_paul_arrested_jerusalem",
+      "characterId": "char_paul",
+      "title": "Is nearly killed by a mob and arrested by Roman soldiers",
+      "description": "Is rescued from a lynching and promised by Jesus that he will testify in Rome.",
+      "reference": "Acts 21:27-26:32",
+      "storyId": "story_pauls_arrest",
+      "sequenceInLife": 70
+    },
+    {
+      "id": "event_paul_shipwrecked",
+      "characterId": "char_paul",
+      "title": "Survives a shipwreck on the way to Rome",
+      "description": "Is promised by an angel that no lives will be lost, and survives a viper bite unharmed.",
+      "reference": "Acts 27:1-28:10",
+      "storyId": "story_shipwreck",
+      "sequenceInLife": 80
+    },
+    {
+      "id": "event_paul_preaches_in_rome",
+      "characterId": "char_paul",
+      "title": "Preaches freely under house arrest in Rome",
+      "description": "Spends two years welcoming visitors and teaching about Jesus without hindrance.",
+      "reference": "Acts 28:11-31",
+      "storyId": "story_paul_in_rome",
+      "sequenceInLife": 90
     }
   ]
 }
