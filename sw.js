@@ -1,4 +1,4 @@
-const CACHE = 'rooted-v30';
+const CACHE = 'rooted-v31';
 // data/verses.json (~5MB and growing with the OT corpus) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then.
 // starter-pack.json, stories.json, motifs.json and connections.json all load

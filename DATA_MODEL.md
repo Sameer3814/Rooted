@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (112 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel)
+### Character — *live* (118 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel)
 ```json
 {
   "id": "char_jacob",
@@ -245,7 +245,7 @@ because an era spanning four generations does *not* make Abraham and Joseph
 contemporaries. Genuine parallel-story links will be **Connections**
 (`"contemporary of"`, `"parallels"`) when that's built.
 
-### Motif — *live* (17 motifs)
+### Motif — *live* (18 motifs)
 A recurring biblical pattern (younger-son-chosen, exile-and-return,
 barren-woman-given-a-child, water-in-the-wilderness…).
 ```json
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 863 verses + 38 topics + 112 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 889 verses + 38 topics + 118 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
-| `data/verses.json` | full parsed WEB corpus (21,738 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
+| `data/verses.json` | full parsed WEB corpus (22,095 verses: every OT book curated so far — see `DEFAULT_BOOKS` in `parse_books.py`) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 12 eras, 168 stories, 386 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 12 eras, 174 stories, 401 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 17 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 127 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 129 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 863-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 889-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -1642,6 +1642,35 @@ whole-bundle overwrite of local state — not a merge, and not automatic.
     oracle (Ezekiel 36:26-27) stand as independent curated verses
     rather than forced into a story, since they're declarative oracles,
     not narrated scenes.
+
+39. **Daniel.** **Done (2026-09-10).** The most narrative-dense of the
+    Prophets, so it got the fullest treatment of any book in this
+    installment: 6 new characters (Daniel; Shadrach, Meshach, and
+    Abednego — given individual records despite acting as an
+    interchangeable trio throughout the text, matching the project's
+    per-individual convention rather than inventing a group-record
+    shape; Belshazzar; Darius the Mede) plus `char_nebuchadnezzar`
+    extended (his existing summary only covered destroying Jerusalem —
+    broadened to cover his defeat-by-wisdom, the furnace, and his own
+    madness-then-restoration, a real part of his arc the 2 Kings-era
+    summary had no reason to mention). 6 new stories, all in the
+    existing `era_exile`: the king's food (ch1); Nebuchadnezzar's statue
+    dream (ch2); the fiery furnace (ch3); Nebuchadnezzar's madness
+    (ch4); the writing on the wall (ch5); the lions' den (ch6). Ordered
+    by each event's actual date rather than book order — ch1 (605 BC,
+    Nebuchadnezzar's first deportation) predates Ezekiel's call
+    (593 BC), so `story_daniel_and_the_kings_food` sits at
+    `canonicalOrder: 1590`, *before* `story_ezekiels_call` at 1592; ch5
+    (Belshazzar, ~539 BC) and ch6 (Darius the Mede, right after) come
+    much later, after the fall of Jerusalem and even after Gedaliah's
+    assassination, so they sit at 1606 and 1609, just ahead of
+    `story_cyrus_decree` at 1610. 26 curated verses, no new topics. One
+    new motif, `motif_faithful_defiance_delivered`, connects the
+    furnace and the lions' den — the book pairs these two stories with
+    the same deliberate shape (refuse the king's command that would
+    violate loyalty to God → sentenced to die for it → delivered in a
+    way that makes the king himself acknowledge God), a real recurring
+    pattern rather than two unrelated close calls.
 
 ---
 

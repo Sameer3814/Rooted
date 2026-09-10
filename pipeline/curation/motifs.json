@@ -168,6 +168,15 @@
         "Genesis 45:3",
         "Esther 7:3-4"
       ]
+    },
+    {
+      "id": "motif_faithful_defiance_delivered",
+      "name": "Faithful defiance, then deliverance",
+      "description": "Someone refuses a king's command that would violate their loyalty to God, is sentenced to die for it, and is delivered in a way that makes even the king acknowledge God publicly.",
+      "exampleReferences": [
+        "Daniel 3:17-18",
+        "Daniel 6:22"
+      ]
     }
   ]
 }

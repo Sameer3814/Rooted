@@ -1146,6 +1146,24 @@
       "toType": "story",
       "toId": "story_jeremiahs_call",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_faithful_defiance_instance_furnace",
+      "fromType": "motif",
+      "fromId": "motif_faithful_defiance_delivered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_fiery_furnace",
+      "inverse": "has motif"
+    },
+    {
+      "id": "conn_faithful_defiance_instance_lions_den",
+      "fromType": "motif",
+      "fromId": "motif_faithful_defiance_delivered",
+      "relationship": "instance of",
+      "toType": "story",
+      "toId": "story_lions_den",
+      "inverse": "has motif"
     }
   ]
 }

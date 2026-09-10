@@ -126,26 +126,26 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **863 verses** across every OT book curated so far (WEB
+  first run: **889 verses** across every OT book curated so far (WEB
   translation — see `DEFAULT_BOOKS` in `parse_books.py` for the exact
   book list, kept in sync with curation, not just parsing) and **38
-  topics** (topics linked to related topics), plus **112 characters**
+  topics** (topics linked to related topics), plus **118 characters**
   (17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua,
   10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9
-  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel)
-  with real relationships (father of, wife of, brother of, successor
-  of, servant of, worked alongside, raised, etc. — see Connection,
-  below).
-- `data/characters.json` — the same 112 characters, standalone. Generated
+  Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel,
+  6 Daniel) with real relationships (father of, wife of, brother of,
+  successor of, servant of, worked alongside, raised, etc. — see
+  Connection, below).
+- `data/characters.json` — the same 118 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: every OT book curated
-  so far (21,738 verses, WEB translation, public domain), matching
+  so far (22,095 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 863 seed
+  from Browse copies it into the user's overlay. Only the 889 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 12 eras, **168 stories and 386 life events**.
+- `data/stories.json` — 12 eras, **174 stories and 401 life events**.
   Covers Genesis, Exodus, Ruth, Leviticus's few incidents, Numbers'
   wilderness narrative, Deuteronomy's ending, Joshua's conquest of
   Canaan, the book of Judges' cycle of deliverers, `era_united_kingdom`
@@ -167,14 +167,15 @@ The schema was deliberately designed so all of the above can be added
   deserved, and is answered out of a whirlwind. Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
   People-grouped-by-era, and "appears alongside".
-- `data/motifs.json` — **17** recurring biblical patterns, each with real
+- `data/motifs.json` — **18** recurring biblical patterns, each with real
   instances in the current content, not force-fit onto single
-  occurrences. Newest: `motif_hidden_identity_saves_the_people` (Joseph
-  revealing himself to his brothers, and Esther revealing she is a Jew
-  to save her people — a Hebrew concealed in a foreign court, revealed
-  at the decisive moment). Loaded at boot. Drives the Patterns screens
-  and the "Pattern" badges on Character, Story, and Verse detail pages.
-- `data/connections.json` — 127 generic Connection edges (Design
+  occurrences. Newest: `motif_faithful_defiance_delivered` (the fiery
+  furnace and the lions' den — refuse a king's command that would
+  violate loyalty to God, be sentenced to die for it, and be delivered
+  in a way that makes even the king acknowledge God publicly). Loaded
+  at boot. Drives the Patterns screens and the "Pattern" badges on
+  Character, Story, and Verse detail pages.
+- `data/connections.json` — 129 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -364,8 +365,17 @@ hand-curate all the content before building.
    call vision by the river Chebar; acting out Jerusalem's siege with
    his own body and being forbidden to mourn his wife's death as a sign;
    and the valley of dry bones, Israel's national restoration pictured
-   as a dead army brought back to life. **The Prophets remaining**:
-   Daniel, then the Twelve (Hosea through Malachi).
+   as a dead army brought back to life. **Daniel done**: the most
+   narrative-dense of the Prophets — 6 new characters (Daniel, Shadrach,
+   Meshach, Abednego, Belshazzar, Darius the Mede — Nebuchadnezzar
+   himself already existed) and 6 new stories, all in `era_exile`: the
+   king's food, Nebuchadnezzar's statue dream, the fiery furnace,
+   Nebuchadnezzar's madness, the writing on the wall, and the lions' den.
+   The furnace and the lions' den are a matched pair — refuse the king's
+   command, be sentenced to die, and be delivered in a way that makes
+   the king himself acknowledge God — recognized as a new motif,
+   `motif_faithful_defiance_delivered`. **The Prophets remaining**: the
+   Twelve (Hosea through Malachi).
    `parse_books.py --all` makes the text side trivial for any book; the
    curation/content side is still real work per book, repeatable in the
    same shape for narrative-heavy stretches (era → characters →
@@ -682,7 +692,15 @@ verses. Lamentations added 6 more, one folded into the existing
 character and 3 new stories, all fitting the existing `era_exile` —
 his call vision, the symbolic acts (besieging a tile of Jerusalem,
 lying bound on his side, forbidden to mourn his wife), and the valley
-of dry bones. 18 new curated verses, no new topics or motifs.
+of dry bones. 18 new curated verses, no new topics or motifs. Then
+Daniel: 6 new characters (Daniel, Shadrach, Meshach, Abednego,
+Belshazzar, Darius the Mede) and 6 new stories, all in `era_exile` —
+the king's food, Nebuchadnezzar's statue dream, the fiery furnace,
+Nebuchadnezzar's madness, the writing on the wall, and the lions' den.
+26 new curated verses, no new topics. One new motif,
+`motif_faithful_defiance_delivered`, connects the furnace and the
+lions' den — refuse the king's command, be sentenced to die, and be
+delivered in a way that makes the king himself acknowledge God.
 
 ## Source data provenance
 

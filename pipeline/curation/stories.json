@@ -3637,6 +3637,137 @@
         "topic_deliverance",
         "topic_waiting"
       ]
+    },
+    {
+      "id": "story_daniel_and_the_kings_food",
+      "title": "Daniel and the king's food",
+      "summary": "Carried to Babylon as young nobles of Judah, Daniel, Hananiah, Mishael, and Azariah are renamed Belteshazzar, Shadrach, Meshach, and Abednego and enrolled to be trained for the king's service. Daniel refuses to defile himself with the king's rich food and wine, and asks to be tested on vegetables and water instead. After ten days the four look healthier than everyone else, and God gives all four wisdom beyond every magician and enchanter in the kingdom.",
+      "primaryReference": "Daniel 1:1-21",
+      "eraId": "era_exile",
+      "canonicalOrder": 1590,
+      "verseIds": [
+        "verse_daniel_1_8",
+        "verse_daniel_1_15",
+        "verse_daniel_1_20"
+      ],
+      "characterIds": [
+        "char_daniel",
+        "char_shadrach",
+        "char_meshach",
+        "char_abednego"
+      ],
+      "topicIds": [
+        "topic_obedience",
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "story_nebuchadnezzars_dream",
+      "title": "Nebuchadnezzar's dream",
+      "summary": "Troubled by a dream he refuses to describe, Nebuchadnezzar orders all his wise men executed when none can both tell him the dream and interpret it. Daniel asks for time, then prays with his three friends, and the secret is revealed to him in a night vision. He tells the king of a towering statue of decreasing precious metals, struck down by a stone that becomes a mountain filling the whole earth -- a picture of earthly kingdoms giving way to one that will never be destroyed. The king falls before Daniel and promotes him to rule over the whole province of Babylon.",
+      "primaryReference": "Daniel 2:1-49",
+      "eraId": "era_exile",
+      "canonicalOrder": 1591,
+      "verseIds": [
+        "verse_daniel_2_19",
+        "verse_daniel_2_28",
+        "verse_daniel_2_44",
+        "verse_daniel_2_47"
+      ],
+      "characterIds": [
+        "char_daniel",
+        "char_nebuchadnezzar"
+      ],
+      "topicIds": [
+        "topic_wisdom",
+        "topic_prayer"
+      ]
+    },
+    {
+      "id": "story_fiery_furnace",
+      "title": "The fiery furnace",
+      "summary": "Nebuchadnezzar sets up a golden image and commands everyone to bow to it. Shadrach, Meshach, and Abednego refuse, telling the king their God is able to deliver them -- but even if he doesn't, they still won't bow. Furious, Nebuchadnezzar has the furnace heated seven times hotter and has them thrown in bound. He looks in and sees four men walking unharmed in the flames, the fourth like a son of the gods. The three come out without so much as the smell of smoke on them, and Nebuchadnezzar blesses their God publicly.",
+      "primaryReference": "Daniel 3:1-30",
+      "eraId": "era_exile",
+      "canonicalOrder": 1594,
+      "verseIds": [
+        "verse_daniel_3_17",
+        "verse_daniel_3_18",
+        "verse_daniel_3_25",
+        "verse_daniel_3_28"
+      ],
+      "characterIds": [
+        "char_shadrach",
+        "char_meshach",
+        "char_abednego",
+        "char_nebuchadnezzar"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_nebuchadnezzars_madness",
+      "title": "Nebuchadnezzar's madness",
+      "summary": "Boasting over the great Babylon he has built by his own power, Nebuchadnezzar is struck by the very judgment a dream had already warned him about: his mind is taken from him and he lives like an animal in the fields for seven years. At the end of that time his understanding returns as he lifts his eyes to heaven and praises the Most High -- \"those who walk in pride he is able to abase.\" His kingdom is restored to him.",
+      "primaryReference": "Daniel 4:1-37",
+      "eraId": "era_exile",
+      "canonicalOrder": 1596,
+      "verseIds": [
+        "verse_daniel_4_30",
+        "verse_daniel_4_34",
+        "verse_daniel_4_37"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ],
+      "topicIds": [
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_writing_on_the_wall",
+      "title": "The writing on the wall",
+      "summary": "Belshazzar throws a great feast using the sacred vessels taken from Jerusalem's temple, and a disembodied hand appears and writes on the palace wall. None of his wise men can read it; Daniel is called in and interprets it without hesitation: God has numbered Belshazzar's kingdom and brought it to an end, weighed him and found him wanting, and is dividing his kingdom to the Medes and Persians. That same night, Belshazzar is killed.",
+      "primaryReference": "Daniel 5:1-31",
+      "eraId": "era_exile",
+      "canonicalOrder": 1606,
+      "verseIds": [
+        "verse_daniel_5_25",
+        "verse_daniel_5_26",
+        "verse_daniel_5_27",
+        "verse_daniel_5_28"
+      ],
+      "characterIds": [
+        "char_daniel",
+        "char_belshazzar"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_lions_den",
+      "title": "Daniel in the lions' den",
+      "summary": "Under Darius the Mede, Daniel's integrity draws envy from the other officials, who trick the king into signing a decree forbidding prayer to anyone but himself for thirty days -- knowing Daniel prays toward Jerusalem three times daily regardless. Daniel keeps praying exactly as before. Darius, forced by his own unchangeable law, has Daniel thrown to the lions, and spends a sleepless night hoping he survives. At dawn Daniel is found unharmed -- \"my God has sent his angel, and has shut the lions' mouths\" -- and Darius decrees that all his kingdom tremble before the God of Daniel.",
+      "primaryReference": "Daniel 6:1-28",
+      "eraId": "era_exile",
+      "canonicalOrder": 1609,
+      "verseIds": [
+        "verse_daniel_6_10",
+        "verse_daniel_6_22",
+        "verse_daniel_6_23",
+        "verse_daniel_6_26"
+      ],
+      "characterIds": [
+        "char_daniel",
+        "char_darius_the_mede"
+      ],
+      "topicIds": [
+        "topic_prayer",
+        "topic_deliverance"
+      ]
     }
   ],
   "lifeEvents": [
@@ -7926,6 +8057,141 @@
       "reference": "Ezekiel 37:1-14",
       "storyId": "story_valley_of_dry_bones",
       "sequenceInLife": 30
+    },
+    {
+      "id": "event_daniel_refuses_food",
+      "characterId": "char_daniel",
+      "title": "Refuses to defile himself with the king's food",
+      "description": "Asks to be tested on vegetables and water instead of the king's rich food and wine.",
+      "reference": "Daniel 1:1-21",
+      "storyId": "story_daniel_and_the_kings_food",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_daniel_interprets_dream",
+      "characterId": "char_daniel",
+      "title": "Interprets Nebuchadnezzar's dream and is promoted",
+      "description": "Reveals the king's dream and its meaning after praying with his three friends.",
+      "reference": "Daniel 2:1-49",
+      "storyId": "story_nebuchadnezzars_dream",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_daniel_reads_wall",
+      "characterId": "char_daniel",
+      "title": "Reads the writing on Belshazzar's wall",
+      "description": "Interprets the handwriting announcing the end of Belshazzar's kingdom.",
+      "reference": "Daniel 5:1-31",
+      "storyId": "story_writing_on_the_wall",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_daniel_lions_den",
+      "characterId": "char_daniel",
+      "title": "Survives a night in the lions' den",
+      "description": "Is thrown to the lions for praying and found unharmed at dawn.",
+      "reference": "Daniel 6:1-28",
+      "storyId": "story_lions_den",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_shadrach_food_test",
+      "characterId": "char_shadrach",
+      "title": "Joins Daniel's food test",
+      "description": "Is renamed and trained for the king's service alongside Daniel.",
+      "reference": "Daniel 1:1-21",
+      "storyId": "story_daniel_and_the_kings_food",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_shadrach_furnace",
+      "characterId": "char_shadrach",
+      "title": "Refuses to bow and walks out of the furnace unharmed",
+      "description": "Refuses to worship Nebuchadnezzar's image and survives the furnace.",
+      "reference": "Daniel 3:1-30",
+      "storyId": "story_fiery_furnace",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_meshach_food_test",
+      "characterId": "char_meshach",
+      "title": "Joins Daniel's food test",
+      "description": "Is renamed and trained for the king's service alongside Daniel.",
+      "reference": "Daniel 1:1-21",
+      "storyId": "story_daniel_and_the_kings_food",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_meshach_furnace",
+      "characterId": "char_meshach",
+      "title": "Refuses to bow and walks out of the furnace unharmed",
+      "description": "Refuses to worship Nebuchadnezzar's image and survives the furnace.",
+      "reference": "Daniel 3:1-30",
+      "storyId": "story_fiery_furnace",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_abednego_food_test",
+      "characterId": "char_abednego",
+      "title": "Joins Daniel's food test",
+      "description": "Is renamed and trained for the king's service alongside Daniel.",
+      "reference": "Daniel 1:1-21",
+      "storyId": "story_daniel_and_the_kings_food",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abednego_furnace",
+      "characterId": "char_abednego",
+      "title": "Refuses to bow and walks out of the furnace unharmed",
+      "description": "Refuses to worship Nebuchadnezzar's image and survives the furnace.",
+      "reference": "Daniel 3:1-30",
+      "storyId": "story_fiery_furnace",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_nebuchadnezzar_dream",
+      "characterId": "char_nebuchadnezzar",
+      "title": "Has Daniel interpret his dream",
+      "description": "Promotes Daniel after his dream of a statue and a mountain-filling stone is revealed.",
+      "reference": "Daniel 2:1-49",
+      "storyId": "story_nebuchadnezzars_dream",
+      "sequenceInLife": 5
+    },
+    {
+      "id": "event_nebuchadnezzar_furnace",
+      "characterId": "char_nebuchadnezzar",
+      "title": "Sees three men unharmed in the furnace",
+      "description": "Builds the furnace to punish defiance and blesses their God when they survive.",
+      "reference": "Daniel 3:1-30",
+      "storyId": "story_fiery_furnace",
+      "sequenceInLife": 8
+    },
+    {
+      "id": "event_nebuchadnezzar_madness",
+      "characterId": "char_nebuchadnezzar",
+      "title": "Is humbled by seven years of madness",
+      "description": "Boasts over Babylon and is struck with madness until he acknowledges the Most High.",
+      "reference": "Daniel 4:1-37",
+      "storyId": "story_nebuchadnezzars_madness",
+      "sequenceInLife": 12
+    },
+    {
+      "id": "event_belshazzar_wall",
+      "characterId": "char_belshazzar",
+      "title": "Sees his kingdom's end written on his wall",
+      "description": "Throws a feast with the temple's sacred vessels and is killed that same night.",
+      "reference": "Daniel 5:1-31",
+      "storyId": "story_writing_on_the_wall",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_darius_lions_den",
+      "characterId": "char_darius_the_mede",
+      "title": "Is tricked into sentencing Daniel to the lions",
+      "description": "Signs a decree forbidding prayer to anyone but himself and is forced to enforce it against Daniel.",
+      "reference": "Daniel 6:1-28",
+      "storyId": "story_lions_den",
+      "sequenceInLife": 10
     }
   ]
 }

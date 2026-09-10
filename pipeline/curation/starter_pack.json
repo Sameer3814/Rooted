@@ -6975,6 +6975,234 @@
         "topic_deliverance"
       ],
       "characterIds": []
+    },
+    {
+      "id": "verse_daniel_1_8",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_1_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_1_20",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_2_19",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_2_28",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_2_44",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_daniel_2_47",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_3_17",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_shadrach",
+        "char_meshach",
+        "char_abednego"
+      ]
+    },
+    {
+      "id": "verse_daniel_3_18",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_shadrach",
+        "char_meshach",
+        "char_abednego"
+      ]
+    },
+    {
+      "id": "verse_daniel_3_25",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_daniel_3_28",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_daniel_4_30",
+      "topicIds": [],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_daniel_4_34",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_daniel_4_37",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_nebuchadnezzar"
+      ]
+    },
+    {
+      "id": "verse_daniel_5_25",
+      "topicIds": [],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_5_26",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_5_27",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_5_28",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_6_10",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_6_22",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_6_23",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_6_26",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_darius_the_mede"
+      ]
+    },
+    {
+      "id": "verse_daniel_7_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_9_19",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_12_2",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
+    },
+    {
+      "id": "verse_daniel_12_3",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_daniel"
+      ]
     }
   ],
   "topics": [
@@ -8321,10 +8549,10 @@
       "id": "char_nebuchadnezzar",
       "name": "Nebuchadnezzar",
       "roles": [
-        "the Babylonian king who burned Jerusalem and exiled Judah"
+        "the Babylonian king who burned Jerusalem, then was humbled into acknowledging Daniel's God"
       ],
       "eraId": "era_exile",
-      "summary": "The king of Babylon who besieged Jerusalem, destroyed the temple, and carried Judah into a seventy-year captivity.",
+      "summary": "The king of Babylon who besieged Jerusalem, destroyed the temple, and carried Judah into exile. In his own court he was outmatched by Daniel's wisdom, watched three Jewish exiles walk unharmed out of a furnace he built to kill them, and was struck with madness for seven years after boasting over his own greatness -- restored only once he acknowledged that the Most High rules every kingdom.",
       "verseIds": []
     },
     {
@@ -8595,6 +8823,66 @@
       ],
       "eraId": "era_exile",
       "summary": "A priest carried into exile with Jehoiachin, called by a vision of Yahweh's glory by the river Chebar and made a watchman over Israel -- responsible to warn, though not for whether anyone listens. He acted out the coming siege and exile in his own body, was forbidden to mourn his wife's sudden death as a sign to the people, and saw a valley of dry bones rise up as a living army -- Yahweh's promise that even a nation as dead as scattered bones could live again.",
+      "verseIds": []
+    },
+    {
+      "id": "char_daniel",
+      "name": "Daniel",
+      "roles": [
+        "the exile whose wisdom and faithfulness outlasted four kings"
+      ],
+      "eraId": "era_exile",
+      "summary": "Carried to Babylon as a young noble of Judah, he refused to defile himself with the king's food, was given wisdom to interpret dreams no one else could read, and served faithfully through the reigns of Nebuchadnezzar, Belshazzar, and Darius the Mede -- surviving a night in a lions' den when his only fault was praying toward Jerusalem three times a day.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shadrach",
+      "name": "Shadrach",
+      "roles": [
+        "one of three who chose the furnace over bowing to Nebuchadnezzar's image"
+      ],
+      "eraId": "era_exile",
+      "summary": "One of three young Jewish exiles -- with Meshach and Abednego -- who refused to bow to Nebuchadnezzar's golden image even under threat of a burning fiery furnace, and walked out of the fire unharmed with a fourth figure beside them.",
+      "verseIds": []
+    },
+    {
+      "id": "char_meshach",
+      "name": "Meshach",
+      "roles": [
+        "one of three who chose the furnace over bowing to Nebuchadnezzar's image"
+      ],
+      "eraId": "era_exile",
+      "summary": "One of three young Jewish exiles -- with Shadrach and Abednego -- who refused to bow to Nebuchadnezzar's golden image even under threat of a burning fiery furnace, and walked out of the fire unharmed with a fourth figure beside them.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abednego",
+      "name": "Abednego",
+      "roles": [
+        "one of three who chose the furnace over bowing to Nebuchadnezzar's image"
+      ],
+      "eraId": "era_exile",
+      "summary": "One of three young Jewish exiles -- with Shadrach and Meshach -- who refused to bow to Nebuchadnezzar's golden image even under threat of a burning fiery furnace, and walked out of the fire unharmed with a fourth figure beside them.",
+      "verseIds": []
+    },
+    {
+      "id": "char_belshazzar",
+      "name": "Belshazzar",
+      "roles": [
+        "the king who saw his kingdom's end written on his banquet wall"
+      ],
+      "eraId": "era_exile",
+      "summary": "A later king of Babylon who threw a great feast using the temple's sacred vessels and saw a disembodied hand write his kingdom's end on the wall -- \"you are weighed in the balances, and are found wanting.\" He was killed that same night, and his kingdom fell to the Medes and Persians.",
+      "verseIds": []
+    },
+    {
+      "id": "char_darius_the_mede",
+      "name": "Darius the Mede",
+      "roles": [
+        "the king tricked into signing the decree that sent Daniel to the lions"
+      ],
+      "eraId": "era_exile",
+      "summary": "The king who received Belshazzar's fallen kingdom and, flattered into signing a decree forbidding prayer to anyone but himself, was forced by his own unchangeable law to have Daniel thrown to the lions -- then spent a sleepless night hoping for his rescue.",
       "verseIds": []
     }
   ]
