@@ -430,7 +430,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,174 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,196 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire Old Testament plus the New Testament books curated so far (26,923 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,174-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,196-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2168,6 +2168,24 @@ inventing a new principle:
     on hope (15:13). No new topics — the existing 38 covered
     everything, including some of the New Testament's most quoted
     verses.
+
+57. **1-2 Corinthians.** **Done (2026-09-10).** No Story records, no
+    new characters — same light treatment as Romans. 22 curated verses:
+    1 Corinthians contributed the body as a temple (6:19-20), fleeing
+    temptation with God's promised way of escape (10:13), the love
+    chapter (13:4-5, 13:13 — three representative verses rather than
+    the full 4-7 passage, since curating every clause of one
+    continuous description would fragment it more than it illuminates),
+    the resurrection creed (15:3-4) and its climax ("death, where is
+    your sting?", 15:55, 15:57-58). 2 Corinthians contributed the God
+    of all comfort (1:3-4), "we walk by faith, not by sight" (5:7 —
+    not selected; 4:18's "things which are not seen are eternal" was
+    chosen instead as the fuller statement of the same idea, to avoid
+    curating two verses making essentially one point), the new creation
+    (5:17), Christ made sin for us (5:21), the cheerful giver (9:7),
+    and "my grace is sufficient for you... when I am weak, then I am
+    strong" (12:9-10, tagged to `char_paul` as his own testimony, not
+    detached doctrine). No new topics.
 
 ---
 

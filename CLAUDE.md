@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,174 verses** — the entire Old Testament plus the New
+  first run: **1,196 verses** — the entire Old Testament plus the New
   Testament as it's curated (started 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the exact book list, "Known gaps" item 9 for how
   the NT is being approached, and DATA_MODEL.md §8 for the full,
@@ -149,7 +149,7 @@ The schema was deliberately designed so all of the above can be added
   `parse_books.py`. Lazily fetched by the Browse screen the first time
   it's opened, never at boot. It is *reference material*, kept separate
   from the user's library — adding a verse from Browse copies it into
-  the user's overlay. Only the 1,174 seed verses are topic-tagged; the
+  the user's overlay. Only the 1,196 seed verses are topic-tagged; the
   rest of the corpus isn't yet.
 - `data/stories.json` — 16 eras, **236 stories and 528 life events**.
   All 12 OT eras plus the New Testament's `era_birth_of_jesus` and
@@ -422,10 +422,10 @@ hand-curate all the content before building.
    his arrest, shipwreck, and two years preaching freely under house
    arrest in Rome — the note Acts itself ends on. **The epistles are
    underway** (light verses-and-topics treatment, per item 9's design
-   note — most have no narrative): Romans done (20 verses covering its
-   core theology — justification by faith, no condemnation, nothing
-   can separate us from God's love). 20 more to go, then Revelation.
-   Full detail in DATA_MODEL.md §8, items 41 onward, as each
+   note — most have no narrative): Romans and 1-2 Corinthians done (the
+   love chapter, the resurrection chapter, "my grace is sufficient for
+   you"). 18 more epistles to go, then Revelation. Full detail in
+   DATA_MODEL.md §8, items 41 onward, as each
    installment lands (that's now the authoritative running log —
    this file's own "Done" changelog below stops narrating every NT
    installment in full prose, to stay sustainable across what's a much
