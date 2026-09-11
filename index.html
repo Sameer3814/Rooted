@@ -31,6 +31,7 @@
     --gold:#F5AC1F;
     --gold-deep:#FFCE5C;
     --gold-wash:rgba(245,172,31,.18);
+    --gold-shadow:rgba(245,172,31,.3);
     --sage:#1FE07F;
     --sage-deep:#79F3AE;
     --sage-wash:rgba(31,224,127,.16);
@@ -108,7 +109,7 @@
     align-items:center;
     gap:6px;
   }
-  .btn.primary{background:var(--gold);color:#241900;box-shadow:0 6px 16px rgba(245,172,31,.3);}
+  .btn.primary{background:var(--gold);color:#241900;box-shadow:0 6px 16px var(--gold-shadow);}
   .btn.primary:active{background:var(--gold-deep);}
   .btn.ghost{background:transparent;color:var(--ink-soft);}
   .btn.block{width:100%;justify-content:center;padding:13px;}
@@ -194,6 +195,16 @@
   .hero .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
   .hero .era{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:5px;justify-content:center;margin-bottom:14px;}
   .hero p.summary{font-size:13.5px;color:var(--ink-soft);line-height:1.6;text-align:left;}
+
+  /* topic detail hero — colored in the topic's own card color (v3 follow-up) */
+  .topic-detail-hero{
+    position:relative;overflow:hidden;border-radius:var(--radius-card);
+    padding:20px 20px 24px;margin-bottom:18px;color:#fff;
+  }
+  .topic-detail-hero .back-btn{margin-bottom:34px;box-shadow:none;}
+  .topic-detail-hero-icon{position:absolute;top:18px;right:14px;font-size:64px;opacity:.22;color:#fff;}
+  .topic-detail-hero h1{position:relative;color:#fff;margin-bottom:8px;}
+  .topic-detail-hero p{position:relative;color:rgba(255,255,255,.85);font-size:13.5px;line-height:1.55;margin:0;}
 
   /* practice */
   .practice-verse{
@@ -809,6 +820,7 @@ let corpusStatus = 'idle';  // idle | loading | ready | error
 let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
 let peopleQuery = '';
+let topicsQuery = '';
 const SEARCH_LIMIT = 60;
 let homeLimit = 25;   // Home lists this many verses before "Show all"
 
@@ -1336,17 +1348,52 @@ function topicColor(id){
   return TOPIC_PALETTE[h % TOPIC_PALETTE.length];
 }
 function topicIcon(id){ return TOPIC_ICONS[id] || 'ti-sparkles'; }
+// Theming a Topic detail page in its card's own color: derive a brighter
+// text-safe tint and low-alpha wash from the one base hex, the same
+// light/wash-pair shape the gold/sage/tan tokens already use, so the page can
+// override just the "action/urgency" accent role locally (via inline custom
+// properties on a wrapper) without touching sage (mastery) or tan (metadata)
+// — those stay their normal color everywhere, same verse card component.
+function hexToRgb(hex){
+  const n = parseInt(hex.slice(1), 16);
+  return [(n>>16)&255, (n>>8)&255, n&255];
+}
+function topicAccentVars(id){
+  const base = topicColor(id);
+  const [r,g,b] = hexToRgb(base);
+  const lighten = (amt)=>{
+    const mix = (c)=>Math.round(c + (255-c)*amt);
+    return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+  };
+  return `--gold:${base};--gold-deep:${lighten(.45)};--gold-wash:rgba(${r},${g},${b},.22);--gold-shadow:rgba(${r},${g},${b},.35);`;
+}
 function renderTopics(){
+  if(!data.topics.length){
+    return `<div class="topbar"><h1>Topics</h1></div><div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`;
+  }
   return `
     <div class="topbar"><h1>Topics</h1></div>
-    ${data.topics.length ? `<div class="topic-grid">${data.topics.map(t=>{
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="topics-search" value="${esc(topicsQuery)}" placeholder="Search topics..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="topics-results">${renderTopicsResults()}</div>
+  `;
+}
+function renderTopicsResults(){
+  const q = topicsQuery.trim().toLowerCase();
+  const list = q ? data.topics.filter(t=>t.name.toLowerCase().includes(q) || (t.description||'').toLowerCase().includes(q)) : data.topics;
+  if(!list.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No topics match "${esc(topicsQuery)}".</p></div>`;
+  return `
+    ${q ? `<div class="result-count">${list.length} match${list.length===1?'':'es'}</div>` : ''}
+    <div class="topic-grid">${list.map(t=>{
       const vc = topicVerseCount(t.id);
       return `<div class="topic-card tap" data-action="open-topic" data-id="${t.id}" style="background:${topicColor(t.id)};">
         <i class="ti ${topicIcon(t.id)} topic-card-icon"></i>
         <div class="name">${esc(t.name)}</div>
         <div class="meta">${vc} verse${vc===1?'':'s'}</div>
       </div>`;
-    }).join('')}</div>` : `<div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`}
+    }).join('')}</div>
   `;
 }
 function renderTopicDetail(id){
@@ -1354,16 +1401,24 @@ function renderTopicDetail(id){
   if(!t) return renderTopics();
   const verses = data.verses.filter(v=>v.topicIds.includes(id));
   const related = (t.relatedTopicIds||[]).map(findTopic).filter(Boolean);
+  const color = topicColor(id);
+  // The whole page is wrapped in a scope that overrides the gold/action
+  // accent role to this topic's own color (see topicAccentVars) — sage
+  // (mastery) and tan (metadata) tags on the verse cards below are untouched,
+  // so "Mastered"/"Due today" still read the same everywhere in the app.
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="back-to-topics"><i class="ti ti-arrow-left"></i></button>
-      <h2>${esc(t.name)}</h2>
+    <div style="${topicAccentVars(id)}">
+      <div class="topic-detail-hero" style="background:${color};">
+        <button class="back-btn" data-action="back-to-topics" style="background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.18);color:#fff;"><i class="ti ti-arrow-left"></i></button>
+        <i class="ti ${topicIcon(id)} topic-detail-hero-icon"></i>
+        <h1>${esc(t.name)}</h1>
+        ${t.description ? `<p>${esc(t.description)}</p>` : ''}
+      </div>
+      ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}"><i class="ti ti-swords"></i> Practice this topic</button>` : ''}
+      <div class="section-label">Verses</div>
+      ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
+      ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--gold tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
     </div>
-    <p style="color:var(--ink-soft);margin-bottom:16px;">${esc(t.description||'')}</p>
-    ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}"><i class="ti ti-swords"></i> Practice this topic</button>` : ''}
-    <div class="section-label">Verses</div>
-    ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
-    ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
   `;
 }
 
@@ -2077,6 +2132,13 @@ function bindEvents(root){
     clearTimeout(searchTimer);
     searchTimer = setTimeout(refreshPeopleResults, 140);
   });
+
+  const topicsSearch = document.getElementById('topics-search');
+  if(topicsSearch) topicsSearch.addEventListener('input', ()=>{
+    topicsQuery = topicsSearch.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refreshTopicsResults, 140);
+  });
 }
 function refreshBrowseResults(){
   const results = document.getElementById('browse-results');
@@ -2088,6 +2150,12 @@ function refreshPeopleResults(){
   const results = document.getElementById('people-results');
   if(!results){ render(); return; }
   results.innerHTML = renderPeopleResults();
+  bindEvents(results);
+}
+function refreshTopicsResults(){
+  const results = document.getElementById('topics-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderTopicsResults();
   bindEvents(results);
 }
 function onAction(e){

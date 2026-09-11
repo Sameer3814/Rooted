@@ -2446,6 +2446,54 @@ inventing a new principle:
     of drift v2 already had to clean up once (`.tag.plum`, `#F6E4DD`
     duplicated twice).
 
+64. **Topics search, and topic-colored topic detail pages.** **Done
+    (2026-09-10).** Two more owner-requested follow-ups on the same
+    Topics work (items 62-63), after approving the colorful grid: (1)
+    a search bar was missing on the Topics screen even though People
+    and Browse both have one; (2) tapping into a topic felt "bland"
+    compared to its colorful card — the detail page should carry the
+    same color.
+
+    **Search.** `renderTopics()` split into a thin shell plus
+    `renderTopicsResults()`, exactly mirroring the People screen's own
+    split (`renderCharacters()`/`renderPeopleResults()`, §30) rather
+    than inventing a different shape — same `.search-wrap` markup, same
+    140ms-debounced `input` listener wired in `bindEvents()`, same
+    `refresh*Results()` helper that re-renders just the results
+    `<div>` on keystroke instead of the whole screen. New state var
+    `topicsQuery`, filtering by name or description.
+
+    **Topic-colored detail pages.** The interesting part: rather than
+    hardcoding a topic's color into every element on its detail page
+    (verse-card ref color, the practice button, related-topic tags —
+    three separate call sites, two of them in shared components also
+    used elsewhere), the page instead **locally overrides which color
+    the existing "gold" accent role points to**. A new
+    `topicAccentVars(id)` derives a brighter text-safe tint and a
+    low-alpha wash from the topic's one base hex (the same
+    base/deep/wash token shape gold/sage/tan already use) and returns
+    them as an inline `style` string — `--gold`, `--gold-deep`,
+    `--gold-wash`, and a new `--gold-shadow` token (promoted out of a
+    literal `rgba()` that had been sitting directly in `.btn.primary`
+    since v3, item 62, so it could be overridden too) — set on a
+    wrapper `<div>` around the whole topic detail screen. Every
+    component underneath (`renderVerseCard`'s `.ref`, `.btn.primary`,
+    `.tag--gold`) already reads these same custom properties, so they
+    pick up the topic's color for free through normal CSS cascade —
+    zero changes to any shared component, and the override cleanly
+    can't leak past the wrapper `<div>` into any other screen.
+    Deliberately **not** re-themed: `.tag--sage` (mastery/"Mastered")
+    and `.tag--tan` (metadata/topic-name pills) on the same verse
+    cards — the three-role accent system (§29) still means something,
+    and blending "Mastered" into whatever color the current topic
+    happens to be would cost more meaning than the extra cohesion is
+    worth. The page also gained a colored hero header (topic's icon +
+    name + description on a full-color card, replacing the old plain
+    `.screen-head`), with the back button restyled inline
+    (translucent-black circle) since the default `.back-btn` styling
+    assumes it's sitting on the page background, not on a saturated
+    color block.
+
 ---
 
 ## 9. How the app reads this data

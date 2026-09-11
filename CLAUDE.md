@@ -323,10 +323,19 @@ color per topic (a client-side hash + lookup table, `TOPIC_PALETTE`/
 `TOPIC_ICONS` in `index.html`, not a `Topic` schema change). Verified
 this time by actually running it locally and having the owner look at
 it in a browser — the first real UI verification loop this project has
-had, not just a markup/CSS-source read. Full rationale, every exact
-token value (before both the initial swap and the darker/punchier
-follow-up tune), and the component-level fixes beyond simple recolors:
-DATA_MODEL.md §8, items 62-63.
+had, not just a markup/CSS-source read. Two more follow-ups landed the
+same day: a search bar on Topics (mirroring People's own search
+pattern exactly), and topic detail pages themed in that topic's own
+color — done by locally overriding which color the existing "gold"
+accent role points to for that one screen, so every component that
+already reads `--gold`/`--gold-deep`/`--gold-wash` (verse-card refs,
+the practice button, related-topic tags) picks it up for free, with
+zero changes to any shared component. `Mastered`/`Due today` tags on
+the same verse cards deliberately keep their normal sage/tan color —
+re-theming those into the topic's color would blend away meaning the
+three-role accent system (§29) still relies on. Full rationale, every
+exact token value across all three passes, and the component-level
+fixes beyond simple recolors: DATA_MODEL.md §8, items 62-64.
 
 ## Known gaps / not-yet-built (in likely priority order)
 
