@@ -5,39 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rooted — Scripture Memory</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#F8F5EE">
+<meta name="theme-color" content="#08090B">
 <link rel="apple-touch-icon" href="icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
   :root{
-    /* v2 visual system (2026-09-09) — surface elevation over hard outlines,
-       one unified accent palette (gold/sage/tan), replacing the flat
-       border-heavy v1 look. See DATA_MODEL.md §29 for the full rationale. */
-    --paper:#F3EFE6;
-    --paper-raised:#FFFFFF;
-    --surface-sunken:#F1ECE1;
-    --ink:#2C221E;
-    --ink-soft:#756B63;
-    --ink-faint:#A79C8E;
-    --line:rgba(44,34,30,.08);
-    --gold:#D49E35;
-    --gold-deep:#8A5F13;
-    --gold-wash:#F6E7C4;
-    --sage:#2E7D32;
-    --sage-deep:#2E7D32;
-    --sage-wash:#E8F5E9;
-    --tan-deep:#8C7357;
-    --tan-wash:#F1E9DA;
-    --danger:#B3492F;
-    --shadow-card:0 4px 16px rgba(44,34,30,.05);
-    --shadow-hero:0 14px 40px rgba(44,34,30,.08);
-    --shadow-nav:0 10px 30px rgba(44,34,30,.12);
-    --shadow-pop:0 2px 8px rgba(44,34,30,.06);
+    /* v3 visual system (2026-09-10) — modern dark theme, inspired by (not
+       copied from) YouVersion: a near-black ground so accent colors and
+       card surfaces pop, replacing the v2 warm cream/storybook look
+       entirely (full swap, no light/dark toggle — see DATA_MODEL.md for
+       the rationale). Same token names as v2 so every component below
+       inherited the new look for free; only the values changed. */
+    --paper:#08090B;
+    --paper-raised:#18191D;
+    --surface-sunken:#212227;
+    --ink:#F5F4F1;
+    --ink-soft:#9CA0AA;
+    --ink-faint:#63676F;
+    --line:rgba(255,255,255,.09);
+    --gold:#F5AC1F;
+    --gold-deep:#FFCE5C;
+    --gold-wash:rgba(245,172,31,.18);
+    --sage:#1FE07F;
+    --sage-deep:#79F3AE;
+    --sage-wash:rgba(31,224,127,.16);
+    --tan-deep:#9FB0C3;
+    --tan-wash:rgba(159,176,195,.14);
+    --danger:#FF5C43;
+    --danger-wash:rgba(255,92,67,.16);
+    --shadow-card:0 4px 16px rgba(0,0,0,.4);
+    --shadow-hero:0 14px 40px rgba(0,0,0,.45);
+    --shadow-nav:0 10px 30px rgba(0,0,0,.5);
+    --shadow-pop:0 2px 8px rgba(0,0,0,.35);
     --radius-card:20px;
     --radius-ctl:12px;
   }
@@ -51,7 +55,7 @@
     min-height:100vh;
     padding-bottom:120px !important;
   }
-  h1,h2,h3,.headline{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);margin:0;}
+  h1,h2,h3,.headline{font-family:'Inter',sans-serif;font-weight:700;color:var(--ink);margin:0;letter-spacing:-.01em;}
   h1{font-size:26px;}
   h2{font-size:20px;}
   h3{font-size:16px;}
@@ -62,12 +66,13 @@
   .topbar .brand{display:flex;align-items:center;gap:8px;}
   .topbar .brand i{font-size:22px;color:var(--gold-deep);}
   .stat-row{display:flex;gap:10px;margin-bottom:20px;}
-  .stat-card{flex:1;background:var(--paper-raised);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:14px;}
-  .stat-card .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;}
+  .stat-card{flex:1;background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:14px;}
+  .stat-card .num{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.01em;}
   .stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:2px;}
   .section-label{font-size:13px;color:var(--ink-soft);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between;}
   .card{
     background:var(--paper-raised);
+    border:1px solid rgba(255,255,255,.06);
     border-radius:var(--radius-card);
     box-shadow:var(--shadow-card);
     padding:16px;
@@ -76,7 +81,7 @@
   .card.tap{cursor:pointer;transition:box-shadow .15s ease;}
   .card.tap:active{box-shadow:0 2px 10px rgba(44,34,30,.08);}
   .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
-  .verse-card .text{font-family:'Fraunces',serif;font-size:17px;line-height:1.5;color:var(--ink);}
+  .verse-card .text{font-family:'Inter',sans-serif;font-weight:500;font-size:16px;line-height:1.55;color:var(--ink);}
   .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
   /* Unified badge system (rule 3): gold = primary action / urgency, sage =
      progress / mastery, tan = plain metadata. Replaces the old single
@@ -103,7 +108,7 @@
     align-items:center;
     gap:6px;
   }
-  .btn.primary{background:var(--gold);color:#3A2400;box-shadow:0 6px 16px rgba(212,158,53,.32);}
+  .btn.primary{background:var(--gold);color:#241900;box-shadow:0 6px 16px rgba(245,172,31,.3);}
   .btn.primary:active{background:var(--gold-deep);}
   .btn.ghost{background:transparent;color:var(--ink-soft);}
   .btn.block{width:100%;justify-content:center;padding:13px;}
@@ -123,15 +128,16 @@
     font-family:'Inter',sans-serif;
     color:var(--ink);
   }
-  textarea{min-height:80px;resize:vertical;font-family:'Fraunces',serif;font-size:16px;line-height:1.5;}
+  textarea{min-height:80px;resize:vertical;font-family:'Inter',sans-serif;font-size:15px;line-height:1.5;}
   input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
 
   /* nav — floating frosted overlay, lifted off the edge (rule 6) */
   .navbar{
     position:fixed;left:16px;right:16px;bottom:16px;
     max-width:448px;margin:0 auto;
-    background:rgba(255,255,255,.88);
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    background:rgba(20,21,25,.9);
+    border:1px solid rgba(255,255,255,.06);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
     border-radius:22px;
     box-shadow:var(--shadow-nav);
     display:flex;
@@ -169,10 +175,21 @@
   .list-row .meta{font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
   .list-row .chev{margin-left:auto;color:var(--ink-faint);flex-shrink:0;}
 
+  /* topics grid — colorful per-topic cards (v3, YouVersion-inspired) */
+  .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+  .topic-card{
+    position:relative;overflow:hidden;border:none;text-align:left;
+    border-radius:var(--radius-card);padding:14px;min-height:104px;
+    display:flex;flex-direction:column;justify-content:flex-end;color:#fff;
+  }
+  .topic-card .topic-card-icon{position:absolute;top:10px;right:10px;font-size:38px;opacity:.35;color:#fff;}
+  .topic-card .name{font-weight:700;font-size:14.5px;line-height:1.25;position:relative;}
+  .topic-card .meta{font-size:11.5px;opacity:.78;margin-top:2px;position:relative;}
+
   /* hero header (rule 5) — character/story detail, replacing the old
      screen-head + cramped 56px-avatar card. */
-  .hero{background:var(--paper-raised);border-radius:var(--radius-card);box-shadow:var(--shadow-hero);padding:30px 22px 24px;text-align:center;margin-bottom:22px;}
-  .hero-avatar{width:76px;height:76px;border-radius:20px;background:#EFE9DC;color:var(--tan-deep);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:30px;}
+  .hero{background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-hero);padding:30px 22px 24px;text-align:center;margin-bottom:22px;}
+  .hero-avatar{width:76px;height:76px;border-radius:20px;background:var(--tan-wash);color:var(--tan-deep);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:30px;}
   .hero h1{font-size:2rem;font-weight:700;margin:12px 0 8px;}
   .hero .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
   .hero .era{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:5px;justify-content:center;margin-bottom:14px;}
@@ -180,7 +197,7 @@
 
   /* practice */
   .practice-verse{
-    font-family:'Fraunces',serif;font-size:19px;line-height:1.65;color:var(--ink);
+    font-family:'Inter',sans-serif;font-weight:500;font-size:18px;line-height:1.6;color:var(--ink);
   }
   .blank{
     display:inline-block;
@@ -189,7 +206,7 @@
     padding:0 2px;
   }
   .blank input{
-    border:none;background:transparent;font-family:'Fraunces',serif;font-size:19px;
+    border:none;background:transparent;font-family:'Inter',sans-serif;font-weight:600;font-size:18px;
     width:100%;padding:0;color:var(--gold-deep);text-align:center;outline:none;
   }
   .blank.correct{border-color:var(--sage);}
@@ -202,24 +219,24 @@
     display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius-ctl);margin-bottom:16px;font-size:14px;
   }
   .result-banner.good{background:var(--sage-wash);color:var(--sage-deep);}
-  .result-banner.bad{background:#F6E4DD;color:var(--danger);}
+  .result-banner.bad{background:var(--danger-wash);color:var(--danger);}
 
   /* scramble challenge */
   .chip{
-    display:inline-block;font-family:'Fraunces',serif;font-size:16px;line-height:1.2;
+    display:inline-block;font-family:'Inter',sans-serif;font-weight:500;font-size:15px;line-height:1.2;
     padding:7px 13px;border:1px solid transparent;border-radius:100px;
     background:var(--surface-sunken);color:var(--ink);
   }
   .chip.picked{background:var(--gold-wash);border-color:var(--gold);color:var(--gold-deep);}
   .chip.chip-correct{background:var(--sage-wash);border-color:var(--sage);color:var(--sage-deep);}
-  .chip.chip-wrong{background:#F6E4DD;border-color:var(--danger);color:var(--danger);}
+  .chip.chip-wrong{background:var(--danger-wash);border-color:var(--danger);color:var(--danger);}
   .scramble-build{
     min-height:46px;padding:9px 10px;margin-bottom:12px;
     background:var(--surface-sunken);border-radius:var(--radius-ctl);
     line-height:2.4;
   }
   .scramble-pool{line-height:2.6;}
-  .scramble-fixed{color:var(--ink-soft);font-family:'Fraunces',serif;font-size:16px;margin:6px 0;}
+  .scramble-fixed{color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:500;font-size:15px;margin:6px 0;}
   .scramble-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
 
   /* segmented control (practice mode picker) */
@@ -240,7 +257,7 @@
   }
   .tl-item.tap{cursor:pointer;}
   .tl-item.tap:active .tl-title{color:var(--gold-deep);}
-  .tl-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink);line-height:1.35;}
+  .tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.35;}
   .tl-ref{font-size:11px;color:var(--gold-deep);font-weight:600;margin-top:2px;letter-spacing:.02em;}
   .tl-age{color:var(--ink-faint);font-weight:400;}
   .tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.5;margin-top:5px;}
@@ -254,7 +271,7 @@
   .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;}
   .chapter-cell{
     background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);
-    padding:12px 4px;font-family:'Fraunces',serif;font-size:16px;color:var(--ink);
+    padding:12px 4px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--ink);
   }
   .chapter-cell:active{border-color:var(--gold);}
   .result-count{font-size:12px;color:var(--ink-faint);margin-bottom:10px;}
@@ -263,7 +280,7 @@
 
   /* header w/ back */
   .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
-  .back-btn{width:36px;height:36px;border-radius:10px;border:none;background:var(--paper-raised);box-shadow:var(--shadow-pop);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .back-btn{width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:var(--paper-raised);box-shadow:var(--shadow-pop);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--ink);}
   .err{color:var(--danger);font-size:13px;margin-top:6px;}
   .field-hint{font-size:12px;color:var(--ink-faint);margin-top:4px;}
 
@@ -271,10 +288,10 @@
      A springy press-down on every tappable surface — buttons, practice
      chips, nav items, tappable cards/rows, chapter cells. One shared rule
      rather than touching each component's own block. */
-  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn{
+  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card{
     transition: transform .15s cubic-bezier(.34,1.56,.64,1);
   }
-  .btn:active, .chip:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active{
+  .btn:active, .chip:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active, .topic-card:active{
     transform: scale(.96);
   }
   /* Scramble chips "pop" in on every render (pick/unpick/re-render) — a
@@ -291,7 +308,7 @@
   .goal-ring .ring-track{stroke:var(--surface-sunken);}
   .goal-ring .ring-fill{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.34,1.56,.64,1);}
   .goal-ring .ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .goal-ring .ring-label .num{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--ink);}
+  .goal-ring .ring-label .num{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
   .goal-ring .ring-label .of{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
 
   /* ---------- session-complete celebration ---------- */
@@ -308,14 +325,14 @@
   .spark{position:absolute;top:50%;left:50%;width:var(--size);height:var(--size);background:var(--spark-color,var(--gold));border-radius:50%;animation:spark .7s ease-out both;}
   .complete-stats{display:flex;gap:10px;justify-content:center;margin-top:18px;}
   .complete-stat{background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:14px 20px;min-width:96px;opacity:0;animation:statIn .4s ease-out both;}
-  .complete-stat .num{font-family:'Fraunces',serif;font-size:22px;font-weight:600;}
+  .complete-stat .num{font-family:'Inter',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.01em;}
   .complete-stat .lbl{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 
   /* Respect a real accessibility signal over the fun — every animation
      above is decorative, none of it gates functionality, so disabling it
      costs nothing. */
   @media (prefers-reduced-motion: reduce){
-    .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn,
+    .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
     .complete-card, .complete-icon, .spark, .complete-stat, .goal-ring .ring-fill{
       animation: none !important;
       transition: none !important;
@@ -1286,15 +1303,50 @@ function renderVerseDetail(id){
 }
 
 /* ---------- TOPICS ---------- */
+// Colorful per-topic cards (v3, YouVersion-inspired) — a rotating palette of
+// dusty, saturated tones assigned deterministically per topic id (a simple
+// hash, not array index, so visual variety doesn't line up with data order),
+// plus a hand-picked icon per topic where one made sense. This is presentation
+// only, not a data-model change (Design philosophy #2 reserves `metadata` for
+// speculative *content* fields — a color/icon lookup for the current UI
+// belongs in the client, same as every other hardcoded icon in this file).
+const TOPIC_PALETTE = [
+  '#1786AD', '#D6237D', '#B39418', '#B5622E', '#5F8A16', '#0FA35C',
+  '#D6A400', '#8A5A2E', '#3348C4', '#C43A18', '#1E93B8', '#A3238E',
+];
+const TOPIC_ICONS = {
+  topic_betrayal:'ti-heart-broken', topic_blessing:'ti-gift', topic_calling:'ti-flag',
+  topic_covenant:'ti-link', topic_creation:'ti-sun', topic_faith:'ti-anchor',
+  topic_faithfulness:'ti-shield-check', topic_fear:'ti-alert-triangle',
+  topic_forgiveness:'ti-heart-handshake', topic_guidance:'ti-compass',
+  topic_humility:'ti-feather', topic_identity:'ti-fingerprint', topic_justice:'ti-scale',
+  topic_peace:'ti-cloud', topic_presence:'ti-map-pin', topic_provision:'ti-basket',
+  topic_refuge:'ti-home', topic_repentance:'ti-arrow-back-up', topic_scripture:'ti-book',
+  topic_sorrow:'ti-droplet', topic_strength:'ti-bolt', topic_temptation:'ti-apple',
+  topic_thanksgiving:'ti-confetti', topic_trust:'ti-shield', topic_waiting:'ti-hourglass',
+  topic_wisdom:'ti-bulb', topic_worship:'ti-music', topic_deliverance:'ti-door-exit',
+  topic_loyalty:'ti-users', topic_holiness:'ti-star', topic_love:'ti-heart',
+  topic_obedience:'ti-check', topic_idolatry:'ti-crown', topic_prayer:'ti-message-2',
+  topic_seeking_god:'ti-search', topic_anger:'ti-flame', topic_friendship:'ti-users-group',
+  topic_speech:'ti-message-circle',
+};
+function topicColor(id){
+  let h = 0;
+  for(let i=0;i<id.length;i++) h = (h*31 + id.charCodeAt(i)) >>> 0;
+  return TOPIC_PALETTE[h % TOPIC_PALETTE.length];
+}
+function topicIcon(id){ return TOPIC_ICONS[id] || 'ti-sparkles'; }
 function renderTopics(){
   return `
     <div class="topbar"><h1>Topics</h1></div>
-    ${data.topics.length ? data.topics.map(t=>`
-      <div class="list-row tap" data-action="open-topic" data-id="${t.id}">
-        <div class="list-avatar"><i class="ti ti-tags"></i></div>
-        <div><div class="name">${esc(t.name)}</div><div class="meta">${esc(t.description || `${topicVerseCount(t.id)} verse${topicVerseCount(t.id)===1?'':'s'}`)}</div></div>
-        <i class="ti ti-chevron-right chev"></i>
-      </div>`).join('') : `<div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`}
+    ${data.topics.length ? `<div class="topic-grid">${data.topics.map(t=>{
+      const vc = topicVerseCount(t.id);
+      return `<div class="topic-card tap" data-action="open-topic" data-id="${t.id}" style="background:${topicColor(t.id)};">
+        <i class="ti ${topicIcon(t.id)} topic-card-icon"></i>
+        <div class="name">${esc(t.name)}</div>
+        <div class="meta">${vc} verse${vc===1?'':'s'}</div>
+      </div>`;
+    }).join('')}</div>` : `<div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`}
   `;
 }
 function renderTopicDetail(id){

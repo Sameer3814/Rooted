@@ -263,29 +263,70 @@ the "what."
 
 ## Visual direction — decided, don't relitigate without asking
 
-Style: **warm storybook.** Rounded cards, warm gold/sage/tan accent
-palette on a cream background, Fraunces (serif) for verse text and
-headings, Inter (sans) for UI text, Tabler icon font for
-placeholder "portraits" until real character illustrations exist.
-Two other directions (minimal/modern, rich/classical) were shown and
-explicitly rejected in favor of this one.
+**Superseded 2026-09-10 — see v3 below.** The original style, kept here
+for history: **warm storybook** — rounded cards, warm gold/sage/tan
+accent palette on a cream background, Fraunces (serif) for verse text
+and headings, Inter (sans) for UI text, Tabler icon font for
+placeholder "portraits" until real character illustrations exist. Two
+other directions (minimal/modern, rich/classical) were shown and
+explicitly rejected in favor of this one, back when the app was first
+being designed.
 
 **Visual system v2 — done (2026-09-09), refined same day (v2.1).** The
-direction above is unchanged; this was an execution pass, not a
-redirection, in response to "doesn't look like a polished app in the
+warm-storybook direction was unchanged; this was an execution pass, not
+a redirection, in response to "doesn't look like a polished app in the
 market... looks basic." Surface elevation replaced hard 1px borders
 (soft `box-shadow`, pure-white card fills on a warm linen `#F3EFE6`
 ground — deepened once more in the v2.1 follow-up), the accent palette
 collapsed from four colors to three clear roles (gold = action/urgency,
-sage = progress/mastery, tan = plain metadata — **plum is retired**, not
-recolored), book/people/**topics** lists became borderless
-hairline-divided rows instead of full cards, character and story detail
-pages open on a real hero header instead of a cramped 56px icon box, and
-the bottom nav now floats as a frosted, rounded overlay instead of a
-flush bottom bar (its `padding-bottom` clearance was under-sized in v2
-and clipped content on a real device — fixed in v2.1). Full rationale,
-every token's exact value, and which call sites changed: see
-DATA_MODEL.md §29.
+sage = progress/mastery, tan = plain metadata — plum retired, not
+recolored), book/people/topics lists became borderless hairline-divided
+rows instead of full cards, character and story detail pages opened on
+a real hero header instead of a cramped 56px icon box, and the bottom
+nav floated as a frosted, rounded overlay instead of a flush bottom bar.
+Full rationale and every token's v2 value: DATA_MODEL.md §29.
+
+**Visual system v3 — modern dark theme, done (2026-09-10).** Direct
+owner request after the whole Bible was curated: a dark background
+"like the YouVersion app" — inspired by it, not a copy — meant as a
+first pass to spark further design ideas, with more design work planned
+later. **Full swap, not a toggle** (the whole app is dark now, no
+light/dark setting), and **Fraunces is dropped entirely** — the owner
+chose an all-sans look over keeping the serif for verse text, so
+Inter now carries everything, headings and stat numbers using weight
+(700/800) and tightened letter-spacing for hierarchy instead of a
+serif/sans contrast. Because every color already ran through the same
+~15 CSS custom properties (v2's own design), the swap was almost
+entirely new `:root` values, not new markup: `--paper` (page) → near-
+true-black `#08090B`, `--paper-raised` (cards) → `#18191D`, `--ink` →
+soft white `#F5F4F1`, and the gold/sage/tan accent triad re-picked (not
+just inverted) for dark-background contrast and pushed more saturated
+after an owner "darker and punchier" pass — gold `#F5AC1F`, green
+`#1FE07F`, tan shifted from a light-mode brown to a cooler blue-gray
+`#9FB0C3` since brown reads muddy on near-black. Wash tokens
+(chip/badge backgrounds) changed shape too — solid light pastel hex →
+low-alpha `rgba()` tints, since a solid pastel chip looks like a mistake
+on a dark page. Cards/hero/stat-cards/back-btn each gained a subtle
+`1px` hairline border alongside their box-shadow, since shadow alone
+stops reading as elevation once the page itself is already dark. `icon.
+png` is now visually mismatched against the new dark chrome — a known
+gap, out of scope for this CSS-only pass.
+
+**Topics screen → colorful card grid, done (2026-09-10).** Same v3
+effort, next round: the owner shared an actual YouVersion screenshot
+(its Discover tab) and asked what to borrow from it. Of five things
+named (true-black ground, per-topic color coding, a neutral active-nav
+pill, a home quick-action tile row, bold type), the owner picked the
+colorful per-topic grid to build now — Topics went from plain rows to
+a 2-column grid of solid-colored cards, one hand-picked icon and one
+color per topic (a client-side hash + lookup table, `TOPIC_PALETTE`/
+`TOPIC_ICONS` in `index.html`, not a `Topic` schema change). Verified
+this time by actually running it locally and having the owner look at
+it in a browser — the first real UI verification loop this project has
+had, not just a markup/CSS-source read. Full rationale, every exact
+token value (before both the initial swap and the darker/punchier
+follow-up tune), and the component-level fixes beyond simple recolors:
+DATA_MODEL.md §8, items 62-63.
 
 ## Known gaps / not-yet-built (in likely priority order)
 
@@ -303,8 +344,10 @@ hand-curate all the content before building.
    Next: reference↔text matching (`challenge_reference_match`, next Tier 1
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
-2. Real character portrait illustrations in the warm-storybook style
-   (currently icon placeholders); `Media` entity designed, not built.
+2. Real character portrait illustrations (currently icon placeholders);
+   `Media` entity designed, not built. Style direction needs revisiting
+   now that the app moved to the v3 dark theme (see "Visual direction")
+   — the old brief called for the warm-storybook style specifically.
 3. ~~**Expanding beyond Genesis to other OT books, in canonical
    order.**~~ **Done — the entire Old Testament is curated
    (2026-09-10).** Owner's direction, 2026-09-04: work through the rest

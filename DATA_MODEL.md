@@ -2300,6 +2300,152 @@ inventing a new principle:
     the Lord Jesus Christ be with all the saints. Amen" (Revelation
     22:21).
 
+62. **Visual system v3 — modern dark theme, YouVersion-inspired.**
+    **Done (2026-09-10).** With the entire Bible now curated, the owner
+    wants to push on the visual side next: a dark background "like the
+    YouVersion app," inspired by it but not copied, as a first pass
+    meant to spark further design ideas rather than a final answer (more
+    design work is planned "at the end"). Two decisions up front,
+    confirmed with the owner before touching code: (1) **full swap**,
+    not a light/dark toggle — the whole app moves to the new look, no
+    `prefers-color-scheme` branching or per-user setting (a toggle can
+    be added later if the owner wants both); (2) **drop Fraunces
+    entirely** — the owner chose "go full sans" over keeping the serif
+    for verse text, so the warm-storybook pairing (Fraunces headings/
+    verse text + Inter UI text) established since the project's start is
+    retired in favor of one typeface, Inter, throughout (headings and
+    stat numbers now lean on weight — 700/800 — and slightly tightened
+    letter-spacing for hierarchy, since a serif/sans contrast is no
+    longer available to do that job).
+
+    Every color in the app already ran through the same ~15 CSS custom
+    properties (`--paper`, `--paper-raised`, `--surface-sunken`, `--ink`
+    family, `--gold`/`--sage`/`--tan` accent triads, `--danger`) since
+    v2's own design (§29) — a deliberate token system, not per-component
+    hardcoding — so the theme swap is almost entirely a `:root` value
+    change, not a rewrite: `--paper` (page bg) `#F3EFE6` → `#121316`
+    (near-black), `--paper-raised` (card surface) `#FFFFFF` → `#1C1F24`,
+    `--surface-sunken` (inputs/chips/segmented track) → `#24272E`,
+    `--ink` → `#F1F0ED` (soft white, not pure), `--ink-soft`/`--ink-faint`
+    lightened proportionally, `--line` → `rgba(255,255,255,.08)`. The
+    three-role accent system from §29 stayed conceptually intact (gold =
+    action/urgency, sage = progress/mastery, tan = metadata) but every
+    value was re-picked for dark-background contrast rather than just
+    inverted — brighter, more saturated gold (`#F2B33D`) and green
+    (`#33D881`) so they actually pop the way the owner's brief asked for,
+    tan shifted from a light-mode brown (`#8C7357`) to a cooler blue-gray
+    (`#9FB0C3`) since brown reads muddy on near-black. The wash tokens
+    (`--gold-wash` etc.) changed shape, not just color — solid pastel
+    hex in light mode → low-alpha `rgba()` overlays in dark mode, since a
+    solid light pastel chip would look like a mistake on a dark page; a
+    translucent tint reads as a deliberate "highlighted tile" instead,
+    which is also why avatar-placeholder fills (`.avatar`,
+    `.list-avatar`, `.hero-avatar`) still use the same `--tan-wash`
+    token and didn't need a separate one. Added one new token,
+    `--danger-wash` (`rgba(255,107,87,.14)`), replacing two copies of a
+    hardcoded `#F6E4DD` that had never been promoted to a variable in
+    v2 — same wrong-error-color-in-two-places-instead-of-shared-token
+    pattern the v2 pass caught and fixed for `.tag.plum`, caught again
+    here on a smaller scale.
+
+    Three real component fixes beyond a pure token swap, all reasoned
+    from how dark UIs actually differ from light ones, not guessed at
+    blind: (1) **box-shadow alone stops reading as elevation on a dark
+    page** — a dark shadow over an already-dark background barely
+    renders, so `.card`, `.stat-card`, `.hero`, and `.back-btn` each
+    gained a `1px solid rgba(255,255,255,.06)` border alongside their
+    existing shadow, a standard dark-UI technique to keep a raised
+    surface visually distinct from the page behind it. (2) the floating
+    frosted nav's glass tint (`rgba(255,255,255,.88)`, a light frost)
+    became a dark frost (`rgba(28,31,36,.88)`) plus the same subtle
+    border, rather than just changing opacity on the old light value.
+    (3) `.btn.primary`'s dark-brown-on-gold text color and shadow tint
+    were re-picked to match the new gold hue rather than left pointing
+    at the old one. `meta[name=theme-color]` and `manifest.json`'s
+    `background_color`/`theme_color` both updated to `#121316` so the
+    OS chrome (status bar, task-switcher card, splash screen) matches
+    instead of flashing the old cream color on load — a detail that's
+    easy to miss since it's invisible until you actually install the
+    PWA or background-switch away from it.
+
+    Deliberately **not** touched this pass: the nav's actual tab
+    arrangement/icons (Home, Browse, Topics, People, Add) — the owner
+    asked for the dark *look*, not new information architecture, and
+    said more design work (including layout/IA ideas inspired by
+    YouVersion's tab arrangement) is coming later once this first pass
+    has been seen and reacted to; `icon.png` (still the placeholder
+    noted since the project's start, now visually mismatched against
+    the new dark chrome — a real known gap, not forgotten, just out of
+    scope for a CSS-only pass); no automated visual regression check —
+    this is a CSS/token change with no new markup shapes to assert
+    against the way v2's `.list-row`/`.hero` presence could be, so
+    verification here was a manual render check plus a full re-read of
+    every hardcoded hex in the file to confirm nothing was missed (found
+    and fixed three: `.hero-avatar`'s literal `#EFE9DC` fill and two
+    copies of `#F6E4DD` on the danger/wrong states, folded into the new
+    `--tan-wash`/`--danger-wash` tokens respectively). Verified by
+    actually running the app locally (`py -m http.server`) and having
+    the owner look at it in a browser, not just a markup/CSS-source
+    read — the first real UI verification loop this project has had,
+    now that a local-preview step exists to close it.
+
+63. **Topics screen → colorful per-topic card grid, then a darker/
+    punchier follow-up tune.** **Done (2026-09-10).** Two owner-driven
+    iterations on top of v3 (item 62), both against a real YouVersion
+    screenshot the owner shared (its Discover tab: a 2-column grid of
+    solid-colored, per-topic cards on true black). Asked directly what
+    stood out and how to adapt it (not copy it) for a topic-practice
+    app rather than a content-discovery one — five things named:
+    near-true-black ground, per-topic color coding, a neutral gray
+    active-nav pill instead of a colored one, a home quick-action tile
+    row, and bold high-contrast type (already covered by v3's Inter
+    move). Owner picked the colorful-topics-grid as the one worth
+    building now; the nav-pill and quick-action-tile ideas are noted
+    but not built.
+
+    **The grid.** `renderTopics()` (`index.html`) went from plain
+    `.list-row` rows to a `.topic-grid` of `.topic-card`s — 2-column
+    CSS grid, each card a solid color with a large, low-opacity Tabler
+    icon inset top-right and the topic name + verse count anchored
+    bottom-left, deliberately following the reference's photo-inset
+    card composition without photos (no topic artwork exists yet).
+    Two new client-only lookups, `TOPIC_PALETTE` (12 colors) and
+    `TOPIC_ICONS` (one hand-picked icon per topic, keyed by id, falling
+    back to a generic sparkle icon for any topic added later without an
+    explicit entry), plus `topicColor(id)` — a simple string hash mod
+    palette length, not array index, so a topic's color is stable
+    across sessions but doesn't correlate with topic list order (two
+    adjacent topics in the data shouldn't predictably land on adjacent
+    colors). This is deliberately **client-side presentation only**, no
+    `Topic` schema change — Design philosophy #2 reserves `metadata` for
+    speculative *content* fields, and a color/icon-for-the-current-UI
+    lookup is exactly the kind of thing that belongs in code instead
+    (same reasoning as every other hardcoded icon already in this
+    file). `.topic-card` was wired into the existing shared press-
+    feedback rule and `prefers-reduced-motion` override alongside every
+    other tappable surface, not given its own copy of that logic.
+
+    **The tune.** After seeing the grid rendered, direct feedback: the
+    background should go darker and the colors punchier. `--paper`
+    `#121316` → `#08090B` (near-true-black, closer to the reference),
+    `--paper-raised`/`--surface-sunken` deepened proportionally so the
+    page/card/input elevation steps stayed visually distinct rather
+    than collapsing into each other at the new darker baseline;
+    `--gold`/`--sage` both re-saturated brighter for more pop
+    (`#F2B33D`→`#F5AC1F`, `#33D881`→`#1FE07F`), `--danger` nudged too;
+    the entire `TOPIC_PALETTE` re-picked more vivid at the same 12 hues
+    (e.g. `#2E6F82`→`#1786AD`) rather than just brightened uniformly, to
+    keep the per-hue character while adding punch; topic-card icon
+    opacity `.28`→`.35` for a touch more presence. Every place a color
+    value had been hardcoded elsewhere in the file rather than routed
+    through its token (`.btn.primary`'s shadow tint, the navbar's frost
+    tint, `meta[theme-color]`, `manifest.json`) was hunted down and
+    updated to match, rather than left pointing at the pre-tune values
+    — the same discipline item 62 established for the initial swap,
+    reapplied here so a second pass doesn't reintroduce the exact kind
+    of drift v2 already had to clean up once (`.tag.plum`, `#F6E4DD`
+    duplicated twice).
+
 ---
 
 ## 9. How the app reads this data

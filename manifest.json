@@ -4,8 +4,8 @@
   "description": "Memorize scripture through fun, quick challenges — by topic, by person, by story.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F8F5EE",
-  "theme_color": "#F8F5EE",
+  "background_color": "#08090B",
+  "theme_color": "#08090B",
   "orientation": "portrait",
   "icons": [
     { "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
