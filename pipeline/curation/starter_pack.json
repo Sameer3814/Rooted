@@ -10804,6 +10804,198 @@
       "characterIds": [
         "char_john_apostle"
       ]
+    },
+    {
+      "id": "verse_2samuel_2_18",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_abishai"
+      ]
+    },
+    {
+      "id": "verse_2samuel_2_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_abner",
+        "char_asahel"
+      ]
+    },
+    {
+      "id": "verse_2samuel_3_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_abner"
+      ]
+    },
+    {
+      "id": "verse_2samuel_3_27",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_abner"
+      ]
+    },
+    {
+      "id": "verse_2samuel_3_33",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_abner"
+      ]
+    },
+    {
+      "id": "verse_2samuel_3_38",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_abner"
+      ]
+    },
+    {
+      "id": "verse_2samuel_3_39",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2samuel_15_19",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_ittai"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_21",
+      "topicIds": [
+        "topic_loyalty",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_ittai"
+      ]
+    },
+    {
+      "id": "verse_2samuel_15_31",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_ahithophel"
+      ]
+    },
+    {
+      "id": "verse_2samuel_16_23",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_ahithophel"
+      ]
+    },
+    {
+      "id": "verse_2samuel_17_14",
+      "topicIds": [
+        "topic_wisdom",
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_ahithophel",
+        "char_hushai"
+      ]
+    },
+    {
+      "id": "verse_2samuel_17_23",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_ahithophel"
+      ]
+    },
+    {
+      "id": "verse_2samuel_16_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_shimei"
+      ]
+    },
+    {
+      "id": "verse_2samuel_16_9",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_abishai",
+        "char_shimei"
+      ]
+    },
+    {
+      "id": "verse_2samuel_16_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_2samuel_19_23",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_shimei"
+      ]
+    },
+    {
+      "id": "verse_2samuel_19_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_amasa"
+      ]
+    },
+    {
+      "id": "verse_2samuel_20_1",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_sheba"
+      ]
+    },
+    {
+      "id": "verse_2samuel_20_10",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_amasa"
+      ]
+    },
+    {
+      "id": "verse_2samuel_20_16",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_wise_woman_of_abel"
+      ]
+    },
+    {
+      "id": "verse_2samuel_20_22",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_wise_woman_of_abel",
+        "char_sheba"
+      ]
     }
   ],
   "topics": [
@@ -12914,6 +13106,113 @@
       ],
       "eraId": "era_early_church",
       "summary": "A Roman jailer in Philippi who, waking to find the prison doors open after an earthquake, drew his sword to kill himself rather than face the consequences of an escape -- until Paul called out that all the prisoners were still there. He asked what he must do to be saved, and he and his whole household were baptized that same night.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abner",
+      "name": "Abner",
+      "roles": [
+        "Saul's cousin and army commander",
+        "later defects to David"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Commander of Saul's army; keeps Saul's son Ishbosheth on the throne for two years after Saul's death, then breaks with him and offers to bring all Israel over to David -- but is murdered by Joab before it can happen, in revenge for killing Joab's brother Asahel.",
+      "verseIds": []
+    },
+    {
+      "id": "char_asahel",
+      "name": "Asahel",
+      "roles": [
+        "Joab's youngest brother",
+        "swift runner"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The third son of Zeruiah, \"as light of foot as a wild gazelle.\" Pursues Abner in battle and is killed by him -- his death starts the blood feud that ends with Joab murdering Abner.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abishai",
+      "name": "Abishai",
+      "roles": [
+        "Joab's brother",
+        "David's commander"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "One of the three sons of Zeruiah and a recurring army commander alongside his brother Joab -- present when Asahel is killed, wants to kill Shimei for cursing David, and helps put down Sheba's rebellion.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ahithophel",
+      "name": "Ahithophel",
+      "roles": [
+        "David's counselor, then Absalom's"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's trusted counselor -- his advice was regarded \"as if a man inquired at the inner sanctuary of God\" -- who joins Absalom's rebellion. His sound military advice is passed over for Hushai's, and seeing his counsel rejected, he goes home and hangs himself.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hushai",
+      "name": "Hushai",
+      "roles": [
+        "David's friend and counselor",
+        "the Archite"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "David's friend, sent back into Jerusalem at David's own request to pose as Absalom's supporter and undermine Ahithophel's counsel from the inside -- and does, buying David the time he needs.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ittai",
+      "name": "Ittai",
+      "roles": [
+        "the Gittite",
+        "foreign commander loyal to David"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A Philistine commander from Gath, a recent exile in David's service. When David urges him to stay behind rather than share his exile during Absalom's revolt, he refuses: \"in what place my lord the king is, whether for death or for life, your servant will be there also.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_shimei",
+      "name": "Shimei",
+      "roles": [
+        "of Saul's family",
+        "curses David, later pardoned"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A relative of Saul's who curses David and pelts him with stones as he flees Jerusalem during Absalom's revolt, calling him a man of blood. David restrains Abishai from killing him on the spot; when David returns victorious, Shimei begs for mercy and is spared.",
+      "verseIds": []
+    },
+    {
+      "id": "char_amasa",
+      "name": "Amasa",
+      "roles": [
+        "commander, first for Absalom then for David"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Commanded Absalom's rebel army; afterward David appoints him over his own army in place of Joab, as a gesture of reconciliation. Sent to muster troops against Sheba's rebellion, he is treacherously killed by Joab, who never accepted being replaced.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sheba",
+      "name": "Sheba",
+      "roles": [
+        "son of Bichri",
+        "led a rebellion after Absalom's death"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A Benjamite who blows the trumpet and calls Israel away from David (\"we have no portion in David\") in a fresh revolt right on the heels of Absalom's. Pursued to Abel Beth Maacah, where the city's wise woman ends the siege by having him beheaded.",
+      "verseIds": []
+    },
+    {
+      "id": "char_wise_woman_of_abel",
+      "name": "The wise woman of Abel",
+      "roles": [
+        "saved her city through wisdom"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Unnamed but real, like the widow of Zarephath -- when Joab besieges Abel Beth Maacah hunting Sheba, she negotiates with him from the wall, persuades the city to hand over Sheba's head instead of being destroyed, and the siege ends without further bloodshed.",
       "verseIds": []
     }
   ]

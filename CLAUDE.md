@@ -128,29 +128,30 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,339 verses** — the entire Bible, Old and New Testament,
-  is now curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
+  first run: **1,361 verses** — the entire Bible, Old and New Testament,
+  is curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
-  the NT was approached, and DATA_MODEL.md §8 for the full,
+  the NT was approached, item 10 for the "deep study" supporting-cast
+  expansion now underway, and DATA_MODEL.md §8 for the full,
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
-  (topics linked to related topics), plus **161 characters** with real
+  (topics linked to related topics), plus **171 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below). Note:
   fictional figures inside Jesus's parables (the good Samaritan, the
   prodigal son, etc.) do **not** get Character records — only real,
   named/identifiable people do, same as every OT figure.
-- `data/characters.json` — the same 161 characters, standalone. Generated
+- `data/characters.json` — the same 171 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire 66-book
   Bible (31,098 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 1,339 seed
+  from Browse copies it into the user's overlay. Only the 1,361 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 16 eras, **237 stories and 529 life events**,
+- `data/stories.json` — 16 eras, **243 stories and 552 life events**,
   covering the whole Bible (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
@@ -160,7 +161,7 @@ The schema was deliberately designed so all of the above can be added
   occurrences (see DATA_MODEL.md §8 for the newest). Loaded at boot.
   Drives the Patterns screens and the "Pattern" badges on Character,
   Story, and Verse detail pages.
-- `data/connections.json` — 135 generic Connection edges (Design
+- `data/connections.json` — 137 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
@@ -482,6 +483,25 @@ hand-curate all the content before building.
    "Done" changelog below stopped narrating every NT installment in
    full prose partway through, to stay sustainable across what's a
    much larger body of work than the OT already was).
+10. **"Deep study" supporting-cast expansion — started 2026-09-11,
+    owner's direction, right after the whole Bible was first curated.**
+    Every book so far only got its *major* figures and events — the
+    owner wants the app to go deeper: capture the supporting characters
+    who genuinely move a story forward even when they're not headline
+    names (Abner, Ittai, Ahithophel, the wise woman of Abel — not just
+    David, Absalom, Nathan). The bar is narrative importance, not a
+    mention-count threshold — a character who drives a real plot turn
+    qualifies even if the raw name-frequency across the corpus is low.
+    This is explicitly a long-haul, multi-session project, worked the
+    same additive way the whole-Bible curation was: one book or
+    supporting-cast cluster at a time, same pipeline discipline (real
+    WEB text, one-off curation script, all four builders, `--check`,
+    docs, `sw.js` bump). First pass: 2 Samuel's civil-war/rebellion
+    supporting cast (Abner, Asahel, Abishai, Ahithophel, Hushai, Ittai,
+    Shimei, Amasa, Sheba, the wise woman of Abel) — 10 new characters,
+    6 new stories, all inside the existing `era_united_kingdom` era, no
+    new topics needed. See DATA_MODEL.md §8, item 65, for the full
+    writeup and the reasoning behind which figures made the cut.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

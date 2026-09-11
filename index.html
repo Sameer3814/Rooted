@@ -273,6 +273,26 @@
   .tl-age{color:var(--ink-faint);font-weight:400;}
   .tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.5;margin-top:5px;}
 
+  /* timeline drag-order game */
+  .tl-drag-track{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
+  .tl-drag-item{
+    display:flex;align-items:center;gap:10px;
+    background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius-ctl);padding:12px 14px;
+    touch-action:none;-webkit-user-select:none;user-select:none;
+    transition:box-shadow .15s ease,border-color .2s ease,background .2s ease;
+  }
+  .tl-drag-item[data-draggable="1"]{cursor:grab;}
+  .tl-drag-item.dragging{position:relative;z-index:5;box-shadow:var(--shadow-hero);cursor:grabbing;transition:none;}
+  .tl-drag-handle{color:var(--ink-faint);font-size:18px;flex-shrink:0;}
+  .tl-drag-body{flex:1;min-width:0;}
+  .tl-drag-check{color:var(--gold-deep);font-size:18px;flex-shrink:0;}
+  .tl-drag-item.tl-drag-correct{
+    border-color:var(--gold);background:var(--gold-wash);
+    box-shadow:0 0 0 1px var(--gold),0 0 16px var(--gold-shadow);
+  }
+  .tl-drag-item.tl-drag-wrong{border-color:var(--danger);}
+
   /* browse / search */
   .search-wrap{position:relative;margin-bottom:14px;}
   .search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-faint);font-size:18px;}
@@ -821,6 +841,9 @@ let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
 let peopleQuery = '';
 let topicsQuery = '';
+let timelineGame = null;   // { characterId, events, correctIds, order, checked, lockedIds, allCorrect } | null
+const TIMELINE_DIFFICULTIES = { easy: 3, normal: 5, hard: 8 };
+let timelineDifficulty = 'normal';
 const SEARCH_LIMIT = 60;
 let homeLimit = 25;   // Home lists this many verses before "Show all"
 
@@ -991,6 +1014,7 @@ function render(){
   else if(view.screen==='topicDetail') app.innerHTML = renderTopicDetail(view.params.id);
   else if(view.screen==='characters') app.innerHTML = renderCharacters();
   else if(view.screen==='characterDetail') app.innerHTML = renderCharacterDetail(view.params.id);
+  else if(view.screen==='timelineGame') app.innerHTML = renderTimelineGame();
   else if(view.screen==='stories') app.innerHTML = renderStories();
   else if(view.screen==='storyDetail') app.innerHTML = renderStoryDetail(view.params.id);
   else if(view.screen==='motifs') app.innerHTML = renderMotifs();
@@ -1518,6 +1542,7 @@ function renderCharacterDetail(id){
 
     ${timeline.length ? `
       <div class="section-label">Their life <span style="color:var(--ink-faint);">${timeline.length} moments</span></div>
+      ${timeline.length >= 3 ? `<button class="btn block" style="width:100%;margin-bottom:12px;" data-action="start-timeline-game" data-id="${id}"><i class="ti ti-arrows-shuffle"></i> Put their life in order</button>` : ''}
       <div class="timeline">
         ${timeline.map(e=>`
           <div class="tl-item${e.storyId ? ' tap' : ''}"${e.storyId ? ` data-action="open-story" data-id="${e.storyId}"` : ''}>
@@ -1542,6 +1567,183 @@ function renderCharacterDetail(id){
     ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${alsoWith.map(o=>renderCharacterRow(o)).join('')}` : ''}
     ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${sameEra.map(o=>renderCharacterRow(o)).join('')}` : ''}
   `;
+}
+
+/* ---------- TIMELINE GAME ----------
+   A one-off drag-and-drop chronology puzzle over a character's own
+   LifeEvents (`characterTimeline`), not part of the spaced-repetition
+   verse practice loop — there's no "due" schedule for it, no ChallengeType
+   entry, it just reshuffles fresh every time you open it. Up to 5 events
+   are sampled evenly across the character's whole arc (not just the first
+   5) so the puzzle reflects their whole life, not only its opening.
+   Reordering is done by moving real DOM nodes during a pointer drag
+   (see wireTimelineDrag) rather than re-rendering on every pointermove,
+   which would blow away the drag gesture mid-swipe. */
+function buildTimelineGame(charId){
+  const timeline = characterTimeline(charId);
+  const n = TIMELINE_DIFFICULTIES[timelineDifficulty] || 5;
+  let picked;
+  if(timeline.length <= n){
+    picked = timeline;
+  }else{
+    // Split the whole timeline into n roughly-equal segments and pick one
+    // RANDOM event from each (not the fixed midpoint) — so hitting reshuffle
+    // can swap which moments show up, not just their order, while still
+    // spreading across the character's whole life rather than clustering
+    // events from just one part of it.
+    const segSize = timeline.length / n;
+    const idxs = [];
+    for(let i=0;i<n;i++){
+      const segStart = Math.floor(i*segSize);
+      const segEnd = Math.max(segStart+1, Math.floor((i+1)*segSize));
+      idxs.push(Math.min(segStart + Math.floor(Math.random()*(segEnd-segStart)), timeline.length-1));
+    }
+    picked = [...new Set(idxs)].map(i=>timeline[i]);
+  }
+  const correctIds = picked.map(e=>e.id);
+  let order = [...correctIds];
+  if(order.length > 1){
+    do{
+      for(let i=order.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [order[i],order[j]] = [order[j],order[i]];
+      }
+    }while(order.every((id,i)=>id===correctIds[i]));
+  }
+  return { characterId: charId, events: picked, correctIds, order, checked:false, lockedIds: new Set(), allCorrect:false };
+}
+function renderTimelineGame(){
+  const g = timelineGame;
+  if(!g) return renderCharacters();
+  const c = findChar(g.characterId);
+  const byId = {};
+  g.events.forEach(e=>{ byId[e.id] = e; });
+  return `
+    <button class="back-btn" data-action="open-character" data-id="${g.characterId}" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <div class="topbar"><h1>Put their life in order</h1></div>
+    <p style="color:var(--ink-soft);margin-bottom:14px;">Drag ${c ? esc(c.name) : 'these'} moments into the order they actually happened.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
+      <div class="segmented" style="flex:1;margin-bottom:0;">
+        ${Object.keys(TIMELINE_DIFFICULTIES).map(d=>`<button class="${timelineDifficulty===d?'active':''}" data-action="set-timeline-difficulty" data-id="${d}">${d[0].toUpperCase()+d.slice(1)} · ${TIMELINE_DIFFICULTIES[d]}</button>`).join('')}
+      </div>
+      <button class="btn" style="flex-shrink:0;" data-action="reshuffle-timeline-game" data-id="${g.characterId}" title="Reshuffle"><i class="ti ti-refresh"></i></button>
+    </div>
+    <div class="tl-drag-track" id="tl-drag-track">
+      ${g.order.map((id,i)=>{
+        const e = byId[id];
+        const locked = g.lockedIds.has(id);
+        const wrong = g.checked && !locked;
+        const cls = locked ? 'tl-drag-correct' : wrong ? 'tl-drag-wrong' : '';
+        return `<div class="tl-drag-item ${cls}" data-id="${id}"${locked ? '' : ' data-draggable="1"'}>
+          ${locked ? '<i class="ti ti-check tl-drag-check"></i>' : '<span class="tl-drag-handle"><i class="ti ti-grip-vertical"></i></span>'}
+          <div class="tl-drag-body">
+            <div class="tl-title">${esc(e.title)}</div>
+            ${(g.checked || locked) ? `<div class="tl-ref">${esc(e.reference)}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    ${g.allCorrect ? `
+      <div class="result-banner good" style="margin-top:16px;"><i class="ti ti-confetti"></i> That's the right order — nice work!</div>
+      <button class="btn primary block" data-action="open-character" data-id="${g.characterId}">Back to ${c ? esc(c.name) : 'profile'}</button>
+    ` : `
+      <button class="btn primary block" style="margin-top:16px;" data-action="check-timeline-order"><i class="ti ti-check"></i> Check order</button>
+      ${g.checked ? `<button class="btn block" style="margin-top:8px;width:100%;" data-action="reset-timeline-order">Shuffle the rest</button>` : ''}
+    `}
+  `;
+}
+function checkTimelineOrder(){
+  const g = timelineGame;
+  if(!g) return;
+  const track = document.getElementById('tl-drag-track');
+  if(!track) return;
+  const domIds = [...track.querySelectorAll('.tl-drag-item')].map(el=>el.dataset.id);
+  // Reconstruct the logical order rather than trusting raw DOM order:
+  // already-locked ids are forced back to their one true correct index
+  // (g.correctIds.indexOf), and the still-unlocked ids fill whatever
+  // slots are left, in the relative order they appear in the DOM. This is
+  // what makes a locked card immune to index drift — dragging an unlocked
+  // card past it can visually nudge it in the DOM mid-drag, but it always
+  // snaps back to its correct slot here rather than silently being
+  // graded against whatever index it happened to end up at.
+  const unlockedInDomOrder = domIds.filter(id => !g.lockedIds.has(id));
+  let cursor = 0;
+  const newOrder = g.correctIds.map(cid => g.lockedIds.has(cid) ? cid : unlockedInDomOrder[cursor++]);
+  g.order = newOrder;
+  const correctCountBefore = g.lockedIds.size;
+  newOrder.forEach((id,i)=>{ if(id === g.correctIds[i]) g.lockedIds.add(id); });
+  g.checked = true;
+  g.allCorrect = g.lockedIds.size === g.correctIds.length;
+  if(g.allCorrect){ playSfx('complete'); hapticBuzz([20,40,20]); }
+  else if(g.lockedIds.size > correctCountBefore){ playSfx('correct'); hapticBuzz(20); }
+  else{ hapticBuzz(20); }
+  render();
+}
+function resetTimelineOrder(){
+  const g = timelineGame;
+  if(!g) return;
+  // Correctly-placed events from the last check stay locked at their true
+  // index permanently (g.lockedIds persists across attempts); only the
+  // ones still wrong get reshuffled among the remaining slots — a
+  // progressive puzzle, not a full restart every attempt.
+  const wrongIds = g.order.filter(id => !g.lockedIds.has(id));
+  if(wrongIds.length > 1){
+    let shuffled;
+    do{
+      shuffled = [...wrongIds];
+      for(let i=shuffled.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [shuffled[i],shuffled[j]] = [shuffled[j],shuffled[i]];
+      }
+    }while(shuffled.every((id,i)=>id===wrongIds[i]));
+    let cursor = 0;
+    g.order = g.order.map(id => g.lockedIds.has(id) ? id : shuffled[cursor++]);
+  }
+  g.checked = false;
+  render();
+}
+function wireTimelineDrag(){
+  const track = document.getElementById('tl-drag-track');
+  if(!track) return;
+  let dragEl = null;
+  let startY = 0;
+  function onMove(ev){
+    if(!dragEl) return;
+    const dy = ev.clientY - startY;
+    dragEl.style.transform = `translateY(${dy}px)`;
+    const pointerY = ev.clientY;
+    const siblings = [...track.children].filter(el => el !== dragEl && !el.classList.contains('tl-drag-correct'));
+    for(const sib of siblings){
+      const r = sib.getBoundingClientRect();
+      if(pointerY > r.top && pointerY < r.bottom){
+        const dragRect = dragEl.getBoundingClientRect();
+        const goingDown = dragRect.top < r.top;
+        track.insertBefore(dragEl, goingDown ? sib.nextSibling : sib);
+        startY = ev.clientY;
+        dragEl.style.transform = 'translateY(0px)';
+        break;
+      }
+    }
+  }
+  function onUp(){
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+    document.removeEventListener('pointercancel', onUp);
+    if(!dragEl) return;
+    dragEl.style.transform = '';
+    dragEl.classList.remove('dragging');
+    dragEl = null;
+  }
+  track.querySelectorAll('.tl-drag-item[data-draggable="1"]').forEach(item=>{
+    item.addEventListener('pointerdown', e=>{
+      dragEl = item;
+      startY = e.clientY;
+      item.classList.add('dragging');
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+      document.addEventListener('pointercancel', onUp);
+    });
+  });
 }
 
 /* ---------- STORY DETAIL ---------- */
@@ -2139,6 +2341,8 @@ function bindEvents(root){
     clearTimeout(searchTimer);
     searchTimer = setTimeout(refreshTopicsResults, 140);
   });
+
+  wireTimelineDrag();
 }
 function refreshBrowseResults(){
   const results = document.getElementById('browse-results');
@@ -2174,6 +2378,11 @@ function onAction(e){
   else if(action==='back-to-topics') go('topics');
   else if(action==='open-character') go('characterDetail', {id});
   else if(action==='back-to-characters') go('characters');
+  else if(action==='start-timeline-game'){ timelineGame = buildTimelineGame(id); go('timelineGame'); }
+  else if(action==='check-timeline-order') checkTimelineOrder();
+  else if(action==='reset-timeline-order') resetTimelineOrder();
+  else if(action==='set-timeline-difficulty'){ timelineDifficulty = id; timelineGame = buildTimelineGame(timelineGame.characterId); render(); }
+  else if(action==='reshuffle-timeline-game'){ timelineGame = buildTimelineGame(id); render(); }
   else if(action==='open-stories') go('stories');
   else if(action==='open-story') go('storyDetail', {id, from: view});
   else if(action==='story-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('stories'); }

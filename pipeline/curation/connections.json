@@ -1218,6 +1218,24 @@
       "toType": "verse",
       "toId": "verse_habakkuk_3_18",
       "inverse": "has motif"
+    },
+    {
+      "id": "conn_joab_brother_of_abishai",
+      "fromType": "character",
+      "fromId": "char_joab",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_abishai",
+      "symmetric": true
+    },
+    {
+      "id": "conn_joab_brother_of_asahel",
+      "fromType": "character",
+      "fromId": "char_joab",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_asahel",
+      "symmetric": true
     }
   ]
 }

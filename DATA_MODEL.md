@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (161 characters: 17 Genesis, 8 Exodus, 5 Ruth, 2 Leviticus, 4 Numbers, 2 Joshua, 10 Judges, 7 1 Samuel, 9 2 Samuel, 10 1 Kings, 12 2 Kings, 9 Chronicles, 5 Ezra/Nehemiah, 5 Esther, 2 Job, 4 Jeremiah, 1 Ezekiel, 6 Daniel, 6 the Twelve — full Old Testament as of 2026-09-10 — plus New Testament, the Gospels and Acts both complete: 6 for the birth of Jesus, 6 for the start of his ministry, 6 for John's unique material, 2 for the road to Jerusalem, 1 for the Last Supper, 3 for the trials, 4 for the crucifixion and burial, 1 for the resurrection, 2 for the start of Acts, 2 for Stephen and Paul, 1 for Cornelius, 3 for Paul's missionary journeys)
+### Character — *live* (171 characters — full 66-book Bible as of 2026-09-10, plus the first "deep study" supporting-cast slice, 2 Samuel's civil-war/rebellion cast, item 66 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,14 +430,14 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,339 verses + 38 topics + 161 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,361 verses + 38 topics + 171 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 237 stories, 529 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 243 stories, 552 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
-| `data/connections.json` | 135 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
+| `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
 | `window.storage: rooted-content` | user overlay `{ verses, topics, characters }` | **done** — merged over seed by id at load (`mergeContent`); only written once the user adds/edits something |
 | `window.storage: rooted-progress` | map of `verseId → VerseProgress` | **done** — §7 |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,339-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,361-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2493,6 +2493,107 @@ inventing a new principle:
     (translucent-black circle) since the default `.back-btn` styling
     assumes it's sitting on the page background, not on a saturated
     color block.
+
+65. **Timeline builder — a drag-and-drop chronology puzzle over a
+    character's LifeEvents.** **Done (2026-09-10/11).** First of the
+    owner's "make the app feel visually interactive, not just readable"
+    ideas (five were proposed; this one — closest to an already-planned
+    `challenge_story_order` challenge type — was picked to build first).
+    New screen, `timelineGame` (`renderTimelineGame()`), entered from a
+    "Put their life in order" button on Character detail (shown once a
+    character has ≥3 LifeEvents). Deliberately **not** part of the
+    spaced-repetition verse-practice loop or the `CHALLENGE_TYPES`
+    registry — there's no "due" schedule for ordering a life story, it
+    just reshuffles fresh each time. Up to `n` events (3/5/8 for an
+    Easy/Normal/Hard `.segmented` picker, `TIMELINE_DIFFICULTIES`) are
+    sampled from the character's full timeline and shuffled; the user
+    drags them into what they think is the right order via real Pointer
+    Events (no external drag library — moving actual DOM nodes with
+    `insertBefore` during `pointermove`, only reconciling back into
+    state on drop/check, so a re-render never interrupts an in-progress
+    gesture). "Check order" locks correctly-placed cards in an amber
+    glow (`.tl-drag-correct`) with a `navigator.vibrate(20)` pulse per
+    the owner's own spec; "Shuffle the rest" reshuffles only the
+    still-wrong cards among themselves, a progressive puzzle rather
+    than a full restart each attempt; a Reshuffle icon button gives an
+    entirely fresh puzzle at the current difficulty.
+
+    **Two real bugs, both caught by the owner actually using it (the
+    first real UI bug-report loop this project has had, not just a
+    design-taste one) rather than by re-reading the diff:**
+    - **Lock-tracking by array index, not by event id.** The first
+      version marked "slot i is solved" (`g.locked[i] = true`). But
+      dragging an unlocked card past a locked one can shift the locked
+      card's DOM index as a side effect of normal reflow (other cards
+      moving around it) — the "solved" flag stayed pinned to the old
+      index, not to the card, so a *different* card could slide into an
+      already-"solved" slot and get shown as correct while the actually
+      -misplaced card looked wrong. Screenshotted live: 4 cards locked
+      correct + 1 wrong, which is mathematically impossible for a true
+      permutation of 5 unique ids compared position-by-position (a
+      permutation can't have exactly n-1 fixed points) — that
+      impossibility is what proved it was a real bug, not a data
+      surprise. Fixed by switching to `g.lockedIds` (a `Set` of event
+      ids) and reconstructing the board on every check —
+      already-locked ids are forced back to their one true correct
+      index (`g.correctIds.indexOf`), unlocked ids fill the remaining
+      slots in DOM relative order — so a locked card is now structurally
+      immune to index drift. Verified with a standalone Node script
+      simulating the exact drift scenario before shipping, not just
+      re-reasoning about it.
+    - **Reshuffle only changed the order, not which events were
+      sampled.** `buildTimelineGame`'s sampling picked the exact same
+      evenly-spaced midpoint indices every time for a given
+      character+difficulty, so hitting Reshuffle only ever produced a
+      new permutation of the identical 5 (or 3, or 8) events. Fixed by
+      splitting the timeline into `n` roughly-equal segments and
+      picking a *random* index within each segment instead of the fixed
+      midpoint — Reshuffle can now swap which moments appear, not just
+      their order, while still spreading across the character's whole
+      life rather than letting all n picks cluster together.
+
+66. **"Deep study" supporting-cast expansion, pass 1: 2 Samuel's
+    civil-war and rebellion supporting cast.** **Done (2026-09-11).**
+    New direction from the owner right after the whole Bible was first
+    curated: every book so far only captured *major* figures and
+    events; the owner wants supporting characters captured too — not by
+    a raw mention-count threshold, but by whether they genuinely drive
+    a story forward (their own example: David's commanders, Tamar's
+    story — both already covered from the original pass, which is what
+    surfaced the real gap: *other* supporting figures in the very same
+    chapters never got their own records). First slice, chosen because
+    it's the owner's own example book: 10 new characters, all inside
+    the existing `era_united_kingdom` (no new era needed) — Abner
+    (Saul's/Ishbosheth's commander who defects to David and is murdered
+    by Joab in revenge), his killer's own brother Asahel (whose death
+    starts that blood feud), Abishai (the third son of Zeruiah,
+    recurring alongside Joab), Ahithophel and Hushai (the counselor
+    whose advice is regarded "as if a man inquired at the inner
+    sanctuary of God," defeated from the inside by David's own friend
+    posing as a defector — directly fulfilling David's own prayer,
+    "turn the counsel of Ahithophel into foolishness," 2 Samuel 15:31),
+    Ittai the Gittite (a foreign commander who refuses David's offer to
+    sit out his exile — "in what place my lord the king is... your
+    servant will be there also"), Shimei (curses David during his
+    flight, is spared from Abishai's sword, later begs mercy and gets
+    it), Amasa (Absalom's commander, then David's own as a
+    reconciliation gesture, then murdered by the jealous Joab he
+    replaced), Sheba (leads a fresh revolt the moment Absalom's ends),
+    and the wise woman of Abel (unnamed but real, same precedent as the
+    widow of Zarephath — ends the siege against her city by her own
+    negotiation, not a battle). 6 new stories, 23 new life events (2 of
+    them on the *existing* `char_joab` — his murders of Abner and
+    Amasa — queried his current `sequenceInLife` values, `[10, 20]`,
+    before picking `5` and `30` so nothing collided, the same lesson
+    from item 47 holding for a character revisited many batches later).
+    Two new `"brother of"` Connections (Joab/Abishai, Joab/Asahel — the
+    "sons of Zeruiah" trio). 22 new curated verses, no new topics — the
+    existing 38 covered betrayal, loyalty, wisdom, forgiveness, and
+    prayer without strain, including a direct hit for 2 Samuel 15:31
+    (David's prayer against Ahithophel) on `topic_prayer`. This is
+    explicitly the first slice of a long-haul, multi-session project —
+    see CLAUDE.md's "Known gaps" item 10 for the fuller framing and the
+    "narrative importance, not mention count" selection principle.
 
 ---
 
