@@ -1,4 +1,4 @@
-const CACHE = 'rooted-v67';
+const CACHE = 'rooted-v68';
 // data/verses.json (~8MB, the entire 66-book Bible) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then.
 // starter-pack.json, stories.json, motifs.json and connections.json all load

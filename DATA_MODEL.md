@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (226 characters — full 66-book Bible as of 2026-09-10, plus five "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, 1 Samuel/Exodus/Numbers, and the Gospels' supporting cast, items 66-67 and 70-72 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (241 characters — full 66-book Bible as of 2026-09-10, plus six "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, 1 Samuel/Exodus/Numbers, the Gospels' supporting cast, and Job/1 Kings/Esther/Acts, items 66-67 and 70-73 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,547 verses + 38 topics + 226 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,600 verses + 38 topics + 241 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 271 stories, 679 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 277 stories, 709 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,547-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,600-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2865,6 +2865,70 @@ inventing a new principle:
     picked up one for cutting off Malchus's ear (checked against his
     existing `[10..120]` range first). Item 69's lesson held from the
     start of the pass, same as items 70-71.
+
+73. **"Deep study" supporting-cast expansion, pass 6: Job, 1 Kings,
+    Esther, and Acts.** **Done (2026-09-11).** Four more books/eras at
+    once, continuing the shape of pass 4:
+
+    **Job** — only Eliphaz had ever been curated as one of Job's three
+    friends, despite Bildad and Zophar each getting a full chapter of
+    their own dialogue with Job. Adds **Bildad**, **Zophar** (both
+    folded into the existing `story_jobs_complaint_and_friends` and
+    `story_jobs_restoration` rather than duplicated — they're rebuked
+    by Yahweh and restored alongside Eliphaz in the very same verses
+    already curated there), **Elihu** (the younger fourth speaker who
+    waits out of deference until the other three finish, then speaks
+    at length — notably, Yahweh never rebukes him the way he does the
+    other three), and **Job's wife** (unnamed, her one blunt line —
+    "renounce God, and die" — folded into the existing `story_job_tested`).
+
+    **1 Kings** — **Obadiah** (Ahab's own household manager, secretly
+    hiding a hundred of Yahweh's prophets from Jezebel at his own risk;
+    a new Story, `story_obadiah_hides_prophets`, placed right before
+    the existing Carmel story since it's literally the scene that sets
+    Carmel up) and **Micaiah** (the one prophet Ahab openly hates for
+    telling him the truth — a new Story, `story_micaiahs_true_prophecy`,
+    covering a battle and a death for Ahab that had never been curated
+    at all despite Ahab already existing as a character since the
+    original 1 Kings pass).
+
+    **Esther** — **Hegai** (favors Esther among the women, folded into
+    the existing `story_esther_becomes_queen`), **Zeresh** (Haman's
+    wife, whose advice to build a gallows for Mordecai becomes the very
+    gallows Haman is hanged on — folded into
+    `story_esther_banquet_and_hamans_pride` and `story_hamans_fall`),
+    and **Harbonah** (mentions the gallows to the king at exactly the
+    right moment — folded into `story_hamans_fall`).
+
+    **Acts** — **Ananias** and **Sapphira** (a new Story — the
+    community-of-goods deception that ends in both of them dying at
+    Peter's words, a real gap despite Pentecost and the early church's
+    founding already being curated), **Simon Magus** and **Philip the
+    evangelist** (one new Story spanning both of Philip's Acts 8
+    episodes — Samaria and the Ethiopian eunuch — since the text treats
+    them as one continuous ministry stretch; Philip's much later
+    reappearance hosting Paul, Acts 21:8-9, folded into the existing
+    `story_pauls_arrest` instead of forcing a third new Story for two
+    verses), **Rhoda** (a new Story, `story_peters_prison_escape` —
+    another real gap: Peter's own angelic prison escape in Acts 12 had
+    never been curated at all, despite Peter already being one of the
+    most-covered characters in the whole project), and **Eutychus**
+    (a new Story for the young man Paul raises after he falls asleep
+    and falls from a third-floor window).
+
+    15 new characters, 6 new stories, 7 existing stories extended
+    (`story_job_tested`, `story_jobs_complaint_and_friends`,
+    `story_jobs_restoration`, `story_esther_becomes_queen`,
+    `story_esther_banquet_and_hamans_pride`, `story_hamans_fall`,
+    `story_pauls_arrest`), 53 new curated verses, no new topics. Item
+    69's lesson held throughout: `char_job`, `char_elijah`, `char_ahab`,
+    `char_jehoshaphat`, `char_esther`, `char_haman`, `char_peter`, and
+    `char_paul` are each tagged and given a matching new life event on
+    every story here they're genuinely part of — their existing
+    `sequenceInLife` ranges (Job up to 40, Elijah up to 50, Ahab and
+    Jehoshaphat up to 20, Peter up to 120, Paul up to 95) checked first
+    in every case, this time as a matter of course rather than a lesson
+    being freshly re-applied.
 
 ---
 

@@ -3297,15 +3297,19 @@
       "eraId": "era_esther",
       "canonicalOrder": 1910,
       "verseIds": [
-        "verse_esther_2_7",
         "verse_esther_2_10",
+        "verse_esther_2_15",
         "verse_esther_2_17",
-        "verse_esther_2_22"
+        "verse_esther_2_22",
+        "verse_esther_2_7",
+        "verse_esther_2_8",
+        "verse_esther_2_9"
       ],
       "characterIds": [
+        "char_ahasuerus",
         "char_esther",
-        "char_mordecai",
-        "char_ahasuerus"
+        "char_hegai",
+        "char_mordecai"
       ],
       "topicIds": [
         "topic_identity"
@@ -3360,15 +3364,17 @@
       "eraId": "era_esther",
       "canonicalOrder": 1940,
       "verseIds": [
+        "verse_esther_5_14",
         "verse_esther_5_3",
         "verse_esther_6_10",
         "verse_esther_6_13"
       ],
       "characterIds": [
+        "char_ahasuerus",
         "char_esther",
         "char_haman",
         "char_mordecai",
-        "char_ahasuerus"
+        "char_zeresh"
       ],
       "topicIds": [
         "topic_justice"
@@ -3382,14 +3388,18 @@
       "eraId": "era_esther",
       "canonicalOrder": 1950,
       "verseIds": [
+        "verse_esther_6_13",
+        "verse_esther_7_10",
         "verse_esther_7_3",
         "verse_esther_7_4",
-        "verse_esther_7_10"
+        "verse_esther_7_9"
       ],
       "characterIds": [
+        "char_ahasuerus",
         "char_esther",
         "char_haman",
-        "char_ahasuerus"
+        "char_harbonah",
+        "char_zeresh"
       ],
       "topicIds": [
         "topic_deliverance",
@@ -3448,10 +3458,12 @@
       "canonicalOrder": 2000,
       "verseIds": [
         "verse_job_1_21",
-        "verse_job_2_10"
+        "verse_job_2_10",
+        "verse_job_2_9"
       ],
       "characterIds": [
-        "char_job"
+        "char_job",
+        "char_jobs_wife"
       ],
       "topicIds": [
         "topic_sorrow",
@@ -3466,15 +3478,27 @@
       "eraId": "era_job",
       "canonicalOrder": 2010,
       "verseIds": [
+        "verse_job_11_1",
+        "verse_job_11_2",
         "verse_job_13_15",
         "verse_job_16_2",
         "verse_job_19_25",
         "verse_job_23_10",
-        "verse_job_28_28"
+        "verse_job_28_28",
+        "verse_job_2_11",
+        "verse_job_32_1",
+        "verse_job_32_2",
+        "verse_job_32_4",
+        "verse_job_32_6",
+        "verse_job_8_1",
+        "verse_job_8_2"
       ],
       "characterIds": [
+        "char_bildad",
+        "char_elihu",
+        "char_eliphaz",
         "char_job",
-        "char_eliphaz"
+        "char_zophar"
       ],
       "topicIds": [
         "topic_sorrow",
@@ -3513,11 +3537,15 @@
       "eraId": "era_job",
       "canonicalOrder": 2030,
       "verseIds": [
-        "verse_job_42_10"
+        "verse_job_42_10",
+        "verse_job_42_7",
+        "verse_job_42_9"
       ],
       "characterIds": [
+        "char_bildad",
+        "char_eliphaz",
         "char_job",
-        "char_eliphaz"
+        "char_zophar"
       ],
       "topicIds": [
         "topic_blessing",
@@ -5160,11 +5188,14 @@
       "canonicalOrder": 2900,
       "verseIds": [
         "verse_acts_21_36",
+        "verse_acts_21_8",
+        "verse_acts_21_9",
         "verse_acts_23_11",
         "verse_acts_26_29"
       ],
       "characterIds": [
-        "char_paul"
+        "char_paul",
+        "char_philip_evangelist"
       ],
       "topicIds": [
         "topic_calling"
@@ -6060,6 +6091,157 @@
         "char_jesus"
       ],
       "topicIds": []
+    },
+    {
+      "id": "story_obadiah_hides_prophets",
+      "title": "Obadiah hides the prophets, then meets Elijah",
+      "summary": "While Jezebel is killing off Yahweh's prophets, Obadiah -- in charge of Ahab's own household, and secretly devout -- hides a hundred of them in caves at his own risk. Sent by Ahab to search for water during the famine, he runs into Elijah himself and is terrified: if he tells Ahab and Elijah vanishes again, he'll be killed for it. Elijah promises he won't, and sends Obadiah ahead to arrange the meeting that leads to Mount Carmel.",
+      "primaryReference": "1 Kings 18:1-16",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1325,
+      "verseIds": [
+        "verse_1kings_18_3",
+        "verse_1kings_18_4",
+        "verse_1kings_18_7",
+        "verse_1kings_18_12"
+      ],
+      "characterIds": [
+        "char_obadiah",
+        "char_elijah",
+        "char_ahab"
+      ],
+      "topicIds": [
+        "topic_strength",
+        "topic_faithfulness",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_micaiahs_true_prophecy",
+      "title": "Micaiah's true prophecy",
+      "summary": "Before going to battle at Ramoth-gilead alongside Jehoshaphat, Ahab consults four hundred prophets who all promise victory. Jehoshaphat isn't satisfied and asks if there's anyone else; Ahab admits there's one more, Micaiah, \"but I hate him, for he does not prophesy good concerning me, but evil.\" Micaiah refuses to soften his message despite pressure to match the others, predicts Israel scattered like sheep without a shepherd, and is struck across the face and thrown in prison for it. Ahab goes to battle anyway, in disguise, and dies exactly as Micaiah said he would.",
+      "primaryReference": "1 Kings 22:1-38",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1355,
+      "verseIds": [
+        "verse_1kings_22_8",
+        "verse_1kings_22_14",
+        "verse_1kings_22_17",
+        "verse_1kings_22_24",
+        "verse_1kings_22_27"
+      ],
+      "characterIds": [
+        "char_micaiah",
+        "char_ahab",
+        "char_jehoshaphat"
+      ],
+      "topicIds": [
+        "topic_faithfulness",
+        "topic_justice",
+        "topic_anger"
+      ]
+    },
+    {
+      "id": "story_ananias_and_sapphira",
+      "title": "Ananias and Sapphira",
+      "summary": "In a young church that's been sharing everything in common, Ananias and his wife Sapphira sell property but secretly keep back part of the proceeds while claiming to give it all. Peter tells Ananias plainly he's lied not to men but to God; he falls down dead on the spot. Sapphira, not knowing what's happened, repeats the same lie a few hours later and dies the same way.",
+      "primaryReference": "Acts 5:1-11",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2825,
+      "verseIds": [
+        "verse_acts_5_1",
+        "verse_acts_5_2",
+        "verse_acts_5_3",
+        "verse_acts_5_4",
+        "verse_acts_5_5",
+        "verse_acts_5_8",
+        "verse_acts_5_9",
+        "verse_acts_5_10"
+      ],
+      "characterIds": [
+        "char_ananias",
+        "char_sapphira",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_justice",
+        "topic_fear",
+        "topic_temptation"
+      ]
+    },
+    {
+      "id": "story_philips_ministry_samaria_and_the_eunuch",
+      "title": "Philip in Samaria, and the Ethiopian eunuch",
+      "summary": "Scattered by persecution after Stephen's death, Philip preaches in Samaria, where a sorcerer named Simon -- already famous for his own powers -- believes and is baptized, then tries to buy the ability to give the Holy Spirit by laying on hands. Peter's rebuke is sharp: \"may your silver perish with you.\" Sent by an angel onto a desert road, Philip then meets an Ethiopian official reading Isaiah in his chariot, explains the passage is about Jesus, and baptizes him on the spot the moment he asks.",
+      "primaryReference": "Acts 8:4-40",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2835,
+      "verseIds": [
+        "verse_acts_8_5",
+        "verse_acts_8_9",
+        "verse_acts_8_10",
+        "verse_acts_8_18",
+        "verse_acts_8_20",
+        "verse_acts_8_23",
+        "verse_acts_8_26",
+        "verse_acts_8_29",
+        "verse_acts_8_35",
+        "verse_acts_8_36",
+        "verse_acts_8_38",
+        "verse_acts_8_39"
+      ],
+      "characterIds": [
+        "char_philip_evangelist",
+        "char_simon_magus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_temptation",
+        "topic_justice",
+        "topic_scripture",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_peters_prison_escape",
+      "title": "Peter's prison escape",
+      "summary": "With Peter imprisoned by Herod and the church praying constantly for him, an angel wakes him, and the chains fall off. He walks out past the guards and an iron gate that opens by itself, arriving at the house where everyone is praying for exactly this. When the servant girl Rhoda recognizes his voice at the gate, she's so overjoyed she runs to tell everyone without letting him in -- and they don't believe her, insisting it must be his angel, while Peter is left knocking outside.",
+      "primaryReference": "Acts 12:1-17",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2855,
+      "verseIds": [
+        "verse_acts_12_13",
+        "verse_acts_12_14",
+        "verse_acts_12_15"
+      ],
+      "characterIds": [
+        "char_rhoda",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_eutychus_raised",
+      "title": "Eutychus raised from the dead",
+      "summary": "During one of Paul's longer sermons late at night, a young man named Eutychus, sitting in a third-floor window, falls asleep, falls out, and is picked up dead. Paul goes down, embraces him, and tells the alarmed crowd, \"don't be troubled, for his life is in him\" -- and the sermon continues.",
+      "primaryReference": "Acts 20:7-12",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2896,
+      "verseIds": [
+        "verse_acts_20_9",
+        "verse_acts_20_10"
+      ],
+      "characterIds": [
+        "char_eutychus",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_strength"
+      ]
     }
   ],
   "lifeEvents": [
@@ -12986,6 +13168,276 @@
       "reference": "John 18:10",
       "storyId": "story_betrayal_and_arrest",
       "sequenceInLife": 75
+    },
+    {
+      "id": "event_bildad_answers_job",
+      "characterId": "char_bildad",
+      "title": "Argues Job's suffering must be deserved",
+      "description": "",
+      "reference": "Job 8:1-22",
+      "storyId": "story_jobs_complaint_and_friends",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_bildad_rebuked",
+      "characterId": "char_bildad",
+      "title": "Rebuked by Yahweh, then restored with Job's intercession",
+      "description": "",
+      "reference": "Job 42:7-9",
+      "storyId": "story_jobs_restoration",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_zophar_answers_job",
+      "characterId": "char_zophar",
+      "title": "Accuses Job outright of wickedness",
+      "description": "",
+      "reference": "Job 11:1-20",
+      "storyId": "story_jobs_complaint_and_friends",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zophar_rebuked",
+      "characterId": "char_zophar",
+      "title": "Rebuked by Yahweh, then restored with Job's intercession",
+      "description": "",
+      "reference": "Job 42:7-9",
+      "storyId": "story_jobs_restoration",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_elihu_speaks",
+      "characterId": "char_elihu",
+      "title": "Speaks last, angry at Job and at the three friends alike",
+      "description": "Waited out of deference to his elders.",
+      "reference": "Job 32:1-37:24",
+      "storyId": "story_jobs_complaint_and_friends",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jobs_wife_speaks",
+      "characterId": "char_jobs_wife",
+      "title": "Tells Job to curse God and die",
+      "description": "Job refuses.",
+      "reference": "Job 2:9-10",
+      "storyId": "story_job_tested",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_obadiah_hides_prophets",
+      "characterId": "char_obadiah",
+      "title": "Hides a hundred prophets from Jezebel",
+      "description": "At his own risk, feeding them in caves.",
+      "reference": "1 Kings 18:3-4",
+      "storyId": "story_obadiah_hides_prophets",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_obadiah_meets_elijah",
+      "characterId": "char_obadiah",
+      "title": "Meets Elijah on the road, terrified to tell Ahab",
+      "description": "Elijah promises to actually show himself.",
+      "reference": "1 Kings 18:7-16",
+      "storyId": "story_obadiah_hides_prophets",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_micaiah_prophesies",
+      "characterId": "char_micaiah",
+      "title": "Refuses to soften his prophecy against Ahab",
+      "description": "Predicts Israel scattered like sheep without a shepherd.",
+      "reference": "1 Kings 22:14-23",
+      "storyId": "story_micaiahs_true_prophecy",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_micaiah_struck_and_imprisoned",
+      "characterId": "char_micaiah",
+      "title": "Struck across the face and imprisoned",
+      "description": "For refusing to prophesy good over Ahab.",
+      "reference": "1 Kings 22:24-27",
+      "storyId": "story_micaiahs_true_prophecy",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_hegai_favors_esther",
+      "characterId": "char_hegai",
+      "title": "Favors Esther among the women",
+      "description": "Gives her the best place and advises her before the king.",
+      "reference": "Esther 2:8-15",
+      "storyId": "story_esther_becomes_queen",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zeresh_advises_gallows",
+      "characterId": "char_zeresh",
+      "title": "Advises Haman to build a gallows for Mordecai",
+      "description": "The same gallows Haman is later hanged on himself.",
+      "reference": "Esther 5:14",
+      "storyId": "story_esther_banquet_and_hamans_pride",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_zeresh_predicts_hamans_fall",
+      "characterId": "char_zeresh",
+      "title": "Tells Haman he can't win against a Jew",
+      "description": "\"You will surely fall before him.\"",
+      "reference": "Esther 6:13",
+      "storyId": "story_hamans_fall",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_harbonah_mentions_gallows",
+      "characterId": "char_harbonah",
+      "title": "Mentions Haman's gallows to the king",
+      "description": "\"Hang him on it,\" the king says immediately.",
+      "reference": "Esther 7:9-10",
+      "storyId": "story_hamans_fall",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ananias_lies",
+      "characterId": "char_ananias",
+      "title": "Lies about the price of his gift, and dies",
+      "description": "Peter: \"you haven't lied to men, but to God.\"",
+      "reference": "Acts 5:1-5",
+      "storyId": "story_ananias_and_sapphira",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_sapphira_lies",
+      "characterId": "char_sapphira",
+      "title": "Repeats her husband's lie, and dies the same way",
+      "description": "Not knowing Ananias is already dead.",
+      "reference": "Acts 5:7-10",
+      "storyId": "story_ananias_and_sapphira",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_simon_magus_believes",
+      "characterId": "char_simon_magus",
+      "title": "Believes and is baptized under Philip's ministry",
+      "description": "Already famous in Samaria as a sorcerer.",
+      "reference": "Acts 8:9-13",
+      "storyId": "story_philips_ministry_samaria_and_the_eunuch",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_simon_magus_tries_to_buy_power",
+      "characterId": "char_simon_magus",
+      "title": "Tries to buy the Holy Spirit's power",
+      "description": "Peter: \"may your silver perish with you.\"",
+      "reference": "Acts 8:18-23",
+      "storyId": "story_philips_ministry_samaria_and_the_eunuch",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_philip_preaches_samaria",
+      "characterId": "char_philip_evangelist",
+      "title": "Preaches Christ in Samaria",
+      "description": "Scattered there by the persecution after Stephen's death.",
+      "reference": "Acts 8:4-8",
+      "storyId": "story_philips_ministry_samaria_and_the_eunuch",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_philip_baptizes_eunuch",
+      "characterId": "char_philip_evangelist",
+      "title": "Explains Isaiah to an Ethiopian official and baptizes him",
+      "description": "Sent by the Spirit onto a desert road.",
+      "reference": "Acts 8:26-39",
+      "storyId": "story_philips_ministry_samaria_and_the_eunuch",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_philip_hosts_paul",
+      "characterId": "char_philip_evangelist",
+      "title": "Hosts Paul's traveling party",
+      "description": "By now has four daughters who prophesy.",
+      "reference": "Acts 21:8-9",
+      "storyId": "story_pauls_arrest",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_rhoda_recognizes_peter",
+      "characterId": "char_rhoda",
+      "title": "Recognizes Peter's voice at the gate",
+      "description": "So overjoyed she forgets to let him in.",
+      "reference": "Acts 12:13-15",
+      "storyId": "story_peters_prison_escape",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_eutychus_falls",
+      "characterId": "char_eutychus",
+      "title": "Falls asleep, falls from a window, and is raised by Paul",
+      "description": "\"His life is in him.\"",
+      "reference": "Acts 20:9-10",
+      "storyId": "story_eutychus_raised",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elijah_meets_obadiah",
+      "characterId": "char_elijah",
+      "title": "Meets Obadiah on the road to Ahab",
+      "description": "Sends him ahead to arrange the Carmel confrontation.",
+      "reference": "1 Kings 18:7-16",
+      "storyId": "story_obadiah_hides_prophets",
+      "sequenceInLife": 15
+    },
+    {
+      "id": "event_ahab_consults_micaiah",
+      "characterId": "char_ahab",
+      "title": "Consults Micaiah, then dies in battle as prophesied",
+      "description": "Goes to war in disguise anyway.",
+      "reference": "1 Kings 22:1-38",
+      "storyId": "story_micaiahs_true_prophecy",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jehoshaphat_at_ramoth_gilead",
+      "characterId": "char_jehoshaphat",
+      "title": "Joins Ahab's ill-fated campaign at Ramoth-gilead",
+      "description": "Wants a true prophet consulted first.",
+      "reference": "1 Kings 22:1-38",
+      "storyId": "story_micaiahs_true_prophecy",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_peter_judges_ananias",
+      "characterId": "char_peter",
+      "title": "Confronts Ananias and Sapphira's lie",
+      "description": "Both die at his words.",
+      "reference": "Acts 5:1-10",
+      "storyId": "story_ananias_and_sapphira",
+      "sequenceInLife": 105
+    },
+    {
+      "id": "event_peter_rebukes_simon_magus",
+      "characterId": "char_peter",
+      "title": "Rebukes Simon Magus for trying to buy the Spirit's power",
+      "description": "\"May your silver perish with you.\"",
+      "reference": "Acts 8:18-23",
+      "storyId": "story_philips_ministry_samaria_and_the_eunuch",
+      "sequenceInLife": 107
+    },
+    {
+      "id": "event_peter_escapes_prison",
+      "characterId": "char_peter",
+      "title": "Is freed from prison by an angel",
+      "description": "Arrives at the house where the church is praying for him.",
+      "reference": "Acts 12:1-17",
+      "storyId": "story_peters_prison_escape",
+      "sequenceInLife": 125
+    },
+    {
+      "id": "event_paul_raises_eutychus",
+      "characterId": "char_paul",
+      "title": "Raises Eutychus after he falls asleep and dies",
+      "description": "\"Don't be troubled, for his life is in him.\"",
+      "reference": "Acts 20:9-12",
+      "storyId": "story_eutychus_raised",
+      "sequenceInLife": 65
     }
   ]
 }

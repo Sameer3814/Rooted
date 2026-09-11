@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,547 verses** — the entire Bible, Old and New Testament,
+  first run: **1,600 verses** — the entire Bible, Old and New Testament,
   is curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
   the NT was approached, item 10 for the "deep study" supporting-cast
@@ -136,22 +136,22 @@ The schema was deliberately designed so all of the above can be added
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
-  (topics linked to related topics), plus **226 characters** with real
+  (topics linked to related topics), plus **241 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below). Note:
   fictional figures inside Jesus's parables (the good Samaritan, the
   prodigal son, etc.) do **not** get Character records — only real,
   named/identifiable people do, same as every OT figure.
-- `data/characters.json` — the same 226 characters, standalone. Generated
+- `data/characters.json` — the same 241 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire 66-book
   Bible (31,098 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 1,547 seed
+  from Browse copies it into the user's overlay. Only the 1,600 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 16 eras, **271 stories and 679 life events**,
+- `data/stories.json` — 16 eras, **277 stories and 709 life events**,
   covering the whole Bible (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
@@ -577,9 +577,24 @@ hand-curate all the content before building.
     he's the one acting in; `char_peter` got one for cutting off
     Malchus's ear. No new topics.
 
-    See DATA_MODEL.md §8, items 65-67, 70, 71, and 72, for the full
-    writeup and the reasoning behind which figures made the cut each
-    pass.
+    **Sixth pass (2026-09-11): four books at once again** — Job
+    (Bildad, Zophar, Elihu, and Job's wife — only Eliphaz had ever been
+    curated, despite Bildad and Zophar each getting a full chapter of
+    dialogue and Elihu a young fourth voice Yahweh never rebukes), 1
+    Kings (Obadiah, who hid a hundred prophets from Jezebel; Micaiah,
+    the one prophet Ahab openly hates for telling him the truth),
+    Esther (Hegai, Zeresh, Harbonah — the supporting cast around the
+    gallows Haman built for Mordecai and was hanged on himself), and
+    Acts (Ananias and Sapphira; Simon Magus and Philip the evangelist;
+    Rhoda, the servant girl who's so overjoyed at Peter's prison escape
+    she forgets to let him in; Eutychus, raised after falling from a
+    third-floor window). 15 new characters, 6 new stories, 7 existing
+    ones extended. Same discipline: Job, Elijah, Ahab, Jehoshaphat,
+    Esther, Haman, Peter, and Paul are each tagged and given matching
+    new life events on every story they're genuinely part of.
+
+    See DATA_MODEL.md §8, items 65-67 and 70-73, for the full writeup
+    and the reasoning behind which figures made the cut each pass.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

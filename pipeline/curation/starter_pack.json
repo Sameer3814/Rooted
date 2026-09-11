@@ -5753,9 +5753,12 @@
     },
     {
       "id": "verse_esther_6_13",
-      "topicIds": [],
+      "topicIds": [
+        "topic_justice"
+      ],
       "characterIds": [
-        "char_haman"
+        "char_haman",
+        "char_zeresh"
       ]
     },
     {
@@ -12552,6 +12555,436 @@
         "char_simon_the_leper",
         "char_mary_of_bethany"
       ]
+    },
+    {
+      "id": "verse_job_2_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_jobs_wife"
+      ]
+    },
+    {
+      "id": "verse_job_2_11",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_bildad",
+        "char_zophar"
+      ]
+    },
+    {
+      "id": "verse_job_8_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_bildad"
+      ]
+    },
+    {
+      "id": "verse_job_8_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_bildad"
+      ]
+    },
+    {
+      "id": "verse_job_11_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_zophar"
+      ]
+    },
+    {
+      "id": "verse_job_11_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_zophar"
+      ]
+    },
+    {
+      "id": "verse_job_32_1",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_job_32_2",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_elihu"
+      ]
+    },
+    {
+      "id": "verse_job_32_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_elihu"
+      ]
+    },
+    {
+      "id": "verse_job_32_6",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_elihu"
+      ]
+    },
+    {
+      "id": "verse_job_42_7",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_bildad",
+        "char_zophar"
+      ]
+    },
+    {
+      "id": "verse_job_42_9",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_bildad",
+        "char_zophar"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_obadiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_4",
+      "topicIds": [
+        "topic_strength",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_obadiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_7",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_obadiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_18_12",
+      "topicIds": [
+        "topic_fear",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_obadiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_22_8",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_micaiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_22_14",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_micaiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_22_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_micaiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_22_24",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_micaiah"
+      ]
+    },
+    {
+      "id": "verse_1kings_22_27",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_micaiah"
+      ]
+    },
+    {
+      "id": "verse_esther_2_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_hegai"
+      ]
+    },
+    {
+      "id": "verse_esther_2_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_hegai"
+      ]
+    },
+    {
+      "id": "verse_esther_2_15",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_hegai"
+      ]
+    },
+    {
+      "id": "verse_esther_5_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_zeresh"
+      ]
+    },
+    {
+      "id": "verse_esther_7_9",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_harbonah"
+      ]
+    },
+    {
+      "id": "verse_acts_5_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_ananias",
+        "char_sapphira"
+      ]
+    },
+    {
+      "id": "verse_acts_5_2",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_ananias",
+        "char_sapphira"
+      ]
+    },
+    {
+      "id": "verse_acts_5_3",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_ananias"
+      ]
+    },
+    {
+      "id": "verse_acts_5_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_ananias"
+      ]
+    },
+    {
+      "id": "verse_acts_5_5",
+      "topicIds": [
+        "topic_justice",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_ananias"
+      ]
+    },
+    {
+      "id": "verse_acts_5_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_sapphira"
+      ]
+    },
+    {
+      "id": "verse_acts_5_9",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_sapphira"
+      ]
+    },
+    {
+      "id": "verse_acts_5_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_sapphira"
+      ]
+    },
+    {
+      "id": "verse_acts_8_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_magus"
+      ]
+    },
+    {
+      "id": "verse_acts_8_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_magus"
+      ]
+    },
+    {
+      "id": "verse_acts_8_18",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_simon_magus"
+      ]
+    },
+    {
+      "id": "verse_acts_8_20",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_simon_magus"
+      ]
+    },
+    {
+      "id": "verse_acts_8_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_magus"
+      ]
+    },
+    {
+      "id": "verse_acts_8_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_8_26",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_8_29",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_8_35",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_8_36",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_8_38",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_8_39",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_21_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_21_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_12_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_rhoda"
+      ]
+    },
+    {
+      "id": "verse_acts_12_14",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_rhoda"
+      ]
+    },
+    {
+      "id": "verse_acts_12_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_rhoda"
+      ]
+    },
+    {
+      "id": "verse_acts_20_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_eutychus"
+      ]
+    },
+    {
+      "id": "verse_acts_20_10",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_eutychus",
+        "char_paul"
+      ]
     }
   ],
   "topics": [
@@ -15345,6 +15778,161 @@
       ],
       "eraId": "era_jesus_ministry",
       "summary": "Hosts Jesus for dinner at Bethany shortly before the crucifixion -- the setting for Mary of Bethany's anointing of Jesus with expensive perfume, an act Judas objects to as wasteful and Jesus defends as preparation for his burial.",
+      "verseIds": []
+    },
+    {
+      "id": "char_bildad",
+      "name": "Bildad",
+      "roles": [
+        "the Shuhite",
+        "one of Job's three friends"
+      ],
+      "eraId": "era_job",
+      "summary": "One of Job's three friends who comes to comfort him, then argues from tradition that Job's suffering must be deserved. Rebuked by Yahweh at the end alongside Eliphaz and Zophar for not speaking rightly about him, as Job had.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zophar",
+      "name": "Zophar",
+      "roles": [
+        "the Naamathite",
+        "one of Job's three friends"
+      ],
+      "eraId": "era_job",
+      "summary": "The bluntest of Job's three friends, accusing him outright of wickedness. Rebuked by Yahweh at the end alongside Eliphaz and Bildad.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elihu",
+      "name": "Elihu",
+      "roles": [
+        "the Buzite",
+        "a younger fourth speaker"
+      ],
+      "eraId": "era_job",
+      "summary": "Younger than Job's three friends, he holds back out of deference until they've all finished, then speaks at length -- angry both at Job for justifying himself over God, and at the three friends for condemning Job without a real answer. Unlike the other three, Yahweh never rebukes him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jobs_wife",
+      "name": "Job's wife",
+      "roles": [
+        "urges him to curse God"
+      ],
+      "eraId": "era_job",
+      "summary": "Unnamed in the text. Watching Job lose everything, she tells him plainly: \"do you still maintain your integrity? Renounce God, and die.\" Job refuses.",
+      "verseIds": []
+    },
+    {
+      "id": "char_obadiah",
+      "name": "Obadiah",
+      "roles": [
+        "Ahab's household manager",
+        "hid 100 prophets"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "In charge of Ahab's household, and secretly a devout follower of Yahweh -- while Jezebel was killing off Yahweh's prophets, he hid a hundred of them in caves and fed them at his own risk. Meets Elijah on the road and is terrified to deliver his message to Ahab, fearing Elijah will vanish again and cost him his life.",
+      "verseIds": []
+    },
+    {
+      "id": "char_micaiah",
+      "name": "Micaiah",
+      "roles": [
+        "prophet who tells Ahab the truth"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "The one prophet Ahab openly hates, \"for he does not prophesy good concerning me, but evil.\" Refuses to soften his message despite pressure, correctly predicts Ahab's death in battle, and is struck across the face and imprisoned for it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hegai",
+      "name": "Hegai",
+      "roles": [
+        "keeper of the king's harem"
+      ],
+      "eraId": "era_esther",
+      "summary": "The king's eunuch in charge of the women gathered for Ahasuerus to choose a new queen from. Favors Esther immediately, giving her the best place and advising her on what to bring before the king -- advice she takes, and it works.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zeresh",
+      "name": "Zeresh",
+      "roles": [
+        "Haman's wife"
+      ],
+      "eraId": "era_esther",
+      "summary": "Advises Haman to build a gallows for Mordecai -- he does, the same day he's forced to publicly honor Mordecai instead. When his fortunes keep turning, she and his advisers are the ones who tell him plainly he can't win against a Jew: \"you will surely fall before him.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_harbonah",
+      "name": "Harbonah",
+      "roles": [
+        "one of the king's eunuchs"
+      ],
+      "eraId": "era_esther",
+      "summary": "Mentions to the king, at exactly the right moment, that Haman has already built a gallows meant for Mordecai -- who had once saved the king's life. The king's response is immediate: \"hang him on it.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_ananias",
+      "name": "Ananias",
+      "roles": [
+        "lied about a gift to the church"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Sells property with his wife Sapphira and brings only part of the proceeds to the apostles, while claiming it's the whole amount. Peter says he lied not to men but to God; Ananias falls down dead on the spot.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sapphira",
+      "name": "Sapphira",
+      "roles": [
+        "Ananias's wife"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Aware of her husband's deception about their gift to the church, she repeats the same lie to Peter without knowing he's already dead, and dies the same way, in the same hour.",
+      "verseIds": []
+    },
+    {
+      "id": "char_simon_magus",
+      "name": "Simon Magus",
+      "roles": [
+        "a sorcerer in Samaria"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Already famous in Samaria for sorcery -- people called him \"that great power of God\" -- he believes and is baptized under Philip's ministry, then tries to buy the ability to give the Holy Spirit by laying on hands. Peter's rebuke is blunt: \"may your silver perish with you.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_philip_evangelist",
+      "name": "Philip the evangelist",
+      "roles": [
+        "one of the seven",
+        "preaches in Samaria"
+      ],
+      "eraId": "era_early_church",
+      "summary": "One of the seven chosen to serve tables in Acts 6, he becomes an effective evangelist in his own right -- preaching in Samaria, then led by the Spirit to explain Isaiah to an Ethiopian official and baptize him on the spot. Years later Paul's traveling party stays in his home; by then he has four daughters who prophesy.",
+      "verseIds": []
+    },
+    {
+      "id": "char_rhoda",
+      "name": "Rhoda",
+      "roles": [
+        "a servant girl"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A servant girl in the house where the church is praying for Peter's release from prison. When Peter actually knocks at the gate, she's so overjoyed she runs to tell everyone without even letting him in -- and they don't believe her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_eutychus",
+      "name": "Eutychus",
+      "roles": [
+        "falls asleep during Paul's sermon"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A young man who falls asleep in a third-floor window during one of Paul's longer sermons, falls to his death, and is raised by Paul, who tells the alarmed crowd, \"his life is in him.\"",
       "verseIds": []
     }
   ]
