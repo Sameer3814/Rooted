@@ -10073,7 +10073,9 @@
       "topicIds": [
         "topic_identity"
       ],
-      "characterIds": []
+      "characterIds": [
+        "char_timothy"
+      ]
     },
     {
       "id": "verse_1timothy_6_6",
@@ -10157,9 +10159,13 @@
     {
       "id": "verse_philemon_1_16",
       "topicIds": [
+        "topic_forgiveness",
         "topic_identity"
       ],
-      "characterIds": []
+      "characterIds": [
+        "char_onesimus",
+        "char_philemon"
+      ]
     },
     {
       "id": "verse_philemon_1_18",
@@ -10167,6 +10173,7 @@
         "topic_forgiveness"
       ],
       "characterIds": [
+        "char_onesimus",
         "char_paul"
       ]
     },
@@ -10995,6 +11002,350 @@
       "characterIds": [
         "char_wise_woman_of_abel",
         "char_sheba"
+      ]
+    },
+    {
+      "id": "verse_acts_18_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila"
+      ]
+    },
+    {
+      "id": "verse_acts_18_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila"
+      ]
+    },
+    {
+      "id": "verse_acts_18_18",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila"
+      ]
+    },
+    {
+      "id": "verse_acts_18_26",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila",
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_romans_16_3",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila"
+      ]
+    },
+    {
+      "id": "verse_romans_16_4",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila"
+      ]
+    },
+    {
+      "id": "verse_acts_18_24",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_acts_18_25",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": [
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_acts_18_27",
+      "topicIds": [],
+      "characterIds": [
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_1corinthians_1_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_1corinthians_3_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_apollos"
+      ]
+    },
+    {
+      "id": "verse_acts_16_14",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_lydia"
+      ]
+    },
+    {
+      "id": "verse_acts_16_15",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_lydia"
+      ]
+    },
+    {
+      "id": "verse_acts_16_40",
+      "topicIds": [],
+      "characterIds": [
+        "char_lydia"
+      ]
+    },
+    {
+      "id": "verse_acts_12_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_john_mark"
+      ]
+    },
+    {
+      "id": "verse_acts_12_25",
+      "topicIds": [],
+      "characterIds": [
+        "char_john_mark"
+      ]
+    },
+    {
+      "id": "verse_acts_13_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_john_mark"
+      ]
+    },
+    {
+      "id": "verse_acts_15_37",
+      "topicIds": [],
+      "characterIds": [
+        "char_john_mark",
+        "char_barnabas"
+      ]
+    },
+    {
+      "id": "verse_acts_15_38",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_john_mark"
+      ]
+    },
+    {
+      "id": "verse_acts_15_39",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_barnabas",
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_2timothy_4_11",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_john_mark",
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_16_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_acts_16_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_acts_16_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_timothy",
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_1timothy_1_2",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_philippians_2_19",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_philippians_2_20",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_philippians_2_22",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_timothy"
+      ]
+    },
+    {
+      "id": "verse_titus_1_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_titus"
+      ]
+    },
+    {
+      "id": "verse_2corinthians_7_6",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_titus"
+      ]
+    },
+    {
+      "id": "verse_2corinthians_7_13",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_titus"
+      ]
+    },
+    {
+      "id": "verse_2corinthians_8_23",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_titus"
+      ]
+    },
+    {
+      "id": "verse_titus_1_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_titus"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_onesimus",
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_onesimus"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_onesimus"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_philemon"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_4",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_philemon"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_6",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_philemon"
+      ]
+    },
+    {
+      "id": "verse_philemon_1_21",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_philemon"
+      ]
+    },
+    {
+      "id": "verse_2timothy_4_10",
+      "topicIds": [
+        "topic_temptation",
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_demas"
       ]
     }
   ],
@@ -13213,6 +13564,112 @@
       ],
       "eraId": "era_united_kingdom",
       "summary": "Unnamed but real, like the widow of Zarephath -- when Joab besieges Abel Beth Maacah hunting Sheba, she negotiates with him from the wall, persuades the city to hand over Sheba's head instead of being destroyed, and the siege ends without further bloodshed.",
+      "verseIds": []
+    },
+    {
+      "id": "char_priscilla",
+      "name": "Priscilla",
+      "roles": [
+        "tentmaker",
+        "Paul's coworker",
+        "taught Apollos"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A Jewish Christian, exiled from Rome with her husband Aquila under Claudius's decree. The couple host Paul, travel with him, and take the eloquent-but-incomplete teacher Apollos aside to \"explain to him the way of God more accurately.\" Paul later writes that they \"risked their own necks\" for his life.",
+      "verseIds": []
+    },
+    {
+      "id": "char_aquila",
+      "name": "Aquila",
+      "roles": [
+        "tentmaker",
+        "Paul's coworker"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Priscilla's husband, a Jew of Pontus. Always named together with his wife in Acts and the epistles -- they share one trade, one household, and one ministry of hosting and teaching.",
+      "verseIds": []
+    },
+    {
+      "id": "char_apollos",
+      "name": "Apollos",
+      "roles": [
+        "eloquent teacher",
+        "Alexandrian"
+      ],
+      "eraId": "era_early_church",
+      "summary": "An eloquent Alexandrian, \"mighty in the Scriptures,\" who taught accurately about Jesus but knew only the baptism of John until Priscilla and Aquila corrected him. His later ministry in Corinth was effective enough that a faction there claimed him over Paul -- \"I planted, Apollos watered, but God gave the increase,\" Paul answers.",
+      "verseIds": []
+    },
+    {
+      "id": "char_lydia",
+      "name": "Lydia",
+      "roles": [
+        "seller of purple",
+        "first convert in Philippi"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A dealer in purple cloth from Thyatira, already a worshiper of God when Paul reaches Philippi. \"The Lord opened her heart to listen\" -- she and her household are baptized, and she persuades Paul's company to stay in her home, becoming the first convert and host of the church in Europe.",
+      "verseIds": []
+    },
+    {
+      "id": "char_john_mark",
+      "name": "John Mark",
+      "roles": [
+        "companion, deserted then restored"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Joins Paul and Barnabas on their first missionary journey, then withdraws partway through and returns to Jerusalem. When Barnabas wants to give him another chance, Paul refuses -- \"the contention grew so sharp that they separated from each other.\" Years later, in his last letter, Paul asks for Mark by name: \"he is useful to me for service.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_timothy",
+      "name": "Timothy",
+      "roles": [
+        "Paul's true child in the faith"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A young disciple from Lystra, son of a believing Jewish mother and a Greek father, whom Paul takes on as a close companion and sends on some of his most sensitive missions. Two epistles are addressed to him directly -- \"let no man despise your youth.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_titus",
+      "name": "Titus",
+      "roles": [
+        "Paul's partner and fellow worker"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A trusted delegate Paul sends into difficult situations -- his arrival in Macedonia after a hard stretch in Corinth brings Paul real comfort (\"God, who comforts the lowly, comforted us by the coming of Titus\"), and he's later left in Crete to put the young church there in order. An epistle is addressed to him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_onesimus",
+      "name": "Onesimus",
+      "roles": [
+        "a runaway slave, become a brother"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A slave who ran from his master Philemon and, in Rome, becomes Paul's own \"child... in my chains.\" Paul sends him back with a letter -- not commanding Philemon to free him, but appealing to receive him \"no longer as a slave, but... a beloved brother,\" and offering to personally cover whatever he owes.",
+      "verseIds": []
+    },
+    {
+      "id": "char_philemon",
+      "name": "Philemon",
+      "roles": [
+        "Paul's beloved fellow worker",
+        "Onesimus's master"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A believer, host of a church in his own house, and Onesimus's owner -- the recipient of Paul's shortest and most personal letter, an appeal on Onesimus's behalf rather than an order, written with confidence he \"will do even beyond what I say.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_demas",
+      "name": "Demas",
+      "roles": [
+        "deserted Paul"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Once counted among Paul's fellow workers; in Paul's last letter, named as having left him, \"having loved this present world\" -- a small, unadorned note of the cost of staying faithful to the end.",
       "verseIds": []
     }
   ]

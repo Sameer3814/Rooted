@@ -5310,6 +5310,204 @@
         "topic_betrayal",
         "topic_wisdom"
       ]
+    },
+    {
+      "id": "story_timothy_pauls_son_in_the_faith",
+      "title": "Timothy, Paul's son in the faith",
+      "summary": "In Lystra, Paul finds a young disciple named Timothy, son of a believing Jewish mother and a Greek father, well spoken of by the believers there. Paul takes him on, and Timothy becomes one of his closest and most trusted companions -- sent on sensitive missions (\"I have no one else like-minded, who will truly care about you\"), and eventually the recipient of two of Paul's own letters, opened with real affection: \"my true child in faith.\"",
+      "primaryReference": "Acts 16:1-3; Philippians 2:19-22; 1 Timothy 1:2",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2877,
+      "verseIds": [
+        "verse_acts_16_1",
+        "verse_acts_16_2",
+        "verse_acts_16_3",
+        "verse_philippians_2_19",
+        "verse_philippians_2_20",
+        "verse_philippians_2_22",
+        "verse_1timothy_1_2",
+        "verse_1timothy_4_12"
+      ],
+      "characterIds": [
+        "char_timothy",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_friendship",
+        "topic_faithfulness",
+        "topic_identity"
+      ]
+    },
+    {
+      "id": "story_lydia_first_convert_in_philippi",
+      "title": "Lydia, the first convert in Philippi",
+      "summary": "A dealer in purple cloth from Thyatira, already a worshiper of God, hears Paul at a place of prayer by the river. \"The Lord opened her heart to listen,\" and she and her household are baptized -- the first converts in Philippi, and in Europe. She persuades Paul's company to stay in her home, and it's her house they return to after being released from prison.",
+      "primaryReference": "Acts 16:14-15, 40",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2878,
+      "verseIds": [
+        "verse_acts_16_14",
+        "verse_acts_16_15",
+        "verse_acts_16_40"
+      ],
+      "characterIds": [
+        "char_lydia"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_john_mark_deserts_and_is_restored",
+      "title": "John Mark deserts, splits Paul and Barnabas, then is restored",
+      "summary": "John Mark joins Paul and Barnabas on their first missionary journey, then withdraws partway through and returns to Jerusalem. When it's time for a second journey, Barnabas wants to give him another chance; Paul refuses, since he'd already abandoned them once -- \"the contention grew so sharp that they separated from each other.\" Barnabas takes Mark and sails for Cyprus; Paul takes Silas instead. Years later, in what may be his very last letter, Paul asks for Mark by name: \"he is useful to me for service\" -- the rift fully healed.",
+      "primaryReference": "Acts 12:25; 13:13; 15:36-39; 2 Timothy 4:11",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2872,
+      "verseIds": [
+        "verse_acts_12_12",
+        "verse_acts_12_25",
+        "verse_acts_13_13",
+        "verse_acts_15_37",
+        "verse_acts_15_38",
+        "verse_acts_15_39",
+        "verse_2timothy_4_11"
+      ],
+      "characterIds": [
+        "char_john_mark",
+        "char_barnabas",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_strength",
+        "topic_betrayal",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_priscilla_and_aquila",
+      "title": "Priscilla and Aquila",
+      "summary": "A married pair of tentmakers, exiled from Rome under Claudius, who Paul finds in Corinth and works alongside. They travel with him to Ephesus and, hearing the eloquent teacher Apollos preach an incomplete gospel, take him aside privately and \"explain to him the way of God more accurately\" -- correcting a gifted teacher without public embarrassment. Paul later calls them his \"fellow workers in Christ Jesus, who risked their own necks for my life.\"",
+      "primaryReference": "Acts 18:1-3, 18, 26; Romans 16:3-4",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2891,
+      "verseIds": [
+        "verse_acts_18_2",
+        "verse_acts_18_3",
+        "verse_acts_18_18",
+        "verse_acts_18_26",
+        "verse_romans_16_3",
+        "verse_romans_16_4"
+      ],
+      "characterIds": [
+        "char_priscilla",
+        "char_aquila",
+        "char_apollos"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_friendship",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_apollos_corrected_and_corinths_factions",
+      "title": "Apollos corrected, and Corinth's factions",
+      "summary": "An eloquent Alexandrian, \"mighty in the Scriptures,\" Apollos teaches accurately about Jesus but knows only the baptism of John until Priscilla and Aquila correct him privately. Sent on to Achaia with the church's encouragement, he becomes effective enough in Corinth that a faction there starts saying \"I follow Apollos\" over Paul -- who answers not by competing but by naming the real division as immaturity: \"I planted, Apollos watered, but God gave the increase.\"",
+      "primaryReference": "Acts 18:24-28; 1 Corinthians 1:12; 3:6",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2892,
+      "verseIds": [
+        "verse_acts_18_24",
+        "verse_acts_18_25",
+        "verse_acts_18_27",
+        "verse_1corinthians_1_12",
+        "verse_1corinthians_3_6"
+      ],
+      "characterIds": [
+        "char_apollos",
+        "char_priscilla",
+        "char_aquila"
+      ],
+      "topicIds": [
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_titus_comforts_paul",
+      "title": "Titus comforts Paul",
+      "summary": "Paul sends Titus into the difficult, unresolved situation with the Corinthian church, then waits anxiously for word. When Titus finally arrives in Macedonia with good news, Paul is plainly relieved -- \"God, who comforts the lowly, comforted us by the coming of Titus,\" whose own spirit had been refreshed by how the Corinthians received him. Paul calls him \"my partner and fellow worker,\" and later leaves him in Crete to put the young church there in order.",
+      "primaryReference": "2 Corinthians 7:6-13; 8:23; Titus 1:4-5",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2894,
+      "verseIds": [
+        "verse_titus_1_4",
+        "verse_2corinthians_7_6",
+        "verse_2corinthians_7_13",
+        "verse_2corinthians_8_23",
+        "verse_titus_1_5"
+      ],
+      "characterIds": [
+        "char_titus",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_friendship",
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_onesimus_and_philemon",
+      "title": "Onesimus and Philemon",
+      "summary": "Onesimus, a slave who ran from his master Philemon, becomes Paul's own \"child... in my chains\" in Rome. Paul sends him back carrying a letter to Philemon -- not a command to free him, but a personal appeal to receive him \"no longer as a slave, but... a beloved brother,\" with Paul offering to cover any debt himself: \"put that to my account.\" Addressed to a man Paul calls his \"beloved fellow worker,\" confident he \"will do even beyond what I say.\"",
+      "primaryReference": "Philemon 1:1-21",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2922,
+      "verseIds": [
+        "verse_philemon_1_1",
+        "verse_philemon_1_4",
+        "verse_philemon_1_6",
+        "verse_philemon_1_10",
+        "verse_philemon_1_11",
+        "verse_philemon_1_15",
+        "verse_philemon_1_16",
+        "verse_philemon_1_18",
+        "verse_philemon_1_21"
+      ],
+      "characterIds": [
+        "char_onesimus",
+        "char_philemon",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_faith",
+        "topic_thanksgiving",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_pauls_last_companions",
+      "title": "Paul's last companions: Demas leaves, Mark proves useful",
+      "summary": "In what is likely his final letter, Paul notes in the same breath who has stayed and who hasn't: \"Demas left me, having loved this present world, and went to Thessalonica... only Luke is with me. Take Mark, and bring him with you, for he is useful to me for service\" -- the same Mark who once deserted him decades earlier, now explicitly wanted back.",
+      "primaryReference": "2 Timothy 4:10-11",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2925,
+      "verseIds": [
+        "verse_2timothy_4_10",
+        "verse_2timothy_4_11"
+      ],
+      "characterIds": [
+        "char_demas",
+        "char_john_mark",
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_temptation",
+        "topic_betrayal",
+        "topic_forgiveness"
+      ]
     }
   ],
   "lifeEvents": [
@@ -11093,6 +11291,231 @@
       "reference": "2 Samuel 20:9-10",
       "storyId": "story_shebas_rebellion",
       "sequenceInLife": 30
+    },
+    {
+      "id": "event_timothy_joins_paul",
+      "characterId": "char_timothy",
+      "title": "Joins Paul as a close companion",
+      "description": "Well spoken of by the believers in Lystra and Iconium; Paul takes him on.",
+      "reference": "Acts 16:1-3",
+      "storyId": "story_timothy_pauls_son_in_the_faith",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_timothy_sent_to_philippi",
+      "characterId": "char_timothy",
+      "title": "Sent by Paul to check on the Philippians",
+      "description": "\"I have no one else like-minded, who will truly care about you.\"",
+      "reference": "Philippians 2:19-22",
+      "storyId": "story_timothy_pauls_son_in_the_faith",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_timothy_receives_letters",
+      "characterId": "char_timothy",
+      "title": "Receives two of Paul's own letters",
+      "description": "Addressed as Paul's \"true child in faith.\"",
+      "reference": "1 Timothy 1:2",
+      "storyId": "story_timothy_pauls_son_in_the_faith",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_lydia_converted",
+      "characterId": "char_lydia",
+      "title": "The Lord opens her heart to Paul's message",
+      "description": "Baptized with her household -- the first convert in Philippi.",
+      "reference": "Acts 16:14-15",
+      "storyId": "story_lydia_first_convert_in_philippi",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_lydia_hosts_church",
+      "characterId": "char_lydia",
+      "title": "Hosts Paul's company in her home",
+      "description": "Persuades them to stay; her house becomes a gathering place.",
+      "reference": "Acts 16:15, 40",
+      "storyId": "story_lydia_first_convert_in_philippi",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_john_mark_joins",
+      "characterId": "char_john_mark",
+      "title": "Joins Paul and Barnabas's first journey",
+      "description": "Taken along from Jerusalem as their attendant.",
+      "reference": "Acts 12:25",
+      "storyId": "story_john_mark_deserts_and_is_restored",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_john_mark_withdraws",
+      "characterId": "char_john_mark",
+      "title": "Withdraws and returns to Jerusalem",
+      "description": "Leaves the mission partway through, at Perga.",
+      "reference": "Acts 13:13",
+      "storyId": "story_john_mark_deserts_and_is_restored",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_john_mark_causes_split",
+      "characterId": "char_john_mark",
+      "title": "Causes Paul and Barnabas to separate",
+      "description": "Paul refuses to take him again; Barnabas does, and they part ways.",
+      "reference": "Acts 15:36-39",
+      "storyId": "story_john_mark_deserts_and_is_restored",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_john_mark_restored",
+      "characterId": "char_john_mark",
+      "title": "Paul asks for him by name",
+      "description": "\"He is useful to me for service,\" near the end of Paul's life.",
+      "reference": "2 Timothy 4:11",
+      "storyId": "story_pauls_last_companions",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_priscilla_meets_paul",
+      "characterId": "char_priscilla",
+      "title": "Meets Paul in Corinth",
+      "description": "Exiled from Rome with Aquila; Paul lodges and works with them.",
+      "reference": "Acts 18:1-3",
+      "storyId": "story_priscilla_and_aquila",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_priscilla_corrects_apollos",
+      "characterId": "char_priscilla",
+      "title": "Corrects Apollos's teaching",
+      "description": "Takes him aside with Aquila and explains the way of God more accurately.",
+      "reference": "Acts 18:26",
+      "storyId": "story_priscilla_and_aquila",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_aquila_meets_paul",
+      "characterId": "char_aquila",
+      "title": "Meets Paul in Corinth",
+      "description": "A fellow tentmaker; hosts and works alongside Paul.",
+      "reference": "Acts 18:1-3",
+      "storyId": "story_priscilla_and_aquila",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_aquila_corrects_apollos",
+      "characterId": "char_aquila",
+      "title": "Corrects Apollos's teaching",
+      "description": "Takes him aside with Priscilla and explains the way of God more accurately.",
+      "reference": "Acts 18:26",
+      "storyId": "story_priscilla_and_aquila",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_apollos_taught_more_accurately",
+      "characterId": "char_apollos",
+      "title": "Is taught more accurately by Priscilla and Aquila",
+      "description": "Already eloquent and mighty in the Scriptures, but knew only the baptism of John.",
+      "reference": "Acts 18:24-26",
+      "storyId": "story_apollos_corrected_and_corinths_factions",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_apollos_ministers_in_corinth",
+      "characterId": "char_apollos",
+      "title": "Ministers effectively in Corinth",
+      "description": "Effective enough that a faction there claims him over Paul.",
+      "reference": "1 Corinthians 1:12; 3:6",
+      "storyId": "story_apollos_corrected_and_corinths_factions",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_titus_sent_to_corinth",
+      "characterId": "char_titus",
+      "title": "Sent into the difficult situation at Corinth",
+      "description": "Paul waits anxiously for word of how he was received.",
+      "reference": "2 Corinthians 7:6-13",
+      "storyId": "story_titus_comforts_paul",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_titus_left_in_crete",
+      "characterId": "char_titus",
+      "title": "Left in Crete to put the church in order",
+      "description": "Appoints elders in every city as Paul directed.",
+      "reference": "Titus 1:5",
+      "storyId": "story_titus_comforts_paul",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_onesimus_runs",
+      "characterId": "char_onesimus",
+      "title": "Runs from his master Philemon",
+      "description": "Ends up in Rome, where he meets Paul in prison.",
+      "reference": "Philemon 1:10-11",
+      "storyId": "story_onesimus_and_philemon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_onesimus_becomes_pauls_child",
+      "characterId": "char_onesimus",
+      "title": "Becomes Paul's own child in the faith",
+      "description": "\"Once was useless to you, but now is useful to you and to me.\"",
+      "reference": "Philemon 1:10-11",
+      "storyId": "story_onesimus_and_philemon",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_onesimus_sent_back",
+      "characterId": "char_onesimus",
+      "title": "Sent back to Philemon with Paul's letter",
+      "description": "Paul appeals for him to be received as a beloved brother.",
+      "reference": "Philemon 1:15-18",
+      "storyId": "story_onesimus_and_philemon",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_philemon_receives_letter",
+      "characterId": "char_philemon",
+      "title": "Receives Paul's personal appeal for Onesimus",
+      "description": "Asked to receive his runaway slave back as a brother, not punish him.",
+      "reference": "Philemon 1:15-21",
+      "storyId": "story_onesimus_and_philemon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_demas_leaves",
+      "characterId": "char_demas",
+      "title": "Leaves Paul, \"having loved this present world\"",
+      "description": "Named in Paul's last letter as having departed for Thessalonica.",
+      "reference": "2 Timothy 4:10",
+      "storyId": "story_pauls_last_companions",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_barnabas_splits_over_mark",
+      "characterId": "char_barnabas",
+      "title": "Splits from Paul over a second chance for Mark",
+      "description": "Takes Mark and sails for Cyprus rather than leave him behind again.",
+      "reference": "Acts 15:37-39",
+      "storyId": "story_john_mark_deserts_and_is_restored",
+      "sequenceInLife": 25
+    },
+    {
+      "id": "event_paul_meets_timothy",
+      "characterId": "char_paul",
+      "title": "Takes on Timothy as a close companion",
+      "description": "Finds him well spoken of in Lystra and Iconium.",
+      "reference": "Acts 16:1-3",
+      "storyId": "story_timothy_pauls_son_in_the_faith",
+      "sequenceInLife": 45
+    },
+    {
+      "id": "event_paul_sends_onesimus_back",
+      "characterId": "char_paul",
+      "title": "Sends Onesimus back to Philemon",
+      "description": "Appeals for him to be received as a brother, offering to cover any debt himself.",
+      "reference": "Philemon 1:10-18",
+      "storyId": "story_onesimus_and_philemon",
+      "sequenceInLife": 95
     }
   ]
 }

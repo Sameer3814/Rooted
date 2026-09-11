@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (171 characters — full 66-book Bible as of 2026-09-10, plus the first "deep study" supporting-cast slice, 2 Samuel's civil-war/rebellion cast, item 66 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (181 characters — full 66-book Bible as of 2026-09-10, plus two "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast and Paul's circle, items 66-67 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,361 verses + 38 topics + 171 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,402 verses + 38 topics + 181 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 243 stories, 552 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 251 stories, 577 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,361-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,402-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2594,6 +2594,71 @@ inventing a new principle:
     explicitly the first slice of a long-haul, multi-session project —
     see CLAUDE.md's "Known gaps" item 10 for the fuller framing and the
     "narrative importance, not mention count" selection principle.
+
+67. **"Deep study" supporting-cast expansion, pass 2: Paul's circle.**
+    **Done (2026-09-11).** A much bigger gap than pass 1 found — almost
+    none of Paul's actual companions were curated at all, not even
+    Timothy or Titus despite epistles addressed to them by name, nor
+    Mark or Luke despite being Gospel authors. 10 new characters, all
+    inside the existing `era_early_church` (no new era needed):
+    Priscilla and Aquila (the tentmaker couple who host Paul and take
+    the eloquent-but-incomplete teacher Apollos aside to "explain the
+    way of God more accurately" — Paul later says they "risked their
+    own necks" for him), Apollos himself (whose later effective
+    ministry in Corinth creates a faction problem Paul has to defuse:
+    "I planted, Apollos watered, but God gave the increase"), Lydia
+    (the first convert in Philippi, and Europe), John Mark (deserts
+    partway through the first missionary journey, causes a split
+    between Paul and Barnabas sharp enough that they part ways over it,
+    and is explicitly reconciled decades later — "he is useful to me
+    for service," 2 Timothy 4:11, likely Paul's last letter), Timothy
+    and Titus (Paul's two closest delegates, each with an epistle
+    addressed to them — Timothy introduced at Lystra and later called
+    "my true child in faith"; Titus sent into the hard Corinthian
+    situation and bringing Paul real comfort on his return), Onesimus
+    and Philemon (the runaway slave and the master Paul appeals to on
+    his behalf — the entire book of Philemon in miniature), and Demas
+    (named in the very same last letter as John Mark, but as the one
+    who left, "having loved this present world" — a small, deliberate
+    contrast). 8 new stories, 25 new life events, including 3 on
+    already-curated characters where the new material was genuinely
+    also a beat in *their* story: Barnabas gets a new event for
+    splitting from Paul over Mark (`sequenceInLife` 25, after his
+    existing 10/20), and Paul gets two — meeting Timothy (45, between
+    his existing 40/50) and sending Onesimus back to Philemon (95,
+    after his existing max of 90) — each checked against his current
+    values first, same discipline as pass 1's Joab events. One
+    existing verse (1 Timothy 4:12, already curated for `topic_identity`
+    with no character tag) got `char_timothy` merged onto it rather
+    than being duplicated — the curation script was extended to merge
+    topic/character tags onto an already-present verse id instead of
+    raising an error, since this is the first batch in the whole
+    project where new curation genuinely overlapped a previously-tagged
+    verse rather than always hitting fresh ones. 41 new curated verses,
+    no new topics — the existing 38 covered scripture, loyalty,
+    friendship, forgiveness, betrayal, and temptation (Demas) without
+    strain.
+
+68. **Fix: back navigation always jumped to the top of the screen.**
+    **Done (2026-09-11).** Reported directly by the owner: opening a
+    character's profile from a scrolled-down position in a list, then
+    going back, lost the scroll position — landed back at the top of
+    the list instead of where they'd been. Root cause: `go()`
+    unconditionally called `window.scrollTo(0,0)` on every navigation,
+    forward or backward, with no memory of where any screen had been
+    scrolled to. Fixed generally rather than special-cased to the
+    People screen: a new `scrollPositions` map, keyed by
+    `screen(+id)` (`scrollKey()`), records `window.scrollY` for the
+    *current* view right before every navigation, and `go()` restores
+    the saved position for the *destination* view if one exists
+    (falling back to 0 for a screen/id never visited before, so a
+    freshly opened detail page still opens at the top — only a
+    genuine return trip restores anything). Since every navigation in
+    the app already funnels through the one `go()` function, this one
+    change fixes the problem everywhere it could occur — People,
+    Topics, Browse, Stories, and every "back" action (`verse-back`,
+    `story-back`, `motif-back`, `back-to-characters`, `back-to-topics`)
+    — not just the specific case the owner happened to notice.
 
 ---
 

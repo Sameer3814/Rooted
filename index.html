@@ -829,6 +829,7 @@ let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, l
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
 let motifs = [];  // seed-only: recurring biblical patterns (DATA_MODEL.md §2)
 let view = {screen:'home', params:{}};
+let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
 
 /* The full WEB corpus (data/verses.json, ~3,994 verses) is reference material,
@@ -1027,7 +1028,13 @@ function render(){
   bindEvents();
 }
 
-function go(screen, params={}){ view = {screen, params}; window.scrollTo(0,0); render(); }
+function scrollKey(v){ return v.screen + (v.params && v.params.id ? ':' + v.params.id : ''); }
+function go(screen, params={}){
+  scrollPositions[scrollKey(view)] = window.scrollY;
+  view = {screen, params};
+  render();
+  window.scrollTo(0, scrollPositions[scrollKey(view)] || 0);
+}
 
 /* ---------- HOME ---------- */
 function renderHome(){
