@@ -299,6 +299,29 @@ Worth knowing:
   central, query their existing `sequenceInLife` values first
   (`py -c "..."` one-liner against `pipeline/curation/stories.json` is
   fast) rather than guessing round numbers and fixing after the fact.
+- **When a new/minor character's story centers on an interaction with an
+  existing major character, tag the major character too — it's easy to
+  tag only the person the batch is "about."** Found in the "deep study"
+  supporting-cast passes (DATA_MODEL.md items 66-68): 2 Samuel's Abner/
+  Ittai/Hushai/Shimei/Amasa/Sheba stories all center on decisions David
+  himself makes (receiving Abner, offering Ittai an out, sending Hushai
+  back, restraining Abishai, appointing Amasa, sending Joab after Sheba)
+  — but `char_david` was never added to any of those stories'
+  `characterIds`, only the new minor character was. Same bug, same batch
+  shape, in the very next pass: three of Paul's-circle's eight new
+  stories (Lydia's conversion, Priscilla and Aquila) never got
+  `char_paul` tagged even though he's the one preaching/lodging in every
+  one of them. The symptom is invisible unless you actually go look at
+  the *major* character's own page — `characterStories()` filters purely
+  on `characterIds` membership, so an untagged story doesn't error
+  anywhere, it just silently never shows up in "Stories" on the
+  character it should be most relevant to. The user caught it by
+  checking Paul's own profile after a batch that was "about" ten other
+  people. Checklist for every new story from now on: after listing who
+  it's centrally *about*, separately ask "which existing major character
+  is also directly present or acting in this scene?" and tag them too —
+  don't assume a big person's page will pick up small interactions for
+  free just because a minor character on the other end of them exists.
 
 ## Copyright
 

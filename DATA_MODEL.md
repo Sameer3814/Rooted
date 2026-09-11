@@ -2660,6 +2660,38 @@ inventing a new principle:
     `story-back`, `motif-back`, `back-to-characters`, `back-to-topics`)
     — not just the specific case the owner happened to notice.
 
+69. **Fix: major characters weren't tagged on new supporting-cast
+    stories centered on their own decisions.** **Done (2026-09-11).**
+    Reported directly by the owner after looking at Paul's own page
+    following the Paul's-circle batch (item 67): the new characters
+    were there, but several of the interactions weren't showing up on
+    *Paul's* page. Root cause: `characterStories()` filters purely on
+    `characterIds` membership (§9 below), and three of the eight new
+    stories — Lydia's conversion, Priscilla and Aquila hosting him —
+    never had `char_paul` added to that array, even though he's the
+    one preaching/lodging in every one of them; the batch tagged the
+    person each story was centrally *about* but not every major figure
+    genuinely present in the scene. The same bug, same shape, turned
+    out to already be sitting in the *previous* pass too (item 66):
+    none of 2 Samuel's six new stories had `char_david` tagged, despite
+    every one of them centering on a decision David himself makes
+    (receiving Abner, offering Ittai a way out, sending Hushai back,
+    restraining Abishai then pardoning Shimei, appointing Amasa,
+    sending Joab after Sheba). Fixed both in one pass: `char_paul`
+    added to the three under-tagged stories, `char_david` added to all
+    six 2 Samuel ones, plus matching new life events on each of their
+    own timelines so the "minor incidents" the owner asked for actually
+    show up as moments in the *major* character's life too, not only
+    the new minor character's — 2 new events on Paul (`sequenceInLife`
+    48, 62, checked against his existing values first) and 6 on David
+    (`sequenceInLife` 65, 132-134, 142, 144, same discipline). Lesson
+    written up in `pipeline/README.md`'s lessons-learned section: when
+    curating a new/minor character's story, separately ask which
+    existing major character is also directly present, and tag them
+    too — a story invisible on the wrong character's page doesn't
+    error anywhere, so it's easy to miss without actually checking that
+    page.
+
 ---
 
 ## 9. How the app reads this data

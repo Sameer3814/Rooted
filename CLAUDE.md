@@ -510,8 +510,20 @@ hand-curate all the content before building.
     (Barnabas, Paul ×2) where the new material was genuinely also a
     beat in *their* own story, not just the new character's (e.g.
     Barnabas splitting from Paul over a second chance for John Mark).
-    See DATA_MODEL.md §8, items 65-67, for the full writeup and the
-    reasoning behind which figures made the cut each pass.
+    **Lesson learned the hard way, caught by the owner checking Paul's
+    own page after that batch:** a new story needs the *existing*
+    major character tagged too whenever they're genuinely present in
+    the scene, not just the new minor character it's "about" —
+    `characterStories()` shows a story only where its `characterIds`
+    says to, silently, so an untagged major character never surfaces
+    an error, the story just never shows up on their page. Both this
+    pass (3 of 8 stories missing `char_paul`) and the previous one (all
+    6 of 2 Samuel's new stories missing `char_david`, despite every one
+    centering on a decision he makes) had the same gap, fixed together
+    once found — see DATA_MODEL.md §8, item 69, and the checklist added
+    to `pipeline/README.md`'s lessons-learned section. See DATA_MODEL.md
+    §8, items 65-67, for the full writeup and the reasoning behind which
+    figures made the cut each pass.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
