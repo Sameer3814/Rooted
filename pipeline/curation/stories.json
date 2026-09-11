@@ -4634,6 +4634,8 @@
       "eraId": "era_passion_and_resurrection",
       "canonicalOrder": 2650,
       "verseIds": [
+        "verse_john_18_10",
+        "verse_john_18_26",
         "verse_matthew_26_50",
         "verse_matthew_26_52",
         "verse_matthew_26_56"
@@ -4641,6 +4643,7 @@
       "characterIds": [
         "char_jesus",
         "char_judas_iscariot",
+        "char_malchus",
         "char_peter"
       ],
       "topicIds": [
@@ -4739,22 +4742,25 @@
       "eraId": "era_passion_and_resurrection",
       "canonicalOrder": 2700,
       "verseIds": [
-        "verse_matthew_27_46",
-        "verse_luke_23_34",
-        "verse_luke_23_43",
         "verse_john_19_26",
         "verse_john_19_30",
+        "verse_luke_23_34",
+        "verse_luke_23_43",
         "verse_luke_23_46",
+        "verse_luke_23_47",
+        "verse_mark_15_39",
+        "verse_matthew_27_46",
         "verse_matthew_27_51",
         "verse_matthew_27_54"
       ],
       "characterIds": [
+        "char_centurion_at_the_cross",
         "char_jesus",
-        "char_simon_of_cyrene",
-        "char_penitent_thief",
-        "char_mary",
         "char_john_apostle",
-        "char_mary_magdalene"
+        "char_mary",
+        "char_mary_magdalene",
+        "char_penitent_thief",
+        "char_simon_of_cyrene"
       ],
       "topicIds": [
         "topic_forgiveness",
@@ -5847,6 +5853,213 @@
         "topic_justice",
         "topic_identity"
       ]
+    },
+    {
+      "id": "story_paralytic_lowered_through_roof",
+      "title": "The paralytic lowered through the roof",
+      "summary": "Unable to get near Jesus through the crowd, four friends carry a paralyzed man onto the roof, tear it open, and lower him down on his mat. \"Seeing their faith\" -- the friends', not just his own -- Jesus first forgives his sins, then heals his body outright: \"arise, take up your mat, and go to your house.\"",
+      "primaryReference": "Mark 2:1-12",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 95,
+      "verseIds": [
+        "verse_mark_2_3",
+        "verse_mark_2_4",
+        "verse_mark_2_5",
+        "verse_mark_2_11",
+        "verse_mark_2_12"
+      ],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_friendship",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_centurions_servant_healed",
+      "title": "The centurion's servant healed",
+      "summary": "A Roman centurion asks Jesus to heal his servant, but stops him from actually coming to the house: \"just say the word.\" His own experience of military authority -- giving an order and having it obeyed -- gives him a category for what Jesus can do that no one else quite grasps. Jesus marvels: \"I haven't found so great a faith, not even in Israel.\"",
+      "primaryReference": "Matthew 8:5-13",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 105,
+      "verseIds": [
+        "verse_matthew_8_5",
+        "verse_matthew_8_8",
+        "verse_matthew_8_9",
+        "verse_matthew_8_10",
+        "verse_matthew_8_13"
+      ],
+      "characterIds": [
+        "char_centurion_of_capernaum",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_widow_of_nains_son_raised",
+      "title": "The widow of Nain's son raised",
+      "summary": "Jesus meets a funeral procession at the city gate -- a widow burying her only son, her last means of support. \"Moved with compassion,\" he stops the procession, touches the coffin, and tells the young man to get up. He does, and Jesus gives him back to his mother.",
+      "primaryReference": "Luke 7:11-17",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 106,
+      "verseIds": [
+        "verse_luke_7_12",
+        "verse_luke_7_13",
+        "verse_luke_7_14",
+        "verse_luke_7_15"
+      ],
+      "characterIds": [
+        "char_widow_of_nain",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_sorrow"
+      ]
+    },
+    {
+      "id": "story_simon_the_pharisee_and_the_forgiven_woman",
+      "title": "Simon the Pharisee and the forgiven woman",
+      "summary": "A Pharisee named Simon invites Jesus to dinner; a woman known in the city as a sinner comes in, weeps at his feet, wipes them with her hair, and anoints them -- an open scandal in Simon's eyes. Jesus answers with a short parable about two debts forgiven, then points out exactly which basic courtesies Simon skipped that she more than made up for. His verdict reverses Simon's judgment entirely: \"her sins, which are many, are forgiven, for she loved much.\"",
+      "primaryReference": "Luke 7:36-50",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 107,
+      "verseIds": [
+        "verse_luke_7_36",
+        "verse_luke_7_37",
+        "verse_luke_7_38",
+        "verse_luke_7_39",
+        "verse_luke_7_44",
+        "verse_luke_7_47"
+      ],
+      "characterIds": [
+        "char_simon_the_pharisee",
+        "char_sinful_woman_forgiven",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_love",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_jairus_and_the_bleeding_woman",
+      "title": "Jairus's daughter, and the woman who touched his robe",
+      "summary": "A synagogue ruler, Jairus, begs Jesus to come heal his dying daughter. On the way, a woman who has bled for twelve years touches Jesus's robe in the crowd, certain that's enough --  and it is, instantly. Jesus stops to find her anyway and calls her \"daughter.\" Word then comes that Jairus's own daughter has died; Jesus goes anyway -- \"don't be afraid, only believe\" -- and raises her.",
+      "primaryReference": "Mark 5:21-43",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 145,
+      "verseIds": [
+        "verse_mark_5_22",
+        "verse_mark_5_23",
+        "verse_mark_5_25",
+        "verse_mark_5_27",
+        "verse_mark_5_28",
+        "verse_mark_5_29",
+        "verse_mark_5_34",
+        "verse_mark_5_35",
+        "verse_mark_5_36"
+      ],
+      "characterIds": [
+        "char_jairus",
+        "char_woman_with_the_issue_of_blood",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_man_born_blind",
+      "title": "The man born blind",
+      "summary": "Jesus heals a man blind from birth with mud and a wash in the pool of Siloam. The Pharisees interrogate him repeatedly, refusing to credit Jesus and pressuring his own parents, who deflect out of fear of being expelled from the synagogue themselves. The healed man won't budge on what he actually knows -- \"though I was blind, now I see\" -- and is thrown out for it. Jesus finds him again afterward; he believes, and worships him.",
+      "primaryReference": "John 9:1-41",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 205,
+      "verseIds": [
+        "verse_john_9_1",
+        "verse_john_9_6",
+        "verse_john_9_7",
+        "verse_john_9_22",
+        "verse_john_9_25",
+        "verse_john_9_34",
+        "verse_john_9_38"
+      ],
+      "characterIds": [
+        "char_man_born_blind",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith",
+        "topic_identity",
+        "topic_fear",
+        "topic_worship"
+      ]
+    },
+    {
+      "id": "story_bartimaeus",
+      "title": "Bartimaeus",
+      "summary": "A blind beggar at Jericho cries out to Jesus as \"son of David\" despite the crowd telling him to be quiet -- he only cries louder. Asked what he wants, he doesn't hesitate: \"that I may see again.\" Healed on the spot, he doesn't just go on his way -- he follows Jesus.",
+      "primaryReference": "Mark 10:46-52",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 225,
+      "verseIds": [
+        "verse_mark_10_46",
+        "verse_mark_10_47",
+        "verse_mark_10_48",
+        "verse_mark_10_51",
+        "verse_mark_10_52"
+      ],
+      "characterIds": [
+        "char_bartimaeus",
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_anointing_at_bethany",
+      "title": "The anointing at Bethany",
+      "summary": "At a dinner in Simon the leper's house in Bethany, Mary of Bethany breaks open an alabaster jar of expensive perfume and pours it on Jesus. Judas objects that it could have been sold and given to the poor; Jesus defends her, reading the act as preparation for his own burial, just days away.",
+      "primaryReference": "Mark 14:3-9; Matthew 26:6-13; John 12:1-8",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 238,
+      "verseIds": [
+        "verse_mark_14_3"
+      ],
+      "characterIds": [
+        "char_simon_the_leper",
+        "char_mary_of_bethany",
+        "char_jesus"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_women_who_funded_the_ministry",
+      "title": "The women who funded the ministry",
+      "summary": "As Jesus travels preaching through cities and villages with the Twelve, a group of women who had been healed travel with them too -- Mary Magdalene, Joanna (the wife of Herod's steward Chuza), Susanna, and \"many others\" -- who \"served them from their possessions.\" The ministry's actual funding, credited by name rather than left anonymous.",
+      "primaryReference": "Luke 8:1-3",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 108,
+      "verseIds": [
+        "verse_luke_8_1",
+        "verse_luke_8_2",
+        "verse_luke_8_3"
+      ],
+      "characterIds": [
+        "char_joanna",
+        "char_susanna",
+        "char_jesus"
+      ],
+      "topicIds": []
     }
   ],
   "lifeEvents": [
@@ -12539,6 +12752,240 @@
       "reference": "Numbers 27:5-7",
       "storyId": "story_zelophehads_daughters",
       "sequenceInLife": 258
+    },
+    {
+      "id": "event_bartimaeus_healed",
+      "characterId": "char_bartimaeus",
+      "title": "Cries out to Jesus and receives his sight",
+      "description": "\"Your faith has made you well.\"",
+      "reference": "Mark 10:46-52",
+      "storyId": "story_bartimaeus",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jairus_daughter_raised",
+      "characterId": "char_jairus",
+      "title": "His daughter is raised from the dead",
+      "description": "\"Don't be afraid, only believe.\"",
+      "reference": "Mark 5:22-42",
+      "storyId": "story_jairus_and_the_bleeding_woman",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_bleeding_woman_healed",
+      "characterId": "char_woman_with_the_issue_of_blood",
+      "title": "Touches Jesus's robe and is healed",
+      "description": "Twelve years of bleeding ends instantly.",
+      "reference": "Mark 5:25-34",
+      "storyId": "story_jairus_and_the_bleeding_woman",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_centurion_servant_healed",
+      "characterId": "char_centurion_of_capernaum",
+      "title": "His servant is healed at a distance",
+      "description": "\"Just say the word.\"",
+      "reference": "Matthew 8:5-13",
+      "storyId": "story_centurions_servant_healed",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_widows_son_raised",
+      "characterId": "char_widow_of_nain",
+      "title": "Her only son is raised from the dead",
+      "description": "Jesus stops the funeral procession.",
+      "reference": "Luke 7:11-15",
+      "storyId": "story_widow_of_nains_son_raised",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_malchus_ear_cut_off",
+      "characterId": "char_malchus",
+      "title": "Has his ear cut off by Peter",
+      "description": "At Jesus's arrest in Gethsemane.",
+      "reference": "John 18:10",
+      "storyId": "story_betrayal_and_arrest",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_centurion_confesses_son_of_god",
+      "characterId": "char_centurion_at_the_cross",
+      "title": "Confesses \"truly this was the Son of God\"",
+      "description": "Watching Jesus die.",
+      "reference": "Matthew 27:54; Mark 15:39",
+      "storyId": "story_crucifixion",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_simon_pharisee_judges_woman",
+      "characterId": "char_simon_the_pharisee",
+      "title": "Privately judges Jesus and the forgiven woman",
+      "description": "Jesus answers with a parable about two debts.",
+      "reference": "Luke 7:36-50",
+      "storyId": "story_simon_the_pharisee_and_the_forgiven_woman",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_sinful_woman_forgiven",
+      "characterId": "char_sinful_woman_forgiven",
+      "title": "Anoints Jesus's feet and is forgiven",
+      "description": "\"Her sins, which are many, are forgiven, for she loved much.\"",
+      "reference": "Luke 7:37-47",
+      "storyId": "story_simon_the_pharisee_and_the_forgiven_woman",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joanna_supports_ministry",
+      "characterId": "char_joanna",
+      "title": "Helps fund Jesus's ministry",
+      "description": "Wife of Herod's steward Chuza.",
+      "reference": "Luke 8:3",
+      "storyId": "story_women_who_funded_the_ministry",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_joanna_at_the_tomb",
+      "characterId": "char_joanna",
+      "title": "One of the first to find the empty tomb",
+      "description": "Reports the resurrection to the apostles.",
+      "reference": "Luke 24:10",
+      "storyId": "story_the_empty_tomb",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_susanna_supports_ministry",
+      "characterId": "char_susanna",
+      "title": "Helps fund Jesus's ministry",
+      "description": "Named individually alongside Mary Magdalene and Joanna.",
+      "reference": "Luke 8:3",
+      "storyId": "story_women_who_funded_the_ministry",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_man_born_blind_healed",
+      "characterId": "char_man_born_blind",
+      "title": "Is healed and interrogated by the Pharisees",
+      "description": "Holds his ground: \"though I was blind, now I see.\"",
+      "reference": "John 9:1-34",
+      "storyId": "story_man_born_blind",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_man_born_blind_worships",
+      "characterId": "char_man_born_blind",
+      "title": "Worships Jesus after being thrown out of the synagogue",
+      "description": "\"Lord, I believe!\"",
+      "reference": "John 9:35-38",
+      "storyId": "story_man_born_blind",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_paralytic_healed",
+      "characterId": "char_paralytic_lowered_through_roof",
+      "title": "Is forgiven and healed after his friends tear open a roof",
+      "description": "\"We never saw anything like this!\"",
+      "reference": "Mark 2:1-12",
+      "storyId": "story_paralytic_lowered_through_roof",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_simon_leper_hosts_dinner",
+      "characterId": "char_simon_the_leper",
+      "title": "Hosts Jesus for dinner at Bethany",
+      "description": "The setting for Mary of Bethany's anointing.",
+      "reference": "Mark 14:3",
+      "storyId": "story_anointing_at_bethany",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_heals_paralytic",
+      "characterId": "char_jesus",
+      "title": "Forgives and heals a paralyzed man lowered through a roof",
+      "description": "Responds to the faith of his four friends.",
+      "reference": "Mark 2:1-12",
+      "storyId": "story_paralytic_lowered_through_roof",
+      "sequenceInLife": 95
+    },
+    {
+      "id": "event_jesus_heals_centurions_servant",
+      "characterId": "char_jesus",
+      "title": "Heals a Roman centurion's servant at a distance",
+      "description": "Marvels at his faith: \"not even in Israel.\"",
+      "reference": "Matthew 8:5-13",
+      "storyId": "story_centurions_servant_healed",
+      "sequenceInLife": 105
+    },
+    {
+      "id": "event_jesus_raises_widows_son",
+      "characterId": "char_jesus",
+      "title": "Raises a widow's only son at Nain",
+      "description": "\"Moved with compassion.\"",
+      "reference": "Luke 7:11-17",
+      "storyId": "story_widow_of_nains_son_raised",
+      "sequenceInLife": 106
+    },
+    {
+      "id": "event_jesus_forgives_sinful_woman",
+      "characterId": "char_jesus",
+      "title": "Forgives a sinful woman at a Pharisee's dinner",
+      "description": "Reverses his host's judgment of her.",
+      "reference": "Luke 7:36-50",
+      "storyId": "story_simon_the_pharisee_and_the_forgiven_woman",
+      "sequenceInLife": 107
+    },
+    {
+      "id": "event_jesus_women_support_him",
+      "characterId": "char_jesus",
+      "title": "Is supported financially by a group of women",
+      "description": "Mary Magdalene, Joanna, Susanna, and others.",
+      "reference": "Luke 8:1-3",
+      "storyId": "story_women_who_funded_the_ministry",
+      "sequenceInLife": 108
+    },
+    {
+      "id": "event_jesus_heals_jairus_daughter",
+      "characterId": "char_jesus",
+      "title": "Heals a bleeding woman and raises Jairus's daughter",
+      "description": "Two miracles, interwoven, on the same walk.",
+      "reference": "Mark 5:21-43",
+      "storyId": "story_jairus_and_the_bleeding_woman",
+      "sequenceInLife": 145
+    },
+    {
+      "id": "event_jesus_heals_man_born_blind",
+      "characterId": "char_jesus",
+      "title": "Heals a man born blind",
+      "description": "Finds him again after the Pharisees expel him.",
+      "reference": "John 9:1-38",
+      "storyId": "story_man_born_blind",
+      "sequenceInLife": 205
+    },
+    {
+      "id": "event_jesus_heals_bartimaeus",
+      "characterId": "char_jesus",
+      "title": "Heals the blind beggar Bartimaeus",
+      "description": "At Jericho, on the road up to Jerusalem.",
+      "reference": "Mark 10:46-52",
+      "storyId": "story_bartimaeus",
+      "sequenceInLife": 225
+    },
+    {
+      "id": "event_jesus_anointed_at_bethany",
+      "characterId": "char_jesus",
+      "title": "Is anointed at Bethany before his death",
+      "description": "Defends the act as preparation for his burial.",
+      "reference": "Mark 14:3-9",
+      "storyId": "story_anointing_at_bethany",
+      "sequenceInLife": 238
+    },
+    {
+      "id": "event_peter_cuts_off_malchus_ear",
+      "characterId": "char_peter",
+      "title": "Cuts off Malchus's ear at Jesus's arrest",
+      "description": "Jesus heals it (Luke 22:51) and tells Peter to put his sword away.",
+      "reference": "John 18:10",
+      "storyId": "story_betrayal_and_arrest",
+      "sequenceInLife": 75
     }
   ]
 }

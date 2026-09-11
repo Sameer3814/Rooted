@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (212 characters — full 66-book Bible as of 2026-09-10, plus four "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, and 1 Samuel/Exodus/Numbers, items 66-67, 70, and 71 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (226 characters — full 66-book Bible as of 2026-09-10, plus five "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, 1 Samuel/Exodus/Numbers, and the Gospels' supporting cast, items 66-67 and 70-72 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,495 verses + 38 topics + 212 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,547 verses + 38 topics + 226 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 262 stories, 653 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 271 stories, 679 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,495-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,547-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2814,6 +2814,57 @@ inventing a new principle:
     ruling on Zelophehad's daughters) — their existing `sequenceInLife`
     ranges (David up to 170, Saul up to 50, Moses up to 280) checked
     first in every case.
+
+72. **"Deep study" supporting-cast expansion, pass 5: the Gospels'
+    supporting cast.** **Done (2026-09-11).** The pattern behind every
+    curated Gospel gap so far: the big, communal "nature miracles"
+    (calming the storm, walking on water, feeding the 5000) were
+    curated from the start, but the individual, personal healing and
+    interaction stories — arguably the ones that show Jesus's
+    character most directly, one person at a time — were never given
+    their own Characters or Stories at all. 14 new characters, all
+    inside `era_jesus_ministry` except two passion-week figures in
+    `era_passion_and_resurrection`: **Bartimaeus** (the blind beggar at
+    Jericho who cries louder when the crowd tells him to be quiet);
+    **Jairus** and **the woman with the issue of blood** (two healings
+    interwoven in one single episode, Mark 5 — a synagogue ruler's
+    dying daughter and a bleeding woman's touch on Jesus's robe, told
+    as one Story rather than split in two since the text itself never
+    separates them); **the centurion of Capernaum** (whose grasp of
+    military authority becomes the clearest picture of faith Jesus has
+    yet seen — "not even in Israel"); **the widow of Nain** (unnamed,
+    her only son raised — deliberately written up echoing the widow of
+    Zarephath, the same shape of a grieving mother's last support
+    restored); **Malchus** (the high priest's servant whose ear Peter
+    cuts off at the arrest — folded into the *existing*
+    `story_betrayal_and_arrest` rather than a new Story, since it's a
+    detail within an already-curated scene, not a separate event);
+    **the centurion at the cross** (folded into the existing
+    `story_crucifixion` the same way); **Simon the Pharisee** and **the
+    forgiven woman** (Luke 7:36-50 — deliberately kept distinct from
+    Mary of Bethany's later, different anointing at Simon the *leper's*
+    house, a conflation later tradition makes that the text itself
+    never does); **Joanna** and **Susanna** (the named women, alongside
+    Mary Magdalene, who financially supported Jesus's ministry — Joanna
+    reappears by name at the empty tomb, Luke 24:10); **the man born
+    blind** (John 9's extended interrogation-and-expulsion narrative,
+    ending in him worshiping Jesus after being thrown out of the
+    synagogue for his own testimony); **the paralytic lowered through
+    the roof** (Jesus responds to *his friends'* faith, not just his
+    own); and **Simon the leper** (host of the anointing at Bethany,
+    where Mary of Bethany — already curated — anoints Jesus before his
+    burial).
+
+    9 new stories, 2 existing ones extended (`story_betrayal_and_arrest`,
+    `story_crucifixion`), 52 new curated verses, no new topics.
+    `char_jesus` — already carrying 39 life events, nearly one per
+    existing Gospel Story — picked up 9 more, one for each new story
+    he's the one acting in (his existing `sequenceInLife` values are
+    the exact multiples of ten from 10 to 390, checked before inserting
+    new ones like 95, 105, 145, 205, 225, 238 between them); `char_peter`
+    picked up one for cutting off Malchus's ear (checked against his
+    existing `[10..120]` range first). Item 69's lesson held from the
+    start of the pass, same as items 70-71.
 
 ---
 

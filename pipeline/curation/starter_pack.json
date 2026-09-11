@@ -8880,7 +8880,9 @@
       "topicIds": [
         "topic_identity"
       ],
-      "characterIds": []
+      "characterIds": [
+        "char_centurion_at_the_cross"
+      ]
     },
     {
       "id": "verse_matthew_27_60",
@@ -12131,6 +12133,425 @@
         "char_milcah_daughter_of_zelophehad",
         "char_tirzah"
       ]
+    },
+    {
+      "id": "verse_mark_10_46",
+      "topicIds": [],
+      "characterIds": [
+        "char_bartimaeus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_47",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_bartimaeus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_48",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_bartimaeus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_51",
+      "topicIds": [],
+      "characterIds": [
+        "char_bartimaeus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_52",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_bartimaeus"
+      ]
+    },
+    {
+      "id": "verse_mark_5_22",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jairus"
+      ]
+    },
+    {
+      "id": "verse_mark_5_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_jairus"
+      ]
+    },
+    {
+      "id": "verse_mark_5_35",
+      "topicIds": [],
+      "characterIds": [
+        "char_jairus"
+      ]
+    },
+    {
+      "id": "verse_mark_5_36",
+      "topicIds": [
+        "topic_fear",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_jairus"
+      ]
+    },
+    {
+      "id": "verse_mark_5_41",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_5_42",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_5_25",
+      "topicIds": [],
+      "characterIds": [
+        "char_woman_with_the_issue_of_blood"
+      ]
+    },
+    {
+      "id": "verse_mark_5_27",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_woman_with_the_issue_of_blood"
+      ]
+    },
+    {
+      "id": "verse_mark_5_28",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_woman_with_the_issue_of_blood"
+      ]
+    },
+    {
+      "id": "verse_mark_5_29",
+      "topicIds": [],
+      "characterIds": [
+        "char_woman_with_the_issue_of_blood"
+      ]
+    },
+    {
+      "id": "verse_mark_5_34",
+      "topicIds": [
+        "topic_faith",
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_woman_with_the_issue_of_blood"
+      ]
+    },
+    {
+      "id": "verse_matthew_8_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_centurion_of_capernaum"
+      ]
+    },
+    {
+      "id": "verse_matthew_8_8",
+      "topicIds": [
+        "topic_humility",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_centurion_of_capernaum"
+      ]
+    },
+    {
+      "id": "verse_matthew_8_9",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_centurion_of_capernaum"
+      ]
+    },
+    {
+      "id": "verse_matthew_8_10",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_centurion_of_capernaum"
+      ]
+    },
+    {
+      "id": "verse_matthew_8_13",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_centurion_of_capernaum"
+      ]
+    },
+    {
+      "id": "verse_luke_7_12",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_widow_of_nain"
+      ]
+    },
+    {
+      "id": "verse_luke_7_13",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_widow_of_nain"
+      ]
+    },
+    {
+      "id": "verse_luke_7_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_widow_of_nain"
+      ]
+    },
+    {
+      "id": "verse_luke_7_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_widow_of_nain"
+      ]
+    },
+    {
+      "id": "verse_john_18_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_malchus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_18_26",
+      "topicIds": [],
+      "characterIds": [
+        "char_malchus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_mark_15_39",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_centurion_at_the_cross"
+      ]
+    },
+    {
+      "id": "verse_luke_23_47",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_centurion_at_the_cross"
+      ]
+    },
+    {
+      "id": "verse_luke_7_36",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_the_pharisee"
+      ]
+    },
+    {
+      "id": "verse_luke_7_37",
+      "topicIds": [],
+      "characterIds": [
+        "char_sinful_woman_forgiven"
+      ]
+    },
+    {
+      "id": "verse_luke_7_38",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_sinful_woman_forgiven"
+      ]
+    },
+    {
+      "id": "verse_luke_7_39",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_the_pharisee"
+      ]
+    },
+    {
+      "id": "verse_luke_7_44",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_simon_the_pharisee",
+        "char_sinful_woman_forgiven"
+      ]
+    },
+    {
+      "id": "verse_luke_7_47",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_sinful_woman_forgiven"
+      ]
+    },
+    {
+      "id": "verse_luke_8_1",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_8_2",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_8_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_joanna",
+        "char_susanna"
+      ]
+    },
+    {
+      "id": "verse_luke_24_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_joanna"
+      ]
+    },
+    {
+      "id": "verse_john_9_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_john_9_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_john_9_7",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_john_9_22",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_9_25",
+      "topicIds": [
+        "topic_faith",
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_john_9_34",
+      "topicIds": [],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_john_9_38",
+      "topicIds": [
+        "topic_worship",
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_man_born_blind"
+      ]
+    },
+    {
+      "id": "verse_mark_2_3",
+      "topicIds": [
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof"
+      ]
+    },
+    {
+      "id": "verse_mark_2_4",
+      "topicIds": [
+        "topic_faith",
+        "topic_friendship"
+      ],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof"
+      ]
+    },
+    {
+      "id": "verse_mark_2_5",
+      "topicIds": [
+        "topic_faith",
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof"
+      ]
+    },
+    {
+      "id": "verse_mark_2_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof"
+      ]
+    },
+    {
+      "id": "verse_mark_2_12",
+      "topicIds": [],
+      "characterIds": [
+        "char_paralytic_lowered_through_roof"
+      ]
+    },
+    {
+      "id": "verse_mark_14_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_simon_the_leper",
+        "char_mary_of_bethany"
+      ]
     }
   ],
   "topics": [
@@ -14782,6 +15203,148 @@
       ],
       "eraId": "era_exodus",
       "summary": "One of Zelophehad's five daughters who petition Moses for their father's inheritance.",
+      "verseIds": []
+    },
+    {
+      "id": "char_bartimaeus",
+      "name": "Bartimaeus",
+      "roles": [
+        "blind beggar, healed by Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A blind beggar at Jericho who cries out to Jesus as \"son of David\" despite the crowd trying to silence him. Asked what he wants, he doesn't hedge: \"that I may see again.\" Healed instantly, he doesn't just leave -- he follows Jesus on the way.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jairus",
+      "name": "Jairus",
+      "roles": [
+        "synagogue ruler"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A synagogue ruler who falls at Jesus's feet begging him to heal his dying daughter. Word comes that she's already died while Jesus is still on the way -- Jesus tells him \"don't be afraid, only believe,\" and raises her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_woman_with_the_issue_of_blood",
+      "name": "The woman with the issue of blood",
+      "roles": [
+        "healed by touching Jesus's robe"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Unnamed in the text. Twelve years of bleeding, and she reasons, \"if I just touch his clothes, I will be made well\" -- touches his robe in the crowd on the way to Jairus's house, and is healed instantly. Jesus stops the whole procession to find her and call her \"daughter.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_centurion_of_capernaum",
+      "name": "The centurion of Capernaum",
+      "roles": [
+        "Roman officer, exemplary faith"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "A Roman centurion who asks Jesus to heal his servant but insists Jesus need not even come to his house -- \"just say the word.\" His grasp of authority (a soldier under orders, giving orders) becomes the clearest picture of faith Jesus has yet seen: \"I haven't found so great a faith, not even in Israel.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_widow_of_nain",
+      "name": "The widow of Nain",
+      "roles": [
+        "her only son is raised by Jesus"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Unnamed in the text, like the widow of Zarephath she echoes. Burying her only son -- her only remaining support -- when Jesus, moved with compassion, stops the funeral procession and raises him, giving him back to her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_malchus",
+      "name": "Malchus",
+      "roles": [
+        "the high priest's servant"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "The high priest's servant, present at Jesus's arrest in Gethsemane. Peter draws a sword and cuts off his right ear; a relative of his later recognizes Peter in the high priest's courtyard, prompting one of Peter's three denials.",
+      "verseIds": []
+    },
+    {
+      "id": "char_centurion_at_the_cross",
+      "name": "The centurion at the cross",
+      "roles": [
+        "oversees the crucifixion"
+      ],
+      "eraId": "era_passion_and_resurrection",
+      "summary": "The Roman officer in charge of the execution detail, watching everything from up close. Seeing how Jesus dies and the events surrounding it, he's the one who says it out loud first: \"truly this was the Son of God.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_simon_the_pharisee",
+      "name": "Simon the Pharisee",
+      "roles": [
+        "hosts Jesus for dinner"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Invites Jesus to dinner, then privately judges him for letting a \"sinful woman\" touch him -- and judges the woman too. Jesus answers with a parable about two debts forgiven, then points out exactly which basic hospitality Simon skipped that she didn't.",
+      "verseIds": []
+    },
+    {
+      "id": "char_sinful_woman_forgiven",
+      "name": "The forgiven woman",
+      "roles": [
+        "anoints Jesus's feet with tears"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Unnamed, known in the city as \"a sinner,\" she weeps at Jesus's feet in a Pharisee's house, wipes them with her own hair, and anoints them -- a scandal to her host. Jesus's verdict reverses Simon's judgment entirely: \"her sins, which are many, are forgiven, for she loved much.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_joanna",
+      "name": "Joanna",
+      "roles": [
+        "wife of Herod's steward",
+        "funded Jesus's ministry"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Wife of Chuza, Herod's household manager -- one of several women who had been healed by Jesus and then supported his and the disciples' ministry \"from their possessions.\" Present again at the empty tomb, one of the women who first reports the resurrection to the apostles.",
+      "verseIds": []
+    },
+    {
+      "id": "char_susanna",
+      "name": "Susanna",
+      "roles": [
+        "funded Jesus's ministry"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Named alongside Mary Magdalene and Joanna as one of the women who traveled with Jesus and the Twelve and supported them financially -- otherwise unknown, but named individually rather than folded into \"many others.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_man_born_blind",
+      "name": "The man born blind",
+      "roles": [
+        "healed by Jesus",
+        "expelled from the synagogue"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Blind from birth, healed with mud and a wash in the pool of Siloam. Interrogated repeatedly by the Pharisees who refuse to credit Jesus, he holds his ground with plain, unshakeable testimony -- \"one thing I do know: that though I was blind, now I see\" -- and is thrown out of the synagogue for it. Jesus finds him again afterward, and he worships him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_paralytic_lowered_through_roof",
+      "name": "The paralytic lowered through the roof",
+      "roles": [
+        "healed after his friends tear open a roof"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Unable to reach Jesus through the crowd, four friends carry him onto the roof and lower him down through a hole they tear open themselves. Jesus responds to their faith, not just his -- forgiving his sins before healing his body.",
+      "verseIds": []
+    },
+    {
+      "id": "char_simon_the_leper",
+      "name": "Simon the leper",
+      "roles": [
+        "hosts Jesus at Bethany"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Hosts Jesus for dinner at Bethany shortly before the crucifixion -- the setting for Mary of Bethany's anointing of Jesus with expensive perfume, an act Judas objects to as wasteful and Jesus defends as preparation for his burial.",
       "verseIds": []
     }
   ]
