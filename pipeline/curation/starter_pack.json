@@ -267,10 +267,12 @@
     {
       "id": "verse_genesis_24_27",
       "topicIds": [
-        "topic_guidance"
+        "topic_guidance",
+        "topic_thanksgiving"
       ],
       "characterIds": [
         "char_abraham",
+        "char_abrahams_servant",
         "char_rebekah"
       ]
     },
@@ -371,6 +373,7 @@
     {
       "id": "verse_genesis_39_9",
       "topicIds": [
+        "topic_holiness",
         "topic_temptation"
       ],
       "characterIds": [
@@ -11347,6 +11350,407 @@
       "characterIds": [
         "char_demas"
       ]
+    },
+    {
+      "id": "verse_genesis_24_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_abrahams_servant"
+      ]
+    },
+    {
+      "id": "verse_genesis_24_12",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": [
+        "char_abrahams_servant"
+      ]
+    },
+    {
+      "id": "verse_genesis_24_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_abrahams_servant",
+        "char_rebekah"
+      ]
+    },
+    {
+      "id": "verse_genesis_29_16",
+      "topicIds": [],
+      "characterIds": [
+        "char_laban"
+      ]
+    },
+    {
+      "id": "verse_genesis_29_23",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_laban"
+      ]
+    },
+    {
+      "id": "verse_genesis_29_25",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_laban",
+        "char_jacob"
+      ]
+    },
+    {
+      "id": "verse_genesis_29_26",
+      "topicIds": [],
+      "characterIds": [
+        "char_laban"
+      ]
+    },
+    {
+      "id": "verse_genesis_30_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_bilhah"
+      ]
+    },
+    {
+      "id": "verse_genesis_30_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_bilhah"
+      ]
+    },
+    {
+      "id": "verse_genesis_30_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_zilpah"
+      ]
+    },
+    {
+      "id": "verse_genesis_34_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_dinah"
+      ]
+    },
+    {
+      "id": "verse_genesis_34_2",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_dinah",
+        "char_shechem"
+      ]
+    },
+    {
+      "id": "verse_genesis_34_7",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_34_13",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_simeon",
+        "char_levi",
+        "char_shechem"
+      ]
+    },
+    {
+      "id": "verse_genesis_34_25",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_simeon",
+        "char_levi"
+      ]
+    },
+    {
+      "id": "verse_genesis_34_30",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_jacob",
+        "char_simeon",
+        "char_levi"
+      ]
+    },
+    {
+      "id": "verse_genesis_35_22",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_reuben",
+        "char_bilhah"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_21",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_reuben"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_22",
+      "topicIds": [],
+      "characterIds": [
+        "char_reuben"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_26",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_37_27",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_38_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah",
+        "char_tamar_judahs_daughter_in_law"
+      ]
+    },
+    {
+      "id": "verse_genesis_38_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah",
+        "char_tamar_judahs_daughter_in_law"
+      ]
+    },
+    {
+      "id": "verse_genesis_38_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_tamar_judahs_daughter_in_law"
+      ]
+    },
+    {
+      "id": "verse_genesis_38_24",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_judah",
+        "char_tamar_judahs_daughter_in_law"
+      ]
+    },
+    {
+      "id": "verse_genesis_38_26",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_judah",
+        "char_tamar_judahs_daughter_in_law"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_7",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_potiphars_wife",
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_12",
+      "topicIds": [
+        "topic_temptation"
+      ],
+      "characterIds": [
+        "char_joseph",
+        "char_potiphars_wife"
+      ]
+    },
+    {
+      "id": "verse_genesis_39_20",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_potiphar",
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_cupbearer",
+        "char_pharaohs_baker"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_cupbearer"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_16",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_baker"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_cupbearer",
+        "char_pharaohs_baker"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_21",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_cupbearer"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_22",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_pharaohs_baker"
+      ]
+    },
+    {
+      "id": "verse_genesis_40_23",
+      "topicIds": [],
+      "characterIds": [
+        "char_pharaohs_cupbearer",
+        "char_joseph"
+      ]
+    },
+    {
+      "id": "verse_genesis_42_24",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_joseph",
+        "char_simeon"
+      ]
+    },
+    {
+      "id": "verse_genesis_42_37",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_reuben"
+      ]
+    },
+    {
+      "id": "verse_genesis_43_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_43_9",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_44_18",
+      "topicIds": [],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_44_33",
+      "topicIds": [
+        "topic_love",
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_judah",
+        "char_benjamin"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_reuben"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_reuben"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_simeon",
+        "char_levi"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_8",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_judah"
+      ]
+    },
+    {
+      "id": "verse_genesis_49_10",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_judah"
+      ]
     }
   ],
   "topics": [
@@ -13670,6 +14074,178 @@
       ],
       "eraId": "era_early_church",
       "summary": "Once counted among Paul's fellow workers; in Paul's last letter, named as having left him, \"having loved this present world\" -- a small, unadorned note of the cost of staying faithful to the end.",
+      "verseIds": []
+    },
+    {
+      "id": "char_reuben",
+      "name": "Reuben",
+      "roles": [
+        "Jacob's firstborn",
+        "loses his preeminence"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Jacob's firstborn son by Leah. Tries quietly to save Joseph from his brothers by suggesting the pit instead of murder, and later offers his own two sons as collateral to bring Benjamin back safely -- but sleeping with his father's concubine Bilhah costs him his birthright preeminence, which Jacob names outright on his deathbed.",
+      "verseIds": []
+    },
+    {
+      "id": "char_simeon",
+      "name": "Simeon",
+      "roles": [
+        "Jacob's second son",
+        "avenges Dinah"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Jacob's second son by Leah. With his brother Levi, kills every man of Shechem in revenge for their sister Dinah's assault. Years later, Joseph holds him hostage in Egypt to force the brothers to bring Benjamin.",
+      "verseIds": []
+    },
+    {
+      "id": "char_levi",
+      "name": "Levi",
+      "roles": [
+        "Jacob's third son",
+        "avenges Dinah"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Jacob's third son by Leah. With his brother Simeon, kills every man of Shechem in revenge for their sister Dinah's assault -- violence Jacob condemns even on his deathbed, though Levi's own descendants (Moses, Aaron) later become the priestly line.",
+      "verseIds": []
+    },
+    {
+      "id": "char_judah",
+      "name": "Judah",
+      "roles": [
+        "Jacob's fourth son",
+        "the messianic line runs through him"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Jacob's fourth son by Leah. Proposes selling Joseph rather than killing him; later fathers Perez by his own daughter-in-law Tamar without recognizing her, and admits \"she is more righteous than I.\" Becomes the brother who pledges his own life as collateral for Benjamin and delivers the speech that finally breaks Joseph's composure. Jacob's blessing names him the one the scepter belongs to.",
+      "verseIds": []
+    },
+    {
+      "id": "char_benjamin",
+      "name": "Benjamin",
+      "roles": [
+        "Jacob's youngest son",
+        "Joseph's full brother"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Rachel's second son, born as she died, and Joseph's only full brother. His presence in Egypt is what Joseph tests his brothers over, and his safe return is what Judah stakes his own life on.",
+      "verseIds": []
+    },
+    {
+      "id": "char_bilhah",
+      "name": "Bilhah",
+      "roles": [
+        "Rachel's servant",
+        "Jacob's concubine"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Rachel's servant, given to Jacob to bear children on Rachel's behalf -- mother of Dan and Naphtali. Reuben's affair with her after Rachel's death is a serious violation that costs him his birthright standing.",
+      "verseIds": []
+    },
+    {
+      "id": "char_zilpah",
+      "name": "Zilpah",
+      "roles": [
+        "Leah's servant",
+        "Jacob's concubine"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Leah's servant, given to Jacob the same way Bilhah was given by Rachel -- mother of Gad and Asher.",
+      "verseIds": []
+    },
+    {
+      "id": "char_dinah",
+      "name": "Dinah",
+      "roles": [
+        "Jacob's daughter by Leah"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Jacob's only named daughter. Assaulted by Shechem while visiting the women of the land; her brothers Simeon and Levi avenge her by killing every man of his city.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shechem",
+      "name": "Shechem",
+      "roles": [
+        "prince of the land",
+        "assaults Dinah"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Son of Hamor, ruler of the Hivite city that bears his family's name. Assaults Dinah, then wants to marry her; agrees along with every man of his city to be circumcised to make the marriage possible, and is killed by Simeon and Levi while still recovering.",
+      "verseIds": []
+    },
+    {
+      "id": "char_tamar_judahs_daughter_in_law",
+      "name": "Tamar",
+      "roles": [
+        "Judah's daughter-in-law"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Married to Judah's firstborn Er, then to his brother Onan under the custom of raising up an heir; when Judah withholds his third son from her, she disguises herself and conceives by Judah himself. Confronted, Judah says \"she is more righteous than I\" -- her son Perez becomes an ancestor of David.",
+      "verseIds": []
+    },
+    {
+      "id": "char_laban",
+      "name": "Laban",
+      "roles": [
+        "Jacob's uncle, then father-in-law"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Rebekah's brother, and Rachel and Leah's father. Substitutes Leah for Rachel on the wedding night after Jacob's seven years of work, then extracts seven more -- the same trick of substitution Jacob himself once played on his own father.",
+      "verseIds": []
+    },
+    {
+      "id": "char_potiphar",
+      "name": "Potiphar",
+      "roles": [
+        "captain of Pharaoh's guard",
+        "Joseph's master"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "An Egyptian official who buys Joseph and puts him in charge of his whole household -- then, believing his wife's accusation, has him thrown in prison.",
+      "verseIds": []
+    },
+    {
+      "id": "char_potiphars_wife",
+      "name": "Potiphar's wife",
+      "roles": [
+        "attempts to seduce Joseph",
+        "falsely accuses him"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Unnamed in the text. Repeatedly propositions Joseph, who refuses on the grounds that it would be \"sin against God\"; when he flees leaving his garment behind, she uses it to falsely accuse him, and he's imprisoned.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abrahams_servant",
+      "name": "Abraham's servant",
+      "roles": [
+        "finds Rebekah for Isaac"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Unnamed in the text (Genesis 24), the senior servant Abraham sends to find a wife for Isaac among his own relatives rather than the Canaanites. Prays for a specific sign, meets Rebekah at the well exactly as he'd asked, and gives Yahweh credit at every step: \"Yahweh has led me on the way.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_pharaohs_cupbearer",
+      "name": "Pharaoh's cupbearer",
+      "roles": [
+        "imprisoned with Joseph",
+        "restored"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Imprisoned alongside Joseph; Joseph correctly interprets his dream as restoration to Pharaoh's service within three days. Restored exactly as foretold -- but forgets Joseph completely until Pharaoh's own dreams force the memory back two years later.",
+      "verseIds": []
+    },
+    {
+      "id": "char_pharaohs_baker",
+      "name": "Pharaoh's baker",
+      "roles": [
+        "imprisoned with Joseph",
+        "executed"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "Imprisoned alongside Joseph and the cupbearer; Joseph correctly interprets his dream too, but as execution rather than restoration -- the same three days, opposite outcomes.",
       "verseIds": []
     }
   ]

@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (181 characters — full 66-book Bible as of 2026-09-10, plus two "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast and Paul's circle, items 66-67 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (197 characters — full 66-book Bible as of 2026-09-10, plus three "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, and Genesis's supporting cast, items 66-67 and 70 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,402 verses + 38 topics + 181 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,450 verses + 38 topics + 197 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 251 stories, 577 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 255 stories, 624 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,402-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,450-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2691,6 +2691,72 @@ inventing a new principle:
     too — a story invisible on the wrong character's page doesn't
     error anywhere, so it's easy to miss without actually checking that
     page.
+
+70. **"Deep study" supporting-cast expansion, pass 3: Genesis's
+    supporting cast — the biggest gap found yet.** **Done (2026-09-11).**
+    Only the direct patriarchal line (Abraham, Sarah, Hagar, Lot,
+    Ishmael, Isaac, Rebekah, Esau, Jacob, Rachel, Leah, Joseph) had ever
+    been curated in Genesis — every one of Jacob's other eleven sons,
+    both concubine-wives, his one named daughter, Judah's
+    daughter-in-law, his father-in-law, Joseph's Egyptian master and
+    that master's wife, the servant who found Rebekah, and the two
+    fellow prisoners whose dreams Joseph interprets were never touched
+    at all, despite carrying some of Genesis's richest narrative
+    material. 16 new characters, all inside the existing
+    `era_patriarchs`: **Reuben, Simeon, Levi, Judah, Benjamin** (Jacob's
+    other sons — Judah in particular carries a real arc, from
+    proposing Joseph's sale, through fathering Perez by Tamar without
+    recognizing her, to pledging his own life for Benjamin and
+    receiving the "scepter" blessing that points toward the messianic
+    line); **Bilhah, Zilpah** (Rachel's and Leah's servants, given to
+    Jacob, mothers of four of the twelve tribes); **Dinah, Shechem**
+    (her assault and the brothers' bloody revenge); **Tamar**
+    (disambiguated as `char_tamar_judahs_daughter_in_law` since
+    `char_tamar` already names David's daughter — same disambiguation
+    pattern as the two Zechariahs and Joseph-husband-of-Mary; her
+    story ends in Judah's own confession, "she is more righteous than
+    I," and her son becomes a Davidic-line ancestor); **Laban** (the
+    deceiver deceived — substitutes Leah for Rachel, echoing Jacob's
+    own earlier deception of Isaac); **Potiphar, Potiphar's wife**
+    (unnamed in the text, kept unnamed here per the project's standing
+    precedent); **Abraham's servant** (also deliberately left unnamed
+    — Genesis 24 itself never names him, and equating him with the
+    Eliezer mentioned in passing back in Genesis 15:2 is a traditional
+    inference the text doesn't actually make, so the more rigorous call
+    is to follow the chapter's own anonymity rather than import a name
+    from a different, unconnected verse); **the cupbearer, the baker**
+    (Joseph's fellow prisoners — same three-day dream-interpretation
+    structure, opposite outcomes, and the cupbearer's forgetting sets
+    up the two-year delay before Joseph is ever freed).
+
+    Unlike passes 1-2, this one leaned mostly on **extending existing
+    Stories** rather than adding new ones, since the supporting cast
+    was always part of scenes that were already curated (from the
+    project's very first pass, long before the "major events only"
+    critique existed): `story_rebekah_at_the_well`,
+    `story_jacob_rachel_leah`, `story_joseph_sold`,
+    `story_joseph_and_potiphar`, `story_joseph_interprets`, and
+    `story_jacob_blesses_sons` all got the relevant new characters (and
+    a few new verses) folded directly into their existing
+    `characterIds`/`verseIds` rather than being duplicated — the
+    project's long-standing "extend, don't clone" rule applied to
+    *tagging* now, not just whole retold narratives. Four genuinely new
+    stories cover material with no prior Story at all:
+    `story_dinah_and_shechem`, `story_reuben_and_bilhah`,
+    `story_judah_and_tamar`, and `story_brothers_return_for_benjamin`
+    (the Simeon-hostage/Judah's-pledge arc across Genesis 42-44). Item
+    69's lesson was applied proactively this time instead of being
+    fixed after the fact: `char_jacob` is tagged and given new life
+    events on both new stories he's genuinely present for (fearing the
+    fallout from Dinah's revenge, hearing about Reuben and Bilhah,
+    reluctantly risking Benjamin), and `char_joseph` gets one for
+    testing his brothers before revealing himself — both characters'
+    existing `sequenceInLife` ranges (`[10..100]` for each) checked
+    first. 48 new curated verses, 2 existing ones (from the very first,
+    pre-supporting-cast Genesis pass) merged with new character tags
+    rather than duplicated. No new topics — the existing 38 covered
+    betrayal, justice, humility, temptation, and blessing without
+    strain.
 
 ---
 

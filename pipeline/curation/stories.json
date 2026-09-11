@@ -447,10 +447,14 @@
       "eraId": "era_patriarchs",
       "canonicalOrder": 410,
       "verseIds": [
+        "verse_genesis_24_12",
+        "verse_genesis_24_15",
+        "verse_genesis_24_2",
         "verse_genesis_24_27"
       ],
       "characterIds": [
         "char_abraham",
+        "char_abrahams_servant",
         "char_isaac",
         "char_rebekah"
       ],
@@ -541,11 +545,22 @@
       "primaryReference": "Genesis 29:1-30:24",
       "eraId": "era_patriarchs",
       "canonicalOrder": 460,
-      "verseIds": [],
+      "verseIds": [
+        "verse_genesis_29_16",
+        "verse_genesis_29_23",
+        "verse_genesis_29_25",
+        "verse_genesis_29_26",
+        "verse_genesis_30_3",
+        "verse_genesis_30_4",
+        "verse_genesis_30_9"
+      ],
       "characterIds": [
+        "char_bilhah",
         "char_jacob",
+        "char_laban",
+        "char_leah",
         "char_rachel",
-        "char_leah"
+        "char_zilpah"
       ],
       "topicIds": [
         "topic_betrayal",
@@ -617,11 +632,17 @@
       "canonicalOrder": 510,
       "verseIds": [
         "verse_genesis_37_18",
+        "verse_genesis_37_21",
+        "verse_genesis_37_22",
+        "verse_genesis_37_26",
+        "verse_genesis_37_27",
         "verse_genesis_37_28"
       ],
       "characterIds": [
+        "char_jacob",
         "char_joseph",
-        "char_jacob"
+        "char_judah",
+        "char_reuben"
       ],
       "topicIds": [
         "topic_betrayal",
@@ -636,11 +657,17 @@
       "eraId": "era_patriarchs",
       "canonicalOrder": 520,
       "verseIds": [
+        "verse_genesis_39_12",
         "verse_genesis_39_2",
+        "verse_genesis_39_20",
+        "verse_genesis_39_6",
+        "verse_genesis_39_7",
         "verse_genesis_39_9"
       ],
       "characterIds": [
-        "char_joseph"
+        "char_joseph",
+        "char_potiphar",
+        "char_potiphars_wife"
       ],
       "topicIds": [
         "topic_temptation",
@@ -654,9 +681,19 @@
       "primaryReference": "Genesis 40:1-41:57",
       "eraId": "era_patriarchs",
       "canonicalOrder": 530,
-      "verseIds": [],
+      "verseIds": [
+        "verse_genesis_40_16",
+        "verse_genesis_40_20",
+        "verse_genesis_40_21",
+        "verse_genesis_40_22",
+        "verse_genesis_40_23",
+        "verse_genesis_40_5",
+        "verse_genesis_40_9"
+      ],
       "characterIds": [
-        "char_joseph"
+        "char_joseph",
+        "char_pharaohs_baker",
+        "char_pharaohs_cupbearer"
       ],
       "topicIds": [
         "topic_waiting",
@@ -708,11 +745,21 @@
       "eraId": "era_patriarchs",
       "canonicalOrder": 560,
       "verseIds": [
-        "verse_genesis_49_25"
+        "verse_genesis_49_10",
+        "verse_genesis_49_25",
+        "verse_genesis_49_3",
+        "verse_genesis_49_4",
+        "verse_genesis_49_5",
+        "verse_genesis_49_8"
       ],
       "characterIds": [
+        "char_benjamin",
         "char_jacob",
-        "char_joseph"
+        "char_joseph",
+        "char_judah",
+        "char_levi",
+        "char_reuben",
+        "char_simeon"
       ],
       "topicIds": [
         "topic_blessing"
@@ -5516,6 +5563,105 @@
         "topic_temptation",
         "topic_betrayal",
         "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_dinah_and_shechem",
+      "title": "Dinah and Shechem",
+      "summary": "While visiting the women of the land, Jacob's daughter Dinah is seen and assaulted by Shechem, the local prince, who then wants to marry her. Dinah's brothers answer with deceit -- agreeing to the marriage only if every man of the city is circumcised -- then, while the men are still recovering, Simeon and Levi kill them all. Jacob is horrified at the danger this brings on the whole family; Simeon and Levi never answer for it directly, but Jacob names it explicitly on his deathbed.",
+      "primaryReference": "Genesis 34:1-31",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 485,
+      "verseIds": [
+        "verse_genesis_34_1",
+        "verse_genesis_34_2",
+        "verse_genesis_34_7",
+        "verse_genesis_34_13",
+        "verse_genesis_34_25",
+        "verse_genesis_34_30"
+      ],
+      "characterIds": [
+        "char_dinah",
+        "char_shechem",
+        "char_simeon",
+        "char_levi",
+        "char_jacob"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_anger",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_reuben_and_bilhah",
+      "title": "Reuben and Bilhah",
+      "summary": "While Israel is living in the land, Reuben sleeps with Bilhah, his father's concubine -- a serious violation Jacob hears about but doesn't address at the time. It surfaces again, explicitly, on Jacob's deathbed: the very reason his firstborn loses the preeminence that should have been his.",
+      "primaryReference": "Genesis 35:22; 49:3-4",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 490,
+      "verseIds": [
+        "verse_genesis_35_22"
+      ],
+      "characterIds": [
+        "char_reuben",
+        "char_bilhah",
+        "char_jacob"
+      ],
+      "topicIds": [
+        "topic_betrayal"
+      ]
+    },
+    {
+      "id": "story_judah_and_tamar",
+      "title": "Judah and Tamar",
+      "summary": "Judah's firstborn Er dies; under custom, his brother Onan is to raise up an heir for him with Tamar but refuses to let it happen and dies too. Judah, afraid to risk his last son, sends Tamar back to her father's house indefinitely. Years later she disguises herself and conceives by Judah himself, who doesn't recognize her. Confronted with proof, Judah admits, \"she is more righteous than I, because I didn't give her to Shelah, my son.\" Her son Perez becomes an ancestor of David.",
+      "primaryReference": "Genesis 38:1-30",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 515,
+      "verseIds": [
+        "verse_genesis_38_6",
+        "verse_genesis_38_11",
+        "verse_genesis_38_14",
+        "verse_genesis_38_24",
+        "verse_genesis_38_26"
+      ],
+      "characterIds": [
+        "char_judah",
+        "char_tamar_judahs_daughter_in_law"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_brothers_return_for_benjamin",
+      "title": "The brothers return for Benjamin",
+      "summary": "Not recognizing his own brothers when they come to Egypt for grain, Joseph tests them -- holding Simeon hostage until they bring back Benjamin, the one brother who wasn't part of selling him. Jacob is terrified to risk his last son by Rachel; Reuben offers his own two sons as collateral, and Judah goes further, pledging his own life: \"I'll be collateral for him... let me bear the blame forever.\" When Benjamin is framed with a stolen cup, Judah's plea to take his place -- rather than let their father lose him too -- is what finally breaks Joseph's composure.",
+      "primaryReference": "Genesis 42:1-44:34",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 535,
+      "verseIds": [
+        "verse_genesis_42_24",
+        "verse_genesis_42_37",
+        "verse_genesis_43_8",
+        "verse_genesis_43_9",
+        "verse_genesis_44_18",
+        "verse_genesis_44_33"
+      ],
+      "characterIds": [
+        "char_simeon",
+        "char_reuben",
+        "char_judah",
+        "char_benjamin",
+        "char_joseph",
+        "char_jacob"
+      ],
+      "topicIds": [
+        "topic_loyalty",
+        "topic_love",
+        "topic_sorrow"
       ]
     }
   ],
@@ -11597,6 +11743,357 @@
       "reference": "2 Samuel 20:4-22",
       "storyId": "story_shebas_rebellion",
       "sequenceInLife": 144
+    },
+    {
+      "id": "event_reuben_saves_joseph",
+      "characterId": "char_reuben",
+      "title": "Tries to save Joseph from his brothers",
+      "description": "Suggests the pit instead of murder, planning to rescue him quietly.",
+      "reference": "Genesis 37:21-22",
+      "storyId": "story_joseph_sold",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_reuben_sleeps_with_bilhah",
+      "characterId": "char_reuben",
+      "title": "Sleeps with his father's concubine Bilhah",
+      "description": "A violation that costs him his birthright preeminence.",
+      "reference": "Genesis 35:22",
+      "storyId": "story_reuben_and_bilhah",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_reuben_offers_sons",
+      "characterId": "char_reuben",
+      "title": "Offers his own sons as collateral for Benjamin",
+      "description": "\"Kill my two sons, if I don't bring him to you.\"",
+      "reference": "Genesis 42:37",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_reuben_loses_preeminence",
+      "characterId": "char_reuben",
+      "title": "Loses his preeminence on Jacob's deathbed",
+      "description": "Named as the firstborn who \"shall not excel\" because of Bilhah.",
+      "reference": "Genesis 49:3-4",
+      "storyId": "story_jacob_blesses_sons",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_simeon_levi_avenge_dinah",
+      "characterId": "char_simeon",
+      "title": "Avenges Dinah, kills the men of Shechem",
+      "description": "With Levi, kills every man of the city in revenge.",
+      "reference": "Genesis 34:25",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_simeon_held_hostage",
+      "characterId": "char_simeon",
+      "title": "Held hostage in Egypt by Joseph",
+      "description": "Kept until the brothers bring Benjamin.",
+      "reference": "Genesis 42:24",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_levi_avenges_dinah",
+      "characterId": "char_levi",
+      "title": "Avenges Dinah, kills the men of Shechem",
+      "description": "With Simeon, kills every man of the city in revenge.",
+      "reference": "Genesis 34:25",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_judah_proposes_selling_joseph",
+      "characterId": "char_judah",
+      "title": "Proposes selling Joseph rather than killing him",
+      "description": "\"Let's sell him to the Ishmaelites... he is our brother, our flesh.\"",
+      "reference": "Genesis 37:26-27",
+      "storyId": "story_joseph_sold",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_judah_and_tamar",
+      "characterId": "char_judah",
+      "title": "Fathers Perez by Tamar, unknowingly",
+      "description": "\"She is more righteous than I.\"",
+      "reference": "Genesis 38:1-26",
+      "storyId": "story_judah_and_tamar",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_judah_pledges_for_benjamin",
+      "characterId": "char_judah",
+      "title": "Pledges his own life as collateral for Benjamin",
+      "description": "\"I'll be collateral for him... let me bear the blame forever.\"",
+      "reference": "Genesis 43:8-9",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_judah_offers_himself",
+      "characterId": "char_judah",
+      "title": "Offers to take Benjamin's place as a slave",
+      "description": "The speech that breaks Joseph's composure.",
+      "reference": "Genesis 44:18-33",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 40
+    },
+    {
+      "id": "event_judah_receives_scepter_blessing",
+      "characterId": "char_judah",
+      "title": "Receives the \"scepter\" blessing",
+      "description": "Jacob names him the one the ruler's staff belongs to.",
+      "reference": "Genesis 49:8-10",
+      "storyId": "story_jacob_blesses_sons",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_benjamin_kept_back",
+      "characterId": "char_benjamin",
+      "title": "Kept back from the first trip to Egypt",
+      "description": "Jacob refuses to risk his last son by Rachel.",
+      "reference": "Genesis 42:38",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_benjamin_framed",
+      "characterId": "char_benjamin",
+      "title": "Framed with a stolen silver cup",
+      "description": "Judah pleads to take his place rather than let him be enslaved.",
+      "reference": "Genesis 44:1-34",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_bilhah_given_to_jacob",
+      "characterId": "char_bilhah",
+      "title": "Given to Jacob by Rachel",
+      "description": "Bears Dan and Naphtali on Rachel's behalf.",
+      "reference": "Genesis 30:3-4",
+      "storyId": "story_jacob_rachel_leah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_bilhah_with_reuben",
+      "characterId": "char_bilhah",
+      "title": "Reuben sleeps with her",
+      "description": "A violation that costs Reuben his birthright standing.",
+      "reference": "Genesis 35:22",
+      "storyId": "story_reuben_and_bilhah",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_zilpah_given_to_jacob",
+      "characterId": "char_zilpah",
+      "title": "Given to Jacob by Leah",
+      "description": "Bears Gad and Asher on Leah's behalf.",
+      "reference": "Genesis 30:9",
+      "storyId": "story_jacob_rachel_leah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_dinah_assaulted",
+      "characterId": "char_dinah",
+      "title": "Assaulted by Shechem",
+      "description": "While visiting the women of the land.",
+      "reference": "Genesis 34:1-2",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_dinah_avenged",
+      "characterId": "char_dinah",
+      "title": "Avenged by Simeon and Levi",
+      "description": "Her brothers kill every man of Shechem's city.",
+      "reference": "Genesis 34:25-27",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_shechem_assaults_dinah",
+      "characterId": "char_shechem",
+      "title": "Assaults Dinah, then wants to marry her",
+      "description": "Agrees to be circumcised along with every man of his city.",
+      "reference": "Genesis 34:1-19",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_shechem_killed",
+      "characterId": "char_shechem",
+      "title": "Killed by Simeon and Levi",
+      "description": "While still recovering from circumcision.",
+      "reference": "Genesis 34:25-26",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_tamar_married_to_er_and_onan",
+      "characterId": "char_tamar_judahs_daughter_in_law",
+      "title": "Married to Er, then Onan, both of whom die",
+      "description": "Left childless, then sent back to her father's house by Judah.",
+      "reference": "Genesis 38:6-11",
+      "storyId": "story_judah_and_tamar",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_tamar_disguises_herself",
+      "characterId": "char_tamar_judahs_daughter_in_law",
+      "title": "Disguises herself and conceives by Judah",
+      "description": "Judah doesn't recognize her; she keeps proof of who the father is.",
+      "reference": "Genesis 38:13-26",
+      "storyId": "story_judah_and_tamar",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_tamar_vindicated",
+      "characterId": "char_tamar_judahs_daughter_in_law",
+      "title": "Vindicated: \"she is more righteous than I\"",
+      "description": "Bears Perez, an ancestor of David.",
+      "reference": "Genesis 38:26-30",
+      "storyId": "story_judah_and_tamar",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_laban_deceives_jacob",
+      "characterId": "char_laban",
+      "title": "Substitutes Leah for Rachel on the wedding night",
+      "description": "Extracts seven more years of work from Jacob.",
+      "reference": "Genesis 29:21-27",
+      "storyId": "story_jacob_rachel_leah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_potiphar_buys_joseph",
+      "characterId": "char_potiphar",
+      "title": "Buys Joseph and puts him in charge of his house",
+      "description": "Trusts him with everything he owns.",
+      "reference": "Genesis 39:1-6",
+      "storyId": "story_joseph_and_potiphar",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_potiphar_imprisons_joseph",
+      "characterId": "char_potiphar",
+      "title": "Imprisons Joseph on his wife's accusation",
+      "description": "Believes her without hearing Joseph's side.",
+      "reference": "Genesis 39:19-20",
+      "storyId": "story_joseph_and_potiphar",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_potiphars_wife_propositions_joseph",
+      "characterId": "char_potiphars_wife",
+      "title": "Repeatedly propositions Joseph",
+      "description": "Joseph refuses: \"how then can I... sin against God?\"",
+      "reference": "Genesis 39:7-10",
+      "storyId": "story_joseph_and_potiphar",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_potiphars_wife_false_accusation",
+      "characterId": "char_potiphars_wife",
+      "title": "Falsely accuses Joseph",
+      "description": "Uses the garment he left behind as evidence.",
+      "reference": "Genesis 39:13-18",
+      "storyId": "story_joseph_and_potiphar",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_servant_sent_for_rebekah",
+      "characterId": "char_abrahams_servant",
+      "title": "Sent to find a wife for Isaac",
+      "description": "Prays for a specific sign at the well.",
+      "reference": "Genesis 24:1-14",
+      "storyId": "story_rebekah_at_the_well",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_servant_meets_rebekah",
+      "characterId": "char_abrahams_servant",
+      "title": "Meets Rebekah exactly as he'd prayed",
+      "description": "Gives Yahweh credit at every step of the journey.",
+      "reference": "Genesis 24:15-27",
+      "storyId": "story_rebekah_at_the_well",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_cupbearer_dream_interpreted",
+      "characterId": "char_pharaohs_cupbearer",
+      "title": "His dream is interpreted -- restoration in three days",
+      "description": "Joseph reads the vine, cup, and Pharaoh's hand correctly.",
+      "reference": "Genesis 40:9-15",
+      "storyId": "story_joseph_interprets",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_cupbearer_forgets_joseph",
+      "characterId": "char_pharaohs_cupbearer",
+      "title": "Restored, then forgets Joseph",
+      "description": "Doesn't remember him until Pharaoh's own dreams two years later.",
+      "reference": "Genesis 40:21-23",
+      "storyId": "story_joseph_interprets",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_baker_dream_interpreted",
+      "characterId": "char_pharaohs_baker",
+      "title": "His dream is interpreted -- execution in three days",
+      "description": "The same three-day timeframe as the cupbearer's, the opposite outcome.",
+      "reference": "Genesis 40:16-19",
+      "storyId": "story_joseph_interprets",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_baker_executed",
+      "characterId": "char_pharaohs_baker",
+      "title": "Executed as Joseph foretold",
+      "description": "Hanged on Pharaoh's birthday.",
+      "reference": "Genesis 40:22",
+      "storyId": "story_joseph_interprets",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jacob_dinah_incident",
+      "characterId": "char_jacob",
+      "title": "His sons avenge Dinah, and he fears the consequences",
+      "description": "\"You have troubled me... I am few in number.\"",
+      "reference": "Genesis 34:30",
+      "storyId": "story_dinah_and_shechem",
+      "sequenceInLife": 75
+    },
+    {
+      "id": "event_jacob_reuben_bilhah",
+      "characterId": "char_jacob",
+      "title": "Hears of Reuben and Bilhah",
+      "description": "Doesn't address it at the time, but names it on his deathbed.",
+      "reference": "Genesis 35:22",
+      "storyId": "story_reuben_and_bilhah",
+      "sequenceInLife": 77
+    },
+    {
+      "id": "event_jacob_risks_benjamin",
+      "characterId": "char_jacob",
+      "title": "Reluctantly lets Benjamin go to Egypt",
+      "description": "Terrified of losing his last son by Rachel.",
+      "reference": "Genesis 42:38; 43:11-14",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 85
+    },
+    {
+      "id": "event_joseph_tests_brothers",
+      "characterId": "char_joseph",
+      "title": "Tests his brothers, holds Simeon hostage",
+      "description": "Doesn't reveal himself yet; wants to see if they'll abandon Benjamin too.",
+      "reference": "Genesis 42:1-44:34",
+      "storyId": "story_brothers_return_for_benjamin",
+      "sequenceInLife": 75
     }
   ]
 }
