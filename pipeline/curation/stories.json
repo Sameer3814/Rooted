@@ -5663,6 +5663,190 @@
         "topic_love",
         "topic_sorrow"
       ]
+    },
+    {
+      "id": "story_nabal_and_abigail",
+      "title": "Nabal and Abigail",
+      "summary": "David's men have protected Nabal's shepherds and flocks for free; when David asks for provisions in return, Nabal insults him -- \"who is David? Who is the son of Jesse?\" David sets out to kill every man in Nabal's household. Nabal's wife Abigail, warned by a servant, rides out herself with food and intercepts David before he arrives, talking him down from bloodguilt he'd have carried the rest of his life. She waits until Nabal sobers up to tell him what she did; his heart fails, and ten days later Yahweh strikes him dead. David marries her.",
+      "primaryReference": "1 Samuel 25:1-42",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1074,
+      "verseIds": [
+        "verse_1samuel_25_3",
+        "verse_1samuel_25_10",
+        "verse_1samuel_25_11",
+        "verse_1samuel_25_23",
+        "verse_1samuel_25_32",
+        "verse_1samuel_25_33",
+        "verse_1samuel_25_37",
+        "verse_1samuel_25_38",
+        "verse_1samuel_25_39"
+      ],
+      "characterIds": [
+        "char_nabal",
+        "char_abigail",
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_wisdom",
+        "topic_humility",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_doeg_and_the_priests_of_nob",
+      "title": "Doeg and the priests of Nob",
+      "summary": "Fleeing Saul, David comes to the priest Ahimelech at Nob, who gives him consecrated bread and Goliath's own sword, not realizing he's helping a fugitive. Doeg the Edomite, one of Saul's servants, sees it and reports it. Saul summons the priests; Ahimelech defends David to his face -- \"who among all your servants is so faithful as David?\" -- and is condemned along with the rest of Nob's priests. When Saul's own guards refuse to raise a hand against them, Doeg does it himself: eighty-five priests killed, and the entire city put to the sword. Ahimelech's son Abiathar alone escapes, fleeing to David, who takes responsibility: \"I am responsible for the death of all the persons of your father's house.\"",
+      "primaryReference": "1 Samuel 21:1-9; 22:6-23",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1072,
+      "verseIds": [
+        "verse_1samuel_21_1",
+        "verse_1samuel_21_6",
+        "verse_1samuel_21_7",
+        "verse_1samuel_22_9",
+        "verse_1samuel_22_10",
+        "verse_1samuel_22_14",
+        "verse_1samuel_22_15",
+        "verse_1samuel_22_18",
+        "verse_1samuel_22_19",
+        "verse_1samuel_22_20",
+        "verse_1samuel_22_22",
+        "verse_1samuel_22_23"
+      ],
+      "characterIds": [
+        "char_doeg",
+        "char_ahimelech",
+        "char_abiathar",
+        "char_saul",
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_loyalty",
+        "topic_justice",
+        "topic_refuge"
+      ]
+    },
+    {
+      "id": "story_david_and_achish",
+      "title": "David and Achish",
+      "summary": "David first flees to Achish, king of Gath, and has to feign madness to escape when he's recognized. Later, with nowhere else to hide from Saul, he returns and serves Achish as a vassal for over a year -- Achish genuinely trusts him, calling him \"upright... as an angel of God,\" but when the Philistine lords refuse to let David march against Israel, Achish is the one who has to send him home before the battle at Gilboa.",
+      "primaryReference": "1 Samuel 21:10-15; 27:1-4; 29:1-11",
+      "eraId": "era_united_kingdom",
+      "canonicalOrder": 1076,
+      "verseIds": [
+        "verse_1samuel_21_13",
+        "verse_1samuel_27_1",
+        "verse_1samuel_27_4",
+        "verse_1samuel_29_6",
+        "verse_1samuel_29_9"
+      ],
+      "characterIds": [
+        "char_achish",
+        "char_david"
+      ],
+      "topicIds": [
+        "topic_fear",
+        "topic_trust"
+      ]
+    },
+    {
+      "id": "story_shiphrah_and_puah",
+      "title": "Shiphrah and Puah",
+      "summary": "Alarmed by how numerous the Israelites have become, Pharaoh orders the two Hebrew midwives Shiphrah and Puah to kill every baby boy at birth. They refuse -- \"the midwives feared God\" -- and Yahweh rewards their defiance directly: \"he gave them families.\" Their quiet act of civil disobedience, years before Moses is even born, is part of what keeps Israel's next generation alive.",
+      "primaryReference": "Exodus 1:15-21",
+      "eraId": "era_exodus",
+      "canonicalOrder": 595,
+      "verseIds": [
+        "verse_exodus_1_15",
+        "verse_exodus_1_17",
+        "verse_exodus_1_20",
+        "verse_exodus_1_21"
+      ],
+      "characterIds": [
+        "char_shiphrah",
+        "char_puah"
+      ],
+      "topicIds": [
+        "topic_holiness",
+        "topic_strength",
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_jethros_advice",
+      "title": "Jethro's advice",
+      "summary": "Moses' father-in-law Jethro visits the camp and watches Moses personally judge every dispute in Israel, alone, from morning to evening. He tells him plainly it's unsustainable -- \"you will surely wear away\" -- and proposes appointing capable, God-fearing men as judges over groups of thousands, hundreds, fifties, and tens, so only the hardest cases reach Moses himself. Moses adopts the whole plan.",
+      "primaryReference": "Exodus 18:1-27",
+      "eraId": "era_exodus",
+      "canonicalOrder": 678,
+      "verseIds": [
+        "verse_exodus_18_1",
+        "verse_exodus_18_14",
+        "verse_exodus_18_17",
+        "verse_exodus_18_18",
+        "verse_exodus_18_21",
+        "verse_exodus_18_24"
+      ],
+      "characterIds": [
+        "char_jethro",
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_wisdom"
+      ]
+    },
+    {
+      "id": "story_phinehas_stops_the_plague",
+      "title": "Phinehas stops the plague",
+      "summary": "As Israel is judged with a plague for worshiping Baal of Peor and intermarrying with Moabite and Midianite women, Phinehas -- Aaron's grandson -- personally executes an Israelite man and a Midianite woman in the act, and the plague stops immediately. Yahweh explicitly commends his zeal with \"my covenant of peace\" and an everlasting priesthood for his line.",
+      "primaryReference": "Numbers 25:1-13",
+      "eraId": "era_exodus",
+      "canonicalOrder": 722,
+      "verseIds": [
+        "verse_numbers_25_7",
+        "verse_numbers_25_8",
+        "verse_numbers_25_11",
+        "verse_numbers_25_12",
+        "verse_numbers_25_13"
+      ],
+      "characterIds": [
+        "char_phinehas",
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_strength",
+        "topic_justice",
+        "topic_covenant",
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "story_zelophehads_daughters",
+      "title": "Zelophehad's daughters",
+      "summary": "Zelophehad died in the wilderness leaving five daughters and no sons -- Mahlah, Noah, Hoglah, Milcah, and Tirzah. They come before Moses together and ask why their father's name should disappear from his family just because he had no son: \"give to us a possession among the brothers of our father.\" Moses brings their case to Yahweh, who rules plainly, \"the daughters of Zelophehad speak right\" -- changing Israel's inheritance law on the spot.",
+      "primaryReference": "Numbers 27:1-11; 36:1-12",
+      "eraId": "era_exodus",
+      "canonicalOrder": 723,
+      "verseIds": [
+        "verse_numbers_27_1",
+        "verse_numbers_27_3",
+        "verse_numbers_27_4",
+        "verse_numbers_27_7"
+      ],
+      "characterIds": [
+        "char_mahlah",
+        "char_noah_daughter_of_zelophehad",
+        "char_hoglah",
+        "char_milcah_daughter_of_zelophehad",
+        "char_tirzah",
+        "char_moses"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_identity"
+      ]
     }
   ],
   "lifeEvents": [
@@ -12094,6 +12278,267 @@
       "reference": "Genesis 42:1-44:34",
       "storyId": "story_brothers_return_for_benjamin",
       "sequenceInLife": 75
+    },
+    {
+      "id": "event_nabal_refuses_david",
+      "characterId": "char_nabal",
+      "title": "Refuses David's request for provisions",
+      "description": "\"Who is David? Who is the son of Jesse?\"",
+      "reference": "1 Samuel 25:10-11",
+      "storyId": "story_nabal_and_abigail",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_nabal_dies",
+      "characterId": "char_nabal",
+      "title": "Dies after his heart fails",
+      "description": "Yahweh strikes him dead ten days after Abigail tells him what she did.",
+      "reference": "1 Samuel 25:36-38",
+      "storyId": "story_nabal_and_abigail",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_abigail_intercedes",
+      "characterId": "char_abigail",
+      "title": "Intercepts David before he can take revenge",
+      "description": "Rides out with provisions and talks him down from bloodguilt.",
+      "reference": "1 Samuel 25:18-35",
+      "storyId": "story_nabal_and_abigail",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abigail_marries_david",
+      "characterId": "char_abigail",
+      "title": "Marries David after Nabal's death",
+      "description": "",
+      "reference": "1 Samuel 25:39-42",
+      "storyId": "story_nabal_and_abigail",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_doeg_reports_ahimelech",
+      "characterId": "char_doeg",
+      "title": "Reports Ahimelech's help for David",
+      "description": "Tells Saul what he saw at Nob.",
+      "reference": "1 Samuel 22:9-10",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_doeg_kills_priests",
+      "characterId": "char_doeg",
+      "title": "Kills the priests of Nob",
+      "description": "Eighty-five priests, and the entire city, when Saul's own guards refuse.",
+      "reference": "1 Samuel 22:18-19",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_ahimelech_helps_david",
+      "characterId": "char_ahimelech",
+      "title": "Gives David bread and Goliath's sword",
+      "description": "Doesn't realize he's helping a fugitive from Saul.",
+      "reference": "1 Samuel 21:1-9",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ahimelech_killed",
+      "characterId": "char_ahimelech",
+      "title": "Killed by Doeg for helping David",
+      "description": "Defends himself to Saul's face first: \"who among all your servants is so faithful as David?\"",
+      "reference": "1 Samuel 22:14-18",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_abiathar_escapes",
+      "characterId": "char_abiathar",
+      "title": "Escapes the massacre at Nob",
+      "description": "Flees to David with the news of his father's death.",
+      "reference": "1 Samuel 22:20-23",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_achish_first_meeting",
+      "characterId": "char_achish",
+      "title": "David feigns madness before him",
+      "description": "Escapes recognition by pretending to be insane.",
+      "reference": "1 Samuel 21:10-15",
+      "storyId": "story_david_and_achish",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_achish_david_serves_him",
+      "characterId": "char_achish",
+      "title": "David serves him as a vassal",
+      "description": "Over a year of refuge from Saul.",
+      "reference": "1 Samuel 27:1-7",
+      "storyId": "story_david_and_achish",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_achish_sends_david_home",
+      "characterId": "char_achish",
+      "title": "Sends David home before Gilboa",
+      "description": "At his own commanders' insistence, despite trusting David himself.",
+      "reference": "1 Samuel 29:1-11",
+      "storyId": "story_david_and_achish",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_jethro_visits",
+      "characterId": "char_jethro",
+      "title": "Visits Moses in the wilderness",
+      "description": "Watches him judge every dispute alone, morning to evening.",
+      "reference": "Exodus 18:1-16",
+      "storyId": "story_jethros_advice",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jethro_advises_judges",
+      "characterId": "char_jethro",
+      "title": "Proposes appointing judges over the people",
+      "description": "A tiered system Moses actually adopts.",
+      "reference": "Exodus 18:17-24",
+      "storyId": "story_jethros_advice",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_shiphrah_defies_pharaoh",
+      "characterId": "char_shiphrah",
+      "title": "Defies Pharaoh's order to kill Hebrew baby boys",
+      "description": "\"The midwives feared God.\"",
+      "reference": "Exodus 1:15-17",
+      "storyId": "story_shiphrah_and_puah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_puah_defies_pharaoh",
+      "characterId": "char_puah",
+      "title": "Defies Pharaoh's order to kill Hebrew baby boys",
+      "description": "\"The midwives feared God.\"",
+      "reference": "Exodus 1:15-17",
+      "storyId": "story_shiphrah_and_puah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_phinehas_stops_plague",
+      "characterId": "char_phinehas",
+      "title": "Stops the plague at Baal Peor",
+      "description": "Executes an Israelite man and a Midianite woman in the act.",
+      "reference": "Numbers 25:7-8",
+      "storyId": "story_phinehas_stops_the_plague",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_phinehas_covenant_of_peace",
+      "characterId": "char_phinehas",
+      "title": "Receives the covenant of peace",
+      "description": "An everlasting priesthood promised to his line.",
+      "reference": "Numbers 25:11-13",
+      "storyId": "story_phinehas_stops_the_plague",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_mahlah_petitions",
+      "characterId": "char_mahlah",
+      "title": "Petitions Moses for her father's inheritance",
+      "description": "With her four sisters, since Zelophehad had no sons.",
+      "reference": "Numbers 27:1-4",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_noah_petitions",
+      "characterId": "char_noah_daughter_of_zelophehad",
+      "title": "Petitions Moses for her father's inheritance",
+      "description": "With her four sisters, since Zelophehad had no sons.",
+      "reference": "Numbers 27:1-4",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_hoglah_petitions",
+      "characterId": "char_hoglah",
+      "title": "Petitions Moses for her father's inheritance",
+      "description": "With her four sisters, since Zelophehad had no sons.",
+      "reference": "Numbers 27:1-4",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_milcah_petitions",
+      "characterId": "char_milcah_daughter_of_zelophehad",
+      "title": "Petitions Moses for her father's inheritance",
+      "description": "With her four sisters, since Zelophehad had no sons.",
+      "reference": "Numbers 27:1-4",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_tirzah_petitions",
+      "characterId": "char_tirzah",
+      "title": "Petitions Moses for her father's inheritance",
+      "description": "With her four sisters, since Zelophehad had no sons.",
+      "reference": "Numbers 27:1-4",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_david_helped_at_nob",
+      "characterId": "char_david",
+      "title": "Is helped by Ahimelech at Nob, unknowingly costing him his life",
+      "description": "Later takes responsibility for the massacre that follows.",
+      "reference": "1 Samuel 21:1-9; 22:22",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 42
+    },
+    {
+      "id": "event_david_and_abigail",
+      "characterId": "char_david",
+      "title": "Is talked out of bloodguilt by Abigail, then marries her",
+      "description": "",
+      "reference": "1 Samuel 25:1-42",
+      "storyId": "story_nabal_and_abigail",
+      "sequenceInLife": 46
+    },
+    {
+      "id": "event_david_serves_achish",
+      "characterId": "char_david",
+      "title": "Serves Achish of Gath as a vassal",
+      "description": "Refuge from Saul; later sent home before Gilboa.",
+      "reference": "1 Samuel 27:1-7; 29:1-11",
+      "storyId": "story_david_and_achish",
+      "sequenceInLife": 55
+    },
+    {
+      "id": "event_saul_orders_nob_killed",
+      "characterId": "char_saul",
+      "title": "Orders the priests of Nob killed",
+      "description": "His own guards refuse; Doeg carries it out instead.",
+      "reference": "1 Samuel 22:16-19",
+      "storyId": "story_doeg_and_the_priests_of_nob",
+      "sequenceInLife": 35
+    },
+    {
+      "id": "event_moses_adopts_jethros_plan",
+      "characterId": "char_moses",
+      "title": "Adopts Jethro's plan for judges",
+      "description": "Appoints capable men over thousands, hundreds, fifties, and tens.",
+      "reference": "Exodus 18:24-26",
+      "storyId": "story_jethros_advice",
+      "sequenceInLife": 135
+    },
+    {
+      "id": "event_moses_rules_on_zelophehad",
+      "characterId": "char_moses",
+      "title": "Brings Zelophehad's daughters' case to Yahweh",
+      "description": "\"The daughters of Zelophehad speak right.\"",
+      "reference": "Numbers 27:5-7",
+      "storyId": "story_zelophehads_daughters",
+      "sequenceInLife": 258
     }
   ]
 }

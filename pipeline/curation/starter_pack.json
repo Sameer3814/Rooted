@@ -11751,6 +11751,386 @@
       "characterIds": [
         "char_judah"
       ]
+    },
+    {
+      "id": "verse_1samuel_25_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_nabal",
+        "char_abigail"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_nabal"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_nabal"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_23",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_abigail"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_32",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": [
+        "char_abigail"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_33",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_abigail"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_37",
+      "topicIds": [],
+      "characterIds": [
+        "char_nabal"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_38",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_nabal"
+      ]
+    },
+    {
+      "id": "verse_1samuel_25_39",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abigail"
+      ]
+    },
+    {
+      "id": "verse_1samuel_21_7",
+      "topicIds": [],
+      "characterIds": [
+        "char_doeg"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_9",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_doeg"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_doeg"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_18",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_doeg"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_19",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_doeg"
+      ]
+    },
+    {
+      "id": "verse_1samuel_21_1",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_ahimelech"
+      ]
+    },
+    {
+      "id": "verse_1samuel_21_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_ahimelech"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_14",
+      "topicIds": [
+        "topic_loyalty"
+      ],
+      "characterIds": [
+        "char_ahimelech"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_ahimelech"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_20",
+      "topicIds": [],
+      "characterIds": [
+        "char_abiathar"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_22",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_abiathar"
+      ]
+    },
+    {
+      "id": "verse_1samuel_22_23",
+      "topicIds": [
+        "topic_refuge"
+      ],
+      "characterIds": [
+        "char_abiathar"
+      ]
+    },
+    {
+      "id": "verse_1samuel_21_13",
+      "topicIds": [],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1samuel_27_1",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_1samuel_27_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_achish"
+      ]
+    },
+    {
+      "id": "verse_1samuel_29_6",
+      "topicIds": [
+        "topic_trust"
+      ],
+      "characterIds": [
+        "char_achish"
+      ]
+    },
+    {
+      "id": "verse_1samuel_29_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_achish"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_17",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_18",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_21",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_18_24",
+      "topicIds": [
+        "topic_wisdom"
+      ],
+      "characterIds": [
+        "char_jethro"
+      ]
+    },
+    {
+      "id": "verse_exodus_1_15",
+      "topicIds": [],
+      "characterIds": [
+        "char_shiphrah",
+        "char_puah"
+      ]
+    },
+    {
+      "id": "verse_exodus_1_17",
+      "topicIds": [
+        "topic_holiness",
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_shiphrah",
+        "char_puah"
+      ]
+    },
+    {
+      "id": "verse_exodus_1_20",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_shiphrah",
+        "char_puah"
+      ]
+    },
+    {
+      "id": "verse_exodus_1_21",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_shiphrah",
+        "char_puah"
+      ]
+    },
+    {
+      "id": "verse_numbers_25_7",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_phinehas"
+      ]
+    },
+    {
+      "id": "verse_numbers_25_8",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_phinehas"
+      ]
+    },
+    {
+      "id": "verse_numbers_25_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_phinehas"
+      ]
+    },
+    {
+      "id": "verse_numbers_25_12",
+      "topicIds": [
+        "topic_covenant",
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_phinehas"
+      ]
+    },
+    {
+      "id": "verse_numbers_25_13",
+      "topicIds": [
+        "topic_covenant"
+      ],
+      "characterIds": [
+        "char_phinehas"
+      ]
+    },
+    {
+      "id": "verse_numbers_27_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_mahlah",
+        "char_noah_daughter_of_zelophehad",
+        "char_hoglah",
+        "char_milcah_daughter_of_zelophehad",
+        "char_tirzah"
+      ]
+    },
+    {
+      "id": "verse_numbers_27_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_mahlah"
+      ]
+    },
+    {
+      "id": "verse_numbers_27_4",
+      "topicIds": [
+        "topic_identity"
+      ],
+      "characterIds": [
+        "char_mahlah"
+      ]
+    },
+    {
+      "id": "verse_numbers_27_7",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_mahlah",
+        "char_noah_daughter_of_zelophehad",
+        "char_hoglah",
+        "char_milcah_daughter_of_zelophehad",
+        "char_tirzah"
+      ]
     }
   ],
   "topics": [
@@ -14246,6 +14626,162 @@
       ],
       "eraId": "era_patriarchs",
       "summary": "Imprisoned alongside Joseph and the cupbearer; Joseph correctly interprets his dream too, but as execution rather than restoration -- the same three days, opposite outcomes.",
+      "verseIds": []
+    },
+    {
+      "id": "char_nabal",
+      "name": "Nabal",
+      "roles": [
+        "a wealthy, surly landowner"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "A rich sheep-owner, \"surly and evil in his doings,\" who refuses David's request for provisions after David's men had protected his flocks -- an insult that nearly gets his whole household killed until his wife Abigail intervenes.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abigail",
+      "name": "Abigail",
+      "roles": [
+        "Nabal's wife",
+        "later David's wife"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "\"Intelligent and had a beautiful face\" -- when her husband Nabal insults David, she rides out herself with provisions and talks David out of bloodshed before he even knows what she's done. Ten days later Nabal dies, and David marries her.",
+      "verseIds": []
+    },
+    {
+      "id": "char_doeg",
+      "name": "Doeg",
+      "roles": [
+        "the Edomite",
+        "Saul's chief herdsman"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "An Edomite in Saul's service who witnesses Ahimelech helping David, then reports it -- and, when Saul's own guards refuse to raise a hand against the priests, personally kills eighty-five of them and puts the entire priestly city of Nob to the sword.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ahimelech",
+      "name": "Ahimelech",
+      "roles": [
+        "priest at Nob"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "Gives the fleeing David consecrated bread and Goliath's own sword, not knowing he's defying Saul by doing it. Defends himself plainly to Saul's face -- \"who among all your servants is so faithful as David?\" -- and is killed for it along with the rest of Nob's priests.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abiathar",
+      "name": "Abiathar",
+      "roles": [
+        "Ahimelech's son",
+        "escapes to David"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The one son of Ahimelech to escape Doeg's massacre, fleeing to David with the news. David takes responsibility for his father's death and keeps him close -- Abiathar becomes his priest for the rest of David's reign.",
+      "verseIds": []
+    },
+    {
+      "id": "char_achish",
+      "name": "Achish",
+      "roles": [
+        "king of Gath"
+      ],
+      "eraId": "era_united_kingdom",
+      "summary": "The Philistine king David first fools by feigning madness, then later serves as a vassal for over a year while hiding from Saul. Genuinely trusts David -- \"you have been upright... as an angel of God\" -- and is the one who has to send him home before the battle at Gilboa, at his own commanders' insistence.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jethro",
+      "name": "Jethro",
+      "roles": [
+        "priest of Midian",
+        "Moses' father-in-law"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Visits Moses in the wilderness and watches him single-handedly judge every dispute in Israel from morning to evening. Tells him plainly, \"the thing that you do is not good... you will surely wear away\" -- and proposes the tiered system of judges over thousands, hundreds, fifties, and tens that Moses actually adopts.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shiphrah",
+      "name": "Shiphrah",
+      "roles": [
+        "Hebrew midwife"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of the two named midwives Pharaoh orders to kill every Hebrew baby boy at birth. Defies him because she \"feared God\" -- her act of civil disobedience is what keeps the Hebrew population, and eventually Moses himself, alive.",
+      "verseIds": []
+    },
+    {
+      "id": "char_puah",
+      "name": "Puah",
+      "roles": [
+        "Hebrew midwife"
+      ],
+      "eraId": "era_exodus",
+      "summary": "The second of the two named midwives who defy Pharaoh's order to kill Hebrew baby boys. Named individually alongside Shiphrah -- God \"dealt well with the midwives... and gave them families.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_phinehas",
+      "name": "Phinehas",
+      "roles": [
+        "Eleazar's son",
+        "Aaron's grandson",
+        "zealous priest"
+      ],
+      "eraId": "era_exodus",
+      "summary": "Stops a plague that's already killing thousands of Israelites during the Baal Peor apostasy by personally executing an Israelite man and a Midianite woman in the act. Yahweh explicitly rewards his zeal with \"my covenant of peace\" and an everlasting priesthood for his line.",
+      "verseIds": []
+    },
+    {
+      "id": "char_mahlah",
+      "name": "Mahlah",
+      "roles": [
+        "daughter of Zelophehad"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of Zelophehad's five daughters, who together petition Moses for the right to inherit their father's land since he died with no sons -- a request Yahweh rules is right, changing Israel's inheritance law.",
+      "verseIds": []
+    },
+    {
+      "id": "char_noah_daughter_of_zelophehad",
+      "name": "Noah",
+      "roles": [
+        "daughter of Zelophehad"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of Zelophehad's five daughters, individually named alongside her sisters in both the original petition and the later ruling on tribal land -- her name distinct from, and long before, the flood's Noah.",
+      "verseIds": []
+    },
+    {
+      "id": "char_hoglah",
+      "name": "Hoglah",
+      "roles": [
+        "daughter of Zelophehad"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of Zelophehad's five daughters who petition Moses for their father's inheritance.",
+      "verseIds": []
+    },
+    {
+      "id": "char_milcah_daughter_of_zelophehad",
+      "name": "Milcah",
+      "roles": [
+        "daughter of Zelophehad"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of Zelophehad's five daughters who petition Moses for their father's inheritance -- her name distinct from the earlier Milcah, Abraham's brother Nahor's wife.",
+      "verseIds": []
+    },
+    {
+      "id": "char_tirzah",
+      "name": "Tirzah",
+      "roles": [
+        "daughter of Zelophehad"
+      ],
+      "eraId": "era_exodus",
+      "summary": "One of Zelophehad's five daughters who petition Moses for their father's inheritance.",
       "verseIds": []
     }
   ]

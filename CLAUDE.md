@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,450 verses** — the entire Bible, Old and New Testament,
+  first run: **1,495 verses** — the entire Bible, Old and New Testament,
   is curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
   the NT was approached, item 10 for the "deep study" supporting-cast
@@ -136,22 +136,22 @@ The schema was deliberately designed so all of the above can be added
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
-  (topics linked to related topics), plus **197 characters** with real
+  (topics linked to related topics), plus **212 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below). Note:
   fictional figures inside Jesus's parables (the good Samaritan, the
   prodigal son, etc.) do **not** get Character records — only real,
   named/identifiable people do, same as every OT figure.
-- `data/characters.json` — the same 197 characters, standalone. Generated
+- `data/characters.json` — the same 212 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire 66-book
   Bible (31,098 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 1,450 seed
+  from Browse copies it into the user's overlay. Only the 1,495 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 16 eras, **255 stories and 624 life events**,
+- `data/stories.json` — 16 eras, **262 stories and 653 life events**,
   covering the whole Bible (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
@@ -546,8 +546,20 @@ hand-curate all the content before building.
     Dinah's story and Reuben's, Joseph tagged on the brothers'-return
     story), each with their own new life event too.
 
-    See DATA_MODEL.md §8, items 65-67 and 70, for the full writeup and
-    the reasoning behind which figures made the cut each pass.
+    **Fourth pass (2026-09-11): spanning three books at once** — 1
+    Samuel (Nabal, Abigail, Doeg, Ahimelech, Abiathar, Achish — David's
+    fugitive years under Saul), Exodus (Jethro, Shiphrah, Puah), and
+    Numbers (Phinehas, and Zelophehad's five individually-named
+    daughters — Mahlah, Noah, Hoglah, Milcah, Tirzah — whose petition
+    for their father's inheritance actually changes Israel's
+    inheritance law on the spot). 15 new characters, 7 new stories.
+    Same discipline as pass 3: David, Saul, and Moses are each tagged
+    and given new life events on every one of these stories they're
+    genuinely present for, applied from the start rather than
+    discovered as a bug afterward.
+
+    See DATA_MODEL.md §8, items 65-67, 70, and 71, for the full writeup
+    and the reasoning behind which figures made the cut each pass.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

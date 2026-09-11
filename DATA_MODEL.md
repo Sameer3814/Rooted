@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (197 characters — full 66-book Bible as of 2026-09-10, plus three "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, and Genesis's supporting cast, items 66-67 and 70 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (212 characters — full 66-book Bible as of 2026-09-10, plus four "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, and 1 Samuel/Exodus/Numbers, items 66-67, 70, and 71 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,450 verses + 38 topics + 197 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,495 verses + 38 topics + 212 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 255 stories, 624 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 262 stories, 653 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,450-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,495-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2757,6 +2757,63 @@ inventing a new principle:
     rather than duplicated. No new topics — the existing 38 covered
     betrayal, justice, humility, temptation, and blessing without
     strain.
+
+71. **"Deep study" supporting-cast expansion, pass 4: three books at
+    once — 1 Samuel, Exodus, Numbers.** **Done (2026-09-11).** A
+    deliberate change of shape from passes 1-3: rather than one book's
+    supporting cast, this pass spans three separate books' worth of
+    rich, self-contained material that had nothing to do with each
+    other narratively but shared the same "genuinely drives the plot,
+    never curated" profile. 15 new characters, all inside existing
+    eras (`era_united_kingdom` for the 1 Samuel figures,
+    `era_exodus` for the rest — Numbers already lives there alongside
+    Exodus, per its own earlier eras):
+
+    **1 Samuel — David's fugitive years** (6 characters): Nabal and
+    Abigail (his insult nearly gets his household killed; her
+    intervention becomes the reason David marries her ten days after
+    Yahweh strikes him dead), Doeg the Edomite and Ahimelech (the
+    priest who unknowingly helps a fugitive David, defends himself to
+    Saul's face, and is killed for it — along with 84 other priests and
+    the entire city of Nob, when Saul's own guards refuse and Doeg does
+    it himself), Abiathar (the one son of Ahimelech who escapes and
+    becomes David's own priest for the rest of his reign), and Achish
+    of Gath (fooled first, later genuinely trusted David as a vassal
+    for over a year, and is the one forced to send him home before
+    Gilboa).
+
+    **Exodus** (3 characters): Jethro (his blunt "you will surely wear
+    away" and the tiered-judges system Moses actually adopts), and
+    Shiphrah and Puah, the two named Hebrew midwives whose civil
+    disobedience — years before Moses is even born — is part of what
+    keeps his whole generation alive.
+
+    **Numbers** (6 characters): Phinehas (Aaron's grandson, whose
+    on-the-spot zeal stops a plague and earns "my covenant of peace"),
+    and Zelophehad's five individually-named daughters — Mahlah, Noah
+    (`char_noah_daughter_of_zelophehad`, disambiguated from the
+    flood's Noah), Hoglah, Milcah (`char_milcah_daughter_of_zelophehad`,
+    disambiguated from Nahor's wife Milcah in Genesis), and Tirzah —
+    whose joint petition ("why should the name of our father be taken
+    away... because he had no son?") gets a direct, immediate ruling
+    from Yahweh changing Israel's inheritance law: "the daughters of
+    Zelophehad speak right." All five share nearly identical individual
+    life events (each petitioning together) since the text itself
+    treats their action as genuinely collective while still insisting
+    on naming each of them individually — the same instinct honored
+    here as five short records rather than one merged one.
+
+    7 new stories (Nabal and Abigail; Doeg and the priests of Nob;
+    David and Achish; Shiphrah and Puah; Jethro's advice; Phinehas
+    stops the plague; Zelophehad's daughters), 45 new curated verses,
+    no new topics. Item 69's lesson applied proactively from the start
+    again: David, Saul, and Moses are each tagged and given a matching
+    new life event on every story here they're genuinely part of
+    (David helped at Nob, talked down by Abigail, serving Achish; Saul
+    ordering Nob's priests killed; Moses adopting Jethro's plan and
+    ruling on Zelophehad's daughters) — their existing `sequenceInLife`
+    ranges (David up to 170, Saul up to 50, Moses up to 280) checked
+    first in every case.
 
 ---
 
