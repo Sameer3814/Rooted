@@ -12985,6 +12985,325 @@
         "char_eutychus",
         "char_paul"
       ]
+    },
+    {
+      "id": "verse_genesis_14_18",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_melchizedek"
+      ]
+    },
+    {
+      "id": "verse_genesis_14_19",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_melchizedek"
+      ]
+    },
+    {
+      "id": "verse_genesis_14_20",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_melchizedek"
+      ]
+    },
+    {
+      "id": "verse_genesis_20_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_20_3",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_20_6",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_20_14",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_26_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_26_10",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_genesis_26_16",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar"
+      ]
+    },
+    {
+      "id": "verse_numbers_22_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_numbers_22_5",
+      "topicIds": [],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_numbers_22_6",
+      "topicIds": [
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_numbers_22_17",
+      "topicIds": [],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_numbers_24_10",
+      "topicIds": [
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_numbers_24_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_balak"
+      ]
+    },
+    {
+      "id": "verse_judges_3_9",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_othniel"
+      ]
+    },
+    {
+      "id": "verse_judges_3_10",
+      "topicIds": [],
+      "characterIds": [
+        "char_othniel"
+      ]
+    },
+    {
+      "id": "verse_judges_3_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_othniel"
+      ]
+    },
+    {
+      "id": "verse_judges_3_31",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": [
+        "char_shamgar"
+      ]
+    },
+    {
+      "id": "verse_judges_10_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_tola"
+      ]
+    },
+    {
+      "id": "verse_judges_10_2",
+      "topicIds": [],
+      "characterIds": [
+        "char_tola"
+      ]
+    },
+    {
+      "id": "verse_judges_10_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_jair"
+      ]
+    },
+    {
+      "id": "verse_judges_10_4",
+      "topicIds": [],
+      "characterIds": [
+        "char_jair"
+      ]
+    },
+    {
+      "id": "verse_judges_12_8",
+      "topicIds": [],
+      "characterIds": [
+        "char_ibzan"
+      ]
+    },
+    {
+      "id": "verse_judges_12_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_ibzan"
+      ]
+    },
+    {
+      "id": "verse_judges_12_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_elon"
+      ]
+    },
+    {
+      "id": "verse_judges_12_13",
+      "topicIds": [],
+      "characterIds": [
+        "char_abdon"
+      ]
+    },
+    {
+      "id": "verse_judges_12_14",
+      "topicIds": [],
+      "characterIds": [
+        "char_abdon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_5",
+      "topicIds": [
+        "topic_betrayal",
+        "topic_anger"
+      ],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_6",
+      "topicIds": [],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_23",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_53",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_judges_9_54",
+      "topicIds": [],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ]
+    },
+    {
+      "id": "verse_2kings_11_1",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_athaliah"
+      ]
+    },
+    {
+      "id": "verse_2kings_11_2",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_jehosheba"
+      ]
+    },
+    {
+      "id": "verse_2kings_11_3",
+      "topicIds": [],
+      "characterIds": [
+        "char_jehosheba"
+      ]
+    },
+    {
+      "id": "verse_2kings_11_16",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_athaliah"
+      ]
+    },
+    {
+      "id": "verse_2kings_11_20",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_athaliah"
+      ]
     }
   ],
   "topics": [
@@ -15933,6 +16252,144 @@
       ],
       "eraId": "era_early_church",
       "summary": "A young man who falls asleep in a third-floor window during one of Paul's longer sermons, falls to his death, and is raised by Paul, who tells the alarmed crowd, \"his life is in him.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_melchizedek",
+      "name": "Melchizedek",
+      "roles": [
+        "king of Salem",
+        "priest of God Most High"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "King of Salem and priest of God Most High, who brings out bread and wine to bless Abram after his rescue of Lot: \"blessed be God Most High, who has delivered your enemies into your hand.\" Abram gives him a tenth of everything -- the first tithe in the Bible, to a figure who appears once and vanishes.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abimelech_king_of_gerar",
+      "name": "Abimelech",
+      "roles": [
+        "king of Gerar"
+      ],
+      "eraId": "era_patriarchs",
+      "summary": "King of Gerar in both Abraham's and, a generation later, Isaac's time (possibly a dynastic title rather than one man across decades, as with \"Pharaoh\"). Nearly takes Sarah as Abraham's \"sister,\" is warned off in a dream, and returns her with gifts; later catches Isaac caressing Rebekah and realizes the same deception has been played on him too.",
+      "verseIds": []
+    },
+    {
+      "id": "char_balak",
+      "name": "Balak",
+      "roles": [
+        "king of Moab"
+      ],
+      "eraId": "era_exodus",
+      "summary": "King of Moab, alarmed by Israel's approach, who hires the prophet Balaam to curse them -- and grows furious when Balaam blesses them three times instead. \"Yahweh has kept you back from honor,\" he tells him, and sends him home.",
+      "verseIds": []
+    },
+    {
+      "id": "char_othniel",
+      "name": "Othniel",
+      "roles": [
+        "Israel's first judge",
+        "Caleb's younger brother"
+      ],
+      "eraId": "era_judges",
+      "summary": "Caleb's younger brother, raised up as Israel's first judge/deliverer when they cry out under Cushan Rishathaim of Mesopotamia. Yahweh's Spirit comes on him, he defeats the oppressor, and the land has rest for forty years -- the template every judge cycle after him repeats.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shamgar",
+      "name": "Shamgar",
+      "roles": [
+        "struck down 600 Philistines"
+      ],
+      "eraId": "era_judges",
+      "summary": "Given a single verse: he strikes down six hundred Philistines with an ox goad and \"also saved Israel,\" between Ehud's story and Deborah's.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abimelech_son_of_gideon",
+      "name": "Abimelech",
+      "roles": [
+        "Gideon's son",
+        "self-made king"
+      ],
+      "eraId": "era_judges",
+      "summary": "Gideon's son by a concubine in Shechem. Persuades his mother's relatives to back him, then kills all seventy of his brothers on one stone -- except Jotham, who hides -- and is made king by the men of Shechem. God sends division between them; the city eventually turns on him, and he dies when a woman drops a millstone on his head, having his own armor-bearer finish him off so it can't be said a woman killed him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_tola",
+      "name": "Tola",
+      "roles": [
+        "judge of Israel"
+      ],
+      "eraId": "era_judges",
+      "summary": "Judged Israel twenty-three years after Abimelech's death, living and dying in Shamir in the hill country of Ephraim.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jair",
+      "name": "Jair",
+      "roles": [
+        "judge of Israel",
+        "the Gileadite"
+      ],
+      "eraId": "era_judges",
+      "summary": "Judged Israel twenty-two years. Had thirty sons who rode thirty donkeys and held thirty towns in Gilead, still called Havvoth Jair -- \"Jair's villages\" -- long after.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ibzan",
+      "name": "Ibzan",
+      "roles": [
+        "judge of Israel",
+        "of Bethlehem"
+      ],
+      "eraId": "era_judges",
+      "summary": "Judged Israel seven years. Had thirty sons and thirty daughters, marrying his daughters outside his own clan and bringing in thirty daughters-in-law from outside it.",
+      "verseIds": []
+    },
+    {
+      "id": "char_elon",
+      "name": "Elon",
+      "roles": [
+        "judge of Israel",
+        "the Zebulunite"
+      ],
+      "eraId": "era_judges",
+      "summary": "Judged Israel ten years -- the text records almost nothing else about him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_abdon",
+      "name": "Abdon",
+      "roles": [
+        "judge of Israel",
+        "the Pirathonite"
+      ],
+      "eraId": "era_judges",
+      "summary": "Judged Israel eight years. Had forty sons and thirty grandsons who rode seventy donkeys.",
+      "verseIds": []
+    },
+    {
+      "id": "char_athaliah",
+      "name": "Athaliah",
+      "roles": [
+        "usurping queen",
+        "Ahaziah's mother"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Daughter of Ahab and Jezebel. The moment her son Ahaziah is killed by Jehu, she murders every remaining royal heir she can find to seize the throne herself -- except the one infant, Joash, hidden from her for six years until Jehoiada the priest has her killed and crowns him.",
+      "verseIds": []
+    },
+    {
+      "id": "char_jehosheba",
+      "name": "Jehosheba",
+      "roles": [
+        "saved the infant Joash"
+      ],
+      "eraId": "era_divided_kingdom",
+      "summary": "Daughter of King Joram and sister of Ahaziah -- and, notably, Jehoiada the priest's wife. Steals the infant Joash away from among the royal children Athaliah is slaughtering and hides him in the temple for six years, the single act that keeps the Davidic line alive.",
       "verseIds": []
     }
   ]

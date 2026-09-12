@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,600 verses** — the entire Bible, Old and New Testament,
+  first run: **1,640 verses** — the entire Bible, Old and New Testament,
   is curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
   the NT was approached, item 10 for the "deep study" supporting-cast
@@ -136,22 +136,22 @@ The schema was deliberately designed so all of the above can be added
   current per-book/per-era breakdown of everything below — this section
   intentionally stopped enumerating every book by name once the count
   made that unsustainable to keep current) — across **38 topics**
-  (topics linked to related topics), plus **241 characters** with real
+  (topics linked to related topics), plus **254 characters** with real
   relationships (father of, wife of, brother of, successor of, servant
   of, worked alongside, raised, etc. — see Connection, below). Note:
   fictional figures inside Jesus's parables (the good Samaritan, the
   prodigal son, etc.) do **not** get Character records — only real,
   named/identifiable people do, same as every OT figure.
-- `data/characters.json` — the same 241 characters, standalone. Generated
+- `data/characters.json` — the same 254 characters, standalone. Generated
   from the same curation as the starter pack, but not read by the app.
 - `data/verses.json` — the **full** parsed corpus: the entire 66-book
   Bible (31,098 verses, WEB translation, public domain), matching
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 1,600 seed
+  from Browse copies it into the user's overlay. Only the 1,640 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
-- `data/stories.json` — 16 eras, **277 stories and 709 life events**,
+- `data/stories.json` — 16 eras, **284 stories and 730 life events**,
   covering the whole Bible (see DATA_MODEL.md §8 for what's in each
   era — kept current there, not duplicated here). Loaded at boot (it's
   small). Drives the character life timeline, the Stories screens,
@@ -593,8 +593,37 @@ hand-curate all the content before building.
     Esther, Haman, Peter, and Paul are each tagged and given matching
     new life events on every story they're genuinely part of.
 
-    See DATA_MODEL.md §8, items 65-67 and 70-73, for the full writeup
+    **Seventh pass (2026-09-12): Genesis, Numbers, Judges, and 2
+    Kings.** Melchizedek (Genesis's one-scene king-priest who blesses
+    Abram and receives the Bible's first tithe), the recurring
+    "Abimelech king of Gerar" role appearing with both Abraham and,
+    a generation later, Isaac, Balak (Balaam's employer, furious when
+    the curse he paid for becomes a blessing), Judges' first judge
+    Othniel and the one-verse deliverer Shamgar, a second, much darker
+    Abimelech — Gideon's own son, who kills his seventy brothers and
+    makes himself king before dying by a millstone — the four "minor
+    judges" (Tola, Jair, Ibzan, Elon, Abdon), and Athaliah's six-year
+    usurpation with Jehosheba's rescue of the infant Joash (folded into
+    the *existing* `story_joash_and_zechariah`, which already spanned
+    his whole reign, rather than a duplicate new Story). 13 new
+    characters, 7 new stories, 2 existing ones extended. Abraham,
+    Sarah, Isaac, and Rebekah are each tagged and given a matching new
+    life event on the Abimelech stories they're part of.
+
+    See DATA_MODEL.md §8, items 65-67 and 70-74, for the full writeup
     and the reasoning behind which figures made the cut each pass.
+
+    **"People in this book" — done (2026-09-12).** As the per-book cast
+    list got genuinely rich (2 Samuel alone now has 22 named people),
+    the owner asked for a way to open a book on the Browse screen and
+    see everyone tagged in it, not just reach people through the
+    People-grouped-by-era list. Added as a pill list above the existing
+    chapter grid on Browse's per-book view. No new `Character.book`
+    field — a character routinely spans several books (Moses,
+    Exodus-Deuteronomy; David, Samuel-Kings-Chronicles), so membership
+    is derived at render time from `data.verses` (every curated verse
+    already has both `book` and `characterIds`) instead of forcing a
+    false one-book choice. See DATA_MODEL.md §8, item 75.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

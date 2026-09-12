@@ -911,6 +911,17 @@ function appearsIn(charId){
 function characterStories(charId){
   return lore.stories.filter(s=>(s.characterIds||[]).includes(charId));
 }
+/* Which curated characters have a tagged verse in this book — derived from
+   data.verses (already carries book + characterIds) rather than a new
+   Character.book field, since one character routinely spans several books
+   (Moses across Exodus-Deuteronomy, David across Samuel/Kings/Chronicles) —
+   a field would force a false single-book choice; this stays accurate as
+   curation grows, with no migration. */
+function charactersInBook(bookName){
+  const ids = new Set();
+  data.verses.forEach(v=>{ if(v.book===bookName) (v.characterIds||[]).forEach(id=>ids.add(id)); });
+  return [...ids].map(findChar).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+}
 
 /* ---------- connections (DATA_MODEL.md §2) ----------
    Each edge is stored once, directed; the reverse view is derived here from
@@ -1212,8 +1223,15 @@ function renderBrowseResults(){
 
   if(browse.book){
     const entry = corpusIndex.find(b => b.book===browse.book);
+    const people = charactersInBook(browse.book);
     return `
       ${renderCrumbs()}
+      ${people.length ? `
+        <div class="section-label">People in ${esc(browse.book)} <span style="color:var(--ink-faint);">${people.length}</span></div>
+        <div class="tag-row" style="margin-bottom:18px;">
+          ${people.map(c=>`<span class="tag tag--tan tap" data-action="open-character" data-id="${c.id}" style="cursor:pointer;">${esc(c.name)}</span>`).join('')}
+        </div>
+      ` : ''}
       <div class="chapter-grid">
         ${entry.chapters.map(c=>`<button class="chapter-cell" data-action="browse-chapter" data-n="${c.n}">${c.n}</button>`).join('')}
       </div>

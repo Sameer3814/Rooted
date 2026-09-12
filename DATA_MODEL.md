@@ -109,7 +109,7 @@ not be able to delete a verse. See §7.
   leave `relatedTopicIds` as a derived convenience or drop it. Don't add a
   second embedded array.
 
-### Character — *live* (241 characters — full 66-book Bible as of 2026-09-10, plus six "deep study" supporting-cast slices, 2 Samuel's civil-war/rebellion cast, Paul's circle, Genesis's supporting cast, 1 Samuel/Exodus/Numbers, the Gospels' supporting cast, and Job/1 Kings/Esther/Acts, items 66-67 and 70-73 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
+### Character — *live* (254 characters — full 66-book Bible as of 2026-09-10, plus seven "deep study" supporting-cast slices (2 Samuel, Paul's circle, Genesis, 1 Samuel/Exodus/Numbers, the Gospels, Job/1 Kings/Esther/Acts, and Genesis/Numbers/Judges/2 Kings again), items 66-67 and 70-74 — see DATA_MODEL.md §8 for the running per-book/per-batch breakdown, no longer itemized here since it stopped being sustainable to keep current inline)
 ```json
 {
   "id": "char_jacob",
@@ -430,12 +430,12 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,600 verses + 38 topics + 241 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,640 verses + 38 topics + 254 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
 | `data/characters.json` | standalone characters, same curation as the starter pack | **generated** by `build_starter_pack.py` from the same curation; not read by the app |
-| `data/stories.json` | 16 eras, 277 stories, 709 life events | **generated** by `build_stories.py`; loaded at boot (small) |
+| `data/stories.json` | 16 eras, 284 stories, 730 life events | **generated** by `build_stories.py`; loaded at boot (small) |
 | `data/motifs.json` | 20 motifs | **generated** by `build_motifs.py`; loaded at boot (small) |
 | `data/connections.json` | 137 Connection edges | **generated** by `build_connections.py`; loaded at boot (small), outside the content overlay |
 | `media/` | *planned* | illustration assets referenced by Media entities |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,600-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,640-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -2929,6 +2929,77 @@ inventing a new principle:
     Jehoshaphat up to 20, Peter up to 120, Paul up to 95) checked first
     in every case, this time as a matter of course rather than a lesson
     being freshly re-applied.
+
+74. **"Deep study" supporting-cast expansion, pass 7: Genesis, Numbers,
+    Judges, and 2 Kings.** **Done (2026-09-12).** 13 new characters:
+    **Melchizedek** (Genesis 14 — king of Salem, priest of God Most
+    High, blesses Abram and receives the Bible's first tithe, then
+    never appears in Genesis again); **Abimelech** (`char_abimelech_king_of_gerar`
+    — the "king of Gerar" role recurring across a generation, first
+    with Abraham and Sarah, Genesis 20, then with Isaac and Rebekah,
+    Genesis 26 — two separate new Stories for the same character,
+    since the text never treats them as one continuous scene, just the
+    same royal role playing out the same trick twice); **Balak**
+    (Balaam's employer, folded into the *existing*
+    `story_balaams_donkey` — which already spanned the whole Balaam
+    narrative without ever naming who hired him); **Othniel** (Israel's
+    actual first judge, Judges 3:7-11 — a real gap despite ten Judges
+    characters already being curated, since the cycle's template-
+    setting first deliverer had never been named) and **Shamgar** (one
+    verse, shares Othniel's new Story since Judges places them back to
+    back); a second, unrelated **Abimelech**
+    (`char_abimelech_son_of_gideon` — Gideon's own son, who kills his
+    seventy brothers on one stone, makes himself king, and dies by a
+    millstone dropped from a besieged wall); the four "minor judges"
+    **Tola**, **Jair**, **Ibzan**, **Elon**, **Abdon** (five people
+    across two new Stories, each getting only a sentence or two of
+    text — the same "name them individually even when the record is
+    thin" instinct as Zelophehad's daughters, item 71); and
+    **Athaliah** and **Jehosheba** (the six-year usurpation and the
+    rescue that kept the Davidic line alive — folded into the
+    *existing* `story_joash_and_zechariah`, which already spanned
+    Joash's whole reign from his infant hiding onward, rather than a
+    duplicate new Story for the same span).
+
+    7 new stories, 2 existing ones extended
+    (`story_balaams_donkey`, `story_joash_and_zechariah`), 40 new
+    curated verses, no new topics. `char_abraham`, `char_sarah`,
+    `char_isaac`, and `char_rebekah` — all already extensively
+    curated since the project's very first pass — are each tagged and
+    given a matching new life event on the Abimelech stories they're
+    genuinely part of (their existing `sequenceInLife` ranges, up to
+    120/50/60/40 respectively, checked first in every case, per item
+    69's now-routine discipline).
+
+75. **"People in this book" — browse a book, see who's in it.** **Done
+    (2026-09-12).** Owner's request: with the "deep study" expansion
+    making the per-book cast list genuinely rich (2 Samuel alone now
+    surfaces 22 named people), the app needed a way to just open a book
+    and see everyone tagged in it, rather than only reaching a
+    character from the People-grouped-by-era list. Added to the
+    existing Browse screen's per-book view — the same screen that
+    already showed a chapter grid once a book is selected — rather
+    than inventing new navigation: a "People in Genesis" (etc.) section
+    of tappable pills now sits above the chapter grid,
+    `data-action="open-character"` on each one, reusing the same
+    `.tag--tan`/tag-row pattern already used for "Related topics"
+    elsewhere.
+
+    Deliberately **no new `Character.book` field.** A character
+    routinely spans several books (Moses across Exodus through
+    Deuteronomy, David across Samuel, Kings, and Chronicles, Paul
+    across Acts and a dozen epistles) — a single `book` field would
+    force a false one-book choice and need a real migration across all
+    254 characters. Instead, `charactersInBook(bookName)` derives
+    membership at render time by scanning `data.verses` (every curated
+    verse already carries both `book` and `characterIds`) and
+    collecting the unique character ids tagged to that book's verses —
+    zero data-model change, and it stays accurate automatically as the
+    "deep study" curation keeps adding verses; a book's people list
+    grows the moment a new batch tags a verse in it, with no separate
+    bookkeeping step to remember. Verified directly against the real
+    curated data before shipping (not just reasoned about): 2 Samuel
+    → 22 people, Genesis → 28, Judges → 18, Acts → 20.
 
 ---
 

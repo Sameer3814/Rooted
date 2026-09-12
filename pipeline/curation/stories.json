@@ -1416,12 +1416,19 @@
       "eraId": "era_exodus",
       "canonicalOrder": 720,
       "verseIds": [
+        "verse_numbers_22_17",
+        "verse_numbers_22_2",
         "verse_numbers_22_28",
+        "verse_numbers_22_5",
+        "verse_numbers_22_6",
         "verse_numbers_23_19",
+        "verse_numbers_24_10",
+        "verse_numbers_24_11",
         "verse_numbers_24_17"
       ],
       "characterIds": [
-        "char_balaam"
+        "char_balaam",
+        "char_balak"
       ],
       "topicIds": [
         "topic_faithfulness"
@@ -2918,11 +2925,18 @@
         "verse_2chronicles_23_11",
         "verse_2chronicles_24_2",
         "verse_2chronicles_24_20",
-        "verse_2chronicles_24_22"
+        "verse_2chronicles_24_22",
+        "verse_2kings_11_1",
+        "verse_2kings_11_16",
+        "verse_2kings_11_2",
+        "verse_2kings_11_20",
+        "verse_2kings_11_3"
       ],
       "characterIds": [
-        "char_joash",
+        "char_athaliah",
         "char_jehoiada",
+        "char_jehosheba",
+        "char_joash",
         "char_zechariah_priest"
       ],
       "topicIds": [
@@ -6242,6 +6256,158 @@
       "topicIds": [
         "topic_strength"
       ]
+    },
+    {
+      "id": "story_melchizedek_blesses_abram",
+      "title": "Melchizedek blesses Abram",
+      "summary": "Returning from rescuing Lot and defeating four kings, Abram is met by Melchizedek, king of Salem and priest of God Most High, who brings out bread and wine and blesses him: \"blessed be God Most High, who has delivered your enemies into your hand.\" Abram gives him a tenth of everything -- the Bible's first tithe -- to a figure who appears once and is never seen again in Genesis.",
+      "primaryReference": "Genesis 14:17-20",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 315,
+      "verseIds": [
+        "verse_genesis_14_18",
+        "verse_genesis_14_19",
+        "verse_genesis_14_20"
+      ],
+      "characterIds": [
+        "char_melchizedek",
+        "char_abraham"
+      ],
+      "topicIds": [
+        "topic_blessing",
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "story_abimelech_takes_sarah",
+      "title": "Abimelech takes Sarah",
+      "summary": "Abraham again calls Sarah his \"sister\" rather than his wife, and Abimelech, king of Gerar, takes her -- only for God to warn him off in a dream before he touches her: \"you are a dead man.\" Abimelech, genuinely innocent, returns Sarah with gifts and lets Abraham stay in his land.",
+      "primaryReference": "Genesis 20:1-18",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 365,
+      "verseIds": [
+        "verse_genesis_20_2",
+        "verse_genesis_20_3",
+        "verse_genesis_20_6",
+        "verse_genesis_20_14"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar",
+        "char_abraham",
+        "char_sarah"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_holiness",
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_abimelech_and_isaac",
+      "title": "Abimelech and Isaac",
+      "summary": "A generation later, the same deception plays out again: Isaac calls Rebekah his \"sister\" in the land of the Philistines, until Abimelech happens to see him caressing her and realizes the truth. Rather than punish him, Abimelech protects the couple -- but later sends Isaac away once he's grown uncomfortably powerful.",
+      "primaryReference": "Genesis 26:1-16",
+      "eraId": "era_patriarchs",
+      "canonicalOrder": 425,
+      "verseIds": [
+        "verse_genesis_26_8",
+        "verse_genesis_26_10",
+        "verse_genesis_26_16"
+      ],
+      "characterIds": [
+        "char_abimelech_king_of_gerar",
+        "char_isaac",
+        "char_rebekah"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_fear"
+      ]
+    },
+    {
+      "id": "story_othniel_and_shamgar",
+      "title": "Othniel and Shamgar, Israel's first deliverers",
+      "summary": "When Israel first cries out under a foreign oppressor, Yahweh raises up Othniel, Caleb's younger brother, as the first judge -- the Spirit comes on him, he defeats Cushan Rishathaim of Mesopotamia, and the land rests forty years. The template every later judge cycle repeats. Shamgar gets just one verse afterward: he strikes down six hundred Philistines with an ox goad and \"also saved Israel.\"",
+      "primaryReference": "Judges 3:7-11, 31",
+      "eraId": "era_judges",
+      "canonicalOrder": 795,
+      "verseIds": [
+        "verse_judges_3_9",
+        "verse_judges_3_10",
+        "verse_judges_3_11",
+        "verse_judges_3_31"
+      ],
+      "characterIds": [
+        "char_othniel",
+        "char_shamgar"
+      ],
+      "topicIds": [
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_abimelech_son_of_gideon",
+      "title": "Abimelech, Gideon's son, makes himself king",
+      "summary": "Gideon's son by a concubine in Shechem persuades his mother's relatives to back him, then kills all seventy of his brothers on one stone -- only the youngest, Jotham, escapes by hiding. Made king by the men of Shechem, he later falls out with them when God sends an evil spirit between them; the city turns on him, and he dies when a woman drops a millstone on his head during a siege, ordering his own armor-bearer to finish him so it won't be said a woman killed him.",
+      "primaryReference": "Judges 9:1-57",
+      "eraId": "era_judges",
+      "canonicalOrder": 825,
+      "verseIds": [
+        "verse_judges_9_1",
+        "verse_judges_9_5",
+        "verse_judges_9_6",
+        "verse_judges_9_23",
+        "verse_judges_9_53",
+        "verse_judges_9_54"
+      ],
+      "characterIds": [
+        "char_abimelech_son_of_gideon"
+      ],
+      "topicIds": [
+        "topic_betrayal",
+        "topic_anger",
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_minor_judges_tola_and_jair",
+      "title": "Tola and Jair",
+      "summary": "After Abimelech's death, Tola judges Israel twenty-three years in the hill country of Ephraim, then Jair the Gileadite judges twenty-two more -- his thirty sons rode thirty donkeys and held thirty towns still called \"Jair's villages\" long after.",
+      "primaryReference": "Judges 10:1-5",
+      "eraId": "era_judges",
+      "canonicalOrder": 827,
+      "verseIds": [
+        "verse_judges_10_1",
+        "verse_judges_10_2",
+        "verse_judges_10_3",
+        "verse_judges_10_4"
+      ],
+      "characterIds": [
+        "char_tola",
+        "char_jair"
+      ],
+      "topicIds": []
+    },
+    {
+      "id": "story_minor_judges_ibzan_elon_abdon",
+      "title": "Ibzan, Elon, and Abdon",
+      "summary": "Three brief judges after Jephthah: Ibzan of Bethlehem, with thirty sons and thirty daughters married outside his own clan; Elon the Zebulunite, judging ten years with almost nothing else recorded; and Abdon, with forty sons and thirty grandsons riding seventy donkeys.",
+      "primaryReference": "Judges 12:8-15",
+      "eraId": "era_judges",
+      "canonicalOrder": 835,
+      "verseIds": [
+        "verse_judges_12_8",
+        "verse_judges_12_9",
+        "verse_judges_12_11",
+        "verse_judges_12_13",
+        "verse_judges_12_14"
+      ],
+      "characterIds": [
+        "char_ibzan",
+        "char_elon",
+        "char_abdon"
+      ],
+      "topicIds": []
     }
   ],
   "lifeEvents": [
@@ -13438,6 +13604,195 @@
       "reference": "Acts 20:9-12",
       "storyId": "story_eutychus_raised",
       "sequenceInLife": 65
+    },
+    {
+      "id": "event_melchizedek_blesses_abram",
+      "characterId": "char_melchizedek",
+      "title": "Blesses Abram and receives a tenth of everything",
+      "description": "",
+      "reference": "Genesis 14:18-20",
+      "storyId": "story_melchizedek_blesses_abram",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abimelech_takes_and_returns_sarah",
+      "characterId": "char_abimelech_king_of_gerar",
+      "title": "Takes Sarah, then returns her after a warning from God",
+      "description": "",
+      "reference": "Genesis 20:1-18",
+      "storyId": "story_abimelech_takes_sarah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abimelech_sees_isaac_and_rebekah",
+      "characterId": "char_abimelech_king_of_gerar",
+      "title": "Realizes Isaac and Rebekah are married, not siblings",
+      "description": "Protects them, then later sends Isaac away.",
+      "reference": "Genesis 26:1-16",
+      "storyId": "story_abimelech_and_isaac",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_balak_hires_balaam",
+      "characterId": "char_balak",
+      "title": "Hires Balaam to curse Israel",
+      "description": "Grows furious when Balaam blesses them instead.",
+      "reference": "Numbers 22:1-24:25",
+      "storyId": "story_balaams_donkey",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_othniel_delivers_israel",
+      "characterId": "char_othniel",
+      "title": "Delivers Israel from Cushan Rishathaim",
+      "description": "Israel's first judge; forty years of rest follow.",
+      "reference": "Judges 3:9-11",
+      "storyId": "story_othniel_and_shamgar",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_shamgar_saves_israel",
+      "characterId": "char_shamgar",
+      "title": "Strikes down 600 Philistines with an ox goad",
+      "description": "",
+      "reference": "Judges 3:31",
+      "storyId": "story_othniel_and_shamgar",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abimelech_kills_brothers",
+      "characterId": "char_abimelech_son_of_gideon",
+      "title": "Kills his seventy brothers and is made king",
+      "description": "Only Jotham escapes, by hiding.",
+      "reference": "Judges 9:1-6",
+      "storyId": "story_abimelech_son_of_gideon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abimelech_dies_by_millstone",
+      "characterId": "char_abimelech_son_of_gideon",
+      "title": "Dies when a woman drops a millstone on his head",
+      "description": "Has his armor-bearer finish him so it won't be said a woman killed him.",
+      "reference": "Judges 9:50-57",
+      "storyId": "story_abimelech_son_of_gideon",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_tola_judges",
+      "characterId": "char_tola",
+      "title": "Judges Israel for twenty-three years",
+      "description": "",
+      "reference": "Judges 10:1-2",
+      "storyId": "story_minor_judges_tola_and_jair",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jair_judges",
+      "characterId": "char_jair",
+      "title": "Judges Israel for twenty-two years",
+      "description": "His thirty sons hold thirty towns in Gilead.",
+      "reference": "Judges 10:3-5",
+      "storyId": "story_minor_judges_tola_and_jair",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_ibzan_judges",
+      "characterId": "char_ibzan",
+      "title": "Judges Israel for seven years",
+      "description": "",
+      "reference": "Judges 12:8-10",
+      "storyId": "story_minor_judges_ibzan_elon_abdon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_elon_judges",
+      "characterId": "char_elon",
+      "title": "Judges Israel for ten years",
+      "description": "",
+      "reference": "Judges 12:11-12",
+      "storyId": "story_minor_judges_ibzan_elon_abdon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abdon_judges",
+      "characterId": "char_abdon",
+      "title": "Judges Israel for eight years",
+      "description": "",
+      "reference": "Judges 12:13-15",
+      "storyId": "story_minor_judges_ibzan_elon_abdon",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_athaliah_seizes_throne",
+      "characterId": "char_athaliah",
+      "title": "Murders the royal heirs to seize the throne",
+      "description": "Except the one infant hidden from her.",
+      "reference": "2 Kings 11:1",
+      "storyId": "story_joash_and_zechariah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_athaliah_killed",
+      "characterId": "char_athaliah",
+      "title": "Killed when Joash is crowned",
+      "description": "After six years of her reign.",
+      "reference": "2 Kings 11:13-16, 20",
+      "storyId": "story_joash_and_zechariah",
+      "sequenceInLife": 20
+    },
+    {
+      "id": "event_jehosheba_hides_joash",
+      "characterId": "char_jehosheba",
+      "title": "Steals the infant Joash away and hides him",
+      "description": "Six years in the temple, keeping the Davidic line alive.",
+      "reference": "2 Kings 11:2-3",
+      "storyId": "story_joash_and_zechariah",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_abraham_blessed_by_melchizedek",
+      "characterId": "char_abraham",
+      "title": "Is blessed by Melchizedek after rescuing Lot",
+      "description": "Gives him a tenth of everything.",
+      "reference": "Genesis 14:17-20",
+      "storyId": "story_melchizedek_blesses_abram",
+      "sequenceInLife": 25
+    },
+    {
+      "id": "event_abraham_and_abimelech",
+      "characterId": "char_abraham",
+      "title": "Calls Sarah his sister again, before Abimelech",
+      "description": "God warns Abimelech off in a dream.",
+      "reference": "Genesis 20:1-18",
+      "storyId": "story_abimelech_takes_sarah",
+      "sequenceInLife": 65
+    },
+    {
+      "id": "event_sarah_taken_by_abimelech",
+      "characterId": "char_sarah",
+      "title": "Is taken, then returned, by Abimelech",
+      "description": "",
+      "reference": "Genesis 20:1-18",
+      "storyId": "story_abimelech_takes_sarah",
+      "sequenceInLife": 35
+    },
+    {
+      "id": "event_isaac_and_abimelech",
+      "characterId": "char_isaac",
+      "title": "Is caught caressing Rebekah by Abimelech",
+      "description": "The same deception his father once used.",
+      "reference": "Genesis 26:1-16",
+      "storyId": "story_abimelech_and_isaac",
+      "sequenceInLife": 45
+    },
+    {
+      "id": "event_rebekah_and_abimelech",
+      "characterId": "char_rebekah",
+      "title": "Is called Isaac's sister before Abimelech",
+      "description": "Discovered when Abimelech sees them together.",
+      "reference": "Genesis 26:8",
+      "storyId": "story_abimelech_and_isaac",
+      "sequenceInLife": 35
     }
   ]
 }
