@@ -430,7 +430,7 @@ Nothing is *hidden* by default — depth is opt-in tagging.
 
 | Path / key | Contents | Notes |
 |------------|----------|-------|
-| `data/starter-pack.json` | curated first-run seed: 1,640 verses + 38 topics + 254 characters | loaded on first run; **generated** by `build_starter_pack.py` |
+| `data/starter-pack.json` | curated first-run seed: 1,648 verses + 38 topics + 254 characters | loaded on first run; **generated** by `build_starter_pack.py` |
 | `pipeline/curation/starter_pack.json` | the hand-curation behind the above | verse ids + topic/character links + the Topic and Character records; **never** verse text |
 | `pipeline/curation/topic_lexicon.json` | keyword hints per topic | input to `tag_verses.py` only; never becomes tags |
 | `data/verses.json` | full parsed WEB corpus — the entire 66-book Bible (31,098 verses; `DEFAULT_BOOKS` in `parse_books.py` has the exact list) | **generated** by `parse_books.py`; lazily fetched by the Browse screen on first open, then held in memory (`corpus`) |
@@ -601,7 +601,7 @@ note).
 - `challengeTypeId` — live. Default `challenge_fill_blank`; falls back to it if
   the stored id is unknown.
 - `dailyGoal` — live. Default 10. Caps how many due verses a practice session
-  pulls (`practiceQueue`), so the 1,640-verse seed doesn't all come due at once
+  pulls (`practiceQueue`), so the 1,648-verse seed doesn't all come due at once
   on a fresh install. UI: a 5/10/15/20/25 preset picker on Settings
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
@@ -3033,6 +3033,47 @@ inventing a new principle:
     ordering opens Eve, then Adam, then Noah, then Abraham — each
     number checked against the actual `chapter*1000+verse` key before
     trusting the sort.
+
+76. **Fix: real, fully-curated characters were silently missing from
+    "People in this book."** **Done (2026-09-12).** Reported directly
+    by the owner: Cain, Abel, and Lot never appeared in "People in
+    Genesis" despite all three having existed as full Characters (with
+    their own Stories) since the project's very first curation pass,
+    weeks before "deep study" existed as a direction. Root cause:
+    `charactersInBook()` (item 75) derived membership purely from a
+    verse's own `characterIds` — but 15 real characters across the
+    whole project (Cain, Abel, Hagar, Lot, Ishmael, Rachel, Leah,
+    Pharaoh, Eleazar, Sanballat, Belshazzar, Elizabeth, Philip, Simon
+    of Cyrene, Cornelius) have **zero** verses individually tagged to
+    them — their scene's curated verse got tagged to a co-star instead
+    (Genesis 4:7, `story_cain_and_abel`'s own verse, carries no
+    `characterIds` at all). A character with a real Story and zero
+    tagged verses was invisible to a feature that only read verse tags.
+
+    Fixed by adding a second signal to `charactersInBook()`: walk every
+    Story's own `verseIds`, and if any of them fall in the requested
+    book, credit *every* character in that Story's `characterIds` —
+    not just whoever the verse itself happened to name. This is exactly
+    the same "the major/minor character actually present in a scene
+    needs to be tagged, or they silently vanish from views that key off
+    tags" shape as item 69's bug, one layer down: item 69 was about a
+    *Story* missing a character tag; this one is about a *feature*
+    trusting only one of two signals that already existed in the
+    curated data. Fixed for all 14 of the 15 characters this way,
+    verified directly against the built data before shipping (Genesis
+    28 → 34 people, Cain/Abel now sandwiched between Adam and Noah
+    exactly where Genesis 4 belongs).
+
+    The 15th, **Hagar**, needed a real content fix, not a code one:
+    both of her existing Stories (`story_hagar_and_ishmael`,
+    `story_hagar_sent_away`) have had **empty `verseIds`** since their
+    original curation — no curated verse existed anywhere for either
+    signal to find. Added 8 real WEB verses across both (Genesis
+    16:1-13, 21:9-19 — Hagar's conception and flight, "you are a God
+    who sees," being sent away, and the angel opening her eyes to a
+    well), filled into the previously-empty `verseIds` arrays. No new
+    characters, stories, or topics — a pure gap-fill on two
+    already-correctly-tagged Stories.
 
 ---
 

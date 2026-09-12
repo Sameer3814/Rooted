@@ -13304,6 +13304,77 @@
       "characterIds": [
         "char_athaliah"
       ]
+    },
+    {
+      "id": "verse_genesis_16_1",
+      "topicIds": [],
+      "characterIds": [
+        "char_hagar",
+        "char_sarah"
+      ]
+    },
+    {
+      "id": "verse_genesis_16_4",
+      "topicIds": [
+        "topic_betrayal"
+      ],
+      "characterIds": [
+        "char_hagar"
+      ]
+    },
+    {
+      "id": "verse_genesis_16_11",
+      "topicIds": [],
+      "characterIds": [
+        "char_hagar",
+        "char_ishmael"
+      ]
+    },
+    {
+      "id": "verse_genesis_16_13",
+      "topicIds": [
+        "topic_presence"
+      ],
+      "characterIds": [
+        "char_hagar"
+      ]
+    },
+    {
+      "id": "verse_genesis_21_9",
+      "topicIds": [],
+      "characterIds": [
+        "char_hagar",
+        "char_ishmael"
+      ]
+    },
+    {
+      "id": "verse_genesis_21_14",
+      "topicIds": [
+        "topic_sorrow"
+      ],
+      "characterIds": [
+        "char_hagar",
+        "char_abraham"
+      ]
+    },
+    {
+      "id": "verse_genesis_21_17",
+      "topicIds": [
+        "topic_presence",
+        "topic_fear"
+      ],
+      "characterIds": [
+        "char_hagar"
+      ]
+    },
+    {
+      "id": "verse_genesis_21_19",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": [
+        "char_hagar"
+      ]
     }
   ],
   "topics": [

@@ -286,7 +286,12 @@
       "primaryReference": "Genesis 16:1-16",
       "eraId": "era_patriarchs",
       "canonicalOrder": 330,
-      "verseIds": [],
+      "verseIds": [
+        "verse_genesis_16_1",
+        "verse_genesis_16_4",
+        "verse_genesis_16_11",
+        "verse_genesis_16_13"
+      ],
       "characterIds": [
         "char_abraham",
         "char_sarah",
@@ -384,7 +389,12 @@
       "primaryReference": "Genesis 21:8-21",
       "eraId": "era_patriarchs",
       "canonicalOrder": 380,
-      "verseIds": [],
+      "verseIds": [
+        "verse_genesis_21_9",
+        "verse_genesis_21_14",
+        "verse_genesis_21_17",
+        "verse_genesis_21_19"
+      ],
       "characterIds": [
         "char_abraham",
         "char_sarah",

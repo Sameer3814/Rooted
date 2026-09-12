@@ -911,21 +911,35 @@ function appearsIn(charId){
 function characterStories(charId){
   return lore.stories.filter(s=>(s.characterIds||[]).includes(charId));
 }
-/* Which curated characters have a tagged verse in this book, in the order
-   they first appear (by chapter:verse) — derived from data.verses (already
-   carries book/chapter/verse/characterIds) rather than a new Character.book
-   field, since one character routinely spans several books (Moses across
-   Exodus-Deuteronomy, David across Samuel/Kings/Chronicles) — a field would
-   force a false single-book choice; this stays accurate as curation grows,
-   with no migration. */
+/* Which curated characters belong to this book, in the order they first
+   appear (by chapter:verse) — derived from existing curation, no new
+   Character.book field, since one character routinely spans several books
+   (Moses across Exodus-Deuteronomy, David across Samuel/Kings/Chronicles) —
+   a field would force a false single-book choice.
+   Two signals, not one: a verse's own characterIds catches most people, but
+   15 real, fully-curated characters (Cain, Abel, Lot, Hagar, Rachel, Leah,
+   Cornelius, and others) have zero verses individually tagged to them —
+   their scene's verse ended up tagged to a co-star instead (Genesis 4:7 is
+   in story_cain_and_abel's own verseIds but carries no characterIds at
+   all). So also walk every Story's own verseIds for a book match and credit
+   everyone in that Story's characterIds, not just whoever the verse itself
+   named — otherwise a real character with a real Story silently never
+   appears on their own book's list. */
 function charactersInBook(bookName){
   const firstAppearance = {};
+  const consider = (id, key) => {
+    if(firstAppearance[id] === undefined || key < firstAppearance[id]) firstAppearance[id] = key;
+  };
   data.verses.forEach(v=>{
     if(v.book !== bookName) return;
     const key = v.chapter*1000 + v.verse;
-    (v.characterIds||[]).forEach(id=>{
-      if(firstAppearance[id] === undefined || key < firstAppearance[id]) firstAppearance[id] = key;
-    });
+    (v.characterIds||[]).forEach(id=>consider(id, key));
+  });
+  lore.stories.forEach(s=>{
+    const storyVersesInBook = (s.verseIds||[]).map(findVerse).filter(v=>v && v.book===bookName);
+    if(!storyVersesInBook.length) return;
+    const key = Math.min(...storyVersesInBook.map(v=>v.chapter*1000+v.verse));
+    (s.characterIds||[]).forEach(id=>consider(id, key));
   });
   return Object.keys(firstAppearance)
     .map(findChar).filter(Boolean)

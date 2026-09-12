@@ -128,7 +128,7 @@ The schema was deliberately designed so all of the above can be added
     specifically so a work laptop's GitHub Desktop (signed into a work
     account) never needs to touch this personal project.
 - `data/starter-pack.json` — the curated seed content the app loads on
-  first run: **1,640 verses** — the entire Bible, Old and New Testament,
+  first run: **1,648 verses** — the entire Bible, Old and New Testament,
   is curated (finished 2026-09-10; see `DEFAULT_BOOKS` in
   `parse_books.py` for the full 66-book list, "Known gaps" item 9 for how
   the NT was approached, item 10 for the "deep study" supporting-cast
@@ -149,7 +149,7 @@ The schema was deliberately designed so all of the above can be added
   `DEFAULT_BOOKS` in `parse_books.py`. Lazily fetched by the Browse
   screen the first time it's opened, never at boot. It is *reference
   material*, kept separate from the user's library — adding a verse
-  from Browse copies it into the user's overlay. Only the 1,640 seed
+  from Browse copies it into the user's overlay. Only the 1,648 seed
   verses are topic-tagged; the rest of the corpus isn't yet.
 - `data/stories.json` — 16 eras, **284 stories and 730 life events**,
   covering the whole Bible (see DATA_MODEL.md §8 for what's in each
@@ -631,6 +631,19 @@ hand-curate all the content before building.
     Samuel-Kings-Chronicles), so membership is derived at render time
     from `data.verses` instead of forcing a false one-book choice. See
     DATA_MODEL.md §8, item 75.
+
+    **Fix (2026-09-12):** Cain, Abel, and Lot — real characters with
+    real Stories since the project's very first pass — never showed up
+    in "People in Genesis." 15 characters project-wide have zero verses
+    individually tagged to them (their scene's verse got tagged to a
+    co-star instead); `charactersInBook()` only read verse tags, so it
+    missed all of them. Fixed by also crediting every character in a
+    Story's `characterIds` whenever that Story has a curated verse in
+    the requested book, not just whoever the verse itself named. One of
+    the 15, Hagar, needed an actual content fix — both her Stories had
+    sat with empty `verseIds` since their original curation, so nothing
+    existed for either signal to find; added 8 real verses to fill them
+    in. See DATA_MODEL.md §8, item 76.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
