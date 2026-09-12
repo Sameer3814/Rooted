@@ -3075,6 +3075,22 @@ inventing a new principle:
     characters, stories, or topics — a pure gap-fill on two
     already-correctly-tagged Stories.
 
+77. **Topics grid palette, punchier again.** **Done (2026-09-12).**
+    Same ask as the item 63 follow-up, one more round: all 12
+    `TOPIC_PALETTE` colors pushed more saturated/vivid again (e.g.
+    `#1786AD`→`#0EA5D6`, `#D6237D`→`#F0158A`). Checked white-text
+    contrast on every swatch before shipping this time, not just
+    picked by eye — two of the brightened yellows
+    (`#E0B800`/`#F5BE00`, both under 2.0:1 against white) were pulled
+    back to deeper, still-punchier-than-before golds
+    (`#B88E00`/`#9C7A1E`, 3.04:1/4.03:1) so the topic name text stays
+    legible; the rest of the palette sits in the same 2.2-5.6:1 range
+    the *original* palette (item 63) already did, so this isn't a new
+    tradeoff, just not making the worst case worse. No CSS structure
+    changes — `topicColor()`'s hash assignment and `topicAccentVars()`'s
+    derived tint/wash for topic-detail pages are untouched, since only
+    the twelve base hex values themselves changed.
+
 ---
 
 ## 9. How the app reads this data
