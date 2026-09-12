@@ -613,17 +613,24 @@ hand-curate all the content before building.
     See DATA_MODEL.md §8, items 65-67 and 70-74, for the full writeup
     and the reasoning behind which figures made the cut each pass.
 
-    **"People in this book" — done (2026-09-12).** As the per-book cast
-    list got genuinely rich (2 Samuel alone now has 22 named people),
-    the owner asked for a way to open a book on the Browse screen and
-    see everyone tagged in it, not just reach people through the
-    People-grouped-by-era list. Added as a pill list above the existing
-    chapter grid on Browse's per-book view. No new `Character.book`
-    field — a character routinely spans several books (Moses,
-    Exodus-Deuteronomy; David, Samuel-Kings-Chronicles), so membership
-    is derived at render time from `data.verses` (every curated verse
-    already has both `book` and `characterIds`) instead of forcing a
-    false one-book choice. See DATA_MODEL.md §8, item 75.
+    **"People in this book" — done (2026-09-12), redesigned same day.**
+    As the per-book cast list got genuinely rich (2 Samuel alone now has
+    22 named people), the owner asked for a way to open a book on the
+    Browse screen and see everyone tagged in it. First version was a
+    pill list inline above the chapter grid; direct feedback asked for
+    a proper tab instead — tapped into its own screen, people listed in
+    the order they appear through the book (not alphabetically), and
+    back navigation returning to that same screen rather than the
+    generic People list. That last part needed a real fix rather than
+    a one-off: `open-character` now always carries `from: view` the
+    same way `open-verse`/`open-story`/`open-motif` already did, so
+    Character detail's back button returns to wherever the user
+    actually came from everywhere it's used, not just from this one
+    screen. No new `Character.book` field either version — a character
+    routinely spans several books (Moses, Exodus-Deuteronomy; David,
+    Samuel-Kings-Chronicles), so membership is derived at render time
+    from `data.verses` instead of forcing a false one-book choice. See
+    DATA_MODEL.md §8, item 75.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

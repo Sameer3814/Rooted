@@ -911,16 +911,25 @@ function appearsIn(charId){
 function characterStories(charId){
   return lore.stories.filter(s=>(s.characterIds||[]).includes(charId));
 }
-/* Which curated characters have a tagged verse in this book — derived from
-   data.verses (already carries book + characterIds) rather than a new
-   Character.book field, since one character routinely spans several books
-   (Moses across Exodus-Deuteronomy, David across Samuel/Kings/Chronicles) —
-   a field would force a false single-book choice; this stays accurate as
-   curation grows, with no migration. */
+/* Which curated characters have a tagged verse in this book, in the order
+   they first appear (by chapter:verse) — derived from data.verses (already
+   carries book/chapter/verse/characterIds) rather than a new Character.book
+   field, since one character routinely spans several books (Moses across
+   Exodus-Deuteronomy, David across Samuel/Kings/Chronicles) — a field would
+   force a false single-book choice; this stays accurate as curation grows,
+   with no migration. */
 function charactersInBook(bookName){
-  const ids = new Set();
-  data.verses.forEach(v=>{ if(v.book===bookName) (v.characterIds||[]).forEach(id=>ids.add(id)); });
-  return [...ids].map(findChar).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+  const firstAppearance = {};
+  data.verses.forEach(v=>{
+    if(v.book !== bookName) return;
+    const key = v.chapter*1000 + v.verse;
+    (v.characterIds||[]).forEach(id=>{
+      if(firstAppearance[id] === undefined || key < firstAppearance[id]) firstAppearance[id] = key;
+    });
+  });
+  return Object.keys(firstAppearance)
+    .map(findChar).filter(Boolean)
+    .sort((a,b)=>firstAppearance[a.id]-firstAppearance[b.id]);
 }
 
 /* ---------- connections (DATA_MODEL.md §2) ----------
@@ -1021,6 +1030,7 @@ function render(){
   });
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
+  else if(view.screen==='bookPeople') app.innerHTML = renderBookPeople(view.params.book);
   else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
   else if(view.screen==='topics') app.innerHTML = renderTopics();
   else if(view.screen==='topicDetail') app.innerHTML = renderTopicDetail(view.params.id);
@@ -1039,7 +1049,7 @@ function render(){
   bindEvents();
 }
 
-function scrollKey(v){ return v.screen + (v.params && v.params.id ? ':' + v.params.id : ''); }
+function scrollKey(v){ const k = v.params && (v.params.id || v.params.book); return v.screen + (k ? ':' + k : ''); }
 function go(screen, params={}){
   scrollPositions[scrollKey(view)] = window.scrollY;
   view = {screen, params};
@@ -1223,13 +1233,14 @@ function renderBrowseResults(){
 
   if(browse.book){
     const entry = corpusIndex.find(b => b.book===browse.book);
-    const people = charactersInBook(browse.book);
+    const peopleCount = charactersInBook(browse.book).length;
     return `
       ${renderCrumbs()}
-      ${people.length ? `
-        <div class="section-label">People in ${esc(browse.book)} <span style="color:var(--ink-faint);">${people.length}</span></div>
-        <div class="tag-row" style="margin-bottom:18px;">
-          ${people.map(c=>`<span class="tag tag--tan tap" data-action="open-character" data-id="${c.id}" style="cursor:pointer;">${esc(c.name)}</span>`).join('')}
+      ${peopleCount ? `
+        <div class="list-row tap" data-action="open-book-people" data-id="${esc(browse.book)}">
+          <div class="list-avatar"><i class="ti ti-users"></i></div>
+          <div><div class="name">People in ${esc(browse.book)}</div><div class="meta">${peopleCount} ${peopleCount===1?'person':'people'}</div></div>
+          <i class="ti ti-chevron-right chev"></i>
         </div>
       ` : ''}
       <div class="chapter-grid">
@@ -1250,6 +1261,15 @@ function renderCrumbs(){
     <button data-action="browse-root">All books</button>
     ${browse.book ? `<span>›</span>${browse.chapter ? `<button data-action="browse-book" data-id="${esc(browse.book)}">${esc(browse.book)}</button><span>›</span><span>Chapter ${browse.chapter}</span>` : `<span>${esc(browse.book)}</span>`}` : ''}
   </div>`;
+}
+function renderBookPeople(book){
+  const people = charactersInBook(book);
+  return `
+    <button class="back-btn" data-action="back-to-browse-book" data-id="${esc(book)}" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <div class="topbar"><h1>People in ${esc(book)}</h1></div>
+    <p style="color:var(--ink-soft);margin-bottom:16px;">In the order they first appear in ${esc(book)}.</p>
+    ${people.length ? people.map(c=>renderCharacterRow(c)).join('') : `<div class="empty"><i class="ti ti-users"></i><p>No named people yet.</p></div>`}
+  `;
 }
 function renderCorpusVerseCard(v){
   const inLibrary = !!findVerse(v.id);
@@ -1556,7 +1576,7 @@ function renderCharacterDetail(id){
   const alsoWith = sharesScenesWith(id);
   const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
   return `
-    <button class="back-btn" data-action="back-to-characters" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <button class="back-btn" data-action="character-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
     <div class="hero">
       <div class="hero-avatar"><i class="ti ${charIcon(c.roles)}"></i></div>
       <h1>${esc(c.name)}</h1>
@@ -2401,7 +2421,10 @@ function onAction(e){
   else if(action==='start-practice-verse') startPractice([id]);
   else if(action==='open-topic') go('topicDetail', {id});
   else if(action==='back-to-topics') go('topics');
-  else if(action==='open-character') go('characterDetail', {id});
+  else if(action==='open-character') go('characterDetail', {id, from: view});
+  else if(action==='character-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('characters'); }
+  else if(action==='open-book-people') go('bookPeople', {book: id});
+  else if(action==='back-to-browse-book'){ browse.book = id; browse.chapter = null; go('browse'); }
   else if(action==='back-to-characters') go('characters');
   else if(action==='start-timeline-game'){ timelineGame = buildTimelineGame(id); go('timelineGame'); }
   else if(action==='check-timeline-order') checkTimelineOrder();

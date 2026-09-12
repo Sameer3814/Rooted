@@ -2971,35 +2971,68 @@ inventing a new principle:
     120/50/60/40 respectively, checked first in every case, per item
     69's now-routine discipline).
 
-75. **"People in this book" — browse a book, see who's in it.** **Done
-    (2026-09-12).** Owner's request: with the "deep study" expansion
-    making the per-book cast list genuinely rich (2 Samuel alone now
-    surfaces 22 named people), the app needed a way to just open a book
-    and see everyone tagged in it, rather than only reaching a
-    character from the People-grouped-by-era list. Added to the
-    existing Browse screen's per-book view — the same screen that
-    already showed a chapter grid once a book is selected — rather
-    than inventing new navigation: a "People in Genesis" (etc.) section
-    of tappable pills now sits above the chapter grid,
-    `data-action="open-character"` on each one, reusing the same
-    `.tag--tan`/tag-row pattern already used for "Related topics"
-    elsewhere.
+75. **"People in this book" — browse a book, see who's in it, in the
+    order they appear.** **Done (2026-09-12), redesigned same day
+    after direct feedback.** Owner's request: with the "deep study"
+    expansion making the per-book cast list genuinely rich (2 Samuel
+    alone surfaces 22 named people), the app needed a way to just open
+    a book and see everyone tagged in it, rather than only reaching a
+    character from the People-grouped-by-era list.
 
-    Deliberately **no new `Character.book` field.** A character
-    routinely spans several books (Moses across Exodus through
-    Deuteronomy, David across Samuel, Kings, and Chronicles, Paul
-    across Acts and a dozen epistles) — a single `book` field would
-    force a false one-book choice and need a real migration across all
-    254 characters. Instead, `charactersInBook(bookName)` derives
-    membership at render time by scanning `data.verses` (every curated
-    verse already carries both `book` and `characterIds`) and
-    collecting the unique character ids tagged to that book's verses —
-    zero data-model change, and it stays accurate automatically as the
-    "deep study" curation keeps adding verses; a book's people list
-    grows the moment a new batch tags a verse in it, with no separate
-    bookkeeping step to remember. Verified directly against the real
-    curated data before shipping (not just reasoned about): 2 Samuel
-    → 22 people, Genesis → 28, Judges → 18, Acts → 20.
+    **First version** (superseded within the same session): a row of
+    tappable pills sitting directly above the chapter grid on Browse's
+    per-book view. The owner didn't like it inline and asked for a
+    dedicated tab instead — "People in this book" as its own row,
+    tapped into a full screen, listing people *chronologically*, with
+    back navigation returning to that same screen rather than the
+    People-grouped-by-era list.
+
+    **Current version.** Browse's per-book view now shows a single
+    `.list-row` — "People in Genesis," with a count — that navigates to
+    a new screen, `bookPeople` (`renderBookPeople(book)`), listing
+    every character tagged in that book as `.list-row`s via the same
+    `renderCharacterRow()` already used on the People screen. "Order
+    they appear" is read as *reading order through the book*, not
+    strict historical chronology (Genesis and Judges, for instance,
+    aren't always the same thing) — `charactersInBook(bookName)` now
+    tracks each character's lowest `chapter*1000+verse` among their
+    tagged verses in that book (chapter/verse numbers never reach
+    1000, so this packs both into one sortable integer safely) and
+    sorts by that, rather than the alphabetical order the first version
+    used.
+
+    **The back-navigation ask needed a real fix, not a one-off.**
+    Tapping a person from `bookPeople` had to return there specifically
+    on back, not to the generic People list. Rather than hardcode that
+    one case, `open-character`'s handler was changed to always capture
+    `from: view` (the exact pattern `open-verse`/`open-story`/
+    `open-motif` already used) and Character detail's back button
+    became a new `character-back` action reading `view.params.from`
+    (falling back to the People list only if none was set) — replacing
+    the old always-`back-to-characters` button. This one change fixes
+    the same "always jumps to the wrong place" class of bug (§8 item 68)
+    everywhere `open-character` is used, not just from `bookPeople` —
+    Family cards, "Appears alongside" rows, and the Verse detail
+    "People" section on a character's page now all correctly return to
+    wherever the user actually came from. `scrollKey()` (item 68) also
+    needed a small fix alongside this — it only recognized
+    `view.params.id`, so every `bookPeople` view (keyed by
+    `view.params.book`) collapsed onto the same cache entry regardless
+    of which book was open; now checks either field.
+
+    Deliberately **still no new `Character.book` field**, for the same
+    reason as the first version: a character routinely spans several
+    books (Moses across Exodus through Deuteronomy, David across
+    Samuel, Kings, and Chronicles), so a single field would force a
+    false one-book choice and need a migration across all 254
+    characters. `charactersInBook()` stays a pure render-time
+    derivation over `data.verses`, unchanged in that respect from the
+    first version — only its sort order and its consumer (a full screen
+    instead of an inline pill row) changed. Verified directly against
+    the real curated data both times, not just reasoned about: Genesis's
+    ordering opens Eve, then Adam, then Noah, then Abraham — each
+    number checked against the actual `chapter*1000+verse` key before
+    trusting the sort.
 
 ---
 
