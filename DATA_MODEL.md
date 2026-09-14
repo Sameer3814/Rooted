@@ -3482,6 +3482,37 @@ inventing a new principle:
       from install rather than only picked up by the runtime cache after
       a first online view. Bumped to `rooted-v79`.
 
+84. **Home v6 CSS polish pass — precise spec for the VOTD hero, its CTA,
+    the shared discovery-card thumbnails, and the header settings
+    button.** **Done (2026-09-14).** The owner sent exact CSS values
+    rather than a visual critique this time. `.votd-hero` (the card the
+    spec called `.votd-card` — kept its actual class name, already
+    referenced from `renderVerseOfTheDayCard()`): `background-position`
+    changed from `center` to `center 35%` (biases the placeholder/
+    Unsplash photo toward its upper-middle rather than dead center),
+    explicit `border:none;border-radius:24px` (the inherited `.card`
+    hairline border/20px radius weren't visibly "bright," but the spec
+    asked for an explicit override rather than relying on inheritance),
+    label/reference color changed from `var(--gold-deep)` to the spec's
+    literal `#D49E35` on this card only — a deliberate one-off, not a
+    new design-system token. The "Read chapter" CTA (`.votd-action`,
+    the spec's `.btn-read-chapter`) restyled to frosted glass exactly as
+    specified (`rgba(255,255,255,.15)` + `backdrop-filter:blur(8px)` +
+    `rgba(255,255,255,.2)` border) with `margin-top:16px`. Discovery
+    thumbnails (`.discovery-thumb-box`/`.discovery-thumb`, shared by
+    Unreached of the Day and Story of the Day) now both explicitly carry
+    `88×68`, `border-radius:14px`, `object-fit:cover` — previously
+    72px-tall boxes with a 12px radius token; now pinned to the exact
+    spec values on both the box and the `<img>` itself so there's no
+    daylight between them regardless of what's inside. The header
+    settings button got a new `.home-settings-btn` class (added
+    alongside its existing `.back-btn`, not replacing it, so it keeps
+    the shared press-feedback animation for free) — `42×42px`, a 22px
+    icon, and a frosted `rgba(255,255,255,.08)` background with a
+    `rgba(255,255,255,.1)` border — scoped to Home's settings button
+    only, not a global `.back-btn` change, since that class is shared by
+    every back button across the app. `sw.js` bumped to `rooted-v80`.
+
 ---
 
 ## 9. How the app reads this data

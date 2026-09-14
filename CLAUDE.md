@@ -724,6 +724,12 @@ hand-curate all the content before building.
     `media/home/story-placeholder.jpg`, precached in `sw.js`. Unreached of
     the Day's own fallback still uses `placeholderArt()` — no supplied
     photo exists for that slot. Full writeup: DATA_MODEL.md §8, item 83.
+    A same-day CSS polish pass (item 84) then applied exact spec'd values
+    across the VOTD hero (background position, radius/border, label/ref
+    color), its frosted-glass "Read chapter" CTA, the shared discovery-
+    card thumbnails (now pinned to 88×68/14px radius), and a new, larger
+    `.home-settings-btn` scoped to Home's own settings button (not a
+    global `.back-btn` change). Full writeup: DATA_MODEL.md §8, item 84.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
