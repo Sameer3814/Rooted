@@ -673,15 +673,14 @@ hand-curate all the content before building.
     in. See DATA_MODEL.md §8, item 76.
 11. **Home redesign / identity shift — done (2026-09-14).** Memorization
     moved off Home entirely onto its own new Practice tab; Home is now
-    Verse of the Day plus, once configured, Unreached of the Day. Full
-    writeup: DATA_MODEL.md §8, item 78. **One concrete action still
-    outstanding:** the owner needs to sign up for a free Joshua Project
-    API key (https://joshuaproject.net/api/v2 — requires their own email
-    and a verification click, not something automatable) and set it as
-    the `JOSHUA_PROJECT_API_KEY` Function App setting in the Azure
-    portal. The Unreached of the Day card is already fully wired and
-    deployed — it just silently doesn't render until that setting
-    exists, per its own fail-quiet design (item 78).
+    Verse of the Day plus Unreached of the Day. The owner set
+    `JOSHUA_PROJECT_API_KEY` the same day — verified live against the
+    deployed endpoint, real data flowing (a real people group, correct
+    fields, a working photo). That photo prompted an immediate
+    same-day addition: the card was originally text-only, but since
+    Joshua Project already includes a photo URL for free with every
+    response, `renderUnreachedCard()` now shows it as a 160px banner
+    above the text. Full writeup: DATA_MODEL.md §8, item 78.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

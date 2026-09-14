@@ -3176,12 +3176,26 @@ inventing a new principle:
     own documented column names (`PeopNameInCountry`, `Ctry`,
     `Population`, `PrimaryReligion`, `PercentEvangelical`,
     `PercentAdherents`, `PrimaryLanguageName`, `PeopleGroupPhotoURL`) —
-    written from their published column-description docs, **not yet
-    verified against a real response**, since no API key existed at
-    the time this was written (getting one requires the owner's own
-    email and a verification click, not something automatable). If the
-    field names turn out to be slightly off once a real key is set,
-    it's a one-line fix in `buildResult()`, isolated from the client.
+    written from their published column-description docs before any key
+    existed to test against.
+
+    **Verified the same day, once the owner set `JOSHUA_PROJECT_API_KEY`.**
+    A live check against the deployed endpoint
+    (`/api/unreached-of-the-day`) returned a real people group (Pinjara,
+    India, ~3.5M, Islam, Urdu) with every field populated exactly as
+    `buildResult()` expected, including a working `photoUrl` — the
+    field-name guesses were all correct on the first real call, no
+    `buildResult()` fix needed. That live photo prompted a same-day
+    follow-up: the card was originally text-only (photos were considered
+    out of scope, the same "prove it first" reasoning applied to Verse
+    of the Day and character portraits), but since Joshua Project
+    already provides one for free with every response — no generation
+    cost, no separate decision — `renderUnreachedCard()` now shows it as
+    a 160px photo banner (`.unreached-photo`, `object-fit:cover`) above
+    the text, with `onerror="this.remove()"` so a broken/missing image
+    URL for a given people group just quietly drops the image rather
+    than showing a broken-image icon — consistent with the whole
+    feature's fail-quiet posture.
 
     **Fails quiet, by design, on both ends.** No key configured yet →
     the Function returns `501` (a real, expected, ongoing state right
