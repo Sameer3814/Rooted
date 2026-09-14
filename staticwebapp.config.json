@@ -7,6 +7,10 @@
       "headers": { "Cache-Control": "no-cache" }
     },
     {
+      "route": "/api/unreached-of-the-day",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/api/*",
       "allowedRoles": ["authenticated"]
     }

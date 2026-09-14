@@ -1,9 +1,16 @@
-# Rooted — Scripture Memory App
+# Rooted — Scripture Study App
 
-A personal project: a mobile-first app to memorize scripture through fun,
-challenge-based practice (fill-in-blank, scramble, speed recall, progressive
-reveal) — and eventually a much bigger tool for exploring how Bible
-characters, stories, topics, and cultural context connect to each other.
+A personal project: a mobile-first Bible study companion — exploring how
+characters, stories, topics, and cultural context connect to each other,
+with verse memorization as one part of that, not the app's whole identity.
+It started as a memorization-first tool (fill-in-blank, scramble, speed
+recall, progressive reveal) and deliberately outgrew that framing on
+2026-09-14, once the "deep study" character/story curation made the rest of
+the app substantial enough to lead with — see "Known gaps" item 10 for that
+whole curation effort, and item 78 for the Home redesign this identity
+shift actually required (short version: memorization moved to its own
+Practice tab; Home fronts Verse of the Day and, once configured, mission
+content instead).
 
 This file is context for whoever (human or Claude) picks this project up
 next. Read it before making structural changes.
@@ -15,7 +22,9 @@ update it in the same pass as any schema/data change (this applies to all
 
 ## The vision (long-term, bigger than current code)
 
-The owner's goal isn't just verse memorization — it's a study companion:
+The owner's goal was never just verse memorization — it's a study companion,
+and since 2026-09-14 the app's own front door (Home) actually reflects that
+rather than leading with practice:
 
 - Memorize verses through active, game-like challenges (not passive reading)
 - Practice by **topic** (anger, greed, lust, forgiveness...), where topics
@@ -45,21 +54,29 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
-  step). Screens: Home, Browse (search/drill the full corpus), Verse
+  step). Screens: **Home** (editorial front door as of 2026-09-14 — Verse
+  of the Day and, once configured, Unreached of the Day; no verses, no
+  progress stats, no practice affordance — see item 78), **Practice**
+  (its own bottom-nav tab now — due-today stats, the daily-goal ring, the
+  challenge-type picker, the full verse library, and the four challenge
+  types themselves: fill-in-blank, scramble, self-graded progressive
+  reveal, self-graded verse ladder — this is everything that used to live
+  on Home before item 78), Browse (search/drill the full corpus), Verse
   detail, Topics, Topic detail, People (grouped by era), Character detail
   (life timeline, family, stories, pattern badges), Stories list,
   Story detail (related stories, pattern badges), Patterns list,
-  Pattern detail, Add Verse, Add Character, Practice (four challenge
-  types: fill-in-blank, scramble, self-graded progressive reveal, and
-  self-graded verse ladder),
+  Pattern detail, Add Verse, Add Character,
   and **Settings** (gear icon, top-right of Home) — the account bar for
   optional cloud sync and the "Your data" export/import card live here,
   not on Home. They started on Home (2026-09-08) and were moved the same
   day on direct feedback: sync/backup controls are occasional-use, and
-  were pushing the actual daily-use content (due-today stats, the
-  Practice button) below the fold. Lesson for anything added later in
-  this vein — account/settings-shaped features default to Settings, not
-  Home, unless there's a specific reason a control needs daily visibility.
+  were pushing the actual daily-use content below the fold. Lesson for
+  anything added later in this vein — account/settings-shaped features
+  default to Settings, not Home, unless there's a specific reason a
+  control needs daily visibility. (That "daily-use content" framing is
+  itself now historical — item 78 moved the daily-use practice content
+  off Home entirely, onto its own tab, for an unrelated reason: Home
+  stopped being the memorization tool's front door at all.)
 - **Streaks and brand mastery labels — done (2026-09-08), relabeled
   2026-09-09.** First of the Tier 1 engagement features. Home's stat row
   gained a "day streak" card — a pure derived view over
@@ -107,15 +124,25 @@ The schema was deliberately designed so all of the above can be added
     without updating the API location it points at). `staticwebapp.config.json`
     blocks `/.git/*` and `/pipeline/.cache/*`, sets `sw.js` to `no-cache`
     so PWA updates roll out immediately, and gates `/api/*` to signed-in
-    users.
-  - `api/` — the app's first backend: an Azure Functions app (Node.js,
+    users — with one named exception, `/api/unreached-of-the-day`, carved
+    out as `allowedRoles: ["anonymous"]` *above* that wildcard rule, since
+    Home shows that card to every visitor, signed in or not.
+  - `api/` — the app's backend: an Azure Functions app (Node.js,
     v4 programming model — this folder *does* have a build step,
     `npm install`, handled by Azure's deploy action; the static frontend
-    doesn't). One endpoint, `GET/POST /api/sync` (`api/src/functions/sync.js`),
+    doesn't). Two endpoints: `GET/POST /api/sync` (`api/src/functions/sync.js`),
     backed by **Azure Cosmos DB for NoSQL (Free tier — free forever, not a
-    trial)**, one document per signed-in user. See DATA_MODEL.md §7.1 for
-    the full design (merge strategy, security boundary, why sign-in is
-    optional).
+    trial)**, one document per signed-in user (see DATA_MODEL.md §7.1 for
+    the full design — merge strategy, security boundary, why sign-in is
+    optional); and `GET /api/unreached-of-the-day`
+    (`api/src/functions/unreached.js`, added 2026-09-14), a thin proxy to
+    the free [Joshua Project API](https://joshuaproject.net/api/v2) for
+    Home's Unreached of the Day card — proxied rather than called directly
+    from the browser so the API key (a `JOSHUA_PROJECT_API_KEY` Function
+    App setting, **not yet set** — the card just silently doesn't show
+    until it is) never ships in client-side JS, and so an unconfirmed CORS
+    question on Joshua Project's side never becomes the app's problem. See
+    DATA_MODEL.md §8, item 78.
   - Auth is **GitHub**, via Static Web Apps' built-in pre-configured
     provider (`/.auth/login/github` — zero OAuth-app registration). Chosen
     for zero setup, explicitly not locked in — switching providers later
@@ -644,6 +671,17 @@ hand-curate all the content before building.
     sat with empty `verseIds` since their original curation, so nothing
     existed for either signal to find; added 8 real verses to fill them
     in. See DATA_MODEL.md §8, item 76.
+11. **Home redesign / identity shift — done (2026-09-14).** Memorization
+    moved off Home entirely onto its own new Practice tab; Home is now
+    Verse of the Day plus, once configured, Unreached of the Day. Full
+    writeup: DATA_MODEL.md §8, item 78. **One concrete action still
+    outstanding:** the owner needs to sign up for a free Joshua Project
+    API key (https://joshuaproject.net/api/v2 — requires their own email
+    and a verification click, not something automatable) and set it as
+    the `JOSHUA_PROJECT_API_KEY` Function App setting in the Azure
+    portal. The Unreached of the Day card is already fully wired and
+    deployed — it just silently doesn't render until that setting
+    exists, per its own fail-quiet design (item 78).
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

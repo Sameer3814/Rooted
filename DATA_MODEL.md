@@ -3091,6 +3091,122 @@ inventing a new principle:
     derived tint/wash for topic-detail pages are untouched, since only
     the twelve base hex values themselves changed.
 
+78. **Home redesign, and a real identity shift: memorization is now one
+    part of the app, not its whole front door.** **Done (2026-09-14).**
+    Direct owner request, framed explicitly as a vision change, not just
+    a layout one: "though this project started out as a Bible
+    memorization tool, it has since evolved from it... I don't want
+    memorization to be the app's identity, but just a part of it." This
+    doesn't actually contradict anything already on record — CLAUDE.md's
+    own "vision" section has said since the project's early days that
+    "the owner's goal isn't just verse memorization — it's a study
+    companion" — but Home itself never caught up to that; it had shown
+    the MVP's original due-today/practice-button layout since
+    2026-09-03. This item is Home's design finally matching a vision
+    statement that predates it by weeks.
+
+    **Practice becomes its own tab.** Everything Home used to show —
+    the due-today/library/mastered/streak stat row, the daily-goal ring
+    (`renderGoalRing()`), the challenge-type picker
+    (`renderChallengePicker()`), the "Practice N due verses" button,
+    and the full verse library list — moved verbatim into a new
+    `renderPracticeLanding()`, which is what the Practice screen shows
+    whenever there's no active session (previously the Practice screen
+    only ever rendered an active session or the completion screen,
+    since Home was the only way to *start* one — a session always
+    existed by the time you landed there). A new bottom-nav tab,
+    **Practice** (between Home and Browse), makes this screen reachable
+    at all now that Home no longer hosts the one button that used to
+    lead there. `renderPractice()` now branches three ways: no
+    `session` → `renderPracticeLanding()`; `session.index >=
+    session.queue.length` → the existing completion screen (unchanged);
+    otherwise → the existing active-session UI (unchanged). "Done" on
+    the completion screen (`exit-practice`) now returns to
+    `go('practice')` instead of `go('home')`, landing back on the
+    freshly-empty landing state rather than a Home that no longer shows
+    any of this.
+
+    **Home becomes purely editorial: Verse of the Day.** A date-seeded,
+    stable-for-the-day pick from the user's own library (`data.verses`,
+    the merged seed+overlay — not the full 31,098-verse corpus, so it's
+    always something actually in the user's library), the same index
+    for every device on a given day since it's a pure function of the
+    date and library length, no stored state. Rendered as a warm
+    gradient card (`.votd-card`, `--gold-wash` fading into
+    `--paper-raised`) since there's no real verse artwork yet — the
+    same "don't spend real money on imagery until the layout is proven"
+    call already made once for character portraits
+    (`generate_character_art.py`, not yet run for real). Tapping it
+    opens the verse's own detail page via the existing `open-verse`
+    action, which already threads `from: view` (item 75's fix) so back
+    navigation correctly returns to Home.
+
+    **Home becomes purely editorial: Unreached of the Day.** The
+    owner's other idea — daily missionary/mission-field content, in the
+    spirit of YouVersion's own Unreached of the Day feature — sourced
+    from the free [Joshua Project API](https://joshuaproject.net/api/v2)
+    rather than curated locally, a deliberate scope decision made after
+    weighing it directly with the owner: static curated content stays
+    fully offline like everything else in the app, but goes stale
+    between manual refreshes; a live API stays current automatically
+    but is a genuinely different kind of feature for this app — the
+    first thing in it that isn't pre-curated, static, shipped data.
+
+    Architecture, decided *before* writing any code, for two concrete
+    reasons rather than by default: (1) Joshua Project's own
+    documentation only shows server-side sample code (PHP/Python/Ruby)
+    and never confirms CORS support for a direct browser fetch — an
+    unconfirmed dependency the app shouldn't inherit; (2) even if CORS
+    worked, the API key would have to ship inside the PWA's client-side
+    JS, visible to anyone via view-source. So: a new Azure Function,
+    `GET /api/unreached-of-the-day` (`api/src/functions/unreached.js`),
+    proxies Joshua Project's `daily_unreached.json` endpoint server-side,
+    reading the key from a `JOSHUA_PROJECT_API_KEY` Function App
+    setting — the same "secret lives only in a server-side app setting,
+    never in the repo or the client bundle" pattern `sync.js` already
+    established for `COSMOS_CONNECTION_STRING`. Unlike `sync.js`, this
+    endpoint is **not** gated to signed-in users (Home shows it to every
+    visitor), so `staticwebapp.config.json` gained one explicit route
+    exception (`/api/unreached-of-the-day`, `allowedRoles:
+    ["anonymous"]`) placed *before* the general `/api/*` → authenticated
+    wildcard rule, rather than loosening that wildcard itself. The
+    upstream JSON is normalized server-side into a small, stable shape
+    (`{name, country, population, religion, percentEvangelical,
+    percentAdherent, language, photoUrl}`) built from Joshua Project's
+    own documented column names (`PeopNameInCountry`, `Ctry`,
+    `Population`, `PrimaryReligion`, `PercentEvangelical`,
+    `PercentAdherents`, `PrimaryLanguageName`, `PeopleGroupPhotoURL`) —
+    written from their published column-description docs, **not yet
+    verified against a real response**, since no API key existed at
+    the time this was written (getting one requires the owner's own
+    email and a verification click, not something automatable). If the
+    field names turn out to be slightly off once a real key is set,
+    it's a one-line fix in `buildResult()`, isolated from the client.
+
+    **Fails quiet, by design, on both ends.** No key configured yet →
+    the Function returns `501` (a real, expected, ongoing state right
+    now) and the client (`loadUnreachedOfDay()`) treats that as
+    `'unconfigured'`; any other failure (network error, malformed
+    upstream response) becomes `'error'`. Both states, along with the
+    initial `'loading'` state, render the card as nothing at all rather
+    than an error banner — this is optional editorial content on a
+    screen nobody depends on for a core workflow, so a missing card
+    should be invisible, not alarming. `loadUnreachedOfDay()` is called
+    unconditionally at the top of every `renderHome()` call but is a
+    no-op once `status` leaves `'idle'`, so it fires exactly once per
+    app session regardless of how many times the user revisits the Home
+    tab — this is once-a-day content, not something to refetch on every
+    tab switch.
+
+    **One real risk flagged, not yet hit.** `unreached.js` uses the
+    global `fetch()` (no `node-fetch` dependency added), which requires
+    Node 18+ in the Azure Functions runtime; `api/package.json` and
+    `host.json` don't pin an explicit Node version, and Azure Static Web
+    Apps' current default runtime is well past that threshold as of
+    2026, but this is a real, if small, deployment assumption worth
+    knowing about if the function ever fails with "fetch is not
+    defined."
+
 ---
 
 ## 9. How the app reads this data

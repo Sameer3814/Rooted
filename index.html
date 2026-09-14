@@ -96,6 +96,23 @@
   .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
   .empty .cta{margin-top:14px;}
 
+  /* Home v4 — Verse of the Day / Unreached of the Day (DATA_MODEL.md §8,
+     item 78). No real imagery yet (that's a deliberate later investment,
+     same conversation as character portraits) — a warm gradient card
+     carries the verse until then. */
+  .votd-card{
+    background:linear-gradient(160deg, var(--gold-wash) 0%, var(--paper-raised) 65%);
+    border-color:rgba(242,179,61,.25);
+  }
+  .votd-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--gold-deep);letter-spacing:.02em;margin-bottom:10px;}
+  .votd-text{font-size:18px;font-weight:500;line-height:1.5;color:var(--ink);margin-bottom:10px;}
+  .votd-ref{font-size:12.5px;font-weight:600;color:var(--gold-deep);}
+  .unreached-card{border-color:rgba(159,176,195,.25);}
+  .unreached-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tan-deep);letter-spacing:.02em;margin-bottom:8px;}
+  .unreached-card h3{margin-bottom:4px;}
+  .unreached-meta{font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
+  .unreached-pop{font-size:12.5px;color:var(--ink-faint);}
+
   /* buttons */
   .btn{
     border:none;
@@ -376,6 +393,7 @@
 
 <nav class="navbar">
   <button class="navitem" data-nav="home"><span class="dot"><i class="ti ti-home-2"></i></span><span>Home</span></button>
+  <button class="navitem" data-nav="practice"><span class="dot"><i class="ti ti-swords"></i></span><span>Practice</span></button>
   <button class="navitem" data-nav="browse"><span class="dot"><i class="ti ti-search"></i></span><span>Browse</span></button>
   <button class="navitem" data-nav="topics"><span class="dot"><i class="ti ti-tags"></i></span><span>Topics</span></button>
   <button class="navitem" data-nav="characters"><span class="dot"><i class="ti ti-users"></i></span><span>People</span></button>
@@ -846,7 +864,7 @@ let timelineGame = null;   // { characterId, events, correctIds, order, checked,
 const TIMELINE_DIFFICULTIES = { easy: 3, normal: 5, hard: 8 };
 let timelineDifficulty = 'normal';
 const SEARCH_LIMIT = 60;
-let homeLimit = 25;   // Home lists this many verses before "Show all"
+let homeLimit = 25;   // Practice's landing state lists this many verses before "Show all" (moved off Home in the v4 redesign)
 
 /* ---------- helpers ---------- */
 function findVerse(id){ return data.verses.find(v=>v.id===id); }
@@ -1040,7 +1058,7 @@ function recordPractice(verseId, correct, challengeTypeId){
 function render(){
   const app = document.getElementById('app');
   document.querySelectorAll('.navitem').forEach(b=>{
-    b.classList.toggle('active', b.dataset.nav === (['home','browse','topics','characters','add'].includes(view.screen)?view.screen:''));
+    b.classList.toggle('active', b.dataset.nav === (['home','practice','browse','topics','characters','add'].includes(view.screen)?view.screen:''));
   });
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
@@ -1071,36 +1089,74 @@ function go(screen, params={}){
   window.scrollTo(0, scrollPositions[scrollKey(view)] || 0);
 }
 
-/* ---------- HOME ---------- */
+/* ---------- HOME ----------
+   v4 "editorial Home" (DATA_MODEL.md §8, item 78) — no verse list, no
+   practice affordance, no progress stats. Memorization moved wholesale to
+   the new Practice tab (renderPracticeLanding()); Home is now the app's
+   front door for content that isn't about a personal to-do list — Verse
+   of the Day today, mission content once configured. */
 function renderHome(){
-  const due = dueVerses();
-  const session_size = Math.min(due.length, settings.dailyGoal || 10);
-  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
-  const streak = computeStreak();
+  loadUnreachedOfDay(); // fire-and-forget; no-op once status leaves 'idle'
   return `
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
       <button class="back-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
     </div>
-    <div class="stat-row">
-      <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
-      <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
-      <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
-      <div class="stat-card"><div class="num">${streak}</div><div class="label">day streak</div></div>
-    </div>
-    ${due.length ? `
-      ${renderGoalRing()}
-      ${renderChallengePicker()}
-      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
-    ` : ''}
-    <div class="section-label">Your verses <span style="color:var(--ink-faint);">${data.verses.length}</span></div>
-    ${data.verses.length
-      ? data.verses.slice(0, homeLimit).map(renderVerseCard).join('') +
-        (data.verses.length > homeLimit
-          ? `<button class="btn block" data-action="show-all-verses">Show all ${data.verses.length}</button>`
-          : '')
-      : renderEmptyVerses()}
+    ${renderVerseOfTheDayCard()}
+    ${renderUnreachedCard()}
   `;
+}
+/* One verse a day, stable for the whole day and the same for every device
+   (no per-user randomness/state) — a simple date-seeded index into the
+   user's own library, not the full corpus, so it's always something
+   they've actually added or the starter pack shipped. */
+function verseOfTheDay(){
+  if(!data.verses.length) return null;
+  const d = new Date();
+  const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
+  return data.verses[dayKey % data.verses.length];
+}
+function renderVerseOfTheDayCard(){
+  const v = verseOfTheDay();
+  if(!v) return renderEmptyVerses();
+  return `
+    <div class="card votd-card tap" data-action="open-verse" data-id="${v.id}">
+      <div class="votd-label"><i class="ti ti-sun"></i> Verse of the Day</div>
+      <div class="votd-text">${esc(v.text)}</div>
+      <div class="votd-ref">${esc(v.reference)}</div>
+    </div>`;
+}
+/* Unreached of the Day — proxied through api/unreached-of-the-day (see that
+   file for why: keeping the Joshua Project API key server-side, and
+   avoiding an unconfirmed-CORS direct browser call). Fails quiet on Home:
+   not configured yet and network errors both just omit the card rather
+   than showing a broken/alarming state, since this is optional editorial
+   content, not something the user is depending on. */
+let unreachedOfDay = { status: 'idle', data: null };
+async function loadUnreachedOfDay(){
+  if(unreachedOfDay.status !== 'idle') return;
+  unreachedOfDay = { status: 'loading', data: null };
+  try{
+    const res = await fetch('/api/unreached-of-the-day');
+    if(res.status === 501){ unreachedOfDay = { status: 'unconfigured', data: null }; return; }
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    unreachedOfDay = { status: 'ready', data: await res.json() };
+  }catch(e){
+    console.error('unreached-of-the-day failed', e);
+    unreachedOfDay = { status: 'error', data: null };
+  }
+  if(view.screen === 'home') render();
+}
+function renderUnreachedCard(){
+  const {status, data: d} = unreachedOfDay;
+  if(status !== 'ready' || !d || !d.name) return '';
+  return `
+    <div class="card unreached-card">
+      <div class="unreached-label"><i class="ti ti-world"></i> Unreached of the Day</div>
+      <h3>${esc(d.name)}</h3>
+      <div class="unreached-meta">${[d.country, d.religion].filter(Boolean).map(esc).join(' · ')}</div>
+      ${d.population ? `<div class="unreached-pop">${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}</div>` : ''}
+    </div>`;
 }
 function renderAccountBar(){
   if(!account){
@@ -2258,15 +2314,48 @@ function renderSparks(n){
   }
   return out;
 }
+// The Practice tab's own landing state — everything that used to live on
+// Home before the v4 "editorial Home" redesign (DATA_MODEL.md item 78):
+// due-today stats, the daily-goal ring, the challenge-type picker, and the
+// full verse library. Home now only fronts Verse of the Day and mission
+// content; this is where the actual memorization workflow lives.
+function renderPracticeLanding(){
+  const due = dueVerses();
+  const session_size = Math.min(due.length, settings.dailyGoal || 10);
+  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
+  const streak = computeStreak();
+  return `
+    <div class="topbar"><h1>Practice</h1></div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
+      <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
+      <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
+      <div class="stat-card"><div class="num">${streak}</div><div class="label">day streak</div></div>
+    </div>
+    ${due.length ? `
+      ${renderGoalRing()}
+      ${renderChallengePicker()}
+      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
+    ` : ''}
+    <div class="section-label">Your verses <span style="color:var(--ink-faint);">${data.verses.length}</span></div>
+    ${data.verses.length
+      ? data.verses.slice(0, homeLimit).map(renderVerseCard).join('') +
+        (data.verses.length > homeLimit
+          ? `<button class="btn block" data-action="show-all-verses">Show all ${data.verses.length}</button>`
+          : '')
+      : renderEmptyVerses()}
+  `;
+}
 function renderPractice(){
-  if(!session || session.index >= session.queue.length){
+  if(!session) return renderPracticeLanding();
+  if(session.index >= session.queue.length){
     // Deliberately does NOT null `session` here — a background render
     // (cloud sync landing, a timer) between finishing and tapping "Done"
     // used to silently reset this screen to "0/0 correct". session.index
     // staying >= session.queue.length already keeps this branch stable on
     // repeated renders; session is only cleared when the user actually
     // leaves, via the "Done" button (data-action="exit-practice").
-    const results = session ? session.results : [];
+    const results = session.results;
     const total = results.length;
     const correct = results.filter(r => r.allCorrect).length;
     const streak = computeStreak();
@@ -2454,7 +2543,7 @@ function onAction(e){
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
-  else if(action==='exit-practice'){ session=null; go('home'); }
+  else if(action==='exit-practice'){ session=null; go('practice'); }
   else if(action==='check-practice') checkPractice();
   else if(action==='next-practice'){
     if(session){
