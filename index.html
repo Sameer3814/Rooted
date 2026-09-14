@@ -108,7 +108,8 @@
   .votd-text{font-size:18px;font-weight:500;line-height:1.5;color:var(--ink);margin-bottom:10px;}
   .votd-ref{font-size:12.5px;font-weight:600;color:var(--gold-deep);}
   .unreached-card{border-color:rgba(159,176,195,.25);padding:0;overflow:hidden;}
-  .unreached-photo{display:block;width:100%;height:160px;object-fit:cover;background:var(--surface-sunken);}
+  .unreached-photo{display:block;width:100%;height:190px;object-fit:cover;object-position:center 20%;background:var(--surface-sunken);}
+  .unreached-full-photo{display:block;width:100%;height:auto;border-radius:var(--radius-card);background:var(--surface-sunken);margin-bottom:16px;}
   .unreached-body{padding:16px;}
   .unreached-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tan-deep);letter-spacing:.02em;margin-bottom:8px;}
   .unreached-card h3{margin-bottom:4px;}
@@ -1063,6 +1064,7 @@ function render(){
     b.classList.toggle('active', b.dataset.nav === (['home','practice','browse','topics','characters','add'].includes(view.screen)?view.screen:''));
   });
   if(view.screen==='home') app.innerHTML = renderHome();
+  else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
   else if(view.screen==='bookPeople') app.innerHTML = renderBookPeople(view.params.book);
   else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
@@ -1153,7 +1155,7 @@ function renderUnreachedCard(){
   const {status, data: d} = unreachedOfDay;
   if(status !== 'ready' || !d || !d.name) return '';
   return `
-    <div class="card unreached-card">
+    <div class="card unreached-card tap" data-action="open-unreached">
       ${d.photoUrl ? `<img class="unreached-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" loading="lazy" onerror="this.remove()">` : ''}
       <div class="unreached-body">
         <div class="unreached-label"><i class="ti ti-world"></i> Unreached of the Day</div>
@@ -1162,6 +1164,27 @@ function renderUnreachedCard(){
         ${d.population ? `<div class="unreached-pop">${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}</div>` : ''}
       </div>
     </div>`;
+}
+function renderUnreachedDetail(){
+  const d = unreachedOfDay.data;
+  if(!d) return renderHome();
+  return `
+    <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    ${d.photoUrl ? `<img class="unreached-full-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" onerror="this.remove()">` : ''}
+    <div class="topbar"><h1>${esc(d.name)}</h1></div>
+    <div class="unreached-label" style="margin-bottom:16px;"><i class="ti ti-world"></i> Unreached of the Day, from Joshua Project</div>
+    <div class="stat-row">
+      ${d.population ? `<div class="stat-card"><div class="num">${d.population.toLocaleString()}</div><div class="label">population</div></div>` : ''}
+      ${d.percentEvangelical!=null ? `<div class="stat-card"><div class="num">${d.percentEvangelical}%</div><div class="label">evangelical</div></div>` : ''}
+      ${d.percentAdherent!=null ? `<div class="stat-card"><div class="num">${d.percentAdherent}%</div><div class="label">christian adherent</div></div>` : ''}
+    </div>
+    <div class="card">
+      ${d.country ? `<div class="char-row" style="justify-content:space-between;"><span class="meta">Country</span><span>${esc(d.country)}</span></div>` : ''}
+      ${d.religion ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary religion</span><span>${esc(d.religion)}</span></div>` : ''}
+      ${d.language ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary language</span><span>${esc(d.language)}</span></div>` : ''}
+    </div>
+    <p style="color:var(--ink-soft);margin-top:16px;line-height:1.55;">Joshua Project features a different unreached people group here each day — one still without a self-sustaining, indigenous church-planting movement of their own. A moment of prayer for the ${esc(d.name)} today is the whole point of this card.</p>
+  `;
 }
 function renderAccountBar(){
   if(!account){
@@ -2520,6 +2543,7 @@ function onAction(e){
   const action = el.dataset.action;
   const id = el.dataset.id;
   if(action==='go-home') go('home');
+  else if(action==='open-unreached') go('unreachedDetail');
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');

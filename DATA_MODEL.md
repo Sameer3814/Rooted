@@ -3221,6 +3221,43 @@ inventing a new principle:
     knowing about if the function ever fails with "fetch is not
     defined."
 
+79. **Unreached of the Day: a real detail page, and a fixed photo crop.**
+    **Done (2026-09-14).** Direct feedback on the shipped card: the
+    Home preview's photo wasn't showing fully (a fixed 160px
+    `object-fit:cover` box was cropping into portrait photos, cutting
+    off the top of the subject's head — visible in a screenshot the
+    owner sent), and the card itself felt flat with nowhere to go once
+    tapped.
+
+    **Photo crop fix, Home preview.** `.unreached-photo` bumped from
+    160px to 190px tall and gained `object-position:center 20%` instead
+    of the implicit center-center crop — biases the visible crop toward
+    the top of the frame, where a portrait photo's face actually is,
+    rather than splitting the crop evenly top/bottom. Still a deliberate
+    crop, not the fix for "not displayed fully" — that's the new detail
+    page.
+
+    **New `unreachedDetail` screen — the actual fix for "not displayed
+    fully."** Tapping the Home card (`.unreached-card` gained
+    `tap`/`open-unreached`) now opens a dedicated page,
+    `renderUnreachedDetail()`, whose photo (`.unreached-full-photo`) uses
+    `width:100%;height:auto` — no `object-fit` at all, so the image
+    renders at its full natural aspect ratio with nothing cropped out,
+    genuinely showing the whole picture. The page also surfaces fields
+    the compact Home card never had room for: population, percent
+    evangelical, and percent adherent as a `.stat-row` (reusing the same
+    stat-card pattern Practice's landing page uses), plus country,
+    religion, and language in a plain `.card` of label/value rows
+    (`.char-row` with `justify-content:space-between`, the same pattern
+    Settings already uses for its account-bar rows). Closes on a short
+    framing paragraph about what "unreached" means and why the card
+    exists, rather than just a wall of stats.
+
+    Reached only from Home (no other screen links to it), so back
+    navigation is a plain `go-home` rather than needing the generalized
+    `from`-tracking pattern from item 75 — there's no ambiguity about
+    where "back" should go for a screen with exactly one entry point.
+
 ---
 
 ## 9. How the app reads this data
