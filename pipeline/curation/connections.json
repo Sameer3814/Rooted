@@ -1236,6 +1236,15 @@
       "toType": "character",
       "toId": "char_asahel",
       "symmetric": true
+    },
+    {
+      "id": "conn_herod_antipas_husband_of_herodias",
+      "fromType": "character",
+      "fromId": "char_herod_antipas",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_herodias",
+      "inverse": "wife of"
     }
   ]
 }

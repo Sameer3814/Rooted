@@ -5206,16 +5206,15 @@
     {
       "id": "story_pauls_arrest",
       "title": "Paul's arrest in Jerusalem",
-      "summary": "Back in Jerusalem, Paul is seized in the temple by a mob who wrongly believe he's brought a Gentile past the temple's sacred boundary, and is beaten nearly to death before Roman soldiers pull him out and arrest him. The following night, Jesus himself stands by Paul and tells him to take courage: just as he has testified about him in Jerusalem, he must testify in Rome too -- a promise that sets up everything left in Acts. Years of trials before the governors Felix and Festus and King Agrippa follow, none of them finding real grounds for a charge; when Agrippa half-jokes that Paul is nearly persuading him to become a Christian, Paul answers that he wishes everyone listening could become as he is, chains excepted.",
-      "primaryReference": "Acts 21:27-26:32",
+      "summary": "Back in Jerusalem, Paul is seized in the temple by a mob who wrongly believe he's brought a Gentile past the temple's sacred boundary, and is beaten nearly to death before Roman soldiers pull him out and arrest him. Bound in the Roman barracks, he's nearly flogged before revealing his Roman citizenship, then stands before the Sanhedrin the next day. That night Jesus himself stands by Paul and tells him to take courage: just as he has testified about him in Jerusalem, he must testify in Rome too -- a promise that sets up everything left in Acts. When over forty men vow not to eat until Paul is dead, the commander has him moved under heavy guard to the governor in Caesarea, out of the plot's reach.",
+      "primaryReference": "Acts 21:27-23:35",
       "eraId": "era_early_church",
       "canonicalOrder": 2900,
       "verseIds": [
         "verse_acts_21_36",
         "verse_acts_21_8",
         "verse_acts_21_9",
-        "verse_acts_23_11",
-        "verse_acts_26_29"
+        "verse_acts_23_11"
       ],
       "characterIds": [
         "char_paul",
@@ -6418,6 +6417,394 @@
         "char_abdon"
       ],
       "topicIds": []
+    },
+    {
+      "id": "story_temple_cleansing_early",
+      "title": "Jesus cleanses the temple (early ministry)",
+      "summary": "At the very start of his public ministry, Jesus goes up to Jerusalem for Passover and finds the temple courts full of merchants and money changers. He makes a whip of cords, drives them all out, and overturns their tables: \"don't make my Father's house a marketplace!\" When asked for a sign to justify it, he answers cryptically that he will raise \"this temple\" in three days -- a claim his disciples only understand as being about his own body after the resurrection. A genuinely distinct, earlier cleansing from the one during Passion week (John places this one right after the Cana wedding, at the very start of his ministry, not its final week).",
+      "primaryReference": "John 2:13-22",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2242,
+      "verseIds": [
+        "verse_john_2_15",
+        "verse_john_2_16"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_holiness"
+      ]
+    },
+    {
+      "id": "story_gerasene_demoniac",
+      "title": "The Gerasene demoniac",
+      "summary": "Jesus crosses the sea to the country of the Gadarenes and is met by a man possessed by so many demons he calls himself \"Legion,\" living naked among the tombs, uncontrollable even by chains. Jesus sends the demons into a nearby herd of pigs, which rushes down the bank and drowns in the sea. The man is found sitting, clothed, and in his right mind; the frightened locals ask Jesus to leave, but the healed man begs to go with him. Jesus instead sends him home to tell his own household and the whole region what God has done for him.",
+      "primaryReference": "Mark 5:1-20; Luke 8:26-39",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2405,
+      "verseIds": [
+        "verse_mark_5_9",
+        "verse_mark_5_15",
+        "verse_mark_5_19"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_deliverance"
+      ]
+    },
+    {
+      "id": "story_death_of_john_the_baptist",
+      "title": "The death of John the Baptist",
+      "summary": "Herod Antipas has John imprisoned for condemning his marriage to Herodias, his brother's wife -- but fears him too much as a righteous man to kill him outright. At a birthday banquet, Herodias's daughter dances and so pleases Herod that he swears, in front of all his guests, to give her anything she asks. Coached by her mother, she asks for John's head on a platter. Trapped by his own oath and too proud to refuse in front of his guests, Herod has John beheaded in prison.",
+      "primaryReference": "Mark 6:14-29; Matthew 14:1-12",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2408,
+      "verseIds": [
+        "verse_mark_6_18",
+        "verse_mark_6_20",
+        "verse_mark_6_27"
+      ],
+      "characterIds": [
+        "char_john_the_baptist",
+        "char_herod_antipas",
+        "char_herodias"
+      ],
+      "topicIds": [
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_mary_and_martha",
+      "title": "Mary and Martha",
+      "summary": "Jesus visits the home of two sisters in a village along his way. Martha busies herself with the work of hosting while her sister Mary sits at Jesus's feet listening to him teach. When Martha complains that Mary has left her to serve alone, Jesus gently corrects her: \"Martha, Martha, you are anxious and troubled about many things, but one thing is needed. Mary has chosen the good part.\"",
+      "primaryReference": "Luke 10:38-42",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2322,
+      "verseIds": [
+        "verse_luke_10_40",
+        "verse_luke_10_41",
+        "verse_luke_10_42"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_martha",
+        "char_mary_of_bethany"
+      ],
+      "topicIds": [
+        "topic_peace"
+      ]
+    },
+    {
+      "id": "story_lost_sheep_and_coin",
+      "title": "The lost sheep and the lost coin",
+      "summary": "Answering Pharisees who grumble that he welcomes sinners, Jesus tells two short parables back to back: a shepherd who leaves ninety-nine sheep to find the one that's lost, and a woman who sweeps her whole house for one lost coin. Both celebrate with friends and neighbors once the search succeeds. \"Even so, I tell you, there is joy in the presence of the angels of God over one sinner repenting.\"",
+      "primaryReference": "Luke 15:1-10",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2325,
+      "verseIds": [
+        "verse_luke_15_4",
+        "verse_luke_15_6",
+        "verse_luke_15_10"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_repentance"
+      ]
+    },
+    {
+      "id": "story_rich_man_and_lazarus",
+      "title": "The rich man and Lazarus",
+      "summary": "Jesus tells of a rich man who lives in luxury while a poor, sore-covered beggar named Lazarus lies at his gate longing for scraps. Both die; Lazarus is carried to Abraham's side, the rich man to torment, with a great, uncrossable gulf fixed between them. The rich man begs Abraham to send Lazarus to warn his five brothers -- and is told that if they won't listen to Moses and the prophets, they wouldn't be persuaded even by someone rising from the dead.",
+      "primaryReference": "Luke 16:19-31",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2335,
+      "verseIds": [
+        "verse_luke_16_25",
+        "verse_luke_16_29",
+        "verse_luke_16_31"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_scripture"
+      ]
+    },
+    {
+      "id": "story_syrophoenician_womans_daughter",
+      "title": "The Syrophoenician woman's daughter",
+      "summary": "In the region of Tyre and Sidon, a Gentile woman -- Greek by birth, Syrophoenician by race, called a Canaanite in Matthew -- begs Jesus to free her daughter from a demon. Jesus initially puts her off, saying his mission is to Israel first, but her persistent, humble answer (\"even the dogs under the table eat the children's crumbs\") wins his praise -- \"woman, great is your faith\" -- and her daughter is healed from that hour.",
+      "primaryReference": "Mark 7:24-30; Matthew 15:21-28",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2422,
+      "verseIds": [
+        "verse_mark_7_27",
+        "verse_mark_7_28",
+        "verse_matthew_15_28"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faith"
+      ]
+    },
+    {
+      "id": "story_feeding_the_4000",
+      "title": "Feeding the four thousand",
+      "summary": "A second miraculous feeding, distinct from the five thousand: a crowd has stayed with Jesus three days with nothing to eat, and he has compassion on them rather than sending them away hungry. Seven loaves and a few small fish, blessed and broken, feed about four thousand people with seven baskets left over.",
+      "primaryReference": "Mark 8:1-10; Matthew 15:32-39",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2425,
+      "verseIds": [
+        "verse_mark_8_2",
+        "verse_mark_8_6",
+        "verse_mark_8_8"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_provision"
+      ]
+    },
+    {
+      "id": "story_pool_of_bethesda",
+      "title": "The healing at the pool of Bethesda",
+      "summary": "By the pool of Bethesda in Jerusalem, crowds of sick and disabled people wait for the water to stir, believing the first one in after each stirring is healed. Jesus finds a man who has been sick for thirty-eight years and asks him, \"do you want to be made well?\" then simply tells him, \"arise, take up your mat, and walk\" -- healed instantly, on the Sabbath, which draws immediate opposition from the religious leaders.",
+      "primaryReference": "John 5:1-15",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2465,
+      "verseIds": [
+        "verse_john_5_6",
+        "verse_john_5_8",
+        "verse_john_5_14"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_obedience"
+      ]
+    },
+    {
+      "id": "story_ten_lepers_one_returns",
+      "title": "The ten lepers",
+      "summary": "On the way to Jerusalem, ten men with leprosy call out to Jesus for mercy. He tells them to go show themselves to the priests -- the required step to be declared clean -- and they're healed on the way. Only one turns back, glorifying God with a loud voice, falls at Jesus's feet to give thanks -- and he's a Samaritan. \"Weren't the ten cleansed? But where are the nine?\"",
+      "primaryReference": "Luke 17:11-19",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2495,
+      "verseIds": [
+        "verse_luke_17_15",
+        "verse_luke_17_16",
+        "verse_luke_17_19"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_thanksgiving"
+      ]
+    },
+    {
+      "id": "story_temple_cleansing_passion_week",
+      "title": "Jesus cleanses the temple (Passion week)",
+      "summary": "The day after the triumphal entry, Jesus again enters the temple and drives out those buying and selling, overturning the money changers' tables: \"it is written, my house shall be called a house of prayer, but you have made it a den of robbers.\" A genuinely distinct, later cleansing from the one at the start of his ministry (John 2) -- this one happens in the temple's final week before the crucifixion and is the direct provocation that hardens the chief priests' resolve against him.",
+      "primaryReference": "Matthew 21:12-13; Mark 11:15-17; Luke 19:45-46",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2602,
+      "verseIds": [
+        "verse_matthew_21_12",
+        "verse_matthew_21_13"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_holiness"
+      ]
+    },
+    {
+      "id": "story_widows_offering",
+      "title": "The widow's offering",
+      "summary": "Watching people put their gifts into the temple treasury, Jesus sees a poor widow put in two small coins -- worth almost nothing next to the large sums the rich are giving. He tells his disciples she has given more than all of them: they gave out of their abundance, but she, out of her poverty, gave everything she had to live on.",
+      "primaryReference": "Mark 12:41-44; Luke 21:1-4",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2605,
+      "verseIds": [
+        "verse_mark_12_43",
+        "verse_mark_12_44"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_generosity"
+      ]
+    },
+    {
+      "id": "story_ten_virgins",
+      "title": "The parable of the ten virgins",
+      "summary": "Part of Jesus's teaching on the Mount of Olives in his last week: ten virgins take their lamps to meet a bridegroom, five wise enough to bring extra oil, five foolish who don't. The bridegroom delays; when he finally comes at midnight, the foolish virgins are off buying oil and arrive too late, finding the door already shut. \"Watch therefore, for you don't know the day nor the hour.\"",
+      "primaryReference": "Matthew 25:1-13",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2606,
+      "verseIds": [
+        "verse_matthew_25_10",
+        "verse_matthew_25_13"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_talents",
+      "title": "The parable of the talents",
+      "summary": "A man entrusts his servants with talents of money before a long journey -- five, two, and one, each according to their ability. The first two servants trade and double what they were given; the third, afraid, buries his in the ground. On the master's return, the two faithful servants are commended and given more; the fearful one loses even what little he had.",
+      "primaryReference": "Matthew 25:14-30",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2607,
+      "verseIds": [
+        "verse_matthew_25_21",
+        "verse_matthew_25_29"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_sheep_and_goats",
+      "title": "The sheep and the goats",
+      "summary": "In his last extended teaching before the crucifixion, Jesus describes the Son of Man separating all nations as a shepherd separates sheep from goats -- the sheep welcomed for feeding, clothing, and visiting \"the least of these,\" the goats condemned for ignoring the same need in front of them. \"Because you did it to one of the least of these my brothers, you did it to me.\"",
+      "primaryReference": "Matthew 25:31-46",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2608,
+      "verseIds": [
+        "verse_matthew_25_35",
+        "verse_matthew_25_40"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_love"
+      ]
+    },
+    {
+      "id": "story_breakfast_on_the_shore",
+      "title": "Breakfast on the shore",
+      "summary": "After the resurrection, seven disciples go fishing on the sea of Tiberias and catch nothing all night. At daybreak a figure on the shore tells them to cast their net on the other side -- it comes up so full of fish they can't haul it in, and John recognizes him: \"it's the Lord!\" Peter swims to shore; Jesus is already cooking breakfast over a charcoal fire. Afterward Jesus asks Peter three times, \"do you love me?\" -- once for each of his three denials -- and answers each time with a charge: \"feed my lambs... tend my sheep... feed my sheep,\" fully restoring him before telling him to follow.",
+      "primaryReference": "John 21:1-19",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2755,
+      "verseIds": [
+        "verse_john_21_6",
+        "verse_john_21_15",
+        "verse_john_21_17",
+        "verse_john_21_19"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_tabitha_raised",
+      "title": "Tabitha raised to life",
+      "summary": "In Joppa, a disciple named Tabitha (also called Dorcas), known for her good works and acts of mercy, becomes sick and dies. Word reaches Peter nearby in Lydda, and he comes at once. The widows she had clothed and cared for meet him weeping. Peter sends everyone out, kneels and prays, then turns to the body: \"Tabitha, get up!\" She opens her eyes and sits up. News spreads through Joppa, and many believe.",
+      "primaryReference": "Acts 9:36-43",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2845,
+      "verseIds": [
+        "verse_acts_9_36",
+        "verse_acts_9_40"
+      ],
+      "characterIds": [
+        "char_peter",
+        "char_tabitha"
+      ],
+      "topicIds": [
+        "topic_love"
+      ]
+    },
+    {
+      "id": "story_ephesus_riot",
+      "title": "The riot in Ephesus",
+      "summary": "Demetrius, an Ephesian silversmith whose trade depends on making shrines of Artemis, stirs up his fellow craftsmen against Paul, whose preaching that man-made gods aren't gods at all threatens their whole business. The city descends into confusion, dragging Paul's traveling companions into the theater and shouting \"Great is Artemis of the Ephesians!\" for two hours straight. Paul wants to go in himself, but the disciples and some of his friends among the city officials won't let him. The riot only ends when the town clerk talks the crowd down, warning them they're risking a charge of rioting with no real cause to give for it.",
+      "primaryReference": "Acts 19:23-41",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2893,
+      "verseIds": [
+        "verse_acts_19_26",
+        "verse_acts_19_28",
+        "verse_acts_19_37"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_demetrius"
+      ],
+      "topicIds": [
+        "topic_idolatry"
+      ]
+    },
+    {
+      "id": "story_pauls_farewell_to_ephesian_elders",
+      "title": "Paul's farewell to the Ephesian elders",
+      "summary": "On his way back toward Jerusalem, Paul calls the elders of the Ephesian church to meet him at Miletus, knowing he won't see them again. He reminds them how he served with humility and tears, held nothing back that was profitable to them, and coveted no one's money, working with his own hands instead. He warns that \"vicious wolves\" will rise among them after he's gone, entrusts them to God and his grace, and reminds them of Jesus's own words: \"it is more blessed to give than to receive.\" They weep, embrace him, and walk him to the ship, grieving most that they'll never see his face again.",
+      "primaryReference": "Acts 20:17-38",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2897,
+      "verseIds": [
+        "verse_acts_20_24",
+        "verse_acts_20_27",
+        "verse_acts_20_35"
+      ],
+      "characterIds": [
+        "char_paul"
+      ],
+      "topicIds": [
+        "topic_calling",
+        "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "story_pauls_trials",
+      "title": "Paul's trials before Felix, Festus, and Agrippa",
+      "summary": "Held in Caesarea after his arrest, Paul stands trial before governor Felix, who hears him out, is unsettled by his preaching on righteousness and judgment, but leaves him in custody for two years hoping for a bribe that never comes. Felix's successor Festus inherits the case, finds no real charge, but offers to send Paul back to Jerusalem to please the Jewish leaders -- so Paul, within his rights as a Roman citizen, appeals directly to Caesar. Before sending him, Festus brings Paul before King Agrippa to help write up the charges; Paul gives his fullest defense yet, retelling his own conversion on the Damascus road. Agrippa tells him he's nearly persuaded to become a Christian; Paul answers that he wishes everyone listening could become as he is, chains excepted. Agrippa and Festus agree privately that Paul has done nothing worthy of death or imprisonment -- but the appeal to Caesar is already made, and to Caesar he must go.",
+      "primaryReference": "Acts 24:1-26:32",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2905,
+      "verseIds": [
+        "verse_acts_24_25",
+        "verse_acts_26_22",
+        "verse_acts_26_28",
+        "verse_acts_26_29"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_felix",
+        "char_festus",
+        "char_agrippa"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
     }
   ],
   "lifeEvents": [
@@ -13803,6 +14190,186 @@
       "reference": "Genesis 26:8",
       "storyId": "story_abimelech_and_isaac",
       "sequenceInLife": 35
+    },
+    {
+      "id": "event_jesus_cleanses_temple_early",
+      "characterId": "char_jesus",
+      "sequenceInLife": 85,
+      "storyId": "story_temple_cleansing_early"
+    },
+    {
+      "id": "event_jesus_delivers_gerasene_demoniac",
+      "characterId": "char_jesus",
+      "sequenceInLife": 142,
+      "storyId": "story_gerasene_demoniac"
+    },
+    {
+      "id": "event_jesus_visits_mary_and_martha",
+      "characterId": "char_jesus",
+      "sequenceInLife": 125,
+      "storyId": "story_mary_and_martha"
+    },
+    {
+      "id": "event_jesus_tells_lost_sheep_and_coin",
+      "characterId": "char_jesus",
+      "sequenceInLife": 128,
+      "storyId": "story_lost_sheep_and_coin"
+    },
+    {
+      "id": "event_jesus_tells_rich_man_and_lazarus",
+      "characterId": "char_jesus",
+      "sequenceInLife": 132,
+      "storyId": "story_rich_man_and_lazarus"
+    },
+    {
+      "id": "event_jesus_heals_syrophoenician_womans_daughter",
+      "characterId": "char_jesus",
+      "sequenceInLife": 162,
+      "storyId": "story_syrophoenician_womans_daughter"
+    },
+    {
+      "id": "event_jesus_feeds_4000",
+      "characterId": "char_jesus",
+      "sequenceInLife": 164,
+      "storyId": "story_feeding_the_4000"
+    },
+    {
+      "id": "event_jesus_heals_at_bethesda",
+      "characterId": "char_jesus",
+      "sequenceInLife": 202,
+      "storyId": "story_pool_of_bethesda"
+    },
+    {
+      "id": "event_jesus_heals_ten_lepers",
+      "characterId": "char_jesus",
+      "sequenceInLife": 215,
+      "storyId": "story_ten_lepers_one_returns"
+    },
+    {
+      "id": "event_jesus_cleanses_temple_passion_week",
+      "characterId": "char_jesus",
+      "sequenceInLife": 242,
+      "storyId": "story_temple_cleansing_passion_week"
+    },
+    {
+      "id": "event_jesus_praises_widows_offering",
+      "characterId": "char_jesus",
+      "sequenceInLife": 244,
+      "storyId": "story_widows_offering"
+    },
+    {
+      "id": "event_jesus_tells_ten_virgins",
+      "characterId": "char_jesus",
+      "sequenceInLife": 245,
+      "storyId": "story_ten_virgins"
+    },
+    {
+      "id": "event_jesus_tells_talents",
+      "characterId": "char_jesus",
+      "sequenceInLife": 246,
+      "storyId": "story_talents"
+    },
+    {
+      "id": "event_jesus_tells_sheep_and_goats",
+      "characterId": "char_jesus",
+      "sequenceInLife": 247,
+      "storyId": "story_sheep_and_goats"
+    },
+    {
+      "id": "event_jesus_restores_peter_at_breakfast",
+      "characterId": "char_jesus",
+      "sequenceInLife": 375,
+      "storyId": "story_breakfast_on_the_shore"
+    },
+    {
+      "id": "event_peter_restored_at_breakfast",
+      "characterId": "char_peter",
+      "sequenceInLife": 85,
+      "storyId": "story_breakfast_on_the_shore"
+    },
+    {
+      "id": "event_peter_raises_tabitha",
+      "characterId": "char_peter",
+      "sequenceInLife": 115,
+      "storyId": "story_tabitha_raised"
+    },
+    {
+      "id": "event_paul_ephesus_riot",
+      "characterId": "char_paul",
+      "sequenceInLife": 63,
+      "storyId": "story_ephesus_riot"
+    },
+    {
+      "id": "event_paul_farewell_to_ephesian_elders",
+      "characterId": "char_paul",
+      "sequenceInLife": 67,
+      "storyId": "story_pauls_farewell_to_ephesian_elders"
+    },
+    {
+      "id": "event_paul_stands_trial_felix_festus_agrippa",
+      "characterId": "char_paul",
+      "sequenceInLife": 75,
+      "storyId": "story_pauls_trials"
+    },
+    {
+      "id": "event_martha_hosts_jesus",
+      "characterId": "char_martha",
+      "sequenceInLife": 5,
+      "storyId": "story_mary_and_martha"
+    },
+    {
+      "id": "event_mary_bethany_sits_at_jesus_feet",
+      "characterId": "char_mary_of_bethany",
+      "sequenceInLife": 5,
+      "storyId": "story_mary_and_martha"
+    },
+    {
+      "id": "event_john_baptist_beheaded",
+      "characterId": "char_john_the_baptist",
+      "sequenceInLife": 50,
+      "storyId": "story_death_of_john_the_baptist"
+    },
+    {
+      "id": "event_herod_antipas_beheads_john",
+      "characterId": "char_herod_antipas",
+      "sequenceInLife": 10,
+      "storyId": "story_death_of_john_the_baptist"
+    },
+    {
+      "id": "event_herodias_asks_for_johns_head",
+      "characterId": "char_herodias",
+      "sequenceInLife": 10,
+      "storyId": "story_death_of_john_the_baptist"
+    },
+    {
+      "id": "event_tabitha_raised_by_peter",
+      "characterId": "char_tabitha",
+      "sequenceInLife": 10,
+      "storyId": "story_tabitha_raised"
+    },
+    {
+      "id": "event_demetrius_incites_riot",
+      "characterId": "char_demetrius",
+      "sequenceInLife": 10,
+      "storyId": "story_ephesus_riot"
+    },
+    {
+      "id": "event_felix_hears_paul",
+      "characterId": "char_felix",
+      "sequenceInLife": 10,
+      "storyId": "story_pauls_trials"
+    },
+    {
+      "id": "event_festus_sends_paul_to_caesar",
+      "characterId": "char_festus",
+      "sequenceInLife": 10,
+      "storyId": "story_pauls_trials"
+    },
+    {
+      "id": "event_agrippa_hears_paul",
+      "characterId": "char_agrippa",
+      "sequenceInLife": 10,
+      "storyId": "story_pauls_trials"
     }
   ]
 }

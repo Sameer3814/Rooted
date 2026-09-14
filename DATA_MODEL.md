@@ -3603,6 +3603,109 @@ inventing a new principle:
       individually, since neither uses the shared `.btn` class.
     - `sw.js` bumped to `rooted-v81`.
 
+86. **Gospel/Acts content-audit gap-fill — done (2026-09-14).** An owner
+    content audit found well-known Gospel and Acts episodes whose verse
+    text already existed in `data/verses.json` but had never been
+    selected into a Story: 20 new stories, 7 new characters, 54 new
+    curated verses, 1 new topic (`topic_generosity`), 1 new connection,
+    across `era_jesus_ministry`, `era_passion_and_resurrection`, and
+    `era_early_church` — no new eras needed. Highest priority, per the
+    owner's own framing: John 21's breakfast on the shore and Peter's
+    threefold restoration (`story_breakfast_on_the_shore`), tagging both
+    `char_jesus` and `char_peter` with matching new life events.
+    - **Individual Gospel healings/encounters**: the Gerasene demoniac /
+      "Legion" (`story_gerasene_demoniac`), the pool of Bethesda
+      (`story_pool_of_bethesda`), the ten lepers (`story_ten_lepers_one_returns`,
+      the one who returns — a Samaritan — getting the thanksgiving-topic
+      tag), the Syrophoenician/Canaanite woman's daughter
+      (`story_syrophoenician_womans_daughter`), and Mary and Martha
+      (`story_mary_and_martha` — both sisters already existed as
+      characters from the raising-of-Lazarus curation, so this reused
+      `char_martha`/`char_mary_of_bethany` rather than inventing new
+      ones, adding one new life event to each at `sequenceInLife: 5`,
+      *before* their existing Lazarus-story event, since Luke situates
+      this visit well before Lazarus's death).
+    - **Feeding the four thousand** (`story_feeding_the_4000`) — curated
+      as genuinely distinct from the already-curated feeding of the five
+      thousand, per the owner's own instruction not to force a
+      Connection between them where none is asked for; none was added.
+    - **The widow's offering** (`story_widows_offering`) — needed a new
+      topic, `topic_generosity` (related to `topic_love`/
+      `topic_faithfulness`), since none of the existing 38 fit a story
+      about sacrificial giving specifically.
+    - **The death of John the Baptist** (`story_death_of_john_the_baptist`)
+      — two new characters, `char_herod_antipas` and `char_herodias`
+      (his wife, previously his brother's), connected by a new
+      `"husband of"`/`"wife of"` Connection (a real stated fact:
+      "Herodias, his brother Philip's wife, for he had married her").
+      Herodias's dancing daughter is unnamed in the WEB text (tradition
+      calls her Salome, but the Bible doesn't), so per this project's
+      standing rule she gets no Character record. Placed in
+      `era_jesus_ministry` — `char_john_the_baptist`'s `eraId` was
+      already `era_jesus_ministry` (checked before curating, per the
+      task's own instruction), so no era move was needed. `char_jesus`
+      is *not* tagged on this story — he isn't present in the scene
+      (Herod's banquet), and the "tag every major character actually
+      present" lesson (item 69/DATA_MODEL §8 lessons) cuts both ways:
+      don't undertag a present character, but don't force-tag an absent
+      one either.
+    - **Temple cleansing — judgment call, curated as two distinct
+      events, not one.** John 2:13-22 places Jesus's cleansing of the
+      temple at the very start of his ministry (right after the Cana
+      wedding); Matthew 21:12-13/Mark 11:15-17/Luke 19:45-46 place a
+      cleansing during the temple's *final* week before the
+      crucifixion, the day after the triumphal entry, as the direct
+      provocation that hardens the chief priests against him. Unlike
+      the feeding of the five thousand (one event, four Gospels, same
+      point in the timeline) or Isaiah 36-39/2 Kings 18-20 (the same
+      retold event, extended not cloned), these two accounts sit at
+      opposite ends of Jesus's ministry with no textual signal either
+      Gospel writer meant the other's moment — so this is judged a
+      genuine repeated action (cleansing a temple that had drifted back
+      into commerce, twice, years apart), not one event told twice.
+      Curated as `story_temple_cleansing_early` (`era_jesus_ministry`,
+      right after `story_water_to_wine`) and
+      `story_temple_cleansing_passion_week` (`era_passion_and_resurrection`,
+      right after `story_triumphal_entry`), both tagged `topic_holiness`.
+    - **Five more parables as Stories**, matching the `prodigal_son`/
+      `good_samaritan` precedent: the lost sheep and lost coin
+      (`story_lost_sheep_and_coin` — one Story for both, since Luke
+      tells them back to back as one discourse), the rich man and
+      Lazarus (`story_rich_man_and_lazarus` — this parable's Lazarus is
+      a different, fictional figure from the real `char_lazarus` of
+      Bethany despite the shared name; no Character record for either
+      him or the rich man, matching this project's standing rule that
+      fictional parable figures never get Character records), the
+      talents, the ten virgins, and the sheep and the goats (all three
+      Matthew 25 parables placed in `era_passion_and_resurrection`, not
+      `era_jesus_ministry` — Matthew 25 is the Olivet Discourse,
+      delivered on the Tuesday of Passion week, so all three slot
+      between `story_widows_offering` and `story_last_supper`
+      chronologically, not with the rest of Jesus's parables).
+    - **Acts**: Dorcas/Tabitha raised by Peter (`story_tabitha_raised`,
+      new character `char_tabitha`, new `char_peter` life event at
+      `sequenceInLife: 115` — placed *before* his existing
+      Cornelius-vision event at 120, since Acts 9 precedes Acts 10); the
+      Ephesus riot (`story_ephesus_riot`, new character
+      `char_demetrius`, `char_paul` tagged with a matching new life
+      event per the item-69 lesson since the riot is directly provoked
+      by his preaching); Paul's farewell to the Ephesian elders
+      (`story_pauls_farewell_to_ephesian_elders`).
+    - **Paul's trials — real gap found and fixed.** `story_pauls_arrest`
+      previously compressed Paul's arrest *and* his years of trials
+      before Felix, Festus, and Agrippa into one story citing
+      `Acts 21:27-26:32` with only 5 verses — exactly the compression
+      the task asked to check for. Split into two: `story_pauls_arrest`
+      now scopes to the arrest and Sanhedrin hearing only
+      (`Acts 21:27-23:35`), and a new `story_pauls_trials`
+      (`Acts 24:1-26:32`) covers the trials themselves, with three new
+      characters (`char_felix`, `char_festus`, `char_agrippa`) all
+      tagged alongside `char_paul`. `verse_acts_26_29` (Paul's "I wish
+      you were as I am, chains excepted") moved from the old
+      `story_pauls_arrest` to the new `story_pauls_trials`, where it
+      actually belongs.
+    - No new eras. `sw.js` bumped to `rooted-v82`.
+
 ---
 
 ## 9. How the app reads this data

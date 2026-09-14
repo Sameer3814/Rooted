@@ -662,8 +662,57 @@ hand-curate all the content before building.
     Sarah, Isaac, and Rebekah are each tagged and given a matching new
     life event on the Abimelech stories they're part of.
 
-    See DATA_MODEL.md §8, items 65-67 and 70-74, for the full writeup
-    and the reasoning behind which figures made the cut each pass.
+    **Eighth pass (2026-09-14): a Gospel/Acts content-audit gap-fill,**
+    not a supporting-cast pass in the usual sense but the same
+    pipeline discipline applied to well-known *major* episodes the
+    owner found were simply never curated at all, despite their verse
+    text already sitting in `data/verses.json`. Highest priority, named
+    directly by the owner: John 21's breakfast on the shore and Peter's
+    threefold restoration ("feed my sheep"), tagging both Jesus and
+    Peter. Individual healings/encounters never given their own Story:
+    the Gerasene demoniac ("Legion"), the pool of Bethesda, the ten
+    lepers (the one who returns is a Samaritan), the Syrophoenician/
+    Canaanite woman's daughter, and Mary and Martha (both sisters
+    already existed as characters from the Lazarus curation, so this
+    reused them rather than inventing new ones). Feeding the four
+    thousand, curated as genuinely distinct from the already-curated
+    five thousand — no forced Connection between them, per the owner's
+    own instruction. The widow's offering, needing this pass's one new
+    topic, `topic_generosity`. The death of John the Baptist — two new
+    characters, Herod Antipas and Herodias, connected by a real
+    "husband of"/"wife of" fact from the text; his eraId was already
+    `era_jesus_ministry`, so no era move was needed; Jesus is
+    deliberately *not* tagged on this one, since he isn't in the scene.
+    Five more parables as Stories, matching the prodigal-son/
+    good-Samaritan precedent: the lost sheep and lost coin (one Story
+    for both), the rich man and Lazarus (a different, fictional
+    Lazarus from Bethany's — no Character record, same as every other
+    parable figure), and all three Matthew 25 parables (talents, ten
+    virgins, sheep and goats) — placed in the Passion-week era, not
+    general ministry, since Matthew 25 is the Olivet Discourse,
+    delivered the Tuesday before the crucifixion. In Acts: Dorcas/
+    Tabitha raised by Peter, the Ephesus riot (Demetrius the
+    silversmith), and Paul's farewell to the Ephesian elders. The one
+    real gap this pass caught and fixed rather than just filled:
+    `story_pauls_arrest` had quietly compressed Paul's arrest *and* his
+    years of trials before Felix, Festus, and Agrippa into a single
+    5-verse story — split into a properly scoped arrest story plus a
+    new `story_pauls_trials` with three new characters (Felix, Festus,
+    Agrippa) tagged alongside Paul. The one genuinely new judgment call
+    this pass required: John 2's temple cleansing (start of ministry)
+    and the Synoptics' temple cleansing (Passion week, the day after
+    the triumphal entry) are curated as two distinct events, not one
+    story told by different Gospels — unlike the feeding of the five
+    thousand or Isaiah 36-39/2 Kings 18-20, nothing in either account
+    signals the other Gospel's moment, and driving traders back out of
+    a temple that drifted back into commerce, years apart, is a
+    plausible repeated action, not a duplicate telling. 20 new stories,
+    7 new characters, 54 new curated verses, 1 new topic, 1 new
+    connection, no new eras.
+
+    See DATA_MODEL.md §8, items 65-67, 70-74, and 86, for the full
+    writeup and the reasoning behind which figures made the cut each
+    pass.
 
     **"People in this book" — done (2026-09-12), redesigned same day.**
     As the per-book cast list got genuinely rich (2 Samuel alone now has

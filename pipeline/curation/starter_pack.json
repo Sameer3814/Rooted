@@ -13375,6 +13375,431 @@
       "characterIds": [
         "char_hagar"
       ]
+    },
+    {
+      "id": "verse_john_2_15",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_2_16",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_5_9",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_5_15",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_5_19",
+      "topicIds": [
+        "topic_deliverance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_6_18",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_mark_6_20",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_mark_6_27",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_john_the_baptist"
+      ]
+    },
+    {
+      "id": "verse_luke_10_40",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_martha"
+      ]
+    },
+    {
+      "id": "verse_luke_10_41",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_martha"
+      ]
+    },
+    {
+      "id": "verse_luke_10_42",
+      "topicIds": [
+        "topic_peace"
+      ],
+      "characterIds": [
+        "char_mary_of_bethany"
+      ]
+    },
+    {
+      "id": "verse_john_5_6",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_5_8",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_5_14",
+      "topicIds": [
+        "topic_obedience"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_17_15",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_17_16",
+      "topicIds": [
+        "topic_thanksgiving"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_17_19",
+      "topicIds": [
+        "topic_thanksgiving",
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_7_27",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_7_28",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_15_28",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_8_2",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_8_6",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_8_8",
+      "topicIds": [
+        "topic_provision"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_12_43",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_mark_12_44",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_21_12",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_21_13",
+      "topicIds": [
+        "topic_holiness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_4",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_6",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_15_10",
+      "topicIds": [
+        "topic_repentance"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_16_25",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_16_29",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_luke_16_31",
+      "topicIds": [
+        "topic_scripture"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_10",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_13",
+      "topicIds": [
+        "topic_waiting"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_21",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_29",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_35",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_25_40",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_john_21_6",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_21_15",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_21_17",
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_john_21_19",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_9_36",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_tabitha"
+      ]
+    },
+    {
+      "id": "verse_acts_9_40",
+      "topicIds": [
+        "topic_love"
+      ],
+      "characterIds": [
+        "char_tabitha",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_acts_19_26",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_19_28",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": [
+        "char_demetrius"
+      ]
+    },
+    {
+      "id": "verse_acts_19_37",
+      "topicIds": [
+        "topic_idolatry"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_20_24",
+      "topicIds": [
+        "topic_calling",
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_20_27",
+      "topicIds": [
+        "topic_faithfulness"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_20_35",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_24_25",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_felix"
+      ]
+    },
+    {
+      "id": "verse_acts_26_22",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_26_28",
+      "topicIds": [
+        "topic_calling"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_agrippa"
+      ]
     }
   ],
   "topics": [
@@ -13764,6 +14189,15 @@
         "topic_wisdom",
         "topic_anger",
         "topic_love"
+      ]
+    },
+    {
+      "id": "topic_generosity",
+      "name": "Generosity",
+      "description": "Verses on giving freely -- out of abundance or, more strikingly, out of poverty.",
+      "relatedTopicIds": [
+        "topic_love",
+        "topic_faithfulness"
       ]
     }
   ],
@@ -16461,6 +16895,76 @@
       ],
       "eraId": "era_divided_kingdom",
       "summary": "Daughter of King Joram and sister of Ahaziah -- and, notably, Jehoiada the priest's wife. Steals the infant Joash away from among the royal children Athaliah is slaughtering and hides him in the temple for six years, the single act that keeps the Davidic line alive.",
+      "verseIds": []
+    },
+    {
+      "id": "char_herod_antipas",
+      "name": "Herod Antipas",
+      "roles": [
+        "the tetrarch who beheaded John the Baptist rather than break a rash oath"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Tetrarch of Galilee, son of Herod the Great. Imprisoned John the Baptist for condemning his marriage to his brother's wife Herodias, then had him beheaded -- not because he wanted to, but because he'd sworn an oath in front of his dinner guests he was too proud to break.",
+      "verseIds": []
+    },
+    {
+      "id": "char_herodias",
+      "name": "Herodias",
+      "roles": [
+        "the wife whose grudge against John used her daughter's dance to get him killed"
+      ],
+      "eraId": "era_jesus_ministry",
+      "summary": "Wife of Herod Antipas, previously married to his brother Philip. John the Baptist's public condemnation of the marriage earned his hatred; when her daughter's dance won Herod's reckless promise of anything she wanted, Herodias told her to ask for John's head.",
+      "verseIds": []
+    },
+    {
+      "id": "char_tabitha",
+      "name": "Tabitha",
+      "roles": [
+        "the disciple known for good works, raised from death by Peter"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A disciple in Joppa, also called Dorcas, \"full of good works and acts of mercy.\" When she died, the widows she had clothed and helped sent for Peter, who prayed and raised her back to life.",
+      "verseIds": []
+    },
+    {
+      "id": "char_demetrius",
+      "name": "Demetrius",
+      "roles": [
+        "the Ephesian silversmith whose business fears sparked a city-wide riot"
+      ],
+      "eraId": "era_early_church",
+      "summary": "A silversmith in Ephesus who made silver shrines of Artemis. Paul's preaching against idols threatened his trade, so he rallied his fellow craftsmen into a riot that filled the city's theater with two hours of shouting before the town clerk talked the crowd down.",
+      "verseIds": []
+    },
+    {
+      "id": "char_felix",
+      "name": "Felix",
+      "roles": [
+        "the Roman governor who kept Paul in custody for years hoping for a bribe"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Roman governor of Judea before whom Paul first stood trial in Caesarea. He was unsettled by Paul's preaching on righteousness and judgment, but left him imprisoned for two years, partly hoping for a bribe, until his own term ended.",
+      "verseIds": []
+    },
+    {
+      "id": "char_festus",
+      "name": "Festus",
+      "roles": [
+        "the governor who inherited Paul's case and sent him to Caesar on appeal"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Felix's successor as governor of Judea. Found no real charge against Paul but, wanting to please the Jewish leaders, offered to try him in Jerusalem -- prompting Paul to appeal directly to Caesar, which Festus then had to honor.",
+      "verseIds": []
+    },
+    {
+      "id": "char_agrippa",
+      "name": "Agrippa",
+      "roles": [
+        "the king who said Paul had nearly persuaded him to become a Christian"
+      ],
+      "eraId": "era_early_church",
+      "summary": "King Herod Agrippa II, brought in by Festus to help make sense of Paul's case. Heard Paul's full defense and testimony of his conversion, and told him he was almost persuaded to become a Christian -- then told Festus privately that Paul had done nothing worthy of death or chains.",
       "verseIds": []
     }
   ]
