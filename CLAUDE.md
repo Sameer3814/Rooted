@@ -98,6 +98,11 @@ The schema was deliberately designed so all of the above can be added
   debounced-search pattern exactly (own `#people-results` subtree, own
   `peopleQuery` state) rather than inventing a new one. See
   DATA_MODEL.md §30.
+- **Stories search — done (2026-09-14).** Same pattern again, this time
+  on the Stories screen (matching title/reference/summary) — own
+  `#stories-results` subtree, own `storiesQuery` state. Now the third
+  screen (People, Topics, Stories) using this exact debounced-search
+  shape. See DATA_MODEL.md §8, item 87.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a

@@ -3706,6 +3706,23 @@ inventing a new principle:
       actually belongs.
     - No new eras. `sw.js` bumped to `rooted-v82`.
 
+87. **Search on the Stories screen.** **Done (2026-09-14).** Now that
+    Stories numbers over 200 across 16 eras, finding one by scrolling
+    era-by-era was the same problem People and Topics had already
+    solved. Mirrors that exact pattern rather than inventing a new one:
+    `storiesQuery` state, its own `#stories-results` subtree,
+    `renderStoriesResults()` split out of `renderStories()` (era-grouped
+    browse view when the query is empty, a flat match list when it
+    isn't), a `#stories-search` input wired the same debounced way
+    (`refreshStoriesResults()`, 140ms, `bindEvents()` re-run on the
+    result subtree only — not a full `render()`). Matches on title,
+    `primaryReference`, or `summary` (case-insensitive substring) — the
+    three fields a title/reference/blurb search reasonably covers;
+    People's search matches name/role and Topics matches name, so this
+    keeps the same "match what's visibly on the card" principle. No new
+    CSS — `.search-wrap`, `.result-count`, `.empty` were all already
+    shared components. `sw.js` bumped to `rooted-v83`.
+
 ---
 
 ## 9. How the app reads this data

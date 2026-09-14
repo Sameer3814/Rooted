@@ -968,6 +968,7 @@ let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
 let peopleQuery = '';
 let topicsQuery = '';
+let storiesQuery = '';
 let timelineGame = null;   // { characterId, events, correctIds, order, checked, lockedIds, allCorrect } | null
 const TIMELINE_DIFFICULTIES = { easy: 3, normal: 5, hard: 8 };
 let timelineDifficulty = 'normal';
@@ -2189,15 +2190,35 @@ function renderStories(){
       <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
       <h2>Stories</h2>
     </div>
-    ${lore.eras.map(era=>{
-      const inEra = lore.stories.filter(s=>s.eraId===era.id);
-      if(!inEra.length) return '';
-      return `
-        <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
-        <p class="field-hint" style="margin:-4px 0 10px;line-height:1.5;">${esc(era.summary)}</p>
-        ${inEra.map(renderStoryCard).join('')}`;
-    }).join('')}
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="stories-search" value="${esc(storiesQuery)}" placeholder="Search stories by title or reference..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="stories-results">${renderStoriesResults()}</div>
   `;
+}
+function renderStoriesResults(){
+  const q = storiesQuery.trim().toLowerCase();
+  if(q){
+    const hits = lore.stories.filter(s=>
+      s.title.toLowerCase().includes(q)
+      || (s.primaryReference||'').toLowerCase().includes(q)
+      || (s.summary||'').toLowerCase().includes(q)
+    );
+    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No stories match "${esc(storiesQuery)}".</p></div>`;
+    return `
+      <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
+      ${hits.map(renderStoryCard).join('')}
+    `;
+  }
+  return lore.eras.map(era=>{
+    const inEra = lore.stories.filter(s=>s.eraId===era.id);
+    if(!inEra.length) return '';
+    return `
+      <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
+      <p class="field-hint" style="margin:-4px 0 10px;line-height:1.5;">${esc(era.summary)}</p>
+      ${inEra.map(renderStoryCard).join('')}`;
+  }).join('');
 }
 
 /* ---------- MOTIFS ---------- */
@@ -2768,6 +2789,13 @@ function bindEvents(root){
     searchTimer = setTimeout(refreshTopicsResults, 140);
   });
 
+  const storiesSearch = document.getElementById('stories-search');
+  if(storiesSearch) storiesSearch.addEventListener('input', ()=>{
+    storiesQuery = storiesSearch.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refreshStoriesResults, 140);
+  });
+
   wireTimelineDrag();
 }
 function refreshBrowseResults(){
@@ -2786,6 +2814,12 @@ function refreshTopicsResults(){
   const results = document.getElementById('topics-results');
   if(!results){ render(); return; }
   results.innerHTML = renderTopicsResults();
+  bindEvents(results);
+}
+function refreshStoriesResults(){
+  const results = document.getElementById('stories-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderStoriesResults();
   bindEvents(results);
 }
 function onAction(e){
