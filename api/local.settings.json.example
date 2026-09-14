@@ -4,6 +4,8 @@
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "COSMOS_CONNECTION_STRING": "<paste your Cosmos DB primary connection string here for local testing only>",
-    "JOSHUA_PROJECT_API_KEY": "<free key from https://joshuaproject.net/api/v2 -- powers Home's Unreached of the Day card (unreached.js); the card just stays hidden without this, nothing breaks>"
+    "JOSHUA_PROJECT_API_KEY": "<free key from https://joshuaproject.net/api/v2 -- powers Home's Unreached of the Day card (unreached.js); the card just stays hidden without this, nothing breaks>",
+    "YOUVERSION_APP_KEY": "<free key from the YouVersion Platform Portal (developers.youversion.com) -- powers Home's Verse of the Day card (verse-of-the-day.js); falls back to a local date-seeded pick without this>",
+    "UNSPLASH_ACCESS_KEY": "<free key from https://unsplash.com/developers -- powers the Verse of the Day card's background photo (verse-image.js); the card just shows without a photo without this>"
   }
 }

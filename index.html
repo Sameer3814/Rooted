@@ -121,6 +121,28 @@
   .unreached-card h3{margin-bottom:4px;}
   .unreached-meta{font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
   .unreached-pop{font-size:12.5px;color:var(--ink-faint);}
+  .votd-attribution{font-size:10.5px;color:var(--ink-faint);margin-top:10px;}
+  .votd-attribution a{color:inherit;text-decoration:underline;}
+
+  /* Home v5 additions (DATA_MODEL.md §8, item 81): a two-up row for
+     Unreached of the Day + Motif Spotlight, and a single quiet text-link
+     practice nudge instead of any button. */
+  .home-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;}
+  .home-duo .card{padding:14px;}
+  .home-duo .unreached-card-inner{flex-direction:column;align-items:flex-start;gap:8px;}
+  .home-duo .unreached-photo-box{width:100%;height:72px;border-radius:var(--radius-ctl);}
+  .home-duo .unreached-meta, .home-duo .unreached-pop{font-size:11.5px;}
+  .home-duo .unreached-card h3{font-size:14.5px;}
+  .motif-spotlight-card{background:linear-gradient(160deg, rgba(159,176,195,.12) 0%, var(--paper-raised) 65%);}
+  .motif-spotlight-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tan-deep);letter-spacing:.02em;margin-bottom:8px;}
+  .motif-spotlight-card h3{font-size:14.5px;margin-bottom:4px;}
+  .motif-spotlight-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .practice-nudge{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    text-align:center;font-size:12.5px;font-weight:500;color:var(--ink-faint);
+    padding:14px 0 6px;cursor:pointer;
+  }
+  .practice-nudge i{font-size:13px;}
 
   /* buttons */
   .btn{
@@ -1101,40 +1123,131 @@ function go(screen, params={}){
 
 /* ---------- HOME ----------
    v4 "editorial Home" (DATA_MODEL.md §8, item 78) — no verse list, no
-   practice affordance, no progress stats. Memorization moved wholesale to
-   the new Practice tab (renderPracticeLanding()); Home is now the app's
-   front door for content that isn't about a personal to-do list — Verse
-   of the Day today, mission content once configured. */
+   progress stats. Memorization moved wholesale to the new Practice tab
+   (renderPracticeLanding()); Home is the app's front door for content
+   that isn't about a personal to-do list — Verse of the Day, Unreached of
+   the Day, Motif Spotlight. A single subtle text-link nudge is the one
+   deliberate exception (item 81) — see renderPracticeNudge(). */
 function renderHome(){
-  loadUnreachedOfDay(); // fire-and-forget; no-op once status leaves 'idle'
+  loadVotdRemote(); loadVotdImage(); // fire-and-forget; no-op once status leaves 'idle'
+  loadUnreachedOfDay();
   return `
     <div class="topbar">
       <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
       <button class="back-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
     </div>
     ${renderVerseOfTheDayCard()}
-    ${renderUnreachedCard()}
+    ${(()=>{
+      const unreached = renderUnreachedCard();
+      const motif = renderMotifSpotlightCard();
+      if(unreached && motif) return `<div class="home-duo">${unreached}${motif}</div>`;
+      return unreached + motif;
+    })()}
+    ${renderPracticeNudge()}
   `;
 }
 /* One verse a day, stable for the whole day and the same for every device
    (no per-user randomness/state) — a simple date-seeded index into the
    user's own library, not the full corpus, so it's always something
-   they've actually added or the starter pack shipped. */
+   they've actually added or the starter pack shipped. Used as a fallback
+   when the YouVersion-backed remote pick (below) isn't available. */
 function verseOfTheDay(){
   if(!data.verses.length) return null;
   const d = new Date();
   const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
   return data.verses[dayKey % data.verses.length];
 }
+/* Verse of the Day, sourced from YouVersion's Platform API when configured
+   (item 81) — proxied through api/verse-of-the-day (see that file for the
+   full reasoning: server-side app key, unconfirmed CORS). Falls back to
+   the local date-seeded pick above when not configured or on any error —
+   this is optional editorial content, never worth a broken-looking card. */
+let votdRemote = { status: 'idle', data: null };
+async function loadVotdRemote(){
+  if(votdRemote.status !== 'idle') return;
+  votdRemote = { status: 'loading', data: null };
+  try{
+    const res = await fetch('/api/verse-of-the-day');
+    if(res.status === 501){ votdRemote = { status: 'unconfigured', data: null }; return; }
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    votdRemote = { status: 'ready', data: await res.json() };
+  }catch(e){
+    console.error('verse-of-the-day failed', e);
+    votdRemote = { status: 'error', data: null };
+  }
+  if(view.screen === 'home') render();
+}
+/* Background photo for the Verse of the Day card, sourced separately from
+   Unsplash (owner's explicit choice — YouVersion's own API has no images)
+   via api/verse-image, date-seeded from a fixed pool of nature keywords
+   (not topic-derived — see that file's comment for why). Unsplash's API
+   Terms require on-photo attribution to both Unsplash and the
+   photographer, linked to their profile — rendered below, not optional. */
+let votdImage = { status: 'idle', data: null };
+async function loadVotdImage(){
+  if(votdImage.status !== 'idle') return;
+  votdImage = { status: 'loading', data: null };
+  try{
+    const res = await fetch('/api/verse-image');
+    if(res.status === 501){ votdImage = { status: 'unconfigured', data: null }; return; }
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    votdImage = { status: 'ready', data: await res.json() };
+  }catch(e){
+    console.error('verse-image failed', e);
+    votdImage = { status: 'error', data: null };
+  }
+  if(view.screen === 'home') render();
+}
 function renderVerseOfTheDayCard(){
-  const v = verseOfTheDay();
-  if(!v) return renderEmptyVerses();
+  const remote = votdRemote.status === 'ready' ? votdRemote.data : null;
+  const local = verseOfTheDay();
+  const text = remote ? remote.text : (local ? local.text : null);
+  const ref = remote ? remote.reference : (local ? local.reference : null);
+  if(!text) return renderEmptyVerses();
+  const img = votdImage.status === 'ready' ? votdImage.data : null;
+  const bgStyle = img
+    ? `background-image:linear-gradient(180deg, rgba(8,9,11,.1) 0%, rgba(8,9,11,.8) 100%), url('${esc(img.imageUrl)}');background-size:cover;background-position:center;`
+    : '';
+  // Only the local pick maps to a Verse record we can open a detail page
+  // for — a YouVersion-sourced verse has no corresponding local id.
+  const tapAttrs = (!remote && local) ? ` data-action="open-verse" data-id="${local.id}"` : '';
   return `
-    <div class="card votd-card tap" data-action="open-verse" data-id="${v.id}">
+    <div class="card votd-card${(!remote && local) ? ' tap' : ''}" style="${bgStyle}"${tapAttrs}>
       <div class="votd-label"><i class="ti ti-sun"></i> Verse of the Day</div>
-      <div class="votd-text">${esc(v.text)}</div>
-      <div class="votd-ref">${esc(v.reference)}</div>
+      <div class="votd-text">${esc(text)}</div>
+      <div class="votd-ref">${esc(ref)}</div>
+      ${img ? `<div class="votd-attribution">Photo by <a href="${esc(img.photographerUrl)}" target="_blank" rel="noopener">${esc(img.photographerName)}</a> on <a href="https://unsplash.com/?utm_source=rooted_app&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>` : ''}
     </div>`;
+}
+/* Motif Spotlight — one of the app's curated Motifs (recurring biblical
+   patterns), date-seeded the same way as Verse of the Day, surfacing the
+   character/story-connections side of the app on Home too (item 81). Text
+   only, same "prove the layout before spending on imagery" pattern used
+   for character portraits and Verse of the Day before its own photo —
+   no Motif imagery exists yet. */
+function motifOfTheDay(){
+  if(!motifs.length) return null;
+  const d = new Date();
+  const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
+  return motifs[dayKey % motifs.length];
+}
+function renderMotifSpotlightCard(){
+  const m = motifOfTheDay();
+  if(!m) return '';
+  return `
+    <div class="card motif-spotlight-card tap" data-action="open-motif" data-id="${m.id}">
+      <div class="motif-spotlight-label"><i class="ti ti-sparkles"></i> Motif Spotlight</div>
+      <h3>${esc(m.name)}</h3>
+      <p class="motif-spotlight-desc">${esc(m.description)}</p>
+    </div>`;
+}
+/* Subtle practice reminder (item 81) — the owner explicitly did not want
+   the due-verse workflow back on Home as a loud button; this is one quiet
+   text line, present only when something's actually due, gone otherwise. */
+function renderPracticeNudge(){
+  const n = dueVerses().length;
+  if(!n) return '';
+  return `<div class="practice-nudge tap" data-action="go-practice">${n} verse${n===1?'':'s'} due for practice <i class="ti ti-arrow-right"></i></div>`;
 }
 /* Unreached of the Day — proxied through api/unreached-of-the-day (see that
    file for why: keeping the Joshua Project API key server-side, and
@@ -2551,6 +2664,7 @@ function onAction(e){
   const action = el.dataset.action;
   const id = el.dataset.id;
   if(action==='go-home') go('home');
+  else if(action==='go-practice') go('practice');
   else if(action==='open-unreached') go('unreachedDetail');
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
   else if(action==='go-add-verse') go('addVerse');

@@ -680,7 +680,23 @@ hand-curate all the content before building.
     same-day addition: the card was originally text-only, but since
     Joshua Project already includes a photo URL for free with every
     response, `renderUnreachedCard()` now shows it as a 160px banner
-    above the text. Full writeup: DATA_MODEL.md §8, item 78.
+    above the text. Full writeup: DATA_MODEL.md §8, item 78. The card's
+    photo and layout were then iterated twice more the same day on direct
+    feedback (detail page + crop fix, then a hand-sketched side-by-side
+    redesign — items 79-80), and Home gained two more editorial pieces
+    plus one deliberate, subtle exception the same day: `verse-of-the-day.js`
+    and `verse-image.js` (new Azure Functions, proxying YouVersion's
+    Platform API for the verse text and Unsplash for a separately-sourced
+    background photo, both server-side-key-only like Joshua Project), a
+    Motif Spotlight card surfacing the curated Patterns on Home, and
+    `renderPracticeNudge()` — one quiet text line ("N verses due for
+    practice") shown only when something's due, the one intentional
+    exception to item 78's "no practice on Home" rule, built to the
+    owner's explicit "keep it subtle" brief rather than the button
+    originally sketched. Needs `YOUVERSION_APP_KEY` and
+    `UNSPLASH_ACCESS_KEY` set in Azure Portal (both cards just render
+    without their remote content until then, same fail-quiet pattern as
+    Joshua Project). Full writeup: DATA_MODEL.md §8, item 81.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

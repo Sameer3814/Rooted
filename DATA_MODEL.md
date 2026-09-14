@@ -3278,6 +3278,78 @@ inventing a new principle:
     (`.unreached-full-photo`, item 79) is untouched — this pass only
     changed the compact Home preview.
 
+81. **Home v5: YouVersion Verse of the Day + Unsplash imagery, Motif
+    Spotlight, and a subtle practice nudge.** **Done (2026-09-14).** The
+    owner shared a new wireframe (streak badge, hero VOTD+image card,
+    a two-column Unreached/Motif row, a bottom practice button) after
+    learning YouVersion has a free Platform API. Two things were
+    corrected before building, both confirmed by research rather than
+    assumed: YouVersion's VOTD endpoint (`/v1/verse_of_the_days/{day}`,
+    opened April 2026, free for non-commercial use) has **no background
+    images**, and the wireframe's practice button would partially
+    reverse the item 78 identity shift. The owner resolved both via
+    AskUserQuestion: source imagery **separately from Unsplash**, and
+    keep any practice reminder **subtle** rather than the sketched
+    button. The streak badge from the wireframe was deliberately **not**
+    built — it's progress content, which item 78's own "how to apply"
+    note says to flag rather than silently add back to Home.
+    - **`api/src/functions/verse-of-the-day.js`** (new) — proxies
+      YouVersion the same way `unreached.js` proxies Joshua Project: key
+      server-side only (`YOUVERSION_APP_KEY`, a Function App setting,
+      never in chat or a file), CORS unconfirmed in YouVersion's docs so
+      a same-origin proxy sidesteps it. Asks for `format=text` (the
+      endpoint returns HTML by default) and `language_ranges=en`
+      (required or the upstream call 422s). Normalizes to
+      `{text, reference}`.
+    - **`api/src/functions/verse-image.js`** (new) — proxies Unsplash's
+      `/photos/random?query=...` for a background photo, entirely
+      separate from the YouVersion call above per the owner's choice.
+      Keyword is date-seeded from a small fixed pool (nature, mountains,
+      sunrise, ocean, forest, sky, desert, meadow) — not derived from
+      the verse's topic, which the owner also explicitly chose over
+      building a topic→keyword map. Needs `UNSPLASH_ACCESS_KEY`.
+      Unsplash's API Terms require on-image attribution to both Unsplash
+      and the specific photographer, linked to their profile with UTM
+      params — that can only be satisfied client-side, so the proxy
+      returns `{imageUrl, photographerName, photographerUrl}` and
+      `renderVerseOfTheDayCard()` renders the attribution line itself
+      (`.votd-attribution`), never omitted when an image is shown.
+    - Both new endpoints got the same `staticwebapp.config.json`
+      anonymous-route exception as `/api/unreached-of-the-day`, and the
+      same `local.settings.json.example` documentation entries as
+      `JOSHUA_PROJECT_API_KEY`.
+    - **`renderVerseOfTheDayCard()`** now prefers the YouVersion-sourced
+      remote verse (`votdRemote`) over the existing local date-seeded
+      pick (`verseOfTheDay()`, kept unchanged as the fallback for
+      not-configured/error states). When an Unsplash image loads
+      (`votdImage`), the card's background becomes that photo under a
+      dark gradient overlay for text legibility, with the attribution
+      line beneath. One real trade-off, accepted rather than solved:
+      a YouVersion-sourced verse has no corresponding local `Verse`
+      record, so the card stops being tappable-to-detail in that case
+      (`open-verse` only fires when the local pick is what's shown).
+    - **Motif Spotlight** (new) — `motifOfTheDay()` (same date-seeded
+      index pattern as `verseOfTheDay()`) plus `renderMotifSpotlightCard()`,
+      surfacing one of the 20 curated Motifs on Home, tapping through to
+      the existing Pattern detail page. Text only — no Motif imagery
+      exists, same "prove the layout before spending on imagery"
+      sequencing already used for character portraits and this same
+      Verse of the Day card before its own photo (item 81 itself).
+    - **`.home-duo`** — a new two-column grid row holding the Unreached
+      of the Day and Motif Spotlight cards side by side, per the
+      wireframe's layout. `renderHome()` only wraps them in the grid
+      when both actually rendered content (either can independently be
+      hidden — Unreached when unconfigured/erroring, Motif Spotlight
+      only if `motifs` were ever empty) — otherwise whichever one exists
+      renders full-width rather than leaving an empty grid cell.
+    - **`renderPracticeNudge()`** (new) — the one deliberate reintroduction
+      of practice-adjacent content on Home, built exactly to the "keep it
+      subtle" brief: a single centered text line, "N verses due for
+      practice", `.practice-nudge` styled as quiet muted text with no
+      button chrome, taps through to the Practice tab (new `go-practice`
+      action). Renders nothing at all when zero verses are due.
+    - `sw.js` bumped to `rooted-v77`.
+
 ---
 
 ## 9. How the app reads this data

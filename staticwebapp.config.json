@@ -11,6 +11,14 @@
       "allowedRoles": ["anonymous"]
     },
     {
+      "route": "/api/verse-of-the-day",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/verse-image",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/api/*",
       "allowedRoles": ["authenticated"]
     }
