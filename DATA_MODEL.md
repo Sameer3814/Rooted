@@ -3449,6 +3449,39 @@ inventing a new principle:
       inside that tab are unchanged — this only renamed the tab itself.
     - `sw.js` bumped to `rooted-v78`.
 
+83. **Real placeholder photos for the Verse of the Day hero and Story of
+    the Day thumbnail, replacing `placeholderArt()`'s generated SVGs in
+    those two spots.** **Done (2026-09-14), same day as item 82.** The
+    owner supplied two actual images — a mountain-valley landscape photo
+    for Verse of the Day, and an illustrated "feeding of the 5000" scene
+    for Story of the Day — to use as placeholders until real per-item
+    media (Unsplash for VOTD, generated story illustrations) exists.
+    - Both arrived oversized for a mobile PWA (the mountain photo was
+      3,997,081 bytes at 5760×3840 — a single hero background that size
+      would dominate Home's whole load weight). Resized and re-encoded
+      with Pillow before committing: `media/home/votd-placeholder.jpg`
+      (1200px wide, quality 72 — 165KB) and `media/home/story-
+      placeholder.jpg` (600×600, quality 75 — 64KB, since it only ever
+      renders inside an 88×72 thumbnail box). The original full-size
+      files stay in `pipeline/.artscratch/` (already gitignored — that
+      directory exists for the unrelated Gemini character-art pipeline's
+      own scratch output, and these just happened to land there too) and
+      were never committed.
+    - `renderVerseOfTheDayCard()`'s placeholder branch now points at
+      `media/home/votd-placeholder.jpg` instead of calling
+      `placeholderArt()`; `renderStoryOfTheDayCard()`'s thumbnail does
+      the same with `media/home/story-placeholder.jpg` — every Story
+      shares this one image for now, regardless of which story the
+      date-seed picks, since there's no per-story art yet to key off.
+      `placeholderArt()` itself is untouched and still backs Unreached
+      of the Day's fallback (`placeholderArt(d.name, 205)`) when Joshua
+      Project doesn't supply a photo — that slot doesn't have a supplied
+      photo to use instead.
+    - `sw.js`'s precache list (`ASSETS`) gained both new paths — Home
+      shows one of these on every visit, so they're worth having offline
+      from install rather than only picked up by the runtime cache after
+      a first online view. Bumped to `rooted-v79`.
+
 ---
 
 ## 9. How the app reads this data

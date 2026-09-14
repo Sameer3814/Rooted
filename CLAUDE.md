@@ -716,7 +716,14 @@ hand-curate all the content before building.
     dependency, standing in for Unsplash/story-illustration photos until
     those exist. The bottom-nav "People" tab is now labeled **Study**
     (same route, since it already held People/Stories/Patterns). Full
-    writeup: DATA_MODEL.md §8, item 82.
+    writeup: DATA_MODEL.md §8, item 82. That same day, the owner supplied
+    two real photos to use in place of `placeholderArt()`'s generated
+    SVGs specifically for the VOTD hero and Story of the Day thumbnail —
+    resized/compressed with Pillow before committing (the source mountain
+    photo was ~4MB at 5760×3840) to `media/home/votd-placeholder.jpg` and
+    `media/home/story-placeholder.jpg`, precached in `sw.js`. Unreached of
+    the Day's own fallback still uses `placeholderArt()` — no supplied
+    photo exists for that slot. Full writeup: DATA_MODEL.md §8, item 83.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

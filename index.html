@@ -1262,10 +1262,10 @@ function renderVerseOfTheDayCard(){
   const ref = remote ? remote.reference : (local ? local.reference : null);
   if(!text) return renderEmptyVerses();
   const img = votdImage.status === 'ready' ? votdImage.data : null;
-  // Real Unsplash photo once configured; a warm placeholder illustration
-  // (date-seeded, so it's stable for the day) until then — this is meant
-  // to be judged for the "media-heavy hero" feel now, not left blank.
-  const bgUrl = img ? img.imageUrl : placeholderArt(ref || 'votd', 38);
+  // Real Unsplash photo once configured; a real landscape placeholder
+  // photo (media/home/votd-placeholder.jpg, owner-supplied) until then —
+  // same slot either way, so wiring up Unsplash later is a one-line swap.
+  const bgUrl = img ? img.imageUrl : 'media/home/votd-placeholder.jpg';
   // Only the local pick maps to a Verse record we can open a detail page
   // for — a YouVersion-sourced verse has no corresponding local id.
   const tapAttrs = (!remote && local) ? ` data-action="open-verse" data-id="${local.id}"` : '';
@@ -1281,10 +1281,12 @@ function renderVerseOfTheDayCard(){
 /* Story of the Day — one of the app's curated Stories, date-seeded the
    same way as Verse of the Day, surfacing the character/story side of
    the app on Home too (item 82). Same "discovery card" row format as
-   Unreached of the Day. No Story illustrations exist yet (known gap —
-   see CLAUDE.md item 2's sibling note on character portraits), so this
-   uses placeholderArt() for the thumbnail until real art is generated;
-   swapping in real art later is a one-line change, not a redesign. */
+   Unreached of the Day. No per-story illustrations exist yet (known gap
+   — see CLAUDE.md item 2's sibling note on character portraits), so
+   every Story shares one placeholder thumbnail (media/home/story-
+   placeholder.jpg, owner-supplied) until real per-story art is
+   generated; swapping that in later only means keying the src off
+   `s.id` instead of a fixed path. */
 function storyOfTheDay(){
   if(!lore.stories.length) return null;
   const d = new Date();
@@ -1303,7 +1305,7 @@ function renderStoryOfTheDayCard(){
           <div class="discovery-meta">${esc(s.primaryReference)}</div>
           <div class="discovery-sub">${esc((s.summary||'').slice(0,90))}${(s.summary||'').length>90?'…':''}</div>
         </div>
-        <div class="discovery-thumb-box"><img class="discovery-thumb" src="${placeholderArt(s.id)}" alt=""></div>
+        <div class="discovery-thumb-box"><img class="discovery-thumb" src="media/home/story-placeholder.jpg" alt=""></div>
       </div>
     </div>`;
 }
