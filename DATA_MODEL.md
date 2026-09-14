@@ -3513,6 +3513,96 @@ inventing a new principle:
     only, not a global `.back-btn` change, since that class is shared by
     every back button across the app. `sw.js` bumped to `rooted-v80`.
 
+85. **App-wide type scale — shared CSS custom properties for eyebrows,
+    titles, body copy, scripture text, headings, and nav/CTA text,
+    replacing years of one-off per-component font sizes.** **Done
+    (2026-09-14).** The owner sent an explicit token spec (`--text-xs`
+    through `--text-2xl`, `--text-primary`/`--text-secondary`/
+    `--text-accent`, `--font-sans`/`--font-display`) with a role-by-role
+    mapping across every screen, not just Home this time. Added to
+    `:root`: `--text-xs:12px`, `--text-sm:14px`, `--text-base:16px`,
+    `--text-lg:18px`, `--text-xl:22px`, `--text-2xl:28px`,
+    `--text-primary:var(--ink)`, `--text-secondary:var(--ink-soft)`,
+    `--font-sans:'Inter',sans-serif`, `--font-display:'Fraunces',serif`.
+    `--text-accent` is `#D49E35` specifically (not `var(--gold-deep)`) —
+    the exact hex the prior CSS-polish pass (item 84) had already set
+    literally on the VOTD label/ref, reused here as the token's value
+    rather than introducing a second, slightly different gold.
+    - **Eyebrows & badges** (`text-xs`/700/`.05em`/uppercase): applied
+      to `.votd-label`, `.discovery-label` (both "Unreached of the Day"
+      and "Story of the Day" render through this one shared class —
+      changed its color from `var(--tan-deep)` to `--text-accent` to
+      match), and `.topic-card .meta` (the verse-count line). One
+      deliberate deviation from the literal spec: `.tag` (verse status
+      badges — Mastered/Due today/Seedling etc.) got the size/weight/
+      caps/letter-spacing treatment but **kept each variant's own color**
+      (gold/sage/tan) rather than switching to a single `--text-accent`
+      — that three-way color split is deliberate (design philosophy
+      rule 3, reaffirmed in the v3 Topics writeup: sage=mastery,
+      tan=metadata, gold=urgency) and collapsing it to one accent color
+      would erase real meaning the badges currently carry. Similarly,
+      `.topic-card .meta` kept its white-on-opacity color instead of
+      `--text-accent` — these cards render on arbitrary saturated
+      per-topic backgrounds (`TOPIC_PALETTE`), where gold text wouldn't
+      stay legible against every color in that palette.
+    - **Card & section titles** (`text-lg`/600/`line-height:1.3`):
+      applied via the global `h3` rule (covers every card that renders a
+      plain `<h3>` — story titles, "Stories"/"Patterns" hub cards,
+      Character-in-list `<h3>`s, etc., all for free) plus two explicit
+      classes that don't use `<h3>`: `.list-row .name` (book titles in
+      Browse, character/people names in Study's People list) and
+      `.topic-card .name` (topic names on the colorful grid — its color
+      stayed the existing near-white rather than switching to literal
+      `#fff`, negligible visual difference since `--text-primary` is
+      `#F5F4F1`). `.discovery-card h3` was an existing 15.5px override on
+      top of the (then-16px) global `h3` — updated to the same
+      `text-lg`/600/1.3 values explicitly rather than deleting the
+      override, so its `margin-bottom:3px` stayed intact.
+    - **Body copy & subtext** (`text-sm`/400/`--text-secondary`/
+      `line-height:1.4`): applied to `.field-hint`, `.char-row .meta`,
+      `.list-row .meta` (chapter counts in Browse), and
+      `.discovery-meta`/`.discovery-sub` — the latter two were merged
+      into one rule since the spec asks for one body/subtext treatment
+      and they'd previously only differed by a point or two of size and
+      which faint ink token they used; that visual distinction is now
+      gone by design, not by omission.
+    - **Scripture & verse text** (`--font-display`, `text-base`
+      generally, `text-xl` for hero/standalone quotes,
+      `line-height:1.45`, `--text-primary`): applied to `.verse-card
+      .text` (used by compact verse-list cards and Browse's per-verse
+      chapter-reading cards — stays at `text-base`) and `.practice-verse`
+      (the fill-in-blank challenge's verse display). Verse Detail's own
+      standalone quote (an inline `style=` override on `.verse-card
+      .text`) was bumped from a hardcoded `20px` to `var(--text-xl)`,
+      since that's this app's one "hero/standalone quote" context for
+      this class. **Notable, and flagged rather than done silently:**
+      this reopens Fraunces beyond the VOTD-only scoping item 82
+      explicitly called out ("nothing else references the family") —
+      now `.verse-card .text` and `.practice-verse` both use
+      `--font-display` too, on the owner's explicit instruction this
+      time, covering Home, Verse Detail, and Practice cards as asked.
+      `.votd-text` itself moved from a hardcoded `21px` to the exact
+      `text-xl` (22px) token.
+    - **Screen headings & greetings** (`text-2xl`/700/`--text-primary`):
+      the global `h1` rule now reads `var(--text-2xl)` (28px, up from
+      26px) — covers "Browse," "Topics," "Study," and every other plain
+      `<h1>` screen title for free. `.home-greet` ("Good afternoon")
+      updated to match exactly rather than keeping its own smaller
+      20px value, so the greeting now reads at the same size as a
+      screen title.
+    - **Bottom nav & CTA buttons**: `.navbar .navitem span` (tab labels)
+      moved from `10.5px` to `text-xs` (12px). `.btn.primary` (used
+      everywhere a real primary action button appears — "Practice this
+      verse," Practice landing's start button, etc.) gained explicit
+      `text-base`/600, up from the shared `.btn` base's smaller 14px/500
+      — secondary/ghost/utility buttons (Export, Import, Add, etc.) keep
+      the unchanged base size, only primary CTAs got bigger. The two
+      non-`.btn` custom CTA pills the spec named directly —
+      `.votd-action` ("Read chapter") and `.practice-nudge` ("Practice N
+      of M due verses") — were updated to the same `text-base`/600 pair
+      individually, since neither uses the shared `.btn` class.
+    - `sw.js` bumped to `rooted-v81`.
+
 ---
 
 ## 9. How the app reads this data

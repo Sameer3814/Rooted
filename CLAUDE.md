@@ -369,6 +369,27 @@ three-role accent system (§29) still relies on. Full rationale, every
 exact token value across all three passes, and the component-level
 fixes beyond simple recolors: DATA_MODEL.md §8, items 62-64.
 
+**Type scale — done (2026-09-14).** App-wide, not just Home this time: a
+shared set of CSS custom properties (`--text-xs` 12px through `--text-2xl`
+28px, plus `--text-primary`/`--text-secondary`/`--text-accent` and
+`--font-sans`/`--font-display`) now backs eyebrows/badges, card/section
+titles, body copy, scripture text, screen headings, and nav/CTA text
+across every screen — replacing a decade of one-off per-component font
+sizes. Two deliberate deviations from a literal token-everywhere pass,
+both to protect meaning the app already depends on: verse status badges
+(`.tag`) got the new size/weight/caps treatment but kept their existing
+gold/sage/tan per-variant colors rather than one accent color (that
+three-way split is rule 3's meaning, not decoration); `.topic-card .meta`
+(verse counts) similarly kept white-on-opacity instead of the gold
+`--text-accent`, since topic cards render on arbitrary saturated
+per-topic colors where gold text wouldn't stay legible against all of
+them. One real, flagged (not silent) product decision: Fraunces — scoped
+to the Verse of the Day card only as of item 82 ("nothing else
+references the family") — is now also used by `.verse-card .text` and
+`.practice-verse`, on the owner's explicit instruction this time,
+covering Home/Verse Detail/Practice as asked. Full writeup: DATA_MODEL.md
+§8, item 85.
+
 ## Known gaps / not-yet-built (in likely priority order)
 
 The full schema for all of the below (including the not-yet-built
