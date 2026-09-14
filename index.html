@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
   :root{
@@ -96,51 +96,69 @@
   .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
   .empty .cta{margin-top:14px;}
 
-  /* Home v4 — Verse of the Day / Unreached of the Day (DATA_MODEL.md §8,
-     item 78). No real imagery yet (that's a deliberate later investment,
-     same conversation as character portraits) — a warm gradient card
-     carries the verse until then. */
-  .votd-card{
-    background:linear-gradient(160deg, var(--gold-wash) 0%, var(--paper-raised) 65%);
-    border-color:rgba(242,179,61,.25);
+  /* Home v6 — greeting + streak header, a media-heavy Verse of the Day
+     hero, and a shared "discovery card" row format reused for Unreached
+     of the Day and Story of the Day (DATA_MODEL.md §8, item 82). Real
+     photos/illustrations aren't wired up everywhere yet (Unsplash needs
+     a key; Story illustrations don't exist at all) — placeholderArt() in
+     JS generates a small hue-seeded inline-SVG placeholder so the layout
+     can be judged now, swapped for real media later without touching
+     any markup. */
+  .home-greet-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;}
+  .home-greet{font-size:20px;font-weight:700;letter-spacing:-.01em;}
+  .home-greet-sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+  .streak-badge{
+    display:flex;align-items:center;gap:5px;flex-shrink:0;
+    background:linear-gradient(135deg, #FF8A3D 0%, #FF5C43 100%);
+    color:#fff;font-size:13px;font-weight:700;
+    padding:7px 12px;border-radius:999px;box-shadow:0 2px 10px rgba(255,92,67,.35);
   }
-  .votd-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--gold-deep);letter-spacing:.02em;margin-bottom:10px;}
-  .votd-text{font-size:18px;font-weight:500;line-height:1.5;color:var(--ink);margin-bottom:10px;}
-  .votd-ref{font-size:12.5px;font-weight:600;color:var(--gold-deep);}
-  .unreached-card{border-color:rgba(159,176,195,.25);}
-  .unreached-card-inner{display:flex;align-items:center;gap:14px;}
-  .unreached-text{flex:1;min-width:0;}
-  .unreached-photo-box{
-    width:68px;height:68px;flex-shrink:0;border-radius:var(--radius-ctl);
+  .streak-badge i{font-size:14px;}
+
+  .votd-hero{
+    position:relative;overflow:hidden;padding:26px 20px 20px;margin-bottom:14px;
+    background-size:cover;background-position:center;min-height:220px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .votd-hero::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(20,15,12,.2) 0%, rgba(20,15,12,.85) 100%);
+  }
+  .votd-hero > *{position:relative;z-index:1;}
+  .votd-label{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--gold-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+  .votd-text{font-family:'Fraunces',serif;font-style:italic;font-size:21px;font-weight:500;line-height:1.45;color:#fff;margin-bottom:10px;text-shadow:0 1px 6px rgba(0,0,0,.35);}
+  .votd-ref{font-size:13px;font-weight:600;color:var(--gold-deep);margin-bottom:14px;}
+  .votd-action{
+    display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    color:#fff;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+  .votd-attribution{font-size:10px;color:rgba(255,255,255,.55);margin-top:10px;}
+  .votd-attribution a{color:inherit;text-decoration:underline;}
+
+  /* Shared compact row card — text on the left, rectangular thumbnail on
+     the right edge. Used for Unreached of the Day and Story of the Day. */
+  .discovery-card{margin-bottom:12px;}
+  .discovery-card-inner{display:flex;align-items:center;gap:14px;}
+  .discovery-text{flex:1;min-width:0;}
+  .discovery-label{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;color:var(--tan-deep);}
+  .discovery-card h3{font-size:15.5px;margin-bottom:3px;}
+  .discovery-meta{font-size:12.5px;color:var(--ink-soft);margin-bottom:3px;line-height:1.4;}
+  .discovery-sub{font-size:11.5px;color:var(--ink-faint);}
+  .discovery-thumb-box{
+    width:88px;height:72px;flex-shrink:0;border-radius:var(--radius-ctl);
     background:var(--surface-sunken);overflow:hidden;
     display:flex;align-items:center;justify-content:center;
   }
-  .unreached-photo{display:block;width:100%;height:100%;object-fit:contain;}
+  .discovery-thumb{display:block;width:100%;height:100%;object-fit:cover;}
   .unreached-full-photo{display:block;width:100%;height:auto;border-radius:var(--radius-card);background:var(--surface-sunken);margin-bottom:16px;}
-  .unreached-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tan-deep);letter-spacing:.02em;margin-bottom:8px;}
-  .unreached-card h3{margin-bottom:4px;}
-  .unreached-meta{font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
-  .unreached-pop{font-size:12.5px;color:var(--ink-faint);}
-  .votd-attribution{font-size:10.5px;color:var(--ink-faint);margin-top:10px;}
-  .votd-attribution a{color:inherit;text-decoration:underline;}
 
-  /* Home v5 additions (DATA_MODEL.md §8, item 81): a two-up row for
-     Unreached of the Day + Motif Spotlight, and a single quiet text-link
-     practice nudge instead of any button. */
-  .home-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;}
-  .home-duo .card{padding:14px;}
-  .home-duo .unreached-card-inner{flex-direction:column;align-items:flex-start;gap:8px;}
-  .home-duo .unreached-photo-box{width:100%;height:72px;border-radius:var(--radius-ctl);}
-  .home-duo .unreached-meta, .home-duo .unreached-pop{font-size:11.5px;}
-  .home-duo .unreached-card h3{font-size:14.5px;}
-  .motif-spotlight-card{background:linear-gradient(160deg, rgba(159,176,195,.12) 0%, var(--paper-raised) 65%);}
-  .motif-spotlight-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tan-deep);letter-spacing:.02em;margin-bottom:8px;}
-  .motif-spotlight-card h3{font-size:14.5px;margin-bottom:4px;}
-  .motif-spotlight-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
   .practice-nudge{
     display:flex;align-items:center;justify-content:center;gap:6px;
-    text-align:center;font-size:12.5px;font-weight:500;color:var(--ink-faint);
-    padding:14px 0 6px;cursor:pointer;
+    text-align:center;font-size:13px;font-weight:600;color:var(--gold-deep);
+    background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius-ctl);padding:13px 0;margin-top:4px;cursor:pointer;
   }
   .practice-nudge i{font-size:13px;}
 
@@ -427,7 +445,7 @@
   <button class="navitem" data-nav="practice"><span class="dot"><i class="ti ti-swords"></i></span><span>Practice</span></button>
   <button class="navitem" data-nav="browse"><span class="dot"><i class="ti ti-search"></i></span><span>Browse</span></button>
   <button class="navitem" data-nav="topics"><span class="dot"><i class="ti ti-tags"></i></span><span>Topics</span></button>
-  <button class="navitem" data-nav="characters"><span class="dot"><i class="ti ti-users"></i></span><span>People</span></button>
+  <button class="navitem" data-nav="characters"><span class="dot"><i class="ti ti-users"></i></span><span>Study</span></button>
   <button class="navitem" data-nav="add"><span class="dot"><i class="ti ti-plus"></i></span><span>Add</span></button>
 </nav>
 
@@ -1122,27 +1140,66 @@ function go(screen, params={}){
 }
 
 /* ---------- HOME ----------
-   v4 "editorial Home" (DATA_MODEL.md §8, item 78) — no verse list, no
-   progress stats. Memorization moved wholesale to the new Practice tab
-   (renderPracticeLanding()); Home is the app's front door for content
-   that isn't about a personal to-do list — Verse of the Day, Unreached of
-   the Day, Motif Spotlight. A single subtle text-link nudge is the one
-   deliberate exception (item 81) — see renderPracticeNudge(). */
+   v6 (DATA_MODEL.md §8, item 82) — a greeting + streak header, a
+   media-heavy Verse of the Day hero, then a stack of compact "discovery"
+   cards (Unreached of the Day, Story of the Day), then a single practice
+   link. Memorization itself still lives on its own Practice tab (item
+   78) — this is the editorial front door, just redesigned per a
+   hand-specified layout after the item 81 version didn't land well. */
+function greeting(){
+  const h = new Date().getHours();
+  if(h < 5) return 'Good night';
+  if(h < 12) return 'Good morning';
+  if(h < 17) return 'Good afternoon';
+  if(h < 21) return 'Good evening';
+  return 'Good night';
+}
+/* A small inline-SVG placeholder, hue-seeded from an id so different
+   verses/stories/people get a visually distinct (but still on-brand)
+   placeholder instead of one repeated image — stands in for real photos/
+   illustrations until those exist, with zero external image dependency.
+   Same hash shape as topicColor() elsewhere in this file. */
+function placeholderArt(seed, hueBase){
+  let h = 0;
+  for(let i=0;i<seed.length;i++) h = (h*31 + seed.charCodeAt(i)) >>> 0;
+  const hue = hueBase != null ? hueBase : h % 360;
+  const hue2 = (hue + 28) % 360;
+  // Double-quoted SVG attributes deliberately, not single — encodeURIComponent
+  // does NOT escape "'", so a single-quoted SVG would leak literal quote
+  // characters into the data URI and break any single-quoted JS string it's
+  // later embedded in (e.g. an inline onerror handler).
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">`
+    + `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">`
+    + `<stop offset="0%" stop-color="hsl(${hue},65%,24%)"/>`
+    + `<stop offset="100%" stop-color="hsl(${hue2},55%,11%)"/></linearGradient></defs>`
+    + `<rect width="400" height="300" fill="url(#g)"/>`
+    + `<circle cx="320" cy="55" r="40" fill="hsl(${hue},80%,62%)" opacity=".5"/>`
+    + `<path d="M0 235 L85 150 L155 205 L230 115 L320 215 L400 165 L400 300 L0 300 Z" fill="hsl(${hue2},40%,8%)" opacity=".85"/>`
+    + `</svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+function renderHomeHeader(){
+  const streak = computeStreak();
+  return `
+    <div class="home-greet-row">
+      <div>
+        <div class="home-greet">${greeting()}</div>
+        <div class="home-greet-sub">Let's spend some time in the Word today.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        ${streak > 0 ? `<div class="streak-badge"><i class="ti ti-flame"></i> ${streak} day${streak===1?'':'s'}</div>` : ''}
+        <button class="back-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
+      </div>
+    </div>`;
+}
 function renderHome(){
   loadVotdRemote(); loadVotdImage(); // fire-and-forget; no-op once status leaves 'idle'
   loadUnreachedOfDay();
   return `
-    <div class="topbar">
-      <div class="brand"><i class="ti ti-leaf"></i><h1>Rooted</h1></div>
-      <button class="back-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
-    </div>
+    ${renderHomeHeader()}
     ${renderVerseOfTheDayCard()}
-    ${(()=>{
-      const unreached = renderUnreachedCard();
-      const motif = renderMotifSpotlightCard();
-      if(unreached && motif) return `<div class="home-duo">${unreached}${motif}</div>`;
-      return unreached + motif;
-    })()}
+    ${renderUnreachedCard()}
+    ${renderStoryOfTheDayCard()}
     ${renderPracticeNudge()}
   `;
 }
@@ -1205,49 +1262,59 @@ function renderVerseOfTheDayCard(){
   const ref = remote ? remote.reference : (local ? local.reference : null);
   if(!text) return renderEmptyVerses();
   const img = votdImage.status === 'ready' ? votdImage.data : null;
-  const bgStyle = img
-    ? `background-image:linear-gradient(180deg, rgba(8,9,11,.1) 0%, rgba(8,9,11,.8) 100%), url('${esc(img.imageUrl)}');background-size:cover;background-position:center;`
-    : '';
+  // Real Unsplash photo once configured; a warm placeholder illustration
+  // (date-seeded, so it's stable for the day) until then — this is meant
+  // to be judged for the "media-heavy hero" feel now, not left blank.
+  const bgUrl = img ? img.imageUrl : placeholderArt(ref || 'votd', 38);
   // Only the local pick maps to a Verse record we can open a detail page
   // for — a YouVersion-sourced verse has no corresponding local id.
   const tapAttrs = (!remote && local) ? ` data-action="open-verse" data-id="${local.id}"` : '';
   return `
-    <div class="card votd-card${(!remote && local) ? ' tap' : ''}" style="${bgStyle}"${tapAttrs}>
+    <div class="card votd-hero${(!remote && local) ? ' tap' : ''}" style="background-image:url('${esc(bgUrl)}');"${tapAttrs}>
       <div class="votd-label"><i class="ti ti-sun"></i> Verse of the Day</div>
       <div class="votd-text">${esc(text)}</div>
       <div class="votd-ref">${esc(ref)}</div>
+      ${(!remote && local) ? `<div class="votd-action"><i class="ti ti-book"></i> Read chapter</div>` : ''}
       ${img ? `<div class="votd-attribution">Photo by <a href="${esc(img.photographerUrl)}" target="_blank" rel="noopener">${esc(img.photographerName)}</a> on <a href="https://unsplash.com/?utm_source=rooted_app&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>` : ''}
     </div>`;
 }
-/* Motif Spotlight — one of the app's curated Motifs (recurring biblical
-   patterns), date-seeded the same way as Verse of the Day, surfacing the
-   character/story-connections side of the app on Home too (item 81). Text
-   only, same "prove the layout before spending on imagery" pattern used
-   for character portraits and Verse of the Day before its own photo —
-   no Motif imagery exists yet. */
-function motifOfTheDay(){
-  if(!motifs.length) return null;
+/* Story of the Day — one of the app's curated Stories, date-seeded the
+   same way as Verse of the Day, surfacing the character/story side of
+   the app on Home too (item 82). Same "discovery card" row format as
+   Unreached of the Day. No Story illustrations exist yet (known gap —
+   see CLAUDE.md item 2's sibling note on character portraits), so this
+   uses placeholderArt() for the thumbnail until real art is generated;
+   swapping in real art later is a one-line change, not a redesign. */
+function storyOfTheDay(){
+  if(!lore.stories.length) return null;
   const d = new Date();
   const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
-  return motifs[dayKey % motifs.length];
+  return lore.stories[dayKey % lore.stories.length];
 }
-function renderMotifSpotlightCard(){
-  const m = motifOfTheDay();
-  if(!m) return '';
+function renderStoryOfTheDayCard(){
+  const s = storyOfTheDay();
+  if(!s) return '';
   return `
-    <div class="card motif-spotlight-card tap" data-action="open-motif" data-id="${m.id}">
-      <div class="motif-spotlight-label"><i class="ti ti-sparkles"></i> Motif Spotlight</div>
-      <h3>${esc(m.name)}</h3>
-      <p class="motif-spotlight-desc">${esc(m.description)}</p>
+    <div class="card discovery-card tap" data-action="open-story" data-id="${s.id}">
+      <div class="discovery-card-inner">
+        <div class="discovery-text">
+          <div class="discovery-label"><i class="ti ti-book-2"></i> Story of the Day</div>
+          <h3>${esc(s.title)}</h3>
+          <div class="discovery-meta">${esc(s.primaryReference)}</div>
+          <div class="discovery-sub">${esc((s.summary||'').slice(0,90))}${(s.summary||'').length>90?'…':''}</div>
+        </div>
+        <div class="discovery-thumb-box"><img class="discovery-thumb" src="${placeholderArt(s.id)}" alt=""></div>
+      </div>
     </div>`;
 }
-/* Subtle practice reminder (item 81) — the owner explicitly did not want
-   the due-verse workflow back on Home as a loud button; this is one quiet
-   text line, present only when something's actually due, gone otherwise. */
+/* Practice reminder — a compact, high-contrast link, not a full progress
+   dashboard (that stays on its own Practice tab, item 78); present only
+   when something's actually due, gone otherwise. */
 function renderPracticeNudge(){
   const n = dueVerses().length;
   if(!n) return '';
-  return `<div class="practice-nudge tap" data-action="go-practice">${n} verse${n===1?'':'s'} due for practice <i class="ti ti-arrow-right"></i></div>`;
+  const goal = Math.min(n, settings.dailyGoal || 10);
+  return `<div class="practice-nudge tap" data-action="go-practice">Practice ${goal} of ${n} due verse${n===1?'':'s'} <i class="ti ti-arrow-right"></i></div>`;
 }
 /* Unreached of the Day — proxied through api/unreached-of-the-day (see that
    file for why: keeping the Joshua Project API key server-side, and
@@ -1273,16 +1340,17 @@ async function loadUnreachedOfDay(){
 function renderUnreachedCard(){
   const {status, data: d} = unreachedOfDay;
   if(status !== 'ready' || !d || !d.name) return '';
+  const thumb = d.photoUrl || placeholderArt(d.name, 205);
   return `
-    <div class="card unreached-card tap" data-action="open-unreached">
-      <div class="unreached-card-inner">
-        <div class="unreached-text">
-          <div class="unreached-label"><i class="ti ti-world"></i> Unreached of the Day</div>
+    <div class="card discovery-card tap" data-action="open-unreached">
+      <div class="discovery-card-inner">
+        <div class="discovery-text">
+          <div class="discovery-label"><i class="ti ti-world"></i> Unreached of the Day</div>
           <h3>${esc(d.name)}</h3>
-          <div class="unreached-meta">${[d.country, d.religion].filter(Boolean).map(esc).join(' · ')}</div>
-          ${d.population ? `<div class="unreached-pop">${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}</div>` : ''}
+          <div class="discovery-meta">${[d.country, d.religion].filter(Boolean).map(esc).join(' · ')}</div>
+          ${d.population ? `<div class="discovery-sub">${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}</div>` : ''}
         </div>
-        ${d.photoUrl ? `<div class="unreached-photo-box"><img class="unreached-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" loading="lazy" onerror="this.parentElement.remove()"></div>` : ''}
+        <div class="discovery-thumb-box"><img class="discovery-thumb" src="${esc(thumb)}" alt="${esc(d.name)}" loading="lazy" onerror="this.src='${placeholderArt(d.name, 205)}'"></div>
       </div>
     </div>`;
 }
@@ -1293,7 +1361,7 @@ function renderUnreachedDetail(){
     <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
     ${d.photoUrl ? `<img class="unreached-full-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" onerror="this.remove()">` : ''}
     <div class="topbar"><h1>${esc(d.name)}</h1></div>
-    <div class="unreached-label" style="margin-bottom:16px;"><i class="ti ti-world"></i> Unreached of the Day, from Joshua Project</div>
+    <div class="discovery-label" style="margin-bottom:16px;"><i class="ti ti-world"></i> Unreached of the Day, from Joshua Project</div>
     <div class="stat-row">
       ${d.population ? `<div class="stat-card"><div class="num">${d.population.toLocaleString()}</div><div class="label">population</div></div>` : ''}
       ${d.percentEvangelical!=null ? `<div class="stat-card"><div class="num">${d.percentEvangelical}%</div><div class="label">evangelical</div></div>` : ''}

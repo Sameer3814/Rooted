@@ -54,19 +54,23 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
-  step). Screens: **Home** (editorial front door as of 2026-09-14 — Verse
-  of the Day and, once configured, Unreached of the Day; no verses, no
-  progress stats, no practice affordance — see item 78), **Practice**
-  (its own bottom-nav tab now — due-today stats, the daily-goal ring, the
-  challenge-type picker, the full verse library, and the four challenge
-  types themselves: fill-in-blank, scramble, self-graded progressive
-  reveal, self-graded verse ladder — this is everything that used to live
-  on Home before item 78), Browse (search/drill the full corpus), Verse
-  detail, Topics, Topic detail, People (grouped by era), Character detail
-  (life timeline, family, stories, pattern badges), Stories list,
-  Story detail (related stories, pattern badges), Patterns list,
-  Pattern detail, Add Verse, Add Character,
-  and **Settings** (gear icon, top-right of Home) — the account bar for
+  step). Screens: **Home** (editorial front door as of 2026-09-14 — a
+  greeting + streak header, Verse of the Day, Unreached of the Day, and
+  Story of the Day, plus one practice link when verses are due; no
+  progress dashboard, no practice session UI — see items 78 and 82),
+  **Practice** (its own bottom-nav tab now — due-today stats, the
+  daily-goal ring, the challenge-type picker, the full verse library, and
+  the four challenge types themselves: fill-in-blank, scramble,
+  self-graded progressive reveal, self-graded verse ladder — this is
+  everything that used to live on Home before item 78), Browse
+  (search/drill the full corpus), Verse detail, Topics, Topic detail,
+  **Study** (bottom-nav label as of item 82 — same tab and route as
+  always, just renamed since it was already People + Stories + Patterns,
+  not People alone): People (grouped by era), Character detail (life
+  timeline, family, stories, pattern badges), Stories list, Story detail
+  (related stories, pattern badges), Patterns list, Pattern detail, Add
+  Verse, Add Character, and **Settings** (gear icon, top-right of Home) —
+  the account bar for
   optional cloud sync and the "Your data" export/import card live here,
   not on Home. They started on Home (2026-09-08) and were moved the same
   day on direct feedback: sync/backup controls are occasional-use, and
@@ -696,7 +700,23 @@ hand-curate all the content before building.
     originally sketched. Needs `YOUVERSION_APP_KEY` and
     `UNSPLASH_ACCESS_KEY` set in Azure Portal (both cards just render
     without their remote content until then, same fail-quiet pattern as
-    Joshua Project). Full writeup: DATA_MODEL.md §8, item 81.
+    Joshua Project). Full writeup: DATA_MODEL.md §8, item 81. That
+    version ("doesn't look good") was replaced the same day by a full,
+    hand-specified redesign (item 82): a greeting/streak header
+    (`renderHomeHeader()`, streak badge back on Home — an explicit
+    reversal of item 81's choice to leave it off, this time by direct
+    request, not silently), the Verse of the Day card rebuilt as a
+    full-bleed `.votd-hero` with Fraunces serif text over a photo/
+    placeholder background, Unreached of the Day and a new Story of the
+    Day sharing one `.discovery-card` row format (text left, rectangular
+    thumbnail right), and `renderPracticeNudge()` restyled into a
+    higher-contrast "Practice N of M due verses" pill. Motif Spotlight
+    is gone (not in the new spec). `placeholderArt()` (new) generates a
+    hue-seeded inline-SVG placeholder image with zero external
+    dependency, standing in for Unsplash/story-illustration photos until
+    those exist. The bottom-nav "People" tab is now labeled **Study**
+    (same route, since it already held People/Stories/Patterns). Full
+    writeup: DATA_MODEL.md §8, item 82.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

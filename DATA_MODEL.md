@@ -3350,6 +3350,105 @@ inventing a new principle:
       action). Renders nothing at all when zero verses are due.
     - `sw.js` bumped to `rooted-v77`.
 
+82. **Home v6: hand-specified full redesign — greeting/streak header, a
+    media-heavy VOTD hero, and a shared "discovery card" format for
+    Unreached of the Day and a new Story of the Day.** **Done
+    (2026-09-14), same day as item 81.** Item 81's two-column layout
+    ("doesn't look good") was replaced wholesale by a detailed,
+    section-by-section spec the owner wrote out directly, rather than a
+    wireframe sketch this time. Motif Spotlight and the two-column
+    `.home-duo` row are both gone — not in the new spec at all, so
+    removed rather than kept as dead code (`motifOfTheDay()`,
+    `renderMotifSpotlightCard()` deleted). The streak badge, notably,
+    *is* back on Home this time — explicitly requested — which reverses
+    the item 81 choice to leave it off as "progress content." Recorded
+    here rather than silently overwritten: the item 78 "how to apply"
+    note said to flag rather than silently reintroduce progress content;
+    this is that flag, and the owner's own explicit spec is the
+    resolution — streaks read as a return-visit habit signal, not a
+    memorization stat, and the owner wants it front and center the way
+    YouVersion itself does it.
+    - **`greeting()`** — pure function of `new Date().getHours()`, one of
+      five bands (night/morning/afternoon/evening/night), no new storage.
+    - **`renderHomeHeader()`** (new) — replaces the old plain
+      `.topbar`/brand row entirely. Left: the greeting plus a fixed
+      sub-line. Right: `computeStreak()` (already existed, DATA_MODEL.md
+      §7, previously only shown in Practice's stat row and the session-
+      complete screen) rendered as `.streak-badge` — an orange/red
+      gradient pill with a flame icon, high-contrast on purpose per the
+      owner's "just like YouVersion" reference — next to the existing
+      settings gear button. Hidden entirely at a 0-day streak rather
+      than showing "0 days," since a badge announcing zero reads as a
+      failure state, not a habit prompt.
+    - **`placeholderArt(seed, hueBase)`** (new) — a small inline-SVG data
+      URI (an abstract gradient + sun + mountain silhouette in the app's
+      gold family by default), hue-seeded from an id via the same
+      31-multiplier string hash `topicColor()` already uses elsewhere in
+      this file, so different verses/stories/people get a distinct but
+      still on-brand placeholder rather than one image repeated
+      everywhere. Exists specifically so "what does a media-heavy layout
+      feel like" can be judged today, with zero external image
+      dependency and zero new binary assets to manage — swapping in a
+      real photo or a generated story illustration later only means
+      changing what feeds the `src`/`background-image`, not the markup.
+      One real bug caught before shipping: `encodeURIComponent` does not
+      escape `'`, so the SVG's own attributes had to be written with `"`
+      instead — a single-quoted SVG would have leaked literal `'`
+      characters into the data URI and broken the single-quoted JS
+      string an `onerror` fallback embeds it in.
+    - **`renderVerseOfTheDayCard()`**, rebuilt as `.votd-hero` — a
+      full-width, full-bleed card (`background-size:cover`, a
+      `180deg` dark gradient overlay via `::before` for text legibility)
+      instead of item 81's flat card. Real Unsplash photo when
+      `votdImage` is ready, `placeholderArt()` otherwise — both paths
+      render identically, so there's nothing to change in markup once
+      `UNSPLASH_ACCESS_KEY` is set. Verse text now renders in
+      **Fraunces** (italic), brought back specifically for this card —
+      the rest of the app stayed all-Inter per the v3 dark-theme
+      decision (CLAUDE.md "Visual direction"), but the owner's spec
+      asked for serif verse text here, so `Fraunces:ital,wght@0,500;
+      0,600;1,500` was added back to the Google Fonts `<link>`
+      (`index.html` `<head>`) as a scoped addition, not a reversal of v3
+      — nothing else references the family. A `.votd-action` pill
+      ("Read chapter") now sits inside the card as an explicit tap
+      target, shown only when the card is actually tappable (the local
+      pick, not a YouVersion-sourced verse with no local `Verse` record
+      to open — same constraint item 81 already had).
+    - **`storyOfTheDay()` / `renderStoryOfTheDayCard()`** (new) — a
+      date-seeded pick from `lore.stories` (same indexing shape as
+      `verseOfTheDay()`/old `motifOfTheDay()`), rendered in the new
+      shared `.discovery-card` row format: title, `primaryReference`, a
+      truncated summary snippet on the left, a `placeholderArt()`
+      rectangular thumbnail on the right, tapping through to the
+      existing Story detail page (`open-story`). This is the first Home
+      surface for the Stories side of the app (Verse of the Day and
+      Unreached of the Day were both non-narrative); real per-story
+      illustrations are a known future investment (CLAUDE.md known-gaps
+      item 2's sibling — character portraits already flagged that
+      cost), not attempted here.
+    - **`renderUnreachedCard()`** ported onto the same shared
+      `.discovery-card`/`.discovery-card-inner`/`.discovery-thumb-box`/
+      `.discovery-thumb` classes Story of the Day uses (previously
+      `.unreached-card`-prefixed classes, unique to that one card) —
+      the "old format" the owner asked to return to (item 80's rectangle-
+      with-photo-on-the-right shape) is now the shared row format both
+      cards use, not a one-off. Falls back to `placeholderArt(d.name,
+      205)` (a fixed blue-family hue) when Joshua Project's own
+      `photoUrl` is missing or fails to load, rather than the old
+      behavior of just omitting the image box.
+    - **`renderPracticeNudge()`** rewritten to the owner's exact copy —
+      "Practice N of M due verses →" (N capped at the daily goal, M the
+      full due count) — and restyled from a plain centered text line to
+      a full-width high-contrast pill (`.practice-nudge`, gold text on a
+      raised card background with a hairline border), still shown only
+      when `dueVerses().length > 0`.
+    - **Bottom nav:** the "People" tab is relabeled **"Study"** (still
+      `data-nav="characters"`, same route — People/Stories/Patterns all
+      already lived together behind that one tab; only the label was
+      stale). Screen-level titles ("People", "Stories", "Patterns")
+      inside that tab are unchanged — this only renamed the tab itself.
+    - `sw.js` bumped to `rooted-v78`.
+
 ---
 
 ## 9. How the app reads this data
