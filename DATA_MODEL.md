@@ -3258,6 +3258,26 @@ inventing a new principle:
     `from`-tracking pattern from item 75 — there's no ambiguity about
     where "back" should go for a screen with exactly one entry point.
 
+80. **Unreached of the Day, Home card: full redesign to a side-by-side
+    layout.** **Done (2026-09-14).** The top-banner photo treatment
+    from item 79 still didn't satisfy "show the whole picture" for the
+    owner even after the crop-bias fix — a hand-drawn sketch supplied
+    directly: text on the left, a small square photo box on the right,
+    replacing the full-width banner entirely. `.unreached-card-inner`
+    is now a flex row — `.unreached-text` (label, name, meta, population
+    — unchanged content, just no longer sharing space with a banner
+    image above it) on the left, `.unreached-photo-box` (a fixed 68×68
+    rounded square, `background:var(--surface-sunken)` so it reads as a
+    deliberate frame rather than empty space) on the right. Inside that
+    box, `.unreached-photo` uses `object-fit:contain` rather than
+    `cover` — the whole point of this pass — so the image is never
+    cropped even at this small size; a non-square source photo
+    letterboxes inside the square frame instead of losing any of the
+    image, which is exactly what "the entire picture" means literally.
+    The full-size, natural-aspect-ratio treatment on the detail page
+    (`.unreached-full-photo`, item 79) is untouched — this pass only
+    changed the compact Home preview.
+
 ---
 
 ## 9. How the app reads this data
