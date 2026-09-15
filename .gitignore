@@ -10,3 +10,12 @@ pipeline/.cache/
 api/local.settings.json
 api/bin/
 api/obj/
+
+# Gemini API key for pipeline/generate_character_art.py — never commit.
+# pipeline/.env.local.example is the checked-in template.
+pipeline/.env.local
+pipeline/.artscratch/
+
+# Raw downloads from the Colab SDXL story-art notebook, before
+# pipeline/import_story_art.py resizes/moves them into media/stories/.
+pipeline/.storyart_incoming/

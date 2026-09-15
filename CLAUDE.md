@@ -124,6 +124,21 @@ The schema was deliberately designed so all of the above can be added
   original ask said "swipe left," corrected on testing to swipe RIGHT,
   matching the standard mobile edge-swipe-back convention. See
   DATA_MODEL.md §8, items 102-104.
+- **Story illustration pipeline — a 6-story style test, not yet wired
+  into the app — done (2026-09-15).** A deliberately separate, free
+  toolchain from the character-portrait work: **SDXL on Colab's
+  free-tier T4 GPU**, not Gemini, since the owner didn't want more API
+  spend. New: `pipeline/colab_story_art_sdxl.ipynb` (runs entirely on
+  Colab), `pipeline/curation/story_art_settings.json` (6 stories so
+  far), `pipeline/import_story_art.py` (resizes Colab's downloaded
+  output into `media/stories/` and a new `data/story_illustrations.json`
+  manifest — same manifest-not-Media-entity shortcut as character
+  portraits). Two-machine workflow, unlike the Gemini pipeline: generate
+  in Colab, download the zip, unzip into the new gitignored
+  `pipeline/.storyart_incoming/`, then run the import script. Whether
+  SDXL's output actually matches the established look is unproven —
+  review the 6-story test before committing to the other ~318 stories.
+  See DATA_MODEL.md §8, item 105.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a

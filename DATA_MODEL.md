@@ -4508,6 +4508,80 @@ inventing a new principle:
       consistent with every other bottom-nav tab root.
     - `sw.js` bumped to `rooted-v101`.
 
+105. **Story illustration pipeline, on a completely separate free
+    (non-Gemini) toolchain — a style-test batch, nothing wired into the
+    app yet.** **Done (2026-09-15).** After the character-portrait work
+    (items 90-101), the owner wanted the same treatment for Stories, but
+    explicitly did not want to spend more on Gemini API credits. Decided
+    against reusing `generate_character_art.py` — this needed a
+    genuinely different, no-cost pipeline: **Stable Diffusion XL running
+    on Google Colab's free-tier T4 GPU**, chosen over FLUX.1[schnell]
+    specifically because schnell's ~12B parameters typically want ~24GB
+    VRAM at fp16 and would fight the T4's 16GB, while SDXL fits
+    comfortably with mature Colab/`diffusers` tooling. Real, flagged
+    tradeoff going in: SDXL is a completely different model family from
+    Gemini's image generator, so matching the established stylized-3D-
+    animation look is NOT guaranteed through prompting alone the way it
+    was tuned for Gemini — this batch is explicitly a style TEST, to be
+    judged before any larger commitment (~324 stories total), the same
+    "prove it small before scaling" discipline used for every character-
+    art batch.
+    - **Two-machine workflow, unlike the Gemini pipeline** (which runs
+      and commits entirely on this machine): Colab can't write into this
+      repo directly, so generation happens there, comes back as a
+      downloaded zip, and gets brought in by hand. `pipeline/
+      colab_story_art_sdxl.ipynb` (new) is the Colab notebook itself —
+      installs `diffusers`/`transformers`/`accelerate`, loads
+      `stabilityai/stable-diffusion-xl-base-1.0` in fp16 with
+      `DPMSolverMultistepScheduler` and attention slicing (keeps it
+      inside the T4's 16GB), generates at 1216×832 (one of SDXL's native
+      trained resolutions, ~3:2 — a wide landscape scene suits a
+      multi-figure narrative moment far better than the character
+      portraits' tight 1:1 close-up crop), and zips the results for
+      download via `google.colab.files.download()`.
+    - **Style prompt**, a same-design-language sibling of
+      `generate_character_art.py`'s `STYLE_SUFFIX` but rewritten for a
+      wide multi-figure SCENE rather than a close-up single-character
+      portrait (no "CLOSE-UP HEAD-AND-SHOULDERS" framing; explicit "wide
+      establishing scene, full figures and environment both visible"
+      instead). One real mechanism difference from the Gemini pipeline,
+      not just cosmetic: SDXL has a dedicated `negative_prompt` channel,
+      which is where "not photorealistic," "not flat vector art," etc.
+      now live — negation embedded in the main positive prompt (as
+      `generate_character_art.py` does successfully for Gemini) is much
+      less reliable for SD-family diffusion models, so this pipeline
+      deliberately does NOT copy that part of the Gemini prompt
+      structure verbatim.
+    - **`pipeline/curation/story_art_settings.json`** (new) — same shape
+      as `character_art_settings.json`, a flat map of story id → a real,
+      specific scene description. Seeded with exactly the 6 stories the
+      notebook currently generates (Creation, the Flood, Feeding the
+      5,000, David and Goliath, the Crucifixion, Daniel in the Lions'
+      Den), chosen to span visually distinct moods rather than similar
+      ones, so the style test is a fair one. Not yet 324 entries — that
+      full curation pass is real future work, gated on this test batch
+      actually looking right.
+    - **`pipeline/import_story_art.py`** (new) — the "bring it back into
+      the repo" half of the two-machine workflow. Reads every
+      `<story_id>.png`/`.jpg` out of `pipeline/.storyart_incoming/`
+      (new, gitignored — the drop point for an unzipped Colab download),
+      validates each id against `data/stories.json` (rejects anything
+      that isn't a real story id rather than silently importing garbage),
+      resizes to 960px wide (proportional height, since these are ~3:2
+      not square) and re-compresses before writing to
+      `media/stories/<id>.jpg`, and appends to a new flat manifest,
+      `data/story_illustrations.json` — deliberately the same
+      "manifest, not a full Media entity" shortcut `data/
+      character_portraits.json` already established, not a new pattern.
+      Does not touch `index.html` — no frontend wiring exists yet for
+      story illustrations; that's the next step once the 6-story style
+      test is reviewed and approved.
+    - `.gitignore` gained `pipeline/.storyart_incoming/` (this pass also
+      finally committed the `pipeline/.env.local`/`pipeline/.artscratch/`
+      rules from the character-art work, which had been sitting
+      uncommitted in the working copy the entire time since that
+      pipeline was first built).
+
 ---
 
 ## 9. How the app reads this data
