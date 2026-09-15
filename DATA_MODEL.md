@@ -4230,6 +4230,40 @@ inventing a new principle:
       Sennacherib, Joash, Uzziah, Sanballat, Haman; neutral — Jehu,
       Zedekiah, Asa, Ahasuerus, Vashti. `sw.js` bumped to `rooted-v91`.
 
+96. **Sixth character-portrait batch — 25 more, 150 total (of 267).**
+    **Done (2026-09-15).** `era_exile`, `era_divided_kingdom`,
+    `era_return_from_exile`, `era_birth_of_jesus`, and the first
+    `era_jesus_ministry` characters (John's Gospel and the Twelve):
+    Eliphaz, Baruch, Ebed-Melech, Gedaliah, Shadrach, Meshach, Abednego,
+    Darius the Mede, Hosea, Gomer, Amos, Haggai, Zechariah (the
+    prophet — distinct from the earlier-batch priest of the same name),
+    Joseph (Mary's husband), Zacharias, Elizabeth, Andrew, James son of
+    Zebedee, John (the apostle), Philip the apostle, Nathanael,
+    Nicodemus, the Samaritan woman, Martha, Mary of Bethany. No
+    `description`-override fixes needed — none of this batch's `roles`
+    text carried an origin/youth framing that would mislead the model
+    (Elizabeth's "unlikely pregnancy in old age" is itself the correct
+    age cue, and rendered that way without prompting).
+    - **One mid-batch network failure, not a content or style
+      problem:** the first `--test` run died on Elizabeth with a raw
+      `ConnectionResetError` (a dropped TCP connection mid-response,
+      not an API error response) after successfully completing the
+      first 14 characters. Simply re-ran `--test` for the remaining 11
+      ids (Elizabeth onward); all completed cleanly on the retry with
+      no prompt changes.
+    - Shadrach, Meshach, and Abednego were deliberately given three
+      different moments from the same furnace scene (calm before the
+      open furnace mouth; walking out through the flames unsinged;
+      standing firm before the golden image beforehand) so the three
+      portraits read as distinct scenes rather than three near-
+      duplicate images of the same pose.
+    - Expression calls: positive — Baruch, Ebed-Melech, Shadrach,
+      Meshach, Abednego, Darius the Mede, Hosea, Amos, Haggai,
+      Zechariah the prophet, Joseph, Zacharias, Elizabeth, Andrew,
+      James, John, Philip, Nathanael, Nicodemus, the Samaritan woman,
+      Martha, Mary of Bethany; negative — Eliphaz; neutral — Gedaliah,
+      Gomer. `sw.js` bumped to `rooted-v92`.
+
 ---
 
 ## 9. How the app reads this data

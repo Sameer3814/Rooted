@@ -27,5 +27,11 @@
   "char_jeroboam", "char_widow_of_zarephath", "char_shunammite_woman", "char_jehu", "char_sennacherib",
   "char_huldah", "char_zedekiah", "char_abijah", "char_asa", "char_jehoshaphat",
   "char_joash", "char_jehoiada", "char_zechariah_priest", "char_uzziah", "char_manasseh",
-  "char_jeshua_priest", "char_sanballat", "char_haman", "char_ahasuerus", "char_vashti"
+  "char_jeshua_priest", "char_sanballat", "char_haman", "char_ahasuerus", "char_vashti",
+
+  "char_eliphaz", "char_baruch", "char_ebedmelech", "char_gedaliah", "char_shadrach",
+  "char_meshach", "char_abednego", "char_darius_the_mede", "char_hosea", "char_gomer",
+  "char_amos", "char_haggai", "char_zechariah_prophet", "char_joseph_husband_of_mary", "char_zacharias",
+  "char_elizabeth", "char_andrew", "char_james_son_of_zebedee", "char_john_apostle", "char_philip_apostle",
+  "char_nathanael", "char_nicodemus", "char_samaritan_woman", "char_martha", "char_mary_of_bethany"
 ]

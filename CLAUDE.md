@@ -419,7 +419,7 @@ hand-curate all the content before building.
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
-   **Started 2026-09-15, expanded five times the same day** — 125 of 267
+   **Started 2026-09-15, expanded six times the same day** — 150 of 267
    characters now have a real generated portrait (stylized 3D-animation
    style, a story-appropriate background per character, and — since the
    third batch — an explicit expression matched to whether their own
@@ -428,16 +428,16 @@ hand-curate all the content before building.
    small avatars and Character Detail's hero. Still not the full `Media`
    entity from design philosophy #3 — a flat
    `data/character_portraits.json` manifest instead, a deliberate
-   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-95).
-   Remaining gap: the other ~142 characters (mostly the "deep study"
-   supporting cast from item 10) still show the icon placeholder, and
-   none of the earlier 49 portraits from before the expression rule
-   landed were retroactively redone (an explicit, deliberate scope
-   choice, not an oversight — see item 93). Continuing the batch in a
-   long-haul multi-session push, same discipline as item 10's
-   supporting-cast curation — worth revisiting whether the manifest
-   shortcut should graduate to the real `Media` entity once coverage is
-   complete, not before.
+   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-96).
+   Remaining gap: the other ~117 characters (mostly the rest of the
+   Gospels/Acts cast and the "deep study" supporting cast from item 10)
+   still show the icon placeholder, and none of the earlier 49 portraits
+   from before the expression rule landed were retroactively redone (an
+   explicit, deliberate scope choice, not an oversight — see item 93).
+   Continuing the batch in a long-haul multi-session push, same
+   discipline as item 10's supporting-cast curation — worth revisiting
+   whether the manifest shortcut should graduate to the real `Media`
+   entity once coverage is complete, not before.
 3. ~~**Expanding beyond Genesis to other OT books, in canonical
    order.**~~ **Done — the entire Old Testament is curated
    (2026-09-10).** Owner's direction, 2026-09-04: work through the rest
