@@ -4195,6 +4195,41 @@ inventing a new principle:
     older/weathered faces (Elimelech, Korah). `sw.js` bumped to
     `rooted-v90`.
 
+95. **Fifth character-portrait batch — 25 more, 125 total (of 267).**
+    **Done (2026-09-15).** `era_united_kingdom`, `era_divided_kingdom`,
+    `era_return_from_exile`, and `era_esther` supporting cast:
+    Mephibosheth, Joab, Adonijah, the queen of Sheba, Rehoboam,
+    Jeroboam, the widow of Zarephath, the Shunammite woman, Jehu,
+    Sennacherib, Huldah, Zedekiah, Abijah, Asa, Jehoshaphat, Joash,
+    Jehoiada, Zechariah son of Jehoiada, Uzziah, Manasseh, Jeshua (the
+    high priest), Sanballat, Haman, Ahasuerus, Vashti.
+    - **One `description`-override fix, same pattern as Josiah:**
+      Joash's `roles` field opens with "the boy king who restored the
+      temple" — but the temple restoration itself happened in his 23rd
+      regnal year (2 Kings 12:6), and the priest's-son killing later
+      still, both well into adulthood. Caught before generating: gave
+      him a description anchoring him as "king of Judah for forty
+      years, in the mature middle years of his reign... a grown adult
+      man, not a boy or child, despite having been crowned as a child."
+    - **Two retries, different causes:** the queen of Sheba's first
+      prompt (mentioning "gold" among her caravan's cargo) was rejected
+      outright by Gemini's content filter (HTTP 400, "prohibited
+      content guidelines") — reworded to "ornate chests" and it
+      generated cleanly on retry, no visual problem, a request-blocked
+      case rather than a bad-image case. Sennacherib's first generation
+      came back in a flatter, more graphic-novel/vector-shaded style
+      than the rounded 3D look every other portrait has — not
+      photorealism drift (the opposite direction on the same axis the
+      style prompt guards against) — a plain retry with the identical
+      prompt produced the correct rounded 3D-animation look on the
+      first attempt.
+    - Expression calls: positive — Mephibosheth, the queen of Sheba,
+      the widow of Zarephath, the Shunammite woman, Huldah, Abijah,
+      Jehoshaphat, Jehoiada, Zechariah (Jehoiada's son), Manasseh,
+      Jeshua; negative — Joab, Adonijah, Rehoboam, Jeroboam,
+      Sennacherib, Joash, Uzziah, Sanballat, Haman; neutral — Jehu,
+      Zedekiah, Asa, Ahasuerus, Vashti. `sw.js` bumped to `rooted-v91`.
+
 ---
 
 ## 9. How the app reads this data

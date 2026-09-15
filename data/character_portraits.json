@@ -21,5 +21,11 @@
   "char_zipporah", "char_naomi", "char_elimelech", "char_orpah", "char_nadab",
   "char_abihu", "char_korah", "char_eleazar", "char_ehud", "char_barak",
   "char_sisera", "char_jael", "char_jephthah", "char_jephthahs_daughter", "char_delilah",
-  "char_hannah", "char_michal", "char_uriah", "char_tamar", "char_amnon"
+  "char_hannah", "char_michal", "char_uriah", "char_tamar", "char_amnon",
+
+  "char_mephibosheth", "char_joab", "char_adonijah", "char_queen_of_sheba", "char_rehoboam",
+  "char_jeroboam", "char_widow_of_zarephath", "char_shunammite_woman", "char_jehu", "char_sennacherib",
+  "char_huldah", "char_zedekiah", "char_abijah", "char_asa", "char_jehoshaphat",
+  "char_joash", "char_jehoiada", "char_zechariah_priest", "char_uzziah", "char_manasseh",
+  "char_jeshua_priest", "char_sanballat", "char_haman", "char_ahasuerus", "char_vashti"
 ]

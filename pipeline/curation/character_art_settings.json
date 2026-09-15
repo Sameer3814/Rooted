@@ -118,5 +118,35 @@
   "char_michal": {"setting": "a palace window overlooking Jerusalem's streets, arms crossed, a procession softly visible below", "expression": "neutral"},
   "char_uriah": {"setting": "a war camp outside Rabbah at night, armor and shield resting nearby, campfires softly visible", "expression": "neutral"},
   "char_tamar": {"setting": "a quiet inner courtyard of the palace in Jerusalem, a torn ornate robe softly visible", "expression": "neutral"},
-  "char_amnon": {"setting": "a private chamber in the palace in Jerusalem, dim uneasy lamplight", "expression": "negative"}
+  "char_amnon": {"setting": "a private chamber in the palace in Jerusalem, dim uneasy lamplight", "expression": "negative"},
+
+  "char_mephibosheth": {"setting": "seated at the king's own table in the palace in Jerusalem, a crutch resting beside his chair, warm banquet light", "expression": "positive"},
+  "char_joab": {"setting": "a war camp outside a besieged city, sword and armor, campfires and tents softly visible", "expression": "negative"},
+  "char_adonijah": {"setting": "a feast at En Rogel beside a great stone, chariots and runners softly visible in the background", "expression": "negative"},
+  "char_queen_of_sheba": {"setting": "a grand caravan approaching the gates of Jerusalem, camels and attendants carrying ornate chests softly visible behind her", "expression": "positive"},
+  "char_rehoboam": {"setting": "the assembly grounds at Shechem, elders and young counselors softly visible on either side of him", "expression": "negative"},
+  "char_jeroboam": {"setting": "before a golden calf shrine at Bethel, incense smoke rising, torchlight", "expression": "negative"},
+  "char_widow_of_zarephath": {"setting": "the doorway of a modest home in Zarephath, a jar of flour and a small jug of oil on a table beside her", "expression": "positive"},
+  "char_shunammite_woman": {"setting": "the guest room she built on her rooftop in Shunem, warm evening light, a small bed visible", "expression": "positive"},
+  "char_jehu": {"setting": "a war chariot racing across a dusty plain toward Jezreel, dramatic motion and dust behind him", "expression": "neutral"},
+  "char_sennacherib": {"setting": "an Assyrian military camp outside Jerusalem's walls at night, siege tents and torches, an uneasy sky", "expression": "negative"},
+  "char_huldah": {"setting": "a quiet study in the Second Quarter of Jerusalem, an ancient scroll unrolled before her, warm lamplight", "expression": "positive"},
+  "char_zedekiah": {"setting": "the road toward Babylon under armed guard, the ruined walls of Jerusalem receding in the distance", "expression": "neutral"},
+  "char_abijah": {"setting": "a rugged battlefield in the hill country of Ephraim, a small army standing firm before a much larger one", "expression": "positive"},
+  "char_asa": {"setting": "the columned court of the palace in Jerusalem, royal robes, an uneasy dusk light", "expression": "neutral"},
+  "char_jehoshaphat": {"setting": "before a marching army in the wilderness of Tekoa, robed singers and musicians softly visible leading the ranks", "expression": "positive"},
+  "char_joash": {
+    "description": "Joash, king of Judah for forty years, in the mature middle years of his reign when he ordered the temple restored -- a grown adult man, not a boy or child, despite having been crowned as a child",
+    "setting": "the courts of the restored First Temple in Jerusalem, scaffolding and craftsmen softly visible, warm daylight",
+    "expression": "negative"
+  },
+  "char_jehoiada": {"setting": "the temple courts in Jerusalem, anointing oil and a small crown visible, guards standing watch nearby", "expression": "positive"},
+  "char_zechariah_priest": {"setting": "the temple court in Jerusalem, a soft radiant light on his face despite the surrounding tension", "expression": "positive"},
+  "char_uzziah": {"setting": "the incense altar inside the temple in Jerusalem, a censer in hand, alarmed priests softly visible nearby", "expression": "negative"},
+  "char_manasseh": {"setting": "a dim Babylonian prison cell, chains at his feet, a shaft of light breaking through a high window as he prays", "expression": "positive"},
+  "char_jeshua_priest": {"setting": "the half-rebuilt altar in Jerusalem, priestly robes, morning light and rising sacrificial smoke", "expression": "positive"},
+  "char_sanballat": {"setting": "atop a Samaritan watchtower overlooking Jerusalem's half-built walls, arms crossed, a scornful dusk light", "expression": "negative"},
+  "char_haman": {"setting": "the ornate halls of the Persian palace at Susa, an official's staff of office in hand, uneasy torchlight", "expression": "negative"},
+  "char_ahasuerus": {"setting": "the columned throne hall of the Persian palace at Susa, royal robes and a scepter, rich tapestries", "expression": "neutral"},
+  "char_vashti": {"setting": "a private chamber in the Persian palace at Susa, having declined the king's summons, composed and dignified", "expression": "neutral"}
 }
