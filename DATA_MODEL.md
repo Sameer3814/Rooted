@@ -4264,6 +4264,31 @@ inventing a new principle:
       Martha, Mary of Bethany; negative — Eliphaz; neutral — Gedaliah,
       Gomer. `sw.js` bumped to `rooted-v92`.
 
+97. **Seventh character-portrait batch — 25 more, 175 total (of 267).**
+    **Done (2026-09-15).** The rest of the Gospels' named supporting
+    cast, the Passion/Resurrection cast, early Acts figures, and a
+    cluster of `era_united_kingdom` civil-war/rebellion figures from
+    the item 10 "deep study" pass that had never gotten portraits:
+    Thomas, Zacchaeus, the rich young ruler, Caiaphas, Barabbas, Simon
+    of Cyrene, the penitent thief, Joseph of Arimathea, Cleopas,
+    Matthew, Matthias, Cornelius, Silas, the Philippian jailer, Abner,
+    Asahel, Abishai, Ahithophel, Hushai, Ittai, Shimei, Amasa, Sheba,
+    the wise woman of Abel, Priscilla. No `description`-override fixes
+    needed and no stylization retries — all 25 passed visual QA on the
+    first generation.
+    - The penitent thief and Simon of Cyrene both needed care around
+      the crucifixion setting (a cross, Golgotha) — handled the same
+      tasteful, dignified way the existing `char_centurion_at_the_cross`
+      and `char_judas_iscariot` entries already do, no new precedent
+      needed.
+    - Expression calls: positive — Thomas, Zacchaeus, Simon of Cyrene,
+      the penitent thief, Joseph of Arimathea, Cleopas, Matthew,
+      Matthias, Cornelius, Silas, the Philippian jailer, Hushai, Ittai,
+      the wise woman of Abel, Priscilla; negative — Caiaphas,
+      Ahithophel, Shimei, Sheba; neutral — the rich young ruler,
+      Barabbas, Abner, Asahel, Abishai, Amasa. `sw.js` bumped to
+      `rooted-v93`.
+
 ---
 
 ## 9. How the app reads this data

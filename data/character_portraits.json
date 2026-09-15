@@ -33,5 +33,11 @@
   "char_meshach", "char_abednego", "char_darius_the_mede", "char_hosea", "char_gomer",
   "char_amos", "char_haggai", "char_zechariah_prophet", "char_joseph_husband_of_mary", "char_zacharias",
   "char_elizabeth", "char_andrew", "char_james_son_of_zebedee", "char_john_apostle", "char_philip_apostle",
-  "char_nathanael", "char_nicodemus", "char_samaritan_woman", "char_martha", "char_mary_of_bethany"
+  "char_nathanael", "char_nicodemus", "char_samaritan_woman", "char_martha", "char_mary_of_bethany",
+
+  "char_thomas", "char_zacchaeus", "char_rich_young_ruler", "char_caiaphas", "char_barabbas",
+  "char_simon_of_cyrene", "char_penitent_thief", "char_joseph_of_arimathea", "char_cleopas", "char_matthew",
+  "char_matthias", "char_cornelius", "char_silas", "char_philippian_jailer", "char_abner",
+  "char_asahel", "char_abishai", "char_ahithophel", "char_hushai", "char_ittai",
+  "char_shimei", "char_amasa", "char_sheba", "char_wise_woman_of_abel", "char_priscilla"
 ]
