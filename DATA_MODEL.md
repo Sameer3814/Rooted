@@ -4582,6 +4582,74 @@ inventing a new principle:
       uncommitted in the working copy the entire time since that
       pipeline was first built).
 
+106. **Story art v2: the 6-story style test failed, root cause found,
+    fixed with a community LoRA plus two scene-description rewrites.**
+    **Done (2026-09-15), same day.** The owner reviewed item 105's first
+    batch and called it "horrible" — confirmed by looking at all 6
+    images directly: Creation and the Flood read as generic fantasy
+    digital-painting, the Crucifixion came out as a monochrome stock-
+    photo silhouette with no illustrated character detail at all, and
+    David and Goliath rendered Goliath as a full sci-fi robot/mech
+    instead of an armored man. Feeding the 5,000 and Daniel in the
+    Lions' Den were closer, though Daniel himself was an unlit
+    silhouette and the "lions" looked more like dogs.
+    - **Root cause, confirmed by research before attempting a fix**: base
+      `stable-diffusion-xl-base-1.0` has no reliable default lean toward
+      "stylized 3D animation" — its output style is essentially
+      unconstrained by that phrase alone, unlike Gemini's model, which
+      handled the same style instructions well (see item 91). This isn't
+      a prompt-wording problem, it's a base-model-capability gap.
+      Confirmed no single well-known SDXL checkpoint is reliably known
+      for a modern Pixar/DreamWorks look the way e.g. "Juggernaut XL" is
+      known for photoreal — this style lives in community LoRAs layered
+      on a general checkpoint, not full fine-tunes.
+    - **Fix: a verified, well-adopted LoRA, not a guess.** CivitAI's
+      "Pixar Style (SDXL)" (civitai.com/models/188525) — 201.6K
+      downloads, 575 "overwhelmingly positive" reviews, SDXL 1.0 base,
+      CreativeML Open RAIL++-M license (permits this use) — chosen over
+      several other real-but-thin-adoption alternatives found during
+      research (a full checkpoint claiming this style, `DynaVision-XL`,
+      had ~15 downloads/month; a competing LoRA's own author called it
+      "a kinda failed attempt"). The notebook now has the owner download
+      the `.safetensors` file from CivitAI by hand and upload it via a
+      new `files.upload()` cell — CivitAI downloads aren't reliably
+      scriptable from Colab without auth, so this stayed a manual step
+      rather than risk a broken/expiring hardcoded URL. Loaded via
+      `pipe.load_lora_weights(...)`, applied at `cross_attention_kwargs=
+      {"scale": 0.9}` (the card's own recommended 0.8-1.0 range), with
+      its trigger phrase `"pixar style"` added to the front of
+      `STYLE_SUFFIX` (the card's docs say the phrase must appear
+      literally in the prompt for the style to activate reliably).
+    - **`NEGATIVE_PROMPT` expanded** to directly counter what was
+      actually seen, not hypothetical failure modes: added `digital
+      painting`, `concept art`, `matte painting`, `stock photo`,
+      `monochrome`, `black and white`, `silhouette only` (the
+      Creation/Flood/Crucifixion failures) and `robot`, `mecha`,
+      `mechanical`, `cyborg`, `sci-fi armor` (the Goliath failure).
+    - **Two scene descriptions rewritten**, in both the notebook's
+      embedded test dict and `story_art_settings.json` (kept in sync):
+      Goliath's now explicit ("a giant of a MAN... fully human, not a
+      robot or machine... bronze scale armor") instead of just
+      "massive armored... giant," which is what a diffusion model read
+      as license to invent battle-mech armor; the Crucifixion's dropped
+      "silhouetted" entirely and asks for lit, colored mourners instead,
+      since that one word was very likely what pushed the whole image
+      into monochrome stock-photo territory.
+    - **Not attempted this pass, flagged as a known limitation**: the
+      small/distorted-face problem in wide crowd shots (Feeding the
+      5,000's background faces, Daniel's own unlit face) is a pixel-
+      budget issue — SDXL is trained at ~1024×1024, so a wide scene
+      allocates very few pixels per individual face. Research found the
+      real fix (per-face detection + inpainting, the mechanism behind
+      A1111's "ADetailer" extension) is real extra engineering — a face-
+      detection model plus a second `StableDiffusionXLInpaintPipeline`
+      pass per detected face — not attempted here; a plain image-wide
+      hires-fix/img2img pass was confirmed NOT to meaningfully fix this
+      specific problem (the added resolution spreads across the whole
+      scene, not onto individual faces), so it wasn't added either.
+      Worth revisiting if the LoRA fix alone isn't enough once this
+      round is reviewed.
+
 ---
 
 ## 9. How the app reads this data

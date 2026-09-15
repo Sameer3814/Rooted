@@ -135,10 +135,15 @@ The schema was deliberately designed so all of the above can be added
   manifest — same manifest-not-Media-entity shortcut as character
   portraits). Two-machine workflow, unlike the Gemini pipeline: generate
   in Colab, download the zip, unzip into the new gitignored
-  `pipeline/.storyart_incoming/`, then run the import script. Whether
-  SDXL's output actually matches the established look is unproven —
-  review the 6-story test before committing to the other ~318 stories.
-  See DATA_MODEL.md §8, item 105.
+  `pipeline/.storyart_incoming/`, then run the import script. **First
+  attempt failed** — plain SDXL base has no reliable default lean
+  toward the target style at all (generic fantasy art, one monochrome
+  stock-photo result, one armored giant rendered as a sci-fi robot).
+  Fixed with a verified, well-adopted community LoRA (CivitAI's "Pixar
+  Style (SDXL)," 200K+ downloads, 575 reviews — not a guess) plus
+  expanded negative prompts and two rewritten scene descriptions
+  targeting the exact failures seen. Not yet re-tested/approved as of
+  this writing. See DATA_MODEL.md §8, items 105-106.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a
