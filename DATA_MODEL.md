@@ -4081,6 +4081,41 @@ inventing a new principle:
       committing" step already established for the Home placeholder
       photos (item 83).
 
+92. **Second character-portrait batch — 25 more, 50 total (of 261).**
+    **Done (2026-09-15), same day as item 91.** Same pipeline, same
+    wiring (`data/character_portraits.json` just grew from 25 to 50
+    ids; no code changes needed since item 91 already built the manifest
+    + fallback approach generically). New characters: Sarah, Rachel,
+    Leah, Miriam, Aaron, Joshua, Caleb, Rahab, Boaz, Saul, Goliath,
+    Jonathan, Bathsheba, Absalom, Nathan, Elisha, Jeremiah, Ezekiel, Job,
+    Nehemiah, Ezra, Mordecai, John the Baptist, Mary Magdalene, Lazarus —
+    each with its own distinct signature setting in
+    `character_art_settings.json` (Miriam at the Red Sea shore with a
+    timbrel, Goliath in the valley of Elah with both armies faced off,
+    Absalom's hair caught in the branches mid-battle, Lazarus stepping
+    from the tomb doorway in grave clothes, etc.), deliberately varied
+    from batch 1's mix of settings (more rivers, battlefields, city
+    gates, and a tomb garden this time, rather than repeating mostly
+    mountains/temples/desert-night).
+    - **One preemptive fix, not a correction after the fact:** Miriam's
+      `roles` field opens with "watched over the basket" (young Miriam
+      guarding baby Moses on the Nile, Exodus 2) — the same shape of
+      issue that made Samuel render as a child in item 91. Caught before
+      generating, not after: gave her a `description` override anchoring
+      her instead to her adult, popularly-remembered role as the
+      prophetess who led the women's celebration at the Red Sea (Exodus
+      15), matching the batch's own timbrel-and-shoreline setting for
+      her. No other character in this batch needed the override
+      mechanism.
+    - No new stylization corrections needed this round — the fixes from
+      item 91 (explicit non-photorealistic stylization cues, the
+      `description`-override mechanism) held up cleanly across all 25
+      new generations on the first pass, including several older/
+      weathered faces (Job, Jeremiah, Ezra) that would have been the
+      likeliest candidates to drift toward photorealism the way Moses
+      and Samson originally did.
+    - `sw.js` bumped to `rooted-v88`.
+
 ---
 
 ## 9. How the app reads this data

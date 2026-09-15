@@ -30,5 +30,34 @@
   "char_mary": "a humble stable in Bethlehem by candlelight, a wooden manger and soft hay visible",
   "char_jesus": "a sunlit grassy hillside overlooking the Sea of Galilee, a gathered crowd softly visible in the distance",
   "char_peter": "the shore of the Sea of Galilee at dawn, fishing boats and nets softly visible on the water behind him",
-  "char_paul": "a dusty desert road near Damascus, a blinding radiant light breaking through the sky above"
+  "char_paul": "a dusty desert road near Damascus, a blinding radiant light breaking through the sky above",
+
+  "char_sarah": "beneath the great trees of Mamre outside her tent, warm daylight, distant hills",
+  "char_rachel": "a rocky well outside Haran, flocks of sheep gathered around, golden late-afternoon light",
+  "char_leah": "inside a large family tent encampment, soft lamplight, woven textiles in the background",
+  "char_miriam": {
+    "description": "Miriam, prophetess of Israel and older sister of Moses and Aaron, celebrated for leading the women of Israel in triumphant song and dance",
+    "setting": "the shore of the Red Sea, timbrel in hand, women dancing and celebrating softly in the background, bright morning light"
+  },
+  "char_aaron": "before the golden altar of incense inside the tabernacle, priestly breastplate and robes, warm lamplight",
+  "char_joshua": "standing before the massive walls of Jericho at dawn, ram's horn trumpets and armed ranks softly visible behind him",
+  "char_caleb": "the rugged hill country around Hebron, rocky highland terrain, a determined stance, golden late-day light",
+  "char_rahab": "a window in the stone wall of Jericho, a scarlet cord tied outside, rooftops of the city below",
+  "char_boaz": "his own barley fields at harvest time in Bethlehem, workers and sheaves of grain softly visible, warm sunlight",
+  "char_saul": "a grand tent encampment on a hilltop battlefield, spear in hand, royal robes, a stormy sky overhead",
+  "char_goliath": "the valley of Elah, a massive armored figure with spear and shield, the Israelite and Philistine armies faced off in the distance",
+  "char_jonathan": "a rocky battlefield ridge, bow in hand, royal armor, the mountains of Gilboa in the background",
+  "char_bathsheba": "the columned interior of the royal palace in Jerusalem, regal robes befitting a queen mother, warm golden light",
+  "char_absalom": "a dense forest during a chaotic battle at dusk, his long hair tangled in the branches of a great oak overhead",
+  "char_nathan": "the columned throne room of the palace in Jerusalem, standing firm before a throne, dramatic torchlight",
+  "char_elisha": "the banks of the Jordan River, Elijah's mantle in hand, water parting softly in the background",
+  "char_jeremiah": "the ruins of Jerusalem's walls at dusk, smoke rising in the distance, a scroll in hand",
+  "char_ezekiel": "a dramatic apocalyptic vision, swirling storm clouds, wheels of fire and radiant light in the sky behind him",
+  "char_job": "a windswept ash heap outside the city under a dramatic stormy sky, a whirlwind gathering above",
+  "char_nehemiah": "atop the newly rebuilt stone walls of Jerusalem at night, torches along the wall, the city below",
+  "char_ezra": "before a great assembled crowd, a large scroll of the Law unrolled in his hands, morning light in an open square",
+  "char_mordecai": "the ornate gate of the Persian palace at Susa, columned architecture, official robes",
+  "char_john_the_baptist": "the banks of the Jordan River in the wilderness, camel-hair clothing, rugged desert hills behind him",
+  "char_mary_magdalene": "a garden at dawn beside an open stone tomb, soft golden sunrise light breaking through",
+  "char_lazarus": "stepping out from a stone tomb entrance in Bethany, wrapped grave clothes, soft warm light breaking through the tomb opening"
 }

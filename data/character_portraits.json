@@ -3,5 +3,11 @@
   "char_jacob", "char_joseph", "char_rebekah", "char_moses", "char_david",
   "char_solomon", "char_deborah", "char_gideon", "char_samson", "char_ruth",
   "char_samuel", "char_elijah", "char_isaiah", "char_jonah", "char_daniel",
-  "char_esther", "char_mary", "char_jesus", "char_peter", "char_paul"
+  "char_esther", "char_mary", "char_jesus", "char_peter", "char_paul",
+
+  "char_sarah", "char_rachel", "char_leah", "char_miriam", "char_aaron",
+  "char_joshua", "char_caleb", "char_rahab", "char_boaz", "char_saul",
+  "char_goliath", "char_jonathan", "char_bathsheba", "char_absalom", "char_nathan",
+  "char_elisha", "char_jeremiah", "char_ezekiel", "char_job", "char_nehemiah",
+  "char_ezra", "char_mordecai", "char_john_the_baptist", "char_mary_magdalene", "char_lazarus"
 ]
