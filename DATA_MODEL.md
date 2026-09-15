@@ -4167,6 +4167,34 @@ inventing a new principle:
       been likely photorealism candidates.
     - `sw.js` bumped to `rooted-v89`.
 
+94. **Fourth character-portrait batch — 25 more, 100 total (of 267).**
+    **Done (2026-09-15).** First batch of a long-haul push to cover the
+    remaining supporting-cast characters from the "deep study" curation
+    (item 10) that only got real content, never portraits. New
+    characters, all from `era_patriarchs`/`era_exodus`/`era_judges`/
+    `era_united_kingdom`: Hagar, Lot, Ishmael, Jochebed, Pharaoh's
+    daughter, Zipporah, Naomi, Elimelech, Orpah, Nadab, Abihu, Korah,
+    Eleazar, Ehud, Barak, Sisera, Jael, Jephthah, Jephthah's daughter,
+    Delilah, Hannah, Michal, Uriah, Tamar (David's daughter), Amnon —
+    each with a distinct, story-specific setting (Jochebed and Pharaoh's
+    daughter both at the Nile but from opposite sides of the same scene;
+    Jael at her own tent entrance with the tent peg and mallet in hand;
+    Nadab and Abihu both before the tabernacle altar but in different
+    framings so the pair doesn't look duplicated; Delilah with the
+    shears visible on a table; Uriah in a rain-soaked war camp). No
+    `description`-override fixes were needed this batch — every
+    `roles` phrase for these 25 either already matched their defining-
+    story age or didn't carry an age signal at all, unlike Samuel/
+    Miriam/Josiah's origin-story phrasing in earlier batches. Expression
+    calls: positive — Jochebed, Pharaoh's daughter, Naomi, Eleazar,
+    Ehud, Barak, Jael, Hannah; negative — Nadab, Abihu, Korah, Sisera,
+    Delilah, Amnon; neutral — Hagar, Lot, Ishmael, Zipporah, Elimelech,
+    Orpah, Jephthah, Jephthah's daughter, Michal, Uriah, Tamar. No
+    stylization drift on any of the 25 — the non-photorealistic cues
+    from item 91 held up cleanly again, including on several
+    older/weathered faces (Elimelech, Korah). `sw.js` bumped to
+    `rooted-v90`.
+
 ---
 
 ## 9. How the app reads this data

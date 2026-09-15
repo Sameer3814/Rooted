@@ -15,5 +15,11 @@
   "char_balaam", "char_achan", "char_eli", "char_jezebel", "char_ahab",
   "char_naboth", "char_gehazi", "char_naaman", "char_hezekiah", "char_josiah",
   "char_nebuchadnezzar", "char_belshazzar", "char_cyrus", "char_zerubbabel", "char_barnabas",
-  "char_stephen", "char_ananias", "char_simon_magus", "char_judas_iscariot", "char_pilate"
+  "char_stephen", "char_ananias", "char_simon_magus", "char_judas_iscariot", "char_pilate",
+
+  "char_hagar", "char_lot", "char_ishmael", "char_jochebed", "char_pharaohs_daughter",
+  "char_zipporah", "char_naomi", "char_elimelech", "char_orpah", "char_nadab",
+  "char_abihu", "char_korah", "char_eleazar", "char_ehud", "char_barak",
+  "char_sisera", "char_jael", "char_jephthah", "char_jephthahs_daughter", "char_delilah",
+  "char_hannah", "char_michal", "char_uriah", "char_tamar", "char_amnon"
 ]
