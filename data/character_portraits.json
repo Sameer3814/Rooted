@@ -39,5 +39,11 @@
   "char_simon_of_cyrene", "char_penitent_thief", "char_joseph_of_arimathea", "char_cleopas", "char_matthew",
   "char_matthias", "char_cornelius", "char_silas", "char_philippian_jailer", "char_abner",
   "char_asahel", "char_abishai", "char_ahithophel", "char_hushai", "char_ittai",
-  "char_shimei", "char_amasa", "char_sheba", "char_wise_woman_of_abel", "char_priscilla"
+  "char_shimei", "char_amasa", "char_sheba", "char_wise_woman_of_abel", "char_priscilla",
+
+  "char_aquila", "char_apollos", "char_lydia", "char_john_mark", "char_timothy",
+  "char_titus", "char_onesimus", "char_philemon", "char_demas", "char_reuben",
+  "char_simeon", "char_levi", "char_judah", "char_benjamin", "char_bilhah",
+  "char_zilpah", "char_dinah", "char_shechem", "char_tamar_judahs_daughter_in_law", "char_potiphar",
+  "char_potiphars_wife", "char_abrahams_servant", "char_pharaohs_cupbearer", "char_pharaohs_baker", "char_nabal"
 ]

@@ -4289,6 +4289,27 @@ inventing a new principle:
       Barabbas, Abner, Asahel, Abishai, Amasa. `sw.js` bumped to
       `rooted-v93`.
 
+98. **Eighth character-portrait batch — 25 more, 200 total (of 267).**
+    **Done (2026-09-15).** Paul's circle from Acts/the epistles, and
+    Genesis's patriarchal-family supporting cast from the item 10 "deep
+    study" pass: Aquila, Apollos, Lydia, John Mark, Timothy, Titus,
+    Onesimus, Philemon, Demas, Reuben, Simeon, Levi, Judah, Benjamin,
+    Bilhah, Zilpah, Dinah, Shechem, Tamar (Judah's daughter-in-law),
+    Potiphar, Potiphar's wife, Abraham's servant, Pharaoh's cupbearer,
+    Pharaoh's baker, Nabal. No `description`-override fixes needed. All
+    25 passed visual QA on the first generation with one exception:
+    Simeon and Levi's shared "gate of Shechem" scene, and Dinah's own
+    portrait, both touch the Genesis 34 assault/massacre narrative
+    directly in their `roles` text — handled with the same tasteful,
+    non-graphic restraint the crucifixion-adjacent portraits (item 97)
+    already established, no new content-safety issue.
+    - Expression calls: positive — Aquila, Apollos, Lydia, John Mark,
+      Timothy, Titus, Onesimus, Philemon, Judah, Benjamin, Tamar
+      (Judah's daughter-in-law), Abraham's servant, Pharaoh's
+      cupbearer; negative — Demas, Simeon, Levi, Shechem, Potiphar's
+      wife, Nabal; neutral — Reuben, Bilhah, Zilpah, Dinah, Potiphar,
+      Pharaoh's baker. `sw.js` bumped to `rooted-v94`.
+
 ---
 
 ## 9. How the app reads this data
