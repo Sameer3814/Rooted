@@ -1,0 +1,100 @@
+{
+  "02-13": {
+    "year": 313,
+    "title": "The Edict of Milan",
+    "category": "Religious Freedom",
+    "description": "Constantine and Licinius agree at Milan to treat Christians with benevolence across the Roman Empire, ending centuries of imperial persecution.",
+    "takeaway": "A faith that had spread underground and under threat was, almost overnight, free to meet in the open. Freedom to worship is rarely permanent -- it's worth noticing when you have it."
+  },
+  "02-23": {
+    "year": 1455,
+    "title": "The Gutenberg Bible Is Completed",
+    "category": "Scripture & Translation",
+    "description": "Johannes Gutenberg's press finishes printing the first Bible produced with movable type, in Latin, in Mainz, Germany.",
+    "takeaway": "For a thousand years, a Bible was a hand-copied treasure a wealthy church might own one of. Print made 'everyone could have their own copy' thinkable for the first time."
+  },
+  "03-17": {
+    "year": 461,
+    "title": "Patrick of Ireland's Traditional Feast Day",
+    "category": "Missions",
+    "description": "The traditionally observed date of Patrick's death -- a former slave who returned to the land of his captivity to preach the gospel across Ireland.",
+    "takeaway": "Patrick's own account says he prayed constantly during years of enslavement before ever becoming the missionary history remembers. Some callings are formed in the waiting, not before it."
+  },
+  "04-09": {
+    "year": 1945,
+    "title": "Dietrich Bonhoeffer Is Executed",
+    "category": "Costly Discipleship",
+    "description": "The German pastor and theologian is hanged at Flossenburg concentration camp, days before the camp's liberation, for his resistance to the Nazi regime.",
+    "takeaway": "Bonhoeffer wrote that 'when Christ calls a man, he bids him come and die.' He meant it, literally, to the end."
+  },
+  "04-18": {
+    "year": 1521,
+    "title": "Luther Stands Before the Diet of Worms",
+    "category": "Reformation",
+    "description": "Ordered to recant his writings before the Holy Roman Emperor, Martin Luther refuses unless shown by Scripture that he is wrong: 'Here I stand, I can do no other.'",
+    "takeaway": "One man's conscience, tested publicly against the full weight of church and empire, reshaped how the West would read the Bible for itself."
+  },
+  "05-20": {
+    "year": 325,
+    "title": "The Council of Nicaea Opens",
+    "category": "Councils & Creeds",
+    "description": "Bishops from across the Roman Empire gather at the emperor's invitation to settle a fierce dispute over the nature of Christ, producing the first draft of the Nicene Creed.",
+    "takeaway": "Get anyone in a church today to say what they believe about who Jesus is, and the vocabulary they reach for was hammered out in arguments like this one, 1,700 years ago."
+  },
+  "05-24": {
+    "year": 1738,
+    "title": "John Wesley's Heart Is 'Strangely Warmed'",
+    "category": "Conversion",
+    "description": "At a meeting on Aldersgate Street in London, Wesley describes feeling his heart 'strangely warmed' while hearing Luther's preface to Romans read aloud.",
+    "takeaway": "Wesley had already been an ordained minister and a missionary for years. Real assurance of faith found him anyway, in an ordinary room, listening to someone else's words about grace."
+  },
+  "06-13": {
+    "year": 1793,
+    "title": "William Carey Sails for India",
+    "category": "Missions",
+    "description": "The English cobbler-turned-preacher, his wife, and their children embark for Calcutta, beginning a mission that would translate Scripture into dozens of Indian languages.",
+    "takeaway": "Carey's own motto: 'Expect great things from God; attempt great things for God.' He spent the next 41 years in India without returning home once."
+  },
+  "07-10": {
+    "year": 1509,
+    "title": "John Calvin Is Born",
+    "category": "Reformation",
+    "description": "Born in Noyon, France, Calvin would later flee to Geneva and become one of the Reformation's most systematic theologians, author of the Institutes of the Christian Religion.",
+    "takeaway": "Calvin never intended to end up in Geneva -- he said he was passing through and was persuaded (some accounts say threatened) to stay by the reformer Guillaume Farel. Plans rarely survive first contact with a calling."
+  },
+  "08-28": {
+    "year": 430,
+    "title": "Augustine of Hippo Dies",
+    "category": "Theology",
+    "description": "Augustine dies in the North African city of Hippo as Vandal armies besiege it -- the same city where, decades earlier, he'd been converted after years of resisting his mother's prayers.",
+    "takeaway": "His Confessions is one of the most honest accounts of a slow, reluctant conversion ever written: 'Give me chastity and continence, but not yet.'"
+  },
+  "10-06": {
+    "year": 1536,
+    "title": "William Tyndale Is Executed",
+    "category": "Scripture & Translation",
+    "description": "Tyndale, whose English New Testament gave ordinary readers direct access to Scripture for the first time, is strangled and burned at the stake near Brussels for heresy.",
+    "takeaway": "His reported last words were a prayer: 'Lord, open the King of England's eyes.' Three years later, an English Bible was placed in every parish church by royal order."
+  },
+  "10-08": {
+    "year": 451,
+    "title": "The Council of Chalcedon Opens",
+    "category": "Councils & Creeds",
+    "description": "Over 500 bishops gather to define how Christ can be both fully God and fully human in one person -- language the majority of Christian traditions still affirm today.",
+    "takeaway": "Some questions about Jesus took the church centuries of careful, contested argument to answer well. Precision in theology is often the fruit of real disagreement, not its absence."
+  },
+  "10-31": {
+    "year": 1517,
+    "title": "Luther Posts the Ninety-Five Theses",
+    "category": "Reformation",
+    "description": "Martin Luther, an Augustinian monk and professor, posts his ninety-five theses against the sale of indulgences on the door of the Castle Church in Wittenberg.",
+    "takeaway": "Luther meant to open an academic debate among scholars, not start a movement. He didn't get to control what happened next -- few reformers do."
+  },
+  "default": {
+    "year": null,
+    "title": "The Church Has a Long Memory",
+    "category": "Church History",
+    "description": "No specific event is recorded for today's date yet, but the church's story spans two thousand years and every continent -- there's always more of it to learn.",
+    "takeaway": "Check back tomorrow, or browse Stories to explore the people and events already curated here."
+  }
+}

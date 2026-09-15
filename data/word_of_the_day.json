@@ -1,0 +1,132 @@
+[
+  {
+    "id": "word_hesed",
+    "word": "חֶסֶד",
+    "transliteration": "Hesed",
+    "language": "Hebrew",
+    "strongs": "H2617",
+    "meaning": "Steadfast, loyal covenant love",
+    "summary": "Yahweh's committed love that keeps showing up long after it would have been reasonable to give up.",
+    "verseIds": ["verse_psalms_136_1"]
+  },
+  {
+    "id": "word_shalom",
+    "word": "שָׁלוֹם",
+    "transliteration": "Shalom",
+    "language": "Hebrew",
+    "strongs": "H7965",
+    "meaning": "Peace, wholeness, completeness",
+    "summary": "Far bigger than the absence of conflict -- everything being as it should be.",
+    "verseIds": ["verse_numbers_6_26"]
+  },
+  {
+    "id": "word_ruach",
+    "word": "רוּחַ",
+    "transliteration": "Ruach",
+    "language": "Hebrew",
+    "strongs": "H7307",
+    "meaning": "Spirit, breath, wind",
+    "summary": "The same word for the wind you can't see and the Spirit poured out on all flesh.",
+    "verseIds": ["verse_joel_2_28"]
+  },
+  {
+    "id": "word_halal",
+    "word": "הָלַל",
+    "transliteration": "Halal",
+    "language": "Hebrew",
+    "strongs": "H1984",
+    "meaning": "To praise, boast, shine",
+    "summary": "The root behind 'hallelujah' -- praise loud enough to be seen, not just heard.",
+    "verseIds": ["verse_psalms_150_1"]
+  },
+  {
+    "id": "word_emet",
+    "word": "אֱמֶת",
+    "transliteration": "Emet",
+    "language": "Hebrew",
+    "strongs": "H571",
+    "meaning": "Truth, faithfulness, reliability",
+    "summary": "Something you can build your weight on, not just a fact that happens to be correct.",
+    "verseIds": ["verse_psalms_119_160"]
+  },
+  {
+    "id": "word_tov",
+    "word": "טוֹב",
+    "transliteration": "Tov",
+    "language": "Hebrew",
+    "strongs": "H2896",
+    "meaning": "Good, pleasing, right",
+    "summary": "The word God himself uses to describe his own finished work in Genesis 1.",
+    "verseIds": ["verse_genesis_1_31"]
+  },
+  {
+    "id": "word_agape",
+    "word": "ἀγάπη",
+    "transliteration": "Agape",
+    "language": "Greek",
+    "strongs": "G26",
+    "meaning": "Selfless, unconditional love",
+    "summary": "Love as a decision and a direction, not just a feeling that comes and goes.",
+    "verseIds": ["verse_1corinthians_13_4"]
+  },
+  {
+    "id": "word_logos",
+    "word": "λόγος",
+    "transliteration": "Logos",
+    "language": "Greek",
+    "strongs": "G3056",
+    "meaning": "Word, message, reason",
+    "summary": "John reaches for this word -- already loaded with meaning in Greek philosophy -- to say Jesus is God's self-expression made flesh.",
+    "verseIds": ["verse_john_1_1"]
+  },
+  {
+    "id": "word_pneuma",
+    "word": "πνεῦμα",
+    "transliteration": "Pneuma",
+    "language": "Greek",
+    "strongs": "G4151",
+    "meaning": "Spirit, breath, wind",
+    "summary": "The Greek counterpart to ruach -- the same word carries 'wind,' 'breath,' and 'Spirit' depending on context.",
+    "verseIds": ["verse_acts_1_8"]
+  },
+  {
+    "id": "word_eirene",
+    "word": "εἰρήνη",
+    "transliteration": "Eirene",
+    "language": "Greek",
+    "strongs": "G1515",
+    "meaning": "Peace",
+    "summary": "The Greek word the New Testament reaches for to carry the full weight of the Hebrew shalom.",
+    "verseIds": ["verse_john_14_27"]
+  },
+  {
+    "id": "word_koinonia",
+    "word": "κοινωνία",
+    "transliteration": "Koinonia",
+    "language": "Greek",
+    "strongs": "G2842",
+    "meaning": "Fellowship, communion, sharing",
+    "summary": "Life held in common -- not just friendliness, but a real, shared stake in one another.",
+    "verseIds": ["verse_acts_2_42"]
+  },
+  {
+    "id": "word_charis",
+    "word": "χάρις",
+    "transliteration": "Charis",
+    "language": "Greek",
+    "strongs": "G5485",
+    "meaning": "Grace, favor, gift",
+    "summary": "Undeserved kindness given freely -- the word Paul reaches for again and again to describe salvation itself.",
+    "verseIds": ["verse_ephesians_2_8"]
+  },
+  {
+    "id": "word_chara",
+    "word": "χαρά",
+    "transliteration": "Chara",
+    "language": "Greek",
+    "strongs": "G5479",
+    "meaning": "Joy",
+    "summary": "Close kin to charis (grace) in the Greek -- joy as grace's natural fruit, not a separate achievement.",
+    "verseIds": ["verse_galatians_5_22"]
+  }
+]

@@ -201,7 +201,14 @@ The schema was deliberately designed so all of the above can be added
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
-- `pipeline/` — regenerates everything in `data/`. See `pipeline/README.md`.
+- `data/word_of_the_day.json` and `data/church_history.json` — the two
+  newest Home cards' seed content (item 89, 2026-09-15): 13 curated
+  Hebrew/Greek words and 13 dated church-history entries respectively.
+  Both loaded at boot. **Not** part of the Bible-content curation
+  pipeline below — hand-written editorial content, not Scripture text,
+  so there's no `pipeline/curation/` source or `build_*.py` step for
+  either; edit these two files directly.
+- `pipeline/` — regenerates everything else in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books
     (Genesis-style "paragraph text") and poetic books (Psalms-style "line
@@ -867,6 +874,26 @@ hand-curate all the content before building.
     card thumbnails (now pinned to 88×68/14px radius), and a new, larger
     `.home-settings-btn` scoped to Home's own settings button (not a
     global `.back-btn` change). Full writeup: DATA_MODEL.md §8, item 84.
+    Then, after two rounds of content-gap curation on 2026-09-15 (see
+    item 10 above), two more Home cards: **Word of the Day** (a curated
+    Hebrew/Greek term with its Strong's id, meaning, and linked verses —
+    `data/word_of_the_day.json`, 13 entries) and **This Day in Church
+    History** (`data/church_history.json`, keyed by local `MM-DD`, 13
+    verified dated entries plus a `"default"` fallback). Both are new,
+    separate seed datasets, not part of the Bible-content curation
+    pipeline (`pipeline/curation/*.json`) — they're editorial content in
+    the same vein as Verse/Unreached/Story of the Day, not Scripture
+    text. Every church-history date was checked via web search before
+    being written in, not recalled from memory — presenting a wrong date
+    as historical fact would be a real problem for an educational
+    feature. Two deliberate deviations from the literal request, both
+    documented rather than silent: the card surface uses the existing
+    `var(--paper-raised)` token instead of a new literal hex (avoids two
+    near-identical "dark card" shades on the same feed), and Church
+    History's detail view is a normal full screen (matching Unreached of
+    the Day's own detail page) rather than a new bottom-sheet modal —
+    this app has no modal/overlay component anywhere else. Full writeup:
+    DATA_MODEL.md §8, item 89.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

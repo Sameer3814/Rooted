@@ -198,6 +198,35 @@
   .discovery-thumb{display:block;width:88px;height:68px;border-radius:14px;object-fit:cover;flex-shrink:0;}
   .unreached-full-photo{display:block;width:100%;height:auto;border-radius:var(--radius-card);background:var(--surface-sunken);margin-bottom:16px;}
 
+  /* Word of the Day / This Day in Church History (item 89). Both reuse
+     the shared .card surface (var(--paper-raised), var(--radius-card) —
+     already 20px — same dark card every other Home card sits on) rather
+     than a separate literal color, so Home doesn't end up with two
+     slightly different shades of "dark card." Padding bumped to 20px on
+     these two specifically, per spec. The eyebrow style is the same
+     text-xs/700/uppercase/--text-accent pattern .votd-label/.discovery-
+     label already use, shared here as .word-eyebrow (also reused by the
+     Church History card so the two match). */
+  .word-card,.church-history-card{padding:20px;}
+  .word-eyebrow{display:flex;align-items:center;gap:6px;font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-accent);margin-bottom:12px;}
+  .word-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+  .word-script{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--text-primary);}
+  .word-translit{font-size:var(--text-base);font-weight:500;color:var(--text-secondary);font-style:italic;}
+  .word-strongs{font-size:var(--text-xs);font-weight:600;color:var(--text-accent);margin-bottom:8px;}
+  .word-meaning{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:4px;}
+  .word-summary{font-size:var(--text-sm);font-weight:400;color:var(--text-secondary);line-height:1.4;}
+  .word-card .tag-row{margin-top:12px;}
+
+  .church-history-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:2px;}
+  .church-history-year{font-size:var(--text-xs);font-weight:700;letter-spacing:.03em;color:var(--text-secondary);background:var(--surface-sunken);padding:3px 9px;border-radius:100px;flex-shrink:0;}
+  .church-history-card h3{margin-bottom:6px;}
+  .church-history-desc{font-size:var(--text-sm);font-weight:400;color:var(--text-secondary);line-height:1.4;}
+  .church-history-takeaway{
+    display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;
+  }
+  .church-history-takeaway i{color:var(--text-accent);flex-shrink:0;margin-top:2px;}
+
   .practice-nudge{
     display:flex;align-items:center;justify-content:center;gap:6px;
     text-align:center;font-size:var(--text-base);font-weight:600;color:var(--gold-deep);
@@ -781,6 +810,25 @@ async function loadMotifs(){
   return [];
 }
 
+/* Word of the Day (Hebrew/Greek) and This Day in Church History — small,
+   static reference datasets for two new Home cards (DATA_MODEL.md §8,
+   item 89). Loaded at boot alongside motifs/connections: small enough
+   not to matter, and both are read synchronously on every Home render. */
+async function loadWordOfTheDayData(){
+  try{
+    const res = await fetch('./data/word_of_the_day.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* the Word of the Day card just won't render */ }
+  return [];
+}
+async function loadChurchHistoryData(){
+  try{
+    const res = await fetch('./data/church_history.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* the Church History card just won't render */ }
+  return {};
+}
+
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
 
 /* Link arrays where an empty overlay value must not blank out richer seed data. */
@@ -954,6 +1002,8 @@ let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
 let motifs = [];  // seed-only: recurring biblical patterns (DATA_MODEL.md §2)
+let wordsOfTheDay = [];    // seed-only: curated Hebrew/Greek words (item 89)
+let churchHistoryData = {};// seed-only: MM-DD -> event, keyed lookup (item 89)
 let view = {screen:'home', params:{}};
 let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
@@ -1171,6 +1221,7 @@ function render(){
   });
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
+  else if(view.screen==='churchHistoryDetail') app.innerHTML = renderChurchHistoryDetail();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
   else if(view.screen==='bookPeople') app.innerHTML = renderBookPeople(view.params.book);
   else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
@@ -1258,6 +1309,8 @@ function renderHome(){
   return `
     ${renderHomeHeader()}
     ${renderVerseOfTheDayCard()}
+    ${renderWordOfTheDayCard()}
+    ${renderChurchHistoryCard()}
     ${renderUnreachedCard()}
     ${renderStoryOfTheDayCard()}
     ${renderPracticeNudge()}
@@ -1337,6 +1390,74 @@ function renderVerseOfTheDayCard(){
       ${(!remote && local) ? `<div class="votd-action"><i class="ti ti-book"></i> Read chapter</div>` : ''}
       ${img ? `<div class="votd-attribution">Photo by <a href="${esc(img.photographerUrl)}" target="_blank" rel="noopener">${esc(img.photographerName)}</a> on <a href="https://unsplash.com/?utm_source=rooted_app&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>` : ''}
     </div>`;
+}
+/* Word of the Day — a curated Hebrew/Greek word from data/word_of_the_day.json
+   (item 89), date-seeded the same way as Verse of the Day so it's stable
+   for the whole day. Its "connected verses" chips link into the user's
+   own library via findVerse() — a word whose seed verseIds aren't in the
+   library yet (not yet added from Browse) just renders no chips rather
+   than a broken link, matching this app's existing corpus-vs-library
+   distinction (DATA_MODEL.md §9). */
+function wordOfTheDay(){
+  if(!wordsOfTheDay.length) return null;
+  const d = new Date();
+  const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
+  return wordsOfTheDay[dayKey % wordsOfTheDay.length];
+}
+function renderWordOfTheDayCard(){
+  const w = wordOfTheDay();
+  if(!w) return '';
+  const chips = (w.verseIds||[]).map(findVerse).filter(Boolean);
+  return `
+    <div class="card word-card">
+      <div class="word-eyebrow"><i class="ti ti-abc"></i> Word of the Day</div>
+      <div class="word-head">
+        <span class="word-script">${esc(w.word)}</span>
+        <span class="word-translit">${esc(w.transliteration)}</span>
+      </div>
+      <div class="word-strongs">${esc(w.transliteration)} &middot; ${esc(w.strongs)}</div>
+      <div class="word-meaning">${esc(w.meaning)}</div>
+      <p class="word-summary">${esc(w.summary)}</p>
+      ${chips.length ? `<div class="tag-row">${chips.map(v=>`<span class="tag tag--tan tap" data-action="open-verse" data-id="${v.id}" style="cursor:pointer;">${esc(v.reference)}</span>`).join('')}</div>` : ''}
+    </div>`;
+}
+/* This Day in Church History — data/church_history.json, keyed by the
+   viewer's local MM-DD so it changes with the calendar date, not a
+   rotating index like the other Home cards (there's exactly one right
+   answer for "today" here). Falls back to the seed file's own "default"
+   entry on any day without a specific match, so the card always has
+   something to show rather than needing its own empty state. */
+function churchHistoryToday(){
+  const d = new Date();
+  const key = String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  return churchHistoryData[key] || churchHistoryData['default'] || null;
+}
+function renderChurchHistoryCard(){
+  const h = churchHistoryToday();
+  if(!h) return '';
+  return `
+    <div class="card church-history-card tap" data-action="open-church-history">
+      <div class="church-history-head">
+        <div class="word-eyebrow"><i class="ti ti-building-church"></i> This Day in Church History</div>
+        ${h.year ? `<div class="church-history-year">${esc(String(h.year))} AD</div>` : ''}
+      </div>
+      <h3>${esc(h.title)}</h3>
+      <p class="church-history-desc">${esc((h.description||'').slice(0,120))}${(h.description||'').length>120?'…':''}</p>
+    </div>`;
+}
+function renderChurchHistoryDetail(){
+  const h = churchHistoryToday();
+  if(!h) return renderHome();
+  return `
+    <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+    <div class="word-eyebrow" style="margin-bottom:10px;"><i class="ti ti-building-church"></i> This Day in Church History</div>
+    <div class="topbar"><h1>${esc(h.title)}</h1></div>
+    ${h.year ? `<div class="church-history-year" style="margin-bottom:16px;">${esc(String(h.year))} AD ${h.category ? '&middot; ' + esc(h.category) : ''}</div>` : ''}
+    <div class="card">
+      <p style="color:var(--text-primary);line-height:1.55;">${esc(h.description)}</p>
+      ${h.takeaway ? `<div class="church-history-takeaway"><i class="ti ti-bulb"></i> ${esc(h.takeaway)}</div>` : ''}
+    </div>
+  `;
 }
 /* Story of the Day — one of the app's curated Stories, date-seeded the
    same way as Verse of the Day, surfacing the character/story side of
@@ -2829,6 +2950,7 @@ function onAction(e){
   if(action==='go-home') go('home');
   else if(action==='go-practice') go('practice');
   else if(action==='open-unreached') go('unreachedDetail');
+  else if(action==='open-church-history') go('churchHistoryDetail');
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
@@ -2983,6 +3105,8 @@ async function migrateLegacy(seedContent){
   lore = await loadStories();
   connections = await loadConnections();
   motifs = await loadMotifs();
+  wordsOfTheDay = await loadWordOfTheDayData();
+  churchHistoryData = await loadChurchHistoryData();
   render();
 
   // Cloud sync is optional and never blocks first paint — the app is fully

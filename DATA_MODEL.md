@@ -3935,6 +3935,90 @@ inventing a new principle:
       genuine second instance, and no new family/relationship facts were
       introduced. `sw.js` bumped to `rooted-v85`.
 
+89. **Two new Home cards: Word of the Day (Hebrew/Greek) and This Day in
+    Church History.** **Done (2026-09-15).** Both are new, small, static
+    reference datasets — not derived from the existing Bible-content
+    pipeline (`pipeline/curation/*.json` → `build_*.py`), since neither
+    is Bible *text* curation; they're separate editorial content in the
+    same spirit as Verse/Unreached/Story of the Day.
+    - **`data/word_of_the_day.json`** — a flat array of 13 entries
+      (`id`, `word` the original Hebrew/Greek script, `transliteration`,
+      `language`, `strongs` id, `meaning`, `summary`, `verseIds`), hand-
+      picked to cover the terms named directly in the request (Hesed,
+      Shalom, Agape, Logos, Pneuma, Eirene, Koinonia, Halal, Ruach,
+      Charis) plus three more (Emet, Tov, Chara) for a rounder set.
+      Every `verseIds` entry was checked against the actual seed library
+      (`data/starter-pack.json`) before being written in, so every word
+      genuinely has at least one real, already-curated verse it can link
+      to — no placeholder or invented references.
+    - **`data/church_history.json`** — an object keyed by local `MM-DD`
+      (`year`, `title`, `category`, `description`, `takeaway`, plus a
+      `"default"` fallback entry for any date without a specific match).
+      13 dated entries. Every date was verified via web search before
+      being written in, not recalled from memory alone — an educational
+      "on this day" feature presenting wrong dates as fact would be a
+      real quality problem, not just a cosmetic one. One real collision
+      surfaced during that research: both Dietrich Bonhoeffer's execution
+      and the start of the Azusa Street Revival are April 9, in different
+      years (1945 and 1906) — since this schema is one entry per `MM-DD`
+      (not an array), Bonhoeffer was kept and Azusa Street dropped from
+      this seed round rather than force a collision; either the schema
+      would need to become date→array, or Azusa Street would need a
+      different anchor date, if it's added later.
+    - **Loading**: `loadWordOfTheDayData()`/`loadChurchHistoryData()`
+      follow the exact `loadMotifs()`/`loadConnections()` shape — fetch
+      at boot, fail-quiet to an empty array/object on any error, so a
+      missing or broken file just means the card doesn't render rather
+      than a broken boot. Both awaited in `boot()` alongside the other
+      seed-data loaders, before the first `render()`.
+    - **`wordOfTheDay()`** and **`churchHistoryToday()`**: the word pick
+      is date-seeded the same way as `verseOfTheDay()`/`storyOfTheDay()`
+      (a rotating index into the array — which specific word shows
+      depends only on the calendar date, not which entries exist, so
+      adding more words later shifts the rotation but never breaks it).
+      Church History is different on purpose — it's a *lookup* keyed by
+      today's actual `MM-DD`, not a rotating index, since there's exactly
+      one right answer for "what happened on this date" rather than any
+      valid rotation through a list.
+    - **`renderWordOfTheDayCard()`**: the Hebrew/Greek script renders at
+      an explicit `24px` (`.word-script`) — the one place in this pass
+      that doesn't map onto the existing `--text-xs` through `--text-2xl`
+      scale (item 85), since the request was specific about this exact
+      size and it genuinely sits between `--text-xl` (22px) and
+      `--text-2xl` (28px). Everything else on both new cards *does* use
+      the existing type-scale tokens and the existing `.word-eyebrow`/
+      eyebrow pattern from `.votd-label`/`.discovery-label` — a new class
+      only because Word of the Day and Church History share it with each
+      other, not because it needed different values.
+    - **Card surface — one deliberate deviation from the literal spec,
+      matching the reasoning already established in item 85**: the
+      request specified `#1C1917` for the card background and literal
+      `#FFFFFF`/`#B8AEA5` for text. Used `var(--paper-raised)` (`#18191D`)
+      and the existing `--text-primary`/`--text-secondary` tokens instead
+      — `#1C1917` is close enough to the existing card token that using
+      it literally would have put two very slightly different "dark
+      card" shades on the same Home feed, which reads as a bug, not a
+      design choice. Padding was bumped to the requested `20px`
+      specifically on these two cards (`.word-card,.church-history-card`)
+      since the shared `.card` base still defaults to `16px` everywhere
+      else and there was no reason to change that globally for this.
+    - **Church History's "bottom modal sheet" → a full detail screen
+      instead, another deliberate deviation.** This app has zero modal/
+      overlay components anywhere — every other "see more" interaction
+      (Unreached of the Day's detail page being the closest precedent)
+      is a full screen reached via `go()`, with a back button, that
+      participates in scroll-position restoration and the same back-nav
+      conventions as everything else. Building a first bottom-sheet
+      primitive for one card would add a whole new UI paradigm (backdrop,
+      dismiss gesture, z-index/safe-area handling) nothing else in the
+      app uses, for a single use site. `renderChurchHistoryDetail()`
+      matches `renderUnreachedDetail()`'s shape instead: `go-home` back
+      button, full description, and the `takeaway` field rendered as a
+      distinct callout (`.church-history-takeaway`) below a divider.
+    - `sw.js`'s precache list gained both new JSON files (Home reads one
+      of each on every visit, same reasoning as the two placeholder
+      photos already there). Bumped to `rooted-v86`.
+
 ---
 
 ## 9. How the app reads this data
