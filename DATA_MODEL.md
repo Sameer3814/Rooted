@@ -4116,6 +4116,57 @@ inventing a new principle:
       and Samson originally did.
     - `sw.js` bumped to `rooted-v88`.
 
+93. **Expression direction by character arc, plus a third portrait batch
+    (25 more, 75 total).** **Done (2026-09-15), same day as item 92.**
+    Direct feedback: Paul's existing portrait (item 91, the Damascus-road
+    setting) read flat/unhappy despite his arc ending in triumph
+    ("I have fought the good fight"). Fixed the general problem, not
+    just Paul's one image: `generate_character_art.py` now takes an
+    explicit `expression` direction on every generation —
+    `EXPRESSION_POSITIVE` (warm, genuinely joyful, an unmistakable
+    smile), `EXPRESSION_NEGATIVE` (subtly stern/hardened — tension in
+    the brow, dignified and human, explicitly NOT cartoonish or
+    exaggerated villain-coded), or `EXPRESSION_NEUTRAL` (calm, composed,
+    neither smiling nor stern) — a per-character judgment call recorded
+    as a third optional field in `character_art_settings.json` entries
+    (alongside `setting` and `description`), defaulting to neutral when
+    omitted. The rule: a character whose own arc resolves well (faith
+    rewarded, redemption, vindication) reads positive; a character
+    defined by villainy or a story that indicts them reads negative;
+    everyone else (including tragic-but-not-villainous figures like Saul
+    or Absalom, from earlier batches) reads neutral. Paul was
+    regenerated with `expression: positive` — same Damascus setting,
+    now genuinely smiling — and the updated image replaces his existing
+    `media/characters/char_paul.jpg` in place.
+    - **Retroactive scope, decided deliberately, not by default:** the
+      owner explicitly chose to apply this only going forward, not
+      re-audit and regenerate the other 49 already-committed portraits.
+      Most already happened to land reasonably (Job's suffering,
+      Jeremiah's tears, Absalom's distress, Saul's troubled stare all
+      already fit their arcs without needing the new mechanism) — this
+      was a deliberate scope decision, not an oversight, and is worth
+      knowing if a future pass ever wants to audit the earlier batches
+      against the same rule.
+    - **Batch 3 characters (25 new, chosen specifically to exercise all
+      three expression values, not just positives):** positive —
+      Abel, Naboth, Naaman, Hezekiah, Josiah, Nebuchadnezzar (his own
+      arc ends in blessing the Most High, Daniel 4:34), Cyrus,
+      Zerubbabel, Barnabas, Stephen. Negative — Cain, Laban, Pharaoh (of
+      the Exodus), Balaam, Achan, Jezebel, Ahab, Gehazi, Belshazzar,
+      Ananias, Simon Magus, Judas Iscariot. Neutral — Esau, Eli, Pilate.
+      Each also got its own distinct signature setting in
+      `character_art_settings.json` (Belshazzar's literal "MENE, TEKEL,
+      UPHARSIN" rendered glowing on the banquet-hall wall behind him;
+      Achan with the buried plunder visible at his feet; Ananias and
+      Simon Magus both visibly holding money, the detail that defines
+      each of their stories).
+    - No new stylization drift this round either — the same
+      non-photorealistic cues from item 91 held up across another 25
+      generations, this time deliberately including several
+      older/weathered faces (Eli, Laban, Nebuchadnezzar) that would have
+      been likely photorealism candidates.
+    - `sw.js` bumped to `rooted-v89`.
+
 ---
 
 ## 9. How the app reads this data

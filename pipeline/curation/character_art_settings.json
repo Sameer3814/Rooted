@@ -30,7 +30,10 @@
   "char_mary": "a humble stable in Bethlehem by candlelight, a wooden manger and soft hay visible",
   "char_jesus": "a sunlit grassy hillside overlooking the Sea of Galilee, a gathered crowd softly visible in the distance",
   "char_peter": "the shore of the Sea of Galilee at dawn, fishing boats and nets softly visible on the water behind him",
-  "char_paul": "a dusty desert road near Damascus, a blinding radiant light breaking through the sky above",
+  "char_paul": {
+    "setting": "a dusty desert road near Damascus, a blinding radiant light breaking through the sky above",
+    "expression": "positive"
+  },
 
   "char_sarah": "beneath the great trees of Mamre outside her tent, warm daylight, distant hills",
   "char_rachel": "a rocky well outside Haran, flocks of sheep gathered around, golden late-afternoon light",
@@ -59,5 +62,31 @@
   "char_mordecai": "the ornate gate of the Persian palace at Susa, columned architecture, official robes",
   "char_john_the_baptist": "the banks of the Jordan River in the wilderness, camel-hair clothing, rugged desert hills behind him",
   "char_mary_magdalene": "a garden at dawn beside an open stone tomb, soft golden sunrise light breaking through",
-  "char_lazarus": "stepping out from a stone tomb entrance in Bethany, wrapped grave clothes, soft warm light breaking through the tomb opening"
+  "char_lazarus": "stepping out from a stone tomb entrance in Bethany, wrapped grave clothes, soft warm light breaking through the tomb opening",
+
+  "char_cain": {"setting": "a barren field outside Eden, dry cracked earth, distant storm clouds", "expression": "negative"},
+  "char_abel": {"setting": "a green pastoral hillside with grazing flocks, warm morning light, an altar of stones nearby", "expression": "positive"},
+  "char_esau": {"setting": "the rugged hill country of Seir, a hunting bow and animal skins, rocky wilderness terrain", "expression": "neutral"},
+  "char_laban": {"setting": "a sheep-herding camp in Haran, flocks and tents in the background, late-day light", "expression": "negative"},
+  "char_pharaoh": {"setting": "the grand columned throne hall of an Egyptian palace, golden hieroglyph-carved walls, guards softly visible", "expression": "negative"},
+  "char_balaam": {"setting": "a rocky hillside overlooking the encamped tents of Israel below, a donkey softly visible nearby", "expression": "negative"},
+  "char_achan": {"setting": "outside an Israelite camp near Jericho, a tent and buried plunder softly visible at his feet", "expression": "negative"},
+  "char_eli": {"setting": "seated beside the doorpost of the tabernacle at Shiloh, dim evening light", "expression": "neutral"},
+  "char_jezebel": {"setting": "an ornate palace balcony overlooking Jezreel, richly adorned in royal Phoenician dress", "expression": "negative"},
+  "char_ahab": {"setting": "the throne room of the palace in Samaria, ivory-inlaid walls, a troubled dusk light", "expression": "negative"},
+  "char_naboth": {"setting": "his own vineyard on a hillside in Jezreel, warm golden-hour light, rows of grapevines", "expression": "positive"},
+  "char_gehazi": {"setting": "the road outside Naaman's departing chariot, the dusty hills of Samaria in the distance", "expression": "negative"},
+  "char_naaman": {"setting": "the banks of the Jordan River, armor set aside, radiant morning light after his healing", "expression": "positive"},
+  "char_hezekiah": {"setting": "the inner court of the First Temple in Jerusalem, royal robes, warm devotional light", "expression": "positive"},
+  "char_josiah": {"setting": "the temple courts in Jerusalem, an ancient scroll of the Law in hand, warm daylight", "expression": "positive"},
+  "char_nebuchadnezzar": {"setting": "the grand terraces of Babylon overlooking the city, royal Babylonian robes, golden sunset light", "expression": "positive"},
+  "char_belshazzar": {"setting": "a lavish Babylonian banquet hall, golden vessels on the table, mysterious glowing writing faintly visible on the wall behind him", "expression": "negative"},
+  "char_cyrus": {"setting": "the columned Persian court at Babylon, royal robes, a decree scroll in hand", "expression": "positive"},
+  "char_zerubbabel": {"setting": "the half-rebuilt foundation of the Second Temple in Jerusalem, warm morning light, workers softly visible", "expression": "positive"},
+  "char_barnabas": {"setting": "the early church gathered in a courtyard in Antioch, warm daylight, a welcoming presence", "expression": "positive"},
+  "char_stephen": {"setting": "before the Sanhedrin's council chamber, a soft radiant light on his face, onlookers softly visible", "expression": "positive"},
+  "char_ananias": {"setting": "the gathered early church in Jerusalem, a bag of silver coins softly visible in hand, uneasy tension in the air", "expression": "negative"},
+  "char_simon_magus": {"setting": "a marketplace in Samaria, a bag of coins extended in hand, onlooking apostles softly visible", "expression": "negative"},
+  "char_judas_iscariot": {"setting": "a torchlit garden at night, a small bag of silver coins visible at his side", "expression": "negative"},
+  "char_pilate": {"setting": "a Roman judgment hall in Jerusalem, a basin of water softly visible nearby, columned architecture", "expression": "neutral"}
 }

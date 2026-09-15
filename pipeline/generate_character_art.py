@@ -201,7 +201,29 @@ def find_character(char_id):
     raise SystemExit("error: no character with id %s in %s" % (char_id, STARTER_PACK_CURATION))
 
 
-def build_prompt(character, setting=None, description=None):
+
+# Expression direction (2026-09-15, batch 3+) — every character now gets
+# an explicit emotional-tone instruction rather than leaving expression
+# entirely to the model's own read of the roles/setting text. Caught by
+# direct feedback: Paul, whose arc ends in triumph (persecutor -> apostle
+# -> "I have fought the good fight"), had rendered with a flat/unhappy
+# expression despite that being a positive-arc figure. The rule going
+# forward: a character whose OWN arc resolves well (redemption, faith
+# rewarded, a life that ends in vindication) reads warm/genuinely happy;
+# a character defined by villainy or a story that indicts them (a
+# persecutor who never repents, a betrayer, an oppressor) reads subtly
+# stern/hard, never cartoonish; anyone else (most prophets mid-warning,
+# figures whose story is tragic but not villainous, e.g. Saul or
+# Absalom) reads calm and neutral/dignified. This is a per-character
+# judgment call recorded in character_art_settings.json's "expression"
+# field, same mechanism as "description" and "setting".
+EXPRESSION_POSITIVE = "a warm, genuinely joyful expression, a real and unmistakable smile"
+EXPRESSION_NEGATIVE = "a subtly stern, hardened expression -- tension in the brow, a hard set to the mouth -- dignified and human, not cartoonishly villainous or exaggerated"
+EXPRESSION_NEUTRAL = "a calm, composed, neutral expression -- dignified, neither smiling nor stern"
+EXPRESSION_MAP = {"positive": EXPRESSION_POSITIVE, "negative": EXPRESSION_NEGATIVE, "neutral": EXPRESSION_NEUTRAL}
+
+
+def build_prompt(character, setting=None, description=None, expression=None):
     # `character["roles"]` is real app-facing Character data (shown to
     # users elsewhere in the app) — never edited just to steer image
     # generation. When a role phrase misleads the model (e.g. Samuel's
@@ -213,7 +235,8 @@ def build_prompt(character, setting=None, description=None):
     roles = ", ".join(character.get("roles", [])) or "a figure from the Bible"
     text = description or roles
     setting = setting or "a softly blurred, warm atmospheric backdrop with no specific recognizable location"
-    return "%s: %s. SETTING: %s. %s" % (character["name"], text, setting, STYLE_SUFFIX)
+    expression_text = EXPRESSION_MAP.get(expression, EXPRESSION_NEUTRAL)
+    return "%s: %s. SETTING: %s. EXPRESSION: %s. %s" % (character["name"], text, setting, expression_text, STYLE_SUFFIX)
 
 
 def cmd_test(char_ids):
@@ -224,13 +247,14 @@ def cmd_test(char_ids):
         character = find_character(char_id)
         entry = settings.get(char_id)
         # An entry is either a plain setting string, or {"setting":...,
-        # "description":...} when the character also needs a prompt-text
-        # override (see build_prompt()'s docstring above).
+        # "description":..., "expression":...} when the character also
+        # needs a prompt-text override (see build_prompt()'s docstring).
         if isinstance(entry, dict):
             setting, description = entry.get("setting"), entry.get("description")
+            expression = entry.get("expression")
         else:
-            setting, description = entry, None
-        prompt = build_prompt(character, setting, description)
+            setting, description, expression = entry, None, None
+        prompt = build_prompt(character, setting, description, expression)
         print("--- %s ---" % char_id, file=sys.stderr)
         print("Prompt:\n  %s\n" % prompt, file=sys.stderr)
         print("Calling Gemini (%s)... this is a real, billed API call." % MODEL, file=sys.stderr)

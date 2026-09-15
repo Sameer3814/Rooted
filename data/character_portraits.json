@@ -9,5 +9,11 @@
   "char_joshua", "char_caleb", "char_rahab", "char_boaz", "char_saul",
   "char_goliath", "char_jonathan", "char_bathsheba", "char_absalom", "char_nathan",
   "char_elisha", "char_jeremiah", "char_ezekiel", "char_job", "char_nehemiah",
-  "char_ezra", "char_mordecai", "char_john_the_baptist", "char_mary_magdalene", "char_lazarus"
+  "char_ezra", "char_mordecai", "char_john_the_baptist", "char_mary_magdalene", "char_lazarus",
+
+  "char_cain", "char_abel", "char_esau", "char_laban", "char_pharaoh",
+  "char_balaam", "char_achan", "char_eli", "char_jezebel", "char_ahab",
+  "char_naboth", "char_gehazi", "char_naaman", "char_hezekiah", "char_josiah",
+  "char_nebuchadnezzar", "char_belshazzar", "char_cyrus", "char_zerubbabel", "char_barnabas",
+  "char_stephen", "char_ananias", "char_simon_magus", "char_judas_iscariot", "char_pilate"
 ]

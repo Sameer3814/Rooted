@@ -419,16 +419,22 @@ hand-curate all the content before building.
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
-   **Started 2026-09-15, expanded same day** — 50 of 261 characters now
-   have a real generated portrait (stylized 3D-animation style, a
-   story-appropriate background per character), wired into both small
-   avatars and Character Detail's hero. Still not the full `Media`
+   **Started 2026-09-15, expanded twice more the same day** — 75 of 261
+   characters now have a real generated portrait (stylized 3D-animation
+   style, a story-appropriate background per character, and — since the
+   third batch — an explicit expression matched to whether their own
+   arc is positive, negative, or neutral, after Paul's original portrait
+   read unhappy despite his story ending in triumph), wired into both
+   small avatars and Character Detail's hero. Still not the full `Media`
    entity from design philosophy #3 — a flat
    `data/character_portraits.json` manifest instead, a deliberate
-   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-92).
-   Remaining gap: the other ~211 characters still show the icon
-   placeholder; expanding the batch (and, if it grows large enough,
-   building the real `Media` entity to replace the manifest shortcut) is
+   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-93).
+   Remaining gap: the other ~186 characters still show the icon
+   placeholder, and none of the earlier 49 portraits were retroactively
+   redone for the expression rule (an explicit, deliberate scope choice,
+   not an oversight — see item 93). Expanding the batch (and, if it
+   grows large enough, building the real `Media` entity to replace the
+   manifest shortcut) is
    the natural next step, not attempted yet.
 3. ~~**Expanding beyond Genesis to other OT books, in canonical
    order.**~~ **Done — the entire Old Testament is curated
