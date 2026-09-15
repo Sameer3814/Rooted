@@ -3812,6 +3812,128 @@ inventing a new principle:
       sons, one `"father of"` for Ham/Canaan, one `"nephew of"` for the
       two Herods). No new motifs — nothing in this batch had a genuine
       second instance to pair with. `sw.js` bumped to `rooted-v84`.
+89. **Third content-gap audit, batch fill — done (2026-09-15).** A third
+    owner audit (items 86 and 88 were the first two) — again, real gaps
+    confirmed against `data/stories.json`/`data/verses.json` before
+    curating, not guessed. 11 new stories, zero new characters, 63 new
+    curated verses, 4 new life events, across `era_jesus_ministry`,
+    `era_passion_and_resurrection`, `era_divided_kingdom`, and
+    `era_judges` — no new eras, no new characters, no new topics (all
+    fit the existing 39). Zero new characters is itself notable — every
+    gap in this batch turned out to involve either unnamed figures (the
+    standing rule: only real, named/identifiable people get Character
+    records) or people already curated.
+    - **`era_jesus_ministry` — six more Gospel episodes.** The woman
+      caught in adultery (`story_woman_caught_in_adultery`, John 8:1-11
+      — "he who is without sin among you, let him throw the first stone
+      at her") and Jesus rejected at his hometown synagogue in Nazareth
+      (`story_jesus_rejected_at_nazareth`, Luke 4:16-30 — "no prophet is
+      acceptable in his hometown," the crowd tries to throw him off a
+      cliff) each tag only `char_jesus`; no one else in either text is
+      named. The sending of the twelve (`story_jesus_sends_out_the_twelve`,
+      Matthew 10:1-15; Mark 6:7-13; Luke 9:1-6) and the sending of the
+      seventy-two (`story_jesus_sends_out_the_seventy_two`, Luke 10:1-24
+      — "the harvest is plentiful," "I saw Satan fall like lightning")
+      are both Jesus's own action, not any individual disciple's, so
+      neither gets a life event on anyone but him — considered tagging
+      the already-curated apostles named in Matthew 10:2-4 (Peter,
+      Andrew, Thomas, Matthew, Judas Iscariot all exist as characters)
+      but decided against it, since the text doesn't show them doing
+      anything individually here. The persistent widow and the unjust
+      judge (`story_persistent_widow_and_unjust_judge`, Luke 18:1-8)
+      is a parable, so `char_jesus` only, same as every other parable
+      story.
+    - **The wedding banquet: two distinct parables, not one told twice.**
+      Matthew 22:1-14 and Luke 14:15-24 share a surface shape (a host,
+      refused invitations, a servant sent to gather replacement guests)
+      but diverge enough to be genuinely separate stories: Matthew's has
+      a king, armies destroying the murderers of his servants and
+      burning their city, and a second scene where a guest without
+      wedding clothes is bound and thrown into the outer darkness —
+      none of which Luke's simpler dinner-party parable has at all.
+      Matthew's is also textually and thematically Passion week material
+      (delivered in the temple right after the temple cleansing, in the
+      same judgment register as the parables that follow it), while
+      Luke's is spoken at a Pharisee's table mid-ministry. Curated as
+      two Stories in two different eras:
+      `story_parable_of_the_wedding_banquet` (Matthew 22:1-14) sits in
+      `era_passion_and_resurrection`, right after
+      `story_temple_cleansing_passion_week` and before `story_ten_virgins`
+      — the same Matthew 21-25 stretch of judgment parables;
+      `story_parable_of_the_great_feast` (Luke 14:15-24) sits in
+      `era_jesus_ministry`, in the same journey-to-Jerusalem stretch as
+      `story_lost_sheep_and_coin` and `story_prodigal_son`. Both tag
+      only `char_jesus`.
+    - **Numbers, `era_exodus` — Aaron's rod buds folded into the existing
+      Korah story, not cloned.** Numbers 17:1-11 is Yahweh's direct
+      response to the people's continued grumbling after the ground
+      swallowed Korah days earlier — same scene's aftermath, not a new
+      incident — so it extends `story_korahs_rebellion` rather than
+      getting its own Story, the same "extend, don't clone" call as
+      Isaiah 36-39/2 Kings 18-20 and the Chronicles material. Its
+      `primaryReference` grew to `"Numbers 16:1-35; 17:1-11"`, its
+      summary now covers both, and it picked up 3 more verses. New life
+      events for `char_aaron` (`event_aaron_rod_buds`, sequence 105,
+      between his existing confronting-Korah event at 100 and being
+      barred from Canaan at 110) and `char_moses`
+      (`event_moses_aaron_rod_buds`, sequence 225, right after his own
+      confronting-Korah event at 220).
+    - **2 Kings 6 — the floating ax head is the real gap, the blinded
+      army already wasn't.** The task brief named "the floating ax head
+      and the blinded Aramean army at Dothan (2 Kings 6:1-23)" as one
+      chapter-sized gap, but checking `data/stories.json` first showed
+      `story_elisha_and_the_blinded_army` (2 Kings 6:8-23) already
+      existed — only 6:1-7, the ax head, was actually missing. That also
+      settles the one-vs-two-stories question: 2 Kings 4's widow's-oil
+      and Shunammite's-son miracles, textually just as adjacent, were
+      already curated as two separate Stories
+      (`story_elisha_and_the_widows_oil`, `story_elisha_and_the_shunammite`),
+      so the new `story_elishas_floating_axe_head` follows that same
+      precedent rather than merging into the existing blinded-army
+      story. `char_elisha` gets one new life event
+      (`event_elisha_floats_axe_head`, sequence 45, between Naaman
+      healed at 40 and the blinded army at 50); the prophet who loses
+      the ax head is unnamed in the text, so no new Character.
+    - **Judges 19-21 — the Levite's concubine and the war against
+      Benjamin, curated directly, not softened.** Confirmed genuinely
+      uncovered (`data/stories.json` had nothing past Samson), and the
+      owner explicitly confirmed this dark material belongs in the app
+      rather than being skipped. Split into three Stories at the text's
+      own scene breaks, matching how multi-chapter arcs like Absalom's
+      rebellion and Esther were split rather than compressed into one:
+      `story_levites_concubine` (Judges 19 — the assault at Gibeah and
+      the dismembered body sent through Israel's territory),
+      `story_war_against_benjamin` (Judges 20 — the war itself, Israel's
+      two early defeats, and the near-destruction of the tribe), and
+      `story_wives_for_benjamin` (Judges 21 — Jabesh Gilead's daughters
+      and the abduction at the Shiloh festival, closing on the book's own
+      thesis line, "everyone did that which was right in his own eyes").
+      Verse *text* is exactly the WEB translation throughout, unedited —
+      only verse *selection* (always a curated choice, same as every
+      other story) narrowed around the single most graphic sentence in
+      chapter 19 (the description of the assault itself, v25) while
+      still keeping the verses on either side of it (the mob's demand,
+      v22; finding her at the door, v28; the dismemberment, v29) that
+      make what happened unambiguous without lingering on it. No new
+      Character records: every participant in all three chapters is
+      unnamed ("a certain Levite," "his concubine," "the men of
+      Gibeah," Jabesh Gilead, the daughters of Shiloh) — verified
+      directly against the text, not assumed, since named participants
+      have cleared a much lower bar than this in past passes (e.g.
+      Zelophehad's daughters, item 71). One existing character does
+      belong on the war story, though, caught by the same discipline as
+      items 66-67's "tag the major character too" lesson: `char_phinehas`
+      (introduced item 71, era_exodus) is the one who stands before the
+      ark and inquires of Yahweh at Judges 20:27-28, so he's tagged with
+      a new life event (`event_phinehas_war_against_benjamin`, sequence
+      30) even though his own `eraId` stays in the Exodus period where
+      his arc is centered. `era_judges`'s summary was also reread and
+      extended per the pipeline README's stale-era-text lesson — it
+      only described the deliverer cycle, not the book's own grim
+      closing coda.
+    - No new motifs or connections — nothing in this batch paired with a
+      genuine second instance, and no new family/relationship facts were
+      introduced. `sw.js` bumped to `rooted-v85`.
 
 ---
 

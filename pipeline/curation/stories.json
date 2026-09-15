@@ -32,7 +32,7 @@
     {
       "id": "era_judges",
       "name": "The Judges",
-      "summary": "A repeating cycle: Israel abandons Yahweh, is oppressed by a neighboring power, cries out, and God raises up a judge to deliver them — Ehud, Deborah, Gideon, Jephthah, Samson, and others — until the next cycle begins. Ruth’s quiet story of loyalty happens inside this same chaotic period, and ends by naming David’s great-grandparents.",
+      "summary": "A repeating cycle: Israel abandons Yahweh, is oppressed by a neighboring power, cries out, and God raises up a judge to deliver them — Ehud, Deborah, Gideon, Jephthah, Samson, and others — until the next cycle begins. Ruth's quiet story of loyalty happens inside this same chaotic period, and ends by naming David's great-grandparents. The book's own grim closing chapters, with no judge and no king to restrain anyone, show what the cycle looks like at its worst.",
       "order": 6,
       "approxRange": "centuries after the Exodus, before Israel's kings"
     },
@@ -1338,14 +1338,17 @@
     {
       "id": "story_korahs_rebellion",
       "title": "Korah's rebellion",
-      "summary": "Korah and his followers accuse Moses and Aaron of taking too much power for themselves. Moses says the ground itself will show who Yahweh sent — and the earth opens and swallows Korah, his household, and everything he owns.",
-      "primaryReference": "Numbers 16:1-35",
+      "summary": "Korah and his followers accuse Moses and Aaron of taking too much power for themselves. Moses says the ground itself will show who Yahweh sent — and the earth opens and swallows Korah, his household, and everything he owns. When the people go on grumbling that Moses and Aaron have killed Yahweh's people, Yahweh settles it for good: twelve leaders' staffs are laid up overnight in the Tent of Meeting, and only Aaron's sprouts, buds, blossoms, and bears ripe almonds. It's kept afterward as a permanent sign to end the complaining.",
+      "primaryReference": "Numbers 16:1-35; 17:1-11",
       "eraId": "era_exodus",
       "canonicalOrder": 705,
       "verseIds": [
         "verse_numbers_16_3",
         "verse_numbers_16_28",
-        "verse_numbers_16_32"
+        "verse_numbers_16_32",
+        "verse_numbers_17_5",
+        "verse_numbers_17_8",
+        "verse_numbers_17_10"
       ],
       "characterIds": [
         "char_moses",
@@ -6998,6 +7001,240 @@
       ],
       "topicIds": [
         "topic_justice"
+      ]
+    },
+    {
+      "id": "story_woman_caught_in_adultery",
+      "title": "The woman caught in adultery",
+      "summary": "Scribes and Pharisees drag a woman caught in adultery before Jesus, hoping to trap him between Moses' law and his own mercy. Jesus stoops and writes on the ground, then answers, \"He who is without sin among you, let him throw the first stone at her.\" One by one, beginning with the oldest, her accusers leave. Jesus tells her he doesn't condemn her either -- \"go your way, and from now on, sin no more.\"",
+      "primaryReference": "John 8:1-11",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2467,
+      "verseIds": [
+        "verse_john_8_3",
+        "verse_john_8_4",
+        "verse_john_8_7",
+        "verse_john_8_10",
+        "verse_john_8_11"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_forgiveness",
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_jesus_rejected_at_nazareth",
+      "title": "Jesus rejected at Nazareth",
+      "summary": "Back in his hometown synagogue, Jesus reads Isaiah's words about good news to the poor and freedom to the captives, then says the words are fulfilled that very day. The crowd turns on him the moment he names Elijah and Elisha sent to outsiders instead of Israel -- \"no prophet is acceptable in his hometown\" -- and drives him to a cliff outside town to throw him off. He simply walks through the middle of them and goes on his way.",
+      "primaryReference": "Luke 4:16-30",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2243,
+      "verseIds": [
+        "verse_luke_4_18",
+        "verse_luke_4_19",
+        "verse_luke_4_24",
+        "verse_luke_4_28",
+        "verse_luke_4_29",
+        "verse_luke_4_30"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_jesus_sends_out_the_twelve",
+      "title": "Jesus sends out the twelve",
+      "summary": "Jesus gives the twelve authority over unclean spirits and disease, and sends them out ahead of him -- preach that the Kingdom of Heaven is at hand, heal the sick, and travel light, taking no money or spare provisions, trusting each town to provide for them. Any town that won't receive them, they're to shake its dust off their feet and move on.",
+      "primaryReference": "Matthew 10:1-15; Mark 6:7-13; Luke 9:1-6",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2406,
+      "verseIds": [
+        "verse_matthew_10_1",
+        "verse_matthew_10_7",
+        "verse_matthew_10_8",
+        "verse_matthew_10_9",
+        "verse_matthew_10_10",
+        "verse_matthew_10_14"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_jesus_sends_out_the_seventy_two",
+      "title": "Jesus sends out the seventy-two",
+      "summary": "Jesus appoints seventy-two others and sends them out two by two ahead of him -- \"the harvest is plentiful, but the laborers are few.\" They return rejoicing that even demons submit to them in his name; Jesus tells them he watched \"Satan fall like lightning from heaven,\" but their real cause for joy isn't the power they were given -- it's that their names are written in heaven.",
+      "primaryReference": "Luke 10:1-24",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2318,
+      "verseIds": [
+        "verse_luke_10_1",
+        "verse_luke_10_2",
+        "verse_luke_10_17",
+        "verse_luke_10_18",
+        "verse_luke_10_20"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_calling"
+      ]
+    },
+    {
+      "id": "story_parable_of_the_wedding_banquet",
+      "title": "The parable of the wedding banquet",
+      "summary": "A king throws a wedding feast for his son; the invited guests refuse to come, so he sends his servants into the highways to gather anyone they find, bad and good alike, until the hall is full. But one guest is found without wedding clothes and is thrown out into the darkness -- \"many are called, but few chosen.\"",
+      "primaryReference": "Matthew 22:1-14",
+      "eraId": "era_passion_and_resurrection",
+      "canonicalOrder": 2604,
+      "verseIds": [
+        "verse_matthew_22_2",
+        "verse_matthew_22_3",
+        "verse_matthew_22_9",
+        "verse_matthew_22_10",
+        "verse_matthew_22_13",
+        "verse_matthew_22_14"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_parable_of_the_great_feast",
+      "title": "The parable of the great feast",
+      "summary": "A man plans a great supper and invites many, but every guest makes an excuse -- a field to see, oxen to try, a new marriage. Angry, the host sends his servant to bring in the poor, maimed, blind, and lame instead, then out to the highways and hedges to compel still more to come, until the house is full. None of those first invited, he says, will taste his supper.",
+      "primaryReference": "Luke 14:15-24",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2324,
+      "verseIds": [
+        "verse_luke_14_16",
+        "verse_luke_14_17",
+        "verse_luke_14_21",
+        "verse_luke_14_23",
+        "verse_luke_14_24"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_persistent_widow_and_unjust_judge",
+      "title": "The persistent widow and the unjust judge",
+      "summary": "Jesus tells a parable about always praying and never giving up: a judge who fears neither God nor man keeps ignoring a widow's plea for justice, until her sheer persistence wears him down and he grants it anyway. If even an unjust judge gives in, Jesus asks, won't God -- who is nothing like him -- bring justice to his own people who cry out to him day and night?",
+      "primaryReference": "Luke 18:1-8",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2502,
+      "verseIds": [
+        "verse_luke_18_2",
+        "verse_luke_18_3",
+        "verse_luke_18_5",
+        "verse_luke_18_7",
+        "verse_luke_18_8"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_justice",
+        "topic_waiting"
+      ]
+    },
+    {
+      "id": "story_elishas_floating_axe_head",
+      "title": "Elisha's floating ax head",
+      "summary": "One of the sons of the prophets loses a borrowed ax head in the Jordan while cutting timber for their new quarters. Elisha throws a stick into the water at the spot, and the iron floats up so the man can take it back.",
+      "primaryReference": "2 Kings 6:1-7",
+      "eraId": "era_divided_kingdom",
+      "canonicalOrder": 1435,
+      "verseIds": [
+        "verse_2kings_6_5",
+        "verse_2kings_6_6",
+        "verse_2kings_6_7"
+      ],
+      "characterIds": [
+        "char_elisha"
+      ],
+      "topicIds": [
+        "topic_provision"
+      ]
+    },
+    {
+      "id": "story_levites_concubine",
+      "title": "The Levite's concubine",
+      "summary": "A Levite travels with his concubine to retrieve her from her father's house and, refusing to lodge among foreigners, stops for the night in Gibeah, a Benjamite town -- where an old man finally takes them in after no one else will. That night, men of the city surround the house demanding the traveler be handed over; the Levite instead sends his concubine out to them, and they abuse her until morning. He finds her collapsed at the door at dawn and, back home, cuts her body into twelve pieces and sends them throughout Israel's territory as a summons. \"Such a deed has not been done or seen,\" everyone who sees it says, \"from the day Israel came up out of Egypt.\"",
+      "primaryReference": "Judges 19:1-30",
+      "eraId": "era_judges",
+      "canonicalOrder": 860,
+      "verseIds": [
+        "verse_judges_19_1",
+        "verse_judges_19_22",
+        "verse_judges_19_25",
+        "verse_judges_19_28",
+        "verse_judges_19_29",
+        "verse_judges_19_30"
+      ],
+      "characterIds": [],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_war_against_benjamin",
+      "title": "The war against Benjamin",
+      "summary": "All Israel assembles at Mizpah, and the Levite tells the assembly what happened at Gibeah. When Benjamin refuses to hand over the guilty men, Israel goes to war against their own brother tribe -- losing badly twice, forty thousand men, before Yahweh promises victory through Phinehas, who still serves before the ark. On the third day an ambush finally breaks Benjamin: twenty-five thousand fall, their cities burn, and only six hundred men escape to the rock of Rimmon. A tribe of Israel is nearly wiped out by the rest of Israel.",
+      "primaryReference": "Judges 20:1-48",
+      "eraId": "era_judges",
+      "canonicalOrder": 870,
+      "verseIds": [
+        "verse_judges_20_4",
+        "verse_judges_20_5",
+        "verse_judges_20_6",
+        "verse_judges_20_18",
+        "verse_judges_20_28",
+        "verse_judges_20_35",
+        "verse_judges_20_47"
+      ],
+      "characterIds": [
+        "char_phinehas"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_wives_for_benjamin",
+      "title": "Wives for the six hundred",
+      "summary": "With Benjamin nearly gone, Israel grieves the oath it swore at Mizpah never to give the tribe their daughters as wives -- \"why has this happened, that one tribe should be missing from Israel today?\" They strike Jabesh Gilead, which hadn't joined the war, and take its four hundred surviving virgins for the six hundred men at Rimmon. Still short, the elders tell the remaining Benjamites to hide in the vineyards at Shiloh's yearly feast and seize wives for themselves from the dancing daughters when they come out -- so no one technically breaks the oath. The book of Judges ends where it began: \"In those days there was no king in Israel. Everyone did that which was right in his own eyes.\"",
+      "primaryReference": "Judges 21:1-25",
+      "eraId": "era_judges",
+      "canonicalOrder": 880,
+      "verseIds": [
+        "verse_judges_21_1",
+        "verse_judges_21_3",
+        "verse_judges_21_10",
+        "verse_judges_21_12",
+        "verse_judges_21_21",
+        "verse_judges_21_25"
+      ],
+      "characterIds": [],
+      "topicIds": [
+        "topic_sorrow"
       ]
     }
   ],
@@ -14707,6 +14944,50 @@
       "reference": "Acts 12:20-23",
       "storyId": "story_death_of_herod_agrippa",
       "sequenceInLife": 10
+    },
+    {
+      "id": "event_aaron_rod_buds",
+      "characterId": "char_aaron",
+      "title": "His staff alone buds",
+      "description": "Of the twelve staffs laid up overnight before Yahweh, only Aaron's sprouts, blossoms, and bears almonds -- Yahweh's own answer to the people's grumbling after Korah.",
+      "reference": "Numbers 17:1-11",
+      "storyId": "story_korahs_rebellion",
+      "participantIds": [
+        "char_moses"
+      ],
+      "sequenceInLife": 105
+    },
+    {
+      "id": "event_moses_aaron_rod_buds",
+      "characterId": "char_moses",
+      "title": "Lays up the twelve staffs",
+      "description": "At Yahweh's instruction, he lays twelve staffs before the covenant overnight; only Aaron's has budded by morning, ending the people's complaints for good.",
+      "reference": "Numbers 17:1-11",
+      "storyId": "story_korahs_rebellion",
+      "participantIds": [
+        "char_aaron"
+      ],
+      "sequenceInLife": 225
+    },
+    {
+      "id": "event_elisha_floats_axe_head",
+      "characterId": "char_elisha",
+      "title": "Makes a borrowed ax head float",
+      "description": "When a young prophet loses a borrowed ax head in the Jordan, Elisha throws in a stick and the iron floats up.",
+      "reference": "2 Kings 6:1-7",
+      "storyId": "story_elishas_floating_axe_head",
+      "participantIds": [],
+      "sequenceInLife": 45
+    },
+    {
+      "id": "event_phinehas_war_against_benjamin",
+      "characterId": "char_phinehas",
+      "title": "Serves before the ark during the war on Benjamin",
+      "description": "Standing before the ark at Bethel, he inquires of Yahweh on Israel's behalf and is told the third day's battle against Benjamin will succeed.",
+      "reference": "Judges 20:27-28",
+      "storyId": "story_war_against_benjamin",
+      "participantIds": [],
+      "sequenceInLife": 30
     }
   ]
 }

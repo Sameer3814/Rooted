@@ -786,6 +786,32 @@ hand-curate all the content before building.
     sat with empty `verseIds` since their original curation, so nothing
     existed for either signal to find; added 8 real verses to fill them
     in. See DATA_MODEL.md §8, item 76.
+
+    **Third content-gap audit, batch fill — done (2026-09-15).** Not
+    the supporting-cast passes above, but the same "find a real, verified
+    gap and fill it" discipline applied a third time (after items 86 and
+    88's Gospel/Acts and whole-Bible audits) — 11 new stories, zero new
+    characters, 63 new curated verses, 4 new life events: six more Gospel
+    episodes in `era_jesus_ministry` (the woman caught in adultery, Jesus
+    rejected at Nazareth, the sending of the twelve, the sending of the
+    seventy-two, and — decided as two genuinely distinct parables rather
+    than one story told twice, given how much Matthew's king/armies/
+    wedding-clothes version diverges from Luke's simpler dinner-party one
+    — the wedding banquet in `era_passion_and_resurrection` and the great
+    feast in `era_jesus_ministry`); Aaron's rod budding (Numbers 17)
+    folded into the existing `story_korahs_rebellion` as a direct
+    continuation, not cloned; Elisha's floating ax head (2 Kings 6:1-7) —
+    the real gap, since checking first showed the blinded army half of
+    that chapter was already curated; and the Levite's concubine and the
+    war against Benjamin (Judges 19-21), curated directly and factually
+    across three Stories at the text's own scene breaks, per the owner's
+    explicit direction that this material belongs in the app. No new
+    characters anywhere in this batch — every gap turned out to involve
+    either unnamed figures or people already curated (including
+    `char_phinehas`, tagged on the Benjamite war for standing before the
+    ark, the same "tag the existing major character too" discipline as
+    items 66-67). Full writeup, including the verse-selection judgment
+    call on the Judges material: DATA_MODEL.md §8, item 89.
 11. **Home redesign / identity shift — done (2026-09-14).** Memorization
     moved off Home entirely onto its own new Practice tab; Home is now
     Verse of the Day plus Unreached of the Day. The owner set
