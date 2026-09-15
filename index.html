@@ -88,7 +88,13 @@
   h3{font-size:var(--text-lg);font-weight:600;line-height:1.3;}
   p{margin:0;line-height:1.55;}
   button{font-family:'Inter',sans-serif;cursor:pointer;}
-  .app{max-width:480px;margin:0 auto;padding:20px 18px 8px;}
+  /* touch-action:pan-y tells the browser vertical scrolling is its job
+     but a horizontal gesture is ours to interpret — without this, mobile
+     browsers can decide a swipe belongs to native scrolling and send a
+     pointercancel instead of pointerup, silently swallowing the
+     swipe-back gesture wired in wireSwipeBack() below before it ever
+     fires. Real bug, not theoretical — caught by direct device testing. */
+  .app{max-width:480px;margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
   .topbar .brand i{font-size:22px;color:var(--gold-deep);}
@@ -2114,8 +2120,8 @@ function renderCharacterDetail(id){
     <button class="back-btn" data-action="character-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
     <div class="hero-photo-wrap">
       ${charPortraitUrl(c.id) ? `<img class="hero-photo" src="${esc(charPortraitUrl(c.id))}" alt="${esc(c.name)}">` : ''}
-      ${prevChar ? `<button class="hero-nav-btn hero-nav-prev" data-action="open-character" data-id="${prevChar.id}" aria-label="Previous person"><i class="ti ti-chevron-left"></i></button>` : ''}
-      ${nextChar ? `<button class="hero-nav-btn hero-nav-next" data-action="open-character" data-id="${nextChar.id}" aria-label="Next person"><i class="ti ti-chevron-right"></i></button>` : ''}
+      ${prevChar ? `<button class="hero-nav-btn hero-nav-prev" data-action="char-carousel-nav" data-id="${prevChar.id}" aria-label="Previous person"><i class="ti ti-chevron-left"></i></button>` : ''}
+      ${nextChar ? `<button class="hero-nav-btn hero-nav-next" data-action="char-carousel-nav" data-id="${nextChar.id}" aria-label="Next person"><i class="ti ti-chevron-right"></i></button>` : ''}
     </div>
     <div class="hero">
       ${charPortraitUrl(c.id) ? '' : `<div class="hero-avatar"><i class="ti ${charIcon(c.roles)}"></i></div>`}
@@ -3031,6 +3037,13 @@ function onAction(e){
   else if(action==='open-topic') go('topicDetail', {id});
   else if(action==='back-to-topics') go('topics');
   else if(action==='open-character') go('characterDetail', {id, from: view});
+  // Carousel prev/next (hero-nav-prev/next): keeps the ORIGINAL from —
+  // not view, which is the character page being left — so the back
+  // button always returns to wherever the visitor actually entered the
+  // carousel from, no matter how many characters they've paged through.
+  // Using open-character here instead would chain from one character
+  // page to the next and turn the back button into "previous character."
+  else if(action==='char-carousel-nav') go('characterDetail', {id, from: view.params.from});
   else if(action==='character-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('characters'); }
   else if(action==='open-book-people') go('bookPeople', {book: id});
   else if(action==='back-to-browse-book'){ browse.book = id; browse.chapter = null; go('browse'); }
@@ -3166,7 +3179,11 @@ function adjacentCharacter(id, dir){
     // A real, mostly-horizontal, reasonably quick leftward swipe only —
     // not a scroll, not a tap, not a diagonal drag, not a rightward swipe.
     if(dx >= -60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
-    const backBtn = document.querySelector('.back-btn[data-action]');
+    // Home's settings gear reuses the .back-btn class for its shared
+    // press-feedback styling even though it's not a "back" action
+    // (data-action="go-settings") — excluded here so swipe-left on Home
+    // does nothing instead of jumping to Settings.
+    const backBtn = document.querySelector('.back-btn[data-action]:not(.home-settings-btn)');
     if(backBtn) backBtn.click();
   });
   app.addEventListener('pointercancel', ()=>{ start = null; });

@@ -112,8 +112,14 @@ The schema was deliberately designed so all of the above can be added
   through the full cast (same order the People list shows them), and
   swipe-left-to-go-back works identically on every screen with no
   exception, found generically via whatever `.back-btn` is currently on
-  screen so it reuses each screen's own back-nav action. See
-  DATA_MODEL.md §8, item 102.
+  screen so it reuses each screen's own back-nav action. Two real bugs
+  fixed the same day from device testing: the carousel arrows were
+  chaining the back button through visited characters instead of
+  returning to the true entry point (fixed with a dedicated
+  `char-carousel-nav` action that preserves the original `from`), and
+  swipe wasn't registering on a real device at all (missing
+  `touch-action:pan-y` on `.app` let the browser cancel the gesture as a
+  scroll). See DATA_MODEL.md §8, items 102-103.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a

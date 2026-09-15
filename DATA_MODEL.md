@@ -4448,6 +4448,39 @@ inventing a new principle:
       pointerdown and pointerup is read.
     - `sw.js` bumped to `rooted-v99`.
 
+103. **Two real bugs in item 102, caught by direct device testing.**
+    **Done (2026-09-15), same day.**
+    - **The top-left back button was going to the previous carousel
+      character instead of the true entry point (Study/People).** Cause:
+      `.hero-nav-prev`/`.hero-nav-next` reused the existing
+      `open-character` action, which sets `from: view` — meaning each
+      arrow tap made "the character page just left" the new back target,
+      so tapping through several characters via the arrows and then
+      hitting the real back button just walked backward through that
+      chain one character at a time, never reaching Study. Fixed with a
+      new `char-carousel-nav` action that instead carries the ORIGINAL
+      `from` forward unchanged (`from: view.params.from`) on every
+      carousel hop — the back button now always returns to wherever the
+      visitor actually entered the carousel, no matter how many
+      characters they paged through first.
+    - **Swipe-left-to-go-back wasn't registering on a real device at
+      all.** Two contributing causes, both fixed:
+      1. `.app` had no `touch-action` set, so mobile browsers were free
+         to decide a horizontal drag belonged to native scrolling and
+         send `pointercancel` instead of `pointerup` — silently
+         swallowing the gesture before `wireSwipeBack()` ever saw a
+         completed swipe. Added `touch-action:pan-y` to `.app`, which
+         tells the browser vertical panning is its job but leaves
+         horizontal gestures for the page's own JS to interpret.
+      2. Separately, the generic `.back-btn[data-action]` query would
+         have matched Home's settings gear (`.home-settings-btn`, which
+         reuses the `.back-btn` class purely for its shared press-
+         feedback styling, with `data-action="go-settings"`) — meaning
+         swipe-left on Home would have jumped to Settings instead of
+         correctly doing nothing. Query now excludes
+         `.home-settings-btn` explicitly.
+    - `sw.js` bumped to `rooted-v100`.
+
 ---
 
 ## 9. How the app reads this data
