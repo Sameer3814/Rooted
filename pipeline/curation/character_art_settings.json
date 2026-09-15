@@ -278,5 +278,23 @@
   "char_abimelech_son_of_gideon": {"setting": "the tower of Thebez, a millstone falling from above, a chaotic siege scene below", "expression": "negative"},
   "char_tola": {"setting": "the hill country of Ephraim at Shamir, seated beneath a great tree as an elder judge of Israel", "expression": "neutral"},
   "char_jair": {"setting": "the region of Gilead, thirty sons and their donkeys softly visible in the background, a respected elder", "expression": "positive"},
-  "char_ibzan": {"setting": "the town of Bethlehem, a wedding feast for one of his many sons or daughters softly visible in the background", "expression": "positive"}
+  "char_ibzan": {"setting": "the town of Bethlehem, a wedding feast for one of his many sons or daughters softly visible in the background", "expression": "positive"},
+
+  "char_elon": {"setting": "the territory of Zebulun, seated as an elder judge among gathered tribespeople, warm daylight", "expression": "neutral"},
+  "char_abdon": {"setting": "the hill country of Ephraim at Pirathon, his many sons and grandsons riding on donkeys softly visible behind him", "expression": "positive"},
+  "char_athaliah": {"setting": "the throne room of the palace in Jerusalem, having seized the throne, tearing her royal robes in fury as trumpets sound", "expression": "negative"},
+  "char_jehosheba": {"setting": "a hidden chamber in the temple in Jerusalem, cradling the infant Joash safely away from danger", "expression": "positive"},
+  "char_herod_antipas": {"setting": "a lavish banquet hall in the fortress of Machaerus, a covered platter carried in, torchlight and uneasy guests", "expression": "negative"},
+  "char_herodias": {"setting": "the banquet hall at Machaerus, a cold, satisfied look as her request is granted", "expression": "negative"},
+  "char_tabitha": {"setting": "an upper room in Joppa, surrounded by grieving widows holding garments she made, restored to life", "expression": "positive"},
+  "char_demetrius": {"setting": "a silversmith's workshop in Ephesus, small silver shrines on the table, addressing a riled crowd", "expression": "negative"},
+  "char_felix": {"setting": "the judgment hall in Caesarea, seated on a governor's bench, half-attentive and hoping for a bribe", "expression": "negative"},
+  "char_festus": {"setting": "the judgment hall in Caesarea, formally presiding over a hearing before a visiting king", "expression": "neutral"},
+  "char_agrippa": {"setting": "the audience hall in Caesarea, richly robed, listening intently to a prisoner's defense", "expression": "neutral"},
+  "char_ham": {"setting": "outside Noah's tent after the flood, an uneasy backward glance, a vineyard softly visible beyond", "expression": "negative"},
+  "char_shem": {"setting": "outside Noah's tent, walking backward with a garment held out to cover his father, reverent care", "expression": "positive"},
+  "char_japheth": {"setting": "outside Noah's tent, alongside his brother covering their father with a garment laid across their shoulders", "expression": "positive"},
+  "char_canaan": {"setting": "the tents of a new settlement in a land later named for him, an uncertain, somber expression", "expression": "neutral"},
+  "char_enoch": {"setting": "a radiant path between earth and sky, walking calmly as soft light begins to envelop him", "expression": "positive"},
+  "char_herod_agrippa_i": {"setting": "a royal dais in Caesarea, robed in silver in bright sunlight, before a crowd hailing him as a god", "expression": "negative"}
 }

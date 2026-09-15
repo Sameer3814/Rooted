@@ -419,25 +419,33 @@ hand-curate all the content before building.
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
-   **Started 2026-09-15, expanded ten times the same day** — 250 of
-   267 characters now have a real generated portrait (stylized
+   **Done — full coverage reached 2026-09-15**, after eleven batches
+   generated over the course of that one day. All 267 characters in
+   the starter pack now have a real generated portrait (stylized
    3D-animation style, a story-appropriate background per character,
    and — since the third batch — an explicit expression matched to
    whether their own arc is positive, negative, or neutral, after
    Paul's original portrait read unhappy despite his story ending in
-   triumph), wired into both small avatars and Character Detail's hero.
-   Still not the full `Media` entity from design philosophy #3 — a flat
-   `data/character_portraits.json` manifest instead, a deliberate
-   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-100).
-   Remaining gap: the other ~17 characters (mostly the rest of the
-   "deep study" supporting cast from item 10) still show the icon
-   placeholder, and none of the earlier 49 portraits from before the
-   expression rule landed were retroactively redone (an explicit,
-   deliberate scope choice, not an oversight — see item 93). Continuing
-   the batch in a long-haul multi-session push, same discipline as item
-   10's supporting-cast curation — worth revisiting whether the
-   manifest shortcut should graduate to the real `Media` entity once
-   coverage is complete, not before.
+   triumph), wired into both small avatars and Character Detail's
+   hero. `data/character_portraits.json` holds 267 unique ids, each
+   with a matching file in `media/characters/` — verified by script.
+   The one earlier scope choice worth remembering: none of the first
+   49 portraits, generated before the expression rule landed, were
+   retroactively redone (deliberate, not an oversight — see item 93).
+   Full batch-by-batch history: DATA_MODEL.md §8, items 91-101.
+
+   Still not the full `Media` entity from design philosophy #3 — a
+   flat manifest keyed by character id, rather than a proper linked
+   entity with its own fields (art style, alt text, multiple
+   images/variants, attribution). That was a reasonable shortcut while
+   the batch was partial and still finding its own conventions
+   (settings, expressions, description-overrides); now that coverage
+   is complete and the conventions are stable, it's worth a real look
+   at whether promoting to `Media` pays for itself — mainly if a
+   second image variant per character (a dark-mode-tuned version, an
+   alternate pose, a different art style entirely) becomes a real,
+   not speculative, need. Observation only — not built as part of this
+   batch.
 3. ~~**Expanding beyond Genesis to other OT books, in canonical
    order.**~~ **Done — the entire Old Testament is curated
    (2026-09-10).** Owner's direction, 2026-09-04: work through the rest

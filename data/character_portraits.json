@@ -57,5 +57,10 @@
   "char_elihu", "char_jobs_wife", "char_obadiah", "char_micaiah", "char_hegai",
   "char_zeresh", "char_harbonah", "char_sapphira", "char_philip_evangelist", "char_rhoda",
   "char_eutychus", "char_melchizedek", "char_abimelech_king_of_gerar", "char_balak", "char_othniel",
-  "char_shamgar", "char_abimelech_son_of_gideon", "char_tola", "char_jair", "char_ibzan"
+  "char_shamgar", "char_abimelech_son_of_gideon", "char_tola", "char_jair", "char_ibzan",
+
+  "char_elon", "char_abdon", "char_athaliah", "char_jehosheba", "char_herod_antipas",
+  "char_herodias", "char_tabitha", "char_demetrius", "char_felix", "char_festus",
+  "char_agrippa", "char_ham", "char_shem", "char_japheth", "char_canaan",
+  "char_enoch", "char_herod_agrippa_i"
 ]

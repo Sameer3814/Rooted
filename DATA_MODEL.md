@@ -4365,6 +4365,38 @@ inventing a new principle:
       Harbonah, the king of Gerar Abimelech, Tola. `sw.js` bumped to
       `rooted-v96`.
 
+101. **Eleventh (final) character-portrait batch — 17 more, 267 total
+    (of 267). Full coverage reached.** **Done (2026-09-15).** The last
+    of the "deep study" supporting cast plus a handful of characters
+    that predate that whole effort: the two remaining minor judges
+    (Elon, Abdon), Athaliah and Jehosheba from the 2 Kings usurpation
+    story, Herod Antipas and Herodias from John the Baptist's death,
+    the rest of the Acts "deep study" cast (Tabitha, Demetrius, Felix,
+    Festus, Agrippa), Noah's three sons and Ham's son Canaan (Ham,
+    Shem, Japheth, Canaan — never curated with the rest of the flood
+    narrative's major cast), Enoch (Genesis's other pre-flood figure
+    "taken" rather than dying), and Herod Agrippa I (Acts 12's
+    persecuting king, distinct from both Herod Antipas above and the
+    Agrippa of Paul's later hearing). Settings newly written this
+    session — Enoch's called for real creative judgment, since his
+    entire biblical record is two verses with no scene to stage;
+    settled on a soft, radiant "path between earth and sky" visual for
+    his defining "walked with God... then he was not, for God took
+    him" moment rather than forcing a conventional backdrop. No
+    `description`-override fixes needed. All 17 passed visual QA on
+    the first generation.
+    - Expression calls: positive — Abdon, Jehosheba, Tabitha, Shem,
+      Japheth, Enoch; negative — Athaliah, Herod Antipas, Herodias,
+      Demetrius, Felix, Ham, Herod Agrippa I; neutral — Elon, Festus,
+      Agrippa, Canaan. `sw.js` bumped to `rooted-v97`.
+
+    **With this, all 267 characters in the starter pack now have a
+    real generated portrait** — `data/character_portraits.json` holds
+    267 unique ids, every one with a matching file in
+    `media/characters/`, verified by script at the end of this batch.
+    See CLAUDE.md's known-gaps item 2 for the closing note on the
+    manifest-vs-`Media`-entity tradeoff this now opens up.
+
 ---
 
 ## 9. How the app reads this data
