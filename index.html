@@ -3155,17 +3155,24 @@ function adjacentCharacter(id, dir){
   if(i===-1) return null;
   return list[i+dir] || null;
 }
-/* Swipe left, from anywhere in the app, triggers whatever the currently
-   rendered screen's own back button does — found generically via the
-   visible `.back-btn[data-action]` element and a real `.click()` on it,
-   so this reuses each screen's existing back-nav logic (verse-back,
-   character-back, back-to-topics, etc.) rather than a second
-   implementation of it, and automatically does nothing on any screen
-   with no back button (Home, any bottom-nav tab root). Pointer Events
-   (not separate touch/mouse listeners) so this covers touch and mouse
-   alike, same as wireTimelineDrag() above. Only pointerdown/pointerup
-   are tracked — no live drag visual — so a short tap or a mostly-vertical
-   scroll never gets misread as a swipe. */
+/* Swipe RIGHT, from anywhere in the app, triggers whatever the currently
+   rendered screen's own back control does (corrected from an initial
+   leftward version to match the standard mobile edge-swipe-back
+   convention). Two back-control shapes exist in this app, checked in
+   order:
+     1. A `.back-btn[data-action]` element — found generically and given
+        a real `.click()`, so this reuses each screen's existing
+        back-nav logic (verse-back, character-back, back-to-topics,
+        etc.) rather than a second implementation of it.
+     2. Browse's book/chapter/verse levels, which use a breadcrumb trail
+        (`.crumbs`) instead — the last crumb button is always "go up one
+        level" there.
+   A screen with neither (Home, any bottom-nav tab root, Browse's own
+   root book list) correctly does nothing. Pointer Events (not separate
+   touch/mouse listeners) so this covers touch and mouse alike, same as
+   wireTimelineDrag() above. Only pointerdown/pointerup are tracked — no
+   live drag visual — so a short tap or a mostly-vertical scroll never
+   gets misread as a swipe. */
 (function wireSwipeBack(){
   const app = document.getElementById('app');
   let start = null;
@@ -3176,15 +3183,25 @@ function adjacentCharacter(id, dir){
     if(!start) return;
     const dx = e.clientX - start.x, dy = e.clientY - start.y, dt = Date.now() - start.t;
     start = null;
-    // A real, mostly-horizontal, reasonably quick leftward swipe only —
-    // not a scroll, not a tap, not a diagonal drag, not a rightward swipe.
-    if(dx >= -60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
+    // A real, mostly-horizontal, reasonably quick RIGHTWARD swipe only
+    // (matching the standard iOS/Android edge-swipe-back convention,
+    // corrected from an initial leftward version) — not a scroll, not a
+    // tap, not a diagonal drag, not a leftward swipe.
+    if(dx <= 60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
     // Home's settings gear reuses the .back-btn class for its shared
     // press-feedback styling even though it's not a "back" action
-    // (data-action="go-settings") — excluded here so swipe-left on Home
+    // (data-action="go-settings") — excluded here so swipe-back on Home
     // does nothing instead of jumping to Settings.
     const backBtn = document.querySelector('.back-btn[data-action]:not(.home-settings-btn)');
-    if(backBtn) backBtn.click();
+    if(backBtn){ backBtn.click(); return; }
+    // Browse's book/chapter/verse levels use a breadcrumb trail
+    // (.crumbs) instead of a .back-btn — the last crumb button is
+    // always "go up one level" (the book button at verse level, "All
+    // books" at chapter-grid level), so it doubles as this screen's
+    // back target. Browse's root book list has no crumbs at all and
+    // correctly does nothing, same as any other bottom-nav tab root.
+    const crumbBtns = document.querySelectorAll('.crumbs button');
+    if(crumbBtns.length) crumbBtns[crumbBtns.length-1].click();
   });
   app.addEventListener('pointercancel', ()=>{ start = null; });
 })();

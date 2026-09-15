@@ -4481,6 +4481,33 @@ inventing a new principle:
          `.home-settings-btn` explicitly.
     - `sw.js` bumped to `rooted-v100`.
 
+104. **Swipe-back: corrected direction, and a real gap in Browse.**
+    **Done (2026-09-15), same day.** Two more fixes from direct
+    testing, on top of item 103's:
+    - **Wrong direction.** The owner's original request said "swipe
+      left," which is what got built — but on actually testing it, the
+      owner realized that was their own mistake: the intended gesture
+      is swipe RIGHT, matching the standard iOS/Android edge-swipe-back
+      convention every other app already trains people to expect.
+      Flipped the threshold check (`dx <= 60` now gates instead of
+      `dx >= -60`) — swiping right triggers back, swiping left now does
+      nothing app-wide.
+    - **Browse's book → chapter → verse levels didn't respond at all,
+      in either direction.** Cause: unlike every other detail screen,
+      Browse's deeper levels use a breadcrumb trail (`renderCrumbs()`,
+      the `.crumbs` div — "All books › Genesis › Chapter 3") instead of
+      a `.back-btn` arrow, so the swipe handler's `.back-btn[data-action]`
+      query found nothing there and silently did nothing. Fixed with a
+      second fallback: when no `.back-btn` exists, click the LAST button
+      inside `.crumbs` — which is always "go up exactly one level" at
+      both nesting depths (the book crumb at verse level clears just the
+      chapter; "All books" at the chapter-grid level clears the book
+      too), so no new navigation logic was needed, only a second place
+      to look for an existing one. Browse's own root book list has
+      neither a back-btn nor crumbs and correctly still does nothing,
+      consistent with every other bottom-nav tab root.
+    - `sw.js` bumped to `rooted-v101`.
+
 ---
 
 ## 9. How the app reads this data
