@@ -78,7 +78,11 @@
   "char_gehazi": {"setting": "the road outside Naaman's departing chariot, the dusty hills of Samaria in the distance", "expression": "negative"},
   "char_naaman": {"setting": "the banks of the Jordan River, armor set aside, radiant morning light after his healing", "expression": "positive"},
   "char_hezekiah": {"setting": "the inner court of the First Temple in Jerusalem, royal robes, warm devotional light", "expression": "positive"},
-  "char_josiah": {"setting": "the temple courts in Jerusalem, an ancient scroll of the Law in hand, warm daylight", "expression": "positive"},
+  "char_josiah": {
+    "description": "Josiah, king of Judah in his mid-twenties, at the height of his reign -- a grown adult man, not a boy or child -- who instituted sweeping reforms after the Book of the Law was rediscovered in the temple",
+    "setting": "the temple courts in Jerusalem, an ancient scroll of the Law in hand, warm daylight",
+    "expression": "positive"
+  },
   "char_nebuchadnezzar": {"setting": "the grand terraces of Babylon overlooking the city, royal Babylonian robes, golden sunset light", "expression": "positive"},
   "char_belshazzar": {"setting": "a lavish Babylonian banquet hall, golden vessels on the table, mysterious glowing writing faintly visible on the wall behind him", "expression": "negative"},
   "char_cyrus": {"setting": "the columned Persian court at Babylon, royal robes, a decree scroll in hand", "expression": "positive"},
