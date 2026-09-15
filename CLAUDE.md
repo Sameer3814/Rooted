@@ -419,7 +419,7 @@ hand-curate all the content before building.
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
-   **Started 2026-09-15, expanded nine times the same day** — 225 of
+   **Started 2026-09-15, expanded ten times the same day** — 250 of
    267 characters now have a real generated portrait (stylized
    3D-animation style, a story-appropriate background per character,
    and — since the third batch — an explicit expression matched to
@@ -428,8 +428,8 @@ hand-curate all the content before building.
    triumph), wired into both small avatars and Character Detail's hero.
    Still not the full `Media` entity from design philosophy #3 — a flat
    `data/character_portraits.json` manifest instead, a deliberate
-   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-99).
-   Remaining gap: the other ~42 characters (mostly the rest of the
+   shortcut for a partial batch (see DATA_MODEL.md §8, items 91-100).
+   Remaining gap: the other ~17 characters (mostly the rest of the
    "deep study" supporting cast from item 10) still show the icon
    placeholder, and none of the earlier 49 portraits from before the
    expression rule landed were retroactively redone (an explicit,

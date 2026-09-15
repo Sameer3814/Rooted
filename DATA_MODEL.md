@@ -4335,6 +4335,36 @@ inventing a new principle:
       Achish, Malchus, Simon the Pharisee. `sw.js` bumped to
       `rooted-v95`.
 
+100. **Tenth character-portrait batch — 25 more, 250 total (of 267).**
+    **Done (2026-09-15).** The remaining Gospels supporting cast (the
+    man born blind, the paralytic lowered through the roof, Simon the
+    leper), Job's other three friends and his wife (Bildad, Zophar,
+    Elihu, Job's wife), the 1-2 Kings and Esther "deep study" cast
+    (Obadiah, Micaiah, Hegai, Zeresh, Harbonah), the Acts "deep study"
+    cast (Sapphira, Philip the evangelist, Rhoda, Eutychus), and a
+    Genesis/Numbers/Judges cluster new to this batch (Melchizedek, the
+    recurring Abimelech king of Gerar, Balak, Othniel, Shamgar, Gideon's
+    son Abimelech, and the four "minor judges" Tola, Jair, Ibzan) — all
+    from the item 10 "deep study" pass. Settings for this whole batch
+    were newly written this session (none pre-existed), following the
+    established pattern of one real, specific, story-appropriate
+    setting per character; Bildad and Zophar reused the same ash-heap
+    staging already established for Eliphaz (item 90) since all three
+    are Job's argumentative friends in the same scene, while Elihu —
+    whose own roles text already reads "a younger fourth speaker," an
+    accurate description of his actual defining moment rather than a
+    misleading youth/legacy mismatch — needed no override, unlike the
+    Samuel/Miriam/Josiah/Joash pattern this project keeps watching for.
+    No `description`-override fixes needed this batch. All 25 passed
+    visual QA on the first generation.
+    - Expression calls: positive — the man born blind, the paralytic
+      lowered through the roof, Obadiah, Micaiah, Hegai, Philip the
+      evangelist, Rhoda, Eutychus, Melchizedek, Othniel, Shamgar, Jair,
+      Ibzan; negative — Bildad, Zophar, Job's wife, Zeresh, Sapphira,
+      Balak, Gideon's son Abimelech; neutral — Simon the leper, Elihu,
+      Harbonah, the king of Gerar Abimelech, Tola. `sw.js` bumped to
+      `rooted-v96`.
+
 ---
 
 ## 9. How the app reads this data

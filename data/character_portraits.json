@@ -51,5 +51,11 @@
   "char_jethro", "char_shiphrah", "char_puah", "char_phinehas", "char_mahlah",
   "char_noah_daughter_of_zelophehad", "char_hoglah", "char_milcah_daughter_of_zelophehad", "char_tirzah", "char_bartimaeus",
   "char_jairus", "char_woman_with_the_issue_of_blood", "char_centurion_of_capernaum", "char_widow_of_nain", "char_malchus",
-  "char_centurion_at_the_cross", "char_simon_the_pharisee", "char_sinful_woman_forgiven", "char_joanna", "char_susanna"
+  "char_centurion_at_the_cross", "char_simon_the_pharisee", "char_sinful_woman_forgiven", "char_joanna", "char_susanna",
+
+  "char_man_born_blind", "char_paralytic_lowered_through_roof", "char_simon_the_leper", "char_bildad", "char_zophar",
+  "char_elihu", "char_jobs_wife", "char_obadiah", "char_micaiah", "char_hegai",
+  "char_zeresh", "char_harbonah", "char_sapphira", "char_philip_evangelist", "char_rhoda",
+  "char_eutychus", "char_melchizedek", "char_abimelech_king_of_gerar", "char_balak", "char_othniel",
+  "char_shamgar", "char_abimelech_son_of_gideon", "char_tola", "char_jair", "char_ibzan"
 ]
