@@ -11,7 +11,7 @@
     {
       "id": "era_flood",
       "name": "The Flood",
-      "summary": "A world grown violent, one righteous family preserved through it, and a covenant never to unmake the earth by water again.",
+      "summary": "A world grown violent, one righteous family preserved through it, a covenant never to unmake the earth by water again -- and, just as quickly, the family's own unraveling: a father's drunken shame, a son's curse, and humanity scattered into many languages after one last shared act of pride at Babel.",
       "order": 2,
       "approxRange": "before the patriarchs"
     },
@@ -6804,6 +6804,200 @@
       ],
       "topicIds": [
         "topic_calling"
+      ]
+    },
+    {
+      "id": "story_noahs_drunkenness_and_canaans_curse",
+      "title": "Noah's drunkenness and the curse of Canaan",
+      "summary": "After the flood, Noah plants a vineyard, drinks its wine, and lies drunk and uncovered in his tent. Ham sees his father's nakedness and tells his brothers instead of covering him; Shem and Japheth walk in backward and cover Noah without looking. Waking and realizing what happened, Noah curses not Ham himself but Ham's son Canaan to servitude, and blesses Shem and Japheth.",
+      "primaryReference": "Genesis 9:18-27",
+      "eraId": "era_flood",
+      "canonicalOrder": 210,
+      "verseIds": [
+        "verse_genesis_9_20",
+        "verse_genesis_9_22",
+        "verse_genesis_9_24",
+        "verse_genesis_9_25",
+        "verse_genesis_9_26",
+        "verse_genesis_9_27"
+      ],
+      "characterIds": [
+        "char_noah",
+        "char_ham",
+        "char_shem",
+        "char_japheth",
+        "char_canaan"
+      ],
+      "topicIds": [
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_tower_of_babel",
+      "title": "The Tower of Babel",
+      "summary": "With one language shared by everyone on earth, the people settle in Shinar and set out to build a city and a tower reaching to the sky, \"lest we be scattered.\" Yahweh comes down, confuses their language so they can no longer understand one another, and scatters them across the earth -- the very outcome they built the tower to avoid.",
+      "primaryReference": "Genesis 11:1-9",
+      "eraId": "era_flood",
+      "canonicalOrder": 220,
+      "verseIds": [
+        "verse_genesis_11_4",
+        "verse_genesis_11_6",
+        "verse_genesis_11_7",
+        "verse_genesis_11_9"
+      ],
+      "characterIds": [],
+      "topicIds": [
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_unforgiving_servant",
+      "title": "The parable of the unforgiving servant",
+      "summary": "Answering Peter's question about how often to forgive a brother -- \"until seven times?\" -- Jesus tells of a king who forgives a servant an enormous debt, only for that same servant to have a fellow servant thrown in prison over a trivial one. When the king hears of it, he hands the unforgiving servant over to be tormented, and Jesus applies it directly: his Father will do the same to anyone who won't forgive from the heart.",
+      "primaryReference": "Matthew 18:21-35",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2442,
+      "verseIds": [
+        "verse_matthew_18_21",
+        "verse_matthew_18_22",
+        "verse_matthew_18_27",
+        "verse_matthew_18_28",
+        "verse_matthew_18_33",
+        "verse_matthew_18_35"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ],
+      "topicIds": [
+        "topic_forgiveness"
+      ]
+    },
+    {
+      "id": "story_pharisee_and_tax_collector",
+      "title": "The parable of the Pharisee and the tax collector",
+      "summary": "To people \"convinced of their own righteousness, who despised all others,\" Jesus tells of two men praying in the temple: a Pharisee who thanks God he isn't like other men, listing his own fasting and tithing, and a tax collector who won't even lift his eyes, beating his breast and asking only for mercy. Jesus says the tax collector, not the Pharisee, goes home justified -- \"everyone who exalts himself will be humbled, but he who humbles himself will be exalted.\"",
+      "primaryReference": "Luke 18:9-14",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2503,
+      "verseIds": [
+        "verse_luke_18_10",
+        "verse_luke_18_11",
+        "verse_luke_18_13",
+        "verse_luke_18_14"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_humility"
+      ]
+    },
+    {
+      "id": "story_jesus_blesses_the_children",
+      "title": "Jesus blesses the little children",
+      "summary": "People bring their children to Jesus to be touched, and the disciples rebuke them for it. Jesus is indignant, tells the disciples not to stop them -- \"God's Kingdom belongs to such as these\" -- and says no one will enter the Kingdom except by receiving it like a little child. He takes the children in his arms and blesses them.",
+      "primaryReference": "Mark 10:13-16",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2506,
+      "verseIds": [
+        "verse_mark_10_13",
+        "verse_mark_10_14",
+        "verse_mark_10_15",
+        "verse_mark_10_16"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_blessing"
+      ]
+    },
+    {
+      "id": "story_workers_in_the_vineyard",
+      "title": "The parable of the workers in the vineyard",
+      "summary": "A landowner hires laborers for his vineyard throughout the day -- some at dawn, some at the eleventh hour -- and at evening pays every one of them the same day's wage. Those hired first complain at being made equal to the latecomers; the owner answers that he has wronged no one and is free to be as generous as he likes with what is his own. \"So the last will be first, and the first last.\"",
+      "primaryReference": "Matthew 20:1-16",
+      "eraId": "era_jesus_ministry",
+      "canonicalOrder": 2512,
+      "verseIds": [
+        "verse_matthew_20_1",
+        "verse_matthew_20_12",
+        "verse_matthew_20_15",
+        "verse_matthew_20_16"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ],
+      "topicIds": [
+        "topic_generosity"
+      ]
+    },
+    {
+      "id": "story_stoning_at_lystra",
+      "title": "Paul stoned at Lystra",
+      "summary": "At Lystra, Paul heals a man lame from birth, and the crowd -- speaking in their own Lycaonian language -- takes Paul and Barnabas for gods come down in human form, calling Barnabas \"Jupiter\" and Paul \"Mercury,\" and moves to sacrifice to them. Paul and Barnabas tear their clothes and rush into the crowd, insisting they are only men bringing good news. Days later, Jews from Antioch and Iconium win the crowd over the other way: they stone Paul and drag him out of the city for dead. He gets up, goes back into the city, and leaves the next day for Derbe with Barnabas.",
+      "primaryReference": "Acts 14:8-20",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2862,
+      "verseIds": [
+        "verse_acts_14_8",
+        "verse_acts_14_10",
+        "verse_acts_14_11",
+        "verse_acts_14_14",
+        "verse_acts_14_15",
+        "verse_acts_14_19",
+        "verse_acts_14_20"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ],
+      "topicIds": [
+        "topic_strength"
+      ]
+    },
+    {
+      "id": "story_choosing_the_seven",
+      "title": "The choosing of the seven",
+      "summary": "As the number of disciples grows, the Greek-speaking Hellenists complain that their widows are being overlooked in the daily distribution of food. Rather than neglect the word of God to manage the dispute themselves, the twelve apostles have the community choose seven men \"full of the Holy Spirit and of wisdom\" to oversee it -- Stephen, Philip, Prochorus, Nicanor, Timon, Parmenas, and Nicolaus -- who are presented to the apostles and commissioned with prayer and the laying on of hands.",
+      "primaryReference": "Acts 6:1-6",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2828,
+      "verseIds": [
+        "verse_acts_6_1",
+        "verse_acts_6_2",
+        "verse_acts_6_3",
+        "verse_acts_6_4",
+        "verse_acts_6_5",
+        "verse_acts_6_6"
+      ],
+      "characterIds": [
+        "char_stephen",
+        "char_philip_evangelist"
+      ],
+      "topicIds": [
+        "topic_justice"
+      ]
+    },
+    {
+      "id": "story_death_of_herod_agrippa",
+      "title": "The death of Herod Agrippa I",
+      "summary": "Furious with the people of Tyre and Sidon, Herod grants them an audience after they win over his personal aide and sue for peace, since their region depends on his for food. Dressed in royal clothing and seated on his throne, he gives a speech; the crowd shouts back, \"the voice of a god, and not of a man!\" Because he accepts the praise instead of giving God the glory, an angel of the Lord strikes him down on the spot, and he is eaten by worms and dies.",
+      "primaryReference": "Acts 12:20-23",
+      "eraId": "era_early_church",
+      "canonicalOrder": 2856,
+      "verseIds": [
+        "verse_acts_12_20",
+        "verse_acts_12_21",
+        "verse_acts_12_22",
+        "verse_acts_12_23"
+      ],
+      "characterIds": [
+        "char_herod_agrippa_i"
+      ],
+      "topicIds": [
+        "topic_justice"
       ]
     }
   ],
@@ -14370,6 +14564,149 @@
       "characterId": "char_agrippa",
       "sequenceInLife": 10,
       "storyId": "story_pauls_trials"
+    },
+    {
+      "id": "event_noah_drunk_and_curses_canaan",
+      "characterId": "char_noah",
+      "title": "Drinks himself drunk and curses Canaan",
+      "description": "After the flood, plants a vineyard, drinks its wine, and lies uncovered in his tent; on waking, curses his grandson Canaan and blesses Shem and Japheth.",
+      "reference": "Genesis 9:20-27",
+      "storyId": "story_noahs_drunkenness_and_canaans_curse",
+      "sequenceInLife": 50
+    },
+    {
+      "id": "event_ham_noahs_curse",
+      "characterId": "char_ham",
+      "title": "Sees his father's nakedness",
+      "description": "Finds Noah drunk and uncovered in his tent and tells his two brothers instead of covering him.",
+      "reference": "Genesis 9:18-27",
+      "storyId": "story_noahs_drunkenness_and_canaans_curse",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_shem_noahs_curse",
+      "characterId": "char_shem",
+      "title": "Covers his father without looking",
+      "description": "Walks in backward with Japheth to cover their father's nakedness, and is blessed by Noah for it.",
+      "reference": "Genesis 9:18-27",
+      "storyId": "story_noahs_drunkenness_and_canaans_curse",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_japheth_noahs_curse",
+      "characterId": "char_japheth",
+      "title": "Covers his father without looking",
+      "description": "Walks in backward with Shem to cover their father's nakedness, and is blessed by Noah for it.",
+      "reference": "Genesis 9:18-27",
+      "storyId": "story_noahs_drunkenness_and_canaans_curse",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_canaan_noahs_curse",
+      "characterId": "char_canaan",
+      "title": "Cursed by his grandfather Noah",
+      "description": "Though Ham is the one who sees Noah's shame, Noah's curse falls on Ham's son Canaan: \"a servant of servants he will be to his brothers.\"",
+      "reference": "Genesis 9:18-27",
+      "storyId": "story_noahs_drunkenness_and_canaans_curse",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_enoch_walks_with_god",
+      "characterId": "char_enoch",
+      "title": "Walks with God, and is taken",
+      "description": "Unlike everyone else in the genealogy of Genesis 5, Enoch's life doesn't end with \"and he died\" -- he walks with God for three hundred years, and then \"he was not found, for God took him.\"",
+      "reference": "Genesis 5:21-24",
+      "sequenceInLife": 10
+    },
+    {
+      "id": "event_jesus_tells_unforgiving_servant",
+      "characterId": "char_jesus",
+      "title": "Tells the parable of the unforgiving servant",
+      "description": "Answers Peter's question about how often to forgive with a parable about a forgiven servant who refuses to forgive a much smaller debt in turn.",
+      "reference": "Matthew 18:21-35",
+      "storyId": "story_unforgiving_servant",
+      "sequenceInLife": 185
+    },
+    {
+      "id": "event_peter_asks_how_often_to_forgive",
+      "characterId": "char_peter",
+      "title": "Asks Jesus how often to forgive",
+      "description": "Asks whether forgiving a brother seven times is enough; Jesus answers \"seventy times seven\" and tells the parable of the unforgiving servant.",
+      "reference": "Matthew 18:21-22",
+      "storyId": "story_unforgiving_servant",
+      "sequenceInLife": 135
+    },
+    {
+      "id": "event_jesus_tells_pharisee_and_tax_collector",
+      "characterId": "char_jesus",
+      "title": "Tells the parable of the Pharisee and the tax collector",
+      "description": "Tells of two men praying in the temple -- a self-satisfied Pharisee and a tax collector who asks only for mercy -- to people convinced of their own righteousness.",
+      "reference": "Luke 18:9-14",
+      "storyId": "story_pharisee_and_tax_collector",
+      "sequenceInLife": 224
+    },
+    {
+      "id": "event_jesus_blesses_the_children",
+      "characterId": "char_jesus",
+      "title": "Blesses the little children",
+      "description": "Overrules the disciples' attempt to turn away children brought to him, and blesses them -- \"God's Kingdom belongs to such as these.\"",
+      "reference": "Mark 10:13-16",
+      "storyId": "story_jesus_blesses_the_children",
+      "sequenceInLife": 227
+    },
+    {
+      "id": "event_jesus_tells_workers_in_the_vineyard",
+      "characterId": "char_jesus",
+      "title": "Tells the parable of the workers in the vineyard",
+      "description": "Tells of a landowner who pays every laborer the same wage regardless of when they were hired -- \"the last will be first, and the first last.\"",
+      "reference": "Matthew 20:1-16",
+      "storyId": "story_workers_in_the_vineyard",
+      "sequenceInLife": 235
+    },
+    {
+      "id": "event_paul_stoned_at_lystra",
+      "characterId": "char_paul",
+      "title": "Stoned and left for dead at Lystra",
+      "description": "After healing a lame man, is mistaken for a god by the Lystran crowd, then stoned by Jews from Antioch and Iconium and dragged out of the city for dead -- gets up, returns to the city, and leaves the next day for Derbe.",
+      "reference": "Acts 14:8-20",
+      "storyId": "story_stoning_at_lystra",
+      "sequenceInLife": 100
+    },
+    {
+      "id": "event_barnabas_mistaken_for_jupiter_at_lystra",
+      "characterId": "char_barnabas",
+      "title": "Mistaken for the god Jupiter at Lystra",
+      "description": "Along with Paul, is taken by the Lystran crowd for a god come down in human form, and tears his clothes to stop the crowd from sacrificing to them.",
+      "reference": "Acts 14:11-14",
+      "storyId": "story_stoning_at_lystra",
+      "sequenceInLife": 30
+    },
+    {
+      "id": "event_stephen_chosen_as_one_of_the_seven",
+      "characterId": "char_stephen",
+      "title": "Chosen as one of the seven",
+      "description": "Chosen by the Jerusalem church, \"full of faith and of the Holy Spirit,\" as one of seven men set apart to oversee care for the Hellenist widows -- before the confrontation that leads to his death.",
+      "reference": "Acts 6:1-6",
+      "storyId": "story_choosing_the_seven",
+      "sequenceInLife": 5
+    },
+    {
+      "id": "event_philip_chosen_as_one_of_the_seven",
+      "characterId": "char_philip_evangelist",
+      "title": "Chosen as one of the seven",
+      "description": "Chosen alongside Stephen and five others to oversee care for the Hellenist widows, before his own later ministry in Samaria and to the Ethiopian official.",
+      "reference": "Acts 6:1-6",
+      "storyId": "story_choosing_the_seven",
+      "sequenceInLife": 5
+    },
+    {
+      "id": "event_herod_agrippa_struck_down",
+      "characterId": "char_herod_agrippa_i",
+      "title": "Struck down for accepting worship as a god",
+      "description": "Accepts a crowd's acclaim as a god instead of giving God the glory, and is immediately struck down by an angel of the Lord and eaten by worms.",
+      "reference": "Acts 12:20-23",
+      "storyId": "story_death_of_herod_agrippa",
+      "sequenceInLife": 10
     }
   ]
 }

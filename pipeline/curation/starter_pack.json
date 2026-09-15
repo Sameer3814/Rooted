@@ -13800,6 +13800,426 @@
         "char_paul",
         "char_agrippa"
       ]
+    },
+    {
+      "id": "verse_genesis_11_4",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_11_6",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_11_7",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_11_9",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_genesis_9_20",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_22",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah",
+        "char_ham",
+        "char_canaan"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_24",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_25",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah",
+        "char_canaan"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_26",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah",
+        "char_shem"
+      ]
+    },
+    {
+      "id": "verse_genesis_9_27",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_noah",
+        "char_japheth"
+      ]
+    },
+    {
+      "id": "verse_genesis_5_22",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_enoch"
+      ]
+    },
+    {
+      "id": "verse_genesis_5_24",
+      "topicIds": [
+        "topic_faith"
+      ],
+      "characterIds": [
+        "char_enoch"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_21",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus",
+        "char_peter"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_22",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_27",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_28",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_33",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_18_35",
+      "topicIds": [
+        "topic_forgiveness"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_18_10",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_18_11",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_18_13",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_luke_18_14",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_20_1",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_20_12",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_20_15",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_20_16",
+      "topicIds": [
+        "topic_generosity"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_13",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_14",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_15",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_mark_10_16",
+      "topicIds": [
+        "topic_blessing"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_acts_14_8",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_14_10",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_14_11",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ]
+    },
+    {
+      "id": "verse_acts_14_14",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ]
+    },
+    {
+      "id": "verse_acts_14_15",
+      "topicIds": [
+        "topic_humility"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ]
+    },
+    {
+      "id": "verse_acts_14_19",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul"
+      ]
+    },
+    {
+      "id": "verse_acts_14_20",
+      "topicIds": [
+        "topic_strength"
+      ],
+      "characterIds": [
+        "char_paul",
+        "char_barnabas"
+      ]
+    },
+    {
+      "id": "verse_acts_6_1",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_6_2",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_6_3",
+      "topicIds": [
+        "topic_justice",
+        "topic_wisdom"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_6_4",
+      "topicIds": [
+        "topic_prayer"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_acts_6_5",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_stephen",
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_6_6",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_stephen",
+        "char_philip_evangelist"
+      ]
+    },
+    {
+      "id": "verse_acts_12_20",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_herod_agrippa_i"
+      ]
+    },
+    {
+      "id": "verse_acts_12_21",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_herod_agrippa_i"
+      ]
+    },
+    {
+      "id": "verse_acts_12_22",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_herod_agrippa_i"
+      ]
+    },
+    {
+      "id": "verse_acts_12_23",
+      "topicIds": [
+        "topic_justice"
+      ],
+      "characterIds": [
+        "char_herod_agrippa_i"
+      ]
     }
   ],
   "topics": [
@@ -16965,6 +17385,75 @@
       ],
       "eraId": "era_early_church",
       "summary": "King Herod Agrippa II, brought in by Festus to help make sense of Paul's case. Heard Paul's full defense and testimony of his conversion, and told him he was almost persuaded to become a Christian -- then told Festus privately that Paul had done nothing worthy of death or chains.",
+      "verseIds": []
+    },
+    {
+      "id": "char_ham",
+      "name": "Ham",
+      "roles": [
+        "son of Noah",
+        "father of Canaan",
+        "saw his father's nakedness"
+      ],
+      "eraId": "era_flood",
+      "summary": "One of Noah's three sons who survives the flood. After the flood, he sees his father lying drunk and uncovered in his tent and tells his two brothers instead of covering him -- the act that brings Noah's curse down not on Ham himself but on his son Canaan.",
+      "verseIds": []
+    },
+    {
+      "id": "char_shem",
+      "name": "Shem",
+      "roles": [
+        "son of Noah",
+        "blessed as the line through which Yahweh is known"
+      ],
+      "eraId": "era_flood",
+      "summary": "One of Noah's three sons who survives the flood. Covers his father's nakedness with Japheth rather than looking at his shame, and is blessed by Noah as the one whose God is Yahweh -- his line eventually leads, generations later, to Abraham.",
+      "verseIds": []
+    },
+    {
+      "id": "char_japheth",
+      "name": "Japheth",
+      "roles": [
+        "son of Noah",
+        "blessed with enlarged territory"
+      ],
+      "eraId": "era_flood",
+      "summary": "One of Noah's three sons who survives the flood. Joins Shem in covering their father's nakedness rather than looking at his shame, and is blessed by Noah with enlargement and a place to dwell in the tents of Shem.",
+      "verseIds": []
+    },
+    {
+      "id": "char_canaan",
+      "name": "Canaan",
+      "roles": [
+        "son of Ham",
+        "cursed by his grandfather Noah"
+      ],
+      "eraId": "era_flood",
+      "summary": "Ham's son, cursed by his grandfather Noah -- \"a servant of servants he will be to his brothers\" -- for Ham's act of seeing and reporting his father's drunken nakedness rather than covering it. The curse names the land later associated with him: Canaan, the land Israel will one day enter.",
+      "verseIds": []
+    },
+    {
+      "id": "char_enoch",
+      "name": "Enoch",
+      "roles": [
+        "walked with God for three hundred years",
+        "taken by God rather than dying"
+      ],
+      "eraId": "era_creation",
+      "summary": "Seventh from Adam in the genealogy of Genesis 5, described twice with a phrase given to no one else in the list: he \"walked with God.\" Rather than the chapter's repeated refrain \"and he died,\" Enoch's entry ends differently -- \"he was not found, for God took him.\"",
+      "verseIds": []
+    },
+    {
+      "id": "char_herod_agrippa_i",
+      "name": "Herod Agrippa I",
+      "roles": [
+        "grandson of Herod the Great",
+        "king over Judea",
+        "persecuted the early church",
+        "struck down for accepting worship as a god"
+      ],
+      "eraId": "era_early_church",
+      "summary": "Grandson of Herod the Great and nephew of Herod Antipas (who killed John the Baptist) -- a different Herod from either of them. As king over Judea, he has the apostle James executed and imprisons Peter to please the crowd. When a Tyre-and-Sidon delegation hails his speech as \"the voice of a god, and not of a man,\" he accepts the praise instead of giving God the glory, and is struck down on the spot.",
       "verseIds": []
     }
   ]

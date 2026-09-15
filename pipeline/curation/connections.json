@@ -1245,6 +1245,51 @@
       "toType": "character",
       "toId": "char_herodias",
       "inverse": "wife of"
+    },
+    {
+      "id": "conn_noah_father_of_shem",
+      "fromType": "character",
+      "fromId": "char_noah",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_shem",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_noah_father_of_ham",
+      "fromType": "character",
+      "fromId": "char_noah",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_ham",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_noah_father_of_japheth",
+      "fromType": "character",
+      "fromId": "char_noah",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_japheth",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_ham_father_of_canaan",
+      "fromType": "character",
+      "fromId": "char_ham",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_canaan",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_herod_agrippa_i_nephew_of_herod_antipas",
+      "fromType": "character",
+      "fromId": "char_herod_agrippa_i",
+      "relationship": "nephew of",
+      "toType": "character",
+      "toId": "char_herod_antipas",
+      "inverse": "uncle of"
     }
   ]
 }

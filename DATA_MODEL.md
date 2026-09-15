@@ -3723,6 +3723,96 @@ inventing a new principle:
     CSS — `.search-wrap`, `.result-count`, `.empty` were all already
     shared components. `sw.js` bumped to `rooted-v83`.
 
+88. **Second content-gap audit, batch fill — done (2026-09-15).** A
+    second owner audit (the first, item 86, filled Gospel/Acts gaps)
+    found more real, verified gaps — checked directly against
+    `data/stories.json`/`data/verses.json` before curating, not
+    guessed. 9 new stories, 6 new characters, 47 new curated verses,
+    5 new connections, across `era_creation`, `era_flood`,
+    `era_jesus_ministry`, and `era_early_church` — no new eras, no new
+    topics (all fit the existing 39).
+    - **Genesis, `era_flood`**: the Tower of Babel
+      (`story_tower_of_babel`, Genesis 11:1-9) had zero coverage
+      despite being one of Genesis's most iconic episodes — no named
+      individuals in the text, so `characterIds: []`, matching
+      `story_creation`'s precedent for a story with no named actor.
+      Noah's drunkenness and the curse of Canaan
+      (`story_noahs_drunkenness_and_canaans_curse`, Genesis 9:18-27)
+      needed four new characters — Ham, Shem, Japheth, Canaan — since
+      none of Noah's sons had Character records yet; each is
+      individually addressed in Noah's own blessing/curse, the same
+      bar Jacob's twelve sons cleared in item 70. `era_flood`'s own
+      summary was stale in exactly the way the pipeline README warns
+      about (`build_stories.py`'s lesson list) — it only described the
+      flood itself, not this aftermath material now folded into the
+      same era — so it was rewritten to cover both.
+    - **Genesis, `era_creation` — Enoch, a real judgment call.**
+      Genesis 5:21-24 ("Enoch walked with God... he was not found, for
+      God took him") is four verses of genealogy-formula text with no
+      scene, dialogue, or action to build a Story around — unlike
+      Melchizedek (`story_melchizedek_blesses_abram`), which kept its
+      Story despite similarly few verses because it's a real scene
+      (Abram meets him, receives a blessing, pays a tithe). Decided:
+      no Story record, matching the Leviticus/Deuteronomy precedent of
+      verses-only treatment for non-narrative material — just two
+      curated verses (5:22, 5:24) and a new `char_enoch`
+      (`era_creation`) with one life event.
+    - **`era_jesus_ministry` — four more Gospel episodes**, extending
+      the existing prodigal-son/good-samaritan/lost-sheep-and-coin/
+      rich-man-and-lazarus/talents/ten-virgins/sheep-and-goats parable
+      precedent: the unforgiving servant (`story_unforgiving_servant`,
+      Matthew 18:21-35, tagging `char_peter` for the question that
+      prompts it), the Pharisee and the tax collector
+      (`story_pharisee_and_tax_collector`, Luke 18:9-14), and the
+      workers in the vineyard (`story_workers_in_the_vineyard`,
+      Matthew 20:1-16) — all fictional-parable-figures-get-no-Character
+      -record, per the standing rule. Jesus blessing the little
+      children (`story_jesus_blesses_the_children`, Mark 10:13-16) is
+      real narrative, not a parable, and got its own `char_jesus` life
+      event placed right before his existing rich-young-ruler event,
+      matching Mark's own sequence (10:13-16 immediately precedes
+      10:17-31).
+    - **`era_early_church` — a real, verified compression gap.**
+      `story_pauls_first_missionary_journey` cites Acts 13:1-14:28 as
+      its `primaryReference` but carried only 2 curated verses — a
+      broad summary, not real coverage of Paul and Barnabas mistaken
+      for gods and Paul's stoning at Lystra (Acts 14:8-20). Added
+      alongside it, not in place of it, as its own properly-scoped
+      `story_stoning_at_lystra`, with matching new life events for
+      `char_paul` and `char_barnabas` — the same "extend the family,
+      don't shrink the summary" move as `story_pauls_trials` beside
+      `story_pauls_arrest` in item 86.
+    - **The choosing of the seven** (`story_choosing_the_seven`,
+      Acts 6:1-6) — a judgment call on Acts 6:5's five other named men
+      (Prochorus, Nicanor, Timon, Parmenas, Nicolaus), weighed against
+      Zelophehad's five daughters (item 71), who *did* each get
+      Character records. The daughters individually petition Moses and
+      change inheritance law by name, referenced again later in
+      Joshua; these five are named once in a list and never act or
+      speak individually anywhere else in the text — narrative
+      importance, not a mention-count threshold, is the stated bar
+      (CLAUDE.md item 10), and this group doesn't clear it the way the
+      daughters did. Decided: only `char_stephen` and
+      `char_philip_evangelist` (both already existed) get a new life
+      event on this story, at `sequenceInLife: 5` — before their
+      existing events — since the choosing precedes both their later
+      ministries; the other five are named in the verse text only, no
+      new Character records.
+    - **The death of Herod Agrippa I** (`story_death_of_herod_agrippa`,
+      Acts 12:20-23) — a new `char_herod_agrippa_i`, verified as a
+      genuinely distinct person from the already-curated
+      `char_herod_antipas` (item 86: killed John the Baptist).
+      Agrippa I was Antipas's nephew, not the same man — he has James
+      executed and imprisons Peter earlier in Acts 12, then is struck
+      down after accepting a crowd's acclaim as a god. A new
+      `"nephew of"`/`"uncle of"` connection links the two Herods
+      explicitly, the same disambiguation pattern already used for the
+      two Josephs and two Zechariahs (pipeline README lessons).
+    - Five new connections total (three `"father of"` edges for Noah's
+      sons, one `"father of"` for Ham/Canaan, one `"nephew of"` for the
+      two Herods). No new motifs — nothing in this batch had a genuine
+      second instance to pair with. `sw.js` bumped to `rooted-v84`.
+
 ---
 
 ## 9. How the app reads this data

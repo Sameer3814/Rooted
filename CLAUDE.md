@@ -715,7 +715,43 @@ hand-curate all the content before building.
     7 new characters, 54 new curated verses, 1 new topic, 1 new
     connection, no new eras.
 
-    See DATA_MODEL.md §8, items 65-67, 70-74, and 86, for the full
+    **Ninth pass (2026-09-15): a second content-gap audit, verified
+    against the data before curating, not guessed.** The first audit
+    (eighth pass, above) covered the Gospels and Acts; this one found
+    more real gaps in Genesis and, again, Acts. In Genesis: the Tower
+    of Babel (no named individuals, so no new characters — Genesis
+    11:1-9 never has one), Noah's drunkenness and the curse of Canaan
+    (four new characters — Ham, Shem, Japheth, Canaan — each
+    individually blessed or cursed by name, the same bar Jacob's
+    twelve sons cleared), and Enoch's four terse genealogy-formula
+    verses ("he walked with God... he was not found, for God took
+    him") — a real judgment call, decided *against* a Story (unlike
+    Melchizedek, which kept its Story on similarly few verses because
+    it's an actual scene with dialogue and action), so Enoch got just
+    the two verses and a new character, no Story. In Acts: Paul and
+    Barnabas mistaken for gods and Paul stoned at Lystra (Acts
+    14:8-20) — a real compression gap, same shape as the eighth pass's
+    Paul's-trials fix: `story_pauls_first_missionary_journey` cited
+    Acts 13:1-14:28 but carried only 2 verses, so Lystra got its own
+    properly-scoped story alongside it, not instead of it. The
+    choosing of the seven (Acts 6:1-6) — Stephen and Philip the
+    evangelist both already existed and got new life events, but the
+    other five named men (Prochorus, Nicanor, Timon, Parmenas,
+    Nicolaus) didn't clear this project's narrative-importance bar the
+    way Zelophehad's five daughters did (the daughters individually
+    petition Moses and change inheritance law; these five are named
+    once and never act again) — so no new Character records for them,
+    a deliberate, consistent call rather than an oversight. And the
+    death of Herod Agrippa I (Acts 12:20-23, struck down and eaten by
+    worms for accepting a crowd's worship) — verified as a genuinely
+    different person from the already-curated Herod Antipas (his
+    uncle, not the same man who killed John the Baptist), with a new
+    "nephew of" connection linking them explicitly so the two Herods
+    stay distinct in the data the way the two Josephs and two
+    Zechariahs already do. 9 new stories, 6 new characters, 47 new
+    curated verses, 5 new connections, no new topics, no new eras.
+
+    See DATA_MODEL.md §8, items 65-67, 70-74, 86, and 88, for the full
     writeup and the reasoning behind which figures made the cut each
     pass.
 
