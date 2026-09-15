@@ -345,7 +345,23 @@
      a character has a real generated portrait, rendered above the .hero
      card rather than inside its centered-text padding (same "full-bleed
      image above the info card" shape as .unreached-full-photo). */
-  .hero-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-sunken);margin-bottom:16px;}
+  .hero-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-sunken);}
+  /* Visible prev/next controls for the character carousel (replacing an
+     earlier blind-swipe-only version on direct feedback) — overlaid on
+     the photo itself rather than a separate row, so no new vertical
+     space is spent on them. Hidden individually at either end of
+     allCharactersOrdered() (adjacentCharacter() returns null there), so
+     there's never a dead-end arrow that does nothing when tapped. */
+  .hero-photo-wrap{position:relative;margin-bottom:16px;}
+  .hero-nav-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.25);color:#fff;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-nav-prev{left:10px;}
+  .hero-nav-next{right:10px;}
   .hero h1{font-size:2rem;font-weight:700;margin:12px 0 8px;}
   .hero .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
   .hero .era{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:5px;justify-content:center;margin-bottom:14px;}
@@ -482,12 +498,17 @@
      A springy press-down on every tappable surface — buttons, practice
      chips, nav items, tappable cards/rows, chapter cells. One shared rule
      rather than touching each component's own block. */
-  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card{
+  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card, .hero-nav-btn{
     transition: transform .15s cubic-bezier(.34,1.56,.64,1);
   }
   .btn:active, .chip:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active, .topic-card:active{
     transform: scale(.96);
   }
+  /* .hero-nav-btn already carries translateY(-50%) for vertical centering
+     (see .hero-nav-btn above) — its own :active rule combines both
+     transforms instead of using the shared rule above, which would
+     otherwise wipe out the centering and make the button jump on press. */
+  .hero-nav-btn:active{transform:translateY(-50%) scale(.9);}
   /* Scramble chips "pop" in on every render (pick/unpick/re-render) — a
      full FLIP slide-between-containers animation would need per-chip
      position tracking across two separate drop zones; this is the
@@ -2087,9 +2108,15 @@ function renderCharacterDetail(id){
   const family = characterRelationships(id);
   const alsoWith = sharesScenesWith(id);
   const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
+  const prevChar = adjacentCharacter(id, -1);
+  const nextChar = adjacentCharacter(id, 1);
   return `
     <button class="back-btn" data-action="character-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    ${charPortraitUrl(c.id) ? `<img class="hero-photo" src="${esc(charPortraitUrl(c.id))}" alt="${esc(c.name)}">` : ''}
+    <div class="hero-photo-wrap">
+      ${charPortraitUrl(c.id) ? `<img class="hero-photo" src="${esc(charPortraitUrl(c.id))}" alt="${esc(c.name)}">` : ''}
+      ${prevChar ? `<button class="hero-nav-btn hero-nav-prev" data-action="open-character" data-id="${prevChar.id}" aria-label="Previous person"><i class="ti ti-chevron-left"></i></button>` : ''}
+      ${nextChar ? `<button class="hero-nav-btn hero-nav-next" data-action="open-character" data-id="${nextChar.id}" aria-label="Next person"><i class="ti ti-chevron-right"></i></button>` : ''}
+    </div>
     <div class="hero">
       ${charPortraitUrl(c.id) ? '' : `<div class="hero-avatar"><i class="ti ${charIcon(c.roles)}"></i></div>`}
       <h1>${esc(c.name)}</h1>
@@ -3087,25 +3114,15 @@ function checkPractice(){
   render();
 }
 
-/* ---------- swipe navigation ----------
-   Two gestures, mutually exclusive per screen so they never fight each
-   other:
-   - Character Detail: a horizontal carousel through every character, in
-     the same era-by-era order the People/Study list already shows them
-     (allCharactersOrdered()) — swipe left for the next character, right
-     for the previous. Does not wrap at either end.
-   - Every other screen: swipe left triggers whatever that screen's own
-     back button does. Found generically via the visible
-     `.back-btn[data-action]` element and a real `.click()` on it, so
-     this reuses each screen's existing back-nav logic (verse-back,
-     character-back, back-to-topics, etc.) instead of duplicating it —
-     a screen with no back button (Home, any bottom-nav tab root) just
-     does nothing. Swipe right has no app-wide meaning outside the
-     character carousel, matching what was actually asked for.
-   Pointer Events (not separate touch/mouse listeners) so this covers
-   touch and mouse alike, same as wireTimelineDrag() above. Only
-   pointerdown/pointerup are tracked — no live drag visual — so a short
-   tap or a mostly-vertical scroll never gets misread as a swipe. */
+/* ---------- character carousel + swipe-back ----------
+   Revised on direct feedback: an earlier version made Character Detail's
+   swipe-left mean "next character" instead of "back," which read as
+   inconsistent — swiping the same direction meant different things on
+   different screens, and there was no visible affordance telling anyone
+   a character-to-character swipe existed at all. Replaced with visible
+   left/right arrow buttons on the character photo for that navigation
+   (discoverable, not a blind gesture), which frees swipe-left to mean
+   exactly one thing everywhere, including Character Detail: go back. */
 function allCharactersOrdered(){
   const seen = new Set();
   const ordered = [];
@@ -3125,7 +3142,18 @@ function adjacentCharacter(id, dir){
   if(i===-1) return null;
   return list[i+dir] || null;
 }
-(function wireSwipeNav(){
+/* Swipe left, from anywhere in the app, triggers whatever the currently
+   rendered screen's own back button does — found generically via the
+   visible `.back-btn[data-action]` element and a real `.click()` on it,
+   so this reuses each screen's existing back-nav logic (verse-back,
+   character-back, back-to-topics, etc.) rather than a second
+   implementation of it, and automatically does nothing on any screen
+   with no back button (Home, any bottom-nav tab root). Pointer Events
+   (not separate touch/mouse listeners) so this covers touch and mouse
+   alike, same as wireTimelineDrag() above. Only pointerdown/pointerup
+   are tracked — no live drag visual — so a short tap or a mostly-vertical
+   scroll never gets misread as a swipe. */
+(function wireSwipeBack(){
   const app = document.getElementById('app');
   let start = null;
   app.addEventListener('pointerdown', e=>{
@@ -3135,16 +3163,11 @@ function adjacentCharacter(id, dir){
     if(!start) return;
     const dx = e.clientX - start.x, dy = e.clientY - start.y, dt = Date.now() - start.t;
     start = null;
-    // A real, mostly-horizontal, reasonably quick swipe only — not a
-    // scroll, not a tap, not a diagonal drag.
-    if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
-    if(view.screen === 'characterDetail'){
-      const next = adjacentCharacter(view.params.id, dx < 0 ? 1 : -1);
-      if(next) go('characterDetail', {id: next.id, from: view.params.from});
-    }else if(dx < 0){
-      const backBtn = document.querySelector('.back-btn[data-action]');
-      if(backBtn) backBtn.click();
-    }
+    // A real, mostly-horizontal, reasonably quick leftward swipe only —
+    // not a scroll, not a tap, not a diagonal drag, not a rightward swipe.
+    if(dx >= -60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
+    const backBtn = document.querySelector('.back-btn[data-action]');
+    if(backBtn) backBtn.click();
   });
   app.addEventListener('pointercancel', ()=>{ start = null; });
 })();
