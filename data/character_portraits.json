@@ -45,5 +45,11 @@
   "char_titus", "char_onesimus", "char_philemon", "char_demas", "char_reuben",
   "char_simeon", "char_levi", "char_judah", "char_benjamin", "char_bilhah",
   "char_zilpah", "char_dinah", "char_shechem", "char_tamar_judahs_daughter_in_law", "char_potiphar",
-  "char_potiphars_wife", "char_abrahams_servant", "char_pharaohs_cupbearer", "char_pharaohs_baker", "char_nabal"
+  "char_potiphars_wife", "char_abrahams_servant", "char_pharaohs_cupbearer", "char_pharaohs_baker", "char_nabal",
+
+  "char_abigail", "char_doeg", "char_ahimelech", "char_abiathar", "char_achish",
+  "char_jethro", "char_shiphrah", "char_puah", "char_phinehas", "char_mahlah",
+  "char_noah_daughter_of_zelophehad", "char_hoglah", "char_milcah_daughter_of_zelophehad", "char_tirzah", "char_bartimaeus",
+  "char_jairus", "char_woman_with_the_issue_of_blood", "char_centurion_of_capernaum", "char_widow_of_nain", "char_malchus",
+  "char_centurion_at_the_cross", "char_simon_the_pharisee", "char_sinful_woman_forgiven", "char_joanna", "char_susanna"
 ]

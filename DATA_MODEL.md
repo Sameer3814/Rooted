@@ -4310,6 +4310,31 @@ inventing a new principle:
       wife, Nabal; neutral — Reuben, Bilhah, Zilpah, Dinah, Potiphar,
       Pharaoh's baker. `sw.js` bumped to `rooted-v94`.
 
+99. **Ninth character-portrait batch — 25 more, 225 total (of 267).**
+    **Done (2026-09-15).** Abigail (finalized from a prior session's
+    generation and added to the manifest as this batch's first entry),
+    the 1 Samuel/Exodus/Numbers "deep study" supporting cast (Doeg,
+    Ahimelech, Abiathar, Achish, Jethro, Shiphrah, Puah, Phinehas, and
+    Zelophehad's five individually-named daughters — Mahlah, Noah,
+    Hoglah, Milcah, Tirzah), and the Gospels' personal healing/
+    interaction supporting cast (Bartimaeus, Jairus, the woman with the
+    issue of blood, the centurion of Capernaum, the widow of Nain,
+    Malchus, the centurion at the cross, Simon the Pharisee, the
+    forgiven woman, Joanna, Susanna) — all from the item 10 "deep
+    study" pass, settings for this exact batch already written in a
+    prior session before credits ran out. No `description`-override
+    fixes needed. All 25 passed visual QA on the first generation,
+    including Malchus (the severed-ear moment at the arrest) and the
+    centurion at the cross, both handled with the same tasteful,
+    non-graphic restraint established in items 97-98.
+    - Expression calls: positive — Abiathar, Jethro, Shiphrah, Puah,
+      Phinehas, all five daughters of Zelophehad, Bartimaeus, Jairus,
+      the woman with the issue of blood, the centurion of Capernaum,
+      the widow of Nain, the centurion at the cross, the forgiven
+      woman, Joanna, Susanna; negative — Doeg; neutral — Ahimelech,
+      Achish, Malchus, Simon the Pharisee. `sw.js` bumped to
+      `rooted-v95`.
+
 ---
 
 ## 9. How the app reads this data
