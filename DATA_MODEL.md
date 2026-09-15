@@ -3935,7 +3935,7 @@ inventing a new principle:
       genuine second instance, and no new family/relationship facts were
       introduced. `sw.js` bumped to `rooted-v85`.
 
-89. **Two new Home cards: Word of the Day (Hebrew/Greek) and This Day in
+90. **Two new Home cards: Word of the Day (Hebrew/Greek) and This Day in
     Church History.** **Done (2026-09-15).** Both are new, small, static
     reference datasets — not derived from the existing Bible-content
     pipeline (`pipeline/curation/*.json` → `build_*.py`), since neither
@@ -4018,6 +4018,68 @@ inventing a new principle:
     - `sw.js`'s precache list gained both new JSON files (Home reads one
       of each on every visit, same reasoning as the two placeholder
       photos already there). Bumped to `rooted-v86`.
+
+91. **Real generated character portraits — a first batch of 25, wired
+    into the app.** **Done (2026-09-15).** `pipeline/generate_character_art.py`
+    (built earlier as a `--test`-only validation tool, `--batch` never
+    implemented) generated a real, deliberately non-photorealistic
+    stylized-3D-animation portrait for 25 major characters, each with a
+    real story-appropriate background setting (Moses on Sinai, Daniel
+    among the lions, Esther in the Persian court, etc.) rather than a
+    blank atmospheric wash. Two art-direction corrections came from
+    direct feedback after the first pass: Samson initially read as
+    weary/weak rather than mighty, and Samuel — whose `roles` field
+    literally opens with "heard God's voice as a boy" — kept generating
+    as a child despite being popularly known as an elder prophet who
+    anointed two kings. Both fixed with a new `description` override
+    mechanism in `build_prompt()`/`character_art_settings.json` (an
+    entry can now be a plain setting string, or `{"setting":...,
+    "description":...}` when the character's own `roles` text would
+    otherwise mislead the model) — layered in ADDITION to the real
+    `Character.roles` data, never by editing that data itself, since
+    `roles` is real app-facing content shown elsewhere, not just an art
+    prompt input. Samson's fix also added explicit physicality cues
+    (broad-shouldered, muscular, straining against the cracking pillars)
+    since the base style prompt never specified build at all.
+    - **Wiring, a deliberate shortcut instead of the full `Media` entity**
+      (design philosophy #3: a separate linked entity, multiple images
+      per character, etc.): `data/character_portraits.json` is just a
+      flat array of the 25 character ids that have a real photo at
+      `media/characters/<id>.jpg` — no Media records, no `mediaIds` on
+      Character, no `build_media.py`. For a partial batch (25 of 261
+      characters) this one manifest file plus a fallback check does the
+      same job with far less machinery; the real `Media` entity is still
+      exactly where it was in the design — real future work once/if
+      portraits cover most of the cast, not attempted here.
+    - **`charPortraitUrl(charId)`** checks the manifest (loaded into a
+      `Set`, `characterPortraits`) and returns the image path or `null`.
+      **`charAvatarInner(c)`** is the small-avatar swap — an `<img>` when
+      a portrait exists, the existing `charIcon()` icon otherwise — used
+      everywhere a character shows up as a small avatar: `renderCharacterRow()`
+      (People/Study lists, "People in this book," Appears-alongside,
+      Also-in-era), the Family rows and the Verse Detail "People" rows on
+      Character Detail (both previously inlined their own icon markup,
+      now call the shared helper instead of duplicating the swap logic a
+      third time).
+    - **Character Detail's hero** is the "full image" the owner asked
+      for: `charPortraitUrl()` decides between the old small
+      `.hero-avatar` icon-in-a-box (unchanged, still what every other
+      character without a portrait yet shows) and a new full-width
+      `.hero-photo` — rendered *above* the `.hero` card, not squeezed
+      inside its centered-text padding, matching the same "full-bleed
+      image above the info card" shape `.unreached-full-photo` already
+      established rather than inventing a second treatment.
+    - Portraits are **not** added to `sw.js`'s precache list — same
+      reasoning as `data/verses.json` staying lazy: only one character's
+      photo loads per visit to their page, not all 25 on every visit, so
+      precaching the whole batch at install would be pure waste. The
+      existing runtime fetch-cache picks each one up after its first
+      view, same as any other asset. `sw.js` bumped to `rooted-v87`.
+    - Source images (1024×1024, ~700-800KB each straight from Gemini)
+      were resized to 640×640 and re-compressed before committing —
+      18.4MB across 25 files down to 1.6MB, the same "optimize before
+      committing" step already established for the Home placeholder
+      photos (item 83).
 
 ---
 

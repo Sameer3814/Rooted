@@ -202,7 +202,7 @@ The schema was deliberately designed so all of the above can be added
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
 - `data/word_of_the_day.json` and `data/church_history.json` — the two
-  newest Home cards' seed content (item 89, 2026-09-15): 13 curated
+  newest Home cards' seed content (item 90, 2026-09-15): 13 curated
   Hebrew/Greek words and 13 dated church-history entries respectively.
   Both loaded at boot. **Not** part of the Bible-content curation
   pipeline below — hand-written editorial content, not Scripture text,
@@ -418,10 +418,17 @@ hand-curate all the content before building.
    Next: reference↔text matching (`challenge_reference_match`, next Tier 1
    item), then matching/ordering (`challenge_story_order`,
    `challenge_character_match`).
-2. Real character portrait illustrations (currently icon placeholders);
-   `Media` entity designed, not built. Style direction needs revisiting
-   now that the app moved to the v3 dark theme (see "Visual direction")
-   — the old brief called for the warm-storybook style specifically.
+2. ~~Real character portrait illustrations (currently icon placeholders).~~
+   **Started 2026-09-15** — 25 of 261 characters now have a real
+   generated portrait (stylized 3D-animation style, a story-appropriate
+   background per character), wired into both small avatars and
+   Character Detail's hero. Still not the full `Media` entity from
+   design philosophy #3 — a flat `data/character_portraits.json`
+   manifest instead, a deliberate shortcut for a partial batch (see
+   DATA_MODEL.md §8, item 91). Remaining gap: the other ~236 characters
+   still show the icon placeholder; expanding the batch (and, if it
+   grows large enough, building the real `Media` entity to replace the
+   manifest shortcut) is the natural next step, not attempted yet.
 3. ~~**Expanding beyond Genesis to other OT books, in canonical
    order.**~~ **Done — the entire Old Testament is curated
    (2026-09-10).** Owner's direction, 2026-09-04: work through the rest
@@ -893,7 +900,7 @@ hand-curate all the content before building.
     History's detail view is a normal full screen (matching Unreached of
     the Day's own detail page) rather than a new bottom-sheet modal —
     this app has no modal/overlay component anywhere else. Full writeup:
-    DATA_MODEL.md §8, item 89.
+    DATA_MODEL.md §8, item 90.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

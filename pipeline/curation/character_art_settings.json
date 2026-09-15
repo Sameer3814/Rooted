@@ -1,0 +1,34 @@
+{
+  "_comment": "Hand-picked background settings for generate_character_art.py, keyed by character id. Each setting places the character at the location of their own single most iconic/defining scene (see DATA_MODEL.md item 90 for how each was chosen). Not auto-derived from Story data yet -- this is a curated batch of 25 major characters; per-character setting selection is still a manual/creative judgment call, not mechanical.",
+  "char_adam": "the lush Garden of Eden at dawn, sunlight filtering through dense trees and exotic plants",
+  "char_eve": "the lush Garden of Eden at dawn, a fruit tree softly visible behind her, sunlight filtering through dense trees",
+  "char_noah": "the deck of a massive wooden ark, a dramatic stormy sky breaking apart into a rainbow",
+  "char_abraham": "beneath a vast desert night sky thick with stars, silhouetted tents and dunes in the distance",
+  "char_isaac": "a stone altar atop Mount Moriah at sunrise, a ram caught in a nearby thicket softly visible",
+  "char_jacob": "a rocky hillside at Bethel by night, a faint luminous stairway rising into a starlit sky in the far background",
+  "char_joseph": "the grand columned halls of an Egyptian palace, golden granaries and hieroglyph-carved walls softly visible",
+  "char_rebekah": "a stone well outside a Mesopotamian village at dusk, camels resting softly in the background",
+  "char_moses": "the rocky slopes of Mount Sinai, dramatic storm clouds and light breaking through above the peak",
+  "char_david": "the green hillside pastures outside Bethlehem at golden-hour dusk, sheep grazing softly out of focus",
+  "char_solomon": "the columned inner court of the First Temple in Jerusalem, warm torchlight on carved stone and gold",
+  "char_deborah": "beneath a great palm tree on a hillside in Ephraim, tribal tents and gathering elders softly visible beyond",
+  "char_gideon": "a hillside at night, three hundred torches glowing warmly in the darkness among distant tents",
+  "char_samson": {
+    "description": "Samson, judge of Israel, famed above all for supernatural God-given physical strength -- a powerfully built, broad-shouldered, heavily muscular figure, radiating raw physical might even in this final act",
+    "setting": "gripping and straining with immense force against the two massive stone pillars of a Philistine temple hall as they begin to crack under his supernatural strength, muscles visibly tensed in his arms and neck, a powerful defiant stance, warm torchlight and a crowded feast softly visible beyond"
+  },
+  "char_ruth": "golden barley fields at harvest under a warm afternoon sun, workers gleaning softly out of focus",
+  "char_samuel": {
+    "description": "Samuel, a venerable elder statesman among prophets -- the respected judge of Israel in his later years who anointed both King Saul and King David",
+    "setting": "a modest stone dwelling in Ramah, a ram's horn of anointing oil resting on a table beside him, a wooden staff nearby, warm late-afternoon light through a doorway"
+  },
+  "char_elijah": "the summit of Mount Carmel, a dramatic pillar of fire descending from a stormy sky onto a stone altar",
+  "char_isaiah": "a heavenly temple throne room, vast smoke-filled columns and soft radiant light suggesting an overwhelming vision",
+  "char_jonah": "the storm-tossed deck of a ship at sea, dark waves and the shadow of a great sea creature beneath the surface",
+  "char_daniel": "a torchlit stone den, several lions resting calmly nearby in the shadows",
+  "char_esther": "the opulent columned throne hall of a Persian palace, rich tapestries and golden light",
+  "char_mary": "a humble stable in Bethlehem by candlelight, a wooden manger and soft hay visible",
+  "char_jesus": "a sunlit grassy hillside overlooking the Sea of Galilee, a gathered crowd softly visible in the distance",
+  "char_peter": "the shore of the Sea of Galilee at dawn, fishing boats and nets softly visible on the water behind him",
+  "char_paul": "a dusty desert road near Damascus, a blinding radiant light breaking through the sky above"
+}

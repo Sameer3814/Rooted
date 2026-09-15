@@ -1,6 +1,9 @@
-const CACHE = 'rooted-v86';
+const CACHE = 'rooted-v87';
 // data/verses.json (~8MB, the entire 66-book Bible) is deliberately NOT precached — it's fetched lazily
-// the first time Browse is opened, and the runtime cache below picks it up then.
+// the first time Browse is opened, and the runtime cache below picks it up then. Character
+// portraits (data/character_portraits.json + media/characters/*.jpg, item 91) get the same
+// lazy treatment for the same reason — only one character's photo loads per visit to their
+// page, not all 25+ on every visit, so precaching them all at install would be pure waste.
 // starter-pack.json, stories.json, motifs.json, connections.json, word_of_the_day.json,
 // and church_history.json all load at boot, so they belong here. The two Home
 // placeholder photos (item 83) render on every Home visit, so they're worth precaching too.
