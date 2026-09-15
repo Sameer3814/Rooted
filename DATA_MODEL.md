@@ -4397,6 +4397,53 @@ inventing a new principle:
     See CLAUDE.md's known-gaps item 2 for the closing note on the
     manifest-vs-`Media`-entity tradeoff this now opens up.
 
+102. **Swipe navigation: a character carousel, and swipe-left-to-go-back
+    app-wide.** **Done (2026-09-15).** Two related gestures, made
+    possible to build cheaply now that every character has a real
+    portrait (item 101) worth swiping through. Both are wired once, at
+    script load, via a single `pointerdown`/`pointerup` pair on `#app`
+    (Pointer Events, not separate touch/mouse handlers — same choice
+    `wireTimelineDrag()` already made) — a swipe is any gesture at least
+    60px, more horizontal than vertical, completed within 800ms; a tap or
+    a vertical scroll never qualifies, so this can't fight normal
+    scrolling or `data-action` clicks. No live drag visual is rendered
+    during the gesture — only the net displacement between pointerdown
+    and pointerup is read, which is enough for a discrete "go to the next
+    screen" gesture and meant the whole feature added no new render path.
+    - **`allCharactersOrdered()`** (new) — every character, era by era in
+      `lore.eras`' own order, then any without a matching era appended
+      last — deliberately the exact same grouping `renderPeopleResults()`
+      already shows on the Study tab's People list, so swiping through
+      characters matches the order a user would already expect from
+      browsing that list. **`adjacentCharacter(id, dir)`** looks up the
+      next (`dir=1`) or previous (`dir=-1`) character in that order,
+      returning `null` at either end — swiping past the first or last
+      character does nothing, it does not wrap around.
+    - **On Character Detail specifically**, swipe left goes to the next
+      character, swipe right to the previous — a genuine two-way
+      carousel through the full cast, as asked. This intentionally
+      *overrides* the app-wide swipe-left-back rule below on this one
+      screen: a character page's own back button (`character-back`)
+      still does the actual "go back to wherever I came from" job,
+      unchanged; swipe-left there means "next character" instead,
+      since a screen can't sensibly mean both at once. Worth knowing if
+      this surprises anyone expecting swipe-back to work everywhere
+      without exception.
+    - **Every other screen**: swipe left triggers whatever that screen's
+      own back button already does — found generically by querying for
+      the currently-rendered `.back-btn[data-action]` element and
+      calling a real `.click()` on it, rather than re-implementing each
+      screen's own back-target logic a second time. This means it
+      automatically stays correct for every existing back-nav action
+      (`verse-back`, `character-back`, `back-to-topics`,
+      `back-to-characters`, `motif-back`, `back-to-browse-book`, etc.)
+      with zero new per-screen code, and automatically does nothing on
+      any screen with no back button at all (Home, and every bottom-nav
+      tab's own root screen) since the query just finds nothing to click.
+      Swipe right carries no meaning outside the character carousel —
+      only swipe-left-to-go-back was asked for app-wide.
+    - `sw.js` bumped to `rooted-v98`.
+
 ---
 
 ## 9. How the app reads this data

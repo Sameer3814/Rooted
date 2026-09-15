@@ -3087,6 +3087,68 @@ function checkPractice(){
   render();
 }
 
+/* ---------- swipe navigation ----------
+   Two gestures, mutually exclusive per screen so they never fight each
+   other:
+   - Character Detail: a horizontal carousel through every character, in
+     the same era-by-era order the People/Study list already shows them
+     (allCharactersOrdered()) — swipe left for the next character, right
+     for the previous. Does not wrap at either end.
+   - Every other screen: swipe left triggers whatever that screen's own
+     back button does. Found generically via the visible
+     `.back-btn[data-action]` element and a real `.click()` on it, so
+     this reuses each screen's existing back-nav logic (verse-back,
+     character-back, back-to-topics, etc.) instead of duplicating it —
+     a screen with no back button (Home, any bottom-nav tab root) just
+     does nothing. Swipe right has no app-wide meaning outside the
+     character carousel, matching what was actually asked for.
+   Pointer Events (not separate touch/mouse listeners) so this covers
+   touch and mouse alike, same as wireTimelineDrag() above. Only
+   pointerdown/pointerup are tracked — no live drag visual — so a short
+   tap or a mostly-vertical scroll never gets misread as a swipe. */
+function allCharactersOrdered(){
+  const seen = new Set();
+  const ordered = [];
+  for(const era of lore.eras){
+    for(const c of data.characters){
+      if(c.eraId === era.id && !seen.has(c.id)){ seen.add(c.id); ordered.push(c); }
+    }
+  }
+  for(const c of data.characters){
+    if(!seen.has(c.id)){ seen.add(c.id); ordered.push(c); }
+  }
+  return ordered;
+}
+function adjacentCharacter(id, dir){
+  const list = allCharactersOrdered();
+  const i = list.findIndex(c=>c.id===id);
+  if(i===-1) return null;
+  return list[i+dir] || null;
+}
+(function wireSwipeNav(){
+  const app = document.getElementById('app');
+  let start = null;
+  app.addEventListener('pointerdown', e=>{
+    start = {x: e.clientX, y: e.clientY, t: Date.now()};
+  });
+  app.addEventListener('pointerup', e=>{
+    if(!start) return;
+    const dx = e.clientX - start.x, dy = e.clientY - start.y, dt = Date.now() - start.t;
+    start = null;
+    // A real, mostly-horizontal, reasonably quick swipe only — not a
+    // scroll, not a tap, not a diagonal drag.
+    if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)*1.5 || dt > 800) return;
+    if(view.screen === 'characterDetail'){
+      const next = adjacentCharacter(view.params.id, dx < 0 ? 1 : -1);
+      if(next) go('characterDetail', {id: next.id, from: view.params.from});
+    }else if(dx < 0){
+      const backBtn = document.querySelector('.back-btn[data-action]');
+      if(backBtn) backBtn.click();
+    }
+  });
+  app.addEventListener('pointercancel', ()=>{ start = null; });
+})();
+
 /* nav bar */
 document.querySelectorAll('.navitem').forEach(b=>{
   b.addEventListener('click', ()=>{

@@ -103,6 +103,15 @@ The schema was deliberately designed so all of the above can be added
   `#stories-results` subtree, own `storiesQuery` state. Now the third
   screen (People, Topics, Stories) using this exact debounced-search
   shape. See DATA_MODEL.md §8, item 87.
+- **Swipe navigation — done (2026-09-15).** A character carousel on
+  Character Detail (swipe left/right through every character, in the
+  same order the People list shows them) plus swipe-left-to-go-back
+  everywhere else (found generically via whatever `.back-btn` is
+  currently on screen, reusing each screen's own back-nav action rather
+  than a second implementation of it). The two rules are mutually
+  exclusive per screen on purpose — Character Detail's swipe-left means
+  "next character," not "back" (its actual back button still handles
+  that). See DATA_MODEL.md §8, item 102.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a
