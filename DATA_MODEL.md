@@ -5040,6 +5040,66 @@ inventing a new principle:
       truncated) is the same either way.
     `sw.js` bumped to `rooted-v105`.
 
+112. **Family Tree feedback pass — done (2026-09-16), same day as items
+    110-111.** Three fixes from direct use:
+    - **Swipe-right-to-go-back disabled on the rendered Family Tree
+      screen.** `wireSwipeBack()`'s `pointerdown` handler now returns
+      immediately if `#family-tree-viewport` exists in the DOM — a
+      rightward pan to explore the tree was fighting the app-wide
+      swipe-back gesture for the same pointer motion. Scoped to the
+      viewport's presence (i.e. the actual rendered tree), not the
+      whole `familyTree` screen id, so the picker/search screen (no
+      viewport, no panning to protect) keeps swipe-back as normal.
+    - **The picker now only lists people with a real curated family**,
+      styled as "`{Name}'s Family`" cards (`renderFamilyCard()`,
+      `hasFamilyTree()` — reuses `FAMILY_CORE_TYPES` to check for at
+      least one core relationship) instead of every one of the app's
+      267 characters. Direct owner feedback: most entries in the full
+      list dead-ended on the "no family curated" empty state, which
+      wasn't a useful browsing experience. This does list every
+      *individual* with a connection (so both "Noah's Family" and, say,
+      "Ham's Family" appear as separate entries even though they
+      overlap) rather than clustering into one entry per family group —
+      clustering would need real judgment calls about which person is
+      each cluster's "main" one that weren't asked for, and letting any
+      connected person be an entry point is arguably more useful for
+      exploration anyway (open "Ham's Family" directly instead of
+      always starting from Noah and drilling down).
+    - **Filled real, verifiable family-connection gaps** — the owner
+      named Jesus specifically as a family that "isn't available yet."
+      Audited a set of well-known figures against `data/connections.json`
+      and found seven real, Scripture-sourced facts that were already
+      implicit in these characters' own curated `summary` text but had
+      never been converted into a structured `Connection` edge: Mary
+      "mother of" Jesus; Joseph "adoptive father of" Jesus (deliberately
+      *not* plain "father of" — Jesus's own summary already says
+      "conceived by the Holy Spirit," so the connection type needed to
+      reflect a legal/adoptive relationship, not a biological one, the
+      same care this project has shown elsewhere, e.g. Melchizedek,
+      the two Josephs/two Zechariahs); Joseph "husband of" Mary;
+      Zacharias "father of" and Elizabeth "mother of" John the Baptist
+      (both already existed as characters with matching bios from the
+      birth-of-Jesus curation — item 41 — just never linked to their
+      son); Zacharias "husband of" Elizabeth; and Peter "brother of"
+      Andrew (Peter's own summary already says "brought to Jesus by his
+      brother Andrew"). All seven use characters that already existed —
+      no new Character records were added, consistent with treating
+      that as a separate, bigger curation decision than a same-day gap
+      fill. `pipeline/curation/connections.json` → 150 connections
+      (was 143), rebuilt via `py pipeline/build_connections.py` and
+      verified idempotent (`--check`) and resolving correctly from both
+      directions (e.g. `characterRelationships('char_jesus')` now
+      returns both parents). This is necessarily a small, targeted pass,
+      not a full audit of every character's family — most of the 267
+      characters still have no curated family connections at all (188
+      had none before this pass; 181 after), and filling that in more
+      broadly is real, ongoing curation work in the same vein as items
+      65-67/70-74/86/88-89, not something to do speculatively in one
+      sitting. (188 characters had zero connections of any kind before
+      this pass; 180 after — the 8 newly-connected are Mary, Joseph,
+      Jesus, Zacharias, Elizabeth, John the Baptist, Peter, and Andrew.)
+    `sw.js` bumped to `rooted-v106`.
+
 ---
 
 ## 9. How the app reads this data

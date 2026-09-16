@@ -1290,6 +1290,69 @@
       "toType": "character",
       "toId": "char_herod_antipas",
       "inverse": "uncle of"
+    },
+    {
+      "id": "conn_mary_mother_of_jesus",
+      "fromType": "character",
+      "fromId": "char_mary",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_jesus",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_joseph_husband_of_mary_adoptive_father_of_jesus",
+      "fromType": "character",
+      "fromId": "char_joseph_husband_of_mary",
+      "relationship": "adoptive father of",
+      "toType": "character",
+      "toId": "char_jesus",
+      "inverse": "adopted son of"
+    },
+    {
+      "id": "conn_joseph_husband_of_mary_husband_of_mary",
+      "fromType": "character",
+      "fromId": "char_joseph_husband_of_mary",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_mary",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_zacharias_father_of_john_the_baptist",
+      "fromType": "character",
+      "fromId": "char_zacharias",
+      "relationship": "father of",
+      "toType": "character",
+      "toId": "char_john_the_baptist",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_elizabeth_mother_of_john_the_baptist",
+      "fromType": "character",
+      "fromId": "char_elizabeth",
+      "relationship": "mother of",
+      "toType": "character",
+      "toId": "char_john_the_baptist",
+      "inverse": "son of"
+    },
+    {
+      "id": "conn_zacharias_husband_of_elizabeth",
+      "fromType": "character",
+      "fromId": "char_zacharias",
+      "relationship": "husband of",
+      "toType": "character",
+      "toId": "char_elizabeth",
+      "inverse": "wife of"
+    },
+    {
+      "id": "conn_peter_brother_of_andrew",
+      "fromType": "character",
+      "fromId": "char_peter",
+      "relationship": "brother of",
+      "toType": "character",
+      "toId": "char_andrew",
+      "inverse": "brother of"
     }
   ]
 }

@@ -225,6 +225,19 @@ The schema was deliberately designed so all of the above can be added
   order. The tree's card/connector colors are a distinct warm-bronze
   palette scoped only to this feature's own CSS classes, not a change
   to the app's shared v3 dark tokens. See DATA_MODEL.md §8, item 111.
+- **Family Tree feedback pass — done (2026-09-16), same day.** Swipe-
+  right-to-go-back is now disabled specifically on the rendered tree
+  (it was fighting the pan gesture); the picker now only lists people
+  with a real curated family, as "`{Name}'s Family`" cards, instead of
+  all 267 characters (`hasFamilyTree()`/`renderFamilyCard()`); and
+  seven real family-connection gaps named by the owner (Jesus's family
+  specifically) were filled using facts already implicit in these
+  characters' own curated bios — Mary/Joseph→Jesus (Joseph as
+  "adoptive father," not biological, matching Jesus's own "conceived by
+  the Holy Spirit" framing), Zacharias/Elizabeth→John the Baptist, and
+  Peter/Andrew as brothers — all using characters that already existed,
+  no new Character records added. `data/connections.json` is now 150
+  edges (was 143). See DATA_MODEL.md §8, item 112.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -337,7 +350,7 @@ The schema was deliberately designed so all of the above can be added
   occurrences (see DATA_MODEL.md §8 for the newest). Loaded at boot.
   Drives the Patterns screens and the "Pattern" badges on Character,
   Story, and Verse detail pages.
-- `data/connections.json` — 137 generic Connection edges (Design
+- `data/connections.json` — 150 generic Connection edges (Design
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.

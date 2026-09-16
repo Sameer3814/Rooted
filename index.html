@@ -2821,35 +2821,53 @@ function renderTimeline(){
 }
 
 /* ---------- FAMILY TREE ---------- */
+/* Whether a character has any CORE family relationship curated at all
+   (parent/child/spouse/sibling — see FAMILY_CORE_TYPES) — used to keep
+   the picker to people whose family is actually worth opening, instead
+   of listing all 267 characters and having most of them dead-end on
+   the "no family curated yet" empty state. */
+function hasFamilyTree(charId){
+  return characterRelationships(charId).some(r => FAMILY_CORE_TYPES.hasOwnProperty(r.type));
+}
 function renderFamilyTreePicker(){
   return `
     <div class="topbar"><h1>Family Tree</h1></div>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
-      <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search for a person..." autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search a family by name..." autocomplete="off" autocorrect="off" spellcheck="false">
     </div>
     <div id="family-tree-picker-results">${renderFamilyTreePickerResults()}</div>
   `;
 }
+function renderFamilyCard(c){
+  return `
+    <div class="card tap" data-action="open-family-tree" data-id="${c.id}">
+      <div class="char-row">
+        <div class="avatar">${charAvatarInner(c)}</div>
+        <div><h3>${esc(c.name)}'s Family</h3><p class="field-hint">${esc((c.roles||[])[0]||'')}</p></div>
+      </div>
+    </div>`;
+}
 function renderFamilyTreePickerResults(){
+  const withFamily = data.characters.filter(c=>hasFamilyTree(c.id));
   const q = familyTreeQuery.trim().toLowerCase();
   if(q){
-    const hits = data.characters.filter(c=>c.name.toLowerCase().includes(q));
-    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No one matches "${esc(familyTreeQuery)}".</p></div>`;
+    const hits = withFamily.filter(c=>c.name.toLowerCase().includes(q));
+    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No family matches "${esc(familyTreeQuery)}".</p></div>`;
     return `
       <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
-      ${hits.map(c=>renderCharacterRow(c, 'open-family-tree')).join('')}
+      ${hits.map(renderFamilyCard).join('')}
     `;
   }
   const grouped = lore.eras.map(era=>({
     era,
-    people: data.characters.filter(c=>c.eraId===era.id)
+    people: withFamily.filter(c=>c.eraId===era.id)
   })).filter(g=>g.people.length);
   return `
-    <p style="color:var(--ink-soft);margin-bottom:14px;line-height:1.5;">Pick a person to see how they connect to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app.</p>
+    <p style="color:var(--ink-soft);margin-bottom:14px;line-height:1.5;">Explore how a well-known figure connects to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app. Only people with a curated family are listed here.</p>
     ${grouped.map(g=>`
       <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
-      ${g.people.map(c=>renderCharacterRow(c, 'open-family-tree')).join('')}
+      ${g.people.map(renderFamilyCard).join('')}
     `).join('')}
   `;
 }
@@ -3754,6 +3772,12 @@ function adjacentCharacter(id, dir){
   const app = document.getElementById('app');
   let start = null;
   app.addEventListener('pointerdown', e=>{
+    // The rendered Family Tree screen (not its picker/search screen,
+    // which has no viewport) owns horizontal drag for panning the tree
+    // itself — a rightward pan there would otherwise also fire the
+    // app-wide swipe-back and navigate away mid-gesture, fighting
+    // wireFamilyTreePanZoom() for the same gesture.
+    if(document.getElementById('family-tree-viewport')) return;
     start = {x: e.clientX, y: e.clientY, t: Date.now()};
   });
   app.addEventListener('pointerup', e=>{
