@@ -4649,6 +4649,16 @@ inventing a new principle:
       scene, not onto individual faces), so it wasn't added either.
       Worth revisiting if the LoRA fix alone isn't enough once this
       round is reviewed.
+    - **Addendum, same day**: the owner's actual run of this notebook
+      hit `ImportError: Found an incompatible version of torchao. Found
+      version 0.10.0, but only versions above 0.16.0 are supported` on
+      `pipe.load_lora_weights(...)` — Colab's preinstalled `torchao` is
+      too old for the `peft` version `diffusers` pulls in for LoRA
+      loading. Fixed by explicitly installing `peft` and `torchao>=0.16.0`
+      in the install cell, with a note that a Colab **runtime restart**
+      is required if the old versions were already imported in that
+      session (a `pip install -U` doesn't retroactively patch an
+      already-running Python process).
 
 ---
 
