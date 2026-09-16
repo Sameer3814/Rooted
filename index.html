@@ -464,17 +464,54 @@
   .tl-age{color:var(--ink-faint);font-weight:400;}
   .tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.5;margin-top:5px;}
 
-  /* family tree (item 110) */
-  .tree-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
-  .tree-legend span{display:inline-flex;align-items:center;gap:6px;}
-  .tree-legend-line{display:inline-block;width:16px;height:2px;border-radius:1px;}
-  .tree-legend-dash{opacity:.7;}
+  /* family tree (item 110, rendering overhaul v2 2026-09-16) — a
+     deliberately distinct warm bronze/dark palette scoped ONLY to this
+     feature's own classes (never the shared --gold/--paper-raised
+     tokens), per an explicit, hex-exact design spec for this component
+     specifically — not a relitigation of the app-wide v3 dark theme
+     (see "Visual direction" in CLAUDE.md). */
   .tree-viewport{
     position:relative;overflow:hidden;touch-action:none;
     background:var(--surface-sunken);border-radius:var(--radius-card);
     height:min(60vh, 480px);border:1px solid rgba(255,255,255,.06);
   }
-  .tree-viewport svg{display:block;transform-origin:0 0;}
+  .tree-canvas{position:relative;transform-origin:0 0;}
+  .tree-edges-svg{position:absolute;top:0;left:0;pointer-events:none;overflow:visible;}
+  .tree-legend{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:2;
+    display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+    background:rgba(28,25,23,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid #2E2925;border-radius:100px;padding:6px 16px;
+    font-size:12px;color:#A39B92;max-width:calc(100% - 24px);
+  }
+  .tree-legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .tree-legend-line{display:inline-block;width:14px;height:2px;border-radius:1px;background:#C69255;}
+  .tree-legend-dash{opacity:.65;}
+  .tree-node-card{
+    position:absolute;
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:10px 14px;display:flex;align-items:center;gap:12px;
+    cursor:pointer;transition:all .2s ease;
+  }
+  .tree-node-card:active{transform:scale(.97);}
+  .tree-node-card.active{
+    border-color:#C69255;background:#26221F;box-shadow:0 0 16px rgba(198,146,85,.25);
+  }
+  .tree-avatar{
+    width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;
+    border:1.5px solid #C69255;background:#2E2925;
+    display:flex;align-items:center;justify-content:center;color:#A39B92;font-size:18px;
+  }
+  .tree-avatar img{width:100%;height:100%;object-fit:cover;}
+  .tree-node-info{min-width:0;flex:1;}
+  .tree-node-name{
+    font-size:15px;font-weight:600;color:#F5F2ED;line-height:1.2;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .tree-node-sub{
+    font-size:12px;color:#A39B92;margin-top:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
 
   /* timeline drag-order game */
   .tl-drag-track{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
@@ -1351,15 +1388,35 @@ function familyGraph(rootId, maxGen){
   }
   return {nodes: [...nodes.values()], edges};
 }
-/* Sugiyama-style layered layout, one barycenter pass — enough to keep
-   small family trees (a few dozen nodes at most, given this app's
-   current ~84 character-character connections total) visually sane
-   without pulling in a graph-layout library the rest of this vanilla-JS
-   app has no precedent for. Rows = generations; within a row, nodes are
-   reordered once by the average x of their already-placed neighbors in
-   the row above, then spaced evenly. */
+/* Rigid generational grid layout (v2, 2026-09-16 overhaul) — strict
+   Y-tiering by generation (Y = row * ROW_H) with X positions resolved
+   so a child sits directly beneath its parent's center whenever that's
+   geometrically possible, rather than a plain per-row insertion order.
+   Still hand-written rather than pulling in a graph-layout library (no
+   precedent for a third-party JS dependency anywhere in this app, and
+   these graphs stay small — a few dozen nodes at most given ~84
+   character-character connections project-wide).
+
+   Per row, top to bottom:
+     1. Nodes with an already-positioned parent (via a parent-child
+        edge from the row above) get a desired X = the average X of
+        their parent(s) — this is the literal "child directly beneath
+        parent" case (an only child lands exactly on its parent's X).
+     2. Nodes with no positioned parent above but a spouse already
+        placed in the SAME row (a married-in figure with no blood tie
+        upward in this graph) get a desired X = spouse's X + X_GAP, so
+        couples still end up adjacent even without a shared parent to
+        anchor them.
+     3. Anything left over (the topmost row's own roots, or a genuinely
+        unconnected node) falls back to appending after the row's
+        current rightmost node.
+     4. All desired X's are then sorted and walked once, pushing any
+        node whose desired X collides with its left neighbor out to
+        neighbor.x + X_GAP — this keeps the "directly beneath parent"
+        placement exact whenever there's room, and only nudges siblings
+        apart when multiple children/spouses would otherwise overlap. */
 function layoutFamilyGraph(nodes, edges){
-  const NODE_W = 104, NODE_H = 56, COL_GAP = 20, ROW_H = 108;
+  const NODE_W = 150, NODE_H = 64, X_GAP = 170, ROW_H = 140;
   const byGen = new Map();
   for(const n of nodes){
     if(!byGen.has(n.gen)) byGen.set(n.gen, []);
@@ -1367,28 +1424,45 @@ function layoutFamilyGraph(nodes, edges){
   }
   const gens = [...byGen.keys()].sort((a,b)=>a-b);
   const pos = new Map(); // id -> {x, y}
-  const neighborsAbove = id => edges
-    .filter(e => (e.to === id) || (e.kind !== 'parent-child' && e.from === id))
-    .map(e => e.to === id ? e.from : e.to)
-    .filter(otherId => pos.has(otherId));
+  const parentsOf = id => edges.filter(e => e.kind === 'parent-child' && e.to === id).map(e => e.from);
+  const spouseOf = id => edges.filter(e => e.kind === 'spouse' && (e.from === id || e.to === id)).map(e => e.from === id ? e.to : e.from);
+
   for(const gen of gens){
     const row = byGen.get(gen);
-    if(gen !== gens[0]){
-      row.sort((a, b) => {
-        const ax = neighborsAbove(a.char.id).map(id=>pos.get(id).x);
-        const bx = neighborsAbove(b.char.id).map(id=>pos.get(id).x);
-        const am = ax.length ? ax.reduce((s,v)=>s+v,0)/ax.length : 0;
-        const bm = bx.length ? bx.reduce((s,v)=>s+v,0)/bx.length : 0;
-        return am - bm;
-      });
-    }
-    row.forEach((n, i) => {
-      pos.set(n.char.id, {x: i * (NODE_W + COL_GAP), y: (gen - gens[0]) * ROW_H});
+    const desired = row.map(n => {
+      const parentXs = parentsOf(n.char.id).map(pid => pos.get(pid)).filter(Boolean).map(p => p.x);
+      if(parentXs.length) return {n, x: parentXs.reduce((s,v)=>s+v,0) / parentXs.length};
+      const spouseX = spouseOf(n.char.id).map(sid => pos.get(sid)).filter(Boolean).map(p => p.x)[0];
+      if(spouseX !== undefined) return {n, x: spouseX + X_GAP};
+      return {n, x: null};
     });
+    let rightmost = desired.filter(d => d.x !== null).reduce((m,d)=>Math.max(m,d.x), -Infinity);
+    for(const d of desired){ if(d.x === null){ d.x = rightmost === -Infinity ? 0 : rightmost + X_GAP; rightmost = d.x; } }
+    desired.sort((a,b) => a.x - b.x);
+    let prevX = -Infinity;
+    for(const d of desired){
+      const x = prevX === -Infinity ? d.x : Math.max(d.x, prevX + X_GAP);
+      pos.set(d.n.char.id, {x, y: (gen - gens[0]) * ROW_H});
+      prevX = x;
+    }
   }
+  const minX = Math.min(0, ...[...pos.values()].map(p=>p.x));
+  if(minX < 0) for(const p of pos.values()) p.x -= minX; // keep everything on-canvas (>= 0)
   const maxX = Math.max(0, ...[...pos.values()].map(p=>p.x)) + NODE_W;
   const maxY = Math.max(0, ...[...pos.values()].map(p=>p.y)) + NODE_H;
   return {pos, width: maxX, height: maxY, NODE_W, NODE_H};
+}
+/* The Bezier "elbow" connector between a parent's bottom-center and a
+   child's top-center — drops straight down from the parent, curves
+   through the gap, and arrives straight into the child, per spec. Only
+   parent-child edges use this exact shape (it's only meaningful
+   vertically); spouse/sibling edges are same-row and stay a plain
+   line between facing edges — see renderFamilyTree(). */
+function familyTreeBezier(parent, child, NODE_W, NODE_H){
+  const sx = parent.x + NODE_W/2, sy = parent.y + NODE_H;
+  const ex = child.x + NODE_W/2, ey = child.y;
+  const midY = sy + (ey - sy) * 0.5;
+  return `M ${sx} ${sy} C ${sx} ${midY}, ${ex} ${midY}, ${ex} ${ey}`;
 }
 
 /* ---------- motifs (DATA_MODEL.md §2) ----------
@@ -2517,15 +2591,15 @@ function resetTimelineOrder(){
    a node never accidentally re-centers the tree on it. */
 function wireFamilyTreePanZoom(){
   const viewport = document.getElementById('family-tree-viewport');
-  const svg = document.getElementById('family-tree-svg');
-  if(!viewport || !svg) return;
+  const canvas = document.getElementById('family-tree-canvas');
+  if(!viewport || !canvas) return;
   let scale = 1, tx = 0, ty = 0;
   let moved = false;
   const pointers = new Map(); // pointerId -> {x, y}
   let pinchStartDist = 0, pinchStartScale = 1;
   const MIN_SCALE = 0.4, MAX_SCALE = 2.5;
 
-  function apply(){ svg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+  function apply(){ canvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
   function clampScale(s){ return Math.min(MAX_SCALE, Math.max(MIN_SCALE, s)); }
   function dist(a, b){ return Math.hypot(a.x - b.x, a.y - b.y); }
 
@@ -2779,40 +2853,64 @@ function renderFamilyTreePickerResults(){
     `).join('')}
   `;
 }
-/* SVG node-link diagram over familyGraph()/layoutFamilyGraph() — see
-   those functions' own comments for scope (core relationship types
-   only, 2 generations up/down by default). Tapping any node re-centers
-   the tree on that person (family-tree-nav, chaining `from` so the back
-   button walks back through however many people were visited, same
-   pattern as Character Detail's own back button); the header's search
-   icon jumps straight back to the picker at any point. Pan (drag) and
-   zoom (wheel/pinch) are handled by wireFamilyTreePanZoom(), called
-   after render — plain SVG has no built-in viewport gestures. */
+/* Node-link family tree, v2 rendering overhaul (2026-09-16) — a hybrid
+   render: an absolutely-positioned SVG draws ONLY the curved connector
+   paths (pointer-events:none, per spec, so it never blocks panning),
+   and the nodes themselves are real HTML cards (avatar <img>, name,
+   role) absolutely positioned in the same coordinate space, layered on
+   top — real <img>/flexbox/transition is far more natural here than
+   approximating them in raw SVG shapes, and it's what the exact CSS in
+   the spec (object-fit, transition, box-shadow) actually describes.
+   Both the svg and the cards live inside #family-tree-canvas, which is
+   what wireFamilyTreePanZoom() transforms (translate+scale) — panning/
+   zooming moves lines and cards together as one unit.
+
+   "Selected" (spec's highlight state) is treated as "the current focal
+   person" — the root card gets the active/glow treatment, and every
+   edge touching it gets the highlighted stroke — rather than adding a
+   separate hover-only preview state this app has no other precedent
+   for; tapping any card still re-centers the tree on that person
+   (family-tree-nav, chaining `from` so the back button walks back
+   through however many people were visited, same pattern as Character
+   Detail's own back button). The header's search icon jumps straight
+   to the picker at any point. */
 function renderFamilyTree(id){
   const c = id && findChar(id);
   if(!c) return renderFamilyTreePicker();
   const {nodes, edges} = familyGraph(id, 2);
   const {pos, width, height, NODE_W, NODE_H} = layoutFamilyGraph(nodes, edges);
-  const PAD = 30;
   const edgeSvg = edges.map(e=>{
     const a = pos.get(e.from), b = pos.get(e.to);
     if(!a || !b) return '';
-    const ax = a.x + NODE_W/2 + PAD, ay = a.y + NODE_H/2 + PAD;
-    const bx = b.x + NODE_W/2 + PAD, by = b.y + NODE_H/2 + PAD;
-    const stroke = e.kind === 'sibling' ? 'var(--ink-faint)' : (e.kind === 'spouse' ? 'var(--tan-deep)' : 'var(--gold-deep)');
-    const dash = e.kind === 'parent-child' ? '' : ' stroke-dasharray="4,4"';
-    return `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="${stroke}" stroke-width="2"${dash}/>`;
+    const isHighlighted = e.from === id || e.to === id;
+    const baseStroke = isHighlighted
+      ? 'stroke:#C69255;stroke-width:3;filter:drop-shadow(0 0 6px rgba(198,146,85,.4));'
+      : 'stroke:rgba(198,146,85,.45);stroke-width:2.5;';
+    const dash = e.kind === 'parent-child' ? '' : 'stroke-dasharray:5,5;';
+    if(e.kind === 'parent-child'){
+      const d = familyTreeBezier(a, b, NODE_W, NODE_H);
+      return `<path d="${d}" fill="none" stroke-linecap="round" style="${baseStroke}${dash}"/>`;
+    }
+    // Same-row (spouse/sibling) edges connect facing card edges with a
+    // plain line — a vertical bottom-to-top Bezier has no meaning
+    // between two nodes at the same Y.
+    const left = a.x <= b.x ? a : b, right = a.x <= b.x ? b : a;
+    const x1 = left.x + NODE_W, y1 = left.y + NODE_H/2;
+    const x2 = right.x, y2 = right.y + NODE_H/2;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke-linecap="round" style="${baseStroke}${dash}"/>`;
   }).join('');
-  const nodeSvg = nodes.map(n=>{
+  const nodeCards = nodes.map(n=>{
     const p = pos.get(n.char.id);
     const isRoot = n.char.id === id;
-    const x = p.x + PAD, y = p.y + PAD;
-    const name = n.char.name.length > 14 ? n.char.name.slice(0, 13) + '…' : n.char.name;
+    const sub = (n.char.roles && n.char.roles[0]) || '';
     return `
-      <g class="tap" data-action="family-tree-nav" data-id="${n.char.id}" transform="translate(${x},${y})" style="cursor:pointer;">
-        <rect width="${NODE_W}" height="${NODE_H}" rx="12" fill="${isRoot ? 'var(--gold-wash)' : 'var(--paper-raised)'}" stroke="${isRoot ? 'var(--gold-deep)' : 'rgba(255,255,255,.12)'}" stroke-width="${isRoot ? 2 : 1}"></rect>
-        <text x="${NODE_W/2}" y="${NODE_H/2 + 4}" text-anchor="middle" fill="${isRoot ? 'var(--gold-deep)' : 'var(--ink)'}" font-size="12" font-weight="600" font-family="Inter, sans-serif">${esc(name)}</text>
-      </g>`;
+      <div class="tree-node-card${isRoot ? ' active' : ''}" data-action="family-tree-nav" data-id="${n.char.id}" style="left:${p.x}px;top:${p.y}px;width:${NODE_W}px;">
+        <div class="tree-avatar">${charAvatarInner(n.char)}</div>
+        <div class="tree-node-info">
+          <div class="tree-node-name">${esc(n.char.name)}</div>
+          ${sub ? `<div class="tree-node-sub">${esc(sub)}</div>` : ''}
+        </div>
+      </div>`;
   }).join('');
   return `
     <div class="screen-head">
@@ -2821,18 +2919,16 @@ function renderFamilyTree(id){
       <button class="back-btn" data-action="go-family-tree" style="margin-left:auto;" title="Search for someone else"><i class="ti ti-search"></i></button>
     </div>
     ${edges.length ? `
-      <div class="tree-legend">
-        <span><i class="tree-legend-line" style="background:var(--gold-deep);"></i> parent / child</span>
-        <span><i class="tree-legend-line tree-legend-dash" style="background:var(--tan-deep);"></i> spouse</span>
-        <span><i class="tree-legend-line tree-legend-dash" style="background:var(--ink-faint);"></i> sibling</span>
-      </div>
       <div class="tree-viewport" id="family-tree-viewport">
-        <svg id="family-tree-svg" width="${width + PAD*2}" height="${height + PAD*2}" viewBox="0 0 ${width + PAD*2} ${height + PAD*2}">
-          <g id="family-tree-g">
-            ${edgeSvg}
-            ${nodeSvg}
-          </g>
-        </svg>
+        <div class="tree-legend">
+          <span><i class="tree-legend-line"></i> parent / child</span>
+          <span><i class="tree-legend-line tree-legend-dash"></i> spouse</span>
+          <span><i class="tree-legend-line tree-legend-dash" style="opacity:.4;"></i> sibling</span>
+        </div>
+        <div class="tree-canvas" id="family-tree-canvas" style="width:${width}px;height:${height}px;">
+          <svg class="tree-edges-svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${edgeSvg}</svg>
+          ${nodeCards}
+        </div>
       </div>
       <p class="field-hint" style="margin-top:10px;">Drag to pan, pinch or scroll to zoom, tap anyone to re-center on them.</p>
     ` : `<div class="empty"><i class="ti ti-affiliate"></i><p>No family relationships curated for ${esc(c.name)} yet.</p></div>`}

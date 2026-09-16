@@ -4967,6 +4967,79 @@ inventing a new principle:
       `"study"`; `NAV_GROUPS.study` now covers all three destinations.
     `sw.js` bumped to `rooted-v104`.
 
+111. **Family Tree rendering overhaul — done (2026-09-16), same day as
+    item 110.** The owner gave a full, hex-exact visual/engine spec
+    (curved connectors, avatar node cards, a rigid parent-centered
+    grid, a floating legend pill) to replace item 110's first-pass
+    plain-SVG version. Implemented as a hybrid render rather than pure
+    SVG shapes, since the spec's own properties (`object-fit`,
+    `transition`, `box-shadow`, `backdrop-filter`) are standard CSS, not
+    raw SVG attributes:
+    - **`#family-tree-canvas`** now holds an absolutely-positioned
+      `<svg class="tree-edges-svg">` (connector paths only,
+      `pointer-events:none` per spec item 4, so panning/clicking always
+      falls through to the canvas/cards beneath it) layered under real
+      HTML `.tree-node-card` divs (avatar `<img>`, name, role) at the
+      same coordinates — both children of one canvas element, so
+      `wireFamilyTreePanZoom()`'s pan/zoom transform (unchanged logic,
+      now targeting `#family-tree-canvas` instead of the old bare
+      `<svg>`) moves lines and cards together as one unit.
+    - **`familyTreeBezier(parent, child, NODE_W, NODE_H)`** (new) — the
+      spec's exact cubic-Bezier "elbow": start at the parent's
+      bottom-center, end at the child's top-center, both control points
+      at the vertical midpoint between them (drops straight down,
+      curves through the gap, arrives straight into the child). Applies
+      only to parent-child edges, which is the only relationship where
+      "bottom of one, top of the other" is geometrically meaningful;
+      spouse/sibling edges (same row) stay a plain line between the
+      two cards' facing edges.
+    - **`layoutFamilyGraph()` rewritten** from the original one-pass
+      barycenter reorder to genuine parent-centered positioning: a
+      child's X defaults to the average X of its already-placed
+      parent(s) (an only child lands exactly beneath its parent, the
+      literal "Canaan beneath Ham" case the owner named), a married-in
+      spouse with no blood tie upward anchors to their partner's X +
+      `X_GAP` instead, and a single collision-resolution pass nudges
+      any node whose desired X would overlap its left neighbor out to
+      `neighbor.x + X_GAP` — preserving the parent-centered placement
+      whenever there's room and only spreading siblings/co-spouses
+      apart when they'd otherwise collide. `NODE_W`/`X_GAP`/`ROW_H`
+      updated to the spec's exact `150`/`170`/`140`. Re-verified against
+      real curated data before shipping (not just re-styled on faith):
+      re-ran the same David/Jacob/Isaac/Ham trees as item 110's original
+      verification — zero node overlaps in any row, and Ham→Canaan
+      (single child, single line of descent) lands at the exact same X
+      as its parent, confirming the spec's own worked example.
+    - **A deliberately distinct warm bronze/dark palette, scoped ONLY to
+      this feature's own CSS classes** (`.tree-node-card`, `.tree-avatar`,
+      `.tree-legend`, the connector `stroke` colors) — `#1C1917`/
+      `#2E2925`/`#26221F`/`#F5F2ED`/`#A39B92`/`#C69255`, taken literally
+      from the owner's hex-exact spec rather than mapped onto the app's
+      existing `--paper-raised`/`--gold` tokens. This is a different
+      call than item 109's palette question earlier the same day (where
+      loosely-similar values were confirmed as describing the existing
+      v3 theme, not a change) — here the values are precise, numerous,
+      and specific to one feature's own component styling, which reads
+      as a deliberate scoped design choice rather than a loose
+      description of what already exists. Does not touch or relitigate
+      the app-wide v3 dark theme (see "Visual direction").
+    - **"Selected node" highlight** (spec item 1's interactive-highlight
+      requirement) is implemented as "the current focal/root person" —
+      its card gets the active/glow treatment (spec item 2) and every
+      edge touching it gets the highlighted stroke/glow (spec item 1) —
+      rather than introducing a separate hover-only preview state this
+      app has no other precedent for. Tapping any card still re-centers
+      the tree on that person immediately, same navigation model as
+      item 110.
+    - One deliberate deviation from the letter of the spec, noted rather
+      than silent: node cards use a fixed `width` (matching `NODE_W`)
+      instead of `min-width`, with `text-overflow:ellipsis` on the name/
+      role — needed so a long name can never grow a card wider than the
+      layout engine accounted for and silently misalign its connector
+      endpoints; the visual result (a clean 150px card, long names
+      truncated) is the same either way.
+    `sw.js` bumped to `rooted-v105`.
+
 ---
 
 ## 9. How the app reads this data

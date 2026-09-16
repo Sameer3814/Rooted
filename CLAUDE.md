@@ -210,6 +210,21 @@ The schema was deliberately designed so all of the above can be added
   (`renderStudy()`: Patterns/Timeline/Family Tree) instead of the
   "route straight to Patterns" stopgap from the bullet above. See
   DATA_MODEL.md §8, item 110.
+- **Family Tree rendering overhaul — done (2026-09-16), same day.** A
+  full hex-exact visual spec replaced the first-pass plain-SVG tree
+  with a hybrid render: an absolutely-positioned, `pointer-events:none`
+  SVG draws only curved parent→child Bezier connectors
+  (`familyTreeBezier()`), while the nodes themselves are real HTML
+  avatar cards (image, name, role) layered on top — closer to what the
+  spec's own CSS (`object-fit`, `transition`, `box-shadow`) actually
+  describes than approximating it in raw SVG. `layoutFamilyGraph()` was
+  rewritten to genuinely center a child under its parent's average X
+  (an only child lands exactly beneath its parent — re-verified against
+  real data, zero overlaps, Ham→Canaan lands at the identical X as the
+  spec's own worked example) rather than the original per-row insertion
+  order. The tree's card/connector colors are a distinct warm-bronze
+  palette scoped only to this feature's own CSS classes, not a change
+  to the app's shared v3 dark tokens. See DATA_MODEL.md §8, item 111.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
