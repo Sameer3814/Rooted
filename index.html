@@ -113,7 +113,14 @@
   }
   .card.tap{cursor:pointer;transition:box-shadow .15s ease;}
   .card.tap:active{box-shadow:0 2px 10px rgba(44,34,30,.08);}
-  .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;}
+  .verse-card{position:relative;}
+  /* 4-segment mastery indicator, top-right corner of every verse card —
+     replaces the old uppercase status tag inside .tag-row so mastery
+     reads at a glance without competing with the topic pills for space. */
+  .mastery-bar{position:absolute;top:14px;right:16px;display:flex;gap:3px;}
+  .mastery-seg{width:10px;height:4px;border-radius:2px;background:var(--surface-sunken);}
+  .mastery-seg.filled{background:var(--sage);}
+  .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;padding-right:52px;}
   /* Scripture text (Home, Verse Details, Practice Cards) — text-base by
      default (compact list/chapter-reading cards); Verse Detail's own
      standalone quote bumps this to text-xl via an inline style, since
@@ -133,6 +140,13 @@
   .tag--gold{background:var(--gold-wash);color:var(--gold-deep);}
   .tag--sage{background:var(--sage-wash);color:var(--sage);}
   .tag--tan{background:var(--tan-wash);color:var(--tan-deep);}
+  /* Soft, lowercase hashtag-style topic pills on verse cards — a scoped
+     variant, NOT a change to `.tag` itself, which stays the uppercase
+     eyebrow badge everywhere else (see the comment above, DATA_MODEL.md
+     §85). Lower weight/no caps/no letter-spacing reads as a quieter,
+     more casual label than the status badges next to it. */
+  .tag--pill{font-size:var(--text-xs);font-weight:500;letter-spacing:0;text-transform:none;padding:4px 10px;border-radius:100px;background:var(--surface-sunken);color:var(--ink-soft);}
+  .app-icon{display:inline-flex;vertical-align:middle;flex-shrink:0;}
   .empty{text-align:center;padding:40px 20px;color:var(--ink-soft);}
   .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
   .empty .cta{margin-top:14px;}
@@ -531,6 +545,18 @@
   .goal-ring .ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
   .goal-ring .ring-label .num{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
   .goal-ring .ring-label .of{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
+
+  /* ---------- Practice screen: hero card, compact stats strip, filter tabs ---------- */
+  .practice-hero-card{background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:20px 16px 16px;margin-bottom:16px;}
+  .practice-hero-card .goal-ring{margin-bottom:10px;}
+  .practice-hero-card .segmented{margin-bottom:14px;}
+  .practice-stats-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:10px 14px;margin-bottom:20px;font-size:var(--text-sm);color:var(--ink-soft);}
+  .practice-stats-strip .stat-sep{color:var(--ink-faint);}
+  .practice-stats-strip strong{color:var(--ink);font-weight:700;}
+  .practice-stats-strip .app-icon{margin-right:2px;}
+  .practice-filter-tabs{position:sticky;top:0;z-index:2;display:flex;gap:6px;background:var(--paper);padding:2px 0 12px;margin:-2px 0 6px;overflow-x:auto;}
+  .practice-filter-tabs button{flex-shrink:0;font-size:var(--text-sm);font-weight:600;color:var(--ink-soft);background:var(--surface-sunken);border:none;border-radius:100px;padding:7px 14px;cursor:pointer;transition:background .15s ease,color .15s ease;}
+  .practice-filter-tabs button.active{background:var(--gold-wash);color:var(--gold-deep);}
 
   /* ---------- session-complete celebration ---------- */
   @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
@@ -937,8 +963,18 @@ function normalizeProgress(p){
 /* Brand-flavored display labels for VerseProgress.status (DATA_MODEL.md §7)
    — the stored value stays `new|learning|review|mastered` (the SRS ladder
    logic keys off it), this is presentation-only. */
-const MASTERY_LABELS = {new:'🌱 Seedling', learning:'🌿 Sprouting', review:'🌳 Rooted', mastered:'👑 Flourishing'};
+const MASTERY_LABELS = {new:'Seedling', learning:'Sprouting', review:'Rooted', mastered:'Flourishing'};
 function masteryLabel(status){ return MASTERY_LABELS[status] || status; }
+/* Ordered mastery ladder, used by renderMasteryBar() below for the
+   4-segment visual indicator on verse cards (replaces the old uppercase
+   text tag). */
+const MASTERY_STAGES = ['new','learning','review','mastered'];
+function renderMasteryBar(status){
+  const idx = MASTERY_STAGES.indexOf(status);
+  const filled = idx < 0 ? 0 : idx + 1;
+  const segs = MASTERY_STAGES.map((s,i)=> `<span class="mastery-seg${i<filled?' filled':''}"></span>`).join('');
+  return `<div class="mastery-bar" title="${esc(masteryLabel(status))}">${segs}</div>`;
+}
 
 /* ---------- streaks (DATA_MODEL.md §7) ----------
    Derived entirely from VerseProgress.history[], already recorded by
@@ -1078,6 +1114,7 @@ const TIMELINE_DIFFICULTIES = { easy: 3, normal: 5, hard: 8 };
 let timelineDifficulty = 'normal';
 const SEARCH_LIMIT = 60;
 let homeLimit = 25;   // Practice's landing state lists this many verses before "Show all" (moved off Home in the v4 redesign)
+let practiceFilter = 'all';   // 'all' | 'due' | 'mastered' — Practice screen's sticky filter tabs
 
 /* ---------- helpers ---------- */
 function findVerse(id){ return data.verses.find(v=>v.id===id); }
@@ -1107,6 +1144,37 @@ function practiceQueue(verses){
   return verses.slice(0, goal).map(v=>v.id);
 }
 function esc(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- inline SVG icons ----------
+   A small, hand-picked set of Lucide-style line icons (real Lucide path
+   data, fetched from the project's own icon source rather than
+   hand-approximated) — used ONLY to replace the app's actual emoji
+   (the four MASTERY_LABELS glyphs were the only literal emoji anywhere
+   in this file) and, per direct request, the Tabler webfont icons on
+   Streak/Verse-of-the-Day/Word-of-the-Day/Church-History/Practice
+   buttons — so those specific spots render identically across every
+   device and font-loading state instead of depending on the Tabler
+   icon webfont. Every OTHER icon in the app still uses the Tabler font
+   (`ti ti-*`) — that system works fine and converting hundreds of
+   unrelated icons wasn't asked for or needed. */
+const ICON_PATHS = {
+  flame: `<path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/>`,
+  sun: `<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>`,
+  landmark: `<path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/>`,
+  languages: `<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>`,
+  sparkles: `<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>`,
+  leaf: `<path d="M11 20a10 10 0 0 0 10-10 25.9 25.9 0 0 0-1.04-7.281 1 1 0 0 0-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0 0 11 20"/><path d="M2 21a5 5 0 0 1 2.911-4.544C7.613 15.212 8.351 15.24 11 13"/>`,
+};
+/* class="app-icon" — see the shared CSS rule (display:inline-flex, no
+   forced color) for why: every call site below sits inside text that
+   already sets its own `color` (a badge, a label, a button), and an SVG
+   with stroke="currentColor" just follows that naturally rather than
+   needing one hardcoded accent color that would fight some of those
+   contexts (e.g. the streak badge's white-on-orange-gradient text). */
+function icon(name, size){
+  size = size || 16;
+  return `<svg class="app-icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[name]||''}</svg>`;
+}
 function charIcon(roles){
   const r = (roles||[]).join(' ').toLowerCase();
   if(/king|crown/.test(r)) return 'ti-crown';
@@ -1367,7 +1435,7 @@ function renderHomeHeader(){
         <div class="home-greet-sub">Let's spend some time in the Word today.</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        ${streak > 0 ? `<div class="streak-badge"><i class="ti ti-flame"></i> ${streak} day${streak===1?'':'s'}</div>` : ''}
+        ${streak > 0 ? `<div class="streak-badge">${icon('flame',16)} ${streak} day${streak===1?'':'s'}</div>` : ''}
         <button class="back-btn home-settings-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
       </div>
     </div>`;
@@ -1453,7 +1521,7 @@ function renderVerseOfTheDayCard(){
   const tapAttrs = (!remote && local) ? ` data-action="open-verse" data-id="${local.id}"` : '';
   return `
     <div class="card votd-hero${(!remote && local) ? ' tap' : ''}" style="background-image:url('${esc(bgUrl)}');"${tapAttrs}>
-      <div class="votd-label"><i class="ti ti-sun"></i> Verse of the Day</div>
+      <div class="votd-label">${icon('sun',14)} Verse of the Day</div>
       <div class="votd-text">${esc(text)}</div>
       <div class="votd-ref">${esc(ref)}</div>
       ${(!remote && local) ? `<div class="votd-action"><i class="ti ti-book"></i> Read chapter</div>` : ''}
@@ -1479,7 +1547,7 @@ function renderWordOfTheDayCard(){
   const chips = (w.verseIds||[]).map(findVerse).filter(Boolean);
   return `
     <div class="card word-card">
-      <div class="word-eyebrow"><i class="ti ti-abc"></i> Word of the Day</div>
+      <div class="word-eyebrow">${icon('languages',14)} Word of the Day</div>
       <div class="word-head">
         <span class="word-script">${esc(w.word)}</span>
         <span class="word-translit">${esc(w.transliteration)}</span>
@@ -1507,7 +1575,7 @@ function renderChurchHistoryCard(){
   return `
     <div class="card church-history-card tap" data-action="open-church-history">
       <div class="church-history-head">
-        <div class="word-eyebrow"><i class="ti ti-building-church"></i> This Day in Church History</div>
+        <div class="word-eyebrow">${icon('landmark',14)} This Day in Church History</div>
         ${h.year ? `<div class="church-history-year">${esc(String(h.year))} AD</div>` : ''}
       </div>
       <h3>${esc(h.title)}</h3>
@@ -1865,17 +1933,24 @@ function renderGoalRing(){
 }
 function renderVerseCard(v){
   const status = getProgress(v.id).status;
-  const stageTag = `<span class="tag ${status==='mastered' ? 'tag--sage' : 'tag--tan'}">${masteryLabel(status)}</span>`;
   const dueTag = isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '';
   return `
     <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
+      ${renderMasteryBar(status)}
       <div class="ref">${esc(v.reference)}</div>
       <div class="text">${esc(v.text)}</div>
       <div class="tag-row">
-        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--tan">${esc(t.name)}</span>`:'';}).join('')}
-        ${stageTag}${dueTag}
+        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--pill">#${esc(hashtagify(t.name))}</span>`:'';}).join('')}
+        ${dueTag}
       </div>
     </div>`;
+}
+/* lowercase, no-space slug for the soft hashtag-style topic pills on verse
+   cards (`.tag--pill`) — separate from the eyebrow-style `.tag` used
+   everywhere else (DATA_MODEL.md §85), so this doesn't reverse that
+   earlier decision app-wide. */
+function hashtagify(name){
+  return (name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'');
 }
 function renderEmptyVerses(){
   return `<div class="empty"><i class="ti ti-book-2"></i><p>No verses yet.</p>
@@ -1907,7 +1982,7 @@ function renderVerseDetail(id){
       <div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(v.text)}</div>
       ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
-    <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}"><i class="ti ti-swords"></i> Practice this verse</button>
+    <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
     <div class="section-label">Progress</div>
     <div class="card">
       <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
@@ -2022,7 +2097,7 @@ function renderTopicDetail(id){
         <h1>${esc(t.name)}</h1>
         ${t.description ? `<p>${esc(t.description)}</p>` : ''}
       </div>
-      ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}"><i class="ti ti-swords"></i> Practice this topic</button>` : ''}
+      ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}">${icon('sparkles',16)} Practice this topic</button>` : ''}
       <div class="section-label">Verses</div>
       ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
       ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--gold tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
@@ -2815,29 +2890,60 @@ function renderSparks(n){
 // due-today stats, the daily-goal ring, the challenge-type picker, and the
 // full verse library. Home now only fronts Verse of the Day and mission
 // content; this is where the actual memorization workflow lives.
-function renderPracticeLanding(){
-  const due = dueVerses();
+/* ---------- Practice hero card: goal ring + mode selector + CTA ---------- */
+function renderPracticeHero(due){
   const session_size = Math.min(due.length, settings.dailyGoal || 10);
+  if(!due.length) return '';
+  return `
+    <div class="practice-hero-card">
+      ${renderGoalRing()}
+      ${renderChallengePicker()}
+      <button class="btn primary block" data-action="start-practice">${icon('sparkles',16)} Start Practice Session (${session_size} Verse${session_size===1?'':'s'})</button>
+    </div>`;
+}
+/* ---------- compact single-line stats strip, replaces the old 4-box stat-row ---------- */
+function renderPracticeStatsStrip(){
   const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
   const streak = computeStreak();
   return `
+    <div class="practice-stats-strip">
+      <span>${icon('flame',14)} <strong>${streak}</strong> Day Streak</span>
+      <span class="stat-sep">&middot;</span>
+      <span>${icon('sparkles',14)} <strong>${mastered}</strong> Mastered</span>
+      <span class="stat-sep">&middot;</span>
+      <span>${icon('leaf',14)} <strong>${data.verses.length}</strong> Library</span>
+    </div>`;
+}
+function filteredPracticeVerses(){
+  if(practiceFilter==='due') return data.verses.filter(isDue);
+  if(practiceFilter==='mastered') return data.verses.filter(v=>getProgress(v.id).status==='mastered');
+  return data.verses;
+}
+function renderPracticeFilterTabs(){
+  const due = data.verses.filter(isDue).length;
+  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
+  const tabs = [
+    {id:'all', label:`All (${data.verses.length})`},
+    {id:'due', label:`Due Today (${due})`},
+    {id:'mastered', label:`Mastered (${mastered})`},
+  ];
+  return `<div class="practice-filter-tabs">${tabs.map(t=>
+    `<button data-action="set-practice-filter" data-id="${t.id}" class="${t.id===practiceFilter?'active':''}">${esc(t.label)}</button>`
+  ).join('')}</div>`;
+}
+function renderPracticeLanding(){
+  const due = dueVerses();
+  const verses = filteredPracticeVerses();
+  return `
     <div class="topbar"><h1>Practice</h1></div>
-    <div class="stat-row">
-      <div class="stat-card"><div class="num">${due.length}</div><div class="label">due today</div></div>
-      <div class="stat-card"><div class="num">${data.verses.length}</div><div class="label">verses in library</div></div>
-      <div class="stat-card"><div class="num">${mastered}</div><div class="label">mastered</div></div>
-      <div class="stat-card"><div class="num">${streak}</div><div class="label">day streak</div></div>
-    </div>
-    ${due.length ? `
-      ${renderGoalRing()}
-      ${renderChallengePicker()}
-      <button class="btn primary block" data-action="start-practice"><i class="ti ti-swords"></i> Practice ${session_size} ${due.length > session_size ? `of ${due.length} ` : ''}due verse${session_size>1?'s':''}</button>
-    ` : ''}
-    <div class="section-label">Your verses <span style="color:var(--ink-faint);">${data.verses.length}</span></div>
-    ${data.verses.length
-      ? data.verses.slice(0, homeLimit).map(renderVerseCard).join('') +
-        (data.verses.length > homeLimit
-          ? `<button class="btn block" data-action="show-all-verses">Show all ${data.verses.length}</button>`
+    ${renderPracticeHero(due)}
+    ${renderPracticeStatsStrip()}
+    <div class="section-label">Your verses</div>
+    ${renderPracticeFilterTabs()}
+    ${verses.length
+      ? verses.slice(0, homeLimit).map(renderVerseCard).join('') +
+        (verses.length > homeLimit
+          ? `<button class="btn block" data-action="show-all-verses">Show all ${verses.length}</button>`
           : '')
       : renderEmptyVerses()}
   `;
@@ -3062,6 +3168,7 @@ function onAction(e){
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
+  else if(action==='set-practice-filter'){ practiceFilter = id; homeLimit = 25; render(); }
   else if(action==='exit-practice'){ session=null; go('practice'); }
   else if(action==='check-practice') checkPractice();
   else if(action==='next-practice'){

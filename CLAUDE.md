@@ -144,6 +144,24 @@ The schema was deliberately designed so all of the above can be added
   expanded negative prompts and two rewritten scene descriptions
   targeting the exact failures seen. Not yet re-tested/approved as of
   this writing. See DATA_MODEL.md §8, items 105-106.
+- **Practice screen overhaul + app-wide emoji removal — done
+  (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
+  (goal ring + challenge-type picker + a full-width "Start Practice
+  Session (N Verses)" CTA, `renderPracticeHero()`), a one-line compact
+  stats strip replacing the old 4-box grid (`renderPracticeStatsStrip()`),
+  and sticky All/Due Today/Mastered filter tabs
+  (`renderPracticeFilterTabs()`, new `practiceFilter` state). Verse
+  cards' topic tags became soft lowercase hashtag pills (`.tag--pill`,
+  `hashtagify()`) — a new scoped class, not a change to `.tag` itself
+  (item 85 stays intact) — and mastery now shows as a 4-segment bar in
+  each card's corner (`renderMasteryBar()`) instead of an uppercase tag.
+  Separately: the only real emoji anywhere in the file (`MASTERY_LABELS`,
+  🌱🌿🌳👑) were replaced with plain text, and a small inline-SVG icon
+  system (`icon(name, size)`, real Lucide path data, `.app-icon` CSS)
+  replaced the Tabler icon-font glyphs on the streak badge, Verse-of-
+  the-Day, Word-of-the-Day/Church-History eyebrows, and the practice
+  buttons — the bottom-nav icon and per-topic `TOPIC_ICONS` were left
+  as-is, out of scope. See DATA_MODEL.md §8, item 107.
 - **`settings.dailyGoal` UI — done (2026-09-09).** A 5/10/15/20/25 preset
   picker on Settings, reusing the existing `.segmented` chip component
   (the same one Home's challenge-type picker uses) instead of a

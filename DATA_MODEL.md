@@ -4659,6 +4659,87 @@ inventing a new principle:
       is required if the old versions were already imported in that
       session (a `pip install -U` doesn't retroactively patch an
       already-running Python process).
+    - **Second addendum, same day**: a further run hit `IndexError: list
+      index out of range` in `diffusers/utils/peft_utils.py`'s
+      `get_peft_kwargs()` on the same `load_lora_weights(...)` call — the
+      LoRA file parsed but yielded zero keys matching either the
+      diffusers-native or Kohya-style naming pattern, so the rank dict
+      the loader builds from those keys came back empty. Not yet root-
+      caused — rather than guess again, added a diagnostic cell (loads
+      the raw safetensors state dict directly, prints the key count and
+      first 15 keys, classifies them against both naming patterns) ahead
+      of a rewritten load cell that surfaces that diagnosis inline if the
+      load fails again. Unresolved as of this writing — waiting on the
+      owner to re-run and report either the diagnostic output or a new
+      result.
+
+107. **Practice screen overhaul + app-wide emoji removal — done
+    (2026-09-16).** Two owner requests handled together since both touch
+    the same screen. First, a "modern, high-end learning launchpad"
+    redesign of Practice (`index.html`):
+    - **`.practice-hero-card`** combines the existing daily-goal ring
+      (`renderGoalRing()`, unchanged, item 32) and challenge-type picker
+      (`renderChallengePicker()`, unchanged) with a new full-width
+      primary CTA, `renderPracticeHero()` — "Start Practice Session (N
+      Verses)" instead of the old inline-icon sentence-style button.
+    - **`renderPracticeStatsStrip()`** replaces the old 4-box `.stat-row`
+      grid with one horizontal bar on `--surface-sunken` (the dark-token
+      family already in place since visual system v3 — see "Visual
+      direction" above — no new hex values needed, the owner's requested
+      `#1C1917`/`#B8AEA5` already match `--surface-sunken`/`--ink-soft`
+      closely enough that reusing the existing tokens was the right
+      call, not a near-duplicate pair): streak, mastered count, and
+      library size,
+      each with its own inline-SVG icon (see below).
+    - **Sticky filter tabs** (`renderPracticeFilterTabs()`, new
+      `practiceFilter` state, `set-practice-filter` action): All / Due
+      Today / Mastered, each showing its own live count, filtering via
+      a new `filteredPracticeVerses()` — `renderPracticeLanding()` now
+      reads from that instead of the unfiltered `data.verses` directly.
+    - **Topic tags on verse cards became soft, lowercase hashtag pills**
+      (`.tag--pill`, `hashtagify()`) — deliberately a *new*, scoped CSS
+      class rather than a change to `.tag` itself, which stays the
+      uppercase eyebrow badge everywhere else in the app (that split was
+      a deliberate earlier decision, item 85 — reversing it globally
+      here would have silently undone that).
+    - **A 4-segment mastery bar** (`renderMasteryBar()`, ordered
+      `MASTERY_STAGES`) replaces the old uppercase mastery `.tag` inside
+      each verse card's tag row, moved to the card's top-right corner
+      (`.mastery-bar`, absolutely positioned — `.verse-card` gained its
+      first base rule, `position:relative`, since none existed before).
+
+    Second, app-wide emoji removal. A full regex scan found only **four**
+    real Unicode emoji anywhere in `index.html` — all inside
+    `MASTERY_LABELS` (🌱🌿🌳👑) — everything else the request named
+    (streak flame, verse-of-the-day sun, Word-of-the-Day/Church-History
+    eyebrows, practice-button icons) was already a Tabler icon-font glyph
+    (`ti-flame`/`ti-sun`/`ti-abc`/`ti-building-church`/`ti-swords`), not a
+    literal emoji character. Handled both cases:
+    - `MASTERY_LABELS` de-emojified to plain text (Seedling/Sprouting/
+      Rooted/Flourishing) — mastery now reads through the new bar
+      indicator above instead of an emoji in the label text.
+    - A new inline-SVG icon system: `ICON_PATHS`/`icon(name, size)`
+      (real Lucide line-icon path data, fetched from Lucide's own source
+      rather than hand-approximated, stroke-width overridden to 1.75 per
+      the brief) plus a shared `.app-icon` CSS rule
+      (`display:inline-flex; vertical-align:middle; flex-shrink:0`, no
+      hardcoded color — `stroke="currentColor"` follows whatever
+      surrounding text color it's dropped into, so one icon call works
+      correctly in the streak badge's white-on-gradient text, a plain
+      dark-mode label, etc. without per-context overrides). Replaced the
+      five requested Tabler icons at their exact usage sites (streak
+      badge → `flame`, Verse-of-the-Day label → `sun`, Word-of-the-Day
+      and both Church-History eyebrows → `languages`/`landmark`, the
+      three "Practice this verse/topic" buttons and the new hero CTA →
+      `sparkles`) — the bottom-nav Practice tab's own `ti-swords` was
+      left as the Tabler glyph, since the request was scoped to card
+      headers/badges/buttons/metrics, not nav icons, and converting the
+      nav bar wasn't asked for. `TOPIC_ICONS`'s per-topic card icons
+      (`topic_creation:'ti-sun'`, `topic_anger:'ti-flame'`, etc.) are a
+      different, unrelated feature (colorful topic-grid coding, item 63)
+      and were left untouched for the same reason.
+
+    `sw.js` bumped to `rooted-v102`.
 
 ---
 
