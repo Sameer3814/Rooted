@@ -4885,6 +4885,88 @@ inventing a new principle:
       this item is the navigation/architecture commitment only.
     `sw.js` bumped to `rooted-v103`.
 
+110. **Timelines & Family Trees added to Study — done (2026-09-16).**
+    Owner asked for these sourced from "The Bible Project Open
+    Resources and Wikidata Biblical Graph Queries." Neither was used:
+    The Bible Project doesn't publish a structured, machine-queryable
+    dataset for this (their content is videos/infographics, not an
+    API); Wikidata's SPARQL graph data on biblical figures is real but
+    crowd-sourced and inconsistent, which would cut directly against
+    this project's whole curation discipline — every relationship in
+    this app is hand-verified against the actual WEB text, the same
+    reasoning that rejected the NIV PDF early on. Confirmed with the
+    owner and built both features entirely from data already curated
+    here instead — zero new external dependency, ships immediately.
+    - **Timeline** (`renderTimeline()`) — every `Era` in canonical
+      `order`, each showing its `Story` records in `canonicalOrder`,
+      reusing the exact `.timeline`/`.tl-item` CSS the per-character
+      "Their life" section on Character Detail already uses (visual
+      consistency, zero new CSS for the list itself). Distinct from
+      that per-character view — this is the whole Bible, Creation to
+      Revelation, one continuous scroll. Tapping a story opens the
+      existing Story Detail screen (`open-story`, already `from`-aware).
+    - **Family Tree** — a real visual SVG node-link graph, not a flat
+      list (a flat list was offered as the lower-effort option; the
+      owner chose the harder graph explicitly). Built in three layers:
+      - `FAMILY_CORE_TYPES` + `familyGraph(rootId, maxGen)` — BFS over
+        the existing `characterRelationships()` (itself just
+        `connectionsFor('character', id)`, DATA_MODEL.md §2.4/§8.4),
+        scoped to CORE blood/marriage types only (parent, child,
+        spouse, sibling — the `+1`/`-1`/`0` generation deltas below).
+        Deliberately excludes the looser relationship strings this app
+        also stores (`uncle of`, `kinsman of`, `raised`, `servant of`,
+        `mistress of`, `successor of`, `worked alongside`) — those
+        don't have one clean generation delta relative to an arbitrary
+        root, and a generation still naturally surfaces aunts/uncles/
+        nephews/grandparents through the plain parent-child chain
+        without needing them tagged explicitly. `maxGen` (default 2)
+        bounds how far the BFS reaches, since an unbounded walk over
+        the whole `Connection` graph isn't renderable on a phone screen
+        for a well-connected figure. Verified against real curated data
+        before shipping (not just unit-tested in the abstract): David's
+        tree is 13 nodes/14 edges across generations -1..+2; Jacob's
+        and Isaac's are each 11 nodes/18 edges across -2..+1; a
+        childless/unconnected character (188 of 267 characters — most
+        of the cast — currently have zero curated character-character
+        connections at all) correctly degrades to a single node with an
+        honest empty-state message, not a crash or a blank graph.
+      - `layoutFamilyGraph(nodes, edges)` — a one-pass Sugiyama-style
+        layered layout (rows = generations, columns reordered once by
+        barycenter of each node's already-placed neighbors in the row
+        above) written by hand rather than pulling in a graph-layout
+        library — this app has zero third-party JS dependencies
+        anywhere and introducing one for a single feature wasn't
+        judged worth breaking that precedent for what's a genuinely
+        small graph (a few dozen nodes at most, given only ~84
+        character-character connections exist project-wide today).
+      - `renderFamilyTree(id)` renders the layout as inline SVG
+        (`<line>` edges color/dash-coded by relationship kind — solid
+        gold for parent/child, dashed tan for spouse, dashed gray for
+        sibling — plus a legend; `<g data-action="family-tree-nav">`
+        nodes, styled/highlighted when they're the current root).
+        Tapping any node re-centers the tree on that person, chaining
+        `view.params.from` the same way Character Detail's own back
+        button does, so repeated back-presses walk back through however
+        many people were visited, ending at a search-driven picker
+        screen (`renderFamilyTreePicker()`, same era-grouped-list +
+        search pattern as People/Stories/Topics, own `familyTreeQuery`
+        state) rather than dropping straight to the Study hub.
+      - `wireFamilyTreePanZoom()` — hand-rolled pan (pointer drag) and
+        zoom (mouse wheel + two-finger pinch, via a `pointerId -> {x,y}`
+        map), since plain SVG has no built-in viewport gestures and
+        nothing elsewhere in this app already solved this. Tap vs. drag
+        is disambiguated by total pointer movement, then a captured
+        one-time `click` suppressor swallows the trailing click after a
+        real drag — same tap/gesture disambiguation shape as
+        `wireSwipeBack()` (item 102), applied to a new problem.
+    - **`renderStudy()`** — Study's real hub now (superseding item 109's
+      "route straight to Patterns since that's the only real content"
+      decision, which was explicitly provisional): three cards
+      (Patterns/Timeline/Family Tree), same shape as `renderDiscover()`.
+      The bottom-nav button's `data-nav` moved from `"motifs"` back to
+      `"study"`; `NAV_GROUPS.study` now covers all three destinations.
+    `sw.js` bumped to `rooted-v104`.
+
 ---
 
 ## 9. How the app reads this data

@@ -173,20 +173,43 @@ The schema was deliberately designed so all of the above can be added
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
   (`renderDiscover()`) fronts the existing Browse/Topics/People/Stories
-  screens (unmodified, just regrouped); **Study** now routes straight to
-  the existing Patterns screen (its `data-nav` is literally `"motifs"`)
-  rather than a new placeholder hub, since Patterns is the only real
-  "deep theological suite" content that exists today — no fake
-  "coming soon" cards were added for the unbuilt node-graph/interlinear/
-  commentary features (see Known Gaps instead). People's old "Stories"
-  and "Patterns" quick-cards were removed (now peer top-level
-  destinations of their own). "Add" lost its own tab entirely — moved to
-  a small `+` next to Practice's "Your verses", since adding your own
-  verse/person is a library-management action and Practice already owns
-  "your verses." Icons and type scale already satisfied the spec (items
-  85, 107); the given palette values were confirmed as describing the
-  existing v3 dark tokens loosely, not a new palette, so no token values
-  changed. See DATA_MODEL.md §8, item 109.
+  screens (unmodified, just regrouped). **Study** originally routed
+  straight to Patterns as a provisional stopgap (see the next bullet for
+  why that changed the same day). People's old "Stories" and "Patterns"
+  quick-cards were removed (now peer top-level destinations of their
+  own). "Add" lost its own tab entirely — moved to a small `+` next to
+  Practice's "Your verses", since adding your own verse/person is a
+  library-management action and Practice already owns "your verses."
+  Icons and type scale already satisfied the spec (items 85, 107); the
+  given palette values were confirmed as describing the existing v3
+  dark tokens loosely, not a new palette, so no token values changed.
+  See DATA_MODEL.md §8, item 109.
+- **Timelines & Family Trees added to Study — done (2026-09-16), same
+  day as the above.** The owner asked for these sourced from "The Bible
+  Project Open Resources and Wikidata Biblical Graph Queries" — neither
+  was actually used (Bible Project has no queryable dataset for this;
+  Wikidata's crowd-sourced genealogy data would cut against this
+  project's whole hand-curated-from-Scripture discipline, same
+  reasoning as the NIV-PDF rejection). Built entirely from data already
+  curated here instead. **Timeline** (`renderTimeline()`) is every Era
+  in canonical order with its Stories, reusing the per-character "Their
+  life" section's own `.timeline` CSS. **Family Tree** is a real
+  hand-rolled SVG node-link graph (not a flat list — offered as the
+  lower-effort option, the owner chose the harder graph) —
+  `familyGraph()`/`layoutFamilyGraph()` build a bounded (±2 generations)
+  layered layout from the existing `Connection` entity's core
+  blood/marriage relationship types only; `renderFamilyTree()` renders
+  it with tap-to-re-center navigation; `wireFamilyTreePanZoom()` adds
+  hand-rolled drag-pan and wheel/pinch-zoom, since this app has no
+  existing graph/canvas component and no third-party JS library
+  anywhere to reuse. Verified against real data before shipping: most
+  characters (188 of 267) have zero curated family connections and
+  correctly show an honest empty state rather than a crash; well-
+  connected figures like David/Jacob/Isaac render real multi-generation
+  trees. This is also why Study now gets a proper 3-card hub
+  (`renderStudy()`: Patterns/Timeline/Family Tree) instead of the
+  "route straight to Patterns" stopgap from the bullet above. See
+  DATA_MODEL.md §8, item 110.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -1020,10 +1043,11 @@ hand-curate all the content before building.
     the Day's own detail page) rather than a new bottom-sheet modal —
     this app has no modal/overlay component anywhere else. Full writeup:
     DATA_MODEL.md §8, item 90.
-12. **The Study pillar's "deep theological suite" — architecture
-    committed 2026-09-16 (item 109), not yet built.** Study is now a
-    real top-level nav pillar (see above) but today only holds Patterns;
-    three real features are needed to fill out the "deep theological
+12. **The Study pillar's "deep theological suite" — partially built.**
+    Architecture committed 2026-09-16 (item 109); Timeline and Family
+    Tree shipped the same day (item 110, in a proper `renderStudy()`
+    hub alongside Patterns — see the "Done" bullet above). Two real
+    features are still needed to fully match the "deep theological
     suite" framing the owner specified:
     - **Interlinear/Strong's view** — original-language word data
       (Hebrew/Greek, Strong's numbers, definitions) tied to individual
@@ -1032,14 +1056,6 @@ hand-curate all the content before building.
       per-verse interlinear. A real version needs per-verse-per-word
       Strong's tagging across the corpus, which is a genuinely large
       new curation effort, not a small schema addition.
-    - **Interactive connection node graphs** — a visual graph over the
-      existing `Connection` entity (`data/connections.json`, 137+ edges:
-      family relationships, motif instances, story↔story links — design
-      philosophy #4). The data already exists and is generic by design
-      for exactly this; what's missing is a rendering layer (likely an
-      SVG/canvas force-directed or hierarchical layout) and a real UI
-      pattern for exploring it on a small mobile screen, which this app
-      has no precedent for yet (no zoom/pan component anywhere else).
     - **Commentaries** — theological/historical commentary text tied to
       verses, stories, or characters. No entity for this exists in
       DATA_MODEL.md at all yet; needs its own schema design (most
@@ -1047,12 +1063,15 @@ hand-curate all the content before building.
       precedent with Media, rather than embedding commentary text
       directly on Verse/Story/Character) before any content work starts.
 
-    Family trees and life timelines are explicitly NOT on this list —
-    both already exist and work well, just inline on Character Detail
-    rather than as standalone Study views; promoting them to their own
-    Study screens (vs. leaving them where they are) is a smaller,
-    separate design question from the three build-from-scratch items
-    above.
+    The "interactive connection node graph" item from the original
+    architecture note is effectively superseded by the Family Tree
+    feature (item 110) — same underlying `Connection` entity, same
+    SVG/pan-zoom shape, just scoped to the core family relationship
+    types rather than every connection kind (motif instances,
+    story↔story links, etc.). A future generalized "explore any
+    connection" graph (not just family) is still a real, separate
+    possible feature, but Family Tree covers the specific ask that
+    prompted this item.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

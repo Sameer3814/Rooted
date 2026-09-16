@@ -464,6 +464,18 @@
   .tl-age{color:var(--ink-faint);font-weight:400;}
   .tl-desc{font-size:14px;color:var(--ink-soft);line-height:1.5;margin-top:5px;}
 
+  /* family tree (item 110) */
+  .tree-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+  .tree-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .tree-legend-line{display:inline-block;width:16px;height:2px;border-radius:1px;}
+  .tree-legend-dash{opacity:.7;}
+  .tree-viewport{
+    position:relative;overflow:hidden;touch-action:none;
+    background:var(--surface-sunken);border-radius:var(--radius-card);
+    height:min(60vh, 480px);border:1px solid rgba(255,255,255,.06);
+  }
+  .tree-viewport svg{display:block;transform-origin:0 0;}
+
   /* timeline drag-order game */
   .tl-drag-track{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
   .tl-drag-item{
@@ -594,7 +606,7 @@
   <button class="navitem" data-nav="home"><span class="dot"><i class="ti ti-home-2"></i></span><span>Home</span></button>
   <button class="navitem" data-nav="practice"><span class="dot"><i class="ti ti-swords"></i></span><span>Practice</span></button>
   <button class="navitem" data-nav="discover"><span class="dot"><i class="ti ti-compass"></i></span><span>Discover</span></button>
-  <button class="navitem" data-nav="motifs"><span class="dot"><i class="ti ti-sparkles"></i></span><span>Study</span></button>
+  <button class="navitem" data-nav="study"><span class="dot"><i class="ti ti-sparkles"></i></span><span>Study</span></button>
 </nav>
 
 <script>
@@ -1107,6 +1119,7 @@ let browse = {q:'', book:null, chapter:null};
 let peopleQuery = '';
 let topicsQuery = '';
 let storiesQuery = '';
+let familyTreeQuery = '';   // search state for the Family Tree person-picker (item 110), separate from peopleQuery
 let timelineGame = null;   // { characterId, events, correctIds, order, checked, lockedIds, allCorrect } | null
 const TIMELINE_DIFFICULTIES = { easy: 3, normal: 5, hard: 8 };
 let timelineDifficulty = 'normal';
@@ -1281,6 +1294,103 @@ function characterRelationships(charId){
     .filter(x=>x.who);
 }
 
+/* ---------- family tree (DATA_MODEL.md item 110) ----------
+   Built entirely from the existing Connection entity — no new data, no
+   external source (Wikidata/Bible Project were considered and
+   deliberately not used; this app's own hand-curated-from-Scripture
+   relationships are the source of truth, same reasoning as rejecting
+   the NIV PDF). Scoped to the CORE blood/marriage relationship types
+   only (parent, child, spouse, sibling) — `characterRelationships()`
+   also returns looser ones (uncle of, kinsman of, raised, servant of,
+   mistress of, successor of, worked alongside) that don't have a clean
+   generation delta relative to the root, and including them would need
+   real multi-hop relationship inference this app's data doesn't
+   reliably support yet. A generation naturally still picks up aunts/
+   uncles/nephews/nieces/grandparents/grandchildren through the plain
+   parent-child chain, without needing those looser types tagged at all.
+   `maxGen` bounds how many steps up/down from the root are shown, since
+   an ungapped BFS over the whole Connection graph would be unusable on
+   a phone screen for well-connected figures. */
+const FAMILY_CORE_TYPES = {
+  'father of': 1, 'mother of': 1, 'adoptive mother of': 1, 'adoptive father of': 1,
+  'son of': -1, 'daughter of': -1, 'adopted son of': -1, 'adopted daughter of': -1,
+  'husband of': 0, 'wife of': 0,
+  'brother of': 0, 'sister of': 0, 'half-brother of': 0, 'half-sister of': 0,
+};
+function familyGraph(rootId, maxGen){
+  maxGen = maxGen || 2;
+  const root = findChar(rootId);
+  if(!root) return {nodes: [], edges: []};
+  const nodes = new Map();           // id -> {char, gen}
+  const edgeKeys = new Set();
+  const edges = [];                  // {from, to, kind: 'parent-child'|'spouse'|'sibling'}
+  nodes.set(rootId, {char: root, gen: 0});
+  const queue = [{id: rootId, gen: 0}];
+  while(queue.length){
+    const {id, gen} = queue.shift();
+    for(const rel of characterRelationships(id)){
+      const delta = FAMILY_CORE_TYPES[rel.type];
+      if(delta === undefined) continue;
+      const otherGen = gen + delta;
+      if(Math.abs(otherGen) > maxGen) continue;
+      const kind = delta === 1 || delta === -1 ? 'parent-child' : (rel.type.includes('brother') || rel.type.includes('sister') ? 'sibling' : 'spouse');
+      // Orient parent-child edges consistently (parent -> child) regardless
+      // of which side of the pair this BFS step started from, so the
+      // layout pass below can rely on edge direction meaning generation.
+      const [a, b] = delta === 1 ? [id, rel.who.id] : (delta === -1 ? [rel.who.id, id] : [id, rel.who.id].sort());
+      const key = kind + ':' + a + '>' + b;
+      if(!edgeKeys.has(key)){
+        edgeKeys.add(key);
+        edges.push({from: a, to: b, kind});
+      }
+      if(!nodes.has(rel.who.id)){
+        nodes.set(rel.who.id, {char: rel.who, gen: otherGen});
+        queue.push({id: rel.who.id, gen: otherGen});
+      }
+    }
+  }
+  return {nodes: [...nodes.values()], edges};
+}
+/* Sugiyama-style layered layout, one barycenter pass — enough to keep
+   small family trees (a few dozen nodes at most, given this app's
+   current ~84 character-character connections total) visually sane
+   without pulling in a graph-layout library the rest of this vanilla-JS
+   app has no precedent for. Rows = generations; within a row, nodes are
+   reordered once by the average x of their already-placed neighbors in
+   the row above, then spaced evenly. */
+function layoutFamilyGraph(nodes, edges){
+  const NODE_W = 104, NODE_H = 56, COL_GAP = 20, ROW_H = 108;
+  const byGen = new Map();
+  for(const n of nodes){
+    if(!byGen.has(n.gen)) byGen.set(n.gen, []);
+    byGen.get(n.gen).push(n);
+  }
+  const gens = [...byGen.keys()].sort((a,b)=>a-b);
+  const pos = new Map(); // id -> {x, y}
+  const neighborsAbove = id => edges
+    .filter(e => (e.to === id) || (e.kind !== 'parent-child' && e.from === id))
+    .map(e => e.to === id ? e.from : e.to)
+    .filter(otherId => pos.has(otherId));
+  for(const gen of gens){
+    const row = byGen.get(gen);
+    if(gen !== gens[0]){
+      row.sort((a, b) => {
+        const ax = neighborsAbove(a.char.id).map(id=>pos.get(id).x);
+        const bx = neighborsAbove(b.char.id).map(id=>pos.get(id).x);
+        const am = ax.length ? ax.reduce((s,v)=>s+v,0)/ax.length : 0;
+        const bm = bx.length ? bx.reduce((s,v)=>s+v,0)/bx.length : 0;
+        return am - bm;
+      });
+    }
+    row.forEach((n, i) => {
+      pos.set(n.char.id, {x: i * (NODE_W + COL_GAP), y: (gen - gens[0]) * ROW_H});
+    });
+  }
+  const maxX = Math.max(0, ...[...pos.values()].map(p=>p.x)) + NODE_W;
+  const maxY = Math.max(0, ...[...pos.values()].map(p=>p.y)) + NODE_H;
+  return {pos, width: maxX, height: maxY, NODE_W, NODE_H};
+}
+
 /* ---------- motifs (DATA_MODEL.md §2) ----------
    A Motif carries no links of its own; every instance is a Connection
    (motif -> story|character|verse, "instance of"), so these fall straight
@@ -1362,7 +1472,7 @@ function recordPractice(verseId, correct, challengeTypeId){
    not a new omission. */
 const NAV_GROUPS = {
   discover: ['discover', 'browse', 'topics', 'characters', 'stories', 'bookPeople'],
-  motifs: ['motifs'],
+  study: ['study', 'motifs', 'timeline', 'familyTree'],
 };
 function render(){
   const app = document.getElementById('app');
@@ -1384,6 +1494,9 @@ function render(){
   else if(view.screen==='timelineGame') app.innerHTML = renderTimelineGame();
   else if(view.screen==='stories') app.innerHTML = renderStories();
   else if(view.screen==='storyDetail') app.innerHTML = renderStoryDetail(view.params.id);
+  else if(view.screen==='study') app.innerHTML = renderStudy();
+  else if(view.screen==='timeline') app.innerHTML = renderTimeline();
+  else if(view.screen==='familyTree') app.innerHTML = renderFamilyTree(view.params.id);
   else if(view.screen==='motifs') app.innerHTML = renderMotifs();
   else if(view.screen==='motifDetail') app.innerHTML = renderMotifDetail(view.params.id);
   else if(view.screen==='add') app.innerHTML = renderAddMenu();
@@ -2393,6 +2506,70 @@ function resetTimelineOrder(){
   g.checked = false;
   render();
 }
+/* Pan (drag) + zoom (wheel on desktop, pinch on touch) for the family
+   tree's SVG — plain SVG has no built-in viewport gestures, and this
+   app has no existing graph/canvas component to reuse, so this is
+   hand-rolled rather than pulling in a library (no precedent for a
+   third-party JS dependency anywhere in this vanilla-JS app). Tap vs.
+   drag is disambiguated by total pointer movement, same threshold
+   approach as wireSwipeBack() elsewhere in this file — a drag that
+   crossed the threshold suppresses the trailing click so panning across
+   a node never accidentally re-centers the tree on it. */
+function wireFamilyTreePanZoom(){
+  const viewport = document.getElementById('family-tree-viewport');
+  const svg = document.getElementById('family-tree-svg');
+  if(!viewport || !svg) return;
+  let scale = 1, tx = 0, ty = 0;
+  let moved = false;
+  const pointers = new Map(); // pointerId -> {x, y}
+  let pinchStartDist = 0, pinchStartScale = 1;
+  const MIN_SCALE = 0.4, MAX_SCALE = 2.5;
+
+  function apply(){ svg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+  function clampScale(s){ return Math.min(MAX_SCALE, Math.max(MIN_SCALE, s)); }
+  function dist(a, b){ return Math.hypot(a.x - b.x, a.y - b.y); }
+
+  viewport.addEventListener('pointerdown', e=>{
+    viewport.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    moved = false;
+    if(pointers.size === 2){
+      const [a, b] = [...pointers.values()];
+      pinchStartDist = dist(a, b) || 1;
+      pinchStartScale = scale;
+    }
+  });
+  viewport.addEventListener('pointermove', e=>{
+    if(!pointers.has(e.pointerId)) return;
+    const prev = pointers.get(e.pointerId);
+    const dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+    pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    if(Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+    if(pointers.size === 2){
+      const [a, b] = [...pointers.values()];
+      scale = clampScale(pinchStartScale * (dist(a, b) / pinchStartDist));
+    }else if(pointers.size === 1){
+      tx += dx; ty += dy;
+    }
+    apply();
+  });
+  function endPointer(e){
+    pointers.delete(e.pointerId);
+    if(moved){
+      // Swallow the click that follows a drag so tapping-through-a-node
+      // mid-pan doesn't also re-center the tree on it.
+      const suppress = ev => { ev.stopPropagation(); ev.preventDefault(); viewport.removeEventListener('click', suppress, true); };
+      viewport.addEventListener('click', suppress, true);
+    }
+  }
+  viewport.addEventListener('pointerup', endPointer);
+  viewport.addEventListener('pointercancel', endPointer);
+  viewport.addEventListener('wheel', e=>{
+    e.preventDefault();
+    scale = clampScale(scale * (e.deltaY < 0 ? 1.12 : 0.89));
+    apply();
+  }, {passive: false});
+}
 function wireTimelineDrag(){
   const track = document.getElementById('tl-drag-track');
   if(!track) return;
@@ -2513,6 +2690,153 @@ function renderStoriesResults(){
       <p class="field-hint" style="margin:-4px 0 10px;line-height:1.5;">${esc(era.summary)}</p>
       ${inEra.map(renderStoryCard).join('')}`;
   }).join('');
+}
+
+/* ---------- STUDY (hub) ----------
+   The Study pillar's real root screen (item 109 named it a "deep
+   theological suite" but originally shipped routing straight to
+   Patterns since that was the only real content — see item 109's own
+   note about not padding this tab with placeholder cards). Now that
+   Timeline and Family Tree are real, working features built entirely
+   from data already curated in this app (Era/Story canonicalOrder for
+   Timeline, the Connection entity for Family Tree — see item 110),
+   Study gets a proper hub, same shape as Discover's. */
+function renderStudy(){
+  return `
+    <div class="topbar"><h1>Study</h1></div>
+    <div class="card tap" data-action="go-motifs">
+      <div class="char-row"><div class="avatar"><i class="ti ti-sparkles"></i></div><div><h3>Patterns</h3><p class="field-hint">${motifs.length} recurring motifs across these stories.</p></div></div>
+    </div>
+    <div class="card tap" data-action="go-timeline">
+      <div class="char-row"><div class="avatar"><i class="ti ti-timeline"></i></div><div><h3>Timeline</h3><p class="field-hint">The whole Bible in order, era by era.</p></div></div>
+    </div>
+    <div class="card tap" data-action="go-family-tree">
+      <div class="char-row"><div class="avatar"><i class="ti ti-affiliate"></i></div><div><h3>Family Tree</h3><p class="field-hint">Explore how a person connects to their family.</p></div></div>
+    </div>
+  `;
+}
+
+/* ---------- TIMELINE (whole-Bible) ----------
+   Distinct from characterTimeline()/the per-character "Their life"
+   section on Character Detail (that one's a single person's own
+   LifeEvents) — this is every Era in canonical order, each showing its
+   Stories in canonicalOrder, using the exact same .timeline/.tl-item
+   CSS as that per-character view for visual consistency. Built entirely
+   from lore.eras/lore.stories, already curated — no new data. */
+function renderTimeline(){
+  if(!lore.eras.length) return `<div class="topbar"><h1>Timeline</h1></div><div class="empty"><i class="ti ti-timeline"></i><p>No timeline data loaded.</p></div>`;
+  const eras = [...lore.eras].sort((a,b)=>(a.order||0)-(b.order||0));
+  return `
+    <div class="topbar"><h1>Timeline</h1></div>
+    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">Every era of the Bible's story, in order, from Creation to Revelation.</p>
+    ${eras.map(era=>{
+      const stories = lore.stories.filter(s=>s.eraId===era.id).sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
+      if(!stories.length) return '';
+      return `
+        <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
+        <div class="timeline">
+          ${stories.map(s=>`
+            <div class="tl-item tap" data-action="open-story" data-id="${s.id}">
+              <div class="tl-title">${esc(s.title)}</div>
+              <div class="tl-ref">${esc(s.primaryReference)}</div>
+              <div class="tl-desc">${esc(s.summary)}</div>
+            </div>`).join('')}
+        </div>`;
+    }).join('')}
+  `;
+}
+
+/* ---------- FAMILY TREE ---------- */
+function renderFamilyTreePicker(){
+  return `
+    <div class="topbar"><h1>Family Tree</h1></div>
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search for a person..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="family-tree-picker-results">${renderFamilyTreePickerResults()}</div>
+  `;
+}
+function renderFamilyTreePickerResults(){
+  const q = familyTreeQuery.trim().toLowerCase();
+  if(q){
+    const hits = data.characters.filter(c=>c.name.toLowerCase().includes(q));
+    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No one matches "${esc(familyTreeQuery)}".</p></div>`;
+    return `
+      <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
+      ${hits.map(c=>renderCharacterRow(c, 'open-family-tree')).join('')}
+    `;
+  }
+  const grouped = lore.eras.map(era=>({
+    era,
+    people: data.characters.filter(c=>c.eraId===era.id)
+  })).filter(g=>g.people.length);
+  return `
+    <p style="color:var(--ink-soft);margin-bottom:14px;line-height:1.5;">Pick a person to see how they connect to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app.</p>
+    ${grouped.map(g=>`
+      <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
+      ${g.people.map(c=>renderCharacterRow(c, 'open-family-tree')).join('')}
+    `).join('')}
+  `;
+}
+/* SVG node-link diagram over familyGraph()/layoutFamilyGraph() — see
+   those functions' own comments for scope (core relationship types
+   only, 2 generations up/down by default). Tapping any node re-centers
+   the tree on that person (family-tree-nav, chaining `from` so the back
+   button walks back through however many people were visited, same
+   pattern as Character Detail's own back button); the header's search
+   icon jumps straight back to the picker at any point. Pan (drag) and
+   zoom (wheel/pinch) are handled by wireFamilyTreePanZoom(), called
+   after render — plain SVG has no built-in viewport gestures. */
+function renderFamilyTree(id){
+  const c = id && findChar(id);
+  if(!c) return renderFamilyTreePicker();
+  const {nodes, edges} = familyGraph(id, 2);
+  const {pos, width, height, NODE_W, NODE_H} = layoutFamilyGraph(nodes, edges);
+  const PAD = 30;
+  const edgeSvg = edges.map(e=>{
+    const a = pos.get(e.from), b = pos.get(e.to);
+    if(!a || !b) return '';
+    const ax = a.x + NODE_W/2 + PAD, ay = a.y + NODE_H/2 + PAD;
+    const bx = b.x + NODE_W/2 + PAD, by = b.y + NODE_H/2 + PAD;
+    const stroke = e.kind === 'sibling' ? 'var(--ink-faint)' : (e.kind === 'spouse' ? 'var(--tan-deep)' : 'var(--gold-deep)');
+    const dash = e.kind === 'parent-child' ? '' : ' stroke-dasharray="4,4"';
+    return `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="${stroke}" stroke-width="2"${dash}/>`;
+  }).join('');
+  const nodeSvg = nodes.map(n=>{
+    const p = pos.get(n.char.id);
+    const isRoot = n.char.id === id;
+    const x = p.x + PAD, y = p.y + PAD;
+    const name = n.char.name.length > 14 ? n.char.name.slice(0, 13) + '…' : n.char.name;
+    return `
+      <g class="tap" data-action="family-tree-nav" data-id="${n.char.id}" transform="translate(${x},${y})" style="cursor:pointer;">
+        <rect width="${NODE_W}" height="${NODE_H}" rx="12" fill="${isRoot ? 'var(--gold-wash)' : 'var(--paper-raised)'}" stroke="${isRoot ? 'var(--gold-deep)' : 'rgba(255,255,255,.12)'}" stroke-width="${isRoot ? 2 : 1}"></rect>
+        <text x="${NODE_W/2}" y="${NODE_H/2 + 4}" text-anchor="middle" fill="${isRoot ? 'var(--gold-deep)' : 'var(--ink)'}" font-size="12" font-weight="600" font-family="Inter, sans-serif">${esc(name)}</text>
+      </g>`;
+  }).join('');
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="family-tree-back"><i class="ti ti-arrow-left"></i></button>
+      <h2>${esc(c.name)}'s Family</h2>
+      <button class="back-btn" data-action="go-family-tree" style="margin-left:auto;" title="Search for someone else"><i class="ti ti-search"></i></button>
+    </div>
+    ${edges.length ? `
+      <div class="tree-legend">
+        <span><i class="tree-legend-line" style="background:var(--gold-deep);"></i> parent / child</span>
+        <span><i class="tree-legend-line tree-legend-dash" style="background:var(--tan-deep);"></i> spouse</span>
+        <span><i class="tree-legend-line tree-legend-dash" style="background:var(--ink-faint);"></i> sibling</span>
+      </div>
+      <div class="tree-viewport" id="family-tree-viewport">
+        <svg id="family-tree-svg" width="${width + PAD*2}" height="${height + PAD*2}" viewBox="0 0 ${width + PAD*2} ${height + PAD*2}">
+          <g id="family-tree-g">
+            ${edgeSvg}
+            ${nodeSvg}
+          </g>
+        </svg>
+      </div>
+      <p class="field-hint" style="margin-top:10px;">Drag to pan, pinch or scroll to zoom, tap anyone to re-center on them.</p>
+    ` : `<div class="empty"><i class="ti ti-affiliate"></i><p>No family relationships curated for ${esc(c.name)} yet.</p></div>`}
+  `;
 }
 
 /* ---------- MOTIFS ---------- */
@@ -3128,7 +3452,21 @@ function bindEvents(root){
     searchTimer = setTimeout(refreshStoriesResults, 140);
   });
 
+  const familyTreeSearch = document.getElementById('family-tree-search');
+  if(familyTreeSearch) familyTreeSearch.addEventListener('input', ()=>{
+    familyTreeQuery = familyTreeSearch.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refreshFamilyTreePickerResults, 140);
+  });
+
   wireTimelineDrag();
+  wireFamilyTreePanZoom();
+}
+function refreshFamilyTreePickerResults(){
+  const results = document.getElementById('family-tree-picker-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderFamilyTreePickerResults();
+  bindEvents(results);
 }
 function refreshBrowseResults(){
   const results = document.getElementById('browse-results');
@@ -3194,6 +3532,12 @@ function onAction(e){
   else if(action==='open-story') go('storyDetail', {id, from: view});
   else if(action==='story-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('stories'); }
   else if(action==='open-motif') go('motifDetail', {id, from: view});
+  else if(action==='go-motifs') go('motifs');
+  else if(action==='go-timeline') go('timeline');
+  else if(action==='go-family-tree') go('familyTree');
+  else if(action==='open-family-tree') go('familyTree', {id});
+  else if(action==='family-tree-nav') go('familyTree', {id, from: {screen: 'familyTree', params: view.params}});
+  else if(action==='family-tree-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('familyTree'); }
   else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
