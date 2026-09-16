@@ -4809,6 +4809,82 @@ inventing a new principle:
       same release era. Both required a Colab runtime restart to take
       effect, same reason as the original torchao fix.
 
+109. **4-Pillar navigation — done (2026-09-16), owner-specified
+    architecture.** Collapsed the bottom nav from 6 tabs (Home,
+    Practice, Browse, Topics, Study/People, Add) down to 4: **Home**
+    (unchanged — the editorial daily-inspiration feed from item 82),
+    **Practice** (unchanged — the memorization engine from item 78),
+    **Discover** (new — Scripture reading, the canonical index, topic
+    collections, and character/story profiles), and **Study**
+    (redefined — the "deep theological suite" pillar; Patterns is its
+    only real content today, see below). This is a real information-
+    architecture change, not a rename — Browse, Topics, People, and
+    Stories move out from being independent nav roots into Discover;
+    Patterns moves out of the old People-grouped screen into Study;
+    "Add" loses its own tab entirely.
+    - **`renderDiscover()`** (new) is a thin hub screen — four cards
+      (Read the Bible / Topics / People / Stories) linking to the
+      existing `renderBrowse()`/`renderTopics()`/`renderCharacters()`/
+      `renderStories()` screens completely unchanged. Deliberately not a
+      rewrite of any of them: each already works, is independently
+      reachable (a character's `from` trail still returns to People/
+      Stories directly, not back through this hub), and a full rewrite
+      wasn't asked for or needed — this is a nav-only pass, consistent
+      with the owner's explicit sequencing choice below.
+    - **Study's bottom-nav button routes directly to the existing
+      `renderMotifs()` (Patterns) screen** rather than a new, currently-
+      identical "study hub" screen — its `data-nav` is literally
+      `"motifs"`. Real timelines and family relationships already exist
+      but live inline on Character Detail, not as standalone Study
+      views; interlinear/Strong's data, interactive connection node
+      graphs, and commentaries are all unbuilt vision items (see Known
+      Gaps). Deliberately did NOT ship placeholder "coming soon" cards
+      for those — `renderMotifs()` stays an honest, fully-working
+      screen, and the roadmap commitment lives in CLAUDE.md/Known Gaps
+      instead of fake UI.
+    - **Both `renderStories()` and `renderMotifs()` changed from a
+      `.screen-head` + back-button layout to a plain `.topbar`** (no
+      back button) — they were previously reached only as a sub-page
+      pushed from the People screen (`back-to-characters` always
+      returned there); now they're root destinations of their own pillar,
+      matching the header style every other nav-root screen already uses
+      (Browse/Topics/Characters). The `back-to-characters` and
+      `open-motifs` actions became fully dead once their only callers
+      (two quick-cards on the People screen) were removed, and were
+      deleted rather than left as unreachable code.
+    - **The People screen's own "Stories" and "Patterns" quick-cards
+      were removed** — both are now peer top-level destinations (Stories
+      as a Discover-hub card alongside People itself; Patterns moved
+      entirely to Study), so re-surfacing them nested inside People would
+      blur the exact pillar boundary this restructuring exists to draw.
+    - **"Add" (New verse / New person / Find a verse) lost its own
+      bottom-nav tab** — not named anywhere in the owner's 4-tab spec,
+      and enforcing exactly 4 tabs meant it needed a new entry point
+      rather than staying a 5th. Landed as a small `+` icon button next
+      to Practice's "Your verses" section label (`go-add` action,
+      already-existing `renderAddMenu()` screen unchanged) — the most
+      natural home for it, since adding your own verse/person is a
+      library-management action, and Practice already owns "your
+      verses." `renderAddMenu()` gained a real back button (`.screen-head`
+      + `go-practice`) since it's now genuinely a sub-page rather than a
+      nav root, which it never needed one for before.
+    - **Icons, type scale, dark palette**: the icon requirement (Lucide-
+      style stroke SVGs, no emoji) and the type-scale requirement
+      (12/14/18/22px) were already fully satisfied by items 85 and 107 —
+      no change needed here. The palette values given
+      (`#1C1917`/`#120E0C`) are close to but not identical to the
+      existing v3 dark tokens (`--paper-raised` `#18191D` / `--paper`
+      `#08090B`, a deliberate 2026-09-10 decision, see "Visual
+      direction") — confirmed with the owner this was describing the
+      existing dark theme loosely, not requesting a new palette, so no
+      token values changed.
+    - **Explicitly out of scope for this pass, by owner's own
+      sequencing choice ("doc-first, build later")**: building the
+      node-graph/interlinear/Strong's/commentary features themselves.
+      Those are now tracked as their own Known Gaps items (CLAUDE.md) —
+      this item is the navigation/architecture commitment only.
+    `sw.js` bumped to `rooted-v103`.
+
 ---
 
 ## 9. How the app reads this data

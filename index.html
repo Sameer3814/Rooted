@@ -593,10 +593,8 @@
 <nav class="navbar">
   <button class="navitem" data-nav="home"><span class="dot"><i class="ti ti-home-2"></i></span><span>Home</span></button>
   <button class="navitem" data-nav="practice"><span class="dot"><i class="ti ti-swords"></i></span><span>Practice</span></button>
-  <button class="navitem" data-nav="browse"><span class="dot"><i class="ti ti-search"></i></span><span>Browse</span></button>
-  <button class="navitem" data-nav="topics"><span class="dot"><i class="ti ti-tags"></i></span><span>Topics</span></button>
-  <button class="navitem" data-nav="characters"><span class="dot"><i class="ti ti-users"></i></span><span>Study</span></button>
-  <button class="navitem" data-nav="add"><span class="dot"><i class="ti ti-plus"></i></span><span>Add</span></button>
+  <button class="navitem" data-nav="discover"><span class="dot"><i class="ti ti-compass"></i></span><span>Discover</span></button>
+  <button class="navitem" data-nav="motifs"><span class="dot"><i class="ti ti-sparkles"></i></span><span>Study</span></button>
 </nav>
 
 <script>
@@ -1351,14 +1349,31 @@ function recordPractice(verseId, correct, challengeTypeId){
 }
 
 /* ---------- render root ---------- */
+/* 4-Pillar navigation (Home/Practice/Discover/Study, 2026-09-16,
+   DATA_MODEL.md item 109) — a bottom-nav tab's `data-nav` id doesn't
+   always equal the screen it highlights for: Discover is a hub covering
+   several existing root screens (Browse/Topics/People/Stories, kept as
+   separate screen ids rather than merged/rewritten), and Study's
+   `data-nav` is literally "motifs" (Patterns is its only real content
+   today — see Known Gaps for the deep-study features still to build)
+   rather than introducing a distinct, currently-identical screen id.
+   Detail pages (characterDetail, storyDetail, topicDetail, etc.) were
+   never highlighted under the old nav either — this preserves that,
+   not a new omission. */
+const NAV_GROUPS = {
+  discover: ['discover', 'browse', 'topics', 'characters', 'stories', 'bookPeople'],
+  motifs: ['motifs'],
+};
 function render(){
   const app = document.getElementById('app');
   document.querySelectorAll('.navitem').forEach(b=>{
-    b.classList.toggle('active', b.dataset.nav === (['home','practice','browse','topics','characters','add'].includes(view.screen)?view.screen:''));
+    const group = NAV_GROUPS[b.dataset.nav] || [b.dataset.nav];
+    b.classList.toggle('active', group.includes(view.screen));
   });
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='churchHistoryDetail') app.innerHTML = renderChurchHistoryDetail();
+  else if(view.screen==='discover') app.innerHTML = renderDiscover();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
   else if(view.screen==='bookPeople') app.innerHTML = renderBookPeople(view.params.book);
   else if(view.screen==='verseDetail') app.innerHTML = renderVerseDetail(view.params.id);
@@ -1807,6 +1822,31 @@ function searchCorpus(query){
   }
   return {hits, total};
 }
+/* ---------- DISCOVER (hub) ----------
+   The Discover pillar (4-Pillar nav, item 109) — Scripture reading,
+   the canonical index, topic collections, and character/story
+   profiles. Deliberately a thin hub screen linking to the existing
+   Browse/Topics/People/Stories screens, not a rewrite of any of them —
+   each already works and is reachable on its own (e.g. a character's
+   "from" trail still returns to People/Stories directly, not through
+   this hub), this just gives them one shared front door. */
+function renderDiscover(){
+  return `
+    <div class="topbar"><h1>Discover</h1></div>
+    <div class="card tap" data-action="go-browse">
+      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>Read the Bible</h3><p class="field-hint">Search or browse the full 66-book text, book by book.</p></div></div>
+    </div>
+    <div class="card tap" data-action="open-topics">
+      <div class="char-row"><div class="avatar"><i class="ti ti-tags"></i></div><div><h3>Topics</h3><p class="field-hint">${data.topics.length} topics to practice and explore, linked to related themes.</p></div></div>
+    </div>
+    <div class="card tap" data-action="open-characters">
+      <div class="char-row"><div class="avatar"><i class="ti ti-users"></i></div><div><h3>People</h3><p class="field-hint">${data.characters.length} characters across ${lore.eras.length} eras, grouped by era.</p></div></div>
+    </div>
+    <div class="card tap" data-action="open-stories">
+      <div class="char-row"><div class="avatar"><i class="ti ti-book"></i></div><div><h3>Stories</h3><p class="field-hint">${lore.stories.length} episodes across the whole Bible.</p></div></div>
+    </div>
+  `;
+}
 function renderBrowse(){
   return `
     <div class="topbar"><h1>Browse</h1></div>
@@ -2136,27 +2176,12 @@ function renderPeopleResults(){
     people: data.characters.filter(c=>c.eraId===era.id)
   })).filter(g=>g.people.length);
   const ungrouped = data.characters.filter(c=>!c.eraId || !findEra(c.eraId));
+  // Stories and Patterns quick-cards removed (4-Pillar nav, item 109) —
+  // both are now peer destinations of their own (Stories via the
+  // Discover hub alongside People; Patterns moved to the Study pillar
+  // entirely), so surfacing them again inside People would blur exactly
+  // the pillar boundary this restructuring was meant to draw.
   return `
-    ${lore.stories.length ? `
-      <div class="card tap" data-action="open-stories">
-        <div class="char-row" style="justify-content:space-between;">
-          <div class="char-row">
-            <div class="avatar"><i class="ti ti-book"></i></div>
-            <div><h3>Stories</h3><p class="field-hint">${lore.stories.length} episodes across ${lore.eras.length} eras.</p></div>
-          </div>
-          <i class="ti ti-chevron-right" style="color:var(--ink-faint);"></i>
-        </div>
-      </div>` : ''}
-    ${motifs.length ? `
-      <div class="card tap" data-action="open-motifs">
-        <div class="char-row" style="justify-content:space-between;">
-          <div class="char-row">
-            <div class="avatar"><i class="ti ti-sparkles"></i></div>
-            <div><h3>Patterns</h3><p class="field-hint">${motifs.length} recurring motifs across these stories.</p></div>
-          </div>
-          <i class="ti ti-chevron-right" style="color:var(--ink-faint);"></i>
-        </div>
-      </div>` : ''}
     ${grouped.map(g=>`
       <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
       ${g.people.map(c=>renderCharacterRow(c)).join('')}
@@ -2458,10 +2483,7 @@ function renderStoryDetail(id){
 function renderStories(){
   if(!lore.stories.length) return `<div class="topbar"><h1>Stories</h1></div><div class="empty"><i class="ti ti-book"></i><p>No stories loaded.</p></div>`;
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
-      <h2>Stories</h2>
-    </div>
+    <div class="topbar"><h1>Stories</h1></div>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
       <input type="text" id="stories-search" value="${esc(storiesQuery)}" placeholder="Search stories by title or reference..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -2510,13 +2532,17 @@ function renderMotifCard(m){
       <div class="tag-row"><span class="tag tag--tan">${count} instance${count===1?'':'s'}</span></div>
     </div>`;
 }
+/* Study's root screen (4-Pillar nav, item 109) — Patterns is the only
+   real content here today; timelines and family relationships already
+   exist but live inline on Character Detail rather than as standalone
+   Study views, and interlinear/Strong's, interactive connection graphs,
+   and commentaries are none of them built yet (see Known Gaps). This
+   stays an honest, working Patterns screen rather than padding the tab
+   with placeholder cards for features that don't exist. */
 function renderMotifs(){
   if(!motifs.length) return `<div class="topbar"><h1>Patterns</h1></div><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div>`;
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="back-to-characters"><i class="ti ti-arrow-left"></i></button>
-      <h2>Patterns</h2>
-    </div>
+    <div class="topbar"><h1>Patterns</h1></div>
     <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.</p>
     ${motifs.map(renderMotifCard).join('')}
   `;
@@ -2548,7 +2574,10 @@ function renderMotifDetail(id){
 /* ---------- ADD ---------- */
 function renderAddMenu(){
   return `
-    <div class="topbar"><h1>Add</h1></div>
+    <div class="screen-head">
+      <button class="back-btn" data-action="go-practice"><i class="ti ti-arrow-left"></i></button>
+      <h2>Add</h2>
+    </div>
     <div class="card tap" data-action="go-browse">
       <div class="char-row"><div class="avatar"><i class="ti ti-search"></i></div><div><h3>Find a verse</h3><p class="field-hint">Search or browse the full Bible and add it to your verses.</p></div></div>
     </div>
@@ -2938,7 +2967,7 @@ function renderPracticeLanding(){
     <div class="topbar"><h1>Practice</h1></div>
     ${renderPracticeHero(due)}
     ${renderPracticeStatsStrip()}
-    <div class="section-label">Your verses</div>
+    <div class="section-label">Your verses <button class="tap" data-action="go-add" title="Add a verse or person" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;display:inline-flex;align-items:center;"><i class="ti ti-plus" style="font-size:18px;"></i></button></div>
     ${renderPracticeFilterTabs()}
     ${verses.length
       ? verses.slice(0, homeLimit).map(renderVerseCard).join('') +
@@ -3134,6 +3163,9 @@ function onAction(e){
   else if(action==='open-unreached') go('unreachedDetail');
   else if(action==='open-church-history') go('churchHistoryDetail');
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
+  else if(action==='open-topics') go('topics');
+  else if(action==='open-characters') go('characters');
+  else if(action==='go-add') go('add');
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
   else if(action==='go-settings') go('settings');
@@ -3153,7 +3185,6 @@ function onAction(e){
   else if(action==='character-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('characters'); }
   else if(action==='open-book-people') go('bookPeople', {book: id});
   else if(action==='back-to-browse-book'){ browse.book = id; browse.chapter = null; go('browse'); }
-  else if(action==='back-to-characters') go('characters');
   else if(action==='start-timeline-game'){ timelineGame = buildTimelineGame(id); go('timelineGame'); }
   else if(action==='check-timeline-order') checkTimelineOrder();
   else if(action==='reset-timeline-order') resetTimelineOrder();
@@ -3162,7 +3193,6 @@ function onAction(e){
   else if(action==='open-stories') go('stories');
   else if(action==='open-story') go('storyDetail', {id, from: view});
   else if(action==='story-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('stories'); }
-  else if(action==='open-motifs') go('motifs');
   else if(action==='open-motif') go('motifDetail', {id, from: view});
   else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
@@ -3318,7 +3348,6 @@ document.querySelectorAll('.navitem').forEach(b=>{
   b.addEventListener('click', ()=>{
     session = null;
     go(b.dataset.nav);
-    if(b.dataset.nav === 'browse') loadCorpus();  // no-op once loaded
   });
 });
 

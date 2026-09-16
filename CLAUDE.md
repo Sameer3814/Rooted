@@ -54,23 +54,28 @@ The schema was deliberately designed so all of the above can be added
 - `DATA_MODEL.md` — the full entity schema (design pass; covers built and
   not-yet-built entities). Not code, but load-bearing documentation.
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
-  step). Screens: **Home** (editorial front door as of 2026-09-14 — a
-  greeting + streak header, Verse of the Day, Unreached of the Day, and
-  Story of the Day, plus one practice link when verses are due; no
-  progress dashboard, no practice session UI — see items 78 and 82),
-  **Practice** (its own bottom-nav tab now — due-today stats, the
-  daily-goal ring, the challenge-type picker, the full verse library, and
-  the four challenge types themselves: fill-in-blank, scramble,
-  self-graded progressive reveal, self-graded verse ladder — this is
-  everything that used to live on Home before item 78), Browse
-  (search/drill the full corpus), Verse detail, Topics, Topic detail,
-  **Study** (bottom-nav label as of item 82 — same tab and route as
-  always, just renamed since it was already People + Stories + Patterns,
-  not People alone): People (grouped by era), Character detail (life
-  timeline, family, stories, pattern badges), Stories list, Story detail
-  (related stories, pattern badges), Patterns list, Pattern detail, Add
-  Verse, Add Character, and **Settings** (gear icon, top-right of Home) —
-  the account bar for
+  step). **4-Pillar bottom nav as of 2026-09-16 (item 109, owner-
+  specified architecture)**: **Home** (editorial front door as of
+  2026-09-14 — a greeting + streak header, Verse of the Day, Unreached
+  of the Day, and Story of the Day, plus one practice link when verses
+  are due; no progress dashboard, no practice session UI — see items 78
+  and 82), **Practice** (due-today stats, the daily-goal ring, the
+  challenge-type picker, the full verse library, and the four challenge
+  types themselves: fill-in-blank, scramble, self-graded progressive
+  reveal, self-graded verse ladder — this is everything that used to
+  live on Home before item 78; also now the entry point for Add Verse/
+  Add Character, via a small `+` next to "Your verses"), **Discover**
+  (new hub tab — Read the Bible/Browse, Verse detail, Topics, Topic
+  detail, People grouped by era, Character detail (life timeline,
+  family, stories, pattern badges), Stories list, Story detail (related
+  stories, pattern badges) — all pre-existing screens, just regrouped
+  under one front door), and **Study** (redefined as the "deep
+  theological suite" pillar — Patterns list and Pattern detail are its
+  only real content today; timelines/family relationships already exist
+  but live inline on Character Detail, not as standalone Study views;
+  interactive connection node graphs, an interlinear/Strong's view, and
+  commentaries are none of them built yet — see Known Gaps). And
+  **Settings** (gear icon, top-right of Home) — the account bar for
   optional cloud sync and the "Your data" export/import card live here,
   not on Home. They started on Home (2026-09-08) and were moved the same
   day on direct feedback: sync/backup controls are occasional-use, and
@@ -164,6 +169,24 @@ The schema was deliberately designed so all of the above can be added
   not deleted. **Not yet run** — waiting on the owner to add more Gemini
   credits before the first `--test` batch. See DATA_MODEL.md §8, item
   108.
+- **4-Pillar navigation — done (2026-09-16), owner-specified
+  architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
+  Practice unchanged; a new **Discover** hub screen
+  (`renderDiscover()`) fronts the existing Browse/Topics/People/Stories
+  screens (unmodified, just regrouped); **Study** now routes straight to
+  the existing Patterns screen (its `data-nav` is literally `"motifs"`)
+  rather than a new placeholder hub, since Patterns is the only real
+  "deep theological suite" content that exists today — no fake
+  "coming soon" cards were added for the unbuilt node-graph/interlinear/
+  commentary features (see Known Gaps instead). People's old "Stories"
+  and "Patterns" quick-cards were removed (now peer top-level
+  destinations of their own). "Add" lost its own tab entirely — moved to
+  a small `+` next to Practice's "Your verses", since adding your own
+  verse/person is a library-management action and Practice already owns
+  "your verses." Icons and type scale already satisfied the spec (items
+  85, 107); the given palette values were confirmed as describing the
+  existing v3 dark tokens loosely, not a new palette, so no token values
+  changed. See DATA_MODEL.md §8, item 109.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -997,6 +1020,39 @@ hand-curate all the content before building.
     the Day's own detail page) rather than a new bottom-sheet modal —
     this app has no modal/overlay component anywhere else. Full writeup:
     DATA_MODEL.md §8, item 90.
+12. **The Study pillar's "deep theological suite" — architecture
+    committed 2026-09-16 (item 109), not yet built.** Study is now a
+    real top-level nav pillar (see above) but today only holds Patterns;
+    three real features are needed to fill out the "deep theological
+    suite" framing the owner specified:
+    - **Interlinear/Strong's view** — original-language word data
+      (Hebrew/Greek, Strong's numbers, definitions) tied to individual
+      verses. `data/word_of_the_day.json` (item 90) is the closest
+      existing thing — 13 hand-curated words, editorial content, not a
+      per-verse interlinear. A real version needs per-verse-per-word
+      Strong's tagging across the corpus, which is a genuinely large
+      new curation effort, not a small schema addition.
+    - **Interactive connection node graphs** — a visual graph over the
+      existing `Connection` entity (`data/connections.json`, 137+ edges:
+      family relationships, motif instances, story↔story links — design
+      philosophy #4). The data already exists and is generic by design
+      for exactly this; what's missing is a rendering layer (likely an
+      SVG/canvas force-directed or hierarchical layout) and a real UI
+      pattern for exploring it on a small mobile screen, which this app
+      has no precedent for yet (no zoom/pan component anywhere else).
+    - **Commentaries** — theological/historical commentary text tied to
+      verses, stories, or characters. No entity for this exists in
+      DATA_MODEL.md at all yet; needs its own schema design (most
+      likely its own linked entity, per design philosophy #3's
+      precedent with Media, rather than embedding commentary text
+      directly on Verse/Story/Character) before any content work starts.
+
+    Family trees and life timelines are explicitly NOT on this list —
+    both already exist and work well, just inline on Character Detail
+    rather than as standalone Study views; promoting them to their own
+    Study screens (vs. leaving them where they are) is a smaller,
+    separate design question from the three build-from-scratch items
+    above.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured
