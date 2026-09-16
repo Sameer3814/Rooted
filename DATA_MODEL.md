@@ -4741,6 +4741,74 @@ inventing a new principle:
 
     `sw.js` bumped to `rooted-v102`.
 
+108. **Story art: SDXL/Colab pipeline abandoned, switched back to Gemini
+    — done (2026-09-16).** The item-106 LoRA fix got the Colab notebook
+    actually loading and generating (after two more real version-pin
+    fixes below), but reviewing the resulting 6-story batch directly
+    showed the same underlying problem the LoRA fix was meant to solve
+    was only half-solved: David and Goliath, Feeding the 5,000, and the
+    lions' den all landed the target stylized-3D-animation look well,
+    but Creation, the Flood, and the Crucifixion's wide vista still read
+    as generic realistic/matte-painting — the LoRA's influence was
+    clearly weaker on landscape/atmosphere-heavy scenes with no close
+    foreground character to "anchor" the style. Owner's call after
+    seeing all 6: **not worth continuing to fight LoRA inconsistency for
+    free** — going back to Gemini (billed, but proven at 267/267 on the
+    character portraits with zero style drift) rather than spending more
+    time tuning SDXL prompts/scale for the weak cases.
+    - **New `pipeline/generate_story_art.py`**, structured identically to
+      `generate_character_art.py` (same `--test`/`--batch` shape, same
+      `.env.local` key loading, same Gemini endpoint/response parsing) —
+      but unlike that script's own `--batch` (still stubbed
+      "not yet implemented," since the 267 real character portraits were
+      actually produced by one-off per-batch scripts, not this reusable
+      one), this new script's `--batch` **is** fully wired: generates,
+      resizes to the same 960px-wide JPEG q82
+      `import_story_art.py` already used, writes directly to
+      `media/stories/<id>.jpg`, and updates
+      `data/story_illustrations.json` in one step — no Colab-style
+      two-machine incoming/import dance needed, since Gemini runs
+      synchronously from wherever this script executes.
+    - **`STYLE_SUFFIX` rewritten**, not just copied from the character
+      script — explicitly instructs that environment/landscape elements
+      (mountains, sky, water, clouds) must read as stylized animated art
+      even with no foreground character present, directly targeting the
+      failure mode just seen (the character script's own STYLE_SUFFIX
+      had no reason to say this, since every character prompt always has
+      exactly one foreground subject).
+    - Reuses the existing `pipeline/curation/story_art_settings.json`
+      scene descriptions verbatim (including the Goliath/Crucifixion
+      rewrites from item 106) as the first test batch — the scene
+      *content* was never the problem, only the renderer.
+    - `pipeline/colab_story_art_sdxl.ipynb`, `story_art_settings.json`,
+      and `import_story_art.py` are kept, not deleted — they're now
+      historical record of a real approach that was tried and measured,
+      the same way the project keeps every other superseded decision
+      documented rather than erased.
+    - **Not yet run** as of this writing — the owner needs to add more
+      Gemini credits first (the same billing gate hit earlier in the
+      character-portrait work). `--test` on the 6 stories above is the
+      next step once credits are available, same validate-before-batch
+      discipline as the character pipeline.
+    - **Addendum, same day, before the above conclusion was reached**:
+      getting the Colab notebook to actually run required two more
+      real version-pin fixes, both found by inspecting the LoRA file's
+      actual tensor keys rather than guessing: (1) `diffusers`'s latest
+      release (0.40.0, pulled by the install cell's `-U` flag) crashed
+      with the same `IndexError: list index out of range` in
+      `get_peft_kwargs()` even though the file was confirmed to be a
+      completely standard Kohya SDXL LoRA (proper `lora_unet_`/
+      `lora_te1_`/`lora_te2_` keys, all three SDXL components present,
+      nothing unrecognized) — pinned to `diffusers==0.31.0`, a version
+      with well-documented real-world compatibility for this exact
+      SDXL+Kohya+CivitAI combination; (2) pinning `diffusers` alone then
+      surfaced `ImportError: cannot import name 'FLAX_WEIGHTS_NAME'`,
+      since `transformers` was still on latest and had dropped Flax
+      support (removing that symbol) that `diffusers 0.31.0`'s SDXL
+      pipeline still imports — pinned `transformers==4.46.3`, from the
+      same release era. Both required a Colab runtime restart to take
+      effect, same reason as the original torchao fix.
+
 ---
 
 ## 9. How the app reads this data

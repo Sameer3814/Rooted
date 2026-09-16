@@ -142,8 +142,28 @@ The schema was deliberately designed so all of the above can be added
   Fixed with a verified, well-adopted community LoRA (CivitAI's "Pixar
   Style (SDXL)," 200K+ downloads, 575 reviews — not a guess) plus
   expanded negative prompts and two rewritten scene descriptions
-  targeting the exact failures seen. Not yet re-tested/approved as of
-  this writing. See DATA_MODEL.md §8, items 105-106.
+  targeting the exact failures seen. **Superseded (2026-09-16) — see
+  below.** After two more real version-pin fixes got the notebook
+  actually running, the resulting batch showed the LoRA landed the
+  target style well on character-centered scenes (David and Goliath,
+  Feeding the 5,000, the lions' den) but not on landscape/atmosphere-
+  heavy ones (Creation, the Flood, the Crucifixion's wide vista), which
+  kept reading as generic realistic matte-painting. Owner's call: stop
+  fighting LoRA inconsistency for free and switch story art back to
+  Gemini. See DATA_MODEL.md §8, items 105-106.
+- **Story art: switched back to Gemini — done (2026-09-16).** New
+  `pipeline/generate_story_art.py`, structured like
+  `generate_character_art.py` (same `.env.local` key, same endpoint/
+  response shape) but with a fully wired `--batch` (that script's own
+  `--batch` is still a stub) that generates, resizes to 960px-wide JPEG,
+  and updates `data/story_illustrations.json` in one step — no Colab
+  two-machine import dance needed since Gemini runs synchronously.
+  Reuses the existing `pipeline/curation/story_art_settings.json` scene
+  descriptions as-is; only the renderer changed, not the content. The
+  Colab notebook and its supporting files are kept as historical record,
+  not deleted. **Not yet run** — waiting on the owner to add more Gemini
+  credits before the first `--test` batch. See DATA_MODEL.md §8, item
+  108.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
