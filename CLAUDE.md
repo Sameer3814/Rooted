@@ -63,12 +63,12 @@ The schema was deliberately designed so all of the above can be added
   History" was retired and deleted the same day as the reorder — see
   item 117; no progress dashboard, no practice session UI — see items
   78 and 82), **Practice** (due-today stats, the daily-goal ring, the
-  challenge-type picker, the full verse library, and four challenge
-  types — Tap Builder, First-Letter Sprint, Progressive Vanish, and
-  Clause Connect (items 113/114/115/118) — the original four
-  (fill-in-blank, scramble, progressive reveal, verse ladder) were fully
-  retired 2026-09-17, item 114; also the entry point for Add Verse/Add
-  Character, via a small
+  challenge-type picker, the full verse library, and five challenge
+  types — Tap Builder, First-Letter Sprint, Progressive Vanish, Clause
+  Connect, and Reference Match (items 113/114/115/118/119) — the
+  original four (fill-in-blank, scramble, progressive reveal, verse
+  ladder) were fully retired 2026-09-17, item 114; also the entry point
+  for Add Verse/Add Character, via a small
   `+` next to "Your verses"), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
@@ -301,6 +301,28 @@ The schema was deliberately designed so all of the above can be added
   by pinning the input `position:fixed` to the viewport (plus
   `font-size:16px`, closing off iOS Safari's separate auto-zoom-on-focus
   trigger for the same category of bug).
+- **Reference Match challenge type — done (2026-09-17).** A fifth
+  `ChallengeType` — a 4-option multiple choice, 1 correct against 3
+  distractors preferring the same book, then the same testament (a new
+  `NT_BOOKS` lookup, since `Verse` has no stored testament field), then
+  anything else in the library, drawn from `data.verses` for the same
+  offline-first reason Tap Builder's own distractors are (item 113).
+  Each round randomly picks one of two formats — quote shown, pick the
+  reference; or reference shown, pick the quote — and a single tap both
+  answers and finalizes (`interact()` sets `state.checked` itself, like
+  Progressive Vanish's "complete" tap, rather than the generic `check()`
+  path). The first type whose *wrong* path also auto-advances, not just
+  its correct one — added a real second interface field,
+  `autoAdvanceMsWrong`, to `CHALLENGE_TYPES` (600ms correct, 1500ms
+  wrong, long enough to actually read the revealed correct card) rather
+  than special-casing it, and wired both shared finalize paths
+  (`checkPractice()`, `practiceInteractWith()`) to use it. The verse
+  reference is deliberately withheld from the screen's own ref line
+  while this type is active — one of its two formats is literally
+  asking the user to name it, so showing it up top would spoil the
+  answer. Verified by simulating all 1,812 curated verses through
+  build+perfect-play before shipping — every one produces exactly 4
+  valid options and grades correctly. See DATA_MODEL.md §8, item 119.
 - **Clause Connect challenge type — done (2026-09-17).** A fourth
   `ChallengeType` — a verse splits into 3-5 clauses
   (`splitIntoClauses()`, punctuation/connecting-word split with a
@@ -719,19 +741,22 @@ hand-curate all the content before building.
    `challenge_first_letters`, `challenge_verse_ladder`) were retired
    2026-09-17 on direct owner request** ("get rid of the older
    exercises") — see item 114. `CHALLENGE_TYPES` (`index.html`,
-   `DATA_MODEL.md` §3) now holds four:
+   `DATA_MODEL.md` §3) now holds five:
    `challenge_tap_builder` (word-tile bank — auto-graded, auto-advances
    on a correct answer), `challenge_first_letter_sprint` ("First-Letter
    Sprint" — a real-time speed-typing drill, the first challenge type
    driven by actual keystrokes rather than taps),
    `challenge_progressive_vanish` ("Progressive Vanish" — a 5-stage
    reveal-then-recall climb, self-graded like Sprint but pure taps, item
-   115), and `challenge_clause_connect` ("Clause Connect" — split a
+   115), `challenge_clause_connect` ("Clause Connect" — split a
    verse into 3-5 clauses, scramble them, drag or tap-to-swap back into
-   order, added 2026-09-17, item 118), with a picker (moved to
+   order, item 118), and `challenge_reference_match` ("Reference Match"
+   — 4-option multiple choice, quote↔reference, added 2026-09-17, item
+   119, the first type whose wrong path also auto-advances via the new
+   `autoAdvanceMsWrong` interface field), with a picker (moved to
    Practice's own hero card, item 107) persisted to `rooted-settings`.
-   Next: reference↔text matching (`challenge_reference_match`), then
-   matching/ordering (`challenge_story_order`, `challenge_character_match`).
+   Next: matching/ordering (`challenge_story_order`,
+   `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
    **Done — full coverage reached 2026-09-15**, after eleven batches
    generated over the course of that one day. All 267 characters in

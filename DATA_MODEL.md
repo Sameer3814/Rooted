@@ -5606,6 +5606,64 @@ inventing a new principle:
       on an impossible reorder).
     `sw.js` bumped to `rooted-v114`.
 
+119. **Reference Match challenge type — done (2026-09-17).** A fifth
+    `ChallengeType`, `challenge_reference_match` — a multiple-choice
+    match, 1 correct option against 3 distractors, in one of two
+    randomly-chosen formats each round: quote shown, pick the matching
+    reference; or reference shown, pick the matching quote. Distractors
+    (`pickReferenceMatchDistractors()`) prefer the same book first, then
+    the same testament (a new small `NT_BOOKS` lookup set — no
+    `testament` field exists on `Verse`, so this is derived rather than
+    stored), then anything else in the library, so the four options
+    aren't trivially distinguishable by book alone. Drawn from
+    `data.verses` (the in-memory library), not the lazily-fetched full
+    corpus in `data/verses.json` — the same offline-first call Tap
+    Builder's own `build()` already made against a near-identical spec
+    ask (item 113), for the same reason: that corpus only loads once
+    Browse has been opened, so relying on it here would leave this
+    exercise silently distractor-short for anyone practicing first.
+    - **A single tap both answers and finalizes** — there's no separate
+      submit step to a 4-card multiple-choice pick, so `interact()`
+      sets `state.checked` itself the moment an option is tapped (same
+      shape as Progressive Vanish's "complete" tap), rather than going
+      through the generic `check()`/`checkPractice()` path; a `check()`
+      is still defined for interface completeness but is never actually
+      called by this type, same as Clause Connect's own unused one.
+    - **New interface member: `autoAdvanceMsWrong`.** Every earlier
+      auto-advancing type only ever advanced on a *correct* answer,
+      leaving a wrong one waiting on a manual "Continue" tap. This is
+      the first type whose spec explicitly wants a wrong answer to also
+      auto-advance — after a longer pause, so the revealed correct card
+      is actually readable first. Rather than a one-off special case,
+      added a real second optional field to the shared `ChallengeType`
+      interface (documented alongside `autoAdvanceMs` above
+      `CHALLENGE_TYPES`) and updated the two shared finalize paths
+      (`checkPractice()`, `practiceInteractWith()`) to pick whichever of
+      `autoAdvanceMs`/`autoAdvanceMsWrong` matches the outcome — a
+      genuine interface extension future types can reuse, not code
+      specific to this one type. 600ms on correct (matching every other
+      type's auto-advance), 1500ms on wrong.
+    - **The verse reference itself is deliberately never shown in the
+      header/ref line while practicing this type** (`renderPractice()`'s
+      `refLine`, which normally always prints `v.reference`) — one of
+      the two question formats is literally asking the user to name the
+      reference, so printing it above the question would spoil the
+      answer before they've even seen the options. Just shows "Reference
+      Match" instead; the session's own "N of M" progress counter
+      already covers the spec's header requirement generically.
+    - Its own dark-obsidian/bronze component palette (`.match-prompt-
+      card`, `.match-option-card`, etc.) is scoped to its own CSS
+      classes only, same reasoning as the other four new challenge
+      types' own scoped palettes.
+    - Verified by simulating all 1,812 curated seed verses through
+      `build()` and a perfect-play `check` before shipping: every verse
+      produces exactly 4 options with the correct one present, and
+      grades correct when it's the one picked. No crashes on verses with
+      an unusual book distribution (single-book/short-testament edge
+      cases still resolve to *some* valid distractor set via the
+      same-testament/anything-else fallback tiers).
+    `sw.js` bumped to `rooted-v115`.
+
 ---
 
 ## 9. How the app reads this data

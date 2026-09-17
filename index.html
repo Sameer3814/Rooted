@@ -620,6 +620,26 @@
   .clause-card.clause-wrong{border-color:#EF4444;background:rgba(239,68,68,.1);}
   .clause-check-btn{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
 
+  /* Reference Match challenge (2026-09-17) — same scoped dark-obsidian/
+     bronze palette as the other four new challenge types. */
+  .match-prompt-card{
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:24px;font-size:18px;line-height:1.6;text-align:center;
+    color:#F5F2ED;font-family:var(--font-display);font-weight:500;
+  }
+  .match-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+  .match-option-card{
+    background:#26221F;border:1px solid #3A332D;border-radius:14px;
+    padding:18px 14px;text-align:center;font-size:16px;font-weight:600;
+    color:#F5F2ED;cursor:pointer;transition:all .15s ease;
+    min-height:44px;display:flex;align-items:center;justify-content:center;
+  }
+  .match-option-card:active{transform:scale(.96);}
+  .match-options-grid.match-locked .match-option-card{cursor:default;pointer-events:none;}
+  .match-option-card.match-correct{border-color:#10B981;background:rgba(16,185,129,.15);color:#10B981;}
+  .match-option-card.match-wrong{border-color:#EF4444;background:rgba(239,68,68,.15);color:#EF4444;}
+  .match-option-card.match-reveal-correct{border-color:#10B981;}
+
   /* segmented control (practice mode picker) */
   /* overflow-x:auto (rather than a fixed flex:1 grid) since a 5th
      challenge type (Tap Builder) made this too cramped to fit evenly on
@@ -3497,6 +3517,12 @@ function renderAddCharacter(){
                             to the next verse automatically after this
                             many ms (still guarded — a manual "Continue"
                             tap before the timer fires just no-ops it).
+     autoAdvanceMsWrong     optional number. Same as autoAdvanceMs but for
+                            an *incorrect* finalize — e.g. Reference
+                            Match, which reveals the right answer and
+                            then moves on by itself once it's had time to
+                            be read, rather than waiting on a manual tap
+                            the way every earlier type's wrong path did.
    Adding matching / ordering = another entry here, no changes to
    startPractice / renderPractice / checkPractice.
 */
@@ -3890,8 +3916,107 @@ const CHALLENGE_TYPES = {
     },
     score(state){ return state.allCorrect ? 1 : 0; },
     autoAdvanceMs: 600
+  },
+
+  challenge_reference_match: {
+    id: 'challenge_reference_match',
+    name: 'Reference Match',
+    appliesToEntityTypes: ['verse'],
+    config: { distractorCount: 3 },
+    enabled: true,
+    // Distractors are drawn from data.verses (the user's own already-
+    // loaded library), the same offline-first call Tap Builder's own
+    // build() already made against a near-identical spec ask — the full
+    // corpus in data/verses.json is only lazily fetched once Browse has
+    // been opened, so this exercise would silently run distractor-short
+    // (or need its own network fetch) for anyone practicing before ever
+    // visiting Discover.
+    build(verse, config){
+      const format = Math.random() < 0.5 ? 'quoteToRef' : 'refToQuote';
+      const distractors = pickReferenceMatchDistractors(config.distractorCount, verse);
+      const options = shuffleInPlace([
+        { id: verse.id, reference: verse.reference, text: verse.text, correct: true },
+        ...distractors.map(d => ({ id: d.id, reference: d.reference, text: d.text, correct: false }))
+      ]);
+      return {
+        format, options, selectedIndex: null,
+        checked: false, allCorrect: false
+      };
+    },
+    // A single tap both answers and finalizes — there's no separate
+    // "submit" step to a multiple-choice pick, so this always ends the
+    // attempt itself (like Progressive Vanish's "complete" tap), rather
+    // than going through the generic check()/checkPractice() path.
+    interact(state, ds){
+      if(state.checked || ds.tapOption === undefined) return;
+      const i = +ds.tapOption;
+      state.selectedIndex = i;
+      state.checked = true;
+      state.allCorrect = !!state.options[i].correct;
+    },
+    render(state){
+      const {format, options, selectedIndex, checked} = state;
+      const targetOption = options.find(o => o.correct);
+      const promptHtml = format === 'quoteToRef'
+        ? `&ldquo;${esc(targetOption.text)}&rdquo;`
+        : esc(targetOption.reference);
+      const cards = options.map((opt, i)=>{
+        const label = format === 'quoteToRef' ? opt.reference : opt.text;
+        let cls = '';
+        if(checked){
+          if(i === selectedIndex) cls = opt.correct ? 'match-correct' : 'match-wrong';
+          else if(opt.correct) cls = 'match-reveal-correct';
+        }
+        const action = checked ? '' : ` data-action="practice-interact" data-tap-option="${i}"`;
+        return `<div class="match-option-card ${cls}"${action}>${esc(label)}</div>`;
+      }).join('');
+      return `
+        <div class="match-prompt-card">${promptHtml}</div>
+        <div class="match-options-grid${checked ? ' match-locked' : ''}">${cards}</div>
+      `;
+    },
+    // No generic Check button — tapping an option IS the check, same
+    // reasoning First-Letter Sprint's empty controls() gives.
+    controls(){ return ''; },
+    check(state){
+      const summary = { allCorrect: !!state.allCorrect, correctCount: state.allCorrect ? 1 : 0, total: 1 };
+      return summary;
+    },
+    score(state){ return state.allCorrect ? 1 : 0; },
+    // Correct answers advance fast (600ms, matching every other type's
+    // auto-advance); a wrong one waits noticeably longer (1.5s) so the
+    // revealed correct card is actually readable before moving on —
+    // see autoAdvanceMsWrong in the interface doc above CHALLENGE_TYPES.
+    autoAdvanceMs: 600,
+    autoAdvanceMsWrong: 1500
   }
 };
+/* Picks distractor verses for Reference Match, preferring plausible
+   near-misses over random ones: same book first, then same testament,
+   then anything else in the user's library — so the four options aren't
+   trivially distinguishable by book alone every time. Drawn from
+   data.verses (see the build() comment above for why, not the full
+   corpus). */
+const NT_BOOKS = new Set(['Matthew','Mark','Luke','John','Acts','Romans','1 Corinthians',
+  '2 Corinthians','Galatians','Ephesians','Philippians','Colossians','1 Thessalonians',
+  '2 Thessalonians','1 Timothy','2 Timothy','Titus','Philemon','Hebrews','James',
+  '1 Peter','2 Peter','1 John','2 John','3 John','Jude','Revelation']);
+function pickReferenceMatchDistractors(count, targetVerse){
+  const pool = data.verses.filter(v => v.id !== targetVerse.id);
+  const targetIsNT = NT_BOOKS.has(targetVerse.book);
+  const sameBook = shuffleInPlace(pool.filter(v => v.book === targetVerse.book));
+  const sameTestament = shuffleInPlace(pool.filter(v => v.book !== targetVerse.book && NT_BOOKS.has(v.book) === targetIsNT));
+  const rest = shuffleInPlace(pool.filter(v => v.book !== targetVerse.book && NT_BOOKS.has(v.book) !== targetIsNT));
+  const picked = [];
+  const seenRef = new Set([targetVerse.reference]);
+  for(const v of [...sameBook, ...sameTestament, ...rest]){
+    if(seenRef.has(v.reference)) continue;
+    seenRef.add(v.reference);
+    picked.push(v);
+    if(picked.length >= count) break;
+  }
+  return picked;
+}
 /* Splits a verse's text into 3-5 clause strings for Clause Connect.
    Primary split: punctuation or a small set of connecting words — a
    non-capturing group is deliberate (the spec's own /(and|that|for|who)/
@@ -4112,8 +4237,15 @@ function renderPractice(){
   const isSprint = type.id === 'challenge_first_letter_sprint';
   const isVanish = type.id === 'challenge_progressive_vanish';
   const isClauseConnect = type.id === 'challenge_clause_connect';
+  const isReferenceMatch = type.id === 'challenge_reference_match';
   const canCheck = type.canCheck ? type.canCheck(st) : true;
-  const refLine = isSprint && !st.checked
+  // Reference Match deliberately never prints the real verse.reference
+  // here — one of its two question formats (quote -> pick the matching
+  // reference) is literally asking the user to name it, so showing it
+  // up top would spoil the answer before they've even seen the options.
+  const refLine = isReferenceMatch
+    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">Reference Match</div>`
+    : isSprint && !st.checked
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#C69255;font-weight:600;">0.0s</span></div>`
     : isVanish
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:#C69255;font-weight:600;">Stage ${Math.min(st.currentStage, st.totalStages)} of ${st.totalStages}</span></div>`
@@ -4126,7 +4258,7 @@ function renderPractice(){
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
     ${st.checked && !isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${isTapBuilder || isSprint || isVanish || isClauseConnect ? `
+    ${isTapBuilder || isSprint || isVanish || isClauseConnect || isReferenceMatch ? `
       ${refLine}
       ${type.render(st)}
     ` : `
@@ -4385,11 +4517,12 @@ function practiceInteractWith(ds){
       score: type.score(item.state)
     });
     recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
-    if(item.state.allCorrect && type.autoAdvanceMs){
+    const advanceMs = item.state.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong;
+    if(advanceMs){
       setTimeout(()=>{
         if(!session || session.queue[session.index] !== item) return;
         advancePractice();
-      }, type.autoAdvanceMs);
+      }, advanceMs);
     }
   } else {
     playSfx('tap'); // a non-finalizing tap — e.g. a Tap Builder tile placement
@@ -4410,15 +4543,18 @@ function checkPractice(){
     score: type.score(item.state)
   });
   recordPractice(item.verseId, summary.allCorrect, session.challengeTypeId);
-  // Some challenge types (currently just Tap Builder) auto-advance on a
-  // correct answer instead of waiting for the user to tap "Continue" —
-  // still guarded so it can't double-advance if they tap Continue
+  // Some challenge types auto-advance instead of waiting for the user to
+  // tap "Continue" — on a correct answer for most of them, but Reference
+  // Match also auto-advances on a *wrong* one (autoAdvanceMsWrong), after
+  // giving the user time to actually read the revealed correct answer
+  // first. Still guarded so it can't double-advance if they tap Continue
   // themselves before the timer fires, or exit practice entirely.
-  if(summary.allCorrect && type.autoAdvanceMs){
+  const advanceMs = summary.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong;
+  if(advanceMs){
     setTimeout(()=>{
       if(!session || session.queue[session.index] !== item) return;
       advancePractice();
-    }, type.autoAdvanceMs);
+    }, advanceMs);
   }
   render();
 }
