@@ -323,6 +323,22 @@ The schema was deliberately designed so all of the above can be added
   different real textually-grounded moment from the same story, rather
   than depicting it directly. `data/story_illustrations.json` now has
   51 ids. See DATA_MODEL.md §8, item 132.
+- **Fifth story-art batch (25 stories), continuing canonical order —
+  done (2026-09-17), same day.** Straight `--batch` per the new
+  workflow, the next 25 in true canonical order: the rest of Joseph's
+  story (sold into slavery through his own forgiveness of his
+  brothers), into the opening of Exodus (the midwives, Moses in the
+  basket, the plagues, Passover, the Red Sea, manna and water, Amalek,
+  Jethro's advice, the golden calf, the tabernacle's glory), and
+  Leviticus's few narrative moments (Aaron's ordination, Nadab and
+  Abihu, the blasphemer). Three more tasteful-staging calls: Judah and
+  Tamar shows the moment of revelation (his own seal/cord/staff held
+  out as proof), not the earlier encounter; Joseph and Potiphar's wife
+  uses the classic non-explicit staging (Joseph fleeing, cloak left
+  behind); Nadab and Abihu frames the instant of the fire's flash with
+  Aaron's reaction as the focus, and the blasphemer stages the moment
+  just before the stoning, not the act itself. `data/story_
+  illustrations.json` now has 76 ids. See DATA_MODEL.md §8, item 133.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

@@ -6341,6 +6341,36 @@ inventing a new principle:
     `data/story_illustrations.json` now has 51 ids.
     `sw.js` bumped to `rooted-v128`.
 
+133. **Fifth story-art batch (25 stories), continuing canonical order —
+    done (2026-09-17), same day as item 132.** Straight `--batch` per
+    item 132's new workflow (no `--test`), the next 25 stories in true
+    canonical order from where item 132 left off: `story_joseph_sold`
+    through `story_the_blasphemer`, covering the rest of Joseph's story
+    (sold into slavery, Potiphar's house, prison and Pharaoh's dreams,
+    the brothers' return, the reveal, Jacob's move to Egypt, his final
+    blessing over his sons, Joseph's own forgiveness) into the opening
+    of Exodus (the midwives, Moses in the basket, Midian, the return to
+    Egypt, the plagues, the Passover, the Red Sea crossing and song,
+    manna and water, Amalek, Jethro's advice, the golden calf, God's
+    character revealed to Moses, the tabernacle's glory) and into
+    Leviticus's own few narrative moments (Aaron's ordination, Nadab
+    and Abihu, the blasphemer). Three scenes needed the same kind of
+    tasteful staging call as earlier batches:
+    - `story_judah_and_tamar` shows Judah confronted with his own seal,
+      cord, and staff — the story's actual moment of revelation — not
+      the earlier encounter the story's summary describes.
+    - `story_joseph_and_potiphar` uses the classic, non-explicit
+      staging (Joseph fleeing, his cloak left behind) rather than
+      depicting the attempted seduction itself.
+    - `story_nadab_and_abihu` frames the instant the fire flashes from
+      the altar, with Aaron's shocked reaction as the emotional focus,
+      rather than lingering on the two priests' deaths; `story_the_
+      blasphemer` stages the moment just before the stoning (witnesses
+      laying hands on him, per the text's own ritual) rather than the
+      act itself.
+    `data/story_illustrations.json` now has 76 ids.
+    `sw.js` bumped to `rooted-v129`.
+
 ---
 
 ## 9. How the app reads this data
