@@ -252,6 +252,19 @@ The schema was deliberately designed so all of the above can be added
   (`allStoriesOrdered()`/`adjacentStory()`), the same "walk the Bible in
   sequence" ordering Timeline already uses. See DATA_MODEL.md §8, item
   128.
+- **Story Detail hero: fixed an over-tight crop — done (2026-09-17),
+  same day.** The owner sent an on-device screenshot of `story_the_fall`
+  ("The images look off") and confirmed, once asked, that it was the
+  crop rather than the art itself. Item 128's literal `height:340px`
+  produced a container aspect ratio (~1.18:1) far narrower than the
+  real generated art (~1.79:1 to 2.36:1), so `object-fit:cover` had to
+  cut a third or more off each image's width — visible in the
+  screenshot as the tree canopy and serpent reading tightly cropped
+  instead of part of the wide scene they were generated as. Fixed by
+  switching to `aspect-ratio:2/1` instead of a fixed pixel height —
+  still full-bleed and prominent, just close enough to the art's real
+  proportions that the crop stays minor. See DATA_MODEL.md §8, item
+  129.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

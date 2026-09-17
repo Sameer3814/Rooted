@@ -516,7 +516,17 @@
      note), so the header/back-button/prev-next-arrow treatment below
      is consistent across all 324 stories today, not just the ones
      illustrated so far. */
-  .story-hero-image-container{position:relative;width:100%;height:340px;margin:-20px -18px 0;overflow:hidden;}
+  /* Fixed height:340px (the original spec value) crops far too tight on
+     a mobile-width container — the real generated art (item 125) runs
+     roughly 1.79-2.36:1 wide, but a 400px-wide/340px-tall box is only
+     ~1.18:1, so object-fit:cover has to shave off a third or more of
+     each image's width to fill it, cutting into exactly the wide
+     "establishing scene" context these prompts were written for.
+     aspect-ratio:2/1 keeps the banner just as full-bleed and still
+     prominent, but tracks the art's own real proportions closely enough
+     that the crop stays minor instead of severe — a real fix found from
+     an actual on-device screenshot, not a guess. */
+  .story-hero-image-container{position:relative;width:100%;aspect-ratio:2/1;margin:-20px -18px 0;overflow:hidden;}
   .story-hero-image-container .story-hero-photo{width:100%;height:100%;object-fit:cover;border-radius:0 0 28px 28px;display:block;margin:0;background:var(--surface-sunken);}
   .story-hero-image-container::after{
     content:'';position:absolute;bottom:0;left:0;right:0;height:140px;

@@ -6181,6 +6181,26 @@ inventing a new principle:
       Story Detail like every other screen.
     `sw.js` bumped to `rooted-v124`.
 
+129. **Story Detail hero: fixed an over-tight crop — done (2026-09-17),
+    same day as item 128.** The owner sent an on-device screenshot
+    ("The images look off") of `story_the_fall`; asked to pin down
+    whether the actual generated art or the app's own framing of it was
+    the problem, they confirmed it was the crop. Diagnosis: item 128's
+    literal `height:340px` produces a container aspect ratio around
+    1.18:1 at a typical mobile width, but the real generated art (item
+    125) runs roughly 1.79:1 to 2.36:1 depending on the image —
+    `object-fit:cover` has to shave a third or more off each image's
+    width to fill that mismatched box, cutting directly into the wide
+    "establishing scene" context the story-art prompts were written for
+    (in the screenshot, the tree's canopy and the serpent read as
+    tightly cropped rather than part of a wide vista). Fixed by
+    switching `.story-hero-image-container` from a fixed pixel height
+    to `aspect-ratio:2/1` — still a full-bleed, prominent banner, but
+    close enough to the art's own real proportions that the crop stays
+    minor instead of severe, across the actual range of aspect ratios
+    the pipeline has produced so far rather than one arbitrary number.
+    `sw.js` bumped to `rooted-v125`.
+
 ---
 
 ## 9. How the app reads this data
