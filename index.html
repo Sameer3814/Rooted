@@ -493,6 +493,29 @@
     color:#C69255;font-weight:600;font-size:15px;
   }
 
+  /* Progressive Vanish challenge (2026-09-17) — same scoped dark-
+     obsidian/bronze palette as the other two new challenge types. */
+  .vanish-text-box{
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:24px;font-size:20px;line-height:1.7;color:#F5F2ED;
+    font-family:var(--font-display);font-weight:500;
+  }
+  .vanish-word{display:inline-block;}
+  .vanish-blank{
+    border-bottom:2px dashed #C69255;color:transparent;padding:0 4px;
+    min-width:40px;cursor:pointer;
+  }
+  /* "Hold to Peek" toggles this on the box directly (wireProgressiveVanish()) —
+     a pure CSS reveal, no state/render involved, so releasing is instant
+     and there's nothing for a background render to race against. */
+  .vanish-text-box.peek-all .vanish-blank{border-color:transparent;color:#F5F2ED !important;}
+  .vanish-controls{display:flex;flex-direction:column;gap:10px;}
+  .vanish-peek-btn{
+    width:100%;justify-content:center;padding:14px 16px;min-height:44px;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
+  }
+  .vanish-next-btn{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+
   /* segmented control (practice mode picker) */
   /* overflow-x:auto (rather than a fixed flex:1 grid) since a 5th
      challenge type (Tap Builder) made this too cramped to fit evenly on
@@ -2785,6 +2808,26 @@ function wireFirstLetterSprint(){
     }, 100);
   }
 }
+/* "Hold to Peek" — a pure press-and-hold visual toggle, not a state
+   change: holding reveals every vanished word, releasing hides them
+   again. Deliberately kept out of the interact()/render() cycle
+   entirely (a plain CSS class toggle on the box) rather than a state
+   flag + full render() per press/release — there's nothing to score or
+   persist about a peek, and going through render() would add a visible
+   delay to what should feel instant, the same reasoning
+   wireFamilyTreePanZoom() and wireTimelineDrag() give for direct DOM
+   manipulation over full re-renders during a live gesture. */
+function wireProgressiveVanish(){
+  const btn = document.getElementById('vanish-peek-btn');
+  const box = document.getElementById('vanish-text-box');
+  if(!btn || !box) return;
+  const show = e => { e.preventDefault(); box.classList.add('peek-all'); };
+  const hide = () => box.classList.remove('peek-all');
+  btn.addEventListener('pointerdown', show);
+  btn.addEventListener('pointerup', hide);
+  btn.addEventListener('pointercancel', hide);
+  btn.addEventListener('pointerleave', hide);
+}
 function wireTimelineDrag(){
   const track = document.getElementById('tl-drag-track');
   if(!track) return;
@@ -3422,6 +3465,111 @@ const CHALLENGE_TYPES = {
     controls(){ return ''; },
     score(state){ return state.allCorrect ? 1 : 0; },
     autoAdvanceMs: 1200
+  },
+
+  challenge_progressive_vanish: {
+    id: 'challenge_progressive_vanish',
+    name: 'Progressive Vanish',
+    appliesToEntityTypes: ['verse'],
+    config: { totalStages: 5 },
+    enabled: true,
+    // Self-graded, same shape as First-Letter Sprint's "typing it at all
+    // means you got it" — the owner's own spec named the constructor
+    // initProgressiveVanish(verse), but this app dispatches every
+    // challenge type through CHALLENGE_TYPES[id].build(verse, config)
+    // generically (see the interface doc above CHALLENGE_TYPES), same
+    // architectural call already made for Tap Builder/First-Letter
+    // Sprint's own similarly-named specs — a bespoke top-level init
+    // function per type would bypass that pluggability for no benefit.
+    build(verse, config){
+      const words = verse.text.split(' ').map(text => ({
+        text,
+        vanished: false,
+        isPunctuation: !/[a-zA-Z0-9]/.test(text)
+      }));
+      // A fixed random order decides which words vanish first and stays
+      // fixed for the whole climb (same "stage N's hidden set is always
+      // a superset of stage N-1's" guarantee the old verse-ladder type
+      // used) — nothing that's already vanished ever reappears just
+      // because the stage advanced.
+      const order = words.map((w, i) => i).filter(i => !words[i].isPunctuation);
+      for(let i = order.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      return {
+        words, order, totalNonPunct: order.length,
+        currentStage: 0, totalStages: config.totalStages,
+        peekIndex: null, peekToken: 0,
+        checked: false, allCorrect: false
+      };
+    },
+    interact(state, ds){
+      if(state.checked) return;
+      if(ds.peekWord !== undefined){
+        // Reveal exactly one vanished word for 1.5s, then hide it again
+        // — a real timed effect, not a CSS-only animation, so it needs
+        // an actual timer. peekToken guards against an earlier peek's
+        // timeout firing after a newer tap superseded it (e.g. tapping
+        // a second blank within the 1.5s window), and against re-
+        // rendering into a verse the user has since navigated away
+        // from — same "is this timeout still relevant" shape every
+        // other guarded setTimeout in this file uses (autoAdvanceMs,
+        // family-tree-nav's chained `from`, etc.), just checked by
+        // object identity here since interact() only has `state`, not
+        // `session`/`item`.
+        state.peekIndex = +ds.peekWord;
+        const myToken = ++state.peekToken;
+        setTimeout(()=>{
+          if(state.peekToken !== myToken) return;
+          state.peekIndex = null;
+          if(session && session.queue[session.index] && session.queue[session.index].state === state) render();
+        }, 1500);
+      }else if(ds.nextStage !== undefined){
+        if(state.currentStage >= state.totalStages) return;
+        state.currentStage++;
+        const vanishCount = Math.round(state.totalNonPunct * (state.currentStage / state.totalStages));
+        const toVanish = new Set(state.order.slice(0, vanishCount));
+        state.words.forEach((w, i) => { if(!w.isPunctuation && toVanish.has(i)) w.vanished = true; });
+      }else if(ds.complete !== undefined){
+        state.checked = true;
+        state.allCorrect = true;
+      }
+    },
+    render(state){
+      if(state.checked){
+        return `<div class="vanish-text-box">${state.words.map(w => esc(w.text)).join(' ')}</div>`;
+      }
+      const tokens = state.words.map((w, i)=>{
+        if(w.isPunctuation) return esc(w.text);
+        if(!w.vanished || state.peekIndex === i) return `<span class="vanish-word">${esc(w.text)}</span>`;
+        return `<span class="vanish-word vanish-blank" data-action="practice-interact" data-peek-word="${i}">${esc(w.text)}</span>`;
+      }).join(' ');
+      return `<div class="vanish-text-box" id="vanish-text-box">${tokens}</div>`;
+    },
+    // Bypasses the generic Check button entirely, same as Tap Builder's
+    // canCheck-disabled state and First-Letter Sprint's empty controls()
+    // — "Hold to Peek" (wired separately in wireProgressiveVanish(), a
+    // raw press-and-hold gesture that has no meaningful click/data-action
+    // shape) sits alongside the real primary action, which is either
+    // "advance a stage" or, once fully vanished, "finish."
+    controls(state){
+      const isFinal = state.currentStage >= state.totalStages;
+      return `
+        <div class="vanish-controls">
+          <button class="btn vanish-peek-btn" id="vanish-peek-btn" type="button"><i class="ti ti-eye"></i> Hold to Peek</button>
+          <button class="btn primary block vanish-next-btn" data-action="practice-interact" data-${isFinal ? 'complete' : 'next-stage'}="1">
+            ${isFinal ? `<i class="ti ti-sparkles"></i> I Recited It Perfectly!` : `Next Step (Remove 20%) <i class="ti ti-arrow-right"></i>`}
+          </button>
+        </div>
+      `;
+    },
+    score(state){ return state.allCorrect ? 1 : 0; },
+    // "...loads the next due verse" per spec — matches the other two
+    // new challenge types' auto-advance, timed a bit longer so the
+    // "I Recited It Perfectly!" confirmation is actually readable
+    // before moving on.
+    autoAdvanceMs: 800
   }
 };
 /* First letter of a word, ignoring leading punctuation/numbers/case —
@@ -3613,9 +3761,12 @@ function renderPractice(){
   const lastOne = session.index + 1 >= session.queue.length;
   const isTapBuilder = type.id === 'challenge_tap_builder';
   const isSprint = type.id === 'challenge_first_letter_sprint';
+  const isVanish = type.id === 'challenge_progressive_vanish';
   const canCheck = type.canCheck ? type.canCheck(st) : true;
   const refLine = isSprint && !st.checked
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#C69255;font-weight:600;">0.0s</span></div>`
+    : isVanish
+    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:#C69255;font-weight:600;">Stage ${Math.min(st.currentStage, st.totalStages)} of ${st.totalStages}</span></div>`
     : `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>`;
   return `
     <div class="screen-head">
@@ -3625,7 +3776,7 @@ function renderPractice(){
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
     ${st.checked && !isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${isTapBuilder || isSprint ? `
+    ${isTapBuilder || isSprint || isVanish ? `
       ${refLine}
       ${type.render(st)}
     ` : `
@@ -3750,6 +3901,7 @@ function bindEvents(root){
   wireTimelineDrag();
   wireFamilyTreePanZoom();
   wireFirstLetterSprint();
+  wireProgressiveVanish();
 }
 function refreshFamilyTreePickerResults(){
   const results = document.getElementById('family-tree-picker-results');

@@ -5319,6 +5319,70 @@ inventing a new principle:
       close off pre-emptively while already in this code.
     `sw.js` bumped to `rooted-v110`.
 
+115. **A third ChallengeType: Progressive Vanish — done (2026-09-17).**
+    Self-graded like First-Letter Sprint (no wrong-answer path — typing/
+    reciting it at all means success), but a much simpler interaction:
+    pure taps, no keyboard, so none of item 114's real-device mobile
+    bugs apply here at all.
+    - **`build(verse, config)`** — the owner's spec named the
+      constructor `initProgressiveVanish(verse)`; mapped onto this
+      app's actual dispatch shape, `CHALLENGE_TYPES[id].build(verse,
+      config)`, same architectural call already made for the other two
+      new types' own similarly-named specs (a bespoke top-level init
+      function per type would bypass the whole point of a pluggable
+      `CHALLENGE_TYPES` registry). Tokenizes into `{text, vanished,
+      isPunctuation}` objects per the spec's own shape, then picks a
+      **fixed random order** deciding which non-punctuation words vanish
+      first — the exact same "stage N's hidden set is a superset of
+      stage N-1's" guarantee `challenge_verse_ladder` used before it was
+      retired (item 114) — a genuinely good idea being reused under a
+      new name/UI, not a sign the retirement didn't happen.
+    - **`interact(state, ds)`** handles three distinct taps: `nextStage`
+      (advance the climb, vanish the next 20% — computed as
+      `round(totalNonPunct * currentStage/totalStages)` so 20/40/60/80/
+      100% land on exact word counts, not a fixed 1/5-per-stage
+      remainder that could round unevenly), `complete` (the final-stage
+      button, relabeled "I Recited It Perfectly!" — finalizes exactly
+      like every other self-graded type), and `peekWord` (spec item 2's
+      "tap an individual blank to reveal it for 1.5s") — the one truly
+      new mechanic: sets `state.peekIndex`, then a real `setTimeout`
+      clears it again and calls the global `render()` directly. A
+      `peekToken` counter guards it (an earlier peek's timeout firing
+      after a newer tap superseded it doesn't clobber the newer one),
+      and the timeout checks `session.queue[session.index].state ===
+      state` by object identity before re-rendering (interact() only
+      receives `state`, not `session`/`item`, so this is the cheapest
+      correct way to confirm the user hasn't since left this verse) —
+      same shape as `autoAdvanceMs`'s own guarded timeout elsewhere in
+      this file, applied to a new problem.
+    - **"Hold to Peek"** (spec item 3's secondary button — reveal every
+      vanished word while pressed) is deliberately NOT run through
+      `interact()`/`render()` at all: `wireProgressiveVanish()` just
+      toggles a `peek-all` CSS class on the box directly on
+      `pointerdown`/`pointerup`/`pointercancel`/`pointerleave`. There's
+      nothing to score or persist about a peek, and routing a
+      press-and-hold gesture through a full re-render per press/release
+      would add a visible delay to what should feel instant — same
+      reasoning `wireFamilyTreePanZoom()`/`wireTimelineDrag()` already
+      give for direct DOM manipulation during a live gesture, applied
+      here to "hold" instead of "drag." Also set
+      `-webkit-touch-callout:none`/`user-select:none` on that button —
+      a "hold" gesture on mobile Safari can otherwise trigger a text-
+      selection callout, a lesson worth applying up front this time
+      rather than waiting for a real-device report the way items 114's
+      two mobile bugs were found.
+    - Emoji in the owner's own spec text ("👁️ Hold to Peek," "I Recited
+      It Perfectly! 🎉") were replaced with the existing Tabler icon
+      font (`ti-eye`, `ti-sparkles`) instead of literal emoji characters
+      — consistent with the app-wide emoji-removal decision (item 107),
+      which this would have directly reversed if followed literally.
+    - Verified by simulation against real curated verses before
+      shipping: 30 random verses stage-advanced through all 5 steps
+      each landed on the exact 20/40/60/80/100% vanished-word counts
+      with zero regressions (a word un-vanishing) and zero punctuation
+      tokens ever vanishing, and every one reached completion.
+    `sw.js` bumped to `rooted-v111`.
+
 ---
 
 ## 9. How the app reads this data

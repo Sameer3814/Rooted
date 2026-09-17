@@ -297,6 +297,24 @@ The schema was deliberately designed so all of the above can be added
   by pinning the input `position:fixed` to the viewport (plus
   `font-size:16px`, closing off iOS Safari's separate auto-zoom-on-focus
   trigger for the same category of bug).
+- **Progressive Vanish challenge type — done (2026-09-17).** A third
+  `ChallengeType`, self-graded like First-Letter Sprint but pure taps
+  (no keyboard, so none of that type's real-device mobile bugs apply).
+  Reveals a verse in full, then climbs 5 stages vanishing an additional
+  20% of its (non-punctuation) words each time — a fixed random order
+  decided at build time guarantees a word never un-vanishes once hidden,
+  the same idea the retired `challenge_verse_ladder` used, reused under
+  new naming/UI rather than being a sign the retirement (above) didn't
+  happen. Tapping any individual blank reveals it for 1.5s (a real
+  `setTimeout`, guarded against a superseded peek's timer firing late);
+  "Hold to Peek" (reveal everything while pressed) is deliberately kept
+  entirely outside the `interact()`/`render()` cycle — a plain CSS class
+  toggled directly on press/release, since there's nothing to score
+  about a peek and a full re-render would make holding feel laggy.
+  Verified by simulating 30 real curated verses stage-climbing through
+  all 5 steps before shipping — exact 20/40/60/80/100% word counts, zero
+  regressions, zero punctuation tokens ever vanishing. See DATA_MODEL.md
+  §8, item 115.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -626,13 +644,15 @@ hand-curate all the content before building.
    `challenge_first_letters`, `challenge_verse_ladder`) were retired
    2026-09-17 on direct owner request** ("get rid of the older
    exercises") — see item 114. `CHALLENGE_TYPES` (`index.html`,
-   `DATA_MODEL.md` §3) now holds exactly two: `challenge_tap_builder`
-   (word-tile bank, 2026-09-17 — auto-graded, auto-advances on a correct
-   answer) and `challenge_first_letter_sprint` ("First-Letter Sprint,"
-   same day — a real-time speed-typing drill, the first challenge type
-   driven by actual keystrokes rather than taps), with a picker (moved
-   to Practice's own hero card, item 107) persisted to
-   `rooted-settings`. Next: reference↔text matching
+   `DATA_MODEL.md` §3) now holds three, all added the same day:
+   `challenge_tap_builder` (word-tile bank — auto-graded, auto-advances
+   on a correct answer), `challenge_first_letter_sprint` ("First-Letter
+   Sprint" — a real-time speed-typing drill, the first challenge type
+   driven by actual keystrokes rather than taps), and
+   `challenge_progressive_vanish` ("Progressive Vanish" — a 5-stage
+   reveal-then-recall climb, self-graded like Sprint but pure taps, item
+   115), with a picker (moved to Practice's own hero card, item 107)
+   persisted to `rooted-settings`. Next: reference↔text matching
    (`challenge_reference_match`), then matching/ordering
    (`challenge_story_order`, `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
