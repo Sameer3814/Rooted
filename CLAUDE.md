@@ -339,6 +339,30 @@ The schema was deliberately designed so all of the above can be added
   Aaron's reaction as the focus, and the blasphemer stages the moment
   just before the stoning, not the act itself. `data/story_
   illustrations.json` now has 76 ids. See DATA_MODEL.md §8, item 133.
+- **Sixth story-art batch — the biggest yet, 40 stories — done
+  (2026-09-17), same day.** Owner: "let's do a big batch." Four
+  `--batch` calls of 10 (no `--test`), continuing true canonical order
+  through the rest of Numbers, the close of Deuteronomy, all of
+  Joshua, the whole of Judges, and Ruth into the opening of 1 Samuel —
+  40 stories, one continuous walk from Numbers 12 through 1 Samuel 10.
+  Judges is a genuinely darker stretch of text than any batch so far,
+  and needed several real staging judgment calls, same discipline as
+  items 127/132/133: Phinehas shows the plague lifting, not the
+  violence; Ehud and Eglon stages the tense approach, not the
+  assassination; Abimelech's story shows his coronation, a real
+  separate beat, instead of the massacre of his seventy brothers;
+  Jephthah's story shows his daughter's joyful greeting, not the
+  tragic outcome; the Levite's concubine — the darkest single chapter
+  curated in this app — shows only the old man's hospitality at the
+  very start, entirely before the chapter's violence; the wives-for-
+  Benjamin story shows the festival dance itself, not the coercive
+  taking that follows it; Ruth at the threshing floor stages her
+  approach modestly, per the text's actual legal meaning. None
+  substitute an invented moment — every one is a real beat the same
+  story's own curated summary already describes, chosen specifically
+  to avoid depicting violence, assault, or death directly.
+  `data/story_illustrations.json` now has 116 ids — over a third of
+  all 324 stories. See DATA_MODEL.md §8, item 134.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

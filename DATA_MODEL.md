@@ -6371,6 +6371,59 @@ inventing a new principle:
     `data/story_illustrations.json` now has 76 ids.
     `sw.js` bumped to `rooted-v129`.
 
+134. **Sixth story-art batch — the biggest yet, 40 stories — done
+    (2026-09-17), same day as item 133.** Owner: "let's do a big
+    batch." Continuing the same true-canonical-order approach (item
+    132's bug fix), run as four `--batch` calls of 10 (no `--test`,
+    per the established workflow) covering the rest of Numbers
+    (Miriam and Aaron's challenge, the twelve spies, Korah's rebellion,
+    water from the rock a second time, Miriam's and Aaron's deaths, the
+    bronze serpent, Balaam's donkey, Phinehas, Zelophehad's daughters),
+    Deuteronomy's close (Moses commissions Joshua, views the land, and
+    dies), all of Joshua (taking charge, Rahab, crossing the Jordan,
+    Jericho, Achan, the Gibeonite deception, the sun standing still,
+    Caleb receiving Hebron, Joshua's farewell), the whole of Judges
+    (Othniel and Shamgar through the war against Benjamin and its
+    grim aftermath), and Ruth and the opening of 1 Samuel (Hannah,
+    Samuel's call, Israel demanding a king) — 40 stories, one
+    continuous walk from Numbers 12 through 1 Samuel 10.
+    - **Several scenes needed real, deliberate staging judgment calls**,
+      applying the same "stage around real harm using a different
+      textually-grounded moment from the same story" discipline
+      established in items 127/132/133, extended to a genuinely darker
+      stretch of text (most of Judges):
+      - `story_phinehas_stops_the_plague` shows the plague visibly
+        lifting and the camp recovering, not the act of violence
+        itself.
+      - `story_ehud_and_eglon` stages the tense moment of approach
+        with the message, not the assassination.
+      - `story_abimelech_son_of_gideon` — the massacre of seventy
+        brothers is the story's own dominant early beat, but the scene
+        instead depicts his coronation by the men of Shechem, a real,
+        separate moment the same story's summary also describes.
+      - `story_jephthahs_vow` shows his daughter's joyful greeting on
+        his return — a real, textually specific moment (she comes out
+        dancing) — not the tragic outcome that follows it.
+      - `story_levites_concubine`, the darkest single chapter curated
+        in this app (item 89's own note on it), shows the old man's
+        hospitality at the very start of the account — entirely before
+        the chapter's violence — rather than any part of what follows.
+      - `story_wives_for_benjamin` shows the yearly festival dance at
+        Shiloh itself (a real, dignified detail the text names) rather
+        than the coercive taking of wives the chapter actually
+        describes.
+      - `story_ruth_at_the_threshing_floor` stages Ruth's approach as
+        modest and dignified — covering Boaz with his own cloak, per
+        the text's actual legal/customary meaning — rather than
+        anything that could read as scandalous.
+      None of these substitute a softened, invented moment — every one
+      is a real beat already present in that story's own curated
+      summary, chosen specifically because it doesn't require depicting
+      violence, sexual assault, or death directly.
+    - `data/story_illustrations.json` now has 116 ids — over a third
+      of the way through all 324 stories.
+    `sw.js` bumped to `rooted-v130`.
+
 ---
 
 ## 9. How the app reads this data
