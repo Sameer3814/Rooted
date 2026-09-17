@@ -5299,7 +5299,25 @@ inventing a new principle:
         knowing before touching this challenge type again, or before
         assuming any future real-time/keystroke-driven feature can just
         reuse the standard `interact()` -> `render()` pattern unchanged.
-    `sw.js` bumped to `rooted-v109`.
+    - **Second addendum, same day: fixing the keyboard closing surfaced
+      a second real-device bug — the page scrolling the verse out of
+      view on every keystroke.** Root cause was `.sprint-hidden-input`
+      being `position:absolute` **in the document flow** right after
+      `.sprint-text-box` — every keystroke's `sprintTokensHTML()` patch
+      changes that box's rendered height (revealing a word), which
+      moves the still-focused input along with it, and mobile browsers
+      "helpfully" keep a focused input scrolled into view — so the page
+      kept re-scrolling to chase the input every single keystroke,
+      exactly the "blindly tapping" symptom reported. Fixed by making
+      the input `position:fixed;top:0;left:0` — pinned to the viewport
+      instead of the reflowing document, so it never moves regardless
+      of what the sentence box does, breaking the feedback loop
+      entirely. Also set an explicit `font-size:16px` on it, since a
+      focused input computed under 16px triggers iOS Safari's own
+      separate auto-zoom-and-scroll behavior — not confirmed as part of
+      this specific report, but the same category of bug and cheap to
+      close off pre-emptively while already in this code.
+    `sw.js` bumped to `rooted-v110`.
 
 ---
 

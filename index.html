@@ -469,10 +469,23 @@
      the DOM for mobile virtual keyboards to attach to (see
      wireFirstLetterSprint()) without it appearing as a text field
      on-screen; opacity/pointer-events rather than display:none, which
-     some mobile browsers refuse to focus. */
+     some mobile browsers refuse to focus.
+     position:fixed (pinned to the viewport, not the reflowing sentence
+     box below it) rather than position:absolute in-flow — a real-device
+     report found the page scrolling the verse text out of view on every
+     keystroke, because the old absolute-positioned input sat right
+     after the sentence box in the DOCUMENT, and each keystroke's
+     innerHTML patch (revealing a word) shifted that box's height,
+     moving the still-focused input with it — which mobile browsers
+     "helpfully" keep scrolled into view, i.e. the page kept re-scrolling
+     to chase the input every time it moved. Pinning it to a fixed
+     viewport position removes that feedback loop entirely; font-size:16px
+     avoids a second, separate cause of the same symptom — iOS Safari
+     auto-zooms (and scrolls) the page when focusing any input/textarea
+     computed under 16px. */
   .sprint-hidden-input{
-    position:absolute;opacity:0;height:44px;width:100%;left:0;top:100%;
-    pointer-events:none;border:none;outline:none;
+    position:fixed;top:0;left:0;opacity:0;width:1px;height:1px;
+    font-size:16px;pointer-events:none;border:none;outline:none;
   }
   .sprint-toast{
     display:flex;align-items:center;gap:8px;margin-top:14px;padding:14px 16px;

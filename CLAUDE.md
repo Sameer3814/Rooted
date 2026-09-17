@@ -288,7 +288,15 @@ The schema was deliberately designed so all of the above can be added
   `autoAdvanceMs`) the way it will from a real tap. This is now a
   documented exception to the app's normal "`render()` rebuilds
   everything" model — see DATA_MODEL.md §8, item 114's addendum before
-  touching this challenge type again.
+  touching this challenge type again. **A second real-device report,
+  same day**: fixing the keyboard-closing bug surfaced that the page
+  was also scrolling the verse out of view on every keystroke — the
+  hidden input was `position:absolute` right after the sentence box in
+  the document, so each keystroke's height change moved the still-
+  focused input, and the browser kept re-scrolling to chase it. Fixed
+  by pinning the input `position:fixed` to the viewport (plus
+  `font-size:16px`, closing off iOS Safari's separate auto-zoom-on-focus
+  trigger for the same category of bug).
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
