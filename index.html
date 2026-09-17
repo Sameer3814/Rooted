@@ -28,10 +28,23 @@
     --ink-soft:#9CA0AA;
     --ink-faint:#63676F;
     --line:rgba(255,255,255,.09);
-    --gold:#F5AC1F;
-    --gold-deep:#FFCE5C;
-    --gold-wash:rgba(245,172,31,.18);
-    --gold-shadow:rgba(245,172,31,.3);
+    /* v5 accent — done (2026-09-17), owner's explicit request to move off
+       the amber/gold accent entirely ("bold white" instead). The token
+       NAMES stay --gold/--gold-deep/etc. rather than being renamed
+       app-wide (a rename would touch every one of the ~65 places that
+       reference them for zero visual benefit); only the values changed.
+       Kept the original two-tier relationship (a base tone + a brighter
+       "deep" emphasis tone) rather than collapsing both to identical
+       pure white, so places that lean on that contrast (e.g. the goal
+       ring's fill vs. a verse reference's text) keep some depth. The
+       per-topic color-override mechanism (topicAccentVars(), item 62-64)
+       is unaffected — it already reassigns these same custom properties
+       to a per-topic hue at render time, regardless of what the default
+       happens to be. */
+    --gold:#F2F2F2;
+    --gold-deep:#FFFFFF;
+    --gold-wash:rgba(255,255,255,.14);
+    --gold-shadow:rgba(255,255,255,.25);
     --sage:#1FE07F;
     --sage-deep:#79F3AE;
     --sage-wash:rgba(31,224,127,.16);
@@ -62,10 +75,11 @@
     --text-2xl:28px;
     --text-primary:var(--ink);
     --text-secondary:var(--ink-soft);
-    /* #D49E35 was set explicitly on the VOTD label/ref in the prior CSS
-       pass — reused here as the shared accent-text color rather than
-       introducing a second, slightly different gold. */
-    --text-accent:#D49E35;
+    /* Now a true alias of --gold-deep (it was a separately-hardcoded,
+       slightly-different hex before, #D49E35 — a known minor
+       inconsistency noted in this same comment historically; cleaned up
+       while touching this token for the v5 white-accent pass anyway). */
+    --text-accent:var(--gold-deep);
     --font-sans:'Inter',sans-serif;
     --font-display:'Fraunces',serif;
   }
@@ -79,6 +93,23 @@
     min-height:100vh;
     padding-bottom:120px !important;
   }
+  /* Bolder/bigger icons app-wide (2026-09-17, owner's explicit request,
+     "including the back arrow in all pages") — a single low-specificity
+     rule on Tabler's own shared `.ti` class, which every icon in this
+     app already carries (`class="ti ti-arrow-left"` etc.), rather than
+     hunting down each of the dozens of individual icon usages. The
+     em-based size bump scales each icon relative to whatever it already
+     inherits (so a small badge icon and a big hero icon both grow
+     proportionally, not to one fixed px value); text-stroke adds real
+     weight, since the Tabler webfont ships only one (outline) weight —
+     there's no separate "bold" glyph set to switch to. A handful of
+     icons with their own more-specific explicit font-size rule
+     (`.navitem i`, `.back-btn` isn't one of these — it has no override
+     at all, so it's covered here directly) still win on size per normal
+     CSS cascade rules; those few were bumped individually alongside this
+     rule instead, listed at each one's own definition. */
+  .ti{-webkit-text-stroke:.4px currentColor;}
+  i.ti{font-size:1.15em;}
   h1,h2,h3,.headline{font-family:var(--font-sans);font-weight:700;color:var(--text-primary);margin:0;letter-spacing:-.01em;}
   /* Screen headings & greetings (h1: "Browse", "Topics", "Study", plus
      .home-greet's "Good afternoon" below) use the same text-2xl/700 pair. */
@@ -97,7 +128,7 @@
   .app{max-width:480px;margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
-  .topbar .brand i{font-size:22px;color:var(--gold-deep);}
+  .topbar .brand i{font-size:25px;color:var(--gold-deep);}
   .stat-row{display:flex;gap:10px;margin-bottom:20px;}
   .stat-card{flex:1;background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:14px;}
   .stat-card .num{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.01em;}
@@ -148,7 +179,7 @@
   .tag--pill{font-size:var(--text-xs);font-weight:500;letter-spacing:0;text-transform:none;padding:4px 10px;border-radius:100px;background:var(--surface-sunken);color:var(--ink-soft);}
   .app-icon{display:inline-flex;vertical-align:middle;flex-shrink:0;}
   .empty{text-align:center;padding:40px 20px;color:var(--ink-soft);}
-  .empty i{font-size:34px;color:var(--ink-faint);margin-bottom:10px;display:block;}
+  .empty i{font-size:38px;color:var(--ink-faint);margin-bottom:10px;display:block;}
   .empty .cta{margin-top:14px;}
 
   /* Home v6 — greeting + streak header, a media-heavy Verse of the Day
@@ -169,7 +200,7 @@
     color:#fff;font-size:13px;font-weight:700;
     padding:7px 12px;border-radius:999px;box-shadow:0 2px 10px rgba(255,92,67,.35);
   }
-  .streak-badge i{font-size:14px;}
+  .streak-badge i{font-size:16px;}
 
   /* .votd-hero is this card's actual class name (renamed from .votd-card
      in the v6 redesign) — kept as-is rather than renamed again here,
@@ -180,13 +211,23 @@
     display:flex;flex-direction:column;justify-content:flex-end;
     border:none;border-radius:24px;
   }
+  /* Brightened (2026-09-17) — was rgba(20,15,12,.2 -> .85), noticeably
+     darkening the photo top-to-bottom. Lighter stops let the actual
+     image read clearly while still keeping the bottom third dark enough
+     for the (still-white) text over it to stay legible; text-shadow
+     below was strengthened slightly to compensate. */
   .votd-hero::before{
     content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(20,15,12,.2) 0%, rgba(20,15,12,.85) 100%);
+    background:linear-gradient(180deg, rgba(20,15,12,.05) 0%, rgba(20,15,12,.65) 100%);
   }
   .votd-hero > *{position:relative;z-index:1;}
   .votd-label{display:flex;align-items:center;gap:6px;font-size:var(--text-xs);font-weight:700;color:var(--text-accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;}
-  .votd-text{font-family:var(--font-display);font-style:italic;font-size:var(--text-xl);font-weight:500;line-height:1.45;color:#FFFFFF;margin-bottom:10px;text-shadow:0 1px 6px rgba(0,0,0,.35);}
+  /* Font switched from the italic Fraunces serif to a clean sans
+     (2026-09-17, owner's request) — this was the one remaining place in
+     the app still using the display serif at all (see item 85's own
+     note that Fraunces was already scoped down to just this card and
+     two Practice-verse contexts). */
+  .votd-text{font-family:var(--font-sans);font-style:normal;font-size:var(--text-xl);font-weight:600;line-height:1.4;color:#FFFFFF;margin-bottom:10px;text-shadow:0 1px 8px rgba(0,0,0,.5);}
   .votd-ref{font-size:13px;font-weight:600;color:var(--text-accent);margin-bottom:14px;}
   /* "Read chapter" CTA — the spec's .btn-read-chapter, kept as the
      existing .votd-action selector (referenced from JS) rather than
@@ -225,9 +266,8 @@
      slightly different shades of "dark card." Padding bumped to 20px on
      these two specifically, per spec. The eyebrow style is the same
      text-xs/700/uppercase/--text-accent pattern .votd-label/.discovery-
-     label already use, shared here as .word-eyebrow (also reused by the
-     Church History card so the two match). */
-  .word-card,.church-history-card{padding:20px;}
+     label already use, shared here as .word-eyebrow. */
+  .word-card{padding:20px;}
   .word-eyebrow{display:flex;align-items:center;gap:6px;font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-accent);margin-bottom:12px;}
   .word-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
   .word-script{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--text-primary);}
@@ -236,16 +276,6 @@
   .word-meaning{font-size:var(--text-sm);font-weight:600;color:var(--text-primary);margin-bottom:4px;}
   .word-summary{font-size:var(--text-sm);font-weight:400;color:var(--text-secondary);line-height:1.4;}
   .word-card .tag-row{margin-top:12px;}
-
-  .church-history-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:2px;}
-  .church-history-year{font-size:var(--text-xs);font-weight:700;letter-spacing:.03em;color:var(--text-secondary);background:var(--surface-sunken);padding:3px 9px;border-radius:100px;flex-shrink:0;}
-  .church-history-card h3{margin-bottom:6px;}
-  .church-history-desc{font-size:var(--text-sm);font-weight:400;color:var(--text-secondary);line-height:1.4;}
-  .church-history-takeaway{
-    display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;
-  }
-  .church-history-takeaway i{color:var(--text-accent);flex-shrink:0;margin-top:2px;}
 
   /* Biblical Fact of the Day (item 116) — card uses this app's existing
      dark-theme tokens throughout; only the badge's emerald is a literal,
@@ -260,7 +290,7 @@
     color:#10B981;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);
     border-radius:100px;padding:2px 8px;font-size:11px;font-weight:600;
   }
-  .fact-verified-badge i{font-size:12px;}
+  .fact-verified-badge i{font-size:13px;}
 
   /* This app's first bottom-sheet drawer — see the comment above
      renderFactDrawer() for why a full screen (this app's existing
@@ -303,7 +333,7 @@
     background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);
     border-radius:var(--radius-ctl);padding:13px 0;margin-top:4px;cursor:pointer;
   }
-  .practice-nudge i{font-size:15px;}
+  .practice-nudge i{font-size:17px;}
 
   /* buttons */
   .btn{
@@ -320,7 +350,11 @@
   }
   /* Primary CTA buttons get the larger text-base/600 pair (secondary/
      ghost/utility buttons keep the smaller base .btn size above). */
-  .btn.primary{background:var(--gold);color:#241900;box-shadow:0 6px 16px var(--gold-shadow);font-size:var(--text-base);font-weight:600;}
+  /* Dark text on the (now white/off-white) accent background — #241900
+     was tuned to pair with the old amber; #141210 matches the app's own
+     near-black tone instead, same value the bronze Practice-exercise
+     buttons already use for the same purpose. */
+  .btn.primary{background:var(--gold);color:#141210;box-shadow:0 6px 16px var(--gold-shadow);font-size:var(--text-base);font-weight:600;}
   .btn.primary:active{background:var(--gold-deep);}
   .btn.ghost{background:transparent;color:var(--ink-soft);}
   .btn.block{width:100%;justify-content:center;padding:13px;}
@@ -361,7 +395,7 @@
     background:none;border:none;color:var(--ink-faint);padding:5px 0;
   }
   .navbar .navitem .dot{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
-  .navbar .navitem i{font-size:19px;}
+  .navbar .navitem i{font-size:21px;}
   .navbar .navitem span{font-size:var(--text-xs);font-weight:500;}
   /* Filled chip = active, not a font-glyph swap — the pinned Tabler webfont
      doesn't reliably ship true filled/outline pairs for every icon. */
@@ -1054,13 +1088,6 @@ async function loadWordOfTheDayData(){
   }catch(e){ /* the Word of the Day card just won't render */ }
   return [];
 }
-async function loadChurchHistoryData(){
-  try{
-    const res = await fetch('./data/church_history.json');
-    if(res.ok) return await res.json();
-  }catch(e){ /* the Church History card just won't render */ }
-  return {};
-}
 /* Biblical Fact of the Day — data/daily_facts.json, same shape/loading
    pattern as Word of the Day. Every fact was hand-checked against this
    app's own already-curated data before being written in — either the
@@ -1278,7 +1305,6 @@ let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, l
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
 let motifs = [];  // seed-only: recurring biblical patterns (DATA_MODEL.md §2)
 let wordsOfTheDay = [];    // seed-only: curated Hebrew/Greek words (item 89)
-let churchHistoryData = {};// seed-only: MM-DD -> event, keyed lookup (item 89)
 let dailyFacts = [];       // seed-only: curated + verified Bible facts (item 116)
 let factDrawerOpen = null; // fact id whose detail sheet is open, or null — see renderFactDrawer()
 let characterPortraits = new Set(); // seed-only: character ids with a real portrait (item 91)
@@ -1697,7 +1723,6 @@ function render(){
   });
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
-  else if(view.screen==='churchHistoryDetail') app.innerHTML = renderChurchHistoryDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
   else if(view.screen==='bookPeople') app.innerHTML = renderBookPeople(view.params.book);
@@ -1786,14 +1811,18 @@ function renderHomeHeader(){
 function renderHome(){
   loadVotdRemote(); loadVotdImage(); // fire-and-forget; no-op once status leaves 'idle'
   loadUnreachedOfDay();
+  // Order (2026-09-17, owner's explicit request): VOTD, then Unreached
+  // of the Day, then the Fact of the Day, then Story of the Day. Word of
+  // the Day wasn't named in that request — kept, not dropped, just moved
+  // after the four explicitly-ordered cards rather than guessed into a
+  // specific slot among them.
   return `
     ${renderHomeHeader()}
     ${renderVerseOfTheDayCard()}
-    ${renderWordOfTheDayCard()}
-    ${renderChurchHistoryCard()}
-    ${renderFactOfTheDayCard()}
     ${renderUnreachedCard()}
+    ${renderFactOfTheDayCard()}
     ${renderStoryOfTheDayCard()}
+    ${renderWordOfTheDayCard()}
     ${renderPracticeNudge()}
     ${renderFactDrawer()}
   `;
@@ -1903,50 +1932,14 @@ function renderWordOfTheDayCard(){
       ${chips.length ? `<div class="tag-row">${chips.map(v=>`<span class="tag tag--tan tap" data-action="open-verse" data-id="${v.id}" style="cursor:pointer;">${esc(v.reference)}</span>`).join('')}</div>` : ''}
     </div>`;
 }
-/* This Day in Church History — data/church_history.json, keyed by the
-   viewer's local MM-DD so it changes with the calendar date, not a
-   rotating index like the other Home cards (there's exactly one right
-   answer for "today" here). Falls back to the seed file's own "default"
-   entry on any day without a specific match, so the card always has
-   something to show rather than needing its own empty state. */
-function churchHistoryToday(){
-  const d = new Date();
-  const key = String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-  return churchHistoryData[key] || churchHistoryData['default'] || null;
-}
-function renderChurchHistoryCard(){
-  const h = churchHistoryToday();
-  if(!h) return '';
-  return `
-    <div class="card church-history-card tap" data-action="open-church-history">
-      <div class="church-history-head">
-        <div class="word-eyebrow">${icon('landmark',14)} This Day in Church History</div>
-        ${h.year ? `<div class="church-history-year">${esc(String(h.year))} AD</div>` : ''}
-      </div>
-      <h3>${esc(h.title)}</h3>
-      <p class="church-history-desc">${esc((h.description||'').slice(0,120))}${(h.description||'').length>120?'…':''}</p>
-    </div>`;
-}
-function renderChurchHistoryDetail(){
-  const h = churchHistoryToday();
-  if(!h) return renderHome();
-  return `
-    <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    <div class="word-eyebrow" style="margin-bottom:10px;"><i class="ti ti-building-church"></i> This Day in Church History</div>
-    <div class="topbar"><h1>${esc(h.title)}</h1></div>
-    ${h.year ? `<div class="church-history-year" style="margin-bottom:16px;">${esc(String(h.year))} AD ${h.category ? '&middot; ' + esc(h.category) : ''}</div>` : ''}
-    <div class="card">
-      <p style="color:var(--text-primary);line-height:1.55;">${esc(h.description)}</p>
-      ${h.takeaway ? `<div class="church-history-takeaway"><i class="ti ti-bulb"></i> ${esc(h.takeaway)}</div>` : ''}
-    </div>
-  `;
-}
 /* Biblical Fact of the Day — data/daily_facts.json (item 116), same
    date-seeding shape as Word of the Day. Tapping the card opens a
-   bottom-sheet drawer — this app's first: every other Home detail (This
-   Day in Church History, Unreached of the Day) deliberately used a full
-   screen instead, since the app otherwise has zero modal/overlay
-   components (see item 90's own note on why). A single fact is lighter,
+   bottom-sheet drawer — this app's first: Unreached of the Day used a
+   full screen instead, since the app otherwise has zero modal/overlay
+   components (see item 90's own note on why — the same note that
+   originally justified This Day in Church History's own full-screen
+   detail page; that whole card was retired 2026-09-17, owner's direct
+   request, item 117). A single fact is lighter,
    secondary content than either of those, and a quick peek-then-dismiss
    suits it better than a full navigation — worth the new pattern rather
    than defaulting to the existing full-screen precedent this time.
@@ -4082,7 +4075,6 @@ function onAction(e){
   if(action==='go-home') go('home');
   else if(action==='go-practice') go('practice');
   else if(action==='open-unreached') go('unreachedDetail');
-  else if(action==='open-church-history') go('churchHistoryDetail');
   else if(action==='open-fact-drawer'){ factDrawerOpen = id; render(); }
   else if(action==='close-fact-drawer'){ factDrawerOpen = null; render(); }
   else if(action==='fact-link-character'){ factDrawerOpen = null; go('familyTree', {id}); }
@@ -4368,7 +4360,6 @@ async function migrateLegacy(seedContent){
   connections = await loadConnections();
   motifs = await loadMotifs();
   wordsOfTheDay = await loadWordOfTheDayData();
-  churchHistoryData = await loadChurchHistoryData();
   dailyFacts = await loadDailyFactsData();
   characterPortraits = await loadCharacterPortraits();
   render();

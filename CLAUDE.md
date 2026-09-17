@@ -56,25 +56,28 @@ The schema was deliberately designed so all of the above can be added
 - `index.html` — the entire frontend (vanilla JS, no framework, no build
   step). **4-Pillar bottom nav as of 2026-09-16 (item 109, owner-
   specified architecture)**: **Home** (editorial front door as of
-  2026-09-14 — a greeting + streak header, Verse of the Day, Unreached
-  of the Day, and Story of the Day, plus one practice link when verses
-  are due; no progress dashboard, no practice session UI — see items 78
-  and 82), **Practice** (due-today stats, the daily-goal ring, the
-  challenge-type picker, the full verse library, and the four challenge
-  types themselves: fill-in-blank, scramble, self-graded progressive
-  reveal, self-graded verse ladder — this is everything that used to
-  live on Home before item 78; also now the entry point for Add Verse/
-  Add Character, via a small `+` next to "Your verses"), **Discover**
-  (new hub tab — Read the Bible/Browse, Verse detail, Topics, Topic
-  detail, People grouped by era, Character detail (life timeline,
-  family, stories, pattern badges), Stories list, Story detail (related
-  stories, pattern badges) — all pre-existing screens, just regrouped
-  under one front door), and **Study** (redefined as the "deep
-  theological suite" pillar — Patterns list and Pattern detail are its
-  only real content today; timelines/family relationships already exist
-  but live inline on Character Detail, not as standalone Study views;
-  interactive connection node graphs, an interlinear/Strong's view, and
-  commentaries are none of them built yet — see Known Gaps). And
+  2026-09-14, reordered 2026-09-17 per item 117 — a greeting + streak
+  header, then in order: Verse of the Day, Unreached of the Day, the
+  Biblical Fact of the Day (item 116), Story of the Day, Word of the Day,
+  and one practice link when verses are due; "This Day in Church
+  History" was retired and deleted the same day as the reorder — see
+  item 117; no progress dashboard, no practice session UI — see items
+  78 and 82), **Practice** (due-today stats, the daily-goal ring, the
+  challenge-type picker, the full verse library, and three challenge
+  types — Tap Builder, First-Letter Sprint, and Progressive Vanish
+  (items 113/114/115) — the original four (fill-in-blank, scramble,
+  progressive reveal, verse ladder) were fully retired 2026-09-17, item
+  114; also the entry point for Add Verse/Add Character, via a small
+  `+` next to "Your verses"), **Discover** (hub tab — Read the
+  Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
+  era, Character detail (life timeline, family, stories, pattern
+  badges), Stories list, Story detail (related stories, pattern badges)
+  — all pre-existing screens, just regrouped under one front door), and
+  **Study** (the "deep theological suite" pillar — a 3-card hub of
+  Patterns, Timeline, and Family Tree, items 109-112; Timeline walks
+  the whole Bible in canonical order, Family Tree is a real SVG node-
+  graph built from the `Connection` entity; an interlinear/Strong's view
+  and commentaries are still unbuilt — see Known Gaps). And
   **Settings** (gear icon, top-right of Home) — the account bar for
   optional cloud sync and the "Your data" export/import card live here,
   not on Home. They started on Home (2026-09-08) and were moved the same
@@ -453,14 +456,16 @@ The schema was deliberately designed so all of the above can be added
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
-- `data/word_of_the_day.json`, `data/church_history.json`, and
-  `data/daily_facts.json` — three Home cards' seed content: 13 curated
-  Hebrew/Greek words (item 90), 13 dated church-history entries (item
-  90), and 10 verified Bible facts (item 116, 2026-09-17) respectively.
-  All loaded at boot. **Not** part of the Bible-content curation
-  pipeline below — hand-written editorial content, not Scripture text,
-  so there's no `pipeline/curation/` source or `build_*.py` step for
-  any of them; edit these files directly. Every fact in
+- `data/word_of_the_day.json` and `data/daily_facts.json` — two Home
+  cards' seed content: 13 curated Hebrew/Greek words (item 90) and 10
+  verified Bible facts (item 116, 2026-09-17) respectively. (A third
+  file, `data/church_history.json`, existed briefly for a "This Day in
+  Church History" card — retired and deleted the same day the facts
+  card shipped, item 117.) Both loaded at boot. **Not** part of the
+  Bible-content curation pipeline below — hand-written editorial
+  content, not Scripture text, so there's no `pipeline/curation/`
+  source or `build_*.py` step for either; edit these files directly.
+  Every fact in
   `daily_facts.json` was checked against this app's own real WEB verse
   text (and, where relevant, already-curated Character/Connection/Motif
   data) before being marked `"verificationStatus": "Validated"` — that
@@ -659,6 +664,24 @@ references the family") — is now also used by `.verse-card .text` and
 `.practice-verse`, on the owner's explicit instruction this time,
 covering Home/Verse Detail/Practice as asked. Full writeup: DATA_MODEL.md
 §8, item 85.
+
+**Visual system v5 — bold white accent, done (2026-09-17).** Direct
+owner request: didn't like the amber/gold accent, wanted something like
+"bold white" instead. `--gold`/`--gold-deep`/`--gold-wash`/
+`--gold-shadow` (and `--text-accent`, now a true alias of `--gold-deep`
+rather than a separately-hardcoded near-duplicate hex) changed value —
+token *names* were kept, so every one of the ~65 places that already
+referenced them picked up the new look automatically, same "swap the
+tokens" approach the original v3 gold pass used against v2. The one
+color that was specifically tuned to pair with the old amber (`.btn.
+primary`'s dark button text) was updated to match, rather than left
+looking muddy against white. Per-topic color theming (items 62-64) is
+unaffected — it already reassigns these same properties per topic at
+render time. Same request also brightened Verse of the Day's background
+photo (its dark overlay gradient was meaningfully lightened) and moved
+its text off the italic Fraunces serif onto the app's own Inter sans —
+the very last place in the app still using that serif at all. Full
+writeup: DATA_MODEL.md §8, item 117.
 
 ## Known gaps / not-yet-built (in likely priority order)
 

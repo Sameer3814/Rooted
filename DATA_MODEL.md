@@ -5468,6 +5468,85 @@ inventing a new principle:
     the precache list alongside the other two Home-editorial data
     files).
 
+117. **Visual system v5 (bold white accent), VOTD brightening, Church
+    History retired, Home reordered, icons bigger/bolder everywhere —
+    done (2026-09-17), one combined owner request.**
+    - **v5 accent — the amber/gold accent (`--gold`/`--gold-deep`/
+      `--gold-wash`/`--gold-shadow`) is now "bold white"** (`#F2F2F2`/
+      `#FFFFFF`/`rgba(255,255,255,.14)`/`rgba(255,255,255,.25)`),
+      superseding v3's gold pick (see "Visual direction"). Token
+      *names* were deliberately kept — renaming them would have touched
+      all ~65 usages across the file for zero visual benefit — only the
+      root values changed, so every component that already read
+      `var(--gold)` etc. picked up the new look for free, the same
+      "swap the tokens, not the markup" approach v3's own gold pass
+      used against v2. Kept the original two-tier base/deep relationship
+      (not collapsed to one identical white) so places that lean on that
+      contrast (goal ring fill vs. a verse reference's text) keep some
+      depth. `--text-accent` — previously a separately-hardcoded, very
+      slightly different hex (`#D49E35`) than `--gold-deep`, a known
+      minor inconsistency — is now a true `var(--gold-deep)` alias,
+      cleaned up while already touching this token. The one hardcoded
+      color that was specifically tuned to pair with the old amber,
+      `.btn.primary`'s dark text (`#241900`), became `#141210` — the
+      same near-black already used by the three bronze Practice-exercise
+      buttons, rather than a color that would've read muddy against
+      white. The per-topic color-override mechanism
+      (`topicAccentVars()`, items 62-64) needed no changes — it already
+      reassigns these same custom properties to a per-topic hue at
+      render time, independent of whatever the default value is.
+    - **Verse of the Day brightened + re-fonted.** The dark gradient
+      overlay over the background photo (`.votd-hero::before`) went from
+      `rgba(20,15,12,.2 → .85)` to `.05 → .65` — meaningfully lighter,
+      still dark enough at the bottom for the white text to stay
+      legible (its own text-shadow was strengthened, `.35` → `.5` alpha,
+      to compensate). `.votd-text` switched from the italic Fraunces
+      serif to the app's own Inter sans (`--font-sans`) — this was the
+      very last place in the whole app still using that serif at all
+      (item 85 had already scoped it down to just this card plus
+      `.practice-verse`, which is untouched here — the request named
+      VOTD specifically, not Practice).
+    - **"This Day in Church History" retired entirely** (owner: "get rid
+      of ... altogether") — the Home card, its full-screen detail route
+      (`churchHistoryDetail`), every render/data function
+      (`churchHistoryToday()`, `renderChurchHistoryCard()`,
+      `renderChurchHistoryDetail()`, `loadChurchHistoryData()`), its
+      state (`churchHistoryData`), its `open-church-history` action, and
+      all of its CSS (`.church-history-*`) were deleted, not just hidden
+      — same full-removal discipline as the four retired ChallengeTypes
+      (item 114). `data/church_history.json` was deleted outright and
+      dropped from `sw.js`'s precache list, rather than left as orphaned
+      dead data the way a hidden-but-not-deleted feature would.
+    - **Home reordered**: Verse of the Day → Unreached of the Day →
+      Fact of the Day → Story of the Day → Word of the Day → Practice
+      Nudge. The first four match the owner's explicit new sequence;
+      Word of the Day wasn't named in that request, so rather than
+      dropping it or guessing it into one of the four named slots, it
+      moved to the end — kept, not silently removed, with the
+      placement flagged as a judgment call in case it's wrong.
+    - **Icons bigger and bolder app-wide, including every back arrow.**
+      One global rule on Tabler's own shared `.ti` class (`i.ti{font-
+      size:1.15em;}` + `.ti{-webkit-text-stroke:.4px currentColor;}`)
+      rather than hunting down each of the dozens of individual icon
+      call sites — an em-based multiplier scales every icon relative to
+      whatever size context it already inherits, and text-stroke adds
+      real visual weight since the Tabler webfont ships only one
+      (outline) glyph weight, no separate "bold" set to switch to. This
+      covers `.back-btn`'s own arrow directly, since it never had its
+      own explicit icon-size rule to override the new global one. Six
+      places DID have their own more-specific `<selector> i{font-size:
+      Npx}` rule (which wins over the new low-specificity class rule
+      under normal CSS cascade behavior) — `.brand`, `.empty`,
+      `.streak-badge`, `.fact-verified-badge`, `.practice-nudge`,
+      `.navitem` — each bumped individually by a proportional amount so
+      none of them were left behind by the global rule. A few remaining
+      small (12-13px) inline-styled icons scattered through render
+      functions (e.g. a topic tag's inline icon) were left as-is — genuinely
+      minor/decorative, inline styles win over any class rule regardless,
+      and chasing every one of them down would be poor effort-to-benefit
+      for something this secondary.
+    `sw.js` bumped to `rooted-v113`.
+
 ---
 
 ## 9. How the app reads this data
