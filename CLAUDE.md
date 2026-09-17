@@ -781,6 +781,42 @@ challenge type's own long-established bronze in-session palette (items
 were deliberately left alone — neither was shown or named in this
 request. Full writeup: DATA_MODEL.md §8, item 122.
 
+**Black and white only, app-wide — done (2026-09-17), same day as
+items 121-122. Standing design direction going forward, not a one-off
+pass — read this before adding any new color anywhere in the app.**
+Owner's own words: "get rid of any other color theme in the entire app
+and just stick with black and white for every element unless I
+specifically tell you. This is a recent choice I made." Also asked the
+floating nav specifically be turned up to "as transparent as possible"
+— background alpha `.82`→`.3`, blur `16px`→`24px`.
+
+Converted to grayscale: `--sage`/`--tan` (were green/blue-gray, the
+"progress" and "metadata" roles of §29's three-role accent system — same
+token names, same roles, just no longer color-coded, so every existing
+reader picked it up for free), the Home streak badge (was an orange/red
+flame gradient, now a solid white chip), the Fact of the Day's "Verified
+Source" badge (was emerald — a decorative trust badge, not a game
+state), every remaining literal bronze hex in the file (the Practice
+progress bar/mode-tile grid, all five challenge types' own long-standing
+in-session bronze palettes, and the Family Tree's bronze accents — items
+110-121), and — the biggest single reversal in this pass — the colorful
+per-topic grid from items 62-64, `TOPIC_PALETTE`'s 12 hues now 12 dark
+grays (kept dark enough for `.topic-card`'s hardcoded white text to stay
+legible). `topicAccentVars()` (the per-topic page-theming mechanism those
+items also built) is now a no-op — re-theming a page to a grayscale
+"accent" would either be indistinguishable from the app's default white
+or a low-contrast dark wash, so Topic Detail pages now just use the
+shared default tokens like everywhere else.
+
+**Deliberately left alone — read as functional state, not decorative
+theme, and this app's own genuine correct/wrong or error signal, not a
+brand color choice**: `--danger`/`--danger-wash` (real form/validation
+error text) and the hardcoded `#10B981`/`#EF4444` correct/wrong pairs
+used across all five challenge types' own check states. If the owner
+ever wants those gone too, that's a separate, explicit ask — "unless I
+specifically tell you" is the standing rule for anything not covered
+here. Full writeup: DATA_MODEL.md §8, item 123.
+
 ## Known gaps / not-yet-built (in likely priority order)
 
 The full schema for all of the below (including the not-yet-built

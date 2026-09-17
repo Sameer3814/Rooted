@@ -5839,6 +5839,92 @@ inventing a new principle:
       that this request never named or showed.
     `sw.js` bumped to `rooted-v118`.
 
+123. **Black-and-white only, app-wide — done (2026-09-17), same day as
+    items 121-122.** Direct owner request: "get rid of any other color
+    theme in the entire app and just stick with black and white for
+    every element unless I specifically tell you. This is a recent
+    choice I made." Also asked the nav specifically be "as transparent
+    as possible" — "like glass."
+    - **`.navbar` glass, turned up further**: background alpha dropped
+      from item 122's `.82` to `.3`, blur raised `16px`→`24px` (the blur
+      is what keeps icons/labels legible over scrolling content even
+      with that little tint left — relying on the tint alone at this
+      alpha wouldn't hold contrast).
+    - **The real scope decision of this pass: "theme" vs. "functional
+      state."** Everything decorative/brand-identity converted to
+      grayscale; genuine pass/fail or error signals were deliberately
+      left alone, since removing those would hurt usability, not just
+      "theme" — a green/red correct/wrong distinction is closer to a
+      universal UI convention than a brand color choice. Converted:
+      - `--sage`/`--sage-deep`/`--sage-wash` (was green, "mastery/
+        progress" per §29's three-role accent system) and
+        `--tan-deep`/`--tan-wash` (was a blue-gray, "plain metadata") →
+        grayscale, same token names/roles (still three distinct
+        semantic roles, just no longer color-coded) so every existing
+        reader (the 4-segment mastery bar, `.tag--sage`/`.tag--tan`,
+        avatars, role tags) picked it up for free — zero markup changes
+        needed, exactly what design philosophy #1/#2's token system was
+        built for.
+      - The Home streak badge's orange/red flame gradient → a solid
+        white chip (`var(--gold-deep)`) with dark text, matching this
+        app's existing "bold white pill" vocabulary rather than
+        inventing a new gray shade for it.
+      - The Biblical Fact of the Day's "Verified Source" badge, whose
+        emerald was itself always a decorative trust-badge color (item
+        116), not a game state → white. Left the visually-identical
+        `#10B981` used elsewhere in the file (a challenge type's
+        "correct answer" feedback) untouched — same hex, different
+        category, only one of the two is this pass's target.
+      - **Every remaining literal `#C69255`/`rgba(198,146,85,…)`/
+        `#E5B475` bronze occurrence in the file** — the Practice-hero
+        progress bar and mode-tile grid (items 120-121, already reverted
+        off bronze on the *nav/CTA/tiles* specifically in item 122, but
+        the progress bar's own bronze had been deliberately left alone
+        then since it wasn't shown or named in that request — this
+        request's "entire app... every element" is unambiguous enough
+        to now include it too), all five challenge types' own
+        long-standing dark-obsidian/bronze in-session palettes (items
+        113-119 — Tap Builder, First-Letter Sprint, Progressive Vanish,
+        Clause Connect, Reference Match), and the Family Tree's bronze
+        connector/avatar-border accent (items 110-112) — all converted
+        to `#F5F2ED` (an off-white already used throughout these same
+        palettes for body/label text, so it reads as native to each
+        component rather than a jarring pure-white patch) with matching
+        rgba conversions (`198,146,85`→`245,242,237`, same alpha kept)
+        and `#FFFFFF` for the progress bar's second gradient stop.
+      - **The colorful per-topic grid (items 62-64) → grayscale.** The
+        biggest single design reversal in this pass — a whole screen's
+        defining visual identity, not a small accent tweak — but the
+        request's own wording ("entire app," "every element") leaves no
+        real room to read it as excluded. `TOPIC_PALETTE`'s 12 hues
+        became 12 dark grays, kept in a narrow dark-to-medium range
+        (never lighter than `#4A4A4A`) rather than spanning light-to-
+        dark, since `.topic-card` hardcodes white text/icon over
+        whatever color this returns — a lighter gray swatch would have
+        made that text illegible, a real bug the original saturated
+        palette never had to worry about. `topicColor()`'s existing
+        hash-based assignment is unchanged, so topics are still
+        visually distinguishable from each other, just by lightness
+        now instead of hue.
+      - **`topicAccentVars()` made a no-op.** This function used to
+        re-theme a whole Topic Detail page (verse refs, the practice
+        button, related-topic tags) to that topic's own hue by deriving
+        a lightened tint + low-alpha wash from its `TOPIC_PALETTE`
+        color. With that palette now grayscale, doing the same math
+        would either land indistinguishably close to the app's own
+        default white accent or, worse, produce a low-contrast dark
+        wash on an already-dark page — so every Topic Detail page now
+        just uses the shared default tokens like every other screen.
+        `hexToRgb()` had no other caller and was deleted along with the
+        function's old body rather than left as dead code.
+    - **Deliberately left alone**: `--danger`/`--danger-wash` (real form/
+      validation error text — `.err`, import/sync failure messages) and
+      the hardcoded `#10B981`/`#EF4444` correct/wrong feedback pairs
+      used across all five challenge types' own check states — both are
+      functional pass/fail or error signals, not decorative theme, per
+      this item's own scope reasoning above.
+    `sw.js` bumped to `rooted-v119`.
+
 ---
 
 ## 9. How the app reads this data
