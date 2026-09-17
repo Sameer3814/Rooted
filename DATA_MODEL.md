@@ -6241,6 +6241,35 @@ inventing a new principle:
       ~308 without real generated art yet (unchanged from item 128).
     `sw.js` bumped to `rooted-v126`.
 
+131. **Swapped in a better `--test` generation for `story_burning_bush`;
+    third story-art batch (10 more stories) — done (2026-09-17), same
+    day as item 130.** After the hero-banner crop fix (item 130) made
+    the art itself properly visible again, the owner compared the
+    committed `story_burning_bush.jpg` against its own `--test` preview
+    from item 127's batch and preferred the test one. Since `--test`
+    and `--batch` are independent generations from the same prompt
+    (item 125's own noted limitation), the two aren't guaranteed to
+    match — resolved by resizing the already-generated, already-
+    reviewed test file (`pipeline/.artscratch/story_burning_bush_test.
+    jpg`, still on disk, gitignored) to this pipeline's own 960px-wide/
+    JPEG-quality-82 convention and committing it directly in place of
+    `--batch`'s own version, rather than re-calling the API for a
+    result that's already been generated and approved once.
+    - **10 more stories curated and generated**, again spanning both
+      Testaments and cross-checked against each story's own curated
+      summary first: `story_cain_and_abel`, `story_binding_of_isaac`,
+      `story_jacob_wrestles`, `story_solomons_judgment`,
+      `story_elijah_on_carmel`, `story_samson_and_delilah`,
+      `story_transfiguration`, `story_gethsemane`, `story_pentecost`,
+      `story_pauls_conversion`. Each multi-beat story (e.g. Samson and
+      Delilah, which the story's own summary spans betrayal through the
+      final temple collapse) picked its single most visually dramatic
+      moment to illustrate, same approach as earlier batches' Jonah and
+      Elijah-taken-up entries. `--test` reviewed for all 10 before
+      `--batch` committed them for real. `data/story_illustrations.json`
+      now has 26 ids.
+    `sw.js` bumped to `rooted-v127`.
+
 ---
 
 ## 9. How the app reads this data

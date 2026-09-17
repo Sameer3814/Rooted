@@ -280,6 +280,21 @@ The schema was deliberately designed so all of the above can be added
   only its top corners rounded. Still rendered for every story via
   `placeholderArt()` for the stories without real generated art yet.
   See DATA_MODEL.md §8, item 130.
+- **Swapped in a better `--test` generation for `story_burning_bush`;
+  third story-art batch (10 more stories) — done (2026-09-17), same
+  day.** The owner compared the committed `story_burning_bush.jpg`
+  against its own `--test` preview and preferred the test one —
+  `--test`/`--batch` are independent generations from the same prompt,
+  so they aren't guaranteed to match. Resolved by resizing the already-
+  generated, already-reviewed test file to this pipeline's own
+  960px-wide convention and committing it directly, rather than
+  re-calling the API for a result already generated once. Also curated
+  and generated 10 more stories (Cain and Abel, the binding of Isaac,
+  Jacob wrestling, Solomon's judgment, Elijah on Carmel, Samson and
+  Delilah, the Transfiguration, Gethsemane, Pentecost, Saul's
+  conversion) — same discipline as every batch so far, `--test`
+  reviewed before `--batch`. `data/story_illustrations.json` now has 26
+  ids. See DATA_MODEL.md §8, item 131.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
