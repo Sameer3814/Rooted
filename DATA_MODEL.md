@@ -6270,6 +6270,77 @@ inventing a new principle:
       now has 26 ids.
     `sw.js` bumped to `rooted-v127`.
 
+132. **Story-art pipeline workflow change (skip `--test`); fixed a real
+    story-ordering bug; fourth batch, 25 stories in true canonical order
+    — done (2026-09-17), same day as item 131.** The owner asked how
+    generation actually works, learned `--test`/`--batch` are two
+    independent generations from the same prompt (not a preview-then-
+    commit of the *same* image — see item 125's own note), and pointed
+    out this is exactly why some `--test` images looked better than
+    what got committed (confirmed directly in item 131's burning-bush
+    swap). Direct instruction going forward: **skip `--test` entirely,
+    generate straight to `--batch`.** Trade-off, stated plainly rather
+    than left implicit: this halves the API cost per story (one
+    generation instead of two) at the cost of no pre-commit checkpoint
+    — a real, occasionally-bad generation now lands directly in
+    `data/story_illustrations.json` rather than being caught by a
+    review step first. Every image is still reviewed *after* generating
+    (free, since the file already exists) so an obviously broken result
+    can still be caught and redone, just not pre-empted.
+    - **Also asked for batches "in the order of stories," size 20-25** —
+      surfaced a real bug in `allStoriesOrdered()`/`adjacentStory()`
+      (item 128, the Story Detail carousel): `Story.canonicalOrder` is
+      only meaningful *within* one era (its raw values, e.g.
+      `era_jesus_ministry`'s own 95, 105, 106..., are unrelated to
+      `era_creation`'s own 110, 120...) — Era has its own separate
+      `order` field (1-16) for ordering eras themselves, exactly the
+      way `renderTimeline()` already combines the two correctly. The
+      original carousel implementation sorted every story by raw
+      `canonicalOrder` globally, which happened to interleave stories
+      across eras whenever their per-era numbers crossed (e.g. several
+      `era_jesus_ministry` stories numerically ahead of
+      `era_creation`'s own `story_eden`) — never caught until this
+      exact request needed a genuine Bible-wide ordering to select a
+      batch from. Fixed by sorting on era's own `order` first, falling
+      back to `canonicalOrder` only to break ties within the same era;
+      this also corrects the Story Detail prev/next arrows themselves,
+      not just batch selection.
+    - **25 more stories curated and generated, in true canonical order
+      starting from the earliest not yet illustrated** (not hand-picked
+      highlights this time): `story_eden`, `story_noahs_drunkenness_
+      and_canaans_curse`, `story_call_of_abram`, `story_abram_and_lot_
+      part`, `story_melchizedek_blesses_abram`, `story_covenant_of_the_
+      pieces`, `story_hagar_and_ishmael`, `story_covenant_of_
+      circumcision`, `story_three_visitors`, `story_pleading_for_
+      sodom`, `story_abimelech_takes_sarah`, `story_birth_of_isaac`,
+      `story_hagar_sent_away`, `story_death_of_sarah`, `story_rebekah_
+      at_the_well`, `story_jacob_and_esau_born`, `story_abimelech_and_
+      isaac`, `story_birthright_for_stew`, `story_stolen_blessing`,
+      `story_jacobs_ladder`, `story_jacob_rachel_leah`, `story_
+      brothers_reconcile`, `story_dinah_and_shechem`, `story_reuben_
+      and_bilhah`, `story_josephs_dreams` — this walks Genesis 2
+      through 37 essentially continuously, the first batch to actually
+      cover a contiguous run of the Bible rather than scattered
+      highlights.
+    - **Two scenes needed a deliberate, tasteful staging choice, same
+      reasoning as `story_the_fall`'s own modesty call (item 127)**:
+      `story_eden` (Adam alone, newly formed, before the fall — posed/
+      framed to avoid explicit nudity) and `story_noahs_drunkenness_
+      and_canaans_curse` (staged as Shem and Japheth covering their
+      father *without looking*, the text's own most modest possible
+      moment, rather than depicting Noah's actual described nakedness).
+    - **Two scenes involving real interpersonal harm were staged around
+      the harm rather than depicting it directly**: `story_dinah_and_
+      shechem` shows the tense negotiation at the city gate, not the
+      assault the story's own summary describes; `story_reuben_and_
+      bilhah` shows Jacob's deathbed pronouncement (Genesis 49:3-4,
+      already part of this story's own curated scope) rather than the
+      transgression itself — both are real, textually-grounded moments
+      from each story's own account, not softened substitutes invented
+      for the image.
+    `data/story_illustrations.json` now has 51 ids.
+    `sw.js` bumped to `rooted-v128`.
+
 ---
 
 ## 9. How the app reads this data

@@ -4807,14 +4807,26 @@ function adjacentCharacter(id, dir){
   return list[i+dir] || null;
 }
 /* Story Detail's own prev/next carousel (item 128) — same visible-arrow
-   pattern as the character one above, but ordered by canonicalOrder
-   (every story already has one — see build_stories.py's own
-   validation) rather than by era-then-insertion-order, since that's
-   the actual "walk the whole Bible in sequence" ordering Timeline
-   already uses (renderTimeline()), and reads more usefully here than
-   an arbitrary era-grouped order would. */
+   pattern as the character one above, ordered to walk the whole Bible
+   in sequence, the same idea Timeline (renderTimeline()) already uses.
+   Real bug fixed here (2026-09-17, item 132): canonicalOrder is only
+   meaningful *within* one era (its own values — e.g. era_jesus_ministry
+   running 95, 105, 106... — are unrelated to era_creation's own 110,
+   120...), not a single number comparable across the whole Bible, the
+   same way Era itself has its own separate `order` field (1-16) for
+   that. The original version here sorted every story by raw
+   canonicalOrder globally, which happened to interleave, say, Gospel
+   healing stories ahead of Genesis creation stories whenever their
+   per-era numbers crossed — never caught earlier since it was never
+   directly compared against Timeline's own (correct) era-then-
+   canonicalOrder logic until this exact request needed a real
+   Bible-wide ordering to pick the next batch of stories from. */
 function allStoriesOrdered(){
-  return [...lore.stories].sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
+  const eraRank = new Map(lore.eras.map(e=>[e.id, e.order]));
+  return [...lore.stories].sort((a,b)=>{
+    const eraDiff = (eraRank.get(a.eraId)||0) - (eraRank.get(b.eraId)||0);
+    return eraDiff !== 0 ? eraDiff : (a.canonicalOrder||0)-(b.canonicalOrder||0);
+  });
 }
 function adjacentStory(id, dir){
   const list = allStoriesOrdered();

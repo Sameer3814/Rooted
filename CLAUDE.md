@@ -295,6 +295,34 @@ The schema was deliberately designed so all of the above can be added
   conversion) — same discipline as every batch so far, `--test`
   reviewed before `--batch`. `data/story_illustrations.json` now has 26
   ids. See DATA_MODEL.md §8, item 131.
+- **Story-art workflow change (skip `--test`); fixed a real story-
+  ordering bug; fourth batch, 25 stories in true canonical order —
+  done (2026-09-17), same day.** The owner asked how generation
+  actually works, learned `--test`/`--batch` are independent
+  generations from the same prompt (not preview-then-commit of the
+  *same* image), and asked to skip `--test` going forward — halves the
+  API cost per story, at the cost of no pre-commit review checkpoint
+  (each image is still reviewed after generating, since that's free,
+  just not pre-empted). Also asked for batches "in the order of
+  stories," 20-25 at a time — surfaced a real bug in
+  `allStoriesOrdered()`/`adjacentStory()` (item 128's Story Detail
+  carousel): `canonicalOrder` is only meaningful *within* one era, not
+  comparable globally (Era has its own separate `order` field, 1-16,
+  for that) — the original implementation sorted every story by raw
+  `canonicalOrder` across the whole Bible, interleaving eras whenever
+  their per-era numbers crossed. Fixed by sorting on era order first,
+  `canonicalOrder` only breaking ties within the same era — corrects
+  the prev/next arrows themselves, not just batch selection. Then
+  curated and generated the next 25 stories in true canonical order
+  from the earliest not yet illustrated (Genesis 2 through 37,
+  essentially continuous, not scattered highlights this time) — two
+  needed the same tasteful staging call as `story_the_fall` (Eden's
+  nudity, Noah's drunkenness staged as his sons covering him without
+  looking), and two involving real interpersonal harm (Dinah and
+  Shechem, Reuben and Bilhah) were staged around the harm using a
+  different real textually-grounded moment from the same story, rather
+  than depicting it directly. `data/story_illustrations.json` now has
+  51 ids. See DATA_MODEL.md §8, item 132.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
