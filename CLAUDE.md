@@ -217,6 +217,23 @@ The schema was deliberately designed so all of the above can be added
   `char_penitent_thief`. Re-ran `--test`, reviewed all 6 (crucifixion
   now correct), then `--batch` to regenerate and overwrite the
   committed files. See DATA_MODEL.md §8, item 126.
+- **Second story-art batch + bigger discovery thumbnails — done
+  (2026-09-17), same day.** 10 more stories curated and generated
+  (Adam and Eve, the Tower of Babel, crossing the Red Sea, the burning
+  bush, the covenant at Sinai, Jonah and the fish, Elijah taken up,
+  Jesus walking on water, the nativity, the empty tomb) — same
+  discipline as items 125-126, every scene description cross-checked
+  against that story's own curated summary/characters first (e.g. Adam
+  and Eve are explicitly "modestly concealed by garden foliage... not
+  shown nude," a deliberate call given this app's family audience).
+  `--test` reviewed before `--batch`, same as every batch so far.
+  `data/story_illustrations.json` now has 16 ids; no app-code changes
+  needed since item 125's manifest-driven wiring already picks up any
+  id present generically. Also: `.discovery-thumb-box`/`.discovery-
+  thumb` (shared by Home's Story of the Day and Unreached of the Day
+  cards) bumped 88x68 -> 104x80, owner's own framing being "that will
+  capture the user's attention" — both cards grew together since they
+  share the class. See DATA_MODEL.md §8, item 127.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

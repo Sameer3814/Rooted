@@ -6097,6 +6097,39 @@ inventing a new principle:
       crosses, two other figures clearly present).
     `sw.js` bumped to `rooted-v122`.
 
+127. **Second story-art batch (10 more stories) + bigger discovery
+    thumbnails — done (2026-09-17), same day as items 125-126.** Owner:
+    "let's move on with the next batch also make the picture a little
+    bigger in the app."
+    - **10 new stories curated and generated**, spanning both
+      Testaments and chosen for visual/narrative range not yet covered:
+      `story_the_fall`, `story_tower_of_babel`,
+      `story_crossing_the_red_sea`, `story_burning_bush`,
+      `story_covenant_at_sinai`, `story_jonah_flees_and_the_fish`,
+      `story_elijah_taken_up`, `story_jesus_walks_on_water`,
+      `story_jesus_is_born`, `story_the_empty_tomb`. Same discipline as
+      items 125-126: every scene description in
+      `pipeline/curation/story_art_settings.json` was written against
+      that story's own curated `summary`/`characterIds` in
+      `data/stories.json` first (e.g. `story_the_fall` explicitly calls
+      for Adam and Eve "modestly concealed by garden foliage... not
+      shown nude" — a deliberate, tasteful call given the app's family
+      audience, not left to the model's own judgment; `story_tower_of_
+      babel` deliberately has no named foreground figure, since the
+      text itself names none). Ran `--test` on all 10 first, reviewed
+      every image before spending anything further, then `--batch` to
+      commit for real. `data/story_illustrations.json` now has 16 ids.
+      No further app-code changes were needed to display these — the
+      manifest-driven wiring added in item 125 already picks up any id
+      present in the file generically.
+    - **Discovery-card thumbnails made bigger** (`.discovery-thumb-box`/
+      `.discovery-thumb`, 88×68 → 104×80) — owner's own framing: "that
+      will capture the user's attention." This class is shared by both
+      Home's Story of the Day *and* Unreached of the Day cards (item
+      82's "shared compact row card" design), so both grew together
+      rather than leaving the two rows visually mismatched.
+    `sw.js` bumped to `rooted-v123`.
+
 ---
 
 ## 9. How the app reads this data
