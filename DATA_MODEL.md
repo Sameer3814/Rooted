@@ -5925,6 +5925,59 @@ inventing a new principle:
       this item's own scope reasoning above.
     `sw.js` bumped to `rooted-v119`.
 
+124. **Nav bar: precise glassmorphism capsule re-spec, full-tab active
+    highlight — done (2026-09-17), same day as items 121-123.** A
+    fourth pass at this same component in one day, each with its own
+    exact spec from the owner (a screenshot in item 122, a detailed CSS
+    block here) — the requests kept sharpening the same idea rather
+    than contradicting each other, so this is a refinement, not another
+    reversal.
+    - **Structural change: the active state now highlights the whole
+      tab, not a small icon-only chip.** Every earlier pass (v2 through
+      item 123) used `.dot` — a 30x30 rounded square behind just the
+      icon — as the active-state background. This request's own "Active
+      Item" block styles the tab button itself
+      (`background:rgba(255,255,255,.14)`, full `height:100%`,
+      `border-radius:100px`), covering icon *and* label together as one
+      frosted pill, matching the request's reference framing more
+      literally than the previous chip-only treatment did. `.dot` is
+      kept in the markup (removing it would mean rewriting the nav's
+      HTML for no functional gain) but now carries zero styling of its
+      own beyond flex-centering — it never has its own background here.
+    - **Container**: switched from the previous pass's
+      `left/right:16px;margin:0 auto` centering to this spec's own
+      `left:50%;transform:translateX(-50%)` + fixed
+      `width:calc(100% - 32px);max-width:400px;height:68px` (a fixed
+      height, replacing every earlier pass's content-driven one).
+      `saturate(180%)` added alongside the blur (a genuine new visual
+      property, not in any earlier pass). `--shadow-nav` updated to this
+      spec's own value (`0 16px 40px rgba(0,0,0,.5)`, was `0 10px 30px`)
+      rather than left stale or duplicated as a literal — same
+      semantic-token reuse as item 122.
+      `env(safe-area-inset-bottom)` is layered into `bottom` (this spec
+      gives a single `bottom:24px`, not a padding shorthand, so the
+      safe-area addition moved from `padding` to `bottom` to keep
+      clearing a notched phone's home indicator) — a no-op on any
+      non-notched device.
+    - **`.floating-nav-container`/`.bottom-nav`/`.nav-item` named in the
+      request don't exist in this file** — applied to the real
+      `.navbar`/`.navitem` classes instead, same adaptation pattern as
+      every other spec naming a class this app doesn't have.
+    - **Icon color/size, not a technology swap.** The spec's own
+      "stroke: #A39B92; fill: none" phrasing describes SVG icon
+      properties; this app's nav icons are Tabler webfont glyphs (item
+      107's own decision, kept), which don't have literal stroke/fill —
+      `color` is this system's equivalent, applied at the spec's given
+      22px (was 21px). Not swapping the whole nav to inline SVG for
+      this — a much bigger, unasked-for change.
+    - **Content padding behind the nav — already satisfied, no new
+      class added**, same reasoning as items 120/121's identical asks
+      (`.practice-container`/`.main-content`, neither exists in this
+      app) — the existing global `body{padding-bottom:120px
+      !important;}` rule already covers every screen at exactly the
+      value this request also asks for.
+    `sw.js` bumped to `rooted-v120`.
+
 ---
 
 ## 9. How the app reads this data

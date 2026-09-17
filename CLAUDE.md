@@ -817,6 +817,18 @@ ever wants those gone too, that's a separate, explicit ask — "unless I
 specifically tell you" is the standing rule for anything not covered
 here. Full writeup: DATA_MODEL.md §8, item 123.
 
+**Nav bar: precise glassmorphism capsule re-spec, done (2026-09-17),
+same day as items 121-123 — a refinement of the same idea, not another
+reversal.** A real structural change this time: the active tab now
+highlights the *whole* button (icon + label together, full pill height,
+`rgba(255,255,255,.14)` background) rather than the small icon-only
+`.dot` chip every earlier pass used — `.dot` stays in the markup as a
+pure flex-centering wrapper, no longer carrying its own background.
+Container centering moved to `left:50%;transform:translateX(-50%)` with
+a fixed `width:calc(100% - 32px);max-width:400px;height:68px`, and
+`saturate(180%)` was added alongside the blur. Full writeup:
+DATA_MODEL.md §8, item 124.
+
 ## Known gaps / not-yet-built (in likely priority order)
 
 The full schema for all of the below (including the not-yet-built
