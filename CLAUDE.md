@@ -238,6 +238,22 @@ The schema was deliberately designed so all of the above can be added
   Peter/Andrew as brothers — all using characters that already existed,
   no new Character records added. `data/connections.json` is now 150
   edges (was 143). See DATA_MODEL.md §8, item 112.
+- **Tap Builder challenge type — done (2026-09-17).** A fifth
+  `ChallengeType`, `challenge_tap_builder` (word-tile bank: tap bank
+  tiles to fill blanks in a verse, tap a placed tile to return it to the
+  bank) — the owner's spec mapped almost exactly onto the existing
+  pluggable interface, needing only two small backward-compatible
+  additions to it: `canCheck(state)` (disables the generic Check button
+  until every blank is filled) and `autoAdvanceMs` (auto-advances to the
+  next verse ~600ms after a correct answer, still alongside the normal
+  Continue button as a fallback). Distractor words are drawn from
+  `data.verses` (always in memory) rather than the lazily-fetched full
+  corpus, so the exercise stays genuinely offline-first. Its own dark-
+  obsidian/bronze component palette is scoped to its own CSS classes
+  only, same reasoning as the Family Tree feature (item 111) — no
+  shared app tokens changed. Verified by simulating 30 real verses
+  played "perfectly" before shipping (all graded correct, no crashes),
+  not just read over. See DATA_MODEL.md §8, item 113.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -563,14 +579,16 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types. Four built (`CHALLENGE_TYPES` in `index.html`,
+1. More challenge types. Five built (`CHALLENGE_TYPES` in `index.html`,
    `DATA_MODEL.md` §3): fill-in-blank, scramble, self-graded
-   `challenge_first_letters`, and self-graded `challenge_verse_ladder`
+   `challenge_first_letters`, self-graded `challenge_verse_ladder`
    (progressive word-stripping across 5 stages, 2026-09-09 — a Tier 1
-   engagement feature), with a Home picker persisted to `rooted-settings`.
-   Next: reference↔text matching (`challenge_reference_match`, next Tier 1
-   item), then matching/ordering (`challenge_story_order`,
-   `challenge_character_match`).
+   engagement feature), and `challenge_tap_builder` (word-tile bank,
+   2026-09-17 — auto-graded, and the first type to auto-advance on a
+   correct answer), with a picker (moved to Practice's own hero card,
+   item 107) persisted to `rooted-settings`. Next: reference↔text
+   matching (`challenge_reference_match`, next Tier 1 item), then
+   matching/ordering (`challenge_story_order`, `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
    **Done — full coverage reached 2026-09-15**, after eleven batches
    generated over the course of that one day. All 267 characters in

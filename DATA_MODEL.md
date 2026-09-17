@@ -5100,6 +5100,70 @@ inventing a new principle:
       Jesus, Zacharias, Elizabeth, John the Baptist, Peter, and Andrew.)
     `sw.js` bumped to `rooted-v106`.
 
+113. **A fifth ChallengeType: Tap Builder (word-tile bank) — done
+    (2026-09-17).** The owner's own spec (state engine, UI layout,
+    check/feedback mechanics) mapped almost exactly onto the existing
+    pluggable `ChallengeType` interface (design philosophy #5) — this
+    added one new entry to `CHALLENGE_TYPES`, `challenge_tap_builder`,
+    with no changes needed to the shared session/scoring/mastery
+    machinery (`recordPractice()`, streaks, next-review scheduling all
+    already generic over any challenge type).
+    - **`build(verse, config)`** picks 4-6 eligible words (same
+      length-based eligibility filter as `challenge_fill_blank`) as
+      blanks, then calls `pickTapBuilderDistractors()` for 2-3 extra
+      words and shuffles everything into one `bank` array. Distractors
+      are drawn from `data.verses` (the user's own always-loaded
+      library) rather than the full corpus in `data/verses.json` —
+      that corpus is lazily fetched only once Browse has been opened
+      (`loadCorpus()`), so sourcing from it here would make the
+      exercise silently distractor-less (or need its own fetch) for
+      anyone who opens Practice without visiting Discover first; this
+      keeps the exercise genuinely offline-first as asked.
+    - **`interact(state, ds)`** handles both tile-bank taps (fill the
+      first empty slot) and placed-tile taps (clear that slot, return
+      the tile to the bank) — same `interact()` extension point
+      `challenge_scramble`'s pick/unpick chips already use, just with
+      "first empty slot" instead of "next position in sequence."
+    - **`canCheck(state)`** is a new, small, backward-compatible
+      addition to the `ChallengeType` interface (every existing type
+      defaults to always-checkable) — lets a type disable the generic
+      Check button until its own notion of "ready" is met (here: every
+      blank filled). `checkPractice()` now respects it, and
+      `renderPractice()` renders the button `disabled` when it's false.
+    - **`autoAdvanceMs`** is a second new optional interface property —
+      on a correct check, `checkPractice()` schedules a guarded
+      `setTimeout` (bails if the session moved on or ended before it
+      fires) that calls a newly-extracted `advancePractice()` — the same
+      function the existing "Continue" button now calls too, factored
+      out of what used to be inline logic in the `next-practice` action
+      handler. Tap Builder is the only type using this so far; the
+      "Continue"/"Finish" button still always shows too, so nothing
+      breaks if the timer is ever skipped (reduced-motion, a slow
+      device, whatever) — auto-advance is a convenience layered on the
+      existing flow, not a replacement for it.
+    - **A distinct dark-obsidian/bronze component palette**, scoped only
+      to Tap Builder's own new CSS classes (`.target-sentence-box`,
+      `.tap-slot`, `.tap-tile`, `.tap-builder-check`), same reasoning as
+      the Family Tree feature's own palette (item 111) — hex-exact
+      values given for one specific component's own look, not a request
+      to touch the shared `--gold`/`--sage`/`--danger` tokens every
+      other challenge type still uses. The correct/incorrect slot colors
+      (`#10B981`/`#EF4444`) are likewise scoped rather than redefining
+      `--sage`/`--danger` app-wide.
+    - **`.segmented` (the challenge-type picker) changed from an even
+      `flex:1` grid to a horizontally-scrollable pill row** — a 5th
+      option made "Progressive reveal" start wrapping mid-word on a
+      narrow phone; same `overflow-x:auto` pattern `.practice-filter-tabs`
+      already uses elsewhere.
+    - Verified by simulation against real curated verses before
+      shipping, not just read over: built the exercise for 30 random
+      verses and played each one "perfectly" (always taps the correct
+      tile) — every one graded fully correct with no crashes; separately
+      confirmed tapping a placed tile correctly returns it to the bank
+      (and re-enables that specific tile) and that a genuinely wrong
+      placement is correctly marked incorrect.
+    `sw.js` bumped to `rooted-v107`.
+
 ---
 
 ## 9. How the app reads this data

@@ -441,11 +441,50 @@
   .scramble-fixed{color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:500;font-size:15px;margin:6px 0;}
   .scramble-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
 
+  /* Tap Builder challenge (2026-09-17) — its own dark-obsidian/bronze
+     component palette, scoped to these classes only, same reasoning as
+     the Family Tree feature's own palette: hex-exact values given for
+     one specific component, not a request to relitigate the app's
+     shared --gold/--sage/--danger tokens used by every other challenge
+     type. */
+  .target-sentence-box{
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:20px;font-size:18px;line-height:1.6;color:#F5F2ED;
+    font-family:var(--font-display);font-weight:500;
+  }
+  .target-sentence-box.tap-shake{animation:tapShake .3s ease-in-out;}
+  @keyframes tapShake{
+    0%,100%{transform:translateX(0);} 20%{transform:translateX(-6px);}
+    40%{transform:translateX(6px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);}
+  }
+  .tap-slot{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:60px;min-height:44px;padding:0 6px;margin:2px 0;
+    border-bottom:2px dashed #C69255;font-weight:600;color:#C69255;
+    vertical-align:middle;
+  }
+  .tap-slot.tap-slot-filled{cursor:pointer;border-style:solid;color:#F5F2ED;}
+  .tap-slot.tap-slot-correct{border-color:#10B981;background:rgba(16,185,129,.15);color:#10B981;border-radius:8px;}
+  .tap-slot.tap-slot-wrong{border-color:#EF4444;background:rgba(239,68,68,.12);color:#EF4444;border-radius:8px;}
+  .word-bank-grid{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px;}
+  .tap-tile{
+    background:#26221F;border:1px solid #3A332D;border-radius:12px;
+    padding:10px 16px;min-height:44px;font-size:16px;color:#F5F2ED;
+    font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;transition:all .15s ease;
+  }
+  .tap-tile:active{transform:scale(.95);background:#2E2925;}
+  .tap-builder-check{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+
   /* segmented control (practice mode picker) */
-  .segmented{display:flex;gap:4px;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:4px;margin-bottom:12px;}
+  /* overflow-x:auto (rather than a fixed flex:1 grid) since a 5th
+     challenge type (Tap Builder) made this too cramped to fit evenly on
+     a narrow phone without wrapping "Progressive reveal" mid-word —
+     degrades to a horizontally scrollable pill row instead, same
+     pattern already used by .practice-filter-tabs. */
+  .segmented{display:flex;gap:4px;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:4px;margin-bottom:12px;overflow-x:auto;}
   .segmented button{
-    flex:1;border:none;background:transparent;color:var(--ink-soft);
-    font-size:13px;font-weight:500;padding:8px 6px;border-radius:9px;
+    flex:0 0 auto;white-space:nowrap;border:none;background:transparent;color:var(--ink-soft);
+    font-size:13px;font-weight:500;padding:8px 12px;border-radius:9px;
   }
   .segmented button.active{background:var(--gold-wash);color:var(--gold-deep);}
 
@@ -3306,8 +3345,136 @@ const CHALLENGE_TYPES = {
       </div>`;
     },
     score(state){ return state.allCorrect ? 1 : 0; }
+  },
+
+  challenge_tap_builder: {
+    id: 'challenge_tap_builder',
+    name: 'Tap Builder',
+    appliesToEntityTypes: ['verse'],
+    config: { minBlanks: 4, maxBlanks: 6, minWordLength: 4, distractorCount: 3 },
+    enabled: true,
+    // Distractors are drawn from data.verses (the user's own already-
+    // loaded library) rather than the full corpus in data/verses.json —
+    // that corpus is lazily fetched only once Browse has been opened
+    // (see loadCorpus()), so relying on it here would make this
+    // exercise silently distractor-less (or need its own network fetch)
+    // for anyone who opens Practice without ever visiting Discover
+    // first. data.verses is always in memory and plenty large enough
+    // to find real, differently-worded words from.
+    build(verse, config){
+      const words = verse.text.split(' ');
+      const eligible = words.map((_,i)=>i)
+        .filter(i => words[i].replace(/[^a-zA-Z]/g,'').length >= config.minWordLength);
+      const blankCount = Math.max(1, Math.min(config.maxBlanks, eligible.length,
+        config.minBlanks + Math.floor(Math.random() * (config.maxBlanks - config.minBlanks + 1))));
+      const pool = [...eligible];
+      const blankIndices = [];
+      while(blankIndices.length < blankCount && pool.length){
+        blankIndices.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+      }
+      blankIndices.sort((a,b)=>a-b);
+      const correctWords = blankIndices.map(i => words[i]);
+      const distractors = pickTapBuilderDistractors(config.distractorCount, verse.id, correctWords, config.minWordLength);
+      const bank = shuffleInPlace([...correctWords, ...distractors]);
+      return {
+        words, blankIndices, bank,
+        slots: blankIndices.map(()=>null),   // parallel to blankIndices: null, or an index into bank[]
+        usedBank: bank.map(()=>false),
+        checked: false, results: [], allCorrect: false
+      };
+    },
+    interact(state, ds){
+      if(state.checked) return;
+      if(ds.tapBank !== undefined){
+        const bi = +ds.tapBank;
+        if(state.usedBank[bi]) return;
+        const si = state.slots.indexOf(null);
+        if(si === -1) return; // no empty slot left
+        state.slots[si] = bi;
+        state.usedBank[bi] = true;
+      }else if(ds.tapSlot !== undefined){
+        const si = +ds.tapSlot;
+        const bi = state.slots[si];
+        if(bi === null || bi === undefined) return;
+        state.slots[si] = null;
+        state.usedBank[bi] = false;
+      }
+    },
+    render(state){
+      const {words, blankIndices, slots, bank, usedBank, checked, results, allCorrect} = state;
+      const sentence = words.map((w, i)=>{
+        const si = blankIndices.indexOf(i);
+        if(si === -1) return esc(w);
+        const bi = slots[si];
+        const filled = bi !== null && bi !== undefined;
+        const cls = checked ? (results[si] ? 'tap-slot-correct' : 'tap-slot-wrong') : (filled ? 'tap-slot-filled' : '');
+        const action = (!checked && filled) ? ` data-action="practice-interact" data-tap-slot="${si}"` : '';
+        return `<span class="tap-slot ${cls}"${action}>${filled ? esc(bank[bi]) : ''}</span>`;
+      }).join(' ');
+      const tiles = bank.map((w, i)=>
+        usedBank[i] ? '' : `<button class="tap-tile" data-action="practice-interact" data-tap-bank="${i}">${esc(w)}</button>`
+      ).join('');
+      return `
+        <div class="target-sentence-box${checked && !allCorrect ? ' tap-shake' : ''}">${sentence}</div>
+        <div class="word-bank-grid">${tiles || '<span class="scramble-hint">every tile placed — tap Check Answer</span>'}</div>
+      `;
+    },
+    canCheck(state){ return state.slots.every(s => s !== null); },
+    check(state){
+      const norm = s => s.trim().toLowerCase().replace(/[^a-z0-9']/g,'');
+      const results = state.blankIndices.map((wi, si)=>{
+        const bi = state.slots[si];
+        return bi !== null && bi !== undefined && norm(state.bank[bi]) === norm(state.words[wi]);
+      });
+      const allCorrect = results.every(Boolean);
+      state.results = results;
+      state.checked = true;
+      state.allCorrect = allCorrect;
+      return { allCorrect, correctCount: results.filter(Boolean).length, total: results.length };
+    },
+    score(state){
+      if(!state.results.length) return 0;
+      return state.results.filter(Boolean).length / state.results.length;
+    },
+    // A correct answer immediately advances to the next verse (still
+    // behind the normal "Continue" button too, in case this fires after
+    // the user's already tapped it — see checkPractice()) — the one
+    // challenge type in this app that auto-advances, since the tap-to-
+    // fill interaction already feels fast/game-like in a way typing an
+    // answer or self-grading doesn't.
+    autoAdvanceMs: 600
   }
 };
+function shuffleInPlace(arr){
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function pickTapBuilderDistractors(count, verseId, excludeWords, minWordLength){
+  const exclude = new Set(excludeWords.map(w => w.toLowerCase().replace(/[^a-z0-9']/g,'')));
+  const candidates = [];
+  for(const v of data.verses){
+    if(v.id === verseId) continue;
+    for(const w of v.text.split(' ')){
+      const clean = w.replace(/[^a-zA-Z']/g,'');
+      const norm = clean.toLowerCase();
+      if(clean.length >= minWordLength && !exclude.has(norm)) candidates.push(clean);
+    }
+  }
+  shuffleInPlace(candidates);
+  const picked = [];
+  const seen = new Set(exclude);
+  for(const w of candidates){
+    const norm = w.toLowerCase();
+    if(seen.has(norm)) continue;
+    seen.add(norm);
+    picked.push(w);
+    if(picked.length >= count) break;
+  }
+  return picked;
+}
 /* First letter of each word kept, every other letter blanked to an
    underscore; everything else (spacing within the word, punctuation,
    apostrophes) left exactly as-is. Handles "don't" / "Yahweh's" correctly
@@ -3449,22 +3616,30 @@ function renderPractice(){
   const st = item.state;
   const progressPct = Math.round((session.index / session.queue.length) * 100);
   const lastOne = session.index + 1 >= session.queue.length;
+  const isTapBuilder = type.id === 'challenge_tap_builder';
+  const canCheck = type.canCheck ? type.canCheck(st) : true;
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
       <h2>Practice</h2>
+      <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ink-faint);">${session.index + 1} of ${session.queue.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
     ${st.checked ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    <div class="card">
+    ${isTapBuilder ? `
       <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>
-      <div class="practice-verse">${type.render(st)}</div>
-    </div>
+      ${type.render(st)}
+    ` : `
+      <div class="card">
+        <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>
+        <div class="practice-verse">${type.render(st)}</div>
+      </div>
+    `}
     ${st.checked
       ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
       : type.controls
       ? type.controls(st)
-      : `<button class="btn primary block" data-action="check-practice">Check</button>`}
+      : `<button class="btn primary block${isTapBuilder ? ' tap-builder-check' : ''}" data-action="check-practice"${canCheck ? '' : ' disabled'}>${isTapBuilder ? 'Check Answer' : 'Check'}</button>`}
   `;
 }
 
@@ -3659,13 +3834,7 @@ function onAction(e){
   else if(action==='set-practice-filter'){ practiceFilter = id; homeLimit = 25; render(); }
   else if(action==='exit-practice'){ session=null; go('practice'); }
   else if(action==='check-practice') checkPractice();
-  else if(action==='next-practice'){
-    if(session){
-      session.index++;
-      if(session.index >= session.queue.length){ playSfx('complete'); hapticBuzz([20,40,20]); }
-    }
-    render();
-  }
+  else if(action==='next-practice') advancePractice();
   else if(action==='practice-interact') practiceInteract(el);
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
   else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
@@ -3711,6 +3880,7 @@ function checkPractice(){
   const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
   if(item.state.checked) return;
+  if(type.canCheck && !type.canCheck(item.state)) return; // e.g. Tap Builder: blanks still empty
   const summary = type.check(item.state);
   if(summary.allCorrect){ playSfx('correct'); hapticBuzz(30); }
   session.results.push({
@@ -3719,6 +3889,22 @@ function checkPractice(){
     score: type.score(item.state)
   });
   recordPractice(item.verseId, summary.allCorrect, session.challengeTypeId);
+  // Some challenge types (currently just Tap Builder) auto-advance on a
+  // correct answer instead of waiting for the user to tap "Continue" —
+  // still guarded so it can't double-advance if they tap Continue
+  // themselves before the timer fires, or exit practice entirely.
+  if(summary.allCorrect && type.autoAdvanceMs){
+    setTimeout(()=>{
+      if(!session || session.queue[session.index] !== item) return;
+      advancePractice();
+    }, type.autoAdvanceMs);
+  }
+  render();
+}
+function advancePractice(){
+  if(!session) return;
+  session.index++;
+  if(session.index >= session.queue.length){ playSfx('complete'); hapticBuzz([20,40,20]); }
   render();
 }
 
