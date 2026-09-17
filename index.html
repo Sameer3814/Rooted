@@ -54,7 +54,6 @@
     --danger-wash:rgba(255,92,67,.16);
     --shadow-card:0 4px 16px rgba(0,0,0,.4);
     --shadow-hero:0 14px 40px rgba(0,0,0,.45);
-    --shadow-nav:0 10px 30px rgba(0,0,0,.5);
     --shadow-pop:0 2px 8px rgba(0,0,0,.35);
     --radius-card:20px;
     --radius-ctl:12px;
@@ -377,30 +376,44 @@
   textarea{min-height:80px;resize:vertical;font-family:'Inter',sans-serif;font-size:15px;line-height:1.5;}
   input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
 
-  /* nav — floating frosted overlay, lifted off the edge (rule 6) */
+  /* nav — transparent glassmorphism bar, full-bleed to the screen edges
+     (2026-09-17, direct owner request). Supersedes the v2 pass
+     (2026-09-09) that deliberately moved this from a flush bottom bar to
+     a floating, inset, rounded pill ("the bottom nav floated as a
+     frosted, rounded overlay instead of a flush bottom bar") — a real
+     reversal of that decision, not an oversight, so it's flagged here
+     rather than left silent. env(safe-area-inset-bottom) is still added
+     on top of the spec's own 28px bottom padding (equal to exactly 28px
+     on any non-notched device) — dropping it would regress the bar
+     behind the home-indicator area on a notched phone for zero visual
+     difference anywhere else. */
   .navbar{
-    position:fixed;left:16px;right:16px;bottom:16px;
-    max-width:448px;margin:0 auto;
-    background:rgba(20,21,25,.9);
-    border:1px solid rgba(255,255,255,.06);
-    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
-    border-radius:22px;
-    box-shadow:var(--shadow-nav);
+    position:fixed;left:0;right:0;bottom:0;
+    background:rgba(20,18,16,.75) !important;
+    -webkit-backdrop-filter:blur(16px) !important;backdrop-filter:blur(16px) !important;
+    border-top:1px solid rgba(255,255,255,.08);
+    border-radius:0;
+    box-shadow:none;
     display:flex;
-    padding:9px 6px calc(9px + env(safe-area-inset-bottom));
-    z-index:10;
+    padding:12px 24px calc(28px + env(safe-area-inset-bottom));
+    z-index:1000;
   }
   .navbar .navitem{
     flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-    background:none;border:none;color:var(--ink-faint);padding:5px 0;
+    background:none;border:none;color:#A39B92;padding:5px 0;
   }
   .navbar .navitem .dot{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
   .navbar .navitem i{font-size:21px;}
   .navbar .navitem span{font-size:var(--text-xs);font-weight:500;}
   /* Filled chip = active, not a font-glyph swap — the pinned Tabler webfont
-     doesn't reliably ship true filled/outline pairs for every icon. */
-  .navbar .navitem.active{color:var(--gold-deep);}
-  .navbar .navitem.active .dot{background:var(--gold-wash);}
+     doesn't reliably ship true filled/outline pairs for every icon.
+     Bronze active color (matching the Practice challenge-type palette),
+     not the shared --gold-deep token every other primary accent in the
+     app now uses (item 117's "bold white" pass) — a deliberate, scoped
+     exception for this one component, same reasoning as every hex-exact
+     challenge-type palette this session, not a reopening of item 117. */
+  .navbar .navitem.active{color:#C69255;}
+  .navbar .navitem.active .dot{background:rgba(198,146,85,.14);}
 
   /* avatar */
   .avatar{
@@ -805,10 +818,20 @@
     padding:12px 14px;text-align:left;cursor:pointer;transition:all .2s ease;
     min-height:44px;
   }
-  .mode-tile .app-icon{color:#C69255;width:18px;height:18px;display:block;}
+  .mode-tile .app-icon{color:#A39B92;width:18px;height:18px;display:block;}
   .mode-tile-title{font-size:14px;font-weight:600;color:#F5F2ED;margin-top:6px;}
   .mode-tile-subtext{font-size:11px;color:#A39B92;margin-top:2px;}
-  .mode-tile.active-mode-tile{border-color:#C69255;background:#26221F;box-shadow:0 0 12px rgba(198,146,85,.15);}
+  .mode-tile.active-mode-tile{border:1.5px solid #C69255;background:rgba(198,146,85,.08);}
+  .mode-tile.active-mode-tile .app-icon{color:#C69255;}
+
+  /* Start Practice Session CTA (2026-09-17) — a scoped override of the
+     shared .btn.primary.block (which reads --gold/--gold-deep, "bold
+     white" as of item 117) so this one button matches the bronze
+     Practice-exercise palette instead; .btn is kept alongside it for the
+     shared press-feedback/base button mechanics, only colors/shadow are
+     overridden here. */
+  .start-practice-btn{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;}
+  .start-practice-btn:hover,.start-practice-btn:active{box-shadow:0 4px 20px rgba(198,146,85,.3) !important;transform:translateY(-1px);}
 
   /* ---------- Practice screen: hero card, compact stats strip, filter tabs ---------- */
   .practice-hero-card{background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:20px 16px 16px;margin-bottom:16px;}
@@ -4212,7 +4235,7 @@ function renderPracticeHero(due){
     <div class="practice-hero-card">
       ${renderPracticeProgressBar()}
       ${renderChallengeGrid()}
-      <button class="btn primary block" data-action="start-practice">${icon('sparkles',16)} Start Practice Session (${session_size} Verse${session_size===1?'':'s'})</button>
+      <button class="btn primary block start-practice-btn" data-action="start-practice">${icon('sparkles',16)} Start Practice Session (${session_size} Verse${session_size===1?'':'s'})</button>
     </div>`;
 }
 /* ---------- compact single-line stats strip, replaces the old 4-box stat-row ---------- */

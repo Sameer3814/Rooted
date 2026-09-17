@@ -5710,6 +5710,70 @@ inventing a new principle:
       other hex-exact component palette this session.
     `sw.js` bumped to `rooted-v116`.
 
+121. **Bottom nav → transparent glassmorphism bar; bronze accents on
+    the nav, Practice CTA, and mode tiles — done (2026-09-17).**
+    - **`.navbar` — a real reversal of the v2 design decision (2026-09-09,
+      see "Visual direction"), flagged rather than silent.** v2
+      deliberately moved this from a flush, edge-to-edge bottom bar to a
+      floating, inset (16px), rounded (22px) pill, specifically to read
+      as "a polished app in the market." This request explicitly asks
+      for `position:fixed;left:0;right:0;bottom:0` with a flat
+      `border-top` instead of an all-around border + shadow — a flush
+      bar again, not a floating pill — plus a real glassmorphism
+      treatment (`rgba(20,18,16,.75)` background, `blur(16px)`, both
+      `!important` per spec). Implemented exactly as specified;
+      `env(safe-area-inset-bottom)` is still added on top of the spec's
+      28px bottom padding (equal to exactly 28px on any non-notched
+      phone, so no visible difference from spec on most devices) —
+      dropping it would regress the bar behind a notched phone's home-
+      indicator area for no visual benefit anywhere else. The now-
+      unused `--shadow-nav` token (only ever read by the old pill's
+      `box-shadow`) was deleted rather than left orphaned.
+    - **Active nav color is now bronze (`#C69255`), not the shared
+      `--gold-deep` token** every other primary accent uses since item
+      117's "bold white" pass — a deliberate, scoped exception for this
+      one component (matching the Practice challenge-types' own bronze
+      palette), not a reopening of item 117's app-wide accent decision.
+      Inactive nav color is now the explicit `#A39B92` slate the spec
+      names, replacing `var(--ink-faint)` (a very similar existing
+      gray — this is a real hex swap, not just a redundant re-statement,
+      though visually close). The active `.dot` chip background moved
+      from `var(--gold-wash)` to a matching bronze wash
+      (`rgba(198,146,85,.14)`) so it doesn't clash with the now-bronze
+      active icon color sitting on top of it.
+    - **Exercise-mode tiles (item 120): icon color now flips with
+      selection state**, which the item 120 pass hadn't done — every
+      tile's icon was bronze regardless of active state. Default/
+      inactive tiles now show `#A39B92` (matching the spec's "Inactive
+      Tiles" bullet); `.active-mode-tile .app-icon` overrides back to
+      `#C69255`. The active tile's own border/background were also
+      tightened to the spec's subtler values (`1.5px solid #C69255` /
+      `rgba(198,146,85,.08)`, replacing item 120's own flatter
+      `#26221F` fill + glow shadow, which this request's own numbers
+      supersede).
+    - **"Start Practice Session" CTA is now bronze, not the shared
+      `.btn.primary`** (`--gold`/"bold white" since item 117) — a new
+      `.start-practice-btn` class layered on top of the existing
+      `.btn.primary.block` (kept for the shared press-feedback/base
+      button mechanics every button in the app already gets), same
+      "scope to a new class, don't reopen the shared token" pattern as
+      every hex-exact challenge-type CTA this session
+      (`.tap-builder-check`, `.clause-check-btn`, `.vanish-next-btn`).
+      Its own `:hover`/`:active` state (a lift + bronze glow) replaces
+      the shared `.btn:active{transform:scale(.96)}` press-squish for
+      this one button specifically, per the spec's own given values.
+    - **Content padding behind the nav — already satisfied, no new
+      class added.** The request asks for a `.practice-container` with
+      `padding-bottom:110px !important`, but no such class exists
+      anywhere in the app — Practice renders straight into `#app`, no
+      dedicated wrapper. The existing global `body{padding-bottom:120px
+      !important;}` rule (added for exactly this "clear the floating
+      nav" purpose, pre-dating this request) already covers Practice
+      (and every other screen) at a value that already exceeds 110px,
+      so adding an unused, never-matched `.practice-container` selector
+      would just be dead CSS. No change made here.
+    `sw.js` bumped to `rooted-v117`.
+
 ---
 
 ## 9. How the app reads this data

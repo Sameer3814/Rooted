@@ -657,7 +657,9 @@ sage = progress/mastery, tan = plain metadata — plum retired, not
 recolored), book/people/topics lists became borderless hairline-divided
 rows instead of full cards, character and story detail pages opened on
 a real hero header instead of a cramped 56px icon box, and the bottom
-nav floated as a frosted, rounded overlay instead of a flush bottom bar.
+nav floated as a frosted, rounded overlay instead of a flush bottom bar
+(**reversed 2026-09-17, item 121** — direct owner request moved it back
+to a flush, edge-to-edge glassmorphism bar; see below).
 Full rationale and every token's v2 value: DATA_MODEL.md §29.
 
 **Visual system v3 — modern dark theme, done (2026-09-10).** Direct
@@ -749,6 +751,21 @@ photo (its dark overlay gradient was meaningfully lightened) and moved
 its text off the italic Fraunces serif onto the app's own Inter sans —
 the very last place in the app still using that serif at all. Full
 writeup: DATA_MODEL.md §8, item 117.
+
+**Bottom nav → transparent glassmorphism bar, done (2026-09-17).**
+Direct owner request, and a real reversal of v2's own decision above
+(flagged there, not silent): `.navbar` moved back from a floating,
+inset, rounded pill to a flush, edge-to-edge bar
+(`position:fixed;left:0;right:0;bottom:0`), now with a real
+glassmorphism treatment — `rgba(20,18,16,.75)` background,
+`backdrop-filter:blur(16px)`, a flat `border-top` instead of an
+all-around border + shadow. Its active-tab color is now bronze
+(`#C69255`, matching the Practice challenge-types' own palette) rather
+than the shared `--gold-deep` "bold white" token from item 117 — a
+scoped exception for this one component, not a reopening of that
+app-wide decision. Same request also re-themed the Practice hero's
+"Start Practice Session" CTA and the item-120 exercise-mode tiles to
+the same bronze palette. Full writeup: DATA_MODEL.md §8, item 121.
 
 ## Known gaps / not-yet-built (in likely priority order)
 
