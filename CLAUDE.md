@@ -63,11 +63,12 @@ The schema was deliberately designed so all of the above can be added
   History" was retired and deleted the same day as the reorder — see
   item 117; no progress dashboard, no practice session UI — see items
   78 and 82), **Practice** (due-today stats, the daily-goal ring, the
-  challenge-type picker, the full verse library, and three challenge
-  types — Tap Builder, First-Letter Sprint, and Progressive Vanish
-  (items 113/114/115) — the original four (fill-in-blank, scramble,
-  progressive reveal, verse ladder) were fully retired 2026-09-17, item
-  114; also the entry point for Add Verse/Add Character, via a small
+  challenge-type picker, the full verse library, and four challenge
+  types — Tap Builder, First-Letter Sprint, Progressive Vanish, and
+  Clause Connect (items 113/114/115/118) — the original four
+  (fill-in-blank, scramble, progressive reveal, verse ladder) were fully
+  retired 2026-09-17, item 114; also the entry point for Add Verse/Add
+  Character, via a small
   `+` next to "Your verses"), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
@@ -300,6 +301,29 @@ The schema was deliberately designed so all of the above can be added
   by pinning the input `position:fixed` to the viewport (plus
   `font-size:16px`, closing off iOS Safari's separate auto-zoom-on-focus
   trigger for the same category of bug).
+- **Clause Connect challenge type — done (2026-09-17).** A fourth
+  `ChallengeType` — a verse splits into 3-5 clauses
+  (`splitIntoClauses()`, punctuation/connecting-word split with a
+  fixed-word-count fallback for short verses), scrambles them, and the
+  user reorders them back into sequence. Two input methods: tap-to-swap
+  through the normal `interact()` dispatch, and grip-handle dragging —
+  wired with the same pointer-event reordering `wireTimelineDrag()`
+  already uses for the Timeline screen, not the owner's originally-named
+  HTML5 Drag-and-Drop API, which has no real touch support and wouldn't
+  work on a phone at all. A wrong "Check Order" tap shakes the list and
+  highlights misordered cards in red without finalizing the attempt —
+  the user can keep fixing it and re-check, unlike Tap Builder's
+  one-shot grading — implemented by routing "Check Order" through
+  `controls()`/`interact()` rather than the generic `check()` path, so
+  only a fully-correct order ever reaches `recordPractice`. One real fix
+  to the owner's own spec caught before shipping: its split regex used a
+  capturing group around the connecting words, which JS's `.split()`
+  would've left behind as stray extra clause fragments — switched to
+  non-capturing. Verified by simulating all 1,812 curated verses through
+  a full scramble→fix→check cycle (zero crashes, including verses too
+  short to split into more than one clause, like "Jesus wept.", which
+  correctly resolve as a trivial win rather than erroring). See
+  DATA_MODEL.md §8, item 118.
 - **Progressive Vanish challenge type — done (2026-09-17).** A third
   `ChallengeType`, self-graded like First-Letter Sprint but pure taps
   (no keyboard, so none of that type's real-device mobile bugs apply).
@@ -695,17 +719,19 @@ hand-curate all the content before building.
    `challenge_first_letters`, `challenge_verse_ladder`) were retired
    2026-09-17 on direct owner request** ("get rid of the older
    exercises") — see item 114. `CHALLENGE_TYPES` (`index.html`,
-   `DATA_MODEL.md` §3) now holds three, all added the same day:
+   `DATA_MODEL.md` §3) now holds four:
    `challenge_tap_builder` (word-tile bank — auto-graded, auto-advances
    on a correct answer), `challenge_first_letter_sprint` ("First-Letter
    Sprint" — a real-time speed-typing drill, the first challenge type
-   driven by actual keystrokes rather than taps), and
+   driven by actual keystrokes rather than taps),
    `challenge_progressive_vanish` ("Progressive Vanish" — a 5-stage
    reveal-then-recall climb, self-graded like Sprint but pure taps, item
-   115), with a picker (moved to Practice's own hero card, item 107)
-   persisted to `rooted-settings`. Next: reference↔text matching
-   (`challenge_reference_match`), then matching/ordering
-   (`challenge_story_order`, `challenge_character_match`).
+   115), and `challenge_clause_connect` ("Clause Connect" — split a
+   verse into 3-5 clauses, scramble them, drag or tap-to-swap back into
+   order, added 2026-09-17, item 118), with a picker (moved to
+   Practice's own hero card, item 107) persisted to `rooted-settings`.
+   Next: reference↔text matching (`challenge_reference_match`), then
+   matching/ordering (`challenge_story_order`, `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
    **Done — full coverage reached 2026-09-15**, after eleven batches
    generated over the course of that one day. All 267 characters in

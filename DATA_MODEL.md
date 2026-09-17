@@ -5547,6 +5547,65 @@ inventing a new principle:
       for something this secondary.
     `sw.js` bumped to `rooted-v113`.
 
+118. **Clause Connect challenge type — done (2026-09-17).** A fourth
+    `ChallengeType`, `challenge_clause_connect` — a verse is split into
+    3-5 clauses, scrambled, and the user reorders them back into
+    sequence by drag or tap-to-swap. `splitIntoClauses()` splits on
+    punctuation or a small set of connecting words first
+    (`and`/`that`/`for`/`who`), falling back to fixed 4-6-word chunks
+    for verses too short or plainly-worded to yield 3+ real clauses that
+    way (e.g. "Jesus wept."), and merges any overflow past 5 clauses
+    into the final one rather than truncating real verse text. One real
+    fix to the owner's own spec, caught before writing any code: the
+    spec's split regex used a *capturing* group around the connecting
+    words (`/(and|that|for|who)/`), which — run through JS's
+    `.split()` — keeps the matched word itself behind as its own extra
+    array entry on every match; switched to a non-capturing group so
+    the connecting word is consumed by the split, not left as a stray
+    clause fragment.
+    - **Two input methods, not one.** Tap-to-swap (tap clause A, then
+      clause B, and they swap positions) goes through the normal
+      `interact()`/`practice-interact` dispatch every other type uses.
+      Dragging uses the same pointer-event-based reordering
+      `wireTimelineDrag()` already established for the Timeline
+      screen's own drag-to-reorder — not the spec's named HTML5
+      Drag-and-Drop API, which has no touch support at all without a
+      polyfill this app doesn't carry (see design philosophy #3/no-
+      third-party-JS-dependency precedent) and would simply not work on
+      the phone this app is built for. Drag only starts from a
+      dedicated grip-icon handle on each card (`.clause-grip`), kept on
+      a separate element from the tappable clause text
+      (`.clause-text`), so a drag-start can never also fire a
+      tap-to-swap click on release.
+    - **Wrong ≠ finalized.** Unlike Tap Builder's one-shot `check()`
+      (right or wrong, the attempt is over), a wrong "Check Order" tap
+      here shakes the list and highlights the misordered cards in red
+      but leaves the attempt open — the user fixes it and checks again.
+      Implemented by *not* using the generic `check()`/`checkPractice()`
+      path at all: "Check Order" is wired through `controls()` +
+      `interact()` (the same shape Progressive Vanish's stage buttons
+      use), and only a fully-correct order ever sets `state.checked`,
+      which is what triggers `practiceInteractWith()`'s normal finalize
+      bookkeeping (`recordPractice`, `autoAdvanceMs`). A real `check()`
+      is still defined on this type for interface completeness — it's
+      just never called by anything, since a wrong attempt must never
+      reach `recordPractice`/`session.results` while the user can still
+      fix it in place.
+    - A scramble that lands back on the correct order by chance (common
+      with only 3 clauses) forces one swap so there's always something
+      to actually fix.
+    - Its own dark-obsidian/bronze component palette (`.clause-card`,
+      `.clause-check-btn`, etc.) is scoped to its own CSS classes only,
+      same reasoning as Tap Builder/Sprint/Vanish's own scoped palettes
+      — no shared app tokens changed.
+    - Verified by simulating all 1,812 curated seed verses through
+      `splitIntoClauses()` and a full scramble→fix→check cycle before
+      shipping: every verse converges to a correct order with no
+      crashes (the handful of one-clause verses, like "Jesus wept.",
+      correctly resolve as a trivial immediate win rather than erroring
+      on an impossible reorder).
+    `sw.js` bumped to `rooted-v114`.
+
 ---
 
 ## 9. How the app reads this data

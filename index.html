@@ -600,6 +600,26 @@
   }
   .vanish-next-btn{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
 
+  /* Clause Connect challenge (2026-09-17) — same scoped dark-obsidian/
+     bronze palette as the other three new challenge types. */
+  .clause-instruction{font-size:14px;color:#A39B92;margin:0 0 12px;font-family:'Inter',sans-serif;}
+  .clause-list-container{margin-bottom:20px;}
+  .clause-list-container.clause-shake{animation:tapShake .3s ease-in-out;}
+  .clause-card{
+    background:#1C1917;border:1px solid #2E2925;border-radius:14px;
+    padding:16px 20px;display:flex;align-items:center;gap:14px;
+    margin-bottom:10px;-webkit-user-select:none;user-select:none;
+    transition:transform .15s ease,border-color .15s ease;
+    min-height:44px;
+  }
+  .clause-grip{color:#A39B92;cursor:grab;touch-action:none;padding:4px;flex-shrink:0;}
+  .clause-text{color:#F5F2ED;font-size:15px;line-height:1.5;font-family:var(--font-display);cursor:pointer;}
+  .clause-card.clause-dragging{opacity:.85;border-color:#C69255;z-index:2;position:relative;}
+  .clause-card.clause-selected{border-color:#C69255;background:rgba(198,146,85,.1);}
+  .clause-card.clause-correct{border-color:#10B981;background:rgba(16,185,129,.12);}
+  .clause-card.clause-wrong{border-color:#EF4444;background:rgba(239,68,68,.1);}
+  .clause-check-btn{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+
   /* segmented control (practice mode picker) */
   /* overflow-x:auto (rather than a fixed flex:1 grid) since a 5th
      challenge type (Tap Builder) made this too cramped to fit evenly on
@@ -2963,6 +2983,72 @@ function wireProgressiveVanish(){
   btn.addEventListener('pointercancel', hide);
   btn.addEventListener('pointerleave', hide);
 }
+/* Clause Connect's grip-handle drag reordering — pointer events dragging
+   real DOM nodes, the same technique wireTimelineDrag() already uses
+   below, not the HTML5 Drag-and-Drop API the original spec named: that
+   API has no touch support at all without a polyfill this app doesn't
+   carry, which would make dragging simply not work on the phone this
+   whole app is built for. Only starts from a pointerdown on the grip
+   icon, so it can never swallow a tap on the clause text meant for
+   interact()'s own tap-to-swap. Mutates state.order directly from the
+   DOM's final child order once the drag ends, then does one real
+   render() — no in-between full re-renders during the drag itself, same
+   "direct DOM manipulation for a live gesture" reasoning as
+   wireFamilyTreePanZoom(). */
+function wireClauseConnect(){
+  const container = document.getElementById('clause-list-container');
+  if(!container || !session) return;
+  const item = session.queue[session.index];
+  const type = challengeType(session.challengeTypeId);
+  if(!item || type.id !== 'challenge_clause_connect' || item.state.checked) return;
+  let dragEl = null, startY = 0, moved = false;
+  function onMove(ev){
+    if(!dragEl) return;
+    moved = true;
+    const dy = ev.clientY - startY;
+    dragEl.style.transform = `translateY(${dy}px)`;
+    const pointerY = ev.clientY;
+    const siblings = [...container.children].filter(el => el !== dragEl);
+    for(const sib of siblings){
+      const r = sib.getBoundingClientRect();
+      if(pointerY > r.top && pointerY < r.bottom){
+        const dragRect = dragEl.getBoundingClientRect();
+        const goingDown = dragRect.top < r.top;
+        container.insertBefore(dragEl, goingDown ? sib.nextSibling : sib);
+        startY = ev.clientY;
+        dragEl.style.transform = 'translateY(0px)';
+        break;
+      }
+    }
+  }
+  function onUp(){
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+    document.removeEventListener('pointercancel', onUp);
+    if(!dragEl) return;
+    dragEl.style.transform = '';
+    dragEl.classList.remove('clause-dragging');
+    if(moved){
+      item.state.order = [...container.children].map(el => +el.dataset.clauseIdx);
+      item.state.wrong = [];
+      item.state.selected = null;
+      render();
+    }
+    dragEl = null;
+  }
+  container.querySelectorAll('.clause-card').forEach(card=>{
+    card.addEventListener('pointerdown', e=>{
+      if(!e.target.closest('.clause-grip')) return;
+      dragEl = card;
+      startY = e.clientY;
+      moved = false;
+      card.classList.add('clause-dragging');
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+      document.addEventListener('pointercancel', onUp);
+    });
+  });
+}
 function wireTimelineDrag(){
   const track = document.getElementById('tl-drag-track');
   if(!track) return;
@@ -3705,8 +3791,136 @@ const CHALLENGE_TYPES = {
     // "I Recited It Perfectly!" confirmation is actually readable
     // before moving on.
     autoAdvanceMs: 800
+  },
+
+  challenge_clause_connect: {
+    id: 'challenge_clause_connect',
+    name: 'Clause Connect',
+    appliesToEntityTypes: ['verse'],
+    config: { minClauses: 3, maxClauses: 5 },
+    enabled: true,
+    // Reordering, not a single auto-graded tap — a wrong "Check Order"
+    // shouldn't finalize the attempt the way Tap Builder's one-shot
+    // check() does, since the whole point of clause-by-clause feedback
+    // (shake + red highlights) is to let the user fix it and try again.
+    // So "Check Order" is wired as an interact() action (via controls(),
+    // like Progressive Vanish's stage buttons) rather than the generic
+    // check()/checkPractice() path — only a *correct* order flips
+    // state.checked, which is what triggers practiceInteractWith()'s
+    // normal finalize bookkeeping (recordPractice, autoAdvanceMs, etc.).
+    // A real check() is still defined (never called by this type itself)
+    // purely so nothing elsewhere that assumes every ChallengeType has
+    // one breaks.
+    build(verse, config){
+      const clauses = splitIntoClauses(verse.text, config);
+      let order = clauses.map((_, i) => i);
+      shuffleInPlace(order);
+      // A "scrambled" order that lands back on the correct sequence by
+      // chance (common with only 3 clauses) isn't a real exercise —
+      // force one swap so there's always something to fix.
+      if(order.length > 1 && order.every((v, i) => v === i)){
+        [order[0], order[1]] = [order[1], order[0]];
+      }
+      return {
+        clauses, order, selected: null,
+        checked: false, allCorrect: false, wrong: []
+      };
+    },
+    interact(state, ds){
+      if(state.checked) return;
+      if(ds.tapClause !== undefined){
+        const i = +ds.tapClause;
+        if(state.selected === null){
+          state.selected = i;
+        }else if(state.selected === i){
+          state.selected = null;
+        }else{
+          [state.order[state.selected], state.order[i]] = [state.order[i], state.order[state.selected]];
+          state.selected = null;
+        }
+        state.wrong = []; // clear stale red highlights once the user starts fixing it
+      }else if(ds.checkOrder !== undefined){
+        const wrong = [];
+        state.order.forEach((clauseIdx, i) => { if(clauseIdx !== i) wrong.push(i); });
+        if(wrong.length === 0){
+          state.checked = true;
+          state.allCorrect = true;
+          state.wrong = [];
+        }else{
+          state.wrong = wrong;
+        }
+      }
+    },
+    render(state){
+      const {clauses, order, selected, checked, wrong} = state;
+      const showWrong = !checked && wrong.length > 0;
+      const cards = order.map((clauseIdx, i)=>{
+        const cls = checked ? 'clause-correct'
+          : showWrong && wrong.includes(i) ? 'clause-wrong'
+          : selected === i ? 'clause-selected' : '';
+        // The grip handle drags (wireClauseConnect() — pointer-based, not
+        // HTML5 native drag-and-drop, which never fires on a touchscreen
+        // at all; same reasoning wireTimelineDrag() already established
+        // for reordering on mobile), the clause text itself taps
+        // (practice-interact, the normal dispatch every other type uses)
+        // — kept on separate elements so a drag-start on the grip can't
+        // also fire a tap-to-swap click on release.
+        const tapAction = checked ? '' : ` data-action="practice-interact" data-tap-clause="${i}"`;
+        return `<div class="clause-card ${cls}" id="clause-card-${i}" data-clause-idx="${clauseIdx}">
+          <i class="ti ti-grip-vertical clause-grip"></i>
+          <span class="clause-text"${tapAction}>${esc(clauses[clauseIdx])}</span>
+        </div>`;
+      }).join('');
+      return `
+        <p class="clause-instruction">${checked ? 'Correct order!' : 'Arrange the clauses in chronological order'}</p>
+        <div class="clause-list-container${showWrong ? ' clause-shake' : ''}" id="clause-list-container">${cards}</div>
+      `;
+    },
+    controls(){
+      return `<button class="btn primary block clause-check-btn" data-action="practice-interact" data-check-order="1">Check Order</button>`;
+    },
+    check(state){
+      const wrong = [];
+      state.order.forEach((clauseIdx, i) => { if(clauseIdx !== i) wrong.push(i); });
+      const allCorrect = wrong.length === 0;
+      state.wrong = wrong;
+      state.checked = allCorrect;
+      state.allCorrect = allCorrect;
+      return { allCorrect, correctCount: state.order.length - wrong.length, total: state.order.length };
+    },
+    score(state){ return state.allCorrect ? 1 : 0; },
+    autoAdvanceMs: 600
   }
 };
+/* Splits a verse's text into 3-5 clause strings for Clause Connect.
+   Primary split: punctuation or a small set of connecting words — a
+   non-capturing group is deliberate (the spec's own /(and|that|for|who)/
+   pattern, run through .split() with a *capturing* group, would leave
+   the matched word itself behind as its own extra array entry every
+   time it split). Falls back to fixed-size word chunks for verses too
+   short or too plainly-worded to produce 3+ real clauses that way, and
+   merges any overflow past maxClauses into the final clause rather than
+   truncating real verse text. */
+function splitIntoClauses(text, config){
+  const minClauses = config.minClauses || 3, maxClauses = config.maxClauses || 5;
+  let parts = text.split(/[,;:.]|\s+(?:and|that|for|who)\s+/i).map(s => s.trim()).filter(Boolean);
+  if(parts.length < minClauses){
+    const words = text.split(' ').filter(Boolean);
+    parts = [];
+    let i = 0;
+    while(i < words.length){
+      const take = Math.min(4 + Math.floor(Math.random() * 3), words.length - i);
+      parts.push(words.slice(i, i + take).join(' '));
+      i += take;
+    }
+  }
+  if(parts.length > maxClauses){
+    const head = parts.slice(0, maxClauses - 1);
+    const tail = parts.slice(maxClauses - 1).join(' ');
+    parts = [...head, tail];
+  }
+  return parts.length ? parts : [text];
+}
 /* First letter of a word, ignoring leading punctuation/numbers/case —
    e.g. firstLetter("(Genesis") -> "g". Returns null if the token has no
    A-Z character at all. */
@@ -3897,6 +4111,7 @@ function renderPractice(){
   const isTapBuilder = type.id === 'challenge_tap_builder';
   const isSprint = type.id === 'challenge_first_letter_sprint';
   const isVanish = type.id === 'challenge_progressive_vanish';
+  const isClauseConnect = type.id === 'challenge_clause_connect';
   const canCheck = type.canCheck ? type.canCheck(st) : true;
   const refLine = isSprint && !st.checked
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#C69255;font-weight:600;">0.0s</span></div>`
@@ -3911,7 +4126,7 @@ function renderPractice(){
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
     ${st.checked && !isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${isTapBuilder || isSprint || isVanish ? `
+    ${isTapBuilder || isSprint || isVanish || isClauseConnect ? `
       ${refLine}
       ${type.render(st)}
     ` : `
@@ -4037,6 +4252,7 @@ function bindEvents(root){
   wireFamilyTreePanZoom();
   wireFirstLetterSprint();
   wireProgressiveVanish();
+  wireClauseConnect();
 }
 function refreshFamilyTreePickerResults(){
   const results = document.getElementById('family-tree-picker-results');
