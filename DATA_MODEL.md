@@ -5773,6 +5773,71 @@ inventing a new principle:
       so adding an unused, never-matched `.practice-container` selector
       would just be dead CSS. No change made here.
     `sw.js` bumped to `rooted-v117`.
+    **Revised the same day — see item 122**, which walked back this
+    item's bronze accent (nav, CTA, mode-tile grid) and its flush-bar
+    geometry after the owner shared a reference screenshot.
+
+122. **Nav bar reverted to a floating black-and-white pill (reference
+    screenshot); bronze accent walked back to shared gold tokens on the
+    nav, Practice CTA, and mode-tile grid — done (2026-09-17), hours
+    after item 121.**
+    - **The owner shared an actual screenshot of YouVersion's own bottom
+      nav** and said "I want the nav bar to look like this," alongside
+      "take the bronze accent and gold tokens ... our theme for the app
+      is black and white." Two distinct asks bundled together: revert
+      item 121's bronze color choice, and change the bar's *shape* back
+      toward a floating rounded pill (the screenshot's nav floats above
+      the edge with soft rounded corners) rather than the flush,
+      edge-to-edge bar item 121 had just shipped.
+    - **Net effect on `.navbar`: keeps item 121's glassmorphism blur,
+      drops its bronze color and its flush geometry** — `position:fixed`
+      moved from `left:0;right:0;bottom:0` back to `left:16px;right:16px;
+      bottom:16px;max-width:448px;margin:0 auto` (the same floating-pill
+      geometry v2, 2026-09-09, originally established, which item 121
+      itself had reverted only hours earlier), `border-radius` back to
+      `28px` (was `0`), and the flat `border-top` replaced with an
+      all-around hairline border + the restored `--shadow-nav` box-
+      shadow (deleted as "orphaned" in item 121, now genuinely back in
+      use — re-added rather than re-inlining the same shadow value as a
+      literal, keeping one semantic token for it).
+    - **The active tab is a real color inversion, not a color swap on
+      the icon** — the screenshot's active tab is a solid white chip
+      with the icon rendered near-black *inside* it, label staying
+      plain white beneath, which is a different visual than this app's
+      existing `.navitem.active{color:...}` pattern (recolor icon *and*
+      label together, translucent wash behind). Implemented as: label
+      keeps the shared `.navitem.active{color:var(--gold-deep)}` (white,
+      unchanged in kind, just no longer bronze); the dot chip itself
+      goes fully solid (`background:var(--gold-deep)`) instead of a
+      translucent wash; and a new, more specific
+      `.navitem.active .dot i{color:#141210;}` flips just the icon
+      glyph to near-black once it's sitting on that solid white
+      background — the one literal hex in this change, since nothing in
+      the app's existing dark-on-white-chip vocabulary already existed
+      to reuse (every other "on light" text color in this app is tuned
+      for pastel washes, not solid white).
+    - **Start Practice CTA and the item-120 mode-tile grid's bronze were
+      also reverted**, not just the nav — the owner's "our theme for the
+      app is black and white" read as an app-wide statement rejecting
+      item 121's whole bronze direction, not only the one component the
+      screenshot happened to show. The now-redundant `.start-practice-
+      btn` class (identical to plain `.btn.primary.block` once its
+      colors point back at the shared tokens) was deleted outright
+      rather than kept as a same-effect no-op override — dead
+      complexity, not a real component. `.mode-tile.active-mode-tile`
+      moved from its bronze border/background back to
+      `var(--gold-deep)`/`var(--gold-wash)`.
+    - **Deliberately untouched**: the progress bar's own bronze
+      (`.practice-progress-count`, `.practice-progress-fill`'s gradient)
+      — that came from item 120's own separate, explicit hex spec, not
+      from item 121's "match the nav" reasoning, and wasn't shown or
+      mentioned in this request. Also untouched: every individual
+      challenge type's own long-established dark-obsidian/bronze
+      in-session palette (Tap Builder, First-Letter Sprint, Progressive
+      Vanish, Clause Connect, Reference Match) — a separate, much
+      earlier, explicitly hex-specified design decision (items 113-119)
+      that this request never named or showed.
+    `sw.js` bumped to `rooted-v118`.
 
 ---
 

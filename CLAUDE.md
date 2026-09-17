@@ -752,20 +752,34 @@ its text off the italic Fraunces serif onto the app's own Inter sans —
 the very last place in the app still using that serif at all. Full
 writeup: DATA_MODEL.md §8, item 117.
 
-**Bottom nav → transparent glassmorphism bar, done (2026-09-17).**
-Direct owner request, and a real reversal of v2's own decision above
-(flagged there, not silent): `.navbar` moved back from a floating,
-inset, rounded pill to a flush, edge-to-edge bar
-(`position:fixed;left:0;right:0;bottom:0`), now with a real
+**Bottom nav → transparent glassmorphism bar, done (2026-09-17),
+revised hours later same day.** Direct owner request, and a real
+reversal of v2's own decision above (flagged there, not silent):
+`.navbar` moved back from a floating, inset, rounded pill to a flush,
+edge-to-edge bar (`position:fixed;left:0;right:0;bottom:0`), with a
 glassmorphism treatment — `rgba(20,18,16,.75)` background,
 `backdrop-filter:blur(16px)`, a flat `border-top` instead of an
-all-around border + shadow. Its active-tab color is now bronze
-(`#C69255`, matching the Practice challenge-types' own palette) rather
-than the shared `--gold-deep` "bold white" token from item 117 — a
-scoped exception for this one component, not a reopening of that
-app-wide decision. Same request also re-themed the Practice hero's
-"Start Practice Session" CTA and the item-120 exercise-mode tiles to
-the same bronze palette. Full writeup: DATA_MODEL.md §8, item 121.
+all-around border + shadow. Its active-tab color became bronze
+(`#C69255`, matching the Practice challenge-types' own palette), and
+the same request re-themed the Practice hero's "Start Practice Session"
+CTA and the item-120 exercise-mode tiles to the same bronze. Full
+writeup: DATA_MODEL.md §8, item 121. **Superseded the same day (item
+122)** — the owner shared an actual screenshot of YouVersion's own
+bottom nav ("I want the nav bar to look like this") plus "our theme for
+the app is black and white": the bar's shape moved *back* to the
+floating rounded pill (keeping item 121's blur, dropping its flush
+geometry), and its bronze color — on the nav, the CTA, and the mode
+tiles — reverted to the shared `--gold`/`--gold-deep` tokens (white).
+The active tab is now a real color inversion matching the screenshot,
+not a color swap: the dot chip goes solid white
+(`background:var(--gold-deep)`), and its icon glyph flips to near-black
+(`#141210`) specifically once it's sitting on that white chip — a new,
+more specific selector (`.navitem.active .dot i`) than this app's usual
+"recolor icon and label together" active-state pattern. Each individual
+challenge type's own long-established bronze in-session palette (items
+113-119) and the progress bar's own separate bronze spec (item 120)
+were deliberately left alone — neither was shown or named in this
+request. Full writeup: DATA_MODEL.md §8, item 122.
 
 ## Known gaps / not-yet-built (in likely priority order)
 
