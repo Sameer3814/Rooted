@@ -5249,7 +5249,57 @@ inventing a new principle:
       immediately afterward advanced normally; the WPM formula was
       checked against a hand-computed example (10 words in a simulated
       5.0s came back as 120 WPM).
-    `sw.js` bumped to `rooted-v108`.
+    - **Addendum, same day: real-device report ("not working properly
+      with the mobile keyboard") led to a real architecture fix.** The
+      simulation above only exercised the logic (`build`/`interact`),
+      never an actual mobile browser — the bug was in how a keystroke
+      reached the screen, not in the scoring logic. Root cause: every
+      keystroke went through the normal `interact()` -> `render()`
+      cycle every other challenge type uses, and this app's `render()`
+      always rebuilds its whole subtree via `innerHTML =`. On a real
+      phone that destroys and recreates the hidden `<input>` on every
+      single letter typed, which closes the on-screen keyboard each
+      time — functionally unusable. A second, compounding bug: because
+      the hidden input has `pointer-events:none` (so it never visually
+      intrudes), there was no way to tap it back open once the keyboard
+      closed, especially after `autoAdvanceMs`'s `setTimeout` advanced
+      to a new verse — a `setTimeout` callback isn't a direct user
+      gesture, so a mobile browser won't reliably reopen a keyboard for
+      a `.focus()` call made from inside one, even though the DOM
+      `activeElement` does update correctly.
+      - **Fix 1**: keystrokes on this challenge type no longer go
+        through a full `render()` while the sprint is still in
+        progress. `wireFirstLetterSprint()`'s `input` listener now calls
+        `type.interact()` to mutate state exactly as before, then
+        patches only `#sprint-text-box`'s `innerHTML` directly with a
+        newly-extracted `sprintTokensHTML(state)` (shared with
+        `render()`'s own initial markup, so the two can't drift) —
+        the `<input>` element itself is never touched, so it keeps its
+        focus and the keyboard stays open continuously through an
+        entire verse. A real `render()` now only happens once, at the
+        exact moment the sprint actually completes (`state.checked`),
+        which is the point the screen legitimately needs to change to
+        the toast/Continue view — so the finalize sequence
+        (`recordPractice`, `session.results`, sound/haptics, the
+        guarded `autoAdvanceMs` timeout) is duplicated inline in
+        `wireFirstLetterSprint()` rather than reached through
+        `practiceInteractWith()` (documented cross-reference left in
+        both places so they're kept in sync if this ever changes).
+      - **Fix 2**: a new, always-visible "Keyboard not showing? Tap
+        here." hint under the sentence box
+        (`data-action="focus-sprint-input"` -> a plain `input.focus()`
+        called directly inside a real click handler, which — unlike a
+        `setTimeout`-triggered one — mobile browsers do honor as a
+        user-gesture-driven focus) gives the user an explicit, always-
+        available way back to typing whenever the OS keyboard has been
+        dismissed for any reason, most importantly right after an
+        auto-advance to the next verse.
+      - This is now a documented, load-bearing exception to this app's
+        normal "one `render()` rebuilds everything" model — worth
+        knowing before touching this challenge type again, or before
+        assuming any future real-time/keystroke-driven feature can just
+        reuse the standard `interact()` -> `render()` pattern unchanged.
+    `sw.js` bumped to `rooted-v109`.
 
 ---
 

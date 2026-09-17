@@ -2683,37 +2683,82 @@ function wireFamilyTreePanZoom(){
   }, {passive: false});
 }
 /* First-Letter Sprint's live keyboard capture + ticking timer. Called
-   after every render (bindEvents(), full renders only) — a keystroke
-   during the sprint goes through the normal practiceKeyInput() ->
-   interact() -> render() cycle same as any other challenge type's
-   interact(), so this only needs to (re)wire the hidden input and
-   restart the timer tick each time, not implement the gameplay itself.
-   The interval updates the timer's textContent directly rather than
-   going through render() every 100ms, which would fight the keystroke-
-   driven renders and, worse, blow away the hidden input's focus
-   constantly — same reasoning wireTimelineDrag() above gives for
-   moving real DOM nodes during a drag instead of re-rendering on every
-   pointermove. */
+   after every full render (bindEvents()) — but unlike every other
+   challenge type, an individual keystroke here does NOT go through a
+   full render() while the sprint is still in progress. Real-device
+   testing found that a full render() per keystroke (this app's normal
+   model — the whole innerHTML is rebuilt) destroys and recreates the
+   hidden <input>, which closes the mobile virtual keyboard after every
+   single letter typed. So the `input` listener below instead calls
+   type.interact() to mutate state as usual, then patches just
+   #sprint-text-box's innerHTML directly (sprintTokensHTML(), the same
+   markup render() itself would produce) — the <input> element is never
+   touched, so it keeps its focus and the keyboard stays open. A real
+   render() only happens once the sprint actually completes (state.checked),
+   which is the point where the screen changes to the toast/Continue
+   view and the input needs to go away anyway. Same reasoning
+   wireTimelineDrag() above gives for moving real DOM nodes during a
+   drag instead of re-rendering on every pointermove — extended here to
+   "don't destroy focus/keyboard state on every keystroke of a typing
+   game" specifically.
+   The ticking timer is a second, separate reason a per-keystroke
+   render() would be wrong even without the keyboard problem: it needs
+   to keep advancing between keystrokes too, so it's always a direct
+   textContent update on its own interval, never routed through render(). */
 let sprintTimerInterval = null;
+function focusSprintInput(){
+  const input = document.getElementById('sprint-hidden-input');
+  if(input) input.focus();
+}
 function wireFirstLetterSprint(){
   clearInterval(sprintTimerInterval);
   sprintTimerInterval = null;
   const input = document.getElementById('sprint-hidden-input');
   if(!input || !session) return;
   const item = session.queue[session.index];
+  const type = challengeType(session.challengeTypeId);
   input.focus();
   input.addEventListener('blur', ()=>{
     // Keep the hidden input focused so physical-keyboard keystrokes
-    // keep landing on it — a real blur (leaving Practice) will just
-    // fail to find the input again on the next tick/render and this
-    // becomes a no-op.
+    // keep landing on it. A programmatic focus() here can't reopen a
+    // mobile virtual keyboard that the OS already dismissed (that needs
+    // a direct tap — see the "Keyboard not showing? Tap here." hint in
+    // render(), wired via the focus-sprint-input action below), but it
+    // does no harm to also try, and it's what keeps a physical keyboard
+    // working after e.g. a stray tap elsewhere on the page.
     setTimeout(()=>{ const i = document.getElementById('sprint-hidden-input'); if(i) i.focus(); }, 10);
   });
   input.addEventListener('input', ()=>{
     const val = input.value;
     input.value = '';
     const ch = val[val.length - 1];
-    if(ch && /[a-zA-Z]/.test(ch)) practiceKeyInput(ch);
+    if(!ch || !/[a-zA-Z]/.test(ch)) return;
+    if(!session || item.state.checked) return;
+    type.interact(item.state, {letter: ch});
+    if(item.state.checked){
+      // Finalize exactly like practiceInteractWith() would — this is
+      // the one point where a real render() is correct and necessary,
+      // since the screen is changing to the toast/Continue view anyway.
+      if(item.state.allCorrect){ playSfx('correct'); hapticBuzz(30); }
+      session.results.push({
+        verseId: item.verseId,
+        allCorrect: !!item.state.allCorrect,
+        score: type.score(item.state)
+      });
+      recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+      clearInterval(sprintTimerInterval);
+      if(item.state.allCorrect && type.autoAdvanceMs){
+        setTimeout(()=>{
+          if(!session || session.queue[session.index] !== item) return;
+          advancePractice();
+        }, type.autoAdvanceMs);
+      }
+      render();
+    }else{
+      playSfx('tap');
+      const box = document.getElementById('sprint-text-box');
+      if(box) box.innerHTML = sprintTokensHTML(item.state);
+    }
   });
   const timerEl = document.getElementById('sprint-timer');
   if(timerEl && item && !item.state.checked){
@@ -3299,13 +3344,13 @@ const CHALLENGE_TYPES = {
         checked: false, allCorrect: false
       };
     },
-    // Driven by a hidden focused <input>'s real keystrokes
-    // (wireFirstLetterSprint(), bound after every render) rather than
-    // the click-based data-action pattern every other type's
-    // interact() responds to — practiceKeyInput() in the events section
-    // below calls this with {letter} instead of a clicked element's
-    // dataset, but everything downstream (finalize, recordPractice,
-    // scoring) is the same shared machinery.
+    // Called with {letter} from wireFirstLetterSprint()'s hidden <input>
+    // listener — not through practiceInteract()/practiceInteractWith()
+    // like every other type's interact(), since that path always ends
+    // in a full render(), which on a real device closes the mobile
+    // keyboard after every keystroke (see wireFirstLetterSprint()'s own
+    // comment). This function only ever mutates state; the caller
+    // decides how to reflect that in the DOM.
     interact(state, ds){
       if(state.checked || ds.letter === undefined) return;
       // Skip over any word with no actual letter in it before testing —
@@ -3334,8 +3379,8 @@ const CHALLENGE_TYPES = {
       }
     },
     render(state){
-      const {words, letters, currentIndex, checked, elapsedMs, flashIndex, flashType} = state;
-      if(checked){
+      if(state.checked){
+        const {words, elapsedMs} = state;
         const seconds = (elapsedMs / 1000).toFixed(1);
         const minutes = elapsedMs / 60000;
         const wpm = Math.max(1, Math.round(words.length / minutes));
@@ -3344,21 +3389,15 @@ const CHALLENGE_TYPES = {
           <div class="sprint-toast"><i class="ti ti-bolt"></i> Completed in ${seconds}s! (${wpm} WPM)</div>
         `;
       }
-      const tokens = words.map((w, i)=>{
-        if(i < currentIndex){
-          const flash = flashIndex === i && flashType === 'correct' ? ' sprint-flash-correct' : '';
-          return `<span class="sprint-word sprint-done${flash}">${esc(w)}</span>`;
-        }
-        if(i === currentIndex){
-          const flash = flashIndex === i && flashType === 'wrong' ? ' sprint-flash-wrong' : '';
-          const letter = letters[i];
-          return `<span class="sprint-word sprint-active${flash}">${letter ? esc(letter.toUpperCase()) : ''}_</span>`;
-        }
-        return `<span class="sprint-word sprint-future">_</span>`;
-      }).join(' ');
+      // The sentence box's own markup lives in sprintTokensHTML() so the
+      // fast keystroke path in wireFirstLetterSprint() (which patches
+      // just that box's innerHTML, never touching the <input> below it —
+      // see that function's own comment for why) renders identically
+      // rather than duplicating this logic and risking drift.
       return `
-        <div class="sprint-text-box">${tokens}</div>
+        <div class="sprint-text-box" id="sprint-text-box">${sprintTokensHTML(state)}</div>
         <input type="text" id="sprint-hidden-input" class="sprint-hidden-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text" aria-label="Type the first letter of each word">
+        <p class="practice-hint" data-action="focus-sprint-input" style="margin-top:10px;cursor:pointer;">Keyboard not showing? Tap here.</p>
       `;
     },
     // No Check button at all — typing IS the interaction. Returning ''
@@ -3378,6 +3417,27 @@ const CHALLENGE_TYPES = {
 function firstLetter(word){
   const m = word.match(/[a-zA-Z]/);
   return m ? m[0].toLowerCase() : null;
+}
+/* Shared between challenge_first_letter_sprint's render() (full mount)
+   and wireFirstLetterSprint()'s per-keystroke fast path (a direct
+   innerHTML patch of just #sprint-text-box) — see that function's own
+   comment for why the fast path exists at all: a full render() per
+   keystroke destroys and recreates the hidden <input>, which closes the
+   mobile virtual keyboard on every letter typed. */
+function sprintTokensHTML(state){
+  const {words, letters, currentIndex, flashIndex, flashType} = state;
+  return words.map((w, i)=>{
+    if(i < currentIndex){
+      const flash = flashIndex === i && flashType === 'correct' ? ' sprint-flash-correct' : '';
+      return `<span class="sprint-word sprint-done${flash}">${esc(w)}</span>`;
+    }
+    if(i === currentIndex){
+      const flash = flashIndex === i && flashType === 'wrong' ? ' sprint-flash-wrong' : '';
+      const letter = letters[i];
+      return `<span class="sprint-word sprint-active${flash}">${letter ? esc(letter.toUpperCase()) : ''}_</span>`;
+    }
+    return `<span class="sprint-word sprint-future">_</span>`;
+  }).join(' ');
 }
 function shuffleInPlace(arr){
   for(let i = arr.length - 1; i > 0; i--){
@@ -3763,6 +3823,7 @@ function onAction(e){
   else if(action==='check-practice') checkPractice();
   else if(action==='next-practice') advancePractice();
   else if(action==='practice-interact') practiceInteract(el);
+  else if(action==='focus-sprint-input') focusSprintInput();
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
   else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
   else if(action==='toggle-sound'){
@@ -3780,11 +3841,6 @@ function onAction(e){
   else if(action==='trigger-import'){ const inp = document.getElementById('import-file-input'); if(inp) inp.click(); }
 }
 function practiceInteract(el){ practiceInteractWith(el.dataset); }
-// First-Letter Sprint is driven by real keystrokes (wireFirstLetterSprint's
-// hidden <input>), not a clicked data-action element — this is the same
-// underlying interact()/finalize path as practiceInteract(), just fed a
-// synthetic {letter} "dataset" instead of a real element's.
-function practiceKeyInput(letter){ practiceInteractWith({letter}); }
 function practiceInteractWith(ds){
   if(!session) return;
   const type = challengeType(session.challengeTypeId);
@@ -3792,11 +3848,14 @@ function practiceInteractWith(ds){
   if(item.state.checked || !type.interact) return;
   type.interact(item.state, ds);
   // A type may finalize grading itself from inside interact() (e.g. a
-  // self-graded type's "Got it" / "Missed it" tap, or First-Letter Sprint
-  // completing its last word, rather than the generic Check button). If it
-  // just flipped checked to true, do the same session bookkeeping
-  // checkPractice() would have done — including the same guarded
-  // auto-advance checkPractice() supports for a type with autoAdvanceMs.
+  // self-graded type's "Got it"/"Missed it" tap) rather than the generic
+  // Check button. If it just flipped checked to true, do the same session
+  // bookkeeping checkPractice() would have done — including the same
+  // guarded auto-advance checkPractice() supports for a type with
+  // autoAdvanceMs. (First-Letter Sprint's own keystrokes bypass this
+  // function entirely — see wireFirstLetterSprint()'s own comment for
+  // why — but duplicate this exact same finalize sequence at its own
+  // completion point, so keep the two in sync if this ever changes.)
   if(item.state.checked){
     if(item.state.allCorrect){ playSfx('correct'); hapticBuzz(30); }
     session.results.push({
@@ -3812,7 +3871,7 @@ function practiceInteractWith(ds){
       }, type.autoAdvanceMs);
     }
   } else {
-    playSfx('tap'); // a non-finalizing tap — chip pick/unpick, ladder advance, a Sprint keystroke
+    playSfx('tap'); // a non-finalizing tap — e.g. a Tap Builder tile placement
   }
   render();
 }
