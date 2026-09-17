@@ -171,9 +171,33 @@ The schema was deliberately designed so all of the above can be added
   Reuses the existing `pipeline/curation/story_art_settings.json` scene
   descriptions as-is; only the renderer changed, not the content. The
   Colab notebook and its supporting files are kept as historical record,
-  not deleted. **Not yet run** — waiting on the owner to add more Gemini
-  credits before the first `--test` batch. See DATA_MODEL.md §8, item
-  108.
+  not deleted. **First batch run 2026-09-17 — see below.** See
+  DATA_MODEL.md §8, item 108.
+- **First real story-art batch run + wired into the app — done
+  (2026-09-17).** The owner added Gemini billing credits and asked for
+  a sample batch first, "then continue from there." Ran `--test` on the
+  6 stories that already had a curated scene description (Creation, the
+  Flood, feeding the 5,000, David and Goliath, the crucifixion, the
+  lions' den — deliberately the same 6 the abandoned SDXL/Colab
+  experiment used, so there was a known baseline and two known failure
+  modes — landscape scenes reading as realistic matte paintings,
+  Goliath rendered as a robot — to check were actually fixed). Reviewed
+  all 6 directly: both failure modes are gone. Ran `--batch` on the same
+  6 for real — `media/stories/*.jpg` + `data/story_illustrations.json`
+  (a flat manifest, same shortcut as `data/character_portraits.json`,
+  item 91). This app had no code reading that manifest at all before
+  now (unlike the character one) — added `loadStoryIllustrations()`/
+  `storyIllustrationUrl()` (mirrors the character-portrait pair
+  exactly) and wired it into Home's Story of the Day card and a new
+  wide `.story-hero-photo` banner on Story Detail's hero; the Stories
+  list stayed plain text for this pass, since it never had a thumbnail
+  slot to begin with. The other ~318 stories still show their existing
+  fallback — this is a first sample, not the whole set; scaling up
+  needs a real scene description written into
+  `pipeline/curation/story_art_settings.json` per story before
+  `--test`/`--batch` will generate for it (curated, not auto-generated
+  from the story's own summary — same discipline as everything else
+  narrative in this app). See DATA_MODEL.md §8, item 125.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

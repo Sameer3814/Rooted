@@ -5978,6 +5978,70 @@ inventing a new principle:
       value this request also asks for.
     `sw.js` bumped to `rooted-v120`.
 
+125. **First real story-art batch generated and wired into the app —
+    done (2026-09-17).** The Gemini story-art pipeline (item 108) had
+    been built but never run, waiting on the owner to add billing
+    credits — they did, and asked for a sample batch first, "then
+    continue from there." Ran `pipeline/generate_story_art.py --test`
+    on all 6 stories that already had a curated scene description in
+    `pipeline/curation/story_art_settings.json` (Creation, the Flood,
+    feeding the 5,000, David and Goliath, the crucifixion, the lions'
+    den — the same 6 the earlier, since-abandoned SDXL/Colab experiment
+    had used, chosen specifically because it already gave a known
+    quality baseline to compare against, including the two failure
+    modes that motivated switching to Gemini in the first place: Creation
+    and the Flood were exactly the "landscape/atmosphere-heavy" scenes
+    SDXL couldn't land the stylized look on, and Goliath was rendered as
+    a sci-fi robot instead of a person). All 6 test images reviewed
+    directly before spending anything further — genuinely fixed both
+    known SDXL failure modes (Creation and the Flood read as intended
+    painterly-animated wide vistas, not realistic matte paintings;
+    Goliath is unambiguously a human warrior in armor). Then ran
+    `--batch` on the same 6 for real: `media/stories/*.jpg` (6 files)
+    and `data/story_illustrations.json` (a flat manifest, same shortcut
+    shape as `data/character_portraits.json`, item 91 — not the full
+    `Media` entity yet, same reasoning as that file's own history).
+    Note the script's own design means `--test` and `--batch` each make
+    an independent, separately-billed API call per story — running both
+    on the same 6 stories (test-then-commit) cost two generations per
+    story, not one; worth knowing before scaling this up to hundreds of
+    stories, where verifying quality by reviewing the `--test` output
+    first is what makes wasting either half of that pair a rare
+    exception rather than routine.
+    - **Display wiring added the same pass** (this app had no code
+      reading `data/story_illustrations.json` at all before now, unlike
+      the character-portrait manifest, which already had two real
+      consumers): `loadStoryIllustrations()`/`storyIllustrationUrl()`
+      (mirroring `loadCharacterPortraits()`/`charPortraitUrl()` exactly),
+      wired into two places — Home's Story of the Day card
+      (`renderStoryOfTheDayCard()`, swaps the static
+      `media/home/story-placeholder.jpg` for the real per-story image
+      when one exists) and Story Detail's hero (`renderStoryDetail()`,
+      a new full-bleed `.story-hero-photo` banner — a wide
+      `aspect-ratio:12/5` crop matching the art's own "cinematic
+      widescreen" generation spec, not the square `.hero-photo` crop
+      characters use — rendered above the `.hero` card in place of the
+      generic book icon when a real illustration exists). The Stories
+      list (`renderStoryCard()`) was deliberately left as plain text
+      rows for this pass — it never had a thumbnail slot at all, unlike
+      the two spots above which already had an image surface
+      (`discovery-thumb-box`, `.hero-avatar`) waiting to be filled;
+      adding one there is a real (if small) new layout decision, left
+      for a future pass rather than folded into "wire up what's already
+      there."
+    - **The other ~318 stories still show their existing fallback**
+      (the static Home placeholder, the icon-only Story Detail hero) —
+      this is a genuine first sample batch, not the whole set. Scaling
+      up needs new scene descriptions written into
+      `pipeline/curation/story_art_settings.json` for every additional
+      story before `--test`/`--batch` can run for it (the script raises
+      a clear error rather than guessing one from the story's own
+      summary text — matches this project's standing "curated, not
+      auto-generated" discipline for anything narrative, same reasoning
+      `tag_verses.py`'s own "surfaces candidates, writes nothing" design
+      already established for topic tagging).
+    `sw.js` bumped to `rooted-v121`.
+
 ---
 
 ## 9. How the app reads this data
