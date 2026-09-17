@@ -503,54 +503,62 @@
      card rather than inside its centered-text padding (same "full-bleed
      image above the info card" shape as .unreached-full-photo). */
   .hero-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-sunken);}
-  /* Story Detail's immersive full-bleed hero (2026-09-17, item 128) —
-     supersedes the earlier item-125 treatment (a plain rounded photo
-     sitting above the .hero card, margin-bottom:16px). Negative
-     margins of -20px/-18px exactly cancel .app's own top/side padding
-     (see that rule) so the image reaches the real screen edges rather
-     than just filling its column. Rendered for every story now, not
-     only ones with a real generated illustration — placeholderArt()
-     (already used elsewhere for exactly this "real photo later, hue-
-     seeded placeholder now, identical layout either way" reason) fills
-     in until every story has real art (see item 125's own progress
-     note), so the header/back-button/prev-next-arrow treatment below
-     is consistent across all 324 stories today, not just the ones
-     illustrated so far. */
-  /* Fixed height:340px (the original spec value) crops far too tight on
-     a mobile-width container — the real generated art (item 125) runs
-     roughly 1.79-2.36:1 wide, but a 400px-wide/340px-tall box is only
-     ~1.18:1, so object-fit:cover has to shave off a third or more of
-     each image's width to fill it, cutting into exactly the wide
-     "establishing scene" context these prompts were written for.
-     aspect-ratio:2/1 keeps the banner just as full-bleed and still
-     prominent, but tracks the art's own real proportions closely enough
-     that the crop stays minor instead of severe — a real fix found from
-     an actual on-device screenshot, not a guess. */
-  .story-hero-image-container{position:relative;width:100%;aspect-ratio:2/1;margin:-20px -18px 0;overflow:hidden;}
-  .story-hero-image-container .story-hero-photo{width:100%;height:100%;object-fit:cover;border-radius:0 0 28px 28px;display:block;margin:0;background:var(--surface-sunken);}
-  .story-hero-image-container::after{
-    content:'';position:absolute;bottom:0;left:0;right:0;height:140px;
-    background:linear-gradient(180deg, rgba(20,18,16,0) 0%, #141210 100%);
-    pointer-events:none;
+  /* Story Detail hero — rewritten 2026-09-17, third pass on this same
+     header (items 128-129 tried a true edge-to-edge bleed via negative
+     margins canceling .app's own padding; the owner reported clipping
+     and button-overlay problems that didn't resolve even after ruling
+     out every caching layer with an incognito load). This version is a
+     deliberate simplification per the owner's own exact spec: the
+     container just fills its normal column (margin:0, no negative-
+     margin edge-bleed trick), a fixed height (320px, not aspect-ratio),
+     and dedicated `.carousel-prev`/`.carousel-next` classes instead of
+     reusing the character carousel's shared `.hero-nav-btn` — removing
+     every moving part the last two passes introduced that could have
+     been the actual source of the reported clipping, rather than
+     tuning those same mechanisms again. Still rendered for every story
+     (`placeholderArt()` fills in for the ~308 without real generated
+     art yet, same as before). */
+  .story-hero-container{position:relative;width:100%;height:320px;margin:0;padding:0;overflow:hidden;}
+  .story-hero-container .story-hero-img{width:100%;height:100%;object-fit:cover;display:block;background:var(--surface-sunken);}
+  .story-hero-container::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(20,18,16,0) 50%, #141210 100%);
   }
   /* Floats the back button over the artwork instead of its own row
      above it — a frosted circular chip, not this app's usual flat
      .back-btn, since it now needs to read against arbitrary photo
-     content rather than a flat dark page background. */
+     content rather than a flat dark page background. z-index:20, above
+     the carousel arrows (10), though the two never actually overlap —
+     the back button sits in the top-left corner, the arrows vertically
+     centered. */
   .story-hero-back{
-    position:absolute;top:16px;left:16px;z-index:10;
+    position:absolute;top:16px;left:16px;z-index:20;
     background:rgba(28,25,23,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     border:1px solid rgba(255,255,255,.15);border-radius:50%;
     width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-    color:#F5F2ED;cursor:pointer;
+    color:#FFFFFF;cursor:pointer;
   }
-  /* Overlaps the gradient fade by exactly the container's own negative
-     top margin below, so the seam between photo and card reads as one
-     continuous surface rather than a hard edge. */
-  .story-details-card{
-    position:relative;z-index:2;margin:-40px 0 0;
-    background:#1C1917;border:1px solid #2E2925;border-radius:24px;
-    padding:24px 20px;
+  /* Story-Detail-only prev/next carousel controls — a separate, more
+     compact treatment from the character carousel's own .hero-nav-btn
+     (36px vs 38px, flatter rgba(0,0,0,.4) vs a bordered chip), not a
+     shared class, since this spec gave genuinely different exact
+     values rather than asking to reuse the existing one. */
+  .carousel-prev,.carousel-next{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+    background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:none;border-radius:50%;width:36px;height:36px;color:#FFF;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .carousel-prev{left:12px;}
+  .carousel-next{right:12px;}
+  /* Overlaps the hero's own bottom edge by 30px for a layered look —
+     deliberately less overlap than the previous pass's -40px, since
+     this container no longer bleeds past .app's side padding the way
+     the last version did. */
+  .story-title-card{
+    position:relative;z-index:15;margin-top:-30px;
+    border-top-left-radius:24px;border-top-right-radius:24px;
+    background:#1C1917;padding:24px 20px;
   }
   /* Visible prev/next controls for the character carousel (replacing an
      earlier blind-swipe-only version on direct feedback) — overlaid on
@@ -3314,13 +3322,13 @@ function renderStoryDetail(id){
   const prevStory = adjacentStory(id, -1);
   const nextStory = adjacentStory(id, 1);
   return `
-    <div class="story-hero-image-container">
-      <img class="story-hero-photo" src="${illustration}" alt="">
+    <div class="story-hero-container">
+      <img class="story-hero-img" src="${illustration}" alt="">
       <button class="back-btn story-hero-back" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
-      ${prevStory ? `<button class="hero-nav-btn hero-nav-prev" data-action="story-carousel-nav" data-id="${prevStory.id}" aria-label="Previous story"><i class="ti ti-chevron-left"></i></button>` : ''}
-      ${nextStory ? `<button class="hero-nav-btn hero-nav-next" data-action="story-carousel-nav" data-id="${nextStory.id}" aria-label="Next story"><i class="ti ti-chevron-right"></i></button>` : ''}
+      ${prevStory ? `<button class="carousel-prev" data-action="story-carousel-nav" data-id="${prevStory.id}" aria-label="Previous story"><i class="ti ti-chevron-left"></i></button>` : ''}
+      ${nextStory ? `<button class="carousel-next" data-action="story-carousel-nav" data-id="${nextStory.id}" aria-label="Next story"><i class="ti ti-chevron-right"></i></button>` : ''}
     </div>
-    <div class="hero story-details-card">
+    <div class="hero story-title-card">
       <h1 style="font-size:24px;">${esc(s.title)}</h1>
       ${topics.length ? `<div class="tags">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
       <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>

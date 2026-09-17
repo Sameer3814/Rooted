@@ -6201,6 +6201,46 @@ inventing a new principle:
     the pipeline has produced so far rather than one arbitrary number.
     `sw.js` bumped to `rooted-v125`.
 
+130. **Story Detail hero — rewritten a third time, per an exact owner
+    spec — done (2026-09-17), same day as items 128-129.** After the
+    aspect-ratio fix (item 129) still read as unchanged even from a
+    fresh incognito load (ruling out every caching layer — the deployed
+    CSS was directly verified live via a direct fetch), the owner sent
+    a full literal replacement spec asking to "eliminate clipping and
+    fix button overlays." Rather than tune the same mechanism a third
+    time, this pass removed every moving part the previous two
+    introduced that could plausibly have been the real source of the
+    reported problem:
+    - **No more true edge-to-edge bleed.** Items 128-129's
+      `margin:-20px -18px 0` (canceling `.app`'s own padding to reach
+      the physical screen edge) is gone — `.story-hero-container` now
+      just uses `margin:0`, filling its normal column like every other
+      screen element. Whatever was actually going wrong with the
+      negative-margin approach (never conclusively identified — the
+      code read as correct and the live server was verified serving
+      it), it can't recur once the mechanism itself is gone.
+    - **Fixed height again, not `aspect-ratio`.** `height:320px` (was
+      `aspect-ratio:2/1` in item 129, `height:340px` in item 128).
+    - **Dedicated `.carousel-prev`/`.carousel-next` classes**, not a
+      reuse of the character carousel's shared `.hero-nav-btn` — a
+      real, separate 36px/`rgba(0,0,0,.4)` treatment rather than the
+      38px/bordered one, removing any chance of the two carousels'
+      styling cross-affecting each other.
+    - **`.story-title-card`** (renamed from `.story-details-card`) now
+      overlaps the hero by `-30px` (was `-40px`) with only its *top*
+      corners rounded (`border-top-left/right-radius:24px`) rather than
+      all four — matching the spec's own framing of a card that visibly
+      slides partway over the image, not a fully independent rounded
+      panel sitting just below it.
+    - The gradient is still a `::after` pseudo-element (not a new real
+      DOM node) for consistency with this app's existing convention,
+      but now covers the whole container (`inset:0`, a 3-stop
+      black→transparent→page-color gradient) rather than only the
+      bottom 140px.
+    - Still rendered for every story via `placeholderArt()` for the
+      ~308 without real generated art yet (unchanged from item 128).
+    `sw.js` bumped to `rooted-v126`.
+
 ---
 
 ## 9. How the app reads this data

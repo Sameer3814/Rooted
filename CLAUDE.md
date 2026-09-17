@@ -265,6 +265,21 @@ The schema was deliberately designed so all of the above can be added
   still full-bleed and prominent, just close enough to the art's real
   proportions that the crop stays minor. See DATA_MODEL.md §8, item
   129.
+- **Story Detail hero — rewritten a third time, per an exact owner
+  spec — done (2026-09-17), same day.** Item 129's fix still read as
+  unchanged even from a fresh incognito load (ruling out every caching
+  layer — the deployed CSS was directly verified live). Rather than
+  tune the same mechanism again, the owner's follow-up spec removed
+  every moving part the previous two passes introduced: no more true
+  edge-to-edge bleed (`.story-hero-container` now uses `margin:0`,
+  filling its normal column instead of canceling `.app`'s own padding),
+  a fixed `height:320px` again instead of `aspect-ratio`, dedicated
+  `.carousel-prev`/`.carousel-next` classes instead of reusing the
+  character carousel's shared `.hero-nav-btn`, and `.story-title-card`
+  (renamed from `.story-details-card`) now overlaps by `-30px` with
+  only its top corners rounded. Still rendered for every story via
+  `placeholderArt()` for the stories without real generated art yet.
+  See DATA_MODEL.md §8, item 130.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
