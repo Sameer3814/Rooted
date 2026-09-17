@@ -5383,6 +5383,91 @@ inventing a new principle:
       tokens ever vanishing, and every one reached completion.
     `sw.js` bumped to `rooted-v111`.
 
+116. **"Biblical Fact of the Day" — done (2026-09-17), with real
+    verification behind the badge, not just the UI.** The owner's own
+    spec asked for a `verificationStatus: "Validated"` field and a
+    "🛡️ Verified Source" trust badge on every fact — a real claim made
+    to end users, not decoration. Flagged this before building anything:
+    this app didn't have a Fact of the Day feature at all yet (no
+    `data/daily_facts.json`, no card), so it wasn't actually an update
+    to something existing, and the spec named two external sources
+    ("OpenBible Geocoding Data," "Berean Standard Bible Text") this app
+    has no integration with — shipping a "Validated"/"Verified" label
+    over AI-written trivia that hadn't actually been checked against
+    anything would have been presenting unverified content as fact-
+    checked, the same category of problem this project has avoided
+    before (declining the NIV PDF over licensing, checking every Church
+    History date via web search before writing it in rather than
+    trusting recall — item 90). Confirmed the approach with the owner
+    first: hand-curate a small real batch, each fact checked against
+    data this app already has and can be verified against directly,
+    rather than against the two named external sources (neither is
+    genuinely the basis for any of these facts, so per the owner's own
+    "cite only where genuinely relevant" answer, neither is cited).
+    - **`data/daily_facts.json`** — 10 facts, same flat-array shape and
+      "hand-written editorial content, not part of the Bible-content
+      curation pipeline" status as `word_of_the_day.json`/
+      `church_history.json` (no `pipeline/curation/` source, no
+      `build_*.py` step — edit this file directly). Every fact's
+      `scriptureRef` was checked by directly querying this app's own
+      `data/verses.json` (the real WEB corpus) for that exact reference
+      and confirming the fact's claim against the actual returned verse
+      text — not recalled from memory. Three facts (Ruth's, Rahab's, and
+      Joseph's genealogies) also cross-check against already-curated
+      `Character`/`Connection` data (the Joseph→Jesus adoptive-father
+      connection added in item 112); one (the "younger son" pattern)
+      cross-checks against the existing `motif_younger_son_chosen`,
+      already 5 real instances deep in `data/motifs.json`. Two facts
+      (Methuselah's age, the longest/shortest chapters) intentionally
+      have no linked CTA at all — no curated character/story fits them,
+      and forcing one would mean pointing at a destination that doesn't
+      genuinely represent the fact, so they get none, matching Word of
+      the Day's own "just don't show the chip" precedent for a verse
+      that isn't in the curated library yet.
+    - **`factOfTheDay()`** — identical date-seeded rotation shape to
+      `wordOfTheDay()`; `renderFactOfTheDayCard()` on Home, positioned
+      after Church History, before Unreached of the Day.
+    - **`factLinkTarget(fact)`** resolves whichever one of
+      `linkedCharacterId`/`linkedStoryId`/`linkedMotifId`/`linkedVerseId`
+      a fact has set to a real action/label pair — a character routes to
+      the existing Family Tree feature (item 110/111, reusing
+      `familyTree`'s own `{id}` param unchanged), a story/motif/verse
+      route to their own existing detail screens. No new navigation
+      machinery — every destination already existed.
+    - **This app's first bottom-sheet drawer.** Church History and
+      Unreached of the Day both deliberately used a full screen instead
+      of a modal, since the app otherwise has zero overlay components
+      (documented reasoning in item 90). A single fact is lighter,
+      secondary content than either of those — a quick peek-then-
+      dismiss genuinely suits it better than a full navigation, so this
+      one earns the new pattern rather than defaulting past the owner's
+      explicit "bottom drawer" ask the way the full-screen precedent
+      would have. `renderFactDrawer()` (backdrop + sheet, both
+      `position:fixed`, above the bottom nav's own z-index), state
+      `factDrawerOpen` (a fact id or `null`) rendered as part of
+      `renderHome()`'s own output. Reset on every bottom-nav tap (not
+      just the drawer's own close button or its CTA actions) so it can't
+      silently reappear if the user switches tabs and later returns to
+      Home with it still logically "open."
+    - **The card and drawer use this app's existing dark-theme tokens
+      throughout** (`--paper-raised`, `--gold-deep`, etc.) — NOT the
+      separate bronze/obsidian palette the three new Practice challenge
+      types introduced (items 113-115). No exact hex was given for this
+      card's own surface the way it was for those, so "dark obsidian
+      design system" reads here as "this app's existing v3 dark theme,"
+      not a request for a third, subtly-different dark palette. The one
+      literal, scoped exception is the "Verified Source" badge's
+      emerald (`#10B981`) — a real, distinct trust signal worth standing
+      out visually, same reasoning as every other exact-hex spec this
+      session being scoped to its own classes rather than folded into
+      shared tokens.
+    - Emoji in the spec text (🛡️, 📖) were replaced with the existing
+      Tabler icon font (`ti-shield-check`, `ti-book-2`), consistent with
+      the app-wide emoji-removal decision (item 107).
+    `sw.js` bumped to `rooted-v112` (`data/daily_facts.json` added to
+    the precache list alongside the other two Home-editorial data
+    files).
+
 ---
 
 ## 9. How the app reads this data

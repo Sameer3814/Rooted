@@ -315,6 +315,28 @@ The schema was deliberately designed so all of the above can be added
   all 5 steps before shipping — exact 20/40/60/80/100% word counts, zero
   regressions, zero punctuation tokens ever vanishing. See DATA_MODEL.md
   §8, item 115.
+- **"Biblical Fact of the Day" — done (2026-09-17).** A brand-new Home
+  card (not an update to something existing — flagged that up front),
+  with a real verification pass behind its "Verified Source" badge
+  rather than a decorative label: every one of the 10 facts in the new
+  `data/daily_facts.json` was checked against this app's own real WEB
+  verse text (and, for three of them, already-curated Character/
+  Connection/Motif data) before being marked validated — the spec's
+  named external sources (OpenBible Geocoding Data, Berean Standard
+  Bible Text) aren't actually the basis for any of these facts, so
+  neither is cited. Tapping the card opens this app's first bottom-sheet
+  drawer (`renderFactDrawer()`) — a deliberate, reasoned exception to
+  the existing full-screen-detail precedent (Church History, Unreached
+  of the Day), since a single fact is lighter content that suits a
+  quick peek-then-dismiss better. Its one CTA
+  (`factLinkTarget()`) routes to whichever existing screen actually fits
+  — Family Tree for a genealogy fact, a Story/Pattern/Verse detail page
+  otherwise — no new navigation destinations, and two facts with no
+  genuine fit get no CTA at all rather than a forced one. Card and
+  drawer use this app's existing dark-theme tokens, not the separate
+  bronze palette the three new Practice challenge types introduced;
+  only the badge's emerald is a literal, scoped exact-hex exception.
+  See DATA_MODEL.md §8, item 116.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -431,13 +453,19 @@ The schema was deliberately designed so all of the above can be added
   philosophy #4): family relationships, motif instances (`motif` →
   `story` / `character` / `verse`), and story↔story links
   (`"parallels"`, `"contrasts with"`). Loaded at boot.
-- `data/word_of_the_day.json` and `data/church_history.json` — the two
-  newest Home cards' seed content (item 90, 2026-09-15): 13 curated
-  Hebrew/Greek words and 13 dated church-history entries respectively.
-  Both loaded at boot. **Not** part of the Bible-content curation
+- `data/word_of_the_day.json`, `data/church_history.json`, and
+  `data/daily_facts.json` — three Home cards' seed content: 13 curated
+  Hebrew/Greek words (item 90), 13 dated church-history entries (item
+  90), and 10 verified Bible facts (item 116, 2026-09-17) respectively.
+  All loaded at boot. **Not** part of the Bible-content curation
   pipeline below — hand-written editorial content, not Scripture text,
   so there's no `pipeline/curation/` source or `build_*.py` step for
-  either; edit these two files directly.
+  any of them; edit these files directly. Every fact in
+  `daily_facts.json` was checked against this app's own real WEB verse
+  text (and, where relevant, already-curated Character/Connection/Motif
+  data) before being marked `"verificationStatus": "Validated"` — that
+  label is load-bearing, shown to users as a "Verified Source" badge,
+  so it's earned per-fact, not decorative.
 - `pipeline/` — regenerates everything else in `data/`. See `pipeline/README.md`.
   - `parse_books.py` — WEB Bible JSON (`TehShrike/world-english-bible`,
     public domain / CC0) → `data/verses.json`. Handles prose books

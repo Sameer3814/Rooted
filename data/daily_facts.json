@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fact_ruth_davids_great_grandmother",
+    "title": "Ruth Was King David's Great-Grandmother",
+    "category": "Genealogy",
+    "fact": "Ruth, a Moabite widow who left her own homeland out of loyalty to her mother-in-law Naomi, became the great-grandmother of Israel's greatest king. Her son Obed was the father of Jesse, who was the father of David.",
+    "scriptureRef": "Ruth 4:21-22",
+    "sources": [
+      { "name": "World English Bible", "citation": "Ruth 4:21-22 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedCharacterId": "char_ruth"
+  },
+  {
+    "id": "fact_rahab_ancestor_of_jesus",
+    "title": "A Former Resident of Jericho Is In Jesus's Own Family Line",
+    "category": "Genealogy",
+    "fact": "Rahab, who hid Israel's spies in Jericho before its walls fell, went on to marry into Israel and become an ancestor of King David — and, generations later, of Jesus himself. Matthew's Gospel names her directly in Jesus's genealogy.",
+    "scriptureRef": "Matthew 1:5",
+    "sources": [
+      { "name": "World English Bible", "citation": "Matthew 1:5 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedCharacterId": "char_rahab"
+  },
+  {
+    "id": "fact_josephs_lineage",
+    "title": "Joseph's Own Family Line Reached Back Through Ruth and Rahab",
+    "category": "Genealogy",
+    "fact": "Jesus's adoptive father Joseph was himself a descendant of David — the same royal line that runs back through Boaz, Ruth, and Rahab in Matthew's genealogy. Two foreign women who chose Israel's God became, generations later, part of the family Jesus was born into.",
+    "scriptureRef": "Matthew 1:5-16",
+    "sources": [
+      { "name": "World English Bible", "citation": "Matthew 1:5-16 — public domain, matches this app's own verse text exactly" },
+      { "name": "Rooted character data", "citation": "char_joseph_husband_of_mary's own curated summary, \"a descendant of David\"" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedCharacterId": "char_joseph_husband_of_mary"
+  },
+  {
+    "id": "fact_methuselah_oldest",
+    "title": "The Longest Recorded Lifespan In Scripture",
+    "category": "Longevity",
+    "fact": "Methuselah, Noah's grandfather, lived 969 years — the longest lifespan recorded anywhere in the Bible. His name has become shorthand in English for extreme old age.",
+    "scriptureRef": "Genesis 5:27",
+    "sources": [
+      { "name": "World English Bible", "citation": "Genesis 5:27 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated"
+  },
+  {
+    "id": "fact_shortest_verse",
+    "title": "The Bible's Shortest Verse Is Just Two Words",
+    "category": "Trivia",
+    "fact": "\"Jesus wept.\" At the tomb of his friend Lazarus, this two-word verse is the shortest in the entire Bible — and one of its most quietly human moments.",
+    "scriptureRef": "John 11:35",
+    "sources": [
+      { "name": "World English Bible", "citation": "John 11:35 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedVerseId": "verse_john_11_35"
+  },
+  {
+    "id": "fact_goliaths_height",
+    "title": "Just How Tall Was Goliath?",
+    "category": "Trivia",
+    "fact": "Scripture gives Goliath's height as \"six cubits and a span\" — roughly nine feet, nine inches by the common cubit measure. Whatever the exact figure, the text is clear David faced a genuine giant, not a figure of speech.",
+    "scriptureRef": "1 Samuel 17:4",
+    "sources": [
+      { "name": "World English Bible", "citation": "1 Samuel 17:4 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedStoryId": "story_david_and_goliath"
+  },
+  {
+    "id": "fact_jonah_great_fish",
+    "title": "Jonah and the \"Whale\" — a Common Misquote",
+    "category": "Trivia",
+    "fact": "The book of Jonah never actually says \"whale\" — the Hebrew text (and every English translation of it) says a \"great fish.\" The whale image comes from popular retelling, not the text itself.",
+    "scriptureRef": "Jonah 1:17",
+    "sources": [
+      { "name": "World English Bible", "citation": "Jonah 1:17 — public domain, matches this app's own verse text exactly" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedStoryId": "story_jonah_flees_and_the_fish"
+  },
+  {
+    "id": "fact_66_books",
+    "title": "The Bible Is 66 Books, Written As One Story",
+    "category": "Structure",
+    "fact": "The Protestant Bible collects 66 individual books — 39 in the Old Testament, 27 in the New — spanning many centuries and authors, yet read together as one continuous account from creation to new creation.",
+    "scriptureRef": "Genesis 1:1 – Revelation 22:21",
+    "sources": [
+      { "name": "World English Bible", "citation": "Full 66-book canon, as parsed and verified in this app's own data/verses.json (31,098 verses across exactly 66 distinct books)" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedVerseId": "verse_genesis_1_1"
+  },
+  {
+    "id": "fact_longest_shortest_chapter",
+    "title": "The Bible's Longest and Shortest Chapters Sit Near Each Other",
+    "category": "Structure",
+    "fact": "Psalm 119 is the Bible's longest chapter at 176 verses, an extended meditation on God's word. Just two psalms later, Psalm 117 is the shortest chapter in the whole Bible — only 2 verses.",
+    "scriptureRef": "Psalm 119; Psalm 117",
+    "sources": [
+      { "name": "World English Bible", "citation": "Verified directly against this app's own data/verses.json — Psalm 119 has 176 verses, Psalm 117 has 2" }
+    ],
+    "verificationStatus": "Validated"
+  },
+  {
+    "id": "fact_younger_son_pattern",
+    "title": "God Keeps Choosing the Overlooked Son",
+    "category": "Patterns",
+    "fact": "David was the youngest of Jesse's eight sons — so overlooked his own father didn't think to call him in from the fields when the prophet Samuel came looking for Israel's next king. It's a shape that repeats across Scripture: Isaac over Ishmael, Jacob over Esau, Joseph over his ten older brothers, and then David.",
+    "scriptureRef": "1 Samuel 16:7-11",
+    "sources": [
+      { "name": "World English Bible", "citation": "1 Samuel 16:7-11 — public domain, matches this app's own verse text exactly" },
+      { "name": "Rooted pattern data", "citation": "motif_younger_son_chosen, 5 curated instances in this app's own data/motifs.json" }
+    ],
+    "verificationStatus": "Validated",
+    "linkedMotifId": "motif_younger_son_chosen"
+  }
+]

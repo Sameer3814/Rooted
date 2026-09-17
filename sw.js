@@ -1,16 +1,18 @@
-const CACHE = 'rooted-v111';
+const CACHE = 'rooted-v112';
 // data/verses.json (~8MB, the entire 66-book Bible) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then. Character
 // portraits (data/character_portraits.json + media/characters/*.jpg, item 91) get the same
 // lazy treatment for the same reason — only one character's photo loads per visit to their
 // page, not all 25+ on every visit, so precaching them all at install would be pure waste.
 // starter-pack.json, stories.json, motifs.json, connections.json, word_of_the_day.json,
-// and church_history.json all load at boot, so they belong here. The two Home
-// placeholder photos (item 83) render on every Home visit, so they're worth precaching too.
+// church_history.json, and daily_facts.json (item 116) all load at boot, so they belong
+// here. The two Home placeholder photos (item 83) render on every Home visit, so they're
+// worth precaching too.
 const ASSETS = ['./', './index.html', './manifest.json', './icon.png',
                 './data/starter-pack.json', './data/stories.json',
                 './data/motifs.json', './data/connections.json',
                 './data/word_of_the_day.json', './data/church_history.json',
+                './data/daily_facts.json',
                 './media/home/votd-placeholder.jpg', './media/home/story-placeholder.jpg'];
 
 self.addEventListener('install', e=>{
