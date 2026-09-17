@@ -62,10 +62,11 @@ The schema was deliberately designed so all of the above can be added
   and one practice link when verses are due; "This Day in Church
   History" was retired and deleted the same day as the reorder — see
   item 117; no progress dashboard, no practice session UI — see items
-  78 and 82), **Practice** (due-today stats, the daily-goal ring, the
-  challenge-type picker, the full verse library, and five challenge
-  types — Tap Builder, First-Letter Sprint, Progressive Vanish, Clause
-  Connect, and Reference Match (items 113/114/115/118/119) — the
+  78 and 82), **Practice** (due-today stats, a linear daily-goal
+  progress bar, a 2x3 exercise-mode grid, the full verse library, and
+  five real challenge types plus a "Mix & Match" random-per-verse mode
+  — Tap Builder, First-Letter Sprint, Progressive Vanish, Clause
+  Connect, and Reference Match (items 113/114/115/118/119/120) — the
   original four (fill-in-blank, scramble, progressive reveal, verse
   ladder) were fully retired 2026-09-17, item 114; also the entry point
   for Add Verse/Add Character, via a small
@@ -301,6 +302,26 @@ The schema was deliberately designed so all of the above can be added
   by pinning the input `position:fixed` to the viewport (plus
   `font-size:16px`, closing off iOS Safari's separate auto-zoom-on-focus
   trigger for the same category of bug).
+- **Practice hero overhaul: linear progress bar, 2x3 mode grid, Mix &
+  Match — done (2026-09-17).** Replaced the circular goal ring with a
+  full-width linear "DAILY GOAL … N of M completed (P%)" bar
+  (`renderPracticeProgressBar()`), and the horizontally-scrolling
+  challenge-type picker with a 2x3 grid of mode tiles
+  (`renderChallengeGrid()`, five new icon paths — `layers`, `zap`,
+  `eye-off`, `align-left`, `bookmark` — added to the existing
+  `icon()`/`ICON_PATHS` system). The grid's 6th tile, "Mix & Match," is
+  a genuine new practice mode, not just a label — it picks a different
+  random real `ChallengeType` per verse instead of one fixed type for
+  the whole session, via a sentinel `challengeTypeId`
+  (`MIX_MATCH_ID`) that's deliberately not a `CHALLENGE_TYPES` key.
+  That required a real small architecture change: every practice-queue
+  item now carries its own `challengeTypeId` (set once at
+  `startPractice()`), and every place that used to read
+  `challengeType(session.challengeTypeId)` — render, check, interact,
+  the Sprint/Clause-Connect wire functions, and practice-history
+  logging — now reads it off the current item instead, so a mixed
+  session's history correctly records which type each verse actually
+  used. See DATA_MODEL.md §8, item 120.
 - **Reference Match challenge type — done (2026-09-17).** A fifth
   `ChallengeType` — a 4-option multiple choice, 1 correct against 3
   distractors preferring the same book, then the same testament (a new
@@ -753,10 +774,16 @@ hand-curate all the content before building.
    order, item 118), and `challenge_reference_match` ("Reference Match"
    — 4-option multiple choice, quote↔reference, added 2026-09-17, item
    119, the first type whose wrong path also auto-advances via the new
-   `autoAdvanceMsWrong` interface field), with a picker (moved to
-   Practice's own hero card, item 107) persisted to `rooted-settings`.
-   Next: matching/ordering (`challenge_story_order`,
-   `challenge_character_match`).
+   `autoAdvanceMsWrong` interface field), with a picker (a 2x3 grid as
+   of item 120, was a horizontally-scrolling `.segmented` row before
+   that) persisted to `rooted-settings`. Next: matching/ordering
+   (`challenge_story_order`, `challenge_character_match`). A 6th
+   Practice-hero tile, **Mix & Match**, isn't a real `ChallengeType` at
+   all — a sentinel `challengeTypeId` (`MIX_MATCH_ID` = `'mix_match'`,
+   not a `CHALLENGE_TYPES` key) that resolves to a different random real
+   type per verse at session-build time. Adding it required each
+   practice-queue item to carry its own `challengeTypeId` rather than
+   the whole session sharing one — see item 120.
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
    **Done — full coverage reached 2026-09-15**, after eleven batches
    generated over the course of that one day. All 267 characters in

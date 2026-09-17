@@ -783,20 +783,35 @@
      otherwise wipe out the centering and make the button jump on press. */
   .hero-nav-btn:active{transform:translateY(-50%) scale(.9);}
 
-  /* ---------- daily goal ring (Home) ---------- */
-  .goal-ring{position:relative;width:104px;height:104px;margin:0 auto 16px;}
-  .goal-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
-  .goal-ring circle{fill:none;stroke-width:7;}
-  .goal-ring .ring-track{stroke:var(--surface-sunken);}
-  .goal-ring .ring-fill{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.34,1.56,.64,1);}
-  .goal-ring .ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .goal-ring .ring-label .num{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
-  .goal-ring .ring-label .of{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
+  /* ---------- Practice hero: linear daily-goal progress bar (2026-09-17,
+     item 120) — replaced the earlier circular goal ring (owner: "replace
+     the circular SVG progress ring with a full-width linear progress bar
+     container"). Exact spec values; scoped to its own classes rather than
+     the shared --gold/--sage tokens, same reasoning as every other
+     hex-exact challenge-type palette this session. ---------- */
+  .practice-progress-container{margin-bottom:4px;}
+  .practice-progress-row{display:flex;align-items:baseline;justify-content:space-between;}
+  .practice-progress-label{font-size:12px;color:#A39B92;letter-spacing:.05em;font-weight:600;}
+  .practice-progress-count{font-size:14px;color:#C69255;font-weight:600;}
+  .practice-progress-track{height:8px;background:#26221F;border-radius:100px;overflow:hidden;margin:8px 0 20px;}
+  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#C69255,#E5B475);border-radius:100px;transition:width .3s ease;}
+
+  /* ---------- Practice hero: 2x3 exercise-mode grid (item 120) — replaced
+     the horizontally-scrolling .segmented challenge-type picker. Its own
+     scoped palette, same reasoning as the progress bar above. ---------- */
+  .mode-tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+  .mode-tile{
+    background:#1C1917;border:1px solid #2E2925;border-radius:14px;
+    padding:12px 14px;text-align:left;cursor:pointer;transition:all .2s ease;
+    min-height:44px;
+  }
+  .mode-tile .app-icon{color:#C69255;width:18px;height:18px;display:block;}
+  .mode-tile-title{font-size:14px;font-weight:600;color:#F5F2ED;margin-top:6px;}
+  .mode-tile-subtext{font-size:11px;color:#A39B92;margin-top:2px;}
+  .mode-tile.active-mode-tile{border-color:#C69255;background:#26221F;box-shadow:0 0 12px rgba(198,146,85,.15);}
 
   /* ---------- Practice screen: hero card, compact stats strip, filter tabs ---------- */
   .practice-hero-card{background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:20px 16px 16px;margin-bottom:16px;}
-  .practice-hero-card .goal-ring{margin-bottom:10px;}
-  .practice-hero-card .segmented{margin-bottom:14px;}
   .practice-stats-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:10px 14px;margin-bottom:20px;font-size:var(--text-sm);color:var(--ink-soft);}
   .practice-stats-strip .stat-sep{color:var(--ink-faint);}
   .practice-stats-strip strong{color:var(--ink);font-weight:700;}
@@ -827,7 +842,7 @@
      costs nothing. */
   @media (prefers-reduced-motion: reduce){
     .btn, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
-    .complete-card, .complete-icon, .spark, .complete-stat, .goal-ring .ring-fill{
+    .complete-card, .complete-icon, .spark, .complete-stat, .practice-progress-fill{
       animation: none !important;
       transition: none !important;
     }
@@ -977,7 +992,7 @@ async function pullAndMerge(){
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
           settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, remote.settings || {});
-          if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
+          if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           saveContent(); saveProgress(); saveSettings();
           suppressSyncTouch = false;
@@ -1072,7 +1087,7 @@ async function importFromFile(file){
   }
   if('settings' in bundle){
     settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, bundle.settings);
-    if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
+    if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
   render();
@@ -1419,6 +1434,12 @@ const ICON_PATHS = {
   languages: `<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>`,
   sparkles: `<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>`,
   leaf: `<path d="M11 20a10 10 0 0 0 10-10 25.9 25.9 0 0 0-1.04-7.281 1 1 0 0 0-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0 0 11 20"/><path d="M2 21a5 5 0 0 1 2.911-4.544C7.613 15.212 8.351 15.24 11 13"/>`,
+  // Added for the Practice hero's 2x3 exercise-mode grid (item 120).
+  layers: `<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>`,
+  zap: `<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>`,
+  'eye-off': `<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>`,
+  'align-left': `<path d="M15 12H3"/><path d="M17 18H3"/><path d="M21 6H3"/>`,
+  bookmark: `<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>`,
 };
 /* class="app-icon" — see the shared CSS rule (display:inline-flex, no
    forced color) for why: every call site below sits inside text that
@@ -2382,29 +2403,61 @@ function addFromCorpus(id){
   refreshBrowseResults();
 }
 
-function renderChallengePicker(){
-  const types = verseChallengeTypes();
-  if(types.length < 2) return '';
-  return `<div class="segmented">${types.map(t=>
-    `<button data-action="set-challenge" data-id="${t.id}" class="${t.id===settings.challengeTypeId?'active':''}">${esc(t.name)}</button>`
-  ).join('')}</div>`;
+/* Sentinel challengeTypeId — not a key in CHALLENGE_TYPES (it isn't a real
+   pluggable type with its own build/render/etc.), just a selectable mode
+   that resolves to a random real type per verse at startPractice() time.
+   See DATA_MODEL.md §8, item 120. */
+const MIX_MATCH_ID = 'mix_match';
+const CHALLENGE_TILE_META = {
+  challenge_tap_builder: { icon: 'layers', label: 'Tap Builder', subtext: 'Word tile bank' },
+  challenge_first_letter_sprint: { icon: 'zap', label: 'First-Letter', subtext: 'Initial keypress' },
+  challenge_progressive_vanish: { icon: 'eye-off', label: 'Vanish', subtext: 'Read scaffolding' },
+  challenge_clause_connect: { icon: 'align-left', label: 'Clause Connect', subtext: 'Reorder phrases' },
+  challenge_reference_match: { icon: 'bookmark', label: 'Reference Match', subtext: 'Quote to reference' }
+};
+/* The Practice hero's 2x3 exercise-mode grid (item 120) — replaced the
+   horizontally-scrolling .segmented picker. One tile per real
+   ChallengeType (metadata above, since name/id alone don't carry an
+   icon or the shorter grid-friendly label/subtext this layout needs)
+   plus a 6th "Mix & Match" tile for the MIX_MATCH_ID sentinel. */
+function renderChallengeGrid(){
+  const tiles = verseChallengeTypes().map(t=>{
+    const meta = CHALLENGE_TILE_META[t.id] || { icon: 'sparkles', label: t.name, subtext: '' };
+    const active = settings.challengeTypeId === t.id ? ' active-mode-tile' : '';
+    return `
+      <div class="mode-tile${active}" data-action="set-challenge" data-id="${t.id}">
+        ${icon(meta.icon, 18)}
+        <div class="mode-tile-title">${esc(meta.label)}</div>
+        <div class="mode-tile-subtext">${esc(meta.subtext)}</div>
+      </div>`;
+  }).join('');
+  const mixActive = settings.challengeTypeId === MIX_MATCH_ID ? ' active-mode-tile' : '';
+  return `
+    <div class="mode-tile-grid">
+      ${tiles}
+      <div class="mode-tile${mixActive}" data-action="set-challenge" data-id="${MIX_MATCH_ID}">
+        ${icon('sparkles', 18)}
+        <div class="mode-tile-title">Mix &amp; Match</div>
+        <div class="mode-tile-subtext">Random drill mix</div>
+      </div>
+    </div>`;
 }
-/* How many of today's daily goal have been practiced so far — a ring,
-   not another flat stat card, since this one's meant to feel like
-   progress happening today specifically, not a running total. */
-function renderGoalRing(){
+/* How many of today's daily goal have been practiced so far — a linear
+   bar (2026-09-17, item 120; a circular ring before that), meant to feel
+   like progress happening today specifically, not a running total. */
+function renderPracticeProgressBar(){
   const goal = settings.dailyGoal || 10;
   const count = Math.min(todaysPracticeCount(), goal);
-  const pct = goal ? count / goal : 0;
-  const R = 30, C = 2 * Math.PI * R;
-  const offset = C * (1 - pct);
+  const pct = goal ? Math.round((count / goal) * 100) : 0;
   return `
-    <div class="goal-ring">
-      <svg viewBox="0 0 72 72">
-        <circle class="ring-track" cx="36" cy="36" r="${R}"></circle>
-        <circle class="ring-fill" cx="36" cy="36" r="${R}" style="stroke-dasharray:${C.toFixed(2)};stroke-dashoffset:${offset.toFixed(2)};"></circle>
-      </svg>
-      <div class="ring-label"><div class="num">${count}</div><div class="of">of ${goal} today</div></div>
+    <div class="practice-progress-container">
+      <div class="practice-progress-row">
+        <span class="practice-progress-label">DAILY GOAL</span>
+        <span class="practice-progress-count">${count} of ${goal} completed (${pct}%)</span>
+      </div>
+      <div class="practice-progress-track">
+        <div class="practice-progress-fill" style="width:${pct}%"></div>
+      </div>
     </div>`;
 }
 function renderVerseCard(v){
@@ -2927,7 +2980,7 @@ function wireFirstLetterSprint(){
   const input = document.getElementById('sprint-hidden-input');
   if(!input || !session) return;
   const item = session.queue[session.index];
-  const type = challengeType(session.challengeTypeId);
+  const type = challengeType(item.challengeTypeId);
   input.focus();
   input.addEventListener('blur', ()=>{
     // Keep the hidden input focused so physical-keyboard keystrokes
@@ -2956,7 +3009,7 @@ function wireFirstLetterSprint(){
         allCorrect: !!item.state.allCorrect,
         score: type.score(item.state)
       });
-      recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+      recordPractice(item.verseId, !!item.state.allCorrect, item.challengeTypeId);
       clearInterval(sprintTimerInterval);
       if(item.state.allCorrect && type.autoAdvanceMs){
         setTimeout(()=>{
@@ -3019,7 +3072,7 @@ function wireClauseConnect(){
   const container = document.getElementById('clause-list-container');
   if(!container || !session) return;
   const item = session.queue[session.index];
-  const type = challengeType(session.challengeTypeId);
+  const type = item && challengeType(item.challengeTypeId);
   if(!item || type.id !== 'challenge_clause_connect' || item.state.checked) return;
   let dragEl = null, startY = 0, moved = false;
   function onMove(ev){
@@ -4110,10 +4163,20 @@ function verseChallengeTypes(){ return Object.values(CHALLENGE_TYPES).filter(t =
 function startPractice(verseIds, challengeTypeId){
   const ids = (verseIds || []).filter(id => findVerse(id));
   if(!ids.length) return;
-  const type = challengeType(challengeTypeId || settings.challengeTypeId);
+  const modeId = challengeTypeId || settings.challengeTypeId;
+  // Mix & Match isn't a real ChallengeType (see MIX_MATCH_ID) — it picks
+  // a fresh random type per verse instead of one fixed type for the
+  // whole session, so each queue item carries its own challengeTypeId
+  // rather than the session as a whole. Every other mode still resolves
+  // to the same single type for every item, same as before this existed.
+  const isMix = modeId === MIX_MATCH_ID;
+  const realTypes = verseChallengeTypes();
   session = {
-    challengeTypeId: type.id,
-    queue: ids.map(id => ({ verseId: id, state: type.build(findVerse(id), type.config) })),
+    challengeTypeId: modeId,
+    queue: ids.map(id => {
+      const type = isMix ? realTypes[Math.floor(Math.random() * realTypes.length)] : challengeType(modeId);
+      return { verseId: id, challengeTypeId: type.id, state: type.build(findVerse(id), type.config) };
+    }),
     index: 0,
     results: []
   };
@@ -4147,8 +4210,8 @@ function renderPracticeHero(due){
   if(!due.length) return '';
   return `
     <div class="practice-hero-card">
-      ${renderGoalRing()}
-      ${renderChallengePicker()}
+      ${renderPracticeProgressBar()}
+      ${renderChallengeGrid()}
       <button class="btn primary block" data-action="start-practice">${icon('sparkles',16)} Start Practice Session (${session_size} Verse${session_size===1?'':'s'})</button>
     </div>`;
 }
@@ -4227,8 +4290,8 @@ function renderPractice(){
       </div>
     `;
   }
-  const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
+  const type = challengeType(item.challengeTypeId);
   const v = findVerse(item.verseId);
   const st = item.state;
   const progressPct = Math.round((session.index / session.queue.length) * 100);
@@ -4496,8 +4559,8 @@ function onAction(e){
 function practiceInteract(el){ practiceInteractWith(el.dataset); }
 function practiceInteractWith(ds){
   if(!session) return;
-  const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
+  const type = challengeType(item.challengeTypeId);
   if(item.state.checked || !type.interact) return;
   type.interact(item.state, ds);
   // A type may finalize grading itself from inside interact() (e.g. a
@@ -4516,7 +4579,7 @@ function practiceInteractWith(ds){
       allCorrect: !!item.state.allCorrect,
       score: type.score(item.state)
     });
-    recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+    recordPractice(item.verseId, !!item.state.allCorrect, item.challengeTypeId);
     const advanceMs = item.state.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong;
     if(advanceMs){
       setTimeout(()=>{
@@ -4531,8 +4594,8 @@ function practiceInteractWith(ds){
 }
 function checkPractice(){
   if(!session) return;
-  const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
+  const type = challengeType(item.challengeTypeId);
   if(item.state.checked) return;
   if(type.canCheck && !type.canCheck(item.state)) return; // e.g. Tap Builder: blanks still empty
   const summary = type.check(item.state);
@@ -4542,7 +4605,7 @@ function checkPractice(){
     allCorrect: summary.allCorrect,
     score: type.score(item.state)
   });
-  recordPractice(item.verseId, summary.allCorrect, session.challengeTypeId);
+  recordPractice(item.verseId, summary.allCorrect, item.challengeTypeId);
   // Some challenge types auto-advance instead of waiting for the user to
   // tap "Continue" — on a correct answer for most of them, but Reference
   // Match also auto-advances on a *wrong* one (autoAdvanceMsWrong), after
@@ -4702,7 +4765,7 @@ async function migrateLegacy(seedContent){
 
   const storedSettings = await loadStored(SETTINGS_KEY);
   settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, storedSettings || {});
-  if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
+  if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
 
   const storedSyncMeta = await loadStored(SYNC_META_KEY);
   syncMeta = Object.assign({updatedAt: null}, storedSyncMeta || {});

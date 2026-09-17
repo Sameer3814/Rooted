@@ -5664,6 +5664,52 @@ inventing a new principle:
       same-testament/anything-else fallback tiers).
     `sw.js` bumped to `rooted-v115`.
 
+120. **Practice hero overhaul: linear progress bar, 2x3 mode grid, Mix &
+    Match — done (2026-09-17), one combined owner request.**
+    - **Linear progress bar replaced the circular goal ring.**
+      `renderPracticeProgressBar()` (was `renderGoalRing()`, deleted
+      along with its `.goal-ring`/`.ring-*` CSS) — "DAILY GOAL" label
+      left, "N of M completed (P%)" right, an 8px track/fill bar below.
+      Same data source as before (`todaysPracticeCount()` against
+      `settings.dailyGoal`), just a different shape.
+    - **2x3 exercise-mode grid replaced the horizontally-scrolling
+      `.segmented` challenge-type picker.** `renderChallengeGrid()` — one
+      tile per real `ChallengeType` (`CHALLENGE_TILE_META` supplies the
+      icon/short-label/subtext each tile needs, since a type's own
+      `id`/`name` don't carry those) plus a 6th **Mix & Match** tile.
+      Five new inline-SVG icon paths added to the existing `ICON_PATHS`/
+      `icon()` system (item 107) for this: `layers`, `zap`, `eye-off`,
+      `align-left`, `bookmark`.
+    - **Mix & Match is a genuine new practice mode, not just a 6th
+      picker label.** Rather than resolving to one fixed `ChallengeType`
+      for the whole session the way every other mode does, it picks a
+      *different random real type per verse*. This needed a real (small)
+      architecture change: `session.challengeTypeId` used to be the one
+      type every queue item shared; now each queue item carries its own
+      `challengeTypeId`, set at `startPractice()` time (a real type,
+      resolved immediately — Mix & Match's randomness is baked in at
+      session-build time, not re-rolled per render). `MIX_MATCH_ID`
+      (`'mix_match'`) is a sentinel `challengeTypeId` value, deliberately
+      *not* a key in `CHALLENGE_TYPES` — it isn't a pluggable type with
+      its own `build`/`render`/etc., just a selector that resolves to a
+      real one before any verse is actually built. Every place that used
+      to read `challengeType(session.challengeTypeId)` — `renderPractice()`,
+      `checkPractice()`, `practiceInteractWith()`, `wireFirstLetterSprint()`,
+      `wireClauseConnect()`, and `recordPractice()`'s own logging — now
+      reads `challengeType(item.challengeTypeId)` off the current queue
+      item instead, so a mixed session's practice history correctly
+      records which type each individual verse was actually practiced
+      with, not one type for the whole session. The persisted-settings
+      guard (three call sites: cloud-sync pull, import, and normal boot)
+      was updated to accept `MIX_MATCH_ID` as a valid stored
+      `challengeTypeId` alongside real `CHALLENGE_TYPES` keys, so
+      choosing Mix & Match and reopening the app doesn't silently reset
+      back to Tap Builder.
+    - Exact spec hex values, scoped to their own new classes
+      (`.practice-progress-*`, `.mode-tile*`), same reasoning as every
+      other hex-exact component palette this session.
+    `sw.js` bumped to `rooted-v116`.
+
 ---
 
 ## 9. How the app reads this data
