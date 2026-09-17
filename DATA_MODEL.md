@@ -6042,6 +6042,61 @@ inventing a new principle:
       already established for topic tagging).
     `sw.js` bumped to `rooted-v121`.
 
+126. **Story-art quality/accuracy fix — done (2026-09-17), same day as
+    item 125.** The owner reviewed the first batch and flagged two real
+    problems: style was inconsistent story-to-story (feeding-the-5000
+    and the crucifixion looked richly rendered; Creation, the Flood,
+    David and Goliath, and the lions' den read flatter, closer to a
+    children's-storybook illustration), and a genuine accuracy gap —
+    `story_crucifixion`'s prompt said "three crosses" but never actually
+    named who was on the other two, and the model rendered Jesus's cross
+    alone.
+    - **Style**: `generate_story_art.py`'s `STYLE_SUFFIX` was sharpened
+      to name the specific rendering qualities the two good outputs
+      actually had (detailed character modeling, subsurface-scattering
+      skin shading, volumetric/global illumination, cinematic depth of
+      field) and to explicitly rule out the flatter look actually seen
+      ("NOT a flat picture-book or greeting-card illustration style...
+      NOT a flat children's-Bible-storybook look... not flat cel-shading
+      or a simplified storybook illustration") rather than only naming
+      what to avoid in the abstract. A single text-prompt suffix can't
+      fully pin down a model's own per-generation variance, so this
+      biases the distribution toward the better outcome rather than
+      guaranteeing every future generation lands identically — a
+      real, acknowledged limit, not a claimed fix.
+    - **Accuracy**: every one of the 6 scene descriptions in
+      `pipeline/curation/story_art_settings.json` was rewritten,
+      cross-checked against that story's own curated `summary`/
+      `characterIds` in `data/stories.json` first (same verification
+      discipline as everything else narrative in this app) rather than
+      just adding adjectives. `story_crucifixion` now explicitly says
+      "Jesus on the center cross, and two other condemned criminals
+      crucified on two separate, slightly shorter crosses — one clearly
+      positioned to his left and one to his right" — grounded in the
+      story's own already-curated summary ("Crucified between two
+      criminals") and its existing `char_penitent_thief` character, not
+      a new fact introduced for the image alone. Other fixes: Noah's
+      ark corrected to a rectangular timber vessel rather than a
+      curved ship's hull (per its own described proportions), animals
+      visible at its windows; feeding-the-5000 now explicitly shows the
+      five loaves/two fish being blessed and multiplied, not just
+      generic bread distribution; David and Goliath now explicitly
+      states David has no armor and no sword (matching the story's own
+      summary — "with no armor, a sling") and gives Goliath's actual
+      described height (nine feet); the lions' den names King Darius
+      specifically rather than "the king."
+    - Re-ran `--test` on all 6 with the new prompts, reviewed every
+      image directly (the crucifixion now correctly shows all three
+      crosses with two other figures on Jesus's cross), then `--batch`
+      to regenerate and overwrite the 6 committed files — each
+      `--batch` call is an independent generation from its own `--test`
+      counterpart (see item 125's own note on this), so the final
+      committed crucifixion differs slightly in composition (Jesus
+      shown in a robe rather than the more traditional loincloth) from
+      the reviewed test image, while keeping the same core fix (three
+      crosses, two other figures clearly present).
+    `sw.js` bumped to `rooted-v122`.
+
 ---
 
 ## 9. How the app reads this data

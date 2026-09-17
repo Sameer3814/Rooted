@@ -72,21 +72,42 @@ TARGET_WIDTH = 960
 # explicitly steered toward staying stylized even when a scene has no
 # foreground character to "anchor" the look — the exact failure mode SDXL
 # hit on Creation/the Flood/the Crucifixion's wide vista.
+#
+# Strengthened 2026-09-17 after reviewing the first real batch: quality
+# was inconsistent story-to-story even with one fixed style string
+# appended every time — feeding_the_5000 and crucifixion came back with
+# real depth, detailed lighting, and dimensional character rendering,
+# while creation/the_flood/david_and_goliath/lions_den read flatter,
+# closer to a children's-storybook illustration than the intended
+# high-production animated-feature look. Gemini's own per-generation
+# variance isn't something a text prompt can fully pin down, but a more
+# specific description of the target rendering qualities (and an
+# explicit contrast against the flatter look actually seen) narrows it —
+# this doesn't guarantee every generation lands identically, but biases
+# the distribution toward the better outcome instead of leaving it to
+# chance.
 STYLE_SUFFIX = (
-    "Richly rendered stylized 3D character-animation art style, in the "
-    "polished feel of a modern animated feature film. Explicitly NOT "
-    "photorealistic, NOT a photograph, NOT a realistic matte painting, NOT "
-    "hyperrealistic — this applies to the environment and landscape "
-    "elements (mountains, sky, water, clouds) just as much as to any "
-    "figures present; a scene with no characters in the foreground should "
-    "still read as stylized animated art, not a realistic digital "
-    "painting. Warm, painterly cinematic lighting; soft, tactile shading "
-    "with clean, simplified forms rather than photographic texture. "
-    "Ancient Near Eastern biblical-era clothing and setting rendered "
-    "respectfully and without caricature, when people are present. Wide "
-    "establishing scene, full figures and environment both clearly "
-    "visible, full color, cinematic widescreen framing, no text or "
-    "watermarks."
+    "Richly rendered stylized 3D character-animation art style, matching "
+    "the polished, high-production quality of a major modern animated "
+    "feature film — detailed character modeling with expressive faces, "
+    "soft subsurface-scattering skin shading, rich volumetric and global "
+    "illumination, cinematic depth of field, and finely rendered fabric "
+    "and material texture. Explicitly NOT a flat picture-book or "
+    "greeting-card illustration style, NOT clip art, NOT a flat "
+    "children's-Bible-storybook look, and NOT photorealistic, NOT a "
+    "photograph, NOT a realistic matte painting, NOT hyperrealistic — "
+    "this applies to the environment and landscape elements (mountains, "
+    "sky, water, clouds) just as much as to any figures present; a scene "
+    "with no characters in the foreground should still read as "
+    "high-production stylized animated art, not a flat painting or a "
+    "photograph. Warm, painterly cinematic lighting; soft, tactile "
+    "shading with clean, simplified forms, but rendered with real depth "
+    "and dimensionality — not flat cel-shading or a simplified "
+    "storybook illustration. Ancient Near Eastern biblical-era clothing "
+    "and setting rendered respectfully and without caricature, when "
+    "people are present. Wide establishing scene, full figures and "
+    "environment both clearly visible, full color, cinematic widescreen "
+    "framing, no text or watermarks."
 )
 
 

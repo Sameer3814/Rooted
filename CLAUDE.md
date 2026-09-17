@@ -198,6 +198,25 @@ The schema was deliberately designed so all of the above can be added
   `--test`/`--batch` will generate for it (curated, not auto-generated
   from the story's own summary — same discipline as everything else
   narrative in this app). See DATA_MODEL.md §8, item 125.
+- **Story-art quality/accuracy fix — done (2026-09-17), same day.** The
+  owner reviewed the first batch and flagged two real problems: style
+  was inconsistent story-to-story (feeding-the-5000/crucifixion looked
+  richly rendered, the other 4 read flatter, closer to a
+  children's-storybook illustration), and story_crucifixion's prompt
+  said "three crosses" without ever naming who was on the other two —
+  the model rendered Jesus's cross alone. Sharpened
+  `generate_story_art.py`'s `STYLE_SUFFIX` to name the specific
+  rendering qualities the good outputs actually had and explicitly rule
+  out the flatter look seen (a real bias on model variance, not a
+  guaranteed fix). Rewrote all 6 scene descriptions in
+  `pipeline/curation/story_art_settings.json`, each cross-checked
+  against that story's own curated summary/characters first —
+  `story_crucifixion` now explicitly places two named criminals on
+  either side of Jesus's cross, grounded in the story's own already-
+  curated "crucified between two criminals" summary and its existing
+  `char_penitent_thief`. Re-ran `--test`, reviewed all 6 (crucifixion
+  now correct), then `--batch` to regenerate and overwrite the
+  committed files. See DATA_MODEL.md §8, item 126.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
