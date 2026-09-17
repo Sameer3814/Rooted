@@ -503,11 +503,45 @@
      card rather than inside its centered-text padding (same "full-bleed
      image above the info card" shape as .unreached-full-photo). */
   .hero-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-sunken);}
-  /* Real generated story illustration (item 125) — same "full-bleed
-     image above the .hero card" shape as .hero-photo, but a wide
-     ratio matching the art's own "cinematic widescreen" generation
-     spec, not a square portrait crop. */
-  .story-hero-photo{display:block;width:100%;aspect-ratio:12/5;object-fit:cover;border-radius:var(--radius-card);background:var(--surface-sunken);margin-bottom:16px;}
+  /* Story Detail's immersive full-bleed hero (2026-09-17, item 128) —
+     supersedes the earlier item-125 treatment (a plain rounded photo
+     sitting above the .hero card, margin-bottom:16px). Negative
+     margins of -20px/-18px exactly cancel .app's own top/side padding
+     (see that rule) so the image reaches the real screen edges rather
+     than just filling its column. Rendered for every story now, not
+     only ones with a real generated illustration — placeholderArt()
+     (already used elsewhere for exactly this "real photo later, hue-
+     seeded placeholder now, identical layout either way" reason) fills
+     in until every story has real art (see item 125's own progress
+     note), so the header/back-button/prev-next-arrow treatment below
+     is consistent across all 324 stories today, not just the ones
+     illustrated so far. */
+  .story-hero-image-container{position:relative;width:100%;height:340px;margin:-20px -18px 0;overflow:hidden;}
+  .story-hero-image-container .story-hero-photo{width:100%;height:100%;object-fit:cover;border-radius:0 0 28px 28px;display:block;margin:0;background:var(--surface-sunken);}
+  .story-hero-image-container::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:140px;
+    background:linear-gradient(180deg, rgba(20,18,16,0) 0%, #141210 100%);
+    pointer-events:none;
+  }
+  /* Floats the back button over the artwork instead of its own row
+     above it — a frosted circular chip, not this app's usual flat
+     .back-btn, since it now needs to read against arbitrary photo
+     content rather than a flat dark page background. */
+  .story-hero-back{
+    position:absolute;top:16px;left:16px;z-index:10;
+    background:rgba(28,25,23,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.15);border-radius:50%;
+    width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+    color:#F5F2ED;cursor:pointer;
+  }
+  /* Overlaps the gradient fade by exactly the container's own negative
+     top margin below, so the seam between photo and card reads as one
+     continuous surface rather than a hard edge. */
+  .story-details-card{
+    position:relative;z-index:2;margin:-40px 0 0;
+    background:#1C1917;border:1px solid #2E2925;border-radius:24px;
+    padding:24px 20px;
+  }
   /* Visible prev/next controls for the character carousel (replacing an
      earlier blind-swipe-only version on direct feedback) — overlaid on
      the photo itself rather than a separate row, so no new vertical
@@ -3266,12 +3300,17 @@ function renderStoryDetail(id){
   const era = findEra(s.eraId);
   const moments = lore.lifeEvents.filter(e=>e.storyId===id);
   const related = relatedStories(id);
-  const illustration = storyIllustrationUrl(s.id);
+  const illustration = storyIllustrationUrl(s.id) || placeholderArt(s.id);
+  const prevStory = adjacentStory(id, -1);
+  const nextStory = adjacentStory(id, 1);
   return `
-    <button class="back-btn" data-action="story-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    ${illustration ? `<img class="story-hero-photo" src="${illustration}" alt="">` : ''}
-    <div class="hero">
-      ${illustration ? '' : '<div class="hero-avatar"><i class="ti ti-book-2"></i></div>'}
+    <div class="story-hero-image-container">
+      <img class="story-hero-photo" src="${illustration}" alt="">
+      <button class="back-btn story-hero-back" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
+      ${prevStory ? `<button class="hero-nav-btn hero-nav-prev" data-action="story-carousel-nav" data-id="${prevStory.id}" aria-label="Previous story"><i class="ti ti-chevron-left"></i></button>` : ''}
+      ${nextStory ? `<button class="hero-nav-btn hero-nav-next" data-action="story-carousel-nav" data-id="${nextStory.id}" aria-label="Next story"><i class="ti ti-chevron-right"></i></button>` : ''}
+    </div>
+    <div class="hero story-details-card">
       <h1 style="font-size:24px;">${esc(s.title)}</h1>
       ${topics.length ? `<div class="tags">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
       <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
@@ -4604,6 +4643,7 @@ function onAction(e){
   // Using open-character here instead would chain from one character
   // page to the next and turn the back button into "previous character."
   else if(action==='char-carousel-nav') go('characterDetail', {id, from: view.params.from});
+  else if(action==='story-carousel-nav') go('storyDetail', {id, from: view.params.from});
   else if(action==='character-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('characters'); }
   else if(action==='open-book-people') go('bookPeople', {book: id});
   else if(action==='back-to-browse-book'){ browse.book = id; browse.chapter = null; go('browse'); }
@@ -4745,6 +4785,22 @@ function allCharactersOrdered(){
 function adjacentCharacter(id, dir){
   const list = allCharactersOrdered();
   const i = list.findIndex(c=>c.id===id);
+  if(i===-1) return null;
+  return list[i+dir] || null;
+}
+/* Story Detail's own prev/next carousel (item 128) — same visible-arrow
+   pattern as the character one above, but ordered by canonicalOrder
+   (every story already has one — see build_stories.py's own
+   validation) rather than by era-then-insertion-order, since that's
+   the actual "walk the whole Bible in sequence" ordering Timeline
+   already uses (renderTimeline()), and reads more usefully here than
+   an arbitrary era-grouped order would. */
+function allStoriesOrdered(){
+  return [...lore.stories].sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
+}
+function adjacentStory(id, dir){
+  const list = allStoriesOrdered();
+  const i = list.findIndex(s=>s.id===id);
   if(i===-1) return null;
   return list[i+dir] || null;
 }

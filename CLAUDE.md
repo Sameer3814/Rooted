@@ -234,6 +234,24 @@ The schema was deliberately designed so all of the above can be added
   cards) bumped 88x68 -> 104x80, owner's own framing being "that will
   capture the user's attention" — both cards grew together since they
   share the class. See DATA_MODEL.md §8, item 127.
+- **Story Detail: full-bleed hero banner + prev/next carousel — done
+  (2026-09-17), same day.** The hero image now reaches the actual
+  screen edges (`.story-hero-image-container`, negative margins
+  canceling `.app`'s own padding), fades into the page background via a
+  bottom gradient, and the details card overlaps that fade with its own
+  negative top margin so the seam reads as one surface. A frosted
+  circular back button now floats on the artwork instead of sitting in
+  its own row above it. Every story gets this treatment, not just the
+  16 with real generated art (items 125-127) — `placeholderArt(s.id)`
+  fills in for the other 308, same "real photo later, placeholder now,
+  identical layout either way" pattern already used for Home's VOTD/
+  Unreached cards. Also added prev/next story arrows (not in the
+  original spec, requested alongside it) — mirrors the character
+  carousel exactly (`allCharactersOrdered()`/`adjacentCharacter()`,
+  items 102-104) but ordered by each story's own `canonicalOrder`
+  (`allStoriesOrdered()`/`adjacentStory()`), the same "walk the Bible in
+  sequence" ordering Timeline already uses. See DATA_MODEL.md §8, item
+  128.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

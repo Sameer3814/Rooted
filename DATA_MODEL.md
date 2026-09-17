@@ -6130,6 +6130,57 @@ inventing a new principle:
       rather than leaving the two rows visually mismatched.
     `sw.js` bumped to `rooted-v123`.
 
+128. **Story Detail: immersive full-bleed hero banner + prev/next
+    carousel — done (2026-09-17), same day as item 127.** Exact spec
+    values throughout; `.story-hero-image-container`/`.story-header`/
+    `.story-details-card` named in the request didn't all already exist
+    (`.story-details-card` was new, the container was new,
+    `.story-header` doesn't exist in this file at all — applied to the
+    real markup instead).
+    - **Full-bleed, not just wide.** The image now reaches the actual
+      screen edges — `margin:-20px -18px 0` on the new
+      `.story-hero-image-container` exactly cancels `.app`'s own
+      `padding:20px 18px 8px`, the same "negative-margin cancels the
+      shared page gutter" trick, not a one-off number. A `::after`
+      gradient fades the image into the page's own background color
+      (`#141210`, matching `--paper`) at its bottom edge, and
+      `.story-details-card` overlaps that fade with its own
+      `margin-top:-40px`, so the seam reads as one continuous surface.
+    - **Every story now gets this treatment, not only the ones with
+      real generated art.** Only 16 of 324 stories have a real
+      illustration so far (items 125-127). Rather than only building
+      this for those 16 and leaving the other 308 on the old plain
+      header, `placeholderArt(s.id)` — this app's existing hue-seeded
+      inline-SVG placeholder, already used the same way for Home's VOTD/
+      Unreached cards before their own real photos existed — fills in
+      until every story has real art, so the new header, floating back
+      button, and prev/next arrows are consistent across the whole
+      Stories section today.
+    - **Floating back button**: `.story-hero-back`, a frosted circular
+      chip overlaid on the artwork (this app's normal flat `.back-btn`
+      wouldn't read reliably against arbitrary photo content), replacing
+      the previous plain `.back-btn` that sat in its own row above the
+      image.
+    - **Prev/next story arrows — a real addition, not in the original
+      spec but requested alongside it.** Mirrors the existing character-
+      carousel pattern exactly (`allCharactersOrdered()`/
+      `adjacentCharacter()`, items 102-104) — new `allStoriesOrdered()`/
+      `adjacentStory()`, but sorted by each story's own `canonicalOrder`
+      (every story already has one; validated by `build_stories.py`)
+      rather than era-then-insertion-order, since "walk the whole Bible
+      in sequence" is the ordering that's actually useful for a
+      story-to-story carousel — the same ordering Timeline
+      (`renderTimeline()`) already uses. New `story-carousel-nav` action
+      preserves the original entry point across carousel taps
+      (`from: view.params.from`), the same fix the character carousel
+      itself needed after an early bug chained the back button through
+      every visited character instead of returning to where the user
+      actually came from (item 102's own history).
+    - Content padding behind the floating nav needed no changes — the
+      existing global `body{padding-bottom:120px}` rule already covers
+      Story Detail like every other screen.
+    `sw.js` bumped to `rooted-v124`.
+
 ---
 
 ## 9. How the app reads this data
