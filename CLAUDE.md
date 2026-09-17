@@ -254,6 +254,29 @@ The schema was deliberately designed so all of the above can be added
   shared app tokens changed. Verified by simulating 30 real verses
   played "perfectly" before shipping (all graded correct, no crashes),
   not just read over. See DATA_MODEL.md §8, item 113.
+- **Retired the original four ChallengeTypes; added First-Letter Sprint
+  — done (2026-09-17), same day.** Direct owner request: "get rid of the
+  older exercises and keep the new ones." Deleted fill-in-blank,
+  scramble, `challenge_first_letters`, and `challenge_verse_ladder`
+  along with their dead-code support (`hintWord()`, `.blank`/`.chip`/
+  `.scramble-*` CSS); every stored/default `challengeTypeId` fallback
+  now points at `challenge_tap_builder`, and a returning user with a
+  stale stored id already degrades cleanly via the existing
+  not-found guard. New: `challenge_first_letter_sprint`, a real-time
+  typing drill — type each word's first letter to reveal it and race to
+  the end, with a live timer and a "Completed in Xs! (Y WPM)" toast.
+  Driven by actual keystrokes, not taps: a new `practiceKeyInput()` /
+  `practiceInteractWith()` (refactored out of `practiceInteract()`)
+  entry point feeds a hidden, always-focused `<input>`'s keystrokes into
+  the same `interact()`/finalize machinery every other type already
+  uses. The live countdown updates a `#sprint-timer` span directly via
+  `setInterval` rather than through the normal `render()` cycle, since
+  re-rendering every 100ms would fight keystroke-driven renders and
+  keep stealing the hidden input's focus — same reasoning
+  `wireTimelineDrag()` already established for drag gestures. Verified
+  by simulating 40 real curated verses typed letter-perfect before
+  shipping (all completed and graded correct), plus a deliberate wrong-
+  keypress test. See DATA_MODEL.md §8, item 114.
 - **Practice screen overhaul + app-wide emoji removal — done
   (2026-09-16).** Practice's landing screen got a `.practice-hero-card`
   (goal ring + challenge-type picker + a full-width "Start Practice
@@ -579,16 +602,19 @@ migration checklist. Approach agreed with the owner (2026-09-03): design
 the whole data model up front, then build in vertical slices — do **not**
 hand-curate all the content before building.
 
-1. More challenge types. Five built (`CHALLENGE_TYPES` in `index.html`,
-   `DATA_MODEL.md` §3): fill-in-blank, scramble, self-graded
-   `challenge_first_letters`, self-graded `challenge_verse_ladder`
-   (progressive word-stripping across 5 stages, 2026-09-09 — a Tier 1
-   engagement feature), and `challenge_tap_builder` (word-tile bank,
-   2026-09-17 — auto-graded, and the first type to auto-advance on a
-   correct answer), with a picker (moved to Practice's own hero card,
-   item 107) persisted to `rooted-settings`. Next: reference↔text
-   matching (`challenge_reference_match`, next Tier 1 item), then
-   matching/ordering (`challenge_story_order`, `challenge_character_match`).
+1. More challenge types. **The original four (fill-in-blank, scramble,
+   `challenge_first_letters`, `challenge_verse_ladder`) were retired
+   2026-09-17 on direct owner request** ("get rid of the older
+   exercises") — see item 114. `CHALLENGE_TYPES` (`index.html`,
+   `DATA_MODEL.md` §3) now holds exactly two: `challenge_tap_builder`
+   (word-tile bank, 2026-09-17 — auto-graded, auto-advances on a correct
+   answer) and `challenge_first_letter_sprint` ("First-Letter Sprint,"
+   same day — a real-time speed-typing drill, the first challenge type
+   driven by actual keystrokes rather than taps), with a picker (moved
+   to Practice's own hero card, item 107) persisted to
+   `rooted-settings`. Next: reference↔text matching
+   (`challenge_reference_match`), then matching/ordering
+   (`challenge_story_order`, `challenge_character_match`).
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
    **Done — full coverage reached 2026-09-15**, after eleven batches
    generated over the course of that one day. All 267 characters in

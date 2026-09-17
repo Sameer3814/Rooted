@@ -401,20 +401,6 @@
   .practice-verse{
     font-family:var(--font-display);font-weight:500;font-size:var(--text-base);line-height:1.45;color:var(--text-primary);
   }
-  .blank{
-    display:inline-block;
-    min-width:64px;
-    border-bottom:2px solid var(--gold);
-    padding:0 2px;
-  }
-  .blank input{
-    border:none;background:transparent;font-family:'Inter',sans-serif;font-weight:600;font-size:18px;
-    width:100%;padding:0;color:var(--gold-deep);text-align:center;outline:none;
-  }
-  .blank.correct{border-color:var(--sage);}
-  .blank.correct input{color:var(--sage-deep);}
-  .blank.wrong{border-color:var(--danger);}
-  .blank.wrong input{color:var(--danger);}
   .progress-track{height:5px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:22px;}
   .progress-fill{height:100%;background:var(--gold);border-radius:4px;transition:width .3s ease;}
   .result-banner{
@@ -422,24 +408,7 @@
   }
   .result-banner.good{background:var(--sage-wash);color:var(--sage-deep);}
   .result-banner.bad{background:var(--danger-wash);color:var(--danger);}
-
-  /* scramble challenge */
-  .chip{
-    display:inline-block;font-family:'Inter',sans-serif;font-weight:500;font-size:15px;line-height:1.2;
-    padding:7px 13px;border:1px solid transparent;border-radius:100px;
-    background:var(--surface-sunken);color:var(--ink);
-  }
-  .chip.picked{background:var(--gold-wash);border-color:var(--gold);color:var(--gold-deep);}
-  .chip.chip-correct{background:var(--sage-wash);border-color:var(--sage);color:var(--sage-deep);}
-  .chip.chip-wrong{background:var(--danger-wash);border-color:var(--danger);color:var(--danger);}
-  .scramble-build{
-    min-height:46px;padding:9px 10px;margin-bottom:12px;
-    background:var(--surface-sunken);border-radius:var(--radius-ctl);
-    line-height:2.4;
-  }
-  .scramble-pool{line-height:2.6;}
-  .scramble-fixed{color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:500;font-size:15px;margin:6px 0;}
-  .scramble-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
+  .practice-hint{color:var(--ink-faint);font-size:13px;font-family:'Inter',sans-serif;}
 
   /* Tap Builder challenge (2026-09-17) — its own dark-obsidian/bronze
      component palette, scoped to these classes only, same reasoning as
@@ -474,6 +443,42 @@
   }
   .tap-tile:active{transform:scale(.95);background:#2E2925;}
   .tap-builder-check{background:#C69255 !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+
+  /* First-Letter Sprint challenge (2026-09-17) — same scoped dark-
+     obsidian/bronze palette as Tap Builder, not the shared app tokens. */
+  .sprint-text-box{
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:24px;font-size:20px;line-height:1.6;
+    font-family:var(--font-display);font-weight:500;
+  }
+  .sprint-word{display:inline-block;}
+  .sprint-word.sprint-done{color:#F5F2ED;}
+  .sprint-word.sprint-active{color:#C69255;font-weight:700;border-bottom:2px solid #C69255;}
+  .sprint-word.sprint-future{color:#A39B92;opacity:.6;}
+  .sprint-word.sprint-flash-correct{animation:sprintFlashGood .35s ease;}
+  .sprint-word.sprint-flash-wrong{animation:sprintFlashBad .3s ease;}
+  @keyframes sprintFlashGood{
+    0%{color:#10B981;transform:scale(1.15);}
+    100%{color:#F5F2ED;transform:scale(1);}
+  }
+  @keyframes sprintFlashBad{
+    0%,100%{color:#C69255;border-color:#C69255;}
+    30%,70%{color:#EF4444;border-color:#EF4444;}
+  }
+  /* Visually hidden but focusable/typeable — keeps a real text input in
+     the DOM for mobile virtual keyboards to attach to (see
+     wireFirstLetterSprint()) without it appearing as a text field
+     on-screen; opacity/pointer-events rather than display:none, which
+     some mobile browsers refuse to focus. */
+  .sprint-hidden-input{
+    position:absolute;opacity:0;height:44px;width:100%;left:0;top:100%;
+    pointer-events:none;border:none;outline:none;
+  }
+  .sprint-toast{
+    display:flex;align-items:center;gap:8px;margin-top:14px;padding:14px 16px;
+    background:rgba(198,146,85,.12);border:1px solid #C69255;border-radius:12px;
+    color:#C69255;font-weight:600;font-size:15px;
+  }
 
   /* segmented control (practice mode picker) */
   /* overflow-x:auto (rather than a fixed flex:1 grid) since a 5th
@@ -606,10 +611,10 @@
      A springy press-down on every tappable surface — buttons, practice
      chips, nav items, tappable cards/rows, chapter cells. One shared rule
      rather than touching each component's own block. */
-  .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card, .hero-nav-btn{
+  .btn, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card, .hero-nav-btn{
     transition: transform .15s cubic-bezier(.34,1.56,.64,1);
   }
-  .btn:active, .chip:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active, .topic-card:active{
+  .btn:active, .navitem:active, .card.tap:active, .list-row.tap:active, .chapter-cell:active, .back-btn:active, .topic-card:active{
     transform: scale(.96);
   }
   /* .hero-nav-btn already carries translateY(-50%) for vertical centering
@@ -617,12 +622,6 @@
      transforms instead of using the shared rule above, which would
      otherwise wipe out the centering and make the button jump on press. */
   .hero-nav-btn:active{transform:translateY(-50%) scale(.9);}
-  /* Scramble chips "pop" in on every render (pick/unpick/re-render) — a
-     full FLIP slide-between-containers animation would need per-chip
-     position tracking across two separate drop zones; this is the
-     lightweight, robust illusion of fluid placement instead. */
-  @keyframes chipIn{from{opacity:0;transform:scale(.82);}to{opacity:1;transform:scale(1);}}
-  .chip{animation:chipIn .18s cubic-bezier(.34,1.56,.64,1);}
 
   /* ---------- daily goal ring (Home) ---------- */
   .goal-ring{position:relative;width:104px;height:104px;margin:0 auto 16px;}
@@ -667,7 +666,7 @@
      above is decorative, none of it gates functionality, so disabling it
      costs nothing. */
   @media (prefers-reduced-motion: reduce){
-    .btn, .chip, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
+    .btn, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
     .complete-card, .complete-icon, .spark, .complete-stat, .goal-ring .ring-fill{
       animation: none !important;
       transition: none !important;
@@ -817,8 +816,8 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, remote.settings || {});
-          if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
+          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, remote.settings || {});
+          if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           saveContent(); saveProgress(); saveSettings();
           suppressSyncTouch = false;
@@ -912,8 +911,8 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, bundle.settings);
-    if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
+    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, bundle.settings);
+    if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
   render();
@@ -1172,7 +1171,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -2683,6 +2682,51 @@ function wireFamilyTreePanZoom(){
     apply();
   }, {passive: false});
 }
+/* First-Letter Sprint's live keyboard capture + ticking timer. Called
+   after every render (bindEvents(), full renders only) — a keystroke
+   during the sprint goes through the normal practiceKeyInput() ->
+   interact() -> render() cycle same as any other challenge type's
+   interact(), so this only needs to (re)wire the hidden input and
+   restart the timer tick each time, not implement the gameplay itself.
+   The interval updates the timer's textContent directly rather than
+   going through render() every 100ms, which would fight the keystroke-
+   driven renders and, worse, blow away the hidden input's focus
+   constantly — same reasoning wireTimelineDrag() above gives for
+   moving real DOM nodes during a drag instead of re-rendering on every
+   pointermove. */
+let sprintTimerInterval = null;
+function wireFirstLetterSprint(){
+  clearInterval(sprintTimerInterval);
+  sprintTimerInterval = null;
+  const input = document.getElementById('sprint-hidden-input');
+  if(!input || !session) return;
+  const item = session.queue[session.index];
+  input.focus();
+  input.addEventListener('blur', ()=>{
+    // Keep the hidden input focused so physical-keyboard keystrokes
+    // keep landing on it — a real blur (leaving Practice) will just
+    // fail to find the input again on the next tick/render and this
+    // becomes a no-op.
+    setTimeout(()=>{ const i = document.getElementById('sprint-hidden-input'); if(i) i.focus(); }, 10);
+  });
+  input.addEventListener('input', ()=>{
+    const val = input.value;
+    input.value = '';
+    const ch = val[val.length - 1];
+    if(ch && /[a-zA-Z]/.test(ch)) practiceKeyInput(ch);
+  });
+  const timerEl = document.getElementById('sprint-timer');
+  if(timerEl && item && !item.state.checked){
+    sprintTimerInterval = setInterval(()=>{
+      const el = document.getElementById('sprint-timer');
+      if(!el || !session || session.queue[session.index] !== item || item.state.checked){
+        clearInterval(sprintTimerInterval);
+        return;
+      }
+      el.textContent = ((Date.now() - item.state.startTime) / 1000).toFixed(1) + 's';
+    }, 100);
+  }
+}
 function wireTimelineDrag(){
   const track = document.getElementById('tl-drag-track');
   if(!track) return;
@@ -3123,230 +3167,18 @@ function renderAddCharacter(){
                             !state.checked. Replaces the generic "Check"
                             button — for a type whose finalization isn't a
                             single auto-graded tap (self-graded reveal).
+     canCheck(state)        optional; defaults to true. Lets the generic
+                            Check button stay disabled until the type's
+                            own notion of "ready" is met (e.g. every
+                            blank filled).
+     autoAdvanceMs          optional number. On a correct check(), advance
+                            to the next verse automatically after this
+                            many ms (still guarded — a manual "Continue"
+                            tap before the timer fires just no-ops it).
    Adding matching / ordering = another entry here, no changes to
    startPractice / renderPractice / checkPractice.
 */
 const CHALLENGE_TYPES = {
-  challenge_fill_blank: {
-    id: 'challenge_fill_blank',
-    name: 'Fill in the blank',
-    appliesToEntityTypes: ['verse'],
-    config: { blankRatio: 0.3, maxBlanks: 4, minWordLength: 4 },
-    enabled: true,
-    build(verse, config){
-      const words = verse.text.split(' ');
-      const eligible = words.map((w,i)=>i)
-        .filter(i => words[i].replace(/[^a-zA-Z]/g,'').length >= config.minWordLength);
-      const count = Math.max(1, Math.min(config.maxBlanks, Math.round(eligible.length * config.blankRatio)));
-      const pool = [...eligible];
-      const blanks = [];
-      while(blanks.length < count && pool.length){
-        blanks.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
-      }
-      blanks.sort((a,b)=>a-b);
-      return { words, blanks, checked:false, given:[], results:[], allCorrect:false };
-    },
-    render(state){
-      return state.words.map((w,i)=>{
-        const bi = state.blanks.indexOf(i);
-        if(bi === -1) return esc(w);
-        const cls = state.checked ? (state.results[bi] ? 'correct' : 'wrong') : '';
-        const size = Math.max(3, w.replace(/[^a-zA-Z]/g,'').length);
-        const val = state.checked ? ` value="${esc(state.given[bi] || '')}"` : '';
-        return `<span class="blank ${cls}"><input type="text" data-blank="${i}"${val} ${state.checked?'readonly':''} style="width:${size*13}px" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></span>`;
-      }).join(' ');
-    },
-    check(state){
-      const norm = s => s.trim().toLowerCase().replace(/[^a-z0-9']/g,'');
-      let allCorrect = true;
-      state.blanks.forEach((wi, bi)=>{
-        const input = document.querySelector(`[data-blank="${wi}"]`);
-        const raw = input ? (input.value || '') : '';
-        const ok = norm(raw) === norm(state.words[wi]);
-        state.given[bi] = raw;
-        state.results[bi] = ok;
-        if(!ok) allCorrect = false;
-      });
-      state.checked = true;
-      state.allCorrect = allCorrect;
-      return { allCorrect, correctCount: state.results.filter(Boolean).length, total: state.blanks.length };
-    },
-    score(state){
-      if(!state.results.length) return 0;
-      return state.results.filter(Boolean).length / state.results.length;
-    }
-  },
-
-  challenge_scramble: {
-    id: 'challenge_scramble',
-    name: 'Unscramble',
-    appliesToEntityTypes: ['verse'],
-    config: { maxWords: 14 },
-    enabled: true,
-    build(verse, config){
-      const words = verse.text.split(' ');
-      // For a long verse, scramble only a contiguous window and keep the rest
-      // as fixed context so the task stays doable.
-      let start = 0, len = words.length;
-      if(words.length > config.maxWords){
-        len = config.maxWords;
-        start = Math.floor(Math.random() * (words.length - len + 1));
-      }
-      const pool = [];
-      for(let i = start; i < start + len; i++) pool.push(i);
-      for(let i = pool.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
-      }
-      // avoid handing back an already-sorted "scramble"
-      if(len > 1 && pool.every((wi, k) => wi === start + k)) pool.reverse();
-      return { words, start, len, pool, picked:[], checked:false, results:[], allCorrect:false };
-    },
-    interact(state, ds){
-      if(ds.pick !== undefined && ds.pick !== ''){
-        const p = +ds.pick;
-        state.picked.push(state.pool[p]);
-        state.pool.splice(p, 1);
-      }else if(ds.unpick !== undefined && ds.unpick !== ''){
-        const p = +ds.unpick;
-        state.pool.push(state.picked[p]);
-        state.picked.splice(p, 1);
-      }
-    },
-    render(state){
-      const {words, start, len} = state;
-      const prefix = words.slice(0, start).join(' ');
-      const suffix = words.slice(start + len).join(' ');
-      if(state.checked){
-        const seq = [];
-        for(let i = 0; i < len; i++){
-          const wi = state.picked[i];
-          const cls = state.results[i] ? 'chip-correct' : 'chip-wrong';
-          seq.push(`<span class="chip ${cls}">${esc(wi === undefined ? '—' : words[wi])}</span>`);
-        }
-        return `${prefix ? `<span class="scramble-fixed">${esc(prefix)} </span>` : ''}${seq.join(' ')}${suffix ? `<span class="scramble-fixed"> ${esc(suffix)}</span>` : ''}`;
-      }
-      const built = state.picked
-        .map((wi, pi) => `<button class="chip picked" data-action="practice-interact" data-unpick="${pi}">${esc(words[wi])}</button>`)
-        .join(' ');
-      const pool = state.pool
-        .map((wi, pi) => `<button class="chip" data-action="practice-interact" data-pick="${pi}">${esc(words[wi])}</button>`)
-        .join(' ');
-      return `
-        ${prefix ? `<div class="scramble-fixed">${esc(prefix)} …</div>` : ''}
-        <div class="scramble-build">${built || '<span class="scramble-hint">tap the words below in order</span>'}</div>
-        <div class="scramble-pool">${pool || '<span class="scramble-hint">all words placed — tap Check</span>'}</div>
-        ${suffix ? `<div class="scramble-fixed">… ${esc(suffix)}</div>` : ''}
-      `;
-    },
-    check(state){
-      const {words, start, len} = state;
-      const results = [];
-      for(let i = 0; i < len; i++){
-        const wi = state.picked[i];
-        results[i] = wi !== undefined && words[wi] === words[start + i];
-      }
-      const allCorrect = state.picked.length === len && results.every(Boolean);
-      state.results = results;
-      state.checked = true;
-      state.allCorrect = allCorrect;
-      return { allCorrect, correctCount: results.filter(Boolean).length, total: len };
-    },
-    score(state){
-      if(!state.len) return 0;
-      return state.results.filter(Boolean).length / state.len;
-    }
-  },
-
-  challenge_first_letters: {
-    id: 'challenge_first_letters',
-    name: 'Progressive reveal',
-    appliesToEntityTypes: ['verse'],
-    config: {},
-    enabled: true,
-    // Self-graded: closer to how memorization actually works than an
-    // auto-graded type. Shown only the first letter of every word, the user
-    // recalls the verse from memory, reveals it, and judges their own recall
-    // — there's no DOM input to check a string against.
-    build(verse){
-      return { words: verse.text.split(' '), revealed:false, checked:false, allCorrect:false };
-    },
-    render(state){
-      if(!state.revealed) return state.words.map(hintWord).join(' ');
-      return esc(state.words.join(' '));
-    },
-    interact(state, ds){
-      if(ds.reveal !== undefined){
-        state.revealed = true;
-      }else if(ds.selfgrade !== undefined){
-        state.checked = true;
-        state.allCorrect = ds.selfgrade === 'correct';
-      }
-    },
-    controls(state){
-      if(!state.revealed){
-        return `<button class="btn primary block" data-action="practice-interact" data-reveal="1"><i class="ti ti-eye"></i> Reveal</button>`;
-      }
-      return `<div style="display:flex;gap:8px;">
-        <button class="btn block" style="flex:1;" data-action="practice-interact" data-selfgrade="wrong">Missed it</button>
-        <button class="btn primary block" style="flex:1;" data-action="practice-interact" data-selfgrade="correct">Got it</button>
-      </div>`;
-    },
-    score(state){ return state.allCorrect ? 1 : 0; }
-  },
-
-  challenge_verse_ladder: {
-    id: 'challenge_verse_ladder',
-    name: 'Verse ladder',
-    appliesToEntityTypes: ['verse'],
-    config: { stageRatios: [0, 0.25, 0.5, 0.75, 1] },
-    enabled: true,
-    // Self-graded, like Progressive reveal — but words disappear in
-    // graduated steps (0% / 25% / 50% / 75% / 100% hidden) instead of one
-    // reveal/hide toggle. A fixed random word order decides which words go
-    // first and stays fixed for the whole climb, so stage N's hidden set is
-    // always a superset of stage N-1's — nothing that's already hidden ever
-    // reappears. At the last rung (fully hidden, first-letters only, via
-    // the same hintWord() used by Progressive reveal) the user recalls the
-    // verse from memory and self-grades.
-    build(verse, config){
-      const words = verse.text.split(' ');
-      const order = words.map((_,i)=>i);
-      for(let i = order.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [order[i], order[j]] = [order[j], order[i]];
-      }
-      return { words, order, stage: 0, stageRatios: config.stageRatios, checked:false, allCorrect:false };
-    },
-    render(state){
-      const {words, order, stage, stageRatios} = state;
-      const lastStage = stage >= stageRatios.length - 1;
-      const hideCount = Math.round(words.length * stageRatios[stage]);
-      const hidden = new Set(order.slice(0, hideCount));
-      const label = stage === 0 ? 'Full text' : lastStage ? 'Recall time' : `${Math.round(stageRatios[stage]*100)}% hidden`;
-      const body = words.map((w,i)=> hidden.has(i) ? hintWord(w) : esc(w)).join(' ');
-      return `<div class="field-hint" style="margin-bottom:8px;">${esc(label)}</div>${body}`;
-    },
-    interact(state, ds){
-      if(ds.advance !== undefined){
-        state.stage = Math.min(state.stage + 1, state.stageRatios.length - 1);
-      }else if(ds.selfgrade !== undefined){
-        state.checked = true;
-        state.allCorrect = ds.selfgrade === 'correct';
-      }
-    },
-    controls(state){
-      if(state.stage < state.stageRatios.length - 1){
-        return `<button class="btn primary block" data-action="practice-interact" data-advance="1"><i class="ti ti-arrow-down"></i> Hide more</button>`;
-      }
-      return `<div style="display:flex;gap:8px;">
-        <button class="btn block" style="flex:1;" data-action="practice-interact" data-selfgrade="wrong">Missed it</button>
-        <button class="btn primary block" style="flex:1;" data-action="practice-interact" data-selfgrade="correct">Got it</button>
-      </div>`;
-    },
-    score(state){ return state.allCorrect ? 1 : 0; }
-  },
-
   challenge_tap_builder: {
     id: 'challenge_tap_builder',
     name: 'Tap Builder',
@@ -3416,7 +3248,7 @@ const CHALLENGE_TYPES = {
       ).join('');
       return `
         <div class="target-sentence-box${checked && !allCorrect ? ' tap-shake' : ''}">${sentence}</div>
-        <div class="word-bank-grid">${tiles || '<span class="scramble-hint">every tile placed — tap Check Answer</span>'}</div>
+        <div class="word-bank-grid">${tiles || '<span class="practice-hint">every tile placed — tap Check Answer</span>'}</div>
       `;
     },
     canCheck(state){ return state.slots.every(s => s !== null); },
@@ -3438,13 +3270,115 @@ const CHALLENGE_TYPES = {
     },
     // A correct answer immediately advances to the next verse (still
     // behind the normal "Continue" button too, in case this fires after
-    // the user's already tapped it — see checkPractice()) — the one
-    // challenge type in this app that auto-advances, since the tap-to-
+    // the user's already tapped it — see checkPractice()) — the tap-to-
     // fill interaction already feels fast/game-like in a way typing an
     // answer or self-grading doesn't.
     autoAdvanceMs: 600
+  },
+
+  challenge_first_letter_sprint: {
+    id: 'challenge_first_letter_sprint',
+    name: 'First-Letter Sprint',
+    appliesToEntityTypes: ['verse'],
+    config: {},
+    enabled: true,
+    // A speed drill, not a recall check like the other types — every
+    // word must be typed correctly to advance at all (no wrong-answer
+    // path other than "hasn't typed the right letter yet"), so
+    // completing it always counts as a correct practice, the same
+    // shape as the old self-graded types' "Got it" always being 1.
+    build(verse){
+      const words = verse.text.split(' ');
+      return {
+        words,
+        letters: words.map(firstLetter),   // null for a token with no A-Z at all (rare) — auto-skipped
+        currentIndex: 0,
+        startTime: Date.now(),
+        elapsedMs: null,
+        flashIndex: null, flashType: null, // transient: which word to visually flash, and which way
+        checked: false, allCorrect: false
+      };
+    },
+    // Driven by a hidden focused <input>'s real keystrokes
+    // (wireFirstLetterSprint(), bound after every render) rather than
+    // the click-based data-action pattern every other type's
+    // interact() responds to — practiceKeyInput() in the events section
+    // below calls this with {letter} instead of a clicked element's
+    // dataset, but everything downstream (finalize, recordPractice,
+    // scoring) is the same shared machinery.
+    interact(state, ds){
+      if(state.checked || ds.letter === undefined) return;
+      // Skip over any word with no actual letter in it before testing —
+      // nothing to type for a stray token like "--", so it shouldn't
+      // block the sprint.
+      while(state.currentIndex < state.words.length && state.letters[state.currentIndex] === null){
+        state.currentIndex++;
+      }
+      if(state.currentIndex >= state.words.length) return;
+      const typed = ds.letter.toLowerCase();
+      if(typed === state.letters[state.currentIndex]){
+        state.flashIndex = state.currentIndex;
+        state.flashType = 'correct';
+        state.currentIndex++;
+        while(state.currentIndex < state.words.length && state.letters[state.currentIndex] === null){
+          state.currentIndex++;
+        }
+        if(state.currentIndex >= state.words.length){
+          state.elapsedMs = Date.now() - state.startTime;
+          state.checked = true;
+          state.allCorrect = true;
+        }
+      }else{
+        state.flashIndex = state.currentIndex;
+        state.flashType = 'wrong';
+      }
+    },
+    render(state){
+      const {words, letters, currentIndex, checked, elapsedMs, flashIndex, flashType} = state;
+      if(checked){
+        const seconds = (elapsedMs / 1000).toFixed(1);
+        const minutes = elapsedMs / 60000;
+        const wpm = Math.max(1, Math.round(words.length / minutes));
+        return `
+          <div class="sprint-text-box">${esc(words.join(' '))}</div>
+          <div class="sprint-toast"><i class="ti ti-bolt"></i> Completed in ${seconds}s! (${wpm} WPM)</div>
+        `;
+      }
+      const tokens = words.map((w, i)=>{
+        if(i < currentIndex){
+          const flash = flashIndex === i && flashType === 'correct' ? ' sprint-flash-correct' : '';
+          return `<span class="sprint-word sprint-done${flash}">${esc(w)}</span>`;
+        }
+        if(i === currentIndex){
+          const flash = flashIndex === i && flashType === 'wrong' ? ' sprint-flash-wrong' : '';
+          const letter = letters[i];
+          return `<span class="sprint-word sprint-active${flash}">${letter ? esc(letter.toUpperCase()) : ''}_</span>`;
+        }
+        return `<span class="sprint-word sprint-future">_</span>`;
+      }).join(' ');
+      return `
+        <div class="sprint-text-box">${tokens}</div>
+        <input type="text" id="sprint-hidden-input" class="sprint-hidden-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text" aria-label="Type the first letter of each word">
+      `;
+    },
+    // No Check button at all — typing IS the interaction. Returning ''
+    // here (rather than leaving controls undefined) suppresses the
+    // generic Check button specifically while !state.checked; the
+    // generic "Continue"/"Finish" button still shows once state.checked
+    // flips true, same as every other type (renderPractice() always
+    // prefers that over controls()).
+    controls(){ return ''; },
+    score(state){ return state.allCorrect ? 1 : 0; },
+    autoAdvanceMs: 1200
   }
 };
+/* First letter of a word, ignoring leading punctuation/numbers/case —
+   e.g. firstLetter("(Genesis") -> "g". Returns null if the token has no
+   A-Z character at all. */
+function firstLetter(word){
+  const m = word.match(/[a-zA-Z]/);
+  return m ? m[0].toLowerCase() : null;
+}
 function shuffleInPlace(arr){
   for(let i = arr.length - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
@@ -3475,19 +3409,7 @@ function pickTapBuilderDistractors(count, verseId, excludeWords, minWordLength){
   }
   return picked;
 }
-/* First letter of each word kept, every other letter blanked to an
-   underscore; everything else (spacing within the word, punctuation,
-   apostrophes) left exactly as-is. Handles "don't" / "Yahweh's" correctly
-   because it walks characters rather than assuming letters are contiguous. */
-function hintWord(word){
-  let seenFirst = false;
-  return esc([...word].map(ch=>{
-    if(!/[a-zA-Z]/.test(ch)) return ch;
-    if(!seenFirst){ seenFirst = true; return ch; }
-    return '_';
-  }).join(''));
-}
-function challengeType(id){ return CHALLENGE_TYPES[id] || CHALLENGE_TYPES.challenge_fill_blank; }
+function challengeType(id){ return CHALLENGE_TYPES[id] || CHALLENGE_TYPES.challenge_tap_builder; }
 function verseChallengeTypes(){ return Object.values(CHALLENGE_TYPES).filter(t => t.enabled && t.appliesToEntityTypes.includes('verse')); }
 
 function startPractice(verseIds, challengeTypeId){
@@ -3617,7 +3539,11 @@ function renderPractice(){
   const progressPct = Math.round((session.index / session.queue.length) * 100);
   const lastOne = session.index + 1 >= session.queue.length;
   const isTapBuilder = type.id === 'challenge_tap_builder';
+  const isSprint = type.id === 'challenge_first_letter_sprint';
   const canCheck = type.canCheck ? type.canCheck(st) : true;
+  const refLine = isSprint && !st.checked
+    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#C69255;font-weight:600;">0.0s</span></div>`
+    : `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>`;
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
@@ -3625,13 +3551,13 @@ function renderPractice(){
       <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ink-faint);">${session.index + 1} of ${session.queue.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
-    ${st.checked ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${isTapBuilder ? `
-      <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>
+    ${st.checked && !isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
+    ${isTapBuilder || isSprint ? `
+      ${refLine}
       ${type.render(st)}
     ` : `
       <div class="card">
-        <div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>
+        ${refLine}
         <div class="practice-verse">${type.render(st)}</div>
       </div>
     `}
@@ -3750,6 +3676,7 @@ function bindEvents(root){
 
   wireTimelineDrag();
   wireFamilyTreePanZoom();
+  wireFirstLetterSprint();
 }
 function refreshFamilyTreePickerResults(){
   const results = document.getElementById('family-tree-picker-results');
@@ -3852,16 +3779,24 @@ function onAction(e){
   else if(action==='export-data') downloadExport();
   else if(action==='trigger-import'){ const inp = document.getElementById('import-file-input'); if(inp) inp.click(); }
 }
-function practiceInteract(el){
+function practiceInteract(el){ practiceInteractWith(el.dataset); }
+// First-Letter Sprint is driven by real keystrokes (wireFirstLetterSprint's
+// hidden <input>), not a clicked data-action element — this is the same
+// underlying interact()/finalize path as practiceInteract(), just fed a
+// synthetic {letter} "dataset" instead of a real element's.
+function practiceKeyInput(letter){ practiceInteractWith({letter}); }
+function practiceInteractWith(ds){
   if(!session) return;
   const type = challengeType(session.challengeTypeId);
   const item = session.queue[session.index];
   if(item.state.checked || !type.interact) return;
-  type.interact(item.state, el.dataset);
+  type.interact(item.state, ds);
   // A type may finalize grading itself from inside interact() (e.g. a
-  // self-graded type's "Got it" / "Missed it" tap, rather than the generic
-  // Check button). If it just flipped checked to true, do the same session
-  // bookkeeping checkPractice() would have done.
+  // self-graded type's "Got it" / "Missed it" tap, or First-Letter Sprint
+  // completing its last word, rather than the generic Check button). If it
+  // just flipped checked to true, do the same session bookkeeping
+  // checkPractice() would have done — including the same guarded
+  // auto-advance checkPractice() supports for a type with autoAdvanceMs.
   if(item.state.checked){
     if(item.state.allCorrect){ playSfx('correct'); hapticBuzz(30); }
     session.results.push({
@@ -3870,8 +3805,14 @@ function practiceInteract(el){
       score: type.score(item.state)
     });
     recordPractice(item.verseId, !!item.state.allCorrect, session.challengeTypeId);
+    if(item.state.allCorrect && type.autoAdvanceMs){
+      setTimeout(()=>{
+        if(!session || session.queue[session.index] !== item) return;
+        advancePractice();
+      }, type.autoAdvanceMs);
+    }
   } else {
-    playSfx('tap'); // a non-finalizing tap — chip pick/unpick, ladder advance
+    playSfx('tap'); // a non-finalizing tap — chip pick/unpick, ladder advance, a Sprint keystroke
   }
   render();
 }
@@ -4043,8 +3984,8 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_fill_blank', dailyGoal:10, soundEnabled:true}, storedSettings || {});
-  if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_fill_blank';
+  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, storedSettings || {});
+  if(!CHALLENGE_TYPES[settings.challengeTypeId]) settings.challengeTypeId = 'challenge_tap_builder';
 
   const storedSyncMeta = await loadStored(SYNC_META_KEY);
   syncMeta = Object.assign({updatedAt: null}, storedSyncMeta || {});

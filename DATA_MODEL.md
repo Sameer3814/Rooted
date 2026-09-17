@@ -5164,6 +5164,93 @@ inventing a new principle:
       placement is correctly marked incorrect.
     `sw.js` bumped to `rooted-v107`.
 
+114. **Retired the four original ChallengeTypes; added First-Letter
+    Sprint — done (2026-09-17), same day as item 113.** Owner's explicit
+    direction: "get rid of the older exercises and keep the new ones."
+    Deleted `challenge_fill_blank`, `challenge_scramble`,
+    `challenge_first_letters` ("Progressive reveal"), and
+    `challenge_verse_ladder` from `CHALLENGE_TYPES` entirely, along with
+    their now-dead-code support (`hintWord()`, the `.blank`/`.chip`/
+    `.scramble-*` CSS families, and `.chip` entries in the two shared
+    press-feedback/reduced-motion selector lists). Every hardcoded
+    `'challenge_fill_blank'` fallback (the four places `settings` gets
+    its default `challengeTypeId`, plus `challengeType()`'s own
+    not-found fallback) now points at `challenge_tap_builder` instead —
+    a returning user whose `rooted-settings` still names one of the
+    four removed ids is already caught by the existing
+    `if(!CHALLENGE_TYPES[id]) settings.challengeTypeId = ...` guard at
+    every load site, so this degrades cleanly rather than crashing on a
+    stale stored id. `CHALLENGE_TYPES` now holds exactly two entries:
+    Tap Builder (item 113) and the new one below.
+    - **`challenge_first_letter_sprint`** ("First-Letter Sprint") — a
+      speed-typing drill, genuinely different in kind from every
+      previous type: driven by real keystrokes rather than taps on
+      `data-action` elements. `build()` extracts each word's first
+      A-Z letter (`firstLetter()`, ignoring case/leading punctuation;
+      a token with no letter at all is auto-skipped rather than
+      blocking the sprint) and starts a `Date.now()` clock immediately.
+      Typing the right next letter reveals that word in full and
+      advances instantly with a green flash; a wrong letter flashes red
+      and does not advance — there is no failure path other than "not
+      yet correct," so completing the verse always counts as a correct
+      practice attempt (same shape the old self-graded types' "Got it"
+      button always had).
+    - **Keystrokes reach `interact()` through a new parallel entry
+      point, not through `practiceInteract()`'s click-only path.**
+      Refactored the shared finalize logic (push to `session.results`,
+      `recordPractice()`, sound/haptics, the same guarded
+      `autoAdvanceMs` timeout `checkPractice()` uses) out of
+      `practiceInteract(el)` into a new `practiceInteractWith(ds)`;
+      `practiceInteract(el)` now just calls it with `el.dataset` as
+      before, and a new `practiceKeyInput(letter)` calls it with a
+      synthetic `{letter}` "dataset" instead. Every existing type's
+      click-driven `interact()` is completely unaffected — this only
+      added a second way to reach the same shared machinery.
+    - **`wireFirstLetterSprint()`** (new, called from `bindEvents()`
+      alongside `wireTimelineDrag()`/`wireFamilyTreePanZoom()`) does two
+      things after every full render: keeps a visually-hidden but real
+      `<input>` focused (so physical-keyboard keystrokes land on it, and
+      mobile virtual keyboards have something real to attach to — a
+      single `input` event on that field is the one source of truth for
+      "what letter was just typed," deliberately not a second, separate
+      `document`-level `keydown` listener, which would have double-
+      fired for the same keystroke whenever a physical keyboard was
+      used), and starts a `setInterval` that updates a `#sprint-timer`
+      span's `textContent` directly every 100ms. That timer interval is
+      the one piece of this feature that deliberately does NOT go
+      through the normal `render()` cycle — re-rendering the whole
+      screen every 100ms would fight the keystroke-driven renders and
+      repeatedly steal the hidden input's focus, the same reasoning
+      `wireTimelineDrag()` already gives for moving real DOM nodes
+      during a drag instead of re-rendering on every `pointermove`.
+      Actual gameplay (each keystroke) still goes through the completely
+      normal `interact()` -> `render()` cycle every other type uses —
+      only the passive "seconds ticking up while you're not typing"
+      display needed the exception.
+    - **`renderPractice()` gained a third per-type template branch**
+      (alongside Tap Builder's from item 113): Sprint also skips the
+      shared `.card` wrapper (its own `.sprint-text-box` is a complete
+      component already), skips the generic result banner (its own
+      completion toast — "Completed in 6.4s! (120 WPM)" — replaces it),
+      and swaps the ref line's normal "· Type Name" suffix for a live
+      bronze timer while the sprint is running. `controls()` returns an
+      empty string while not yet checked, suppressing the generic Check
+      button entirely (there's nothing to check — typing is the whole
+      interaction); the generic "Continue"/"Finish" button still appears
+      once `checked` is true, same as every other type.
+    - WPM is computed as words-per-minute on whole words (not the
+      classic 5-characters-per-word convention) — this drill is about
+      racing through word-initial recall, not raw character throughput,
+      so the simpler, more literal metric fit better.
+    - Verified by simulation against real curated verses before
+      shipping: 40 random verses "typed" letter-perfect all completed
+      and graded correct; a deliberately wrong keypress was confirmed to
+      neither advance nor corrupt state, and a correct keypress
+      immediately afterward advanced normally; the WPM formula was
+      checked against a hand-computed example (10 words in a simulated
+      5.0s came back as 120 WPM).
+    `sw.js` bumped to `rooted-v108`.
+
 ---
 
 ## 9. How the app reads this data
