@@ -6468,6 +6468,41 @@ inventing a new principle:
       half of all 324 stories.
     `sw.js` bumped to `rooted-v131`.
 
+136. **Eighth story-art batch — 40 more stories — done (2026-09-17),
+    same day as item 135.** Owner: "let's go ahead." Same four-chunks-
+    of-10 `--batch` approach, continuing true canonical order from
+    1 Kings 19 through Ezra 3 — the rest of Elijah's ministry and all
+    of Elisha's (Horeb, Naboth's vineyard, Micaiah, the widow's oil,
+    the Shunammite's son, Naaman, the floating ax head, the blinded
+    Aramean army, the siege of Samaria, Jehu and Jezebel, Joash and
+    Zechariah, Elisha's death), the writing prophets against the
+    divided kingdom's final century (Jonah and Nineveh's actual
+    repentance, Uzziah, Hosea, Amos, Isaiah's call, the fall of
+    Israel, Hezekiah's Passover and his facing of Sennacherib and his
+    own illness, Manasseh's repentance, Jeremiah's call, Josiah and
+    the rediscovered law, the potter's house, Baruch's scroll), into
+    the exile itself (Daniel's food test, Nebuchadnezzar's dream,
+    Ezekiel's call and symbolic acts, the fiery furnace, Jeremiah in
+    the cistern, Nebuchadnezzar's madness, the fall of Jerusalem,
+    Gedaliah's assassination, the flight to Egypt, the writing on the
+    wall, the valley of dry bones), and finally the turn toward home
+    (Cyrus's decree, the first return and the temple's foundation) —
+    closing out 2 Kings, 2 Chronicles, and most of the exile-era
+    prophetic books in one batch.
+    - A handful of scenes involving real violence or death were staged
+      around it, same discipline as every batch since item 127:
+      `story_jehu_and_the_death_of_jezebel` shows Jezebel defiant at
+      her window as Jehu's chariot approaches, not her fall;
+      `story_joash_and_zechariah` and `story_gedaliah_assassinated`
+      both show the tense confrontation moment, not the killing;
+      `story_fall_of_jerusalem` stays a wide historical shot of the
+      city burning and captives being led away, explicitly not
+      depicting Zedekiah's sons' deaths or his own blinding, both part
+      of the same story's real text.
+    - `data/story_illustrations.json` now has 196 ids — well past the
+      halfway point of all 324 stories.
+    `sw.js` bumped to `rooted-v132`.
+
 ---
 
 ## 9. How the app reads this data

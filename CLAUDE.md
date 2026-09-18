@@ -380,6 +380,24 @@ The schema was deliberately designed so all of the above can be added
   act itself; the witch of Endor stays atmospheric rather than
   graphic. `data/story_illustrations.json` now has 156 ids — just
   under half of all 324. See DATA_MODEL.md §8, item 135.
+- **Eighth story-art batch — 40 more stories — done (2026-09-17),
+  same day.** Same four-chunks-of-10 approach, continuing true
+  canonical order from 1 Kings 19 through Ezra 3 — the rest of
+  Elijah's ministry and all of Elisha's, the writing prophets against
+  the divided kingdom's final century (Jonah, Uzziah, Hosea, Amos,
+  Isaiah's call, the fall of Israel, Hezekiah, Manasseh, Jeremiah,
+  Josiah), the exile itself (Daniel, Nebuchadnezzar, Ezekiel, the
+  fiery furnace, the fall of Jerusalem, the writing on the wall, the
+  valley of dry bones), and the turn toward home (Cyrus's decree, the
+  first return). A few scenes involving real violence or death were
+  staged around it, same discipline as every batch since item 127:
+  Jezebel's death shows her defiant at the window before Jehu's
+  arrival, not her fall; Joash/Zechariah and Gedaliah's assassination
+  both show the confrontation, not the killing; the fall of Jerusalem
+  stays a wide historical shot, explicitly not depicting Zedekiah's
+  sons' deaths or his own blinding. `data/story_illustrations.json`
+  now has 196 ids — well past the halfway point. See DATA_MODEL.md §8,
+  item 136.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
