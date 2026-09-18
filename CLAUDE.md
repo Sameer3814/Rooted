@@ -363,6 +363,23 @@ The schema was deliberately designed so all of the above can be added
   to avoid depicting violence, assault, or death directly.
   `data/story_illustrations.json` now has 116 ids — over a third of
   all 324 stories. See DATA_MODEL.md §8, item 134.
+- **Seventh story-art batch — another big one, 40 stories — done
+  (2026-09-17), same day.** Same four-chunks-of-10 approach, continuing
+  true canonical order from 1 Samuel 13 through 2 Chronicles 20 — the
+  rest of 1 Samuel, all of 2 Samuel (David's own moral failure and its
+  long consequences: Bathsheba, Nathan's confrontation, Amnon and
+  Tamar, Absalom's rebellion and death), 1 Chronicles' unique material,
+  and into Solomon's reign and the divided kingdom's early years. The
+  most emotionally dense stretch any batch has covered — several real
+  staging calls: Bathsheba's own story shows David alone on his
+  rooftop, never depicting her at all; Doeg and the priests of Nob
+  shows the confrontation, not the massacre; Amnon and Tamar shows the
+  ordinary moment before the crime; Absalom's death shows the instant
+  his hair catches in the tree, not Joab's killing blow; Saul and
+  Jonathan's deaths show the battlefield's aftermath rather than the
+  act itself; the witch of Endor stays atmospheric rather than
+  graphic. `data/story_illustrations.json` now has 156 ids — just
+  under half of all 324. See DATA_MODEL.md §8, item 135.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

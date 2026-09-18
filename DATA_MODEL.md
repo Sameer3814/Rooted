@@ -6424,6 +6424,50 @@ inventing a new principle:
       of the way through all 324 stories.
     `sw.js` bumped to `rooted-v130`.
 
+135. **Seventh story-art batch — another big one, 40 stories — done
+    (2026-09-17), same day as item 134.** Owner: "let's do another big
+    batch." Same four-chunks-of-10 `--batch` approach (no `--test`),
+    continuing true canonical order from 1 Samuel 13 through the start
+    of 2 Chronicles 20 — the rest of 1 Samuel (Saul's rejection,
+    David's anointing, David and Jonathan, Saul hunting David, Doeg and
+    the priests of Nob, Nabal and Abigail, David and Achish, the witch
+    of Endor, the deaths of Saul and Jonathan), all of 2 Samuel (David's
+    lament, becoming king, the ark's return and Michal's contempt, the
+    Davidic covenant, Mephibosheth, Bathsheba, Nathan's confrontation,
+    Amnon and Tamar, Absalom's rebellion and death, and its aftermath
+    through Sheba's revolt), into 1 Chronicles' unique material (Ornan's
+    threshing floor, David's temple preparations, his prayer of
+    blessing) and 1 Kings/2 Chronicles (Solomon's rise, wisdom, temple,
+    the queen of Sheba, his downfall, the kingdom's division, Abijah,
+    Jeroboam's golden calves, Asa, Elijah fed by ravens, Obadiah, and
+    Jehoshaphat's battle).
+    - **The most emotionally dense stretch of narrative any batch has
+      covered yet** — David's own moral failure and its long
+      consequences (Bathsheba, Nathan's confrontation, Amnon and Tamar,
+      Absalom) all fall inside this one batch. Same tasteful-staging
+      discipline as items 127/132/133/134, applied to several scenes:
+      - `story_david_and_bathsheba` shows David alone on his rooftop at
+        dusk, contemplative — deliberately never depicting Bathsheba at
+        all, since the story's own moral weight is about David's own
+        choice, not a scene to stage around her.
+      - `story_doeg_and_the_priests_of_nob` (a massacre of eighty-five
+        priests and an entire city) shows Ahimelech's confrontation
+        with Saul, not the killing that follows.
+      - `story_amnon_and_tamar` shows the ordinary domestic moment
+        (Tamar bringing bread to Amnon's chamber) that precedes the
+        chapter's crime, not any part of it.
+      - `story_death_of_absalom` shows the instant his hair catches in
+        the tree branches, not Joab's killing blow.
+      - `story_death_of_saul_and_jonathan` shows the battlefield's
+        aftermath — fallen crown and armor among the dead — rather than
+        depicting Saul's own death by his sword directly.
+      - `story_witch_of_endor` stays atmospheric (a translucent,
+        ghostly figure) rather than anything graphic, matching the
+        text's own restrained description.
+    - `data/story_illustrations.json` now has 156 ids — just under
+      half of all 324 stories.
+    `sw.js` bumped to `rooted-v131`.
+
 ---
 
 ## 9. How the app reads this data
