@@ -6503,6 +6503,38 @@ inventing a new principle:
       halfway point of all 324 stories.
     `sw.js` bumped to `rooted-v132`.
 
+137. **Ninth story-art batch — 40 more stories — done (2026-09-17),
+    same day as item 136.** Owner: "let's continue." Same four-chunks-
+    of-10 `--batch` approach, continuing true canonical order from
+    Ezra 4 through Matthew 4 — the rest of Ezra and all of Nehemiah
+    (opposition and delay, the temple's completion, Ezra's second
+    return and his grief over intermarriage, Nehemiah's whole
+    rebuilding arc through his final reforms), the entire book of
+    Esther start to finish (Vashti through Purim established), all of
+    Job (his testing, the long debate with his friends, God's answer
+    from the whirlwind, his restoration), and into the Gospels: the
+    whole nativity sequence (Gabriel's two announcements, John the
+    Baptist's birth, the temple presentation, the wise men and flight
+    to Egypt, the boy Jesus at twelve), the individual Gospel healing/
+    encounter stories the eighth-pass content audit (item 10's own
+    "Eighth pass" note) had originally curated — the paralytic through
+    the roof, the centurion's servant, the widow of Nain, Simon the
+    Pharisee's dinner, the women who funded the ministry, Jairus and
+    the bleeding woman, the man born blind, Bartimaeus, the anointing
+    at Bethany — and finally John the Baptist's own ministry, Jesus's
+    baptism, and his temptation in the wilderness, right at the edge
+    of his own public ministry beginning.
+    - Two scenes needed the same tasteful-staging discipline as every
+      batch since item 127: `story_hamans_fall` shows the moment of
+      accusation before the king, gallows visible in the background but
+      not the hanging itself; `story_wise_men_and_flight_to_egypt`
+      shows only the family's night flight to Egypt, explicitly not
+      Herod's massacre of the infants in Bethlehem the same story's
+      text describes.
+    - `data/story_illustrations.json` now has 236 ids — nearly
+      three-quarters of all 324 stories.
+    `sw.js` bumped to `rooted-v133`.
+
 ---
 
 ## 9. How the app reads this data

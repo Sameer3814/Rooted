@@ -398,6 +398,19 @@ The schema was deliberately designed so all of the above can be added
   sons' deaths or his own blinding. `data/story_illustrations.json`
   now has 196 ids — well past the halfway point. See DATA_MODEL.md §8,
   item 136.
+- **Ninth story-art batch — 40 more stories — done (2026-09-17), same
+  day.** Same four-chunks-of-10 approach, continuing true canonical
+  order from Ezra 4 through Matthew 4 — the rest of Ezra and all of
+  Nehemiah, the entire book of Esther start to finish, all of Job, the
+  whole Gospel nativity sequence, the individual Gospel healing/
+  encounter stories, and John the Baptist's ministry through Jesus's
+  baptism and temptation. Two scenes needed the same tasteful-staging
+  discipline as every batch since the crucifixion fix: Haman's fall
+  shows the accusation moment, gallows visible but not the hanging;
+  the wise men and flight to Egypt shows only the family's night
+  flight, not Herod's massacre of the infants the same story's text
+  describes. `data/story_illustrations.json` now has 236 ids — nearly
+  three-quarters of all 324. See DATA_MODEL.md §8, item 137.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
