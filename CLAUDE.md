@@ -450,6 +450,34 @@ The schema was deliberately designed so all of the above can be added
   emerald — reverted the card-level badge back to match both its own
   new green icon and its own sibling label. See DATA_MODEL.md §8, item
   139.
+- **Stories list: top cover-banner cards; Discover: "Featured Today"
+  (Story of the Day + Person of the Day) — done (2026-09-18).**
+  `renderStoryCard(s)` rewritten around a `.story-list-card` with a
+  full-width cover image (`storyIllustrationUrl(s.id) ||
+  placeholderArt(s.id)`) above a title/reference/excerpt body — kept
+  deliberately separate from the shared `.card` class since `.card`'s
+  own padding would stop the cover from sitting flush against the top
+  edge. Affects both the Stories tab's search results and its default
+  era-grouped listing, since both already funnel through this one
+  shared render function. Discover's new "Featured Today" section
+  (`renderDiscoverFeaturedToday()`) adds a Story of the Day hero
+  (background photo + bottom gradient + eyebrow/title/reference,
+  reusing the VOTD hero's established visual pattern) and a Person of
+  the Day card (circular avatar, eyebrow/name/era+role) above the
+  existing "Read the Bible" card. New `characterOfTheDay()` mirrors
+  `storyOfTheDay()`/`wordOfTheDay()`/`factOfTheDay()`'s exact
+  date-seeded rotation formula, kept as its own dedicated function
+  rather than a generic `getDailyItem(array)` helper, matching this
+  file's one-function-per-daily-feature convention. Two adaptations
+  from the literal request: `data.people` (named in the spec) doesn't
+  exist in this codebase — used the real `data.characters` array
+  instead; and the spec's literal 📖/👑 emoji became `uiIcon('book')`/
+  `uiIcon('person')` (item 139's just-built SVG icon system), since
+  reintroducing emoji one task after removing the app's last ones would
+  undo that work for no reason. `open-character`'s action dispatch was
+  already generic (item 75's `from` fix), so the new Person of the Day
+  card's tap target needed no new wiring. `sw.js` bumped to
+  `rooted-v136`. See DATA_MODEL.md §8, item 140.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

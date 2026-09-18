@@ -6631,6 +6631,48 @@ inventing a new principle:
       icon and its own sibling label.
     `sw.js` bumped to `rooted-v135`.
 
+140. **Stories list: top cover-banner cards; Discover: "Featured Today"
+    (Story of the Day + Person of the Day) — done (2026-09-18).** Two
+    changes now that every story has real generated art (item 138)
+    made this the right time to build:
+    - **`renderStoryCard()` rewritten as a top cover-banner card** — a
+      new `.story-list-card` (deliberately separate from the shared
+      `.card` class, whose own 16px padding would stop the cover image
+      from sitting flush against the card's top edge), showing each
+      story's real illustration from `storyIllustrationUrl()` — falling
+      back to `placeholderArt()` for the rare future story that might
+      not have one yet, the same fallback every other daily/story
+      image spot in this app already uses. Affects both the Stories
+      tab's search results and its era-grouped default listing, since
+      both already funnel through this one shared function.
+    - **Discover's new "Featured Today" section**, above the four
+      existing hub cards: a full-width Story of the Day hero (the same
+      "background photo + bottom gradient + overlaid text" shape
+      `.votd-hero` already established on Home, just this request's own
+      shorter height and exact values) and a Person of the Day row card
+      (a circular portrait or `charIconHTML()` fallback, name, and
+      era/primary-role line). New `characterOfTheDay()` mirrors
+      `storyOfTheDay()`/`wordOfTheDay()`/`factOfTheDay()`'s own
+      date-seeded rotation formula exactly, kept as its own dedicated
+      function rather than the spec's suggested generic
+      `getDailyItem(array)` helper — matching this file's established
+      one-function-per-daily-feature convention instead of introducing
+      a new abstraction for a single new caller.
+    - **The spec's own `📖`/`👑` eyebrow emoji were replaced with
+      `uiIcon('book')`/`uiIcon('person')`** (item 139's just-added SVG
+      icon component) rather than typed in literally — reintroducing
+      real emoji characters the very session after removing the app's
+      last few would have directly undone that work for no reason; the
+      new SVG system already covers exactly these two concepts.
+    - `data.people` (named in the request) doesn't exist in this file;
+      `data.characters` is the real array, same adaptation this project
+      always makes when a spec names a class or field this codebase
+      calls something else.
+    - Content padding behind the floating nav needed no changes — the
+      existing global `body{padding-bottom:120px}` rule already covers
+      Discover and Stories like every other screen.
+    `sw.js` bumped to `rooted-v136`.
+
 ---
 
 ## 9. How the app reads this data
