@@ -427,6 +427,29 @@ The schema was deliberately designed so all of the above can be added
   `data/story_illustrations.json` now has all 324 ids — every story in
   this app has real generated art, closing out the project that began
   with item 108's pipeline build. See DATA_MODEL.md §8, item 138.
+- **Standardized SVG icon component, replacing the app's last few
+  "emoji-shaped" concept icons — done (2026-09-18).** The owner asked
+  to remove leftover 📖/👑/✨/🛡️ emoji; none of those literal characters
+  actually remained anywhere (item 107 already removed the app's only
+  real emoji) — what the request described by concept mapped to four
+  Tabler icon-font glyphs in Home/Discover eyebrow/badge contexts:
+  Story of the Day's book icon, Biblical Fact of the Day's lightbulb,
+  the Verified Source badge's shield-check (in two places), and a
+  character's avatar-box fallback icon for royalty roles. New
+  `uiIcon(name, size)`/`UI_ICON_PATHS` — a second icon system, separate
+  from `icon()`/`ICON_PATHS` (item 107), since these four carry their
+  own fixed accent color each (bronze/emerald, the spec's own literal
+  hex) rather than reading `currentColor`. `charIcon()`'s royalty case
+  now returns a sentinel (`'ui-person'`) that a new `charIconHTML()`
+  wrapper resolves for its two call sites. A real, scoped exception to
+  the black-and-white pass (item 123) — honored since the spec gave
+  explicit hex values, which that pass's own rule treats as permission.
+  Caught and fixed one real consistency gap along the way:
+  `.fact-verified-badge` had gone white/gold in item 123 but its
+  sibling `.fact-drawer-sources-label` was never touched and still read
+  emerald — reverted the card-level badge back to match both its own
+  new green icon and its own sibling label. See DATA_MODEL.md §8, item
+  139.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

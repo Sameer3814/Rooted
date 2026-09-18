@@ -6582,6 +6582,55 @@ inventing a new principle:
       and would need it again immediately.
     `sw.js` bumped to `rooted-v134`.
 
+139. **Standardized SVG icon component, replacing the app's last few
+    "emoji-shaped" concept icons — done (2026-09-18).** The owner asked
+    to remove leftover 📖/👑/✨/🛡️ emoji specifically — none of those
+    literal Unicode characters actually remain anywhere in the file
+    (item 107 had already removed the only real emoji that ever
+    existed here); what the request was really describing, by the
+    concept each emoji represents, was four Tabler icon-font glyphs in
+    Home/Discover eyebrow and badge contexts: the Story of the Day
+    label's book icon, the Biblical Fact of the Day label's lightbulb
+    (the closest existing icon to "insight"), the Verified Source
+    badge's shield-check (used in two places — the Home card and the
+    fact drawer's own sources label), and a character's avatar-box
+    fallback icon for royalty roles (`ti-crown`, the "Person/Character"
+    icon).
+    - New `uiIcon(name, size)` + `UI_ICON_PATHS` — a second, deliberately
+      separate small-icon system from the existing `icon()`/
+      `ICON_PATHS` (item 107). That one always reads `currentColor` so
+      it can sit inside already-colored text; these four instead carry
+      their own fixed accent color each (bronze `#C69255` for book/
+      person/sparkle, emerald `#10B981` for shield), matching the
+      spec's own given hex values exactly rather than following the
+      shared-token pattern. New `.ui-inline-icon` CSS class, default
+      14x14 sizing for eyebrow/chip contexts; `uiIcon()`'s own `size`
+      param overrides it via inline style for the one context (a
+      character's avatar-box icon, 22-30px depending on which avatar
+      class) that needs it larger than a chip.
+    - **`charIcon()`'s royalty case renamed to a sentinel** (`'king|
+      crown'` now returns `'ui-person'` instead of `'ti-crown'`), and a
+      new `charIconHTML(roles, size)` wraps the distinction so its two
+      call sites (`charAvatarInner()`'s list-row avatars,
+      `renderCharacterDetail()`'s hero avatar) don't need to know
+      whether a given character's icon comes from the Tabler system or
+      this new one.
+    - **A real, scoped exception to the black-and-white pass (item
+      123)**: this request's own literal hex values (`#C69255` bronze,
+      `#10B981` emerald) explicitly reintroduce color to these four
+      icons — honored as given, per that pass's own standing rule
+      ("black and white... unless I specifically tell you"), which
+      this counts as. Caught and fixed one real consistency gap while
+      doing it: `.fact-verified-badge` (the card-level "Verified
+      Source" chip) had been converted to white/gold in item 123, but
+      its sibling `.fact-drawer-sources-label` (inside the drawer) was
+      never touched and still read `#10B981` — a green shield icon
+      sitting on a white-labeled chip would have looked like a mistake,
+      not a design choice, so `.fact-verified-badge` was reverted back
+      to its original emerald (item 116) to match both its own new
+      icon and its own sibling label.
+    `sw.js` bumped to `rooted-v135`.
+
 ---
 
 ## 9. How the app reads this data
