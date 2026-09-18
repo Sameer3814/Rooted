@@ -411,6 +411,22 @@ The schema was deliberately designed so all of the above can be added
   flight, not Herod's massacre of the infants the same story's text
   describes. `data/story_illustrations.json` now has 236 ids — nearly
   three-quarters of all 324. See DATA_MODEL.md §8, item 137.
+- **All 324 stories now have generated art — the full set is complete
+  — done (2026-09-17), same day.** Owner: "let's get em." Nine more
+  `--batch` calls finishing true canonical order from John 1 through
+  Revelation 1 — the rest of Jesus's Galilean ministry and its
+  parables, the remaining individual healing/encounter stories, all of
+  Passion week, the resurrection appearances, and the entire rest of
+  Acts and the epistles' narrative moments into John's opening vision
+  in Revelation. A handful of final tasteful-staging calls (John the
+  Baptist's death shows the dance, not the beheading; Stephen's death
+  shows his vision, not the impact; Judas shows him throwing down the
+  coins, not his death; Herod Agrippa's death shows him accepting
+  worship, not his affliction; Lystra shows Paul and Barnabas refusing
+  worship as gods, a real separate beat from the stoning days later).
+  `data/story_illustrations.json` now has all 324 ids — every story in
+  this app has real generated art, closing out the project that began
+  with item 108's pipeline build. See DATA_MODEL.md §8, item 138.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

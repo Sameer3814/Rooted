@@ -6535,6 +6535,53 @@ inventing a new principle:
       three-quarters of all 324 stories.
     `sw.js` bumped to `rooted-v133`.
 
+138. **All 324 stories now have generated art — the full set is
+    complete — done (2026-09-17), same day as item 137.** Owner:
+    "let's get em." Nine `--batch` calls of roughly 10 each, finishing
+    true canonical order from John 1 (the first disciples) through
+    Revelation 1 (John's vision on Patmos) — the whole rest of Jesus's
+    Galilean ministry and its parables (the sower, the good Samaritan,
+    the lost sheep and coin, the prodigal son, the rich man and
+    Lazarus, the ten virgins, the talents, the sheep and goats, and
+    every other parable this app curates), the individual healing/
+    encounter stories not yet covered (Nicodemus, the woman at the
+    well, the pool of Bethesda, the woman caught in adultery, Lazarus
+    raised, the ten lepers, Zacchaeus), the whole of Passion week
+    (triumphal entry, the Last Supper, foot washing, Gethsemane already
+    done earlier, the betrayal and arrest, the trials before the
+    council and Pilate, burial), the resurrection appearances
+    (Mary Magdalene, Emmaus, Thomas, the breakfast on the shore, the
+    Great Commission, the ascension), and the entire rest of Acts and
+    the epistles' narrative moments (Pentecost's aftermath through
+    Paul's Roman house arrest, Onesimus and Philemon, Paul's last
+    companions) into John's opening vision in Revelation.
+    - A handful of scenes needed the same tasteful-staging discipline
+      one final time: `story_death_of_john_the_baptist` shows
+      Herodias's daughter dancing, not the beheading; `story_stephen_
+      martyred` shows his vision of heaven opening as stones are being
+      raised, not the impact; `story_judas_remorse` shows him throwing
+      the coins down, not his death; `story_jesus_before_pilate` shows
+      the hand-washing and Barabbas's release, not the flogging;
+      `story_death_of_herod_agrippa` shows him accepting the crowd's
+      worship, not his affliction; `story_stoning_at_lystra` shows
+      Paul and Barnabas refusing worship as gods, a real separate beat
+      from the stoning that follows days later in the same account.
+    - **`data/story_illustrations.json` now has all 324 ids — every
+      story in this app has real generated art.** This closes out the
+      story-art project that began with item 108's pipeline build and
+      item 125's first 6-story sample batch, nine batches and roughly
+      13 hours (same calendar day) later. `topicAccentVars()`'s earlier
+      no-op status, `placeholderArt()`'s fallback role for stories, and
+      every other piece of the item-128/129/130 hero-banner
+      infrastructure remain unchanged — this was purely a content
+      completion pass, not a code change; `placeholderArt()` is now
+      simply never reached for any story, though the code path is
+      harmless to leave in place rather than remove, since new stories
+      could still be added to the curated Bible content in the future
+      (item 10's own ongoing "deep study" supporting-cast expansion)
+      and would need it again immediately.
+    `sw.js` bumped to `rooted-v134`.
+
 ---
 
 ## 9. How the app reads this data
