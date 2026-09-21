@@ -6925,6 +6925,87 @@ inventing a new principle:
     `renderFamilyTree()`/`familyTreeBezier()` JS.
     `sw.js` bumped to `rooted-v143`.
 
+147. **Telugu Bible text + a UI-chrome language toggle — done
+    (2026-09-21).** The owner asked to add a Telugu Bible translation
+    and an option to translate the app; researched feasibility first
+    (a separate exchange) rather than assuming — modern Telugu
+    translations are mostly restrictively copyrighted (same problem as
+    NIV), but eBible.org's **tel2017 (Indian Revised Version)** is the
+    complete OT+NT under **CC BY-SA 4.0**, sourced from the same host
+    WEB already comes from, in the same USFM format. The owner then
+    explicitly scoped the work down before any code was written: **UI
+    chrome + Bible verse text only** — the app's own hand-written
+    content (character bios, story summaries, topic descriptions, daily
+    facts) stays English, a deliberately separate, much larger content
+    project.
+    - **`pipeline/parse_telugu_bible.py`** downloads `tel2017_usfm.zip`
+      and parses its USFM markup (a small state machine + regex cleanup,
+      not a full USFM library — footnotes/cross-references/section
+      headings dropped entirely, every other marker stripped while
+      keeping its enclosed text) into `data/verses_te.json`: 31,004
+      verses, using the exact same ids/book/chapter/verse fields
+      `parse_books.py` already produces for the English corpus. That's
+      the core design decision — Telugu is a **parallel file keyed by
+      the same verse ids**, not a schema change to `Verse` or a new
+      join entity, so looking up a verse's Telugu text is a single Map
+      lookup (`teVerseById.get(v.id)`), and nothing about the existing
+      31,098-verse English corpus changes at all. `--check` reports
+      99.7% id overlap between the two corpora — the small gap is
+      expected, ordinary versification variance between two different
+      translations (not a parsing bug), the same kind of thing that
+      happens between any two English translations too.
+    - **Loaded lazily** (`loadTeVerses()`), same "don't fetch it until
+      it's needed" reasoning as the English corpus's own Browse-triggered
+      fetch — only once the user actually switches to Telugu (or at boot
+      if that's already their saved setting, non-blocking).
+      `verseText(v)`/`verseTranslationLabel(v)` are the single point
+      every verse-display screen reads through — Telugu when selected
+      and available for that specific id, English otherwise (automatic,
+      silent fallback for the 0.3% gap, not an error state). Wired into
+      Browse's corpus cards, the verse library cards, and Verse Detail.
+    - **Deliberately NOT wired into Practice's five challenge types.**
+      Several of them filter or measure words with a Latin-alphabet-only
+      regex (`[^a-zA-Z]` in Tap Builder's distractor/blank-eligibility
+      logic, similar assumptions in First-Letter Sprint) — Telugu script
+      isn't in that character class at all, so feeding these functions
+      Telugu text wouldn't produce a working exercise in a different
+      language, it would silently produce a *broken* one (zero eligible
+      blanks, meaningless "first letters"). Kept Practice English-only
+      rather than ship that. A real adaptation of the challenge types
+      themselves for non-Latin scripts is future work, not attempted
+      here.
+    - **`STRINGS`/`t(key)`** — a small id-keyed dictionary (not literal
+      English text as the key, so a key can't silently drift out of sync
+      with a template's current English wording), covering the bottom
+      nav, every screen's main title, Practice's filter tabs and "Your
+      verses" label, and Settings' own cards/buttons. This is real UI
+      translation, not machine-generated placeholder text, but it is
+      **partial, structural chrome coverage, not literally every string
+      in the file** — meant to grow in later passes the same
+      incremental way character-portrait and story-art coverage did,
+      not a claim that every button/label everywhere is translated yet.
+      `applyNavLabels()` patches the bottom nav's labels directly (it
+      lives in the static HTML shell outside `#app`, so it's never
+      touched by `render()`'s normal re-templating) — called once at
+      boot and again on every language change.
+    - **`settings.language`** (`'en'`/`'te'`, default `'en'`), a new
+      Settings "Language" card (`renderLanguageCard()`, a `.segmented`
+      picker matching the existing Daily Goal control's own pattern).
+      Added to every one of the four places this file constructs a
+      settings object with defaults (initial state, boot load, cloud-
+      sync pull, backup import) — missed once already this project's
+      history (item 69's lesson, different feature, same shape of bug:
+      a new field added in one spot but not everywhere a default object
+      gets built) and caught before shipping this time by grepping for
+      every literal occurrence of the settings-defaults object.
+    - **CC BY-SA's attribution requirement is honored in-app**, not just
+      in this doc — Settings' Language card shows the required copyright/
+      license line (exact wording from the source archive's own
+      `copr.htm`) whenever Telugu is the active language, since that
+      license's own terms require "the above copyright and source
+      information" to travel with any use of the text.
+    `sw.js` bumped to `rooted-v144`.
+
 ---
 
 ## 9. How the app reads this data

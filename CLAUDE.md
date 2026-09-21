@@ -579,6 +579,26 @@ The schema was deliberately designed so all of the above can be added
   keep their original warm hex. Verified by re-grepping every old hex
   value afterward — every remaining hit is inside Family Tree's own
   code. `sw.js` bumped to `rooted-v143`. See DATA_MODEL.md §8, item 146.
+- **Telugu Bible text + a UI-chrome language toggle — done
+  (2026-09-21).** `pipeline/parse_telugu_bible.py` parses eBible.org's
+  tel2017 (Indian Revised Version, CC BY-SA 4.0 — see "Translation and
+  copyright" above) into `data/verses_te.json`, keyed by the same verse
+  ids `data/verses.json` already uses — a parallel file, not a schema
+  change, so `verseText(v)`/`verseTranslationLabel(v)` are a single Map
+  lookup with automatic English fallback. Lazily loaded, same reasoning
+  as the English corpus's own Browse-triggered fetch. Wired into Browse,
+  the verse library, and Verse Detail; deliberately **not** wired into
+  Practice's five challenge types, since several of them (Tap Builder,
+  First-Letter Sprint) filter/measure words with a Latin-alphabet-only
+  regex that would silently produce a broken exercise on Telugu script
+  rather than just look wrong. New `STRINGS`/`t(key)` dictionary covers
+  the bottom nav, every screen's main title, and Settings' own
+  cards/buttons — real translation, but partial structural-chrome
+  coverage, not every string in the file; meant to grow in later passes.
+  New `settings.language` (`'en'`/`'te'`), a Settings "Language" card,
+  and the CC BY-SA-required attribution line shown in-app whenever
+  Telugu is active. `sw.js` bumped to `rooted-v144`. See DATA_MODEL.md
+  §8, item 147.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1002,6 +1022,21 @@ migrated once on first boot, then ignored. See DATA_MODEL.md §5, §7, §8.1.
   scraping or reproducing text from a PDF.
 - If multiple translations are added later, keep translation as a field on
   Verse (already there) rather than assuming WEB everywhere in code.
+- **Telugu Bible text — done (2026-09-21).** `data/verses_te.json`
+  (`pipeline/parse_telugu_bible.py`) is eBible.org's **tel2017 (Indian
+  Revised Version, IRV)**, the complete Old and New Testament, sourced
+  the same way WEB was (ebible.org, USFM format) — but licensed
+  **CC BY-SA 4.0, not public domain**, a real, different situation from
+  WEB: attribution is required, and any redistribution must stay under
+  the same license. The required attribution (its own `copr.htm`'s
+  wording) is shown in-app on Settings' Language card whenever Telugu is
+  selected, not just buried in this file. A public-domain 1881 Telugu
+  translation exists too, but only as scanned PDF images on Archive.org
+  — no machine-readable verse-by-verse text — so it was ruled out as
+  impractical, not on licensing grounds. See DATA_MODEL.md §8, item 147
+  for the full architecture (why this is a parallel file keyed by the
+  same verse ids rather than a schema change, and which parts of the app
+  do/don't switch language).
 
 ## Design philosophy (read before changing the data model)
 

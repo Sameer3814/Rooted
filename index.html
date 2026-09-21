@@ -1191,7 +1191,7 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, remote.settings || {});
+          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en'}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           saveContent(); saveProgress(); saveSettings();
@@ -1286,7 +1286,7 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, bundle.settings);
+    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en'}, bundle.settings);
     if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
@@ -1388,6 +1388,46 @@ async function loadStoryIllustrations(){
     if(res.ok) return new Set(await res.json());
   }catch(e){ /* every story just falls back to its existing placeholder */ }
   return new Set();
+}
+/* Telugu Bible text (item 147) — data/verses_te.json, eBible.org's tel2017
+   (Indian Revised Version, CC BY-SA 4.0 — see CLAUDE.md's provenance
+   section for the attribution this license requires), parsed by
+   pipeline/parse_telugu_bible.py into the same verse ids data/verses.json
+   already uses. Loaded lazily — only once the user actually switches to
+   Telugu (or on boot if that's already their saved setting) — same
+   "don't fetch the ~8MB corpus until it's needed" reasoning the English
+   corpus's own lazy Browse-screen fetch already uses; unlike that one,
+   the whole Telugu file is fetched at once rather than per-book, since
+   there's no per-book browsing UI driving smaller fetches here. */
+async function loadTeVerses(){
+  if(teVerseById.size) return; // already loaded this session
+  try{
+    const res = await fetch('./data/verses_te.json');
+    if(res.ok){
+      const list = await res.json();
+      for(const v of list) teVerseById.set(v.id, v);
+    }
+  }catch(e){ /* stays English — verseText() falls back automatically */ }
+}
+/* The single point every screen reads a verse's displayed text through —
+   Telugu when that's the active language AND this specific verse has a
+   Telugu counterpart (versification differs slightly between
+   translations, item 147's own pipeline doc: ~99.7% id overlap), English
+   otherwise. Never mutates the verse object itself, so switching language
+   back to English needs no re-fetch or cache invalidation. */
+function verseText(v){
+  if(settings.language === 'te'){
+    const te = teVerseById.get(v.id);
+    if(te) return te.text;
+  }
+  return v.text;
+}
+function verseTranslationLabel(v){
+  if(settings.language === 'te'){
+    const te = teVerseById.get(v.id);
+    if(te) return te.translation;
+  }
+  return v.translation;
 }
 
 function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
@@ -1568,7 +1608,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en'};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -1578,6 +1618,7 @@ let dailyFacts = [];       // seed-only: curated + verified Bible facts (item 11
 let factDrawerOpen = null; // fact id whose detail sheet is open, or null — see renderFactDrawer()
 let characterPortraits = new Set(); // seed-only: character ids with a real portrait (item 91)
 let storyIllustrations = new Set(); // seed-only: story ids with a real generated illustration (item 125)
+let teVerseById = new Map();   // verseId -> Telugu verse object, lazily loaded (item 147) — empty until Telugu is actually selected
 let view = {screen:'home', params:{}};
 let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
@@ -1656,6 +1697,70 @@ const ICON_PATHS = {
   'align-left': `<path d="M15 12H3"/><path d="M17 18H3"/><path d="M21 6H3"/>`,
   bookmark: `<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>`,
 };
+/* ---------- i18n (item 147) ----------
+   UI-chrome-only string dictionary — the bottom nav, screen titles, and
+   the most common buttons/labels, keyed by an id rather than the English
+   text itself (so a key never silently drifts out of sync with whichever
+   English string happens to be in a template at a given moment). This is
+   NOT a translation of the app's hand-written content (character bios,
+   story summaries, topic descriptions, daily facts) — that's thousands
+   of original sentences, a separate content project the owner explicitly
+   scoped out when this was built. Coverage here is the structural chrome
+   most visible app-wide; extending it to every remaining micro-label is
+   meant to grow incrementally later, the same way character-portrait and
+   story-art coverage grew in batches rather than all at once. */
+const STRINGS = {
+  nav_home: {en:'Home', te:'హోమ్'},
+  nav_practice: {en:'Practice', te:'అభ్యాసం'},
+  nav_discover: {en:'Discover', te:'అన్వేషణ'},
+  nav_study: {en:'Study', te:'అధ్యయనం'},
+  title_home: {en:'Home', te:'హోమ్'},
+  title_practice: {en:'Practice', te:'అభ్యాసం'},
+  title_discover: {en:'Discover', te:'అన్వేషణ'},
+  title_study: {en:'Study', te:'అధ్యయనం'},
+  title_settings: {en:'Settings', te:'సెట్టింగ్‌లు'},
+  title_topics: {en:'Topics', te:'అంశాలు'},
+  title_stories: {en:'Stories', te:'కథలు'},
+  title_people: {en:'People', te:'ప్రజలు'},
+  title_verse: {en:'Verse', te:'వచనం'},
+  btn_search: {en:'Search', te:'వెతకండి'},
+  btn_add: {en:'Add', te:'జోడించు'},
+  btn_save: {en:'Save', te:'సేవ్ చేయి'},
+  btn_cancel: {en:'Cancel', te:'రద్దు చేయి'},
+  btn_export: {en:'Export', te:'ఎగుమతి'},
+  btn_import: {en:'Import', te:'దిగుమతి'},
+  btn_sign_out: {en:'Sign out', te:'సైన్ అవుట్'},
+  practice_your_verses: {en:'Your verses', te:'మీ వచనాలు'},
+  practice_all: {en:'All', te:'అన్నీ'},
+  practice_due_today: {en:'Due Today', te:'నేడు గడువు'},
+  practice_mastered: {en:'Mastered', te:'నేర్చుకున్నవి'},
+  settings_language: {en:'Language', te:'భాష'},
+  settings_language_hint: {en:'Switches the app’s own buttons/labels and Bible verse text. Character bios, story summaries, and topic descriptions stay in English.',
+    te:'యాప్ బటన్లు/లేబుళ్లు మరియు బైబిల్ వచన పాఠ్యాన్ని మారుస్తుంది. పాత్రల జీవిత చరిత్రలు, కథా సారాంశాలు, అంశాల వివరణలు ఆంగ్లంలోనే ఉంటాయి.'},
+  settings_daily_goal: {en:'Daily goal', te:'రోజువారీ లక్ష్యం'},
+  settings_sound: {en:'Sound & haptics', te:'ధ్వని & స్పర్శ'},
+  settings_your_data: {en:'Your data', te:'మీ డేటా'},
+};
+/* Looks up `key` in the active language, falling back to English (never
+   the raw key) if a translation is missing for it — a missing Telugu
+   string should read as English, not as a broken `settings_language`-
+   looking id on screen. */
+function t(key){
+  const entry = STRINGS[key];
+  if(!entry) return key;
+  return entry[settings.language] || entry.en;
+}
+/* Patches the bottom nav's labels in place — it lives in the static
+   HTML shell outside #app (see index.html's own <nav class="navbar">),
+   so it's never touched by render()'s normal re-templating and needs
+   its own small DOM update instead. Called once at boot and again
+   whenever the language setting changes. */
+function applyNavLabels(){
+  document.querySelectorAll('.navbar .navitem span:last-child').forEach(el=>{
+    const nav = el.closest('.navitem').dataset.nav;
+    if(nav) el.textContent = t('nav_' + nav);
+  });
+}
 /* class="app-icon" — see the shared CSS rule (display:inline-flex, no
    forced color) for why: every call site below sits inside text that
    already sets its own `color` (a badge, a label, a button), and an SVG
@@ -2458,17 +2563,17 @@ function renderAccountBar(){
         <div class="avatar"><i class="ti ${statusIcon}"></i></div>
         <div><h3 style="margin:0;">${esc(label)}</h3><p class="field-hint" data-action="sync-now" style="cursor:pointer;">${esc(statusText)}</p></div>
       </div>
-      <a class="btn" href="/.auth/logout?post_logout_redirect_uri=/">Sign out</a>
+      <a class="btn" href="/.auth/logout?post_logout_redirect_uri=/">${t('btn_sign_out')}</a>
     </div>`;
 }
 function renderDataCard(){
   return `
     <div class="card">
-      <h3 style="margin:0 0 4px;">Your data</h3>
+      <h3 style="margin:0 0 4px;">${t('settings_your_data')}</h3>
       <p class="field-hint" style="margin-bottom:10px;">Back up your verses, progress, and settings to a file on this device, or restore from one — works whether or not you're signed in.</p>
       <div style="display:flex;gap:8px;">
-        <button class="btn" data-action="export-data" style="flex:1;"><i class="ti ti-download"></i> Export</button>
-        <button class="btn" data-action="trigger-import" style="flex:1;"><i class="ti ti-upload"></i> Import</button>
+        <button class="btn" data-action="export-data" style="flex:1;"><i class="ti ti-download"></i> ${t('btn_export')}</button>
+        <button class="btn" data-action="trigger-import" style="flex:1;"><i class="ti ti-upload"></i> ${t('btn_import')}</button>
       </div>
       <input type="file" id="import-file-input" accept="application/json" style="display:none;">
     </div>`;
@@ -2478,19 +2583,50 @@ function renderGoalCard(){
   const goal = settings.dailyGoal || 10;
   return `
     <div class="card">
-      <h3 style="margin:0 0 4px;">Daily goal</h3>
+      <h3 style="margin:0 0 4px;">${t('settings_daily_goal')}</h3>
       <p class="field-hint" style="margin-bottom:12px;">How many due verses a practice session pulls in at once.</p>
       <div class="segmented">
         ${DAILY_GOAL_OPTIONS.map(n=>`<button data-action="set-daily-goal" data-id="${n}" class="${n===goal?'active':''}">${n}</button>`).join('')}
       </div>
     </div>`;
 }
+/* Language setting (item 147) — UI chrome + Bible verse text only (see
+   the `t()` string dictionary above and `verseText()`/`teVerseById`
+   below); the app's own hand-written English content (character bios,
+   story summaries, topic descriptions, daily facts) is not translated —
+   a real, separate content project, out of scope here (flagged, not
+   silently skipped). Practice's five challenge types also stay English-
+   only regardless of this setting: several of them (Tap Builder's word-
+   bank, First-Letter Sprint) filter/measure words with a Latin-alphabet-
+   only regex (`[^a-zA-Z]`), which would silently break (zero eligible
+   blanks, meaningless first-letter reveals) on Telugu script rather than
+   just look wrong — safer to keep those verses in English than ship a
+   broken exercise. */
+function renderLanguageCard(){
+  const lang = settings.language || 'en';
+  return `
+    <div class="card">
+      <h3 style="margin:0 0 4px;">${t('settings_language')}</h3>
+      <p class="field-hint" style="margin-bottom:12px;">${t('settings_language_hint')}</p>
+      <div class="segmented">
+        <button data-action="set-language" data-id="en" class="${lang==='en'?'active':''}">English</button>
+        <button data-action="set-language" data-id="te" class="${lang==='te'?'active':''}">తెలుగు</button>
+      </div>
+      ${lang==='te' ? `<p class="field-hint" style="margin-top:10px;">${TELUGU_ATTRIBUTION}</p>` : ''}
+    </div>`;
+}
+/* Required by the Telugu text's own CC BY-SA 4.0 license ("You include
+   the above copyright and source information") — shown only once Telugu
+   is actually selected, not on every screen, since it's the license's
+   attribution requirement, not a design element. Exact wording from the
+   source archive's own copr.htm. */
+const TELUGU_ATTRIBUTION = 'Telugu: The Indian Revised Version (IRV), © 2017–2019 Bridge Connectivity Solutions, used under CC BY-SA 4.0.';
 function renderSoundCard(){
   const on = settings.soundEnabled !== false;
   return `
     <div class="card">
       <div class="char-row" style="justify-content:space-between;">
-        <div><h3 style="margin:0;">Sound &amp; haptics</h3><p class="field-hint">Gentle tones and vibration for correct answers and finishing a session.</p></div>
+        <div><h3 style="margin:0;">${t('settings_sound')}</h3><p class="field-hint">Gentle tones and vibration for correct answers and finishing a session.</p></div>
         <button class="btn ${on?'primary':''}" data-action="toggle-sound" style="flex-shrink:0;">${on ? 'On' : 'Off'}</button>
       </div>
     </div>`;
@@ -2499,9 +2635,10 @@ function renderSettings(){
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
-      <h2>Settings</h2>
+      <h2>${t('title_settings')}</h2>
     </div>
     ${renderAccountBar()}
+    ${renderLanguageCard()}
     ${renderGoalCard()}
     ${renderSoundCard()}
     ${renderDataCard()}
@@ -2593,7 +2730,7 @@ function renderDiscoverFeaturedToday(){
 }
 function renderDiscover(){
   return `
-    <div class="topbar"><h1>Discover</h1></div>
+    <div class="topbar"><h1>${t('title_discover')}</h1></div>
     ${renderDiscoverFeaturedToday()}
     <div class="card tap" data-action="go-browse">
       <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>Read the Bible</h3><p class="field-hint">Search or browse the full 66-book text, book by book.</p></div></div>
@@ -2685,7 +2822,7 @@ function renderCorpusVerseCard(v){
   return `
     <div class="card verse-card">
       <div class="ref">${esc(v.reference)}</div>
-      <div class="text">${esc(v.text)}</div>
+      <div class="text">${esc(verseText(v))}</div>
       <div class="card-actions">
         ${inLibrary
           ? `<span class="in-library"><i class="ti ti-check"></i> in your verses</span>`
@@ -2772,7 +2909,7 @@ function renderVerseCard(v){
     <div class="card tap verse-card" data-action="open-verse" data-id="${v.id}">
       ${renderMasteryBar(status)}
       <div class="ref">${esc(v.reference)}</div>
-      <div class="text">${esc(v.text)}</div>
+      <div class="text">${esc(verseText(v))}</div>
       <div class="tag-row">
         ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--pill">#${esc(hashtagify(t.name))}</span>`:'';}).join('')}
         ${dueTag}
@@ -2809,11 +2946,11 @@ function renderVerseDetail(id){
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>Verse</h2>
+      <h2>${t('title_verse')}</h2>
     </div>
     <div class="card verse-card">
-      <div class="ref">${esc(v.reference)}${v.translation? ' · '+esc(v.translation):''}</div>
-      <div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(v.text)}</div>
+      <div class="ref">${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</div>
+      <div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(verseText(v))}</div>
       ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
     <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
@@ -2901,10 +3038,10 @@ function topicAccentVars(id){
 }
 function renderTopics(){
   if(!data.topics.length){
-    return `<div class="topbar"><h1>Topics</h1></div><div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`;
+    return `<div class="topbar"><h1>${t('title_topics')}</h1></div><div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`;
   }
   return `
-    <div class="topbar"><h1>Topics</h1></div>
+    <div class="topbar"><h1>${t('title_topics')}</h1></div>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
       <input type="text" id="topics-search" value="${esc(topicsQuery)}" placeholder="Search topics..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -2957,10 +3094,10 @@ function renderTopicDetail(id){
 /* ---------- CHARACTERS ---------- */
 function renderCharacters(){
   if(!data.characters.length){
-    return `<div class="topbar"><h1>People</h1></div><div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`;
+    return `<div class="topbar"><h1>${t('title_people')}</h1></div><div class="empty"><i class="ti ti-users"></i><p>No people added yet.</p></div>`;
   }
   return `
-    <div class="topbar"><h1>People</h1></div>
+    <div class="topbar"><h1>${t('title_people')}</h1></div>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
       <input type="text" id="people-search" value="${esc(peopleQuery)}" placeholder="Search people by name or role..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -3563,9 +3700,9 @@ function renderStoryDetail(id){
 
 /* ---------- STORIES LIST ---------- */
 function renderStories(){
-  if(!lore.stories.length) return `<div class="topbar"><h1>Stories</h1></div><div class="empty"><i class="ti ti-book"></i><p>No stories loaded.</p></div>`;
+  if(!lore.stories.length) return `<div class="topbar"><h1>${t('title_stories')}</h1></div><div class="empty"><i class="ti ti-book"></i><p>No stories loaded.</p></div>`;
   return `
-    <div class="topbar"><h1>Stories</h1></div>
+    <div class="topbar"><h1>${t('title_stories')}</h1></div>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
       <input type="text" id="stories-search" value="${esc(storiesQuery)}" placeholder="Search stories by title or reference..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -3608,7 +3745,7 @@ function renderStoriesResults(){
    Study gets a proper hub, same shape as Discover's. */
 function renderStudy(){
   return `
-    <div class="topbar"><h1>Study</h1></div>
+    <div class="topbar"><h1>${t('title_study')}</h1></div>
     <div class="card tap" data-action="go-motifs">
       <div class="char-row"><div class="avatar"><i class="ti ti-sparkles"></i></div><div><h3>Patterns</h3><p class="field-hint">${motifs.length} recurring motifs across these stories.</p></div></div>
     </div>
@@ -4681,9 +4818,9 @@ function renderPracticeFilterTabs(){
   const due = data.verses.filter(isDue).length;
   const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
   const tabs = [
-    {id:'all', label:`All (${data.verses.length})`},
-    {id:'due', label:`Due Today (${due})`},
-    {id:'mastered', label:`Mastered (${mastered})`},
+    {id:'all', label:`${t('practice_all')} (${data.verses.length})`},
+    {id:'due', label:`${t('practice_due_today')} (${due})`},
+    {id:'mastered', label:`${t('practice_mastered')} (${mastered})`},
   ];
   return `<div class="practice-filter-tabs">${tabs.map(t=>
     `<button data-action="set-practice-filter" data-id="${t.id}" class="${t.id===practiceFilter?'active':''}">${esc(t.label)}</button>`
@@ -4693,10 +4830,10 @@ function renderPracticeLanding(){
   const due = dueVerses();
   const verses = filteredPracticeVerses();
   return `
-    <div class="topbar"><h1>Practice</h1></div>
+    <div class="topbar"><h1>${t('title_practice')}</h1></div>
     ${renderPracticeHero(due)}
     ${renderPracticeStatsStrip()}
-    <div class="section-label">Your verses <button class="tap" data-action="go-add" title="Add a verse or person" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;display:inline-flex;align-items:center;"><i class="ti ti-plus" style="font-size:18px;"></i></button></div>
+    <div class="section-label">${t('practice_your_verses')} <button class="tap" data-action="go-add" title="Add a verse or person" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;display:inline-flex;align-items:center;"><i class="ti ti-plus" style="font-size:18px;"></i></button></div>
     ${renderPracticeFilterTabs()}
     ${verses.length
       ? verses.slice(0, homeLimit).map(renderVerseCard).join('') +
@@ -4987,6 +5124,13 @@ function onAction(e){
   else if(action==='focus-sprint-input') focusSprintInput();
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
   else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
+  else if(action==='set-language'){
+    settings.language = id;
+    saveSettings();
+    applyNavLabels();
+    if(id === 'te') loadTeVerses().then(render);
+    render();
+  }
   else if(action==='toggle-sound'){
     settings.soundEnabled = settings.soundEnabled === false ? true : false;
     saveSettings(); render();
@@ -5237,8 +5381,9 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en'}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
+  if(settings.language === 'te') loadTeVerses(); // don't block first paint — verseText() falls back to English until this resolves
 
   const storedSyncMeta = await loadStored(SYNC_META_KEY);
   syncMeta = Object.assign({updatedAt: null}, storedSyncMeta || {});
@@ -5252,6 +5397,7 @@ async function migrateLegacy(seedContent){
   characterPortraits = await loadCharacterPortraits();
   storyIllustrations = await loadStoryIllustrations();
   render();
+  applyNavLabels();
 
   // Cloud sync is optional and never blocks first paint — the app is fully
   // usable offline the instant the line above runs. This runs after, in the
