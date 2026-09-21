@@ -517,6 +517,23 @@ The schema was deliberately designed so all of the above can be added
   Discover "Featured Today" section are live again, unchanged from
   their original form. `sw.js` bumped to `rooted-v139`. See
   DATA_MODEL.md §8, item 142.
+- **People: 2-column photo grid, replacing the thin 40px-avatar
+  `.list-row` — done (2026-09-21).** New `renderCharacterGrid(list)`
+  wraps a list of rewritten `renderCharacterRow()` cards in a
+  `.people-grid` grid — a real portrait on top, name/roles below,
+  same dark card palette as the Stories cover-banner cards (item 140)
+  so the two photo-forward treatments read as one idea. Applies
+  everywhere `renderCharacterRow()` is used (People, its search and era
+  groups, Character Detail's "Appears alongside"/"Also in {era}", Story
+  Detail's "Who's in it") — a scope the owner picked explicitly up
+  front rather than guessing after the fact, given item 140's redesign
+  had already needed a revert once. Two deliberate exceptions: Motif
+  Detail's mixed character/story/verse feed keeps individual character
+  cards ungrouped (a 2-column grid around scattered entries in a mixed
+  list would look broken, not consistent), and Family Tree's own
+  `renderFamilyCard()` picker (item 141) is untouched — it's one card
+  per lineage, not per person, a different component entirely. `sw.js`
+  bumped to `rooted-v140`. See DATA_MODEL.md §8, item 143.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

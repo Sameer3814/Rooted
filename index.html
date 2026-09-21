@@ -175,6 +175,22 @@
   .story-card-body h3{font-size:18px;font-weight:700;color:#F5F2ED;margin-bottom:4px;}
   .story-card-ref{font-size:13px;font-weight:600;color:#C69255;margin-bottom:8px;display:inline-block;}
   .story-card-excerpt{font-size:14px;color:#A39B92;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  /* People: 2-column photo grid (2026-09-21) — replaces the old thin
+     `.list-row` (see renderCharacterRow()'s own comment) now that every
+     character has a real generated portrait worth showing at more than
+     40px. Same dark card palette as .story-list-card above, for visual
+     consistency between the two photo-forward list treatments. */
+  .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .people-grid-card{
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    overflow:hidden;cursor:pointer;transition:transform .15s ease;
+  }
+  .people-grid-card:active{transform:scale(.97);}
+  .people-grid-photo{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--surface-sunken);}
+  .people-grid-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .people-grid-photo.icon-fallback{display:flex;align-items:center;justify-content:center;color:#A39B92;}
+  .people-grid-name{padding:10px 12px 0;font-size:15px;font-weight:700;color:#F5F2ED;line-height:1.25;}
+  .people-grid-meta{padding:2px 12px 12px;font-size:12px;color:#A39B92;}
   .verse-card{position:relative;}
   /* 4-segment mastery indicator, top-right corner of every verse card —
      replaces the old uppercase status tag inside .tag-row so mastery
@@ -2653,7 +2669,7 @@ function renderBookPeople(book){
     <button class="back-btn" data-action="back-to-browse-book" data-id="${esc(book)}" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
     <div class="topbar"><h1>People in ${esc(book)}</h1></div>
     <p style="color:var(--ink-soft);margin-bottom:16px;">In the order they first appear in ${esc(book)}.</p>
-    ${people.length ? people.map(c=>renderCharacterRow(c)).join('') : `<div class="empty"><i class="ti ti-users"></i><p>No named people yet.</p></div>`}
+    ${people.length ? renderCharacterGrid(people) : `<div class="empty"><i class="ti ti-users"></i><p>No named people yet.</p></div>`}
   `;
 }
 function renderCorpusVerseCard(v){
@@ -2944,7 +2960,7 @@ function renderPeopleResults(){
     if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No one matches "${esc(peopleQuery)}".</p></div>`;
     return `
       <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
-      ${hits.map(c=>renderCharacterRow(c)).join('')}
+      ${renderCharacterGrid(hits)}
     `;
   }
   const grouped = lore.eras.map(era=>({
@@ -2960,18 +2976,40 @@ function renderPeopleResults(){
   return `
     ${grouped.map(g=>`
       <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
-      ${g.people.map(c=>renderCharacterRow(c)).join('')}
+      ${renderCharacterGrid(g.people)}
     `).join('')}
-    ${ungrouped.length ? `<div class="section-label">Others</div>${ungrouped.map(c=>renderCharacterRow(c)).join('')}` : ''}
+    ${ungrouped.length ? `<div class="section-label">Others</div>${renderCharacterGrid(ungrouped)}` : ''}
   `;
 }
+/* Photo-forward character card (2026-09-21) — replaces the old thin
+   `.list-row` (a 40px portrait in an otherwise plain text row), which
+   read as flat/stale next to the Stories cover-banner cards (item 140)
+   once every one of the app's 267 characters had a real generated
+   portrait to actually show. Falls back to the existing icon-in-a-box
+   treatment (`charIconHTML`) for the rare character with none. Always
+   returns one self-contained card — `renderCharacterGrid()` below wraps
+   a *list* of these in the 2-column grid; a lone card used inline
+   (e.g. Motif Detail's mixed story/character/verse feed) just renders
+   at full width, which is the right fallback for a single item. */
 function renderCharacterRow(c, action){
+  const portrait = charPortraitUrl(c.id);
   return `
-    <div class="list-row tap" data-action="${action || 'open-character'}" data-id="${c.id}">
-      <div class="list-avatar">${charAvatarInner(c)}</div>
-      <div><div class="name">${esc(c.name)}</div><div class="meta">${esc((c.roles||[]).join(' · '))}</div></div>
-      <i class="ti ti-chevron-right chev"></i>
+    <div class="people-grid-card tap" data-action="${action || 'open-character'}" data-id="${c.id}">
+      <div class="people-grid-photo${portrait ? '' : ' icon-fallback'}">${portrait ? `<img src="${esc(portrait)}" alt="" loading="lazy">` : charIconHTML(c.roles, 32)}</div>
+      <div class="people-grid-name">${esc(c.name)}</div>
+      <div class="people-grid-meta">${esc((c.roles||[]).join(' · '))}</div>
     </div>`;
+}
+/* Wraps a list of renderCharacterRow() cards in the shared 2-column
+   grid — every screen that lists multiple people via renderCharacterRow
+   (People, search, Character Detail's "Appears alongside"/"Also in
+   {era}", Story Detail's "Who's in it") uses this rather than each
+   screen inventing its own grid container. Family Tree's own picker
+   uses a separate renderFamilyCard() — one card per lineage, not per
+   person — so it isn't part of this shared grid. */
+function renderCharacterGrid(list){
+  if(!list.length) return '';
+  return `<div class="people-grid">${list.map(c=>renderCharacterRow(c)).join('')}</div>`;
 }
 function renderStoryCard(s){
   const cover = storyIllustrationUrl(s.id) || placeholderArt(s.id);
@@ -3035,8 +3073,8 @@ function renderCharacterDetail(id){
     ${stories.length ? `<div class="section-label">Stories</div>${stories.map(renderStoryCard).join('')}` : ''}
     ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
     ${renderMotifBadges(motifsFor('character', id))}
-    ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${alsoWith.map(o=>renderCharacterRow(o)).join('')}` : ''}
-    ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${sameEra.map(o=>renderCharacterRow(o)).join('')}` : ''}
+    ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${renderCharacterGrid(alsoWith)}` : ''}
+    ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${renderCharacterGrid(sameEra)}` : ''}
   `;
 }
 
@@ -3483,7 +3521,7 @@ function renderStoryDetail(id){
       <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
       <p class="summary">${esc(s.summary)}</p>
     </div>
-    ${chars.length ? `<div class="section-label">Who's in it</div>${chars.map(o=>renderCharacterRow(o)).join('')}` : ''}
+    ${chars.length ? `<div class="section-label">Who's in it</div>${renderCharacterGrid(chars)}` : ''}
     ${moments.length ? `<div class="section-label">Moments</div>
       <div class="timeline">
         ${moments.map(e=>{

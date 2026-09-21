@@ -6780,6 +6780,42 @@ inventing a new principle:
     possible future pass, separate from this restore. `sw.js` bumped
     to `rooted-v139`.
 
+143. **People: 2-column photo grid, replacing the thin `.list-row` —
+    done (2026-09-21), the "future pass" named in item 142.** The
+    owner's actual complaint, once items 140-141 were sorted out: the
+    People list still read flat/stale, since its `.list-row` showed
+    each of the app's 267 real generated portraits at just 40px inside
+    an otherwise plain text row — a much smaller visual treatment than
+    the Stories cover-banner cards a few items earlier gave story art.
+    New `renderCharacterGrid(list)` wraps a list of (also-rewritten)
+    `renderCharacterRow()` cards in a `.people-grid` 2-column grid — a
+    real photo on top (square, `object-fit:cover`), name and roles
+    below, falling back to the existing `charIconHTML()` icon treatment
+    for anyone without a portrait. Same dark card palette
+    (`#1C1917`/`#2E2925`) as `.story-list-card` (item 140), by design —
+    the two photo-forward list treatments now read as one consistent
+    idea rather than two different ones.
+    - **Scope, decided with the owner up front rather than guessed
+      after the fact** (offered as an explicit choice, since the
+      Discover "Featured Today" redesign a few items back had already
+      been rejected once for being an un-asked-for visual change):
+      *every* place `renderCharacterRow()` is used got the grid
+      treatment, not just the main People screen — People's own list,
+      its search results, its era groups and "Others" bucket, Character
+      Detail's "Appears alongside" and "Also in {era}", and Story
+      Detail's "Who's in it". One exception, decided rather than missed:
+      Motif Detail's "where it shows up" list interleaves character,
+      story, and verse cards in a single mixed-type column — forcing a
+      2-column grid around individual character entries scattered
+      through that feed would look broken, not consistent, so that one
+      call site keeps calling `renderCharacterRow()` directly (it still
+      renders as a normal full-width photo card on its own, just not
+      inside the grid wrapper). Family Tree's own picker
+      (`renderFamilyCard()`, item 141) is a structurally different
+      component — one card per *lineage*, not per person — so it was
+      never part of this change either.
+    `sw.js` bumped to `rooted-v140`.
+
 ---
 
 ## 9. How the app reads this data
