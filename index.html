@@ -849,8 +849,13 @@
      (see "Visual direction" in CLAUDE.md). */
   .tree-viewport{
     position:relative;overflow:hidden;touch-action:none;
-    background:var(--surface-sunken);border-radius:var(--radius-card);
-    height:min(60vh, 480px);border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius-card);border:1px solid rgba(255,255,255,.06);
+    height:min(60vh, 480px);
+    background-color:#141210;
+    background-image:
+      radial-gradient(circle at 50% 40%, rgba(198, 146, 85, 0.08) 0%, transparent 65%),
+      radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size:100% 100%, 24px 24px;
   }
   .tree-canvas{position:relative;transform-origin:0 0;}
   .tree-edges-svg{position:absolute;top:0;left:0;pointer-events:none;overflow:visible;}
@@ -3600,6 +3605,82 @@ function renderTimeline(){
 function hasFamilyTree(charId){
   return characterRelationships(charId).some(r => FAMILY_CORE_TYPES.hasOwnProperty(r.type));
 }
+/* Family lineages (2026-09-21) — connected components of the family
+   graph, so the picker shows one card per real lineage instead of one
+   card per person who happens to have family curated. Without this, a
+   well-connected component like David's (16 people: David, Saul,
+   Jonathan, Solomon, Absalom...) rendered as 16 separate, mostly-
+   overlapping "X's Family" cards. Purely derived from the same
+   Connection data `familyGraph()` already reads — no new curation.
+   Each lineage's `anchor` is whichever member appears in the most
+   curated Stories (an existing, objective signal of narrative
+   centrality already in the data) rather than a hand-picked id, so new
+   characters/stories keep this correct without upkeep. A handful of
+   well-known lineages get an editorial display name; every other one
+   falls back to a derived "{anchor}'s Family" ("The Family of {anchor}"
+   when the name itself ends in "s", to dodge an awkward double-s
+   possessive like "Jesus's Family"). */
+const FAMILY_LINEAGE_LABELS = {
+  char_adam: 'The First Family',
+  char_noah: 'House of Noah',
+  char_jacob: 'Patriarchs of Israel',
+  char_moses: 'House of Levi',
+  char_david: 'House of David',
+};
+function familyLineageLabel(anchor){
+  if(FAMILY_LINEAGE_LABELS[anchor.id]) return FAMILY_LINEAGE_LABELS[anchor.id];
+  return /s$/i.test(anchor.name) ? `The Family of ${anchor.name}` : `${anchor.name}'s Family`;
+}
+function familyLineages(){
+  const byId = new Map(data.characters.map(c=>[c.id, c]));
+  const seen = new Set();
+  const lineages = [];
+  for(const c of data.characters){
+    if(seen.has(c.id) || !hasFamilyTree(c.id)) continue;
+    const members = [];
+    const queue = [c.id];
+    seen.add(c.id);
+    while(queue.length){
+      const id = queue.shift();
+      const person = byId.get(id);
+      if(person) members.push(person);
+      for(const rel of characterRelationships(id)){
+        if(!FAMILY_CORE_TYPES.hasOwnProperty(rel.type)) continue;
+        if(!seen.has(rel.who.id)){ seen.add(rel.who.id); queue.push(rel.who.id); }
+      }
+    }
+    const anchor = [...members].sort((a,b)=>
+      characterStories(b.id).length - characterStories(a.id).length || a.name.localeCompare(b.name)
+    )[0];
+    lineages.push({ anchor, members, label: familyLineageLabel(anchor) });
+  }
+  return lineages;
+}
+/* How `member` relates to their lineage's `anchor`, for the search-
+   result badge ("Matches: Cain (Son of Adam)"). Prefers the exact
+   curated relationship phrase when member and anchor are directly
+   connected; falls back to a generation count (via the same ±1-per-
+   parent/child-step delta `familyGraph()` uses) for anyone further out
+   in a large lineage, e.g. a grandchild with no direct edge to the
+   anchor. */
+function relationshipToAnchor(member, anchor){
+  if(member.id === anchor.id) return null;
+  const direct = characterRelationships(member.id).find(r => r.who.id === anchor.id && FAMILY_CORE_TYPES.hasOwnProperty(r.type));
+  if(direct) return direct.type.replace(/ of$/, '').replace(/^./, ch=>ch.toUpperCase()) + ` of ${anchor.name}`;
+  const {nodes} = familyGraph(anchor.id, 99);
+  const node = nodes.get(member.id);
+  if(!node) return `Related to ${anchor.name}`;
+  const gen = node.gen;
+  // |gen|===1 without a direct edge means the connection runs through an
+  // in-law link (e.g. a spouse's sibling's child) rather than real
+  // parentage — "descendant"/"ancestor" would overclaim a blood relation
+  // that isn't actually curated, so it gets the same generic phrasing as
+  // gen===0 rather than a specific but misleading generation count.
+  if(Math.abs(gen) <= 1) return `Part of ${anchor.name}'s extended family`;
+  if(gen === 2) return `Grandchild of ${anchor.name}`;
+  if(gen === -2) return `Grandparent of ${anchor.name}`;
+  return gen > 0 ? `${gen}-generation descendant of ${anchor.name}` : `${-gen}-generation ancestor of ${anchor.name}`;
+}
 function renderFamilyTreePicker(){
   return `
     <div class="topbar"><h1>Family Tree</h1></div>
@@ -3610,36 +3691,51 @@ function renderFamilyTreePicker(){
     <div id="family-tree-picker-results">${renderFamilyTreePickerResults()}</div>
   `;
 }
-function renderFamilyCard(c){
+function renderFamilyCard(anchor, opts){
+  opts = opts || {};
   return `
-    <div class="card tap" data-action="open-family-tree" data-id="${c.id}">
+    <div class="card tap" data-action="open-family-tree" data-id="${opts.openId || anchor.id}">
       <div class="char-row">
-        <div class="avatar">${charAvatarInner(c)}</div>
-        <div><h3>${esc(c.name)}'s Family</h3><p class="field-hint">${esc((c.roles||[])[0]||'')}</p></div>
+        <div class="avatar">${charAvatarInner(anchor)}</div>
+        <div>
+          <h3>${esc(opts.label || familyLineageLabel(anchor))}</h3>
+          <p class="field-hint">${esc((anchor.roles||[])[0]||'')}</p>
+          ${opts.badge ? `<span class="tag tag--tan" style="margin-top:6px;display:inline-block;">Matches: ${esc(opts.badge)}</span>` : ''}
+        </div>
       </div>
     </div>`;
 }
 function renderFamilyTreePickerResults(){
-  const withFamily = data.characters.filter(c=>hasFamilyTree(c.id));
+  const lineages = familyLineages();
   const q = familyTreeQuery.trim().toLowerCase();
   if(q){
-    const hits = withFamily.filter(c=>c.name.toLowerCase().includes(q));
-    if(!hits.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No family matches "${esc(familyTreeQuery)}".</p></div>`;
+    // Search every person in every lineage, not just each lineage's own
+    // anchor — typing "Cain" should surface The First Family even though
+    // Adam, not Cain, is that lineage's anchor.
+    const hitLineages = [];
+    for(const lin of lineages){
+      const hit = lin.members.find(m=>m.name.toLowerCase().includes(q));
+      if(hit) hitLineages.push({lin, hit});
+    }
+    if(!hitLineages.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No family matches "${esc(familyTreeQuery)}".</p></div>`;
     return `
-      <div class="result-count">${hits.length} match${hits.length===1?'':'es'}</div>
-      ${hits.map(renderFamilyCard).join('')}
+      <div class="result-count">${hitLineages.length} match${hitLineages.length===1?'':'es'}</div>
+      ${hitLineages.map(({lin, hit})=>{
+        const rel = relationshipToAnchor(hit, lin.anchor);
+        const badge = rel ? `${hit.name} (${rel})` : null;
+        // Open centered on the actual matched person, not the lineage's
+        // anchor — searching "Cain" should land the canvas on Cain,
+        // auto-highlighted, not back on Adam.
+        return renderFamilyCard(lin.anchor, {openId: hit.id, badge});
+      }).join('')}
     `;
   }
-  const grouped = lore.eras.map(era=>({
-    era,
-    people: withFamily.filter(c=>c.eraId===era.id)
-  })).filter(g=>g.people.length);
   return `
     <p style="color:var(--ink-soft);margin-bottom:14px;line-height:1.5;">Explore how a well-known figure connects to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app. Only people with a curated family are listed here.</p>
-    ${grouped.map(g=>`
-      <div class="section-label">${esc(g.era.name)} <span style="color:var(--ink-faint);">${esc(g.era.approxRange||'')}</span></div>
-      ${g.people.map(renderFamilyCard).join('')}
-    `).join('')}
+    ${lineages
+      .sort((a,b)=> (findEra(a.anchor.eraId)?.order||0) - (findEra(b.anchor.eraId)?.order||0))
+      .map(lin=>renderFamilyCard(lin.anchor))
+      .join('')}
   `;
 }
 /* Node-link family tree, v2 rendering overhaul (2026-09-16) — a hybrid

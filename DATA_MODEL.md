@@ -6673,6 +6673,96 @@ inventing a new principle:
       Discover and Stories like every other screen.
     `sw.js` bumped to `rooted-v136`.
 
+141. **Family Tree: lineage-consolidated picker, smart cross-lineage
+    search, and an ambient canvas background — done (2026-09-21).** The
+    owner didn't like the just-shipped item 140 changes (asked to
+    revert them — not yet acted on, a separate follow-up) and pivoted
+    directly to this Family Tree spec instead.
+    - **The picker no longer lists one card per person with curated
+      family.** That produced real duplication — David's connected
+      component alone has 16 members (David, Saul, Jonathan, Solomon,
+      Absalom, Bathsheba...), so the old picker showed 16 near-identical
+      "X's Family" cards that all open variations on the same tree. New
+      `familyLineages()` computes the actual connected components of
+      the family graph (an unbounded BFS over the same
+      `FAMILY_CORE_TYPES` edges `familyGraph()` already uses, just
+      without its ±2-generation cap) — 17 real lineages in the current
+      data, one card each. Each lineage's `anchor` (which portrait/name
+      the card shows, and which relationships are described as "of")
+      is whichever member appears in the most curated Stories
+      (`characterStories(id).length`) — an existing, objective
+      centrality signal already in the data, not a hand-picked id, so
+      it stays correct as new characters/stories are added rather than
+      needing upkeep. Five lineages big or well-known enough to deserve
+      a real name get one via `FAMILY_LINEAGE_LABELS` (keyed by anchor
+      id, verified against the actual computed anchors first): Adam →
+      "The First Family", Noah → "House of Noah", Jacob → "Patriarchs
+      of Israel" (Jacob narrowly outranks Abraham, 15 stories to 14 —
+      the label describes the whole line either way), Moses → "House of
+      Levi" (Aaron, Miriam, Eleazar, and Moses are all children of
+      Amram, tribe of Levi), David → "House of David". Every other
+      lineage falls back to a derived `"{anchor}'s Family"` — or
+      `"The Family of {anchor}"` when the anchor's own name ends in
+      "s" (Jesus, Ahasuerus), avoiding an awkward double-s possessive
+      like "Jesus's Family".
+    - **Search now matches every person in every lineage, not just
+      anchors**, and returns the parent lineage card rather than a
+      duplicate per-person card. Typing "Cain" surfaces The First
+      Family (anchored on Adam, who has more curated Stories than Cain)
+      with a badge reading exactly `Matches: Cain (Son of Adam)`, the
+      spec's own literal example — verified against real data before
+      shipping, along with Eve, Absalom, Esau, Miriam, and Jezebel all
+      producing correct direct-relationship badges. New
+      `relationshipToAnchor(member, anchor)` prefers the exact curated
+      relationship phrase when a direct edge exists (`characterRelationships()`
+      already returns it from the member's own point of view, e.g.
+      `"son of"`), and falls back to a generation count via
+      `familyGraph(anchor.id, 99)`'s existing gen-delta math for anyone
+      further out with no direct edge to the anchor — `"Grandchild of
+      {anchor}"` / `"Grandparent of {anchor}"` at exactly ±2, a numbered
+      `"N-generation descendant/ancestor of {anchor}"` beyond that. At
+      exactly ±1 or 0 generations *without* a direct edge (an in-law
+      link — e.g. Jonathan reaches David only through his sister
+      Michal's marriage, and Mephibosheth through his father Jonathan)
+      the code deliberately does **not** say "child of" or "descendant
+      of" — that would overclaim a blood relationship the data never
+      actually curated — and instead says `"Part of {anchor}'s extended
+      family"`, verified against these exact two real cases before
+      shipping.
+    - **Tapping a search result opens the tree centered on the actual
+      matched person, not the lineage's anchor** — `renderFamilyCard()`
+      now takes an `openId` distinct from whose portrait/name the card
+      displays, so searching "Cain" opens Cain's own tree, auto-
+      highlighted as the root (the existing `.active`-root/highlighted-
+      edges treatment from item 111 already does this for whichever id
+      is passed — no new highlight mechanism needed). The spec's own
+      `?focusNodeId=` query-string language doesn't apply here — this
+      app has no URL-driven routing at all, everything goes through the
+      existing internal `view`/`go()` router and `data-action`/`data-id`
+      dispatch, so the same outcome is reached by passing the matched
+      id as the tree's `id` param the normal way, not a new query-param
+      mechanism.
+    - **`.tree-viewport`** (the outer pan/zoom container — the spec's
+      own `.tree-canvas-container` name doesn't exist in this file, so
+      applied to its real equivalent) **got the requested ambient dark
+      background**: `#141210` base, a soft bronze radial glow centered
+      high in the frame, and a subtle 24px white dot grid — verbatim
+      hex/values from the spec, replacing the flat `var(--surface-sunken)`
+      it had before. Left every structural property alone
+      (`position:relative`, `overflow:hidden`, `touch-action:none`,
+      border/radius/height) since the spec only specified the look, not
+      the mechanics, and this container's pan/zoom transform lives on
+      the separate inner `.tree-canvas` div, not this one — so the grid
+      stays fixed in place as the tree pans underneath it, matching
+      where the spec's own CSS block was scoped.
+    - Node-tap behavior inside the canvas itself (`family-tree-nav`,
+      item 110's re-center-on-tap) was left unchanged — the request's
+      "node click interaction" ask, read together with its own "Clicking
+      a search result..." sentence, was about the search-result-to-canvas
+      handoff above, and no separate spec for in-canvas node taps was
+      given.
+    `sw.js` bumped to `rooted-v137`.
+
 ---
 
 ## 9. How the app reads this data

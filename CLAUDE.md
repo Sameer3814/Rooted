@@ -478,6 +478,37 @@ The schema was deliberately designed so all of the above can be added
   already generic (item 75's `from` fix), so the new Person of the Day
   card's tap target needed no new wiring. `sw.js` bumped to
   `rooted-v136`. See DATA_MODEL.md §8, item 140.
+- **Family Tree: lineage-consolidated picker, smart cross-lineage
+  search, ambient canvas background — done (2026-09-21).** The owner
+  asked to revert item 140 (not yet done, a separate follow-up) and
+  pivoted straight to this instead. The picker no longer lists one card
+  per person with curated family (David's own connected component alone
+  has 16 members, so it used to show 16 near-duplicate "X's Family"
+  cards) — new `familyLineages()` computes the family graph's real
+  connected components (17 in the current data) and shows one card per
+  lineage, anchored on whoever in it has the most curated Stories. Five
+  well-known lineages get an editorial name (`FAMILY_LINEAGE_LABELS`):
+  Adam → "The First Family", Noah → "House of Noah", Jacob → "Patriarchs
+  of Israel", Moses → "House of Levi", David → "House of David"; every
+  other lineage falls back to a derived `"{anchor}'s Family"`. Search
+  now matches every person in every lineage and returns the parent
+  lineage card with a relationship badge (`relationshipToAnchor()`) —
+  the exact curated relationship phrase when a direct edge exists
+  (verified: "Cain" → "Matches: Cain (Son of Adam)", the spec's own
+  literal example), or a generation count via the existing
+  `familyGraph()` gen-delta math otherwise, deliberately downgraded to
+  a generic "Part of {anchor}'s extended family" at ±1/0 generations
+  with no direct edge so an in-law link (Jonathan→David via Michal)
+  never gets mislabeled as blood descent. Tapping a search result opens
+  the tree centered on the actual matched person, not the lineage
+  anchor, reusing item 111's existing root-highlight treatment — no new
+  navigation mechanism needed (the spec's own `?focusNodeId=` language
+  doesn't apply; this app has no URL-driven routing at all).
+  `.tree-viewport` (the pan/zoom container) got the requested ambient
+  background — dark base, a soft bronze radial glow, a 24px dot grid —
+  left fixed in place since the pan/zoom transform lives on the
+  separate inner `.tree-canvas` div. `sw.js` bumped to `rooted-v137`.
+  See DATA_MODEL.md §8, item 141.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
