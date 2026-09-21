@@ -165,16 +165,16 @@
      it, since .card's own 16px padding would stop the cover image from
      sitting flush against the card's top edge. */
   .story-list-card{
-    background:#1C1917;border:1px solid #2E2925;border-radius:20px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:20px;
     overflow:hidden;margin-bottom:16px;cursor:pointer;
     transition:transform .15s ease,border-color .15s ease;
   }
   .story-list-card:active{transform:scale(.98);}
-  .story-card-cover{width:100%;height:160px;object-fit:cover;display:block;border-bottom:1px solid #2E2925;background:var(--surface-sunken);}
+  .story-card-cover{width:100%;height:160px;object-fit:cover;display:block;border-bottom:1px solid #2A2A2A;background:var(--surface-sunken);}
   .story-card-body{padding:16px 20px;}
-  .story-card-body h3{font-size:18px;font-weight:700;color:#F5F2ED;margin-bottom:4px;}
-  .story-card-ref{font-size:13px;font-weight:600;color:#C69255;margin-bottom:8px;display:inline-block;}
-  .story-card-excerpt{font-size:14px;color:#A39B92;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .story-card-body h3{font-size:18px;font-weight:700;color:#F2F2F2;margin-bottom:4px;}
+  .story-card-ref{font-size:13px;font-weight:600;color:#F2F2F2;margin-bottom:8px;display:inline-block;}
+  .story-card-excerpt{font-size:14px;color:#9C9C9C;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   /* People: 2-column photo grid (2026-09-21) — replaces the old thin
      `.list-row` (see renderCharacterRow()'s own comment) now that every
      character has a real generated portrait worth showing at more than
@@ -182,15 +182,15 @@
      consistency between the two photo-forward list treatments. */
   .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
   .people-grid-card{
-    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;
     overflow:hidden;cursor:pointer;transition:transform .15s ease;
   }
   .people-grid-card:active{transform:scale(.97);}
   .people-grid-photo{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--surface-sunken);}
   .people-grid-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-  .people-grid-photo.icon-fallback{display:flex;align-items:center;justify-content:center;color:#A39B92;}
-  .people-grid-name{padding:10px 12px 0;font-size:15px;font-weight:700;color:#F5F2ED;line-height:1.25;}
-  .people-grid-meta{padding:2px 12px 12px;font-size:12px;color:#A39B92;}
+  .people-grid-photo.icon-fallback{display:flex;align-items:center;justify-content:center;color:#9C9C9C;}
+  .people-grid-name{padding:10px 12px 0;font-size:15px;font-weight:700;color:#F2F2F2;line-height:1.25;}
+  .people-grid-meta{padding:2px 12px 12px;font-size:12px;color:#9C9C9C;}
   .verse-card{position:relative;}
   /* 4-segment mastery indicator, top-right corner of every verse card —
      replaces the old uppercase status tag inside .tag-row so mastery
@@ -257,7 +257,7 @@
   .streak-badge{
     display:flex;align-items:center;gap:5px;flex-shrink:0;
     background:var(--gold-deep);
-    color:#141210;font-size:13px;font-weight:700;
+    color:#121212;font-size:13px;font-weight:700;
     padding:7px 12px;border-radius:999px;box-shadow:0 2px 10px rgba(255,255,255,.2);
   }
   .streak-badge i{font-size:16px;}
@@ -315,20 +315,20 @@
   }
   .discover-featured-story::before{
     content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(20,18,16,.2) 0%, rgba(20,18,16,.9) 100%);
+    background:linear-gradient(180deg, rgba(18,18,18,.2) 0%, rgba(18,18,18,.9) 100%);
   }
-  .discover-featured-story-eyebrow{position:relative;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#C69255;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
-  .discover-featured-story-title{position:relative;font-size:18px;font-weight:700;color:#F5F2ED;margin-bottom:4px;}
-  .discover-featured-story-ref{position:relative;font-size:13px;color:#A39B92;}
+  .discover-featured-story-eyebrow{position:relative;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#F2F2F2;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+  .discover-featured-story-title{position:relative;font-size:18px;font-weight:700;color:#F2F2F2;margin-bottom:4px;}
+  .discover-featured-story-ref{position:relative;font-size:13px;color:#9C9C9C;}
   .discover-featured-person{
     display:flex;align-items:center;gap:14px;
-    background:#1C1917;border:1px solid #2E2925;border-radius:20px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:20px;
     padding:14px 16px;margin-bottom:20px;cursor:pointer;
   }
-  .discover-featured-person-avatar{width:60px;height:60px;border-radius:50%;border:1.5px solid #C69255;object-fit:cover;flex-shrink:0;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;color:#A39B92;}
-  .discover-featured-person-eyebrow{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#C69255;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;}
-  .discover-featured-person-name{font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:2px;}
-  .discover-featured-person-meta{font-size:13px;color:#A39B92;}
+  .discover-featured-person-avatar{width:60px;height:60px;border-radius:50%;border:1.5px solid #F2F2F2;object-fit:cover;flex-shrink:0;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;color:#9C9C9C;}
+  .discover-featured-person-eyebrow{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#F2F2F2;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;}
+  .discover-featured-person-name{font-size:16px;font-weight:700;color:#F2F2F2;margin-bottom:2px;}
+  .discover-featured-person-meta{font-size:13px;color:#9C9C9C;}
 
   /* Shared compact row card — text on the left, rectangular thumbnail on
      the right edge. Used for Unreached of the Day and Story of the Day. */
@@ -602,7 +602,7 @@
   .story-hero-container .story-hero-img{width:100%;height:100%;object-fit:cover;display:block;background:var(--surface-sunken);}
   .story-hero-container::after{
     content:'';position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(20,18,16,0) 50%, #141210 100%);
+    background:linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(18,18,18,0) 50%, #121212 100%);
   }
   /* Floats the back button over the artwork instead of its own row
      above it — a frosted circular chip, not this app's usual flat
@@ -613,7 +613,7 @@
      centered. */
   .story-hero-back{
     position:absolute;top:16px;left:16px;z-index:20;
-    background:rgba(28,25,23,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    background:rgba(26,26,26,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     border:1px solid rgba(255,255,255,.15);border-radius:50%;
     width:40px;height:40px;display:flex;align-items:center;justify-content:center;
     color:#FFFFFF;cursor:pointer;
@@ -638,7 +638,7 @@
   .story-title-card{
     position:relative;z-index:15;margin-top:-30px;
     border-top-left-radius:24px;border-top-right-radius:24px;
-    background:#1C1917;padding:24px 20px;
+    background:#1A1A1A;padding:24px 20px;
   }
   /* Visible prev/next controls for the character carousel (replacing an
      earlier blind-swipe-only version on direct feedback) — overlaid on
@@ -691,8 +691,8 @@
      shared --gold/--sage/--danger tokens used by every other challenge
      type. */
   .target-sentence-box{
-    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
-    padding:20px;font-size:18px;line-height:1.6;color:#F5F2ED;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;
+    padding:20px;font-size:18px;line-height:1.6;color:#F2F2F2;
     font-family:var(--font-display);font-weight:500;
   }
   .target-sentence-box.tap-shake{animation:tapShake .3s ease-in-out;}
@@ -703,40 +703,40 @@
   .tap-slot{
     display:inline-flex;align-items:center;justify-content:center;
     min-width:60px;min-height:44px;padding:0 6px;margin:2px 0;
-    border-bottom:2px dashed #F5F2ED;font-weight:600;color:#F5F2ED;
+    border-bottom:2px dashed #F2F2F2;font-weight:600;color:#F2F2F2;
     vertical-align:middle;
   }
-  .tap-slot.tap-slot-filled{cursor:pointer;border-style:solid;color:#F5F2ED;}
+  .tap-slot.tap-slot-filled{cursor:pointer;border-style:solid;color:#F2F2F2;}
   .tap-slot.tap-slot-correct{border-color:#10B981;background:rgba(16,185,129,.15);color:#10B981;border-radius:8px;}
   .tap-slot.tap-slot-wrong{border-color:#EF4444;background:rgba(239,68,68,.12);color:#EF4444;border-radius:8px;}
   .word-bank-grid{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px;}
   .tap-tile{
-    background:#26221F;border:1px solid #3A332D;border-radius:12px;
-    padding:10px 16px;min-height:44px;font-size:16px;color:#F5F2ED;
+    background:#232323;border:1px solid #343434;border-radius:12px;
+    padding:10px 16px;min-height:44px;font-size:16px;color:#F2F2F2;
     font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;transition:all .15s ease;
   }
-  .tap-tile:active{transform:scale(.95);background:#2E2925;}
-  .tap-builder-check{background:#F5F2ED !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+  .tap-tile:active{transform:scale(.95);background:#2A2A2A;}
+  .tap-builder-check{background:#F2F2F2 !important;color:#121212 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
 
   /* First-Letter Sprint challenge (2026-09-17) — same scoped dark-
      obsidian/bronze palette as Tap Builder, not the shared app tokens. */
   .sprint-text-box{
-    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;
     padding:24px;font-size:20px;line-height:1.6;
     font-family:var(--font-display);font-weight:500;
   }
   .sprint-word{display:inline-block;}
-  .sprint-word.sprint-done{color:#F5F2ED;}
-  .sprint-word.sprint-active{color:#F5F2ED;font-weight:700;border-bottom:2px solid #F5F2ED;}
-  .sprint-word.sprint-future{color:#A39B92;opacity:.6;}
+  .sprint-word.sprint-done{color:#F2F2F2;}
+  .sprint-word.sprint-active{color:#F2F2F2;font-weight:700;border-bottom:2px solid #F2F2F2;}
+  .sprint-word.sprint-future{color:#9C9C9C;opacity:.6;}
   .sprint-word.sprint-flash-correct{animation:sprintFlashGood .35s ease;}
   .sprint-word.sprint-flash-wrong{animation:sprintFlashBad .3s ease;}
   @keyframes sprintFlashGood{
     0%{color:#10B981;transform:scale(1.15);}
-    100%{color:#F5F2ED;transform:scale(1);}
+    100%{color:#F2F2F2;transform:scale(1);}
   }
   @keyframes sprintFlashBad{
-    0%,100%{color:#F5F2ED;border-color:#F5F2ED;}
+    0%,100%{color:#F2F2F2;border-color:#F2F2F2;}
     30%,70%{color:#EF4444;border-color:#EF4444;}
   }
   /* Visually hidden but focusable/typeable — keeps a real text input in
@@ -763,65 +763,65 @@
   }
   .sprint-toast{
     display:flex;align-items:center;gap:8px;margin-top:14px;padding:14px 16px;
-    background:rgba(245,242,237,.12);border:1px solid #F5F2ED;border-radius:12px;
-    color:#F5F2ED;font-weight:600;font-size:15px;
+    background:rgba(242,242,242,.12);border:1px solid #F2F2F2;border-radius:12px;
+    color:#F2F2F2;font-weight:600;font-size:15px;
   }
 
   /* Progressive Vanish challenge (2026-09-17) — same scoped dark-
      obsidian/bronze palette as the other two new challenge types. */
   .vanish-text-box{
-    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
-    padding:24px;font-size:20px;line-height:1.7;color:#F5F2ED;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;
+    padding:24px;font-size:20px;line-height:1.7;color:#F2F2F2;
     font-family:var(--font-display);font-weight:500;
   }
   .vanish-word{display:inline-block;}
   .vanish-blank{
-    border-bottom:2px dashed #F5F2ED;color:transparent;padding:0 4px;
+    border-bottom:2px dashed #F2F2F2;color:transparent;padding:0 4px;
     min-width:40px;cursor:pointer;
   }
   /* "Hold to Peek" toggles this on the box directly (wireProgressiveVanish()) —
      a pure CSS reveal, no state/render involved, so releasing is instant
      and there's nothing for a background render to race against. */
-  .vanish-text-box.peek-all .vanish-blank{border-color:transparent;color:#F5F2ED !important;}
+  .vanish-text-box.peek-all .vanish-blank{border-color:transparent;color:#F2F2F2 !important;}
   .vanish-controls{display:flex;flex-direction:column;gap:10px;}
   .vanish-peek-btn{
     width:100%;justify-content:center;padding:14px 16px;min-height:44px;
     -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
   }
-  .vanish-next-btn{background:#F5F2ED !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+  .vanish-next-btn{background:#F2F2F2 !important;color:#121212 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
 
   /* Clause Connect challenge (2026-09-17) — same scoped dark-obsidian/
      bronze palette as the other three new challenge types. */
-  .clause-instruction{font-size:14px;color:#A39B92;margin:0 0 12px;font-family:'Inter',sans-serif;}
+  .clause-instruction{font-size:14px;color:#9C9C9C;margin:0 0 12px;font-family:'Inter',sans-serif;}
   .clause-list-container{margin-bottom:20px;}
   .clause-list-container.clause-shake{animation:tapShake .3s ease-in-out;}
   .clause-card{
-    background:#1C1917;border:1px solid #2E2925;border-radius:14px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:14px;
     padding:16px 20px;display:flex;align-items:center;gap:14px;
     margin-bottom:10px;-webkit-user-select:none;user-select:none;
     transition:transform .15s ease,border-color .15s ease;
     min-height:44px;
   }
-  .clause-grip{color:#A39B92;cursor:grab;touch-action:none;padding:4px;flex-shrink:0;}
-  .clause-text{color:#F5F2ED;font-size:15px;line-height:1.5;font-family:var(--font-display);cursor:pointer;}
-  .clause-card.clause-dragging{opacity:.85;border-color:#F5F2ED;z-index:2;position:relative;}
-  .clause-card.clause-selected{border-color:#F5F2ED;background:rgba(245,242,237,.1);}
+  .clause-grip{color:#9C9C9C;cursor:grab;touch-action:none;padding:4px;flex-shrink:0;}
+  .clause-text{color:#F2F2F2;font-size:15px;line-height:1.5;font-family:var(--font-display);cursor:pointer;}
+  .clause-card.clause-dragging{opacity:.85;border-color:#F2F2F2;z-index:2;position:relative;}
+  .clause-card.clause-selected{border-color:#F2F2F2;background:rgba(242,242,242,.1);}
   .clause-card.clause-correct{border-color:#10B981;background:rgba(16,185,129,.12);}
   .clause-card.clause-wrong{border-color:#EF4444;background:rgba(239,68,68,.1);}
-  .clause-check-btn{background:#F5F2ED !important;color:#141210 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
+  .clause-check-btn{background:#F2F2F2 !important;color:#121212 !important;box-shadow:none !important;padding:16px !important;min-height:44px;}
 
   /* Reference Match challenge (2026-09-17) — same scoped dark-obsidian/
      bronze palette as the other four new challenge types. */
   .match-prompt-card{
-    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;
     padding:24px;font-size:18px;line-height:1.6;text-align:center;
-    color:#F5F2ED;font-family:var(--font-display);font-weight:500;
+    color:#F2F2F2;font-family:var(--font-display);font-weight:500;
   }
   .match-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
   .match-option-card{
-    background:#26221F;border:1px solid #3A332D;border-radius:14px;
+    background:#232323;border:1px solid #343434;border-radius:14px;
     padding:18px 14px;text-align:center;font-size:16px;font-weight:600;
-    color:#F5F2ED;cursor:pointer;transition:all .15s ease;
+    color:#F2F2F2;cursor:pointer;transition:all .15s ease;
     min-height:44px;display:flex;align-items:center;justify-content:center;
   }
   .match-option-card:active{transform:scale(.96);}
@@ -1672,15 +1672,22 @@ function icon(name, size){
    eyebrow and badge contexts: the Story of the Day label ("book"), the
    Biblical Fact of the Day label ("sparkle"), the Verified Source
    badge in both places it appears ("shield"), and a character's
-   avatar-box fallback icon for royalty roles ("person"). Deliberately
-   NOT folded into icon()/ICON_PATHS above — that system always reads
-   `currentColor` so it can sit inside already-colored text; these four
-   instead carry their own fixed accent color each (bronze or emerald),
-   matching the exact hex each replaced badge already used, per spec. */
+   avatar-box fallback icon for royalty roles ("person", reached only
+   when that character has no portrait — effectively unused now that
+   all 267 do). Deliberately NOT folded into icon()/ICON_PATHS above —
+   that system always reads `currentColor` so it can sit inside
+   already-colored text; these instead carry their own fixed color.
+   "book"/"person"/"sparkle" were bronze (`#C69255`, item 139's literal
+   spec); neutralized to white (2026-09-21) along with every other
+   Home/Discover/Practice surface, per the owner's "black & white
+   everywhere else" — Family Tree keeps its own bronze identity, but
+   these three icons render almost entirely outside it. "shield" stays
+   emerald — a functional Verified Source trust signal, not decorative
+   theme, the same standing exception as the correct/wrong colors. */
 const UI_ICON_PATHS = {
-  book: { stroke: '#C69255', d: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' },
-  person: { stroke: '#C69255', d: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
-  sparkle: { stroke: '#C69255', d: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' },
+  book: { stroke: '#F2F2F2', d: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' },
+  person: { stroke: '#F2F2F2', d: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
+  sparkle: { stroke: '#F2F2F2', d: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>' },
   shield: { stroke: '#10B981', d: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 12 14 22 4"/>' }
 };
 function uiIcon(name, size){
@@ -4746,9 +4753,9 @@ function renderPractice(){
   const refLine = isReferenceMatch
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">Reference Match</div>`
     : isSprint && !st.checked
-    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#F5F2ED;font-weight:600;">0.0s</span></div>`
+    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span id="sprint-timer" style="color:#F2F2F2;font-weight:600;">0.0s</span></div>`
     : isVanish
-    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:#F5F2ED;font-weight:600;">Stage ${Math.min(st.currentStage, st.totalStages)} of ${st.totalStages}</span></div>`
+    ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:#F2F2F2;font-weight:600;">Stage ${Math.min(st.currentStage, st.totalStages)} of ${st.totalStages}</span></div>`
     : `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>`;
   return `
     <div class="screen-head">

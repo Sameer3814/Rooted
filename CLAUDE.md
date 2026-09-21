@@ -561,6 +561,24 @@ The schema was deliberately designed so all of the above can be added
   screens is left as a flagged follow-up, not silently fixed everywhere
   on assumption. `sw.js` bumped to `rooted-v142`. See DATA_MODEL.md §8,
   item 145.
+- **The rest of the warm-hex cleanup, everywhere except Family Tree —
+  done (2026-09-21).** Owner: "Let's keep it for family tree and change
+  it to black & white everywhere else." Neutralized the same warm
+  "obsidian/bronze" hex values item 145 flagged but deliberately didn't
+  touch: Stories' cover-banner cards and Story Detail's hero/title-card
+  (item 130/140), Discover "Featured Today" (item 140), the People
+  photo grid (item 143), all five challenge types' own in-session
+  palettes (items 113-119 — a real, explicit reversal of item 123's
+  original "these stay bronze" carve-out for challenge screens), Home's
+  streak badge, every remaining `.btn.primary` text-color caller, and
+  `UI_ICON_PATHS`' book/person/sparkle icons (item 139) — "shield"
+  stays emerald, the functional badge exception. Functional correct/
+  wrong colors (`#10B981`/`#EF4444`) untouched everywhere, as always.
+  **Family Tree's own palette is untouched, by explicit instruction** —
+  its ambient glow, node cards, legend, and highlighted-edge stroke
+  keep their original warm hex. Verified by re-grepping every old hex
+  value afterward — every remaining hit is inside Family Tree's own
+  code. `sw.js` bumped to `rooted-v143`. See DATA_MODEL.md §8, item 146.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

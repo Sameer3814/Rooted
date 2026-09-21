@@ -6879,6 +6879,52 @@ inventing a new principle:
       the assumption the same fix was wanted.
     `sw.js` bumped to `rooted-v142`.
 
+146. **The rest of the warm-hex cleanup — everywhere except Family Tree
+    — done (2026-09-21), the flagged follow-up from item 145 above.**
+    Owner: "Let's keep it for family tree and change it to black & white
+    everywhere else." Neutralized every remaining occurrence of the
+    warm "obsidian/bronze" hex values (`#1C1917`→`#1A1A1A`,
+    `#2E2925`→`#2A2A2A`, `#A39B92`→`#9C9C9C`, `#F5F2ED`→`#F2F2F2`,
+    `#26221F`→`#232323`, `#141210`→`#121212`, `#3A332D`→`#343434`, plus
+    the matching warm `rgba(28,25,23,…)`/`rgba(20,18,16,…)` variants) at
+    the same luma, everywhere they weren't already fixed:
+    - Stories cover-banner cards (`.story-list-card` and friends, item
+      140) and Story Detail's title-card overlap and hero-image gradient/
+      back button (item 130) — the latter two weren't even named in item
+      145's own list, found by grepping for the actual hex values rather
+      than re-checking only the previously-named components.
+    - Discover "Featured Today" (`.discover-featured-*`, item 140),
+      including its gradient overlay's warm rgba stops.
+    - The People photo grid (`.people-grid-*`, item 143).
+    - Every one of the five challenge types' own in-session "obsidian/
+      bronze" palettes (Tap Builder, First-Letter Sprint, Progressive
+      Vanish, Clause Connect, Reference Match — items 113-119) — these
+      were an explicit, named carve-out in item 123's own original
+      write-up ("every challenge type's own long-standing in-session
+      bronze palette" stays), but the owner's "everywhere else" this
+      time supersedes that earlier carve-out; the functional correct/
+      wrong colors (`#10B981`/`#EF4444`) inside these same screens were
+      left untouched, same standing exception as always.
+    - Home's streak badge text color and the shared `.btn.primary` text
+      color (already partly fixed in item 145 for one specific caller;
+      this pass covers every other place it's set).
+    - `UI_ICON_PATHS`' "book"/"person"/"sparkle" icons (item 139)
+      neutralized from bronze to white — "shield" stays emerald, the
+      functional Verified Source signal. The "person" icon's only
+      real-world trigger is `charIconHTML()`'s royalty fallback when a
+      character has no portrait, which is Family-Tree-reachable in
+      principle but never actually fires there since all 267 characters
+      already have one — so this is a safe, effectively Home/Discover-
+      only change despite being a shared function.
+    **Family Tree's own palette is untouched, by explicit instruction**
+    — `.tree-viewport`'s ambient bronze glow, `.tree-node-card`/
+    `.tree-avatar`/`.tree-legend`, and the highlighted-edge SVG stroke
+    all keep their original warm hex values from items 110-111. Verified
+    by grepping for every one of the old hex values after this pass —
+    every remaining hit is inside Family Tree's own CSS block or its
+    `renderFamilyTree()`/`familyTreeBezier()` JS.
+    `sw.js` bumped to `rooted-v143`.
+
 ---
 
 ## 9. How the app reads this data
