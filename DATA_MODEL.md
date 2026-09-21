@@ -6632,9 +6632,9 @@ inventing a new principle:
     `sw.js` bumped to `rooted-v135`.
 
 140. **Stories list: top cover-banner cards; Discover: "Featured Today"
-    (Story of the Day + Person of the Day) — done (2026-09-18).** Two
-    changes now that every story has real generated art (item 138)
-    made this the right time to build:
+    (Story of the Day + Person of the Day) — done (2026-09-18), reverted
+    2026-09-21, see item 142.** Two changes now that every story has
+    real generated art (item 138) made this the right time to build:
     - **`renderStoryCard()` rewritten as a top cover-banner card** — a
       new `.story-list-card` (deliberately separate from the shared
       `.card` class, whose own 16px padding would stop the cover image
@@ -6762,6 +6762,28 @@ inventing a new principle:
       handoff above, and no separate spec for in-canvas node taps was
       given.
     `sw.js` bumped to `rooted-v137`.
+
+142. **Reverted item 140 (Stories cover-banner cards + Discover
+    "Featured Today") — done (2026-09-21), same day as item 141.** The
+    owner didn't like the visual result once it actually shipped and
+    asked to revert it, after already having moved on to item 141's
+    Family Tree work in the meantime. Done via `git revert` on the
+    original commit: `renderStoryCard()` is back to its pre-item-140
+    plain-text row form, `renderDiscover()` no longer calls
+    `renderDiscoverFeaturedToday()`, and that function,
+    `characterOfTheDay()`, and their CSS (`.story-list-card` and
+    friends, `.discover-featured-story`/`.discover-featured-person` and
+    friends) are all removed. Item 140's own writeup above is left in
+    place rather than deleted — same precedent as item 121's reversal
+    by item 122 — so the record of what was tried, and that it didn't
+    land, survives. This undoes one specific attempt at showing real
+    people/story imagery in Discover and Stories, not the underlying
+    goal itself: the owner's own framing afterward was "I want to
+    display people and story images in the discovery tab rather than
+    just making them look stale... I also want each story to have a
+    picture displayed before clicking on them" — a real, still-open
+    want, left for a future pass rather than folded into this revert.
+    `sw.js` bumped to `rooted-v138`.
 
 ---
 

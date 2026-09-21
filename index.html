@@ -159,22 +159,6 @@
   }
   .card.tap{cursor:pointer;transition:box-shadow .15s ease;}
   .card.tap:active{box-shadow:0 2px 10px rgba(44,34,30,.08);}
-  /* Stories list: top cover-banner cards (2026-09-18, item 140) — now
-     that every story has real generated art (item 138), the list can
-     finally show it. A separate class from .card, not combined with
-     it, since .card's own 16px padding would stop the cover image from
-     sitting flush against the card's top edge. */
-  .story-list-card{
-    background:#1C1917;border:1px solid #2E2925;border-radius:20px;
-    overflow:hidden;margin-bottom:16px;cursor:pointer;
-    transition:transform .15s ease,border-color .15s ease;
-  }
-  .story-list-card:active{transform:scale(.98);}
-  .story-card-cover{width:100%;height:160px;object-fit:cover;display:block;border-bottom:1px solid #2E2925;background:var(--surface-sunken);}
-  .story-card-body{padding:16px 20px;}
-  .story-card-body h3{font-size:18px;font-weight:700;color:#F5F2ED;margin-bottom:4px;}
-  .story-card-ref{font-size:13px;font-weight:600;color:#C69255;margin-bottom:8px;display:inline-block;}
-  .story-card-excerpt{font-size:14px;color:#A39B92;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .verse-card{position:relative;}
   /* 4-segment mastery indicator, top-right corner of every verse card —
      replaces the old uppercase status tag inside .tag-row so mastery
@@ -286,33 +270,6 @@
   }
   .votd-attribution{font-size:10px;color:rgba(255,255,255,.55);margin-top:10px;}
   .votd-attribution a{color:inherit;text-decoration:underline;}
-
-  /* Discover tab: "Featured Today" (2026-09-18, item 140) — a story
-     hero (same "background photo + bottom gradient + overlaid text"
-     shape .votd-hero already established, just its own shorter height
-     and this request's own literal spec values) and a person row card,
-     both above the existing four hub cards. */
-  .discover-featured-story{
-    position:relative;overflow:hidden;height:180px;border-radius:20px;margin-bottom:12px;
-    background-size:cover;background-position:center;
-    display:flex;flex-direction:column;justify-content:flex-end;padding:16px 18px;cursor:pointer;
-  }
-  .discover-featured-story::before{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(20,18,16,.2) 0%, rgba(20,18,16,.9) 100%);
-  }
-  .discover-featured-story-eyebrow{position:relative;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#C69255;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
-  .discover-featured-story-title{position:relative;font-size:18px;font-weight:700;color:#F5F2ED;margin-bottom:4px;}
-  .discover-featured-story-ref{position:relative;font-size:13px;color:#A39B92;}
-  .discover-featured-person{
-    display:flex;align-items:center;gap:14px;
-    background:#1C1917;border:1px solid #2E2925;border-radius:20px;
-    padding:14px 16px;margin-bottom:20px;cursor:pointer;
-  }
-  .discover-featured-person-avatar{width:60px;height:60px;border-radius:50%;border:1.5px solid #C69255;object-fit:cover;flex-shrink:0;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;color:#A39B92;}
-  .discover-featured-person-eyebrow{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#C69255;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;}
-  .discover-featured-person-name{font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:2px;}
-  .discover-featured-person-meta{font-size:13px;color:#A39B92;}
 
   /* Shared compact row card — text on the left, rectangular thumbnail on
      the right edge. Used for Unreached of the Day and Story of the Day. */
@@ -2319,17 +2276,6 @@ function storyOfTheDay(){
   const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
   return lore.stories[dayKey % lore.stories.length];
 }
-/* Same date-seeded rotation as storyOfTheDay()/wordOfTheDay()/
-   factOfTheDay() above, applied to data.characters for Discover's new
-   "Person of the Day" card (item 140) — kept as its own dedicated
-   function matching this file's established one-function-per-daily-
-   feature convention, rather than a generic parameterized helper. */
-function characterOfTheDay(){
-  if(!data.characters.length) return null;
-  const d = new Date();
-  const dayKey = d.getFullYear()*372 + d.getMonth()*31 + d.getDate();
-  return data.characters[dayKey % data.characters.length];
-}
 function renderStoryOfTheDayCard(){
   const s = storyOfTheDay();
   if(!s) return '';
@@ -2534,43 +2480,9 @@ function searchCorpus(query){
    each already works and is reachable on its own (e.g. a character's
    "from" trail still returns to People/Stories directly, not through
    this hub), this just gives them one shared front door. */
-/* "Featured Today" (item 140) — a story hero and a person row card,
-   both date-seeded the same way Home's own daily cards are, sitting
-   above Discover's four existing hub cards. Uses the real generated
-   story illustrations (item 138, now complete for all 324 stories)
-   and character portraits (item 91, a partial 25-of-267 set) where
-   they exist, falling back to placeholderArt()/charIconHTML() exactly
-   like every other daily card in this app already does. */
-function renderDiscoverFeaturedToday(){
-  const s = storyOfTheDay();
-  const c = characterOfTheDay();
-  if(!s && !c) return '';
-  const cover = s ? (storyIllustrationUrl(s.id) || placeholderArt(s.id)) : '';
-  const era = c ? findEra(c.eraId) : null;
-  const portrait = c ? charPortraitUrl(c.id) : null;
-  return `
-    <div class="section-label">Featured Today</div>
-    ${s ? `
-    <div class="discover-featured-story tap" data-action="open-story" data-id="${s.id}" style="background-image:url('${esc(cover)}');">
-      <div class="discover-featured-story-eyebrow">${uiIcon('book')} Story of the Day</div>
-      <div class="discover-featured-story-title">${esc(s.title)}</div>
-      <div class="discover-featured-story-ref">${esc(s.primaryReference)}</div>
-    </div>` : ''}
-    ${c ? `
-    <div class="discover-featured-person tap" data-action="open-character" data-id="${c.id}">
-      ${portrait ? `<img class="discover-featured-person-avatar" src="${esc(portrait)}" alt="">` : `<div class="discover-featured-person-avatar">${charIconHTML(c.roles, 26)}</div>`}
-      <div>
-        <div class="discover-featured-person-eyebrow">${uiIcon('person')} Person of the Day</div>
-        <div class="discover-featured-person-name">${esc(c.name)}</div>
-        <div class="discover-featured-person-meta">${[era ? era.name : null, (c.roles||[])[0]].filter(Boolean).map(esc).join(' · ')}</div>
-      </div>
-    </div>` : ''}
-  `;
-}
 function renderDiscover(){
   return `
     <div class="topbar"><h1>Discover</h1></div>
-    ${renderDiscoverFeaturedToday()}
     <div class="card tap" data-action="go-browse">
       <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>Read the Bible</h3><p class="field-hint">Search or browse the full 66-book text, book by book.</p></div></div>
     </div>
@@ -2974,15 +2886,11 @@ function renderCharacterRow(c, action){
     </div>`;
 }
 function renderStoryCard(s){
-  const cover = storyIllustrationUrl(s.id) || placeholderArt(s.id);
   return `
-    <div class="story-list-card" data-action="open-story" data-id="${s.id}">
-      <img class="story-card-cover" src="${cover}" alt="">
-      <div class="story-card-body">
-        <h3>${esc(s.title)}</h3>
-        <div class="story-card-ref">${esc(s.primaryReference)}</div>
-        <p class="story-card-excerpt">${esc(s.summary)}</p>
-      </div>
+    <div class="card tap" data-action="open-story" data-id="${s.id}">
+      <h3>${esc(s.title)}</h3>
+      <div class="ref" style="margin-top:3px;">${esc(s.primaryReference)}</div>
+      <p class="field-hint" style="margin-top:6px;line-height:1.5;">${esc(s.summary)}</p>
     </div>`;
 }
 function renderCharacterDetail(id){

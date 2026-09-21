@@ -451,7 +451,9 @@ The schema was deliberately designed so all of the above can be added
   new green icon and its own sibling label. See DATA_MODEL.md §8, item
   139.
 - **Stories list: top cover-banner cards; Discover: "Featured Today"
-  (Story of the Day + Person of the Day) — done (2026-09-18).**
+  (Story of the Day + Person of the Day) — done (2026-09-18), reverted
+  2026-09-21 (see item 142 below — the owner didn't like the visual
+  result once shipped).**
   `renderStoryCard(s)` rewritten around a `.story-list-card` with a
   full-width cover image (`storyIllustrationUrl(s.id) ||
   placeholderArt(s.id)`) above a title/reference/excerpt body — kept
@@ -509,6 +511,23 @@ The schema was deliberately designed so all of the above can be added
   left fixed in place since the pan/zoom transform lives on the
   separate inner `.tree-canvas` div. `sw.js` bumped to `rooted-v137`.
   See DATA_MODEL.md §8, item 141.
+- **Reverted item 140 (Stories cover-banner cards + Discover "Featured
+  Today") — done (2026-09-21), same day as item 141.** The owner didn't
+  like the visual result once it was actually live and asked to revert
+  it, right after already having moved on to the Family Tree work
+  above. `git revert`ed the commit — `renderStoryCard()` is back to its
+  pre-item-140 plain-text form, and `renderDiscover()` no longer calls
+  `renderDiscoverFeaturedToday()` (that function, `characterOfTheDay()`,
+  and their CSS are removed along with it). Kept as an explicit,
+  documented reversal rather than a silent deletion, same as item 121's
+  own reversal by item 122 — item 140's bullet above stays in place as
+  the historical record of what was tried and why it didn't land,
+  rather than being edited away. Story/character imagery generally is
+  still an open, real want (the owner's own framing: display real
+  people/story images properly in Discover, and give every story a
+  picture before tapping into it) — this revert undoes one specific
+  attempt at it, not the underlying goal; that's still open for a
+  future pass. `sw.js` bumped to `rooted-v138`.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
