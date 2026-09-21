@@ -6844,6 +6844,41 @@ inventing a new principle:
       already-built feature, not a rollback of the wider pass.
     `sw.js` bumped to `rooted-v141`.
 
+145. **Practice hero + bottom nav: neutralized a leftover warm cast —
+    done (2026-09-21).** The owner sent a screenshot of the Practice
+    screen with the daily-goal card, exercise-mode grid, "Start
+    Practice Session" button, and bottom nav circled in red, asking to
+    "make it just black & white and remove any color." Those elements
+    were already grayscale (no hue), but not neutral — `.mode-tile`,
+    `.practice-progress-*`, and `.navbar`/`.navitem` all used the
+    "obsidian/bronze" component palette items 113-121 introduced for
+    Practice's challenge types (`#1C1917`, `#2E2925`, `#A39B92`,
+    `#F5F2ED`, `#26221F`, `rgba(28,25,23,…)`), which is warm-toned by
+    construction (R>G>B in every one of those hexes) even after item
+    123's bronze-accent removal only touched the *saturated* colors
+    (gold/bronze), not this underlying near-black/near-white pair — so
+    a faint brown/cream cast survived the black-and-white pass without
+    being "a color" in the obvious sense. Converted every one of those
+    values in the circled components to a true neutral gray at the same
+    luma (`#1C1917`→`#1A1A1A`, `#2E2925`→`#2A2A2A`, `#A39B92`→`#9C9C9C`,
+    `#F5F2ED`→`#F2F2F2`, `#26221F`→`#232323`), plus the shared
+    `.btn.primary` text color (`#141210`→`#121212`) since that's what
+    "Start Practice Session" itself renders through. This app's own
+    core dark-theme tokens (`--paper`/`--paper-raised`/`--ink`) were
+    already neutral/cool-toned, not warm, so they weren't the source
+    and weren't touched.
+    - **Scope note, deliberate, not an oversight:** the exact same warm
+      hex values are still used verbatim by the Stories cover-banner
+      cards (item 140), Discover "Featured Today" (item 140), Family
+      Tree's node cards (item 111), and the People photo grid (item
+      143) — none of those were circled in the screenshot, so none were
+      touched here. Those screens now read slightly warmer than
+      Practice/the nav until/unless the owner asks for the same
+      neutralizing pass there too — a real, known inconsistency, left
+      as a flagged follow-up rather than silently applied everywhere on
+      the assumption the same fix was wanted.
+    `sw.js` bumped to `rooted-v142`.
+
 ---
 
 ## 9. How the app reads this data

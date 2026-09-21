@@ -458,10 +458,11 @@
   /* Primary CTA buttons get the larger text-base/600 pair (secondary/
      ghost/utility buttons keep the smaller base .btn size above). */
   /* Dark text on the (now white/off-white) accent background — #241900
-     was tuned to pair with the old amber; #141210 matches the app's own
-     near-black tone instead, same value the bronze Practice-exercise
-     buttons already use for the same purpose. */
-  .btn.primary{background:var(--gold);color:#141210;box-shadow:0 6px 16px var(--gold-shadow);font-size:var(--text-base);font-weight:600;}
+     was tuned to pair with the old amber; #121212 (2026-09-21, neutral
+     — was #141210, a warm near-black left over from the old bronze
+     Practice-exercise palette this shared button never actually needed)
+     matches the app's own true black-and-white direction instead. */
+  .btn.primary{background:var(--gold);color:#121212;box-shadow:0 6px 16px var(--gold-shadow);font-size:var(--text-base);font-weight:600;}
   .btn.primary:active{background:var(--gold-deep);}
   .btn.ghost{background:transparent;color:var(--ink-soft);}
   .btn.block{width:100%;justify-content:center;padding:13px;}
@@ -501,7 +502,7 @@
   .navbar{
     position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
     width:calc(100% - 32px);max-width:400px;height:68px;
-    background:rgba(28,25,23,.65) !important;
+    background:rgba(26,26,26,.65) !important;
     -webkit-backdrop-filter:blur(24px) saturate(180%) !important;backdrop-filter:blur(24px) saturate(180%) !important;
     border:1px solid rgba(255,255,255,.12);
     border-radius:100px;
@@ -518,7 +519,7 @@
      around the icon now; it never carries its own background here. */
   .navbar .navitem{
     flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;height:100%;background:transparent;color:#A39B92;border:none;
+    gap:4px;height:100%;background:transparent;color:#9C9C9C;border:none;
     border-radius:100px;cursor:pointer;transition:all .2s ease;
   }
   .navbar .navitem .dot{display:flex;align-items:center;justify-content:center;}
@@ -528,7 +529,7 @@
      system's equivalent, sized to match the given 22px. Not swapping
      the whole nav to inline-SVG icons for this — a much bigger change
      than a color-and-size fix, and unasked for. */
-  .navbar .navitem i{font-size:22px;color:#A39B92;}
+  .navbar .navitem i{font-size:22px;color:#9C9C9C;}
   .navbar .navitem span{font-size:11px;font-weight:500;}
   .navbar .navitem.active{background:rgba(255,255,255,.14) !important;color:#FFFFFF !important;}
   .navbar .navitem.active i{color:#FFFFFF !important;}
@@ -985,23 +986,23 @@
      hex-exact challenge-type palette this session. ---------- */
   .practice-progress-container{margin-bottom:4px;}
   .practice-progress-row{display:flex;align-items:baseline;justify-content:space-between;}
-  .practice-progress-label{font-size:12px;color:#A39B92;letter-spacing:.05em;font-weight:600;}
-  .practice-progress-count{font-size:14px;color:#F5F2ED;font-weight:600;}
-  .practice-progress-track{height:8px;background:#26221F;border-radius:100px;overflow:hidden;margin:8px 0 20px;}
-  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#F5F2ED,#FFFFFF);border-radius:100px;transition:width .3s ease;}
+  .practice-progress-label{font-size:12px;color:#9C9C9C;letter-spacing:.05em;font-weight:600;}
+  .practice-progress-count{font-size:14px;color:#F2F2F2;font-weight:600;}
+  .practice-progress-track{height:8px;background:#232323;border-radius:100px;overflow:hidden;margin:8px 0 20px;}
+  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#F2F2F2,#FFFFFF);border-radius:100px;transition:width .3s ease;}
 
   /* ---------- Practice hero: 2x3 exercise-mode grid (item 120) — replaced
      the horizontally-scrolling .segmented challenge-type picker. Its own
      scoped palette, same reasoning as the progress bar above. ---------- */
   .mode-tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
   .mode-tile{
-    background:#1C1917;border:1px solid #2E2925;border-radius:14px;
+    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:14px;
     padding:12px 14px;text-align:left;cursor:pointer;transition:all .2s ease;
     min-height:44px;
   }
-  .mode-tile .app-icon{color:#A39B92;width:18px;height:18px;display:block;}
-  .mode-tile-title{font-size:14px;font-weight:600;color:#F5F2ED;margin-top:6px;}
-  .mode-tile-subtext{font-size:11px;color:#A39B92;margin-top:2px;}
+  .mode-tile .app-icon{color:#9C9C9C;width:18px;height:18px;display:block;}
+  .mode-tile-title{font-size:14px;font-weight:600;color:#F2F2F2;margin-top:6px;}
+  .mode-tile-subtext{font-size:11px;color:#9C9C9C;margin-top:2px;}
   /* Reverted from item 121's bronze active-tile treatment the same day
      ("our theme for the app is black and white") — back to the shared
      --gold-deep/--gold-wash tokens (white) instead of a scoped bronze

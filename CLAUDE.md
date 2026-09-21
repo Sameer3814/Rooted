@@ -542,6 +542,25 @@ The schema was deliberately designed so all of the above can be added
   Detail theming, both pulled from git history as a true restore, not
   a re-pick. `sw.js` bumped to `rooted-v141`. See DATA_MODEL.md §8,
   item 144.
+- **Practice hero + bottom nav: neutralized a leftover warm cast —
+  done (2026-09-21).** The owner circled the daily-goal card, exercise-
+  mode grid, "Start Practice Session" button, and bottom nav in a
+  screenshot, asking for true black-and-white. Those were already
+  grayscale but not neutral — the "obsidian/bronze" palette items
+  113-121 introduced for Practice (`#1C1917`/`#2E2925`/`#A39B92`/
+  `#F5F2ED`/`#26221F`) is warm-toned by construction (R>G>B in every
+  hex), and item 123's black-and-white pass only removed the
+  *saturated* bronze accent, not this underlying warm near-black/near-
+  white pair. Converted every one of those values in the circled
+  components to a true neutral gray at the same luma, plus the shared
+  `.btn.primary` text color. Deliberately **not** applied to the
+  identical warm hexes still used by Stories' cover-banner cards (item
+  140), Discover "Featured Today" (item 140), Family Tree (item 111),
+  or the People photo grid (item 143) — none of those were circled, so
+  a real, known warmth inconsistency between Practice/nav and those
+  screens is left as a flagged follow-up, not silently fixed everywhere
+  on assumption. `sw.js` bumped to `rooted-v142`. See DATA_MODEL.md §8,
+  item 145.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
