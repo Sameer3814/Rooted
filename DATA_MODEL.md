@@ -6816,6 +6816,34 @@ inventing a new principle:
       never part of this change either.
     `sw.js` bumped to `rooted-v140`.
 
+144. **Topics: colored tiles restored, as a named standing exception to
+    the black-and-white pass — done (2026-09-21).** Owner's own words:
+    "I want the topics section to have colored tiles like before. This
+    is one part of the app we'll keep the colors." Unlike the
+    `.fact-verified-badge` exception (item 139, a one-off literal hex),
+    this is a second explicit, standing carve-out from item 123's rule,
+    scoped to Topics specifically and documented as such in both this
+    file and CLAUDE.md's "Visual direction" section, right where item
+    123 itself is written up — so a future pass reads the exception in
+    the same place it reads the rule, not just in a changelog entry
+    easy to miss.
+    - `TOPIC_PALETTE` restored to its original 12-hue palette (items
+      62-64) — the exact same hex values it had before item 123
+      grayscaled it, pulled from git history (`f3cc1b3~1`) rather than
+      re-picked, so this is a true restore, not a new palette.
+    - `topicAccentVars(id)` restored to its original body (deriving a
+      brighter text-safe tint and a low-alpha wash from the topic's own
+      hex via `hexToRgb()`, re-added alongside it — item 123 had deleted
+      both as dead code once the function became a no-op). Topic Detail
+      pages once again locally override `--gold`/`--gold-deep`/
+      `--gold-wash`/`--gold-shadow` to their own topic's color, exactly
+      as items 62-64 originally built it.
+    - Nothing else from item 123 was touched — the nav, badges, streak
+      chip, and every challenge type's bronze in-session palette stay
+      black-and-white. This is a scoped restore of one specific,
+      already-built feature, not a rollback of the wider pass.
+    `sw.js` bumped to `rooted-v141`.
+
 ---
 
 ## 9. How the app reads this data

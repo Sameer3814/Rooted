@@ -534,6 +534,14 @@ The schema was deliberately designed so all of the above can be added
   `renderFamilyCard()` picker (item 141) is untouched — it's one card
   per lineage, not per person, a different component entirely. `sw.js`
   bumped to `rooted-v140`. See DATA_MODEL.md §8, item 143.
+- **Topics: colored tiles restored — done (2026-09-21).** A second
+  named, standing exception to the black-and-white pass (item 123),
+  documented there directly rather than only here — see "Visual
+  direction" above. `TOPIC_PALETTE` restored to its original 12-hue
+  values and `topicAccentVars()` restored to real per-topic Topic
+  Detail theming, both pulled from git history as a true restore, not
+  a re-pick. `sw.js` bumped to `rooted-v141`. See DATA_MODEL.md §8,
+  item 144.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1167,6 +1175,17 @@ items also built) is now a no-op — re-theming a page to a grayscale
 "accent" would either be indistinguishable from the app's default white
 or a low-contrast dark wash, so Topic Detail pages now just use the
 shared default tokens like everywhere else.
+
+**Reversed for Topics specifically, done (2026-09-21) — a second named,
+standing exception to this pass, not a one-off hex like the badge
+exceptions below.** Owner's own words: "I want the topics section to
+have colored tiles like before. This is one part of the app we'll keep
+the colors." `TOPIC_PALETTE` is back to its original 12-hue palette and
+`topicAccentVars()` back to real per-topic page theming — both restored
+from their pre-item-123 form, not redesigned. Every other screen this
+pass touched (nav, badges, streak, bronze challenge-type palettes)
+stays black-and-white; this exception is scoped to Topics only. Full
+writeup: DATA_MODEL.md §8, item 144.
 
 **Deliberately left alone — read as functional state, not decorative
 theme, and this app's own genuine correct/wrong or error signal, not a

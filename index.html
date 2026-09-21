@@ -2831,20 +2831,17 @@ function renderVerseDetail(id){
 // only, not a data-model change (Design philosophy #2 reserves `metadata` for
 // speculative *content* fields — a color/icon lookup for the current UI
 // belongs in the client, same as every other hardcoded icon in this file).
-/* Was a 12-hue colorful palette (items 62-64, "colorful per-topic
-   grid") — converted to grayscale under the black-and-white pass
-   (item 123, owner's explicit "get rid of any other color theme in the
-   entire app"). Same hash-based assignment (topicColor() below is
-   unchanged) so topics are still visually distinguishable from their
-   neighbors, just by lightness now instead of hue — kept within a
-   dark-to-medium range only (never lighter than #4A4A4A), since
-   .topic-card hardcodes white text/icon over whatever this returns
-   (same reasoning the file's own comment already gives for why topic
-   verse-counts stay white-on-opacity instead of --text-accent — a
-   light swatch here would make that white text illegible). */
+/* The original 12-hue colorful palette (items 62-64). Converted to
+   grayscale under the black-and-white pass (item 123), then restored
+   here (2026-09-21) — the owner asked for the colored tiles back and
+   named Topics specifically as the one deliberate, standing exception
+   to that pass ("this is one part of the app we'll keep the colors"),
+   not a one-off override. Same hash-based assignment (topicColor()
+   below is unchanged) so topics are still visually distinguishable
+   from their neighbors by hue, same as before item 123. */
 const TOPIC_PALETTE = [
-  '#2A2A2A', '#3D3D3D', '#1C1C1C', '#464646', '#242424', '#383838',
-  '#2E2E2E', '#4A4A4A', '#202020', '#343434', '#282828', '#3A3A3A',
+  '#0EA5D6', '#F0158A', '#B88E00', '#E0742C', '#78B01A', '#0FC96B',
+  '#9C7A1E', '#B8752F', '#3D53F5', '#F04419', '#12AEDA', '#C92BAE',
 ];
 const TOPIC_ICONS = {
   topic_betrayal:'ti-heart-broken', topic_blessing:'ti-gift', topic_calling:'ti-flag',
@@ -2868,20 +2865,32 @@ function topicColor(id){
   return TOPIC_PALETTE[h % TOPIC_PALETTE.length];
 }
 function topicIcon(id){ return TOPIC_ICONS[id] || 'ti-sparkles'; }
-/* Used to re-theme a Topic Detail page's --gold/--gold-deep/--gold-wash/
-   --gold-shadow to that topic's own hue (item 62-64's per-topic color
-   grid, deriving a brighter text-safe tint + low-alpha wash from one
-   base hex via hexToRgb()). Made a no-op under the black-and-white pass
-   (item 123, owner's explicit "get rid of any other color theme in the
-   entire app") — TOPIC_PALETTE itself is grayscale now (kept dark
-   enough only for the topic-card grid's fixed white text/icon to stay
-   legible), so deriving a per-topic "accent" from it would either be
-   indistinguishable from the app's own default white accent or, worse,
-   a low-contrast dark wash on an already-dark page. Every Topic Detail
-   page now just uses the shared default tokens like every other
-   screen; hexToRgb() had no other caller, so it was deleted along with
-   this function's old body rather than left as dead code. */
-function topicAccentVars(id){ return ''; }
+/* Re-themes a Topic Detail page's --gold/--gold-deep/--gold-wash/
+   --gold-shadow to that topic's own hue (item 62-64's original
+   per-topic color grid) — restored (2026-09-21) after the black-and-
+   white pass (item 123) had made this a no-op and grayscaled
+   TOPIC_PALETTE. Topics is now a deliberate, standing exception to
+   that pass, not a one-off hex like the badge exceptions elsewhere in
+   the file: the owner's own words were "this is one part of the app
+   we'll keep the colors." Derives a brighter text-safe tint and
+   low-alpha wash from the one base hex via hexToRgb(), the same
+   light/wash-pair shape the gold/sage/tan tokens already use, so a
+   Topic Detail page can override just the "action/urgency" accent role
+   locally without touching sage (mastery) or tan (metadata) — those
+   stay their normal color everywhere, same verse card component. */
+function hexToRgb(hex){
+  const n = parseInt(hex.slice(1), 16);
+  return [(n>>16)&255, (n>>8)&255, n&255];
+}
+function topicAccentVars(id){
+  const base = topicColor(id);
+  const [r,g,b] = hexToRgb(base);
+  const lighten = (amt)=>{
+    const mix = (c)=>Math.round(c + (255-c)*amt);
+    return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+  };
+  return `--gold:${base};--gold-deep:${lighten(.45)};--gold-wash:rgba(${r},${g},${b},.22);--gold-shadow:rgba(${r},${g},${b},.35);`;
+}
 function renderTopics(){
   if(!data.topics.length){
     return `<div class="topbar"><h1>Topics</h1></div><div class="empty"><i class="ti ti-tags"></i><p>No topics yet.</p></div>`;
