@@ -7111,6 +7111,57 @@ inventing a new principle:
       current selection at once and closes back to the normal state.
     `sw.js` bumped to `rooted-v146`.
 
+150. **Strong's Lexicon — a standalone dictionary, no per-verse tagging
+    yet — done (2026-09-22).** The owner asked for a full "Interlinear &
+    Original Language Lexicon" module, keyed by Strong's number (their
+    own worked examples: `H430` Elohim, `H7225` Bereshit). Scoped down
+    after a direct explanation of what a *real* per-verse interlinear
+    actually requires: Strong's numbers tag the original Hebrew/Greek
+    words, not WEB's own English translation, so a true interlinear
+    needs a second full-Bible source-text pipeline (an openly-licensed
+    Strong's-tagged Hebrew OT and Greek NT, parsed the same way
+    `parse_books.py`/`parse_telugu_bible.py` parse their own sources)
+    plus a lexicon with real coverage (Strong's Hebrew alone runs
+    ~8,600 entries, Greek ~5,600) — not something to fold into a single
+    pass. What shipped instead, confirmed with the owner up front:
+    - **`data/lexicon_seed.json`** — 39 hand-picked entries (26 Hebrew,
+      13 Greek), keyed by Strong's id exactly as the owner's own schema
+      specified (`lemma`, `translit`, `pronunciation`, `type`,
+      `definition`, `shortDef`, `occurrences`, `origin`), plus two
+      additive fields not in the original spec: `language` (for the
+      screen's Hebrew/Greek grouping) and `exampleVerseId` — one
+      concrete, real verse per word, deliberately chosen from
+      `data/starter-pack.json`'s curated set (not the full lazy-loaded
+      corpus) so `findVerse()` can resolve it without forcing the
+      768KB+ full corpus to load just to open a lexicon entry. The 13
+      words already in `data/word_of_the_day.json` (item 89) were
+      reused rather than re-picked, so the same word carries the same
+      Strong's number and gloss in both places; ~26 more added the same
+      way — real, well-known theological terms cross-checked against
+      standard public-domain Strong's Concordance definitions, not
+      invented.
+    - **New Study hub card** (`renderLexicon()`/`renderLexiconDetail()`)
+      — a fourth `renderStudy()` tile alongside Patterns/Timeline/Family
+      Tree, matching this file's own "deep theological suite" framing
+      (see Known Gaps item 12, which named this exact gap). Same
+      debounced-search shape as People/Topics/Stories/Family Tree's own
+      picker (`lexiconQuery` state, `#lexicon-results` subtree,
+      `renderLexiconResults()`/`refreshLexiconResults()` pair) — browses
+      grouped by language when there's no query, flat-filtered by
+      lemma/transliteration/gloss/Strong's-id when there is. Detail view
+      shows the full entry plus its one example verse via the existing
+      `renderVerseCard()`.
+    - **Deliberately NOT wired to verse text at all** — no tap-a-word-
+      in-a-verse-to-see-its-lexicon-entry interaction exists yet, since
+      that's exactly the per-word tagging effort ruled out of scope
+      above. This is a standalone reference dictionary, browsable and
+      searchable on its own, not an interlinear overlay on Scripture
+      text. If/when the full interlinear is built later, this lexicon
+      is the natural lookup target for it — same relationship
+      `data/word_of_the_day.json`'s 13 entries already had to their own
+      one linked verse each, just generalized.
+    `sw.js` bumped to `rooted-v147`.
+
 ---
 
 ## 9. How the app reads this data

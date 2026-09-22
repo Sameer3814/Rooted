@@ -1415,6 +1415,22 @@ async function loadDailyFactsData(){
   }catch(e){ /* the Fact of the Day card just won't render */ }
   return [];
 }
+/* Strong's lexicon (item 150) — a standalone, hand-curated 39-word
+   Hebrew/Greek dictionary, data/lexicon_seed.json (keyed by Strong's id,
+   not read from data.verses). Small enough to load at boot like Word of
+   the Day/Facts, above. Deliberately NOT wired to per-word verse text
+   yet — that would need a genuinely new source pipeline (a Strong's-
+   tagged original-language corpus, not just an English/Telugu parallel
+   file) and full lexicon coverage (thousands of entries, not 39) to tag
+   every word in the corpus. See DATA_MODEL.md §8, item 150 for the full
+   scope call. */
+async function loadLexiconData(){
+  try{
+    const res = await fetch('./data/lexicon_seed.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* the Lexicon screen just won't render */ }
+  return {};
+}
 /* Real generated character portraits (item 91) — a small, hand-curated
    batch of 25 major characters so far, out of 261 total. data/
    character_portraits.json is just a flat array of character ids that
@@ -1767,6 +1783,8 @@ let factDrawerOpen = null; // fact id whose detail sheet is open, or null — se
 let characterPortraits = new Set(); // seed-only: character ids with a real portrait (item 91)
 let storyIllustrations = new Set(); // seed-only: story ids with a real generated illustration (item 125)
 let teVerseById = new Map();   // verseId -> Telugu verse object, lazily loaded (item 147) — empty until Telugu is actually selected
+let lexicon = {};        // seed-only: Strong's-id -> lexicon entry, data/lexicon_seed.json (item 150)
+let lexiconQuery = '';   // search state for the Lexicon screen, mirrors peopleQuery/storiesQuery
 let view = {screen:'home', params:{}};
 let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
@@ -1879,6 +1897,7 @@ const STRINGS = {
   title_stories: {en:'Stories', te:'కథలు'},
   title_people: {en:'People', te:'ప్రజలు'},
   title_verse: {en:'Verse', te:'వచనం'},
+  title_lexicon: {en:'Lexicon', te:'లెక్సికాన్'},
   btn_search: {en:'Search', te:'వెతకండి'},
   btn_add: {en:'Add', te:'జోడించు'},
   btn_save: {en:'Save', te:'సేవ్ చేయి'},
@@ -2321,6 +2340,8 @@ function render(){
   else if(view.screen==='familyTree') app.innerHTML = renderFamilyTree(view.params.id);
   else if(view.screen==='motifs') app.innerHTML = renderMotifs();
   else if(view.screen==='motifDetail') app.innerHTML = renderMotifDetail(view.params.id);
+  else if(view.screen==='lexicon') app.innerHTML = renderLexicon();
+  else if(view.screen==='lexiconDetail') app.innerHTML = renderLexiconDetail(view.params.id);
   else if(view.screen==='add') app.innerHTML = renderAddMenu();
   else if(view.screen==='addVerse') app.innerHTML = renderAddVerse();
   else if(view.screen==='addCharacter') app.innerHTML = renderAddCharacter();
@@ -3981,6 +4002,89 @@ function renderStudy(){
     <div class="card tap" data-action="go-family-tree">
       <div class="char-row"><div class="avatar"><i class="ti ti-affiliate"></i></div><div><h3>Family Tree</h3><p class="field-hint">Explore how a person connects to their family.</p></div></div>
     </div>
+    <div class="card tap" data-action="go-lexicon">
+      <div class="char-row"><div class="avatar"><i class="ti ti-language"></i></div><div><h3>${t('title_lexicon')}</h3><p class="field-hint">${Object.keys(lexicon).length} Hebrew and Greek words, straight from Strong's Concordance.</p></div></div>
+    </div>
+  `;
+}
+
+/* ---------- LEXICON (item 150) ----------
+   A standalone, searchable Strong's-id-keyed dictionary
+   (data/lexicon_seed.json) — search by lemma/transliteration/gloss,
+   filter by language. Deliberately NOT wired to per-word verse text —
+   see loadLexiconData()'s comment for why that's a separate, much
+   larger project. Same debounced-search shape as People/Topics/Stories
+   (renderXResults()/refreshXResults() pair, own #lexicon-results
+   subtree, own lexiconQuery state). */
+function lexiconEntries(){
+  return Object.values(lexicon).sort((a,b)=>a.translit.localeCompare(b.translit));
+}
+function findLexiconEntry(id){ return lexicon[id] || null; }
+function renderLexicon(){
+  const entries = lexiconEntries();
+  if(!entries.length) return `<div class="topbar"><h1>${t('title_lexicon')}</h1></div><div class="empty"><i class="ti ti-language"></i><p>No lexicon data loaded.</p></div>`;
+  return `
+    <div class="topbar"><h1>${t('title_lexicon')}</h1></div>
+    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up.</p>
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="lexicon-search" value="${esc(lexiconQuery)}" placeholder="Search by word, transliteration, or meaning..." autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div id="lexicon-results">${renderLexiconResults()}</div>
+  `;
+}
+function renderLexiconResults(){
+  const q = lexiconQuery.trim().toLowerCase();
+  let entries = lexiconEntries();
+  if(q){
+    entries = entries.filter(w=>
+      w.translit.toLowerCase().includes(q) || w.lemma.includes(lexiconQuery.trim()) ||
+      w.shortDef.toLowerCase().includes(q) || w.definition.toLowerCase().includes(q) ||
+      w.id.toLowerCase() === q
+    );
+    if(!entries.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No words match "${esc(lexiconQuery)}".</p></div>`;
+    return `<div class="result-count">${entries.length} match${entries.length===1?'':'es'}</div>${entries.map(renderLexiconRow).join('')}`;
+  }
+  const hebrew = entries.filter(w=>w.language==='Hebrew');
+  const greek = entries.filter(w=>w.language==='Greek');
+  return `
+    ${hebrew.length ? `<div class="section-label">Hebrew <span style="color:var(--ink-faint);">${hebrew.length}</span></div>${hebrew.map(renderLexiconRow).join('')}` : ''}
+    ${greek.length ? `<div class="section-label">Greek <span style="color:var(--ink-faint);">${greek.length}</span></div>${greek.map(renderLexiconRow).join('')}` : ''}
+  `;
+}
+function renderLexiconRow(w){
+  return `
+    <div class="card tap" data-action="open-lexicon" data-id="${w.id}">
+      <div class="char-row">
+        <div class="avatar"><i class="ti ti-language"></i></div>
+        <div>
+          <h3>${esc(w.translit)} <span class="field-hint">${esc(w.lemma)}</span></h3>
+          <p class="field-hint">${esc(w.shortDef)} · ${esc(w.id)}</p>
+        </div>
+      </div>
+    </div>`;
+}
+function renderLexiconDetail(id){
+  const w = findLexiconEntry(id);
+  if(!w) return renderLexicon();
+  const ev = w.exampleVerseId ? findVerse(w.exampleVerseId) : null;
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="lexicon-back"><i class="ti ti-arrow-left"></i></button>
+      <h2>${t('title_lexicon')}</h2>
+    </div>
+    <div class="card">
+      <div class="field-hint">${esc(w.language)} · ${esc(w.id)} · ${esc(w.type)}</div>
+      <h2 style="margin:6px 0 2px;">${esc(w.lemma)}</h2>
+      <p style="color:var(--ink-soft);margin-bottom:10px;">${esc(w.translit)} <span class="field-hint">(${esc(w.pronunciation)})</span></p>
+      <p>${esc(w.definition)}</p>
+      <div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>
+      <div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>
+    </div>
+    ${ev ? `
+      <div class="section-label">Example</div>
+      ${renderVerseCard(ev)}
+    ` : ''}
   `;
 }
 
@@ -5253,6 +5357,13 @@ function bindEvents(root){
     searchTimer = setTimeout(refreshFamilyTreePickerResults, 140);
   });
 
+  const lexiconSearch = document.getElementById('lexicon-search');
+  if(lexiconSearch) lexiconSearch.addEventListener('input', ()=>{
+    lexiconQuery = lexiconSearch.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refreshLexiconResults, 140);
+  });
+
   wireTimelineDrag();
   wireFamilyTreePanZoom();
   wireFirstLetterSprint();
@@ -5287,6 +5398,12 @@ function refreshStoriesResults(){
   const results = document.getElementById('stories-results');
   if(!results){ render(); return; }
   results.innerHTML = renderStoriesResults();
+  bindEvents(results);
+}
+function refreshLexiconResults(){
+  const results = document.getElementById('lexicon-results');
+  if(!results){ render(); return; }
+  results.innerHTML = renderLexiconResults();
   bindEvents(results);
 }
 function onAction(e){
@@ -5344,6 +5461,9 @@ function onAction(e){
   else if(action==='family-tree-nav') go('familyTree', {id, from: {screen: 'familyTree', params: view.params}});
   else if(action==='family-tree-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('familyTree'); }
   else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
+  else if(action==='go-lexicon') go('lexicon');
+  else if(action==='open-lexicon') go('lexiconDetail', {id, from: view});
+  else if(action==='lexicon-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('lexicon'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
   else if(action==='show-all-verses'){ homeLimit = Infinity; render(); }
@@ -5660,6 +5780,7 @@ async function migrateLegacy(seedContent){
   motifs = await loadMotifs();
   wordsOfTheDay = await loadWordOfTheDayData();
   dailyFacts = await loadDailyFactsData();
+  lexicon = await loadLexiconData();
   characterPortraits = await loadCharacterPortraits();
   storyIllustrations = await loadStoryIllustrations();
   render();

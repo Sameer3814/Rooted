@@ -640,6 +640,23 @@ The schema was deliberately designed so all of the above can be added
   five swatches + "remove") in place, rather than toggling a boolean
   directly. `sw.js` bumped to `rooted-v146`. See DATA_MODEL.md §8, item
   149.
+- **Strong's Lexicon — a standalone dictionary, done (2026-09-22).**
+  The owner asked for a full "Interlinear & Original Language Lexicon"
+  module. Scoped down after explaining what a *real* per-verse
+  interlinear actually needs — a second full-Bible source-text pipeline
+  (Strong's-tagged Hebrew/Greek, not WEB's English) plus full lexicon
+  coverage (thousands of entries, not dozens) — a genuinely separate,
+  larger project from this task, confirmed with the owner up front. What
+  shipped: `data/lexicon_seed.json`, 39 hand-picked Hebrew/Greek words
+  keyed by Strong's id (the owner's own schema — lemma, transliteration,
+  pronunciation, definition, occurrence count, etymology — plus
+  `language` and one `exampleVerseId` each, deliberately drawn from the
+  curated starter pack so lookups never force-load the full corpus); a
+  new 4th Study hub card and screen (`renderLexicon()`), same
+  debounced-search shape as People/Topics/Stories. **Not** wired to
+  verse text — no tap-a-word interlinear overlay exists yet, since
+  that's exactly the larger effort scoped out. `sw.js` bumped to
+  `rooted-v147`. See DATA_MODEL.md §8, item 150.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1858,16 +1875,26 @@ hand-curate all the content before building.
 12. **The Study pillar's "deep theological suite" — partially built.**
     Architecture committed 2026-09-16 (item 109); Timeline and Family
     Tree shipped the same day (item 110, in a proper `renderStudy()`
-    hub alongside Patterns — see the "Done" bullet above). Two real
-    features are still needed to fully match the "deep theological
-    suite" framing the owner specified:
-    - **Interlinear/Strong's view** — original-language word data
-      (Hebrew/Greek, Strong's numbers, definitions) tied to individual
-      verses. `data/word_of_the_day.json` (item 90) is the closest
-      existing thing — 13 hand-curated words, editorial content, not a
-      per-verse interlinear. A real version needs per-verse-per-word
-      Strong's tagging across the corpus, which is a genuinely large
-      new curation effort, not a small schema addition.
+    hub alongside Patterns — see the "Done" bullet above). A Lexicon
+    card joined the hub 2026-09-22 (item 150 — see the "Done" bullet
+    above), covering the dictionary half of this item. One real feature
+    is still needed to fully match the "deep theological suite" framing
+    the owner specified:
+    - **A true per-verse interlinear** — tapping a word in a verse to
+      see its Hebrew/Greek original and Strong's entry inline. The
+      lexicon *dictionary* itself now exists (`data/lexicon_seed.json`,
+      item 150, 39 entries, browsable/searchable on Study) and
+      `data/word_of_the_day.json` (item 90) still covers 13 curated
+      words editorially on Home — but neither is tied to individual
+      words inside verse text. A real interlinear needs a second full-
+      Bible source-text pipeline (an openly-licensed Strong's-tagged
+      Hebrew OT and Greek NT — Strong's numbers tag the *original*
+      words, not WEB's English translation, so there's no shortcut
+      through the existing corpus) plus full lexicon coverage
+      (thousands of entries, not dozens), parsed and tagged per verse
+      across the whole Bible. A genuinely large new pipeline project,
+      not a small schema addition — scoped out of item 150 for exactly
+      this reason, confirmed with the owner before building.
     - **Commentaries** — theological/historical commentary text tied to
       verses, stories, or characters. No entity for this exists in
       DATA_MODEL.md at all yet; needs its own schema design (most
