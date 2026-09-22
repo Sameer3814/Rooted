@@ -618,13 +618,28 @@ The schema was deliberately designed so all of the above can be added
   per verse — with search results deliberately kept in their existing
   card shape (a results list, not a reading experience). Tapping a
   verse selects it (underlined) and opens a fixed toolbar — Copy,
-  Highlight (`content.highlightedVerseIds`, same shape as the library
-  list, no new entity, works on any verse not just library ones), Add
-  to library — plus this app's first generic toast
-  (`showReaderToast()`). Highlight deliberately stays black-and-white
-  (`rgba(255,255,255,.14)`, not yellow) per the standing color rule
-  (item 123) — no explicit ask for color on this specific thing.
+  Highlight, Add to library — plus this app's first generic toast
+  (`showReaderToast()`). Highlight and single-verse selection were both
+  superseded the same day — see item 149 immediately below.
   `sw.js` bumped to `rooted-v145`. See DATA_MODEL.md §8, item 148.
+- **Reader follow-up, same day: dotted underline, multi-select verses,
+  multiple highlight colors — done (2026-09-22).** Three direct
+  refinements to item 148's tap-to-select reader. Selection underline
+  is now dotted, not solid (the owner's own direct ask). Tapping a verse
+  toggles its membership in a `Set` (`selectedVerseIds`) instead of
+  replacing a single selection — Copy/Highlight/Add now act on however
+  many verses are selected at once, resolved back to real verse objects
+  in reading order (not selection order) for a correctly-sequenced
+  multi-copy. `content.highlightedVerseIds` (boolean-ish, item 148)
+  became `content.highlightColors` (`{verseId: colorKey}`) — five real
+  colors, a genuine named color request the standing black-and-white
+  rule (item 123) always permitted for something explicitly asked for.
+  Applied as a low-alpha tint behind the verse's own text, not a solid
+  fill, so white reading text stays legible on every color. The
+  toolbar's Highlight button now opens a second toolbar state (a row of
+  five swatches + "remove") in place, rather than toggling a boolean
+  directly. `sw.js` bumped to `rooted-v146`. See DATA_MODEL.md §8, item
+  149.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

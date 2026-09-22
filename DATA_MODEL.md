@@ -7076,6 +7076,41 @@ inventing a new principle:
       never named one for highlights specifically.
     `sw.js` bumped to `rooted-v145`.
 
+149. **Reader follow-up, same day: dotted underline, multi-select
+    verses, multiple highlight colors — done (2026-09-22).** Three
+    direct refinements to item 148's tap-to-select reader.
+    - **`selectedVerseId` (one verse) became `selectedVerseIds` (a
+      `Set`)** — tapping a verse toggles its own membership rather than
+      replacing the selection, so multiple verses can be selected at
+      once and the toolbar (Copy/Highlight/Add) now acts on the whole
+      selection. `selectedVerseObjects()` resolves the set back to real
+      verse objects, sorted into reading order (chapter, then verse) —
+      selection order would read verses out of sequence in a multi-copy.
+      Copy's toast now says "Copied N verses" for a multi-select, "Add"
+      shows the count and disables once every selected verse is already
+      in the library.
+    - **Selection underline is dotted, not solid** — `text-decoration:
+      underline dotted`, the owner's own direct follow-up ask, changed
+      from item 148's solid underline.
+    - **`content.highlightedVerseIds` (a plain id array, "highlighted or
+      not") became `content.highlightColors` (`{verseId: colorKey}`)**
+      — five real colors (`HIGHLIGHT_COLORS`: yellow, green, blue, pink,
+      purple), a genuine, explicit, named color request ("let's add
+      multiple colors as highlighting colors"), which this file's own
+      standing black-and-white rule (item 123) always treated as
+      permission — real color for one specific, named thing, not a
+      relitigation of the rule. Applied as a low-alpha tint
+      (`${hex}33`) behind the verse's own text rather than a solid fill,
+      so white reading text stays legible over every one of the five
+      colors on this app's dark background. The toolbar's "Highlight"
+      button no longer toggles a boolean directly — it opens a second
+      toolbar state (`readerPaletteOpen`), a row of five color swatches
+      plus a "remove highlight" option, swapped in in place inside the
+      same fixed toolbar rather than a second overlay component;
+      picking a color (or "remove") applies it to every verse in the
+      current selection at once and closes back to the normal state.
+    `sw.js` bumped to `rooted-v146`.
+
 ---
 
 ## 9. How the app reads this data

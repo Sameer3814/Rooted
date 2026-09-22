@@ -957,8 +957,11 @@
   }
   .reader-vnum{font-size:11px;font-weight:700;color:var(--ink-faint);vertical-align:text-top;margin-right:1px;}
   .reader-verse{cursor:pointer;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
-  .reader-verse.reader-verse-highlighted{background:rgba(255,255,255,.14);}
-  .reader-verse.reader-verse-selected{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;}
+  /* Highlight color itself is set inline per verse (content.highlightColors,
+     item 149) since it's one of five real hex values, not a fixed class —
+     this rule only handles selection state. Dotted, not solid, per the
+     owner's own follow-up request. */
+  .reader-verse.reader-verse-selected{text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:4px;}
   /* Fixed above the bottom nav rather than anchored to the tapped verse
      — a floating tooltip positioned near arbitrary inline text has real
      edge-of-screen/line-wrap failure modes on a phone; a fixed toolbar
@@ -979,6 +982,17 @@
   }
   .reader-toolbar button:active{background:rgba(255,255,255,.1);}
   .reader-toolbar button[disabled]{opacity:.5;}
+  .reader-toolbar-close{color:var(--ink-faint) !important;padding:6px 10px !important;}
+  /* Highlight color palette — replaces the action row in place inside the
+     same fixed toolbar (readerPaletteOpen), not a second overlay. */
+  .reader-palette{align-items:center;padding:10px 12px;}
+  .reader-palette-back{background:none;border:none;color:#F2F2F2;padding:6px !important;cursor:pointer;font-size:18px;}
+  .reader-swatch{
+    width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.2);
+    cursor:pointer;padding:0;flex-shrink:0;
+  }
+  .reader-swatch:active{transform:scale(.9);}
+  .reader-swatch-none{background:#2A2A2A !important;display:flex;align-items:center;justify-content:center;color:#F2F2F2;font-size:14px;}
   .reader-toast{
     position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));
     transform:translateX(-50%);z-index:1002;
@@ -1541,14 +1555,25 @@ function removeFromLibrary(verseId){
   content.libraryVerseIds = (content.libraryVerseIds || []).filter(id => id !== verseId);
   saveContent();
 }
-/* Highlights (item 148) — same shape as libraryVerseIds, a plain array
-   of verse ids in the user overlay, no separate entity. Works on any
-   verse from the full corpus, not just library ones — highlighting a
-   verse while reading is a separate action from adding it to practice. */
-function isHighlighted(verseId){ return (content.highlightedVerseIds || []).includes(verseId); }
-function toggleHighlight(verseId){
-  const ids = content.highlightedVerseIds || [];
-  content.highlightedVerseIds = ids.includes(verseId) ? ids.filter(id => id !== verseId) : [...ids, verseId];
+/* Highlights (items 148-149) — content.highlightColors is a plain
+   {verseId: colorKey} map in the user overlay, no separate entity;
+   started as a boolean-ish array of ids (item 148) and became a real
+   color map once the owner asked for multiple highlight colors, same
+   day. Works on any verse from the full corpus, not just library ones
+   — highlighting while reading is a separate action from adding to
+   practice. A genuine, explicit color ask ("let's add multiple colors
+   as highlighting colors") — the one standing exception this file's
+   own black-and-white rule (item 123) always allowed for: real color,
+   requested by name, for one specific thing. */
+const HIGHLIGHT_COLORS = {
+  yellow: '#F5D949', green: '#8FD65A', blue: '#6EC1F5',
+  pink: '#F58FC0', purple: '#B98FF5',
+};
+function highlightColor(verseId){ return (content.highlightColors || {})[verseId] || null; }
+function setHighlight(verseId, colorKey){
+  const map = Object.assign({}, content.highlightColors || {});
+  if(colorKey) map[verseId] = colorKey; else delete map[verseId];
+  content.highlightColors = map;
   saveContent();
 }
 function showReaderToast(msg){
@@ -1754,7 +1779,8 @@ let corpus = null;          // null = not loaded yet
 let corpusStatus = 'idle';  // idle | loading | ready | error
 let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
-let selectedVerseId = null;  // reader-mode verse tap-select (item 148) — which verse's Copy/Highlight/Add toolbar is open
+let selectedVerseIds = new Set(); // reader-mode multi-select (item 149) — which verses the Copy/Highlight/Add toolbar acts on
+let readerPaletteOpen = false;    // toolbar sub-state: showing the highlight color swatches instead of the action row
 let readerToast = null;      // transient confirmation text ("Copied", "Added to library") shown after a toolbar action
 let peopleQuery = '';
 let topicsQuery = '';
@@ -2970,48 +2996,75 @@ function addFromCorpus(id){
   addToLibrary(id);
   refreshBrowseResults();
 }
-/* Continuous-flow chapter reader (item 148) — a YouVersion-style read,
-   verses running together as one block of text with a small superscript
-   number, instead of the one-card-per-verse layout renderCorpusVerseCard()
-   still uses for search results (that card shape stays there — it's a
-   results list, not a reading experience, and each hit needs its own
-   reference/Add affordance regardless of context). Tapping a verse span
-   selects it (underlined) and opens renderReaderToolbar(); tapping the
-   same verse again, or picking an action in the toolbar, closes it. */
+/* Continuous-flow chapter reader (items 148-149) — a YouVersion-style
+   read, verses running together as one block of text with a small
+   superscript number, instead of the one-card-per-verse layout
+   renderCorpusVerseCard() still uses for search results (that card
+   shape stays there — it's a results list, not a reading experience,
+   and each hit needs its own reference/Add affordance regardless of
+   context). Tapping a verse span toggles its membership in
+   `selectedVerseIds` (multi-select, item 149 — was single-select at
+   first) — a dotted underline, not solid, per the owner's own follow-up
+   request — and opens renderReaderToolbar() acting on the whole
+   selection at once. */
 function renderChapterReader(verses){
   return `
     <div class="chapter-reader">
       ${verses.map(v=>{
         const cls = ['reader-verse'];
-        if(v.id === selectedVerseId) cls.push('reader-verse-selected');
-        if(isHighlighted(v.id)) cls.push('reader-verse-highlighted');
-        return `<span class="${cls.join(' ')}" data-action="select-verse" data-id="${v.id}"><sup class="reader-vnum">${v.verse}</sup>${esc(verseText(v))} </span>`;
+        if(selectedVerseIds.has(v.id)) cls.push('reader-verse-selected');
+        const hl = highlightColor(v.id);
+        const style = hl ? ` style="background:${HIGHLIGHT_COLORS[hl]}33;"` : '';
+        return `<span class="${cls.join(' ')}"${style} data-action="select-verse" data-id="${v.id}"><sup class="reader-vnum">${v.verse}</sup>${esc(verseText(v))} </span>`;
       }).join('')}
     </div>
-    ${selectedVerseId ? renderReaderToolbar() : ''}
+    ${selectedVerseIds.size ? renderReaderToolbar() : ''}
     ${readerToast ? `<div class="reader-toast">${esc(readerToast)}</div>` : ''}
   `;
 }
+/* Two states, not one screen: the normal action row (Copy/Highlight/
+   Add/close), or — once "Highlight" is tapped — a palette row of five
+   colors plus a "remove highlight" option, replacing the action row in
+   place rather than opening a second overlay. `readerPaletteOpen` is
+   the switch between them. */
 function renderReaderToolbar(){
-  const v = (corpus && corpus.find(x=>x.id===selectedVerseId)) || findVerse(selectedVerseId);
-  if(!v) return '';
-  const inLib = isInLibrary(v.id);
-  const hl = isHighlighted(v.id);
+  const ids = [...selectedVerseIds];
+  if(!ids.length) return '';
+  if(readerPaletteOpen){
+    return `
+      <div class="reader-toolbar reader-palette">
+        <button data-action="close-highlight-palette" class="reader-palette-back"><i class="ti ti-chevron-left"></i></button>
+        ${Object.entries(HIGHLIGHT_COLORS).map(([key,hex])=>
+          `<button data-action="apply-highlight" data-id="${key}" class="reader-swatch" style="background:${hex};" aria-label="${key}"></button>`
+        ).join('')}
+        <button data-action="apply-highlight" data-id="" class="reader-swatch reader-swatch-none" aria-label="remove highlight"><i class="ti ti-x"></i></button>
+      </div>`;
+  }
+  const allInLib = ids.every(isInLibrary);
+  const count = ids.length;
   return `
     <div class="reader-toolbar">
-      <button data-action="copy-verse" data-id="${v.id}">${icon('copy',18)}<span>Copy</span></button>
-      <button data-action="toggle-highlight-verse" data-id="${v.id}">${icon('highlight',18)}<span>${hl ? 'Unhighlight' : 'Highlight'}</span></button>
-      <button data-action="add-to-library-verse" data-id="${v.id}" ${inLib?'disabled':''}>${icon(inLib?'check':'plus',18)}<span>${inLib ? 'Added' : 'Add'}</span></button>
+      <button data-action="copy-verse-selection">${icon('copy',18)}<span>Copy${count>1?` (${count})`:''}</span></button>
+      <button data-action="open-highlight-palette">${icon('highlight',18)}<span>Highlight</span></button>
+      <button data-action="add-to-library-selection" ${allInLib?'disabled':''}>${icon(allInLib?'check':'plus',18)}<span>${allInLib ? 'Added' : 'Add'}</span></button>
+      <button data-action="clear-verse-selection" class="reader-toolbar-close" aria-label="close"><i class="ti ti-x"></i></button>
     </div>`;
 }
-async function copySelectedVerse(id){
-  const v = (corpus && corpus.find(x=>x.id===id)) || findVerse(id);
-  if(!v) return;
-  const line = `${v.reference} — ${verseText(v)}`;
-  selectedVerseId = null;
+function selectedVerseObjects(){
+  return [...selectedVerseIds]
+    .map(id => (corpus && corpus.find(x=>x.id===id)) || findVerse(id))
+    .filter(Boolean)
+    .sort((a,b)=>(a.chapter-b.chapter) || (a.verse-b.verse));
+}
+async function copySelectionToClipboard(){
+  const verses = selectedVerseObjects();
+  if(!verses.length) return;
+  const text = verses.map(v => `${v.reference} — ${verseText(v)}`).join('\n');
+  selectedVerseIds = new Set();
+  readerPaletteOpen = false;
   try{
-    await navigator.clipboard.writeText(line);
-    showReaderToast('Copied');
+    await navigator.clipboard.writeText(text);
+    showReaderToast(verses.length > 1 ? `Copied ${verses.length} verses` : 'Copied');
   }catch(e){ showReaderToast('Could not copy'); }
 }
 
@@ -5314,14 +5367,33 @@ function onAction(e){
     saveSettings(); render();
     if(settings.soundEnabled) playSfx('tap'); // confirm it's on; silence needs no confirmation
   }
-  else if(action==='browse-book'){ browse.book = id; browse.chapter = null; selectedVerseId = null; refreshBrowseResults(); }
-  else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; selectedVerseId = null; refreshBrowseResults(); }
-  else if(action==='browse-root'){ browse.book = null; browse.chapter = null; selectedVerseId = null; refreshBrowseResults(); }
+  else if(action==='browse-book'){ browse.book = id; browse.chapter = null; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='browse-root'){ browse.book = null; browse.chapter = null; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
   else if(action==='add-from-corpus') addFromCorpus(id);
-  else if(action==='select-verse'){ selectedVerseId = (selectedVerseId===id) ? null : id; refreshBrowseResults(); }
-  else if(action==='copy-verse') copySelectedVerse(id);
-  else if(action==='toggle-highlight-verse'){ toggleHighlight(id); refreshBrowseResults(); }
-  else if(action==='add-to-library-verse'){ addToLibrary(id); selectedVerseId = null; showReaderToast('Added to library'); }
+  else if(action==='select-verse'){
+    if(selectedVerseIds.has(id)) selectedVerseIds.delete(id); else selectedVerseIds.add(id);
+    readerPaletteOpen = false;
+    refreshBrowseResults();
+  }
+  else if(action==='clear-verse-selection'){ selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='copy-verse-selection') copySelectionToClipboard();
+  else if(action==='open-highlight-palette'){ readerPaletteOpen = true; refreshBrowseResults(); }
+  else if(action==='close-highlight-palette'){ readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='apply-highlight'){
+    for(const vid of selectedVerseIds) setHighlight(vid, id || null);
+    const n = selectedVerseIds.size;
+    selectedVerseIds = new Set();
+    readerPaletteOpen = false;
+    showReaderToast(id ? (n>1?`Highlighted ${n} verses`:'Highlighted') : 'Highlight removed');
+  }
+  else if(action==='add-to-library-selection'){
+    const n = selectedVerseIds.size;
+    for(const vid of selectedVerseIds) addToLibrary(vid);
+    selectedVerseIds = new Set();
+    readerPaletteOpen = false;
+    showReaderToast(n>1 ? `Added ${n} verses to library` : 'Added to library');
+  }
   else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
   else if(action==='sync-now'){ if(account) pullAndMerge(); }
   else if(action==='export-data') downloadExport();
