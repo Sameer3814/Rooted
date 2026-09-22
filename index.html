@@ -947,6 +947,44 @@
   .result-count{font-size:12px;color:var(--ink-faint);margin-bottom:10px;}
   .card-actions{display:flex;justify-content:flex-end;margin-top:10px;}
   .in-library{font-size:12px;color:var(--sage-deep);display:inline-flex;align-items:center;gap:4px;}
+  /* Continuous-flow chapter reader (item 148) — a YouVersion-style read
+     instead of one card per verse. font-family/size/line-height match
+     .verse-card .text's own reading-copy treatment, just without a card
+     boundary per verse. */
+  .chapter-reader{
+    font-family:var(--font-sans);font-size:17px;line-height:1.85;
+    color:var(--text-primary);margin-bottom:100px;padding:4px 2px;
+  }
+  .reader-vnum{font-size:11px;font-weight:700;color:var(--ink-faint);vertical-align:text-top;margin-right:1px;}
+  .reader-verse{cursor:pointer;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .reader-verse.reader-verse-highlighted{background:rgba(255,255,255,.14);}
+  .reader-verse.reader-verse-selected{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;}
+  /* Fixed above the bottom nav rather than anchored to the tapped verse
+     — a floating tooltip positioned near arbitrary inline text has real
+     edge-of-screen/line-wrap failure modes on a phone; a fixed toolbar
+     doesn't, and this app already has a fixed-pill nav bar precedent to
+     match the look of. */
+  .reader-toolbar{
+    position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));
+    transform:translateX(-50%);z-index:1001;
+    display:flex;gap:4px;background:rgba(26,26,26,.92);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.12);border-radius:20px;
+    padding:8px;box-shadow:var(--shadow-nav);
+  }
+  .reader-toolbar button{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    background:none;border:none;color:#F2F2F2;font-size:11px;font-weight:500;
+    padding:6px 14px;border-radius:14px;cursor:pointer;font-family:var(--font-sans);
+  }
+  .reader-toolbar button:active{background:rgba(255,255,255,.1);}
+  .reader-toolbar button[disabled]{opacity:.5;}
+  .reader-toast{
+    position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));
+    transform:translateX(-50%);z-index:1002;
+    background:#F2F2F2;color:#121212;font-size:13px;font-weight:600;
+    padding:10px 18px;border-radius:100px;box-shadow:var(--shadow-nav);
+  }
 
   /* header w/ back */
   .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
@@ -1194,6 +1232,7 @@ async function pullAndMerge(){
           settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en'}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
+          if(!content.libraryVerseIds) content.libraryVerseIds = data.verses.map(v=>v.id);
           saveContent(); saveProgress(); saveSettings();
           suppressSyncTouch = false;
           syncMeta.updatedAt = remote.updatedAt;
@@ -1280,7 +1319,11 @@ async function importFromFile(file){
   if(!confirm('This replaces your current verses, progress, and settings on this device with the backup file. This can\'t be undone. Continue?')) return;
 
   const {bundle} = result;
-  if('content' in bundle){ content = bundle.content; data = mergeContent(seed, content); }
+  if('content' in bundle){
+    content = bundle.content;
+    data = mergeContent(seed, content);
+    if(!content.libraryVerseIds) content.libraryVerseIds = data.verses.map(v=>v.id);
+  }
   if('progress' in bundle){
     progress = {};
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
@@ -1434,6 +1477,86 @@ function emptyOverlay(){ return {verses:[], topics:[], characters:[]}; }
 
 /* Link arrays where an empty overlay value must not blank out richer seed data. */
 const LINK_FIELDS = ['topicIds', 'characterIds', 'verseIds', 'relatedTopicIds', 'storyIds', 'motifIds'];
+
+/* ---------- practice library (item 148) ----------
+   `data.verses` (the merged starter pack + user overlay, ~1,800 verses)
+   stays exactly as it was — every Topic/Story/Character/Motif page that
+   cross-references a specific verse still works unchanged, since all of
+   that curation lives on these same verse records regardless of whether
+   any given verse is "in your library." What changed: Practice no longer
+   treats the *entire* merged set as automatically yours to practice.
+   `content.libraryVerseIds` is the real, separate list of verse ids the
+   user has actually added — a brand-new install starts with just these
+   ten well-known, short, easy-to-memorize verses (the owner's own
+   examples, Psalm 23:1 and John 3:16, plus eight more of the same
+   kind), not the full curated set; a returning user who already had
+   verses before this feature shipped keeps everything they had (see the
+   boot-time migration in boot() below) rather than losing access to
+   verses they were already practicing. */
+const DEFAULT_LIBRARY_IDS = [
+  'verse_john_3_16', 'verse_psalms_23_1', 'verse_philippians_4_13',
+  'verse_romans_8_28', 'verse_jeremiah_29_11', 'verse_proverbs_3_5',
+  'verse_joshua_1_9', 'verse_psalms_46_1', 'verse_romans_12_2',
+  'verse_matthew_6_33',
+];
+function libraryVerseIds(){ return new Set(content.libraryVerseIds || []); }
+function isInLibrary(verseId){ return libraryVerseIds().has(verseId); }
+/* The verse ids Practice actually shows — data.verses filtered down to
+   library membership, in the same order data.verses already provides
+   them (seed order, then user-added). */
+function libraryVerses(){
+  const ids = libraryVerseIds();
+  return data.verses.filter(v => ids.has(v.id));
+}
+/* Adds a verse to the practice library without duplicating the "copy a
+   corpus verse into your personal overlay" logic addFromCorpus() already
+   has — a verse can be *in data.verses* (curated seed or previously
+   added) without being *in the library* yet, so this only ever needs to
+   touch content.libraryVerseIds, plus copy the verse into the overlay
+   the one time it isn't part of data.verses at all yet (a fresh corpus
+   verse the user has never interacted with before). */
+function addToLibrary(verseId){
+  if(!findVerse(verseId)){
+    // Same shape addFromCorpus() already builds — a fresh corpus verse
+    // the user has never touched before needs copying into the overlay
+    // (and data.verses directly, same shortcut addFromCorpus() uses
+    // rather than a full mergeContent() re-run) before it can be "in"
+    // anything at all.
+    const src = corpus && corpus.find(v => v.id === verseId);
+    if(src){
+      const verse = {
+        id: src.id, reference: src.reference, book: src.book, chapter: src.chapter,
+        verse: src.verse, text: src.text, translation: src.translation,
+        topicIds: [], characterIds: [], metadata: {}
+      };
+      content.verses.push(verse);
+      data.verses.push(verse);
+    }
+  }
+  const ids = content.libraryVerseIds || [];
+  if(!ids.includes(verseId)) content.libraryVerseIds = [...ids, verseId];
+  saveContent();
+}
+function removeFromLibrary(verseId){
+  content.libraryVerseIds = (content.libraryVerseIds || []).filter(id => id !== verseId);
+  saveContent();
+}
+/* Highlights (item 148) — same shape as libraryVerseIds, a plain array
+   of verse ids in the user overlay, no separate entity. Works on any
+   verse from the full corpus, not just library ones — highlighting a
+   verse while reading is a separate action from adding it to practice. */
+function isHighlighted(verseId){ return (content.highlightedVerseIds || []).includes(verseId); }
+function toggleHighlight(verseId){
+  const ids = content.highlightedVerseIds || [];
+  content.highlightedVerseIds = ids.includes(verseId) ? ids.filter(id => id !== verseId) : [...ids, verseId];
+  saveContent();
+}
+function showReaderToast(msg){
+  readerToast = msg;
+  refreshBrowseResults();
+  clearTimeout(showReaderToast._t);
+  showReaderToast._t = setTimeout(()=>{ readerToast = null; refreshBrowseResults(); }, 1800);
+}
 
 /* seed + user overlay -> the in-memory content the app renders */
 function mergeContent(seed, overlay){
@@ -1631,6 +1754,8 @@ let corpus = null;          // null = not loaded yet
 let corpusStatus = 'idle';  // idle | loading | ready | error
 let corpusIndex = null;     // [{book, count, chapters:[{n, count}]}]
 let browse = {q:'', book:null, chapter:null};
+let selectedVerseId = null;  // reader-mode verse tap-select (item 148) — which verse's Copy/Highlight/Add toolbar is open
+let readerToast = null;      // transient confirmation text ("Copied", "Added to library") shown after a toolbar action
 let peopleQuery = '';
 let topicsQuery = '';
 let storiesQuery = '';
@@ -1655,7 +1780,7 @@ function isDue(v){
 /* Due verses, most-overdue first, then ones already in progress, then new.
    Finishing what you've started beats piling on more. */
 function dueVerses(){
-  return data.verses.filter(isDue).sort((a,b)=>{
+  return libraryVerses().filter(isDue).sort((a,b)=>{
     const pa = getProgress(a.id), pb = getProgress(b.id);
     if(pa.nextReview && pb.nextReview) return new Date(pa.nextReview) - new Date(pb.nextReview);
     if(pa.nextReview) return -1;
@@ -1696,6 +1821,11 @@ const ICON_PATHS = {
   'eye-off': `<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>`,
   'align-left': `<path d="M15 12H3"/><path d="M17 18H3"/><path d="M21 6H3"/>`,
   bookmark: `<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>`,
+  // Added for the chapter reader's tap-to-select verse toolbar (item 148).
+  copy: `<rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>`,
+  highlight: `<path d="m9 11-6 6v3h3l6-6"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-4.2-4.2a2 2 0 0 1 0-2.8L15 5"/>`,
+  check: `<path d="M20 6 9 17l-5-5"/>`,
+  plus: `<path d="M5 12h14"/><path d="M12 5v14"/>`,
 };
 /* ---------- i18n (item 147) ----------
    UI-chrome-only string dictionary — the bottom nav, screen titles, and
@@ -2773,7 +2903,7 @@ function renderBrowseResults(){
     const verses = corpus.filter(v => v.book===browse.book && v.chapter===browse.chapter);
     return `
       ${renderCrumbs()}
-      ${verses.map(renderCorpusVerseCard).join('')}
+      ${renderChapterReader(verses)}
     `;
   }
 
@@ -2818,7 +2948,7 @@ function renderBookPeople(book){
   `;
 }
 function renderCorpusVerseCard(v){
-  const inLibrary = !!findVerse(v.id);
+  const inLibrary = isInLibrary(v.id);
   return `
     <div class="card verse-card">
       <div class="ref">${esc(v.reference)}</div>
@@ -2830,19 +2960,59 @@ function renderCorpusVerseCard(v){
       </div>
     </div>`;
 }
+/* "Add" on a Browse/corpus verse card now means "add to your practice
+   library" (item 148) — addToLibrary() already handles both copying a
+   never-seen corpus verse into the overlay AND registering library
+   membership, so this is a thin wrapper kept for its existing name/
+   call sites rather than a second copy of that logic. */
 function addFromCorpus(id){
-  if(!corpus || findVerse(id)) return;
-  const src = corpus.find(v => v.id===id);
-  if(!src) return;
-  const verse = {
-    id: src.id, reference: src.reference, book: src.book, chapter: src.chapter,
-    verse: src.verse, text: src.text, translation: src.translation,
-    topicIds: [], characterIds: [], metadata: {}
-  };
-  content.verses.push(verse);
-  data.verses.push(verse);
-  saveContent();
+  if(isInLibrary(id)) return;
+  addToLibrary(id);
   refreshBrowseResults();
+}
+/* Continuous-flow chapter reader (item 148) — a YouVersion-style read,
+   verses running together as one block of text with a small superscript
+   number, instead of the one-card-per-verse layout renderCorpusVerseCard()
+   still uses for search results (that card shape stays there — it's a
+   results list, not a reading experience, and each hit needs its own
+   reference/Add affordance regardless of context). Tapping a verse span
+   selects it (underlined) and opens renderReaderToolbar(); tapping the
+   same verse again, or picking an action in the toolbar, closes it. */
+function renderChapterReader(verses){
+  return `
+    <div class="chapter-reader">
+      ${verses.map(v=>{
+        const cls = ['reader-verse'];
+        if(v.id === selectedVerseId) cls.push('reader-verse-selected');
+        if(isHighlighted(v.id)) cls.push('reader-verse-highlighted');
+        return `<span class="${cls.join(' ')}" data-action="select-verse" data-id="${v.id}"><sup class="reader-vnum">${v.verse}</sup>${esc(verseText(v))} </span>`;
+      }).join('')}
+    </div>
+    ${selectedVerseId ? renderReaderToolbar() : ''}
+    ${readerToast ? `<div class="reader-toast">${esc(readerToast)}</div>` : ''}
+  `;
+}
+function renderReaderToolbar(){
+  const v = (corpus && corpus.find(x=>x.id===selectedVerseId)) || findVerse(selectedVerseId);
+  if(!v) return '';
+  const inLib = isInLibrary(v.id);
+  const hl = isHighlighted(v.id);
+  return `
+    <div class="reader-toolbar">
+      <button data-action="copy-verse" data-id="${v.id}">${icon('copy',18)}<span>Copy</span></button>
+      <button data-action="toggle-highlight-verse" data-id="${v.id}">${icon('highlight',18)}<span>${hl ? 'Unhighlight' : 'Highlight'}</span></button>
+      <button data-action="add-to-library-verse" data-id="${v.id}" ${inLib?'disabled':''}>${icon(inLib?'check':'plus',18)}<span>${inLib ? 'Added' : 'Add'}</span></button>
+    </div>`;
+}
+async function copySelectedVerse(id){
+  const v = (corpus && corpus.find(x=>x.id===id)) || findVerse(id);
+  if(!v) return;
+  const line = `${v.reference} — ${verseText(v)}`;
+  selectedVerseId = null;
+  try{
+    await navigator.clipboard.writeText(line);
+    showReaderToast('Copied');
+  }catch(e){ showReaderToast('Could not copy'); }
 }
 
 /* Sentinel challengeTypeId — not a key in CHALLENGE_TYPES (it isn't a real
@@ -2954,6 +3124,9 @@ function renderVerseDetail(id){
       ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
     <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
+    ${isInLibrary(v.id)
+      ? `<button class="btn block" data-action="remove-from-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('check',16)} In your library — remove</button>`
+      : `<button class="btn block" data-action="add-to-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('plus',16)} Add to library</button>`}
     <div class="section-label">Progress</div>
     <div class="card">
       <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
@@ -4798,7 +4971,7 @@ function renderPracticeHero(due){
 }
 /* ---------- compact single-line stats strip, replaces the old 4-box stat-row ---------- */
 function renderPracticeStatsStrip(){
-  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
+  const mastered = libraryVerses().filter(v=>getProgress(v.id).status==='mastered').length;
   const streak = computeStreak();
   return `
     <div class="practice-stats-strip">
@@ -4806,19 +4979,21 @@ function renderPracticeStatsStrip(){
       <span class="stat-sep">&middot;</span>
       <span>${icon('sparkles',14)} <strong>${mastered}</strong> Mastered</span>
       <span class="stat-sep">&middot;</span>
-      <span>${icon('leaf',14)} <strong>${data.verses.length}</strong> Library</span>
+      <span>${icon('leaf',14)} <strong>${libraryVerses().length}</strong> Library</span>
     </div>`;
 }
 function filteredPracticeVerses(){
-  if(practiceFilter==='due') return data.verses.filter(isDue);
-  if(practiceFilter==='mastered') return data.verses.filter(v=>getProgress(v.id).status==='mastered');
-  return data.verses;
+  const lib = libraryVerses();
+  if(practiceFilter==='due') return lib.filter(isDue);
+  if(practiceFilter==='mastered') return lib.filter(v=>getProgress(v.id).status==='mastered');
+  return lib;
 }
 function renderPracticeFilterTabs(){
-  const due = data.verses.filter(isDue).length;
-  const mastered = data.verses.filter(v=>getProgress(v.id).status==='mastered').length;
+  const lib = libraryVerses();
+  const due = lib.filter(isDue).length;
+  const mastered = lib.filter(v=>getProgress(v.id).status==='mastered').length;
   const tabs = [
-    {id:'all', label:`${t('practice_all')} (${data.verses.length})`},
+    {id:'all', label:`${t('practice_all')} (${lib.length})`},
     {id:'due', label:`${t('practice_due_today')} (${due})`},
     {id:'mastered', label:`${t('practice_mastered')} (${mastered})`},
   ];
@@ -4941,6 +5116,7 @@ function saveVerse(){
   const verse = {id:'verse_'+Date.now(), reference:ref, text, translation:'', topicIds, characterIds:[], metadata:{}};
   content.verses.push(verse);
   data.verses.push(verse);
+  content.libraryVerseIds = [...(content.libraryVerseIds || []), verse.id];
   saveContent();
   go('home');
 }
@@ -5082,7 +5258,9 @@ function onAction(e){
   else if(action==='go-settings') go('settings');
   else if(action==='open-verse') go('verseDetail', {id, from: view});
   else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
-  else if(action==='start-practice-verse') startPractice([id]);
+  else if(action==='start-practice-verse'){ if(!isInLibrary(id)) addToLibrary(id); startPractice([id]); }
+  else if(action==='add-to-library-detail'){ addToLibrary(id); render(); }
+  else if(action==='remove-from-library-detail'){ removeFromLibrary(id); render(); }
   else if(action==='open-topic') go('topicDetail', {id});
   else if(action==='back-to-topics') go('topics');
   else if(action==='open-character') go('characterDetail', {id, from: view});
@@ -5136,10 +5314,14 @@ function onAction(e){
     saveSettings(); render();
     if(settings.soundEnabled) playSfx('tap'); // confirm it's on; silence needs no confirmation
   }
-  else if(action==='browse-book'){ browse.book = id; browse.chapter = null; refreshBrowseResults(); }
-  else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; refreshBrowseResults(); }
-  else if(action==='browse-root'){ browse.book = null; browse.chapter = null; refreshBrowseResults(); }
+  else if(action==='browse-book'){ browse.book = id; browse.chapter = null; selectedVerseId = null; refreshBrowseResults(); }
+  else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; selectedVerseId = null; refreshBrowseResults(); }
+  else if(action==='browse-root'){ browse.book = null; browse.chapter = null; selectedVerseId = null; refreshBrowseResults(); }
   else if(action==='add-from-corpus') addFromCorpus(id);
+  else if(action==='select-verse'){ selectedVerseId = (selectedVerseId===id) ? null : id; refreshBrowseResults(); }
+  else if(action==='copy-verse') copySelectedVerse(id);
+  else if(action==='toggle-highlight-verse'){ toggleHighlight(id); refreshBrowseResults(); }
+  else if(action==='add-to-library-verse'){ addToLibrary(id); selectedVerseId = null; showReaderToast('Added to library'); }
   else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
   else if(action==='sync-now'){ if(account) pullAndMerge(); }
   else if(action==='export-data') downloadExport();
@@ -5370,6 +5552,7 @@ async function migrateLegacy(seedContent){
   seed = await loadSeed();
   let storedContent = await loadStored(CONTENT_KEY);
   let storedProgress = await loadStored(PROGRESS_KEY);
+  const isFreshInstall = !storedContent && !storedProgress; // before the legacy-migration check below can populate either
 
   if(!storedContent && !storedProgress){
     const migrated = await migrateLegacy(seed);
@@ -5389,6 +5572,17 @@ async function migrateLegacy(seedContent){
   syncMeta = Object.assign({updatedAt: null}, storedSyncMeta || {});
 
   data = mergeContent(seed, content);
+  if(!content.libraryVerseIds){
+    // Fresh install: start with just the ten easy verses (item 148). An
+    // existing user who never had this field keeps everything they
+    // already had. Deliberately checking for the field being *absent*
+    // (undefined), not merely empty — a user who's since removed every
+    // verse from their library on purpose has a real `[]` here, which
+    // must never get silently refilled back to the full curated set on
+    // a later boot.
+    content.libraryVerseIds = isFreshInstall ? DEFAULT_LIBRARY_IDS.slice() : data.verses.map(v=>v.id);
+    saveContent();
+  }
   lore = await loadStories();
   connections = await loadConnections();
   motifs = await loadMotifs();

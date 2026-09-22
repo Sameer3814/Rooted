@@ -7006,21 +7006,107 @@ inventing a new principle:
       information" to travel with any use of the text.
     `sw.js` bumped to `rooted-v144`.
 
+148. **Practice library reset to 10 easy verses; a YouVersion-style
+    continuous chapter reader; tap-to-select verses (Copy/Highlight/Add)
+    — done (2026-09-22).** Three related asks in one request, all about
+    the memorization side of the app rather than the deep-study content.
+    - **The practice library is no longer "all 1,812 curated verses by
+      default."** The owner's own framing ("get rid of all the verses
+      from the library... start with the easiest 10") ran headfirst into
+      a real conflict, surfaced and resolved *before* writing any code:
+      Topics, Stories, Characters, and Motifs all cross-reference that
+      same 1,812-verse curated set for their own "key verses" displays —
+      only these verses carry topic/character tags at all. Deleting them
+      outright would have gone empty on 37 of 38 Topic Detail pages and
+      most Story Detail "Key verses" sections. Resolved with a real new
+      concept rather than a data trim: `content.libraryVerseIds`, a
+      separate membership list — `data.verses` (the full curated set)
+      is completely untouched, still backing every Topic/Story/
+      Character/Motif cross-reference exactly as before; a brand-new
+      install's *practice* library starts with just ten well-known,
+      short, easy verses (`DEFAULT_LIBRARY_IDS`: John 3:16, Psalm 23:1,
+      Philippians 4:13, Romans 8:28, Jeremiah 29:11, Proverbs 3:5,
+      Joshua 1:9, Psalm 46:1, Romans 12:2, Matthew 6:33 — the owner's
+      own two named examples plus eight more of the same well-known,
+      short, classic-for-memorization kind). See §9's "Corpus vs.
+      library" section above for the full three-way architecture.
+      A real backward-compatibility case handled explicitly: an
+      *existing* user (anyone with stored content/progress before this
+      shipped) keeps everything they already had — `isFreshInstall` is
+      computed before the legacy-migration check can populate either,
+      and only a genuinely fresh install gets the 10-verse default;
+      every other case (existing user with no stored `libraryVerseIds`
+      yet, a cloud-sync pull, a backup import) falls back to "everything
+      currently in `data.verses`," never silently shrinking someone's
+      real practice history down to ten. Added to all four places
+      `content` gets reconstructed with defaults (boot, cloud-sync pull,
+      backup import, plus the one-time migration itself) — same
+      discipline as item 147's `settings.language` default, applied
+      before shipping this time rather than found as a gap afterward.
+    - **Browse's chapter view is a continuous flowing read
+      (`renderChapterReader()`), not one card per verse** — the owner's
+      own framing was "make the Bible like YouVersion rather than
+      breaking it up verse by verse." Verses run together as one block
+      of text with a small superscript number, `verseText()` still
+      doing the Telugu/English swap from item 147 underneath. Search
+      results (`renderCorpusVerseCard()`) deliberately keep their
+      existing one-card-per-hit shape — that's a results list needing
+      its own reference/Add affordance per hit, not a reading
+      experience, so the two didn't get collapsed into one component.
+    - **Tapping a verse in the reader selects it** (underlined,
+      `.reader-verse-selected`) **and opens a toolbar** — Copy,
+      Highlight, Add to library (or "Added" if already there). Fixed
+      above the bottom nav rather than anchored to the tapped span —
+      a floating tooltip positioned near arbitrary inline text has real
+      edge-of-screen/line-wrap failure modes on a phone that a fixed
+      toolbar doesn't, and this app already had a fixed-pill nav bar to
+      match the look of. Copy uses `navigator.clipboard`; Highlight is a
+      new `content.highlightedVerseIds` array (same plain-array-of-ids
+      shape as the library list, no new entity) — works on *any* verse
+      from the full corpus, not just library ones, since highlighting
+      while reading is a genuinely separate action from adding to
+      practice. A small new `showReaderToast()` confirms Copy/Add
+      actions (this app's first generic toast — the existing
+      `.sprint-toast` was a one-off scoped to First-Letter Sprint).
+      Deliberately did **not** add color for the highlight itself
+      (`rgba(255,255,255,.14)`, not yellow) — the standing black-and-
+      white rule (item 123) plus its two already-named exceptions
+      (Topics, Family Tree) covers exactly this file's own guidance:
+      new decorative color needs an explicit ask, and this request
+      never named one for highlights specifically.
+    `sw.js` bumped to `rooted-v145`.
+
 ---
 
 ## 9. How the app reads this data
 
-### Corpus vs. library
-An important distinction the UI depends on:
+### Corpus vs. library (vs. practice library — see item 148)
+Three distinct things now, not two:
 - **Corpus** (`corpus`, from `data/verses.json`) — reference material. Read-only,
   lazily loaded, never persisted to user storage, not in `data.verses`.
-- **Library** (`data.verses`) — the seed pack plus whatever the user added.
-  This is what Home lists, what topics filter, and what practice draws from.
+- **`data.verses`** (the seed pack plus whatever's been copied into the user
+  overlay) — every verse curated with topic/character tags, or ever added.
+  Topic Detail, Story Detail, Character Detail, and Motif instances all still
+  read this directly, regardless of whether any given verse is in the user's
+  practice library below — a topic's "12 verses" count and a story's "Key
+  verses" section are unaffected by what the user is actually practicing.
+- **Practice library** (`content.libraryVerseIds`, a plain array of verse ids
+  on the user overlay) — the real, separate answer to "is this verse mine to
+  practice." A brand-new install starts with ten well-known verses
+  (`DEFAULT_LIBRARY_IDS`), not the whole curated set; `libraryVerses()` is
+  `data.verses` filtered down to this membership, and it's what Practice's
+  "Your verses" list, due/mastered counts, and the "N Library" stat all
+  actually read. `findVerse` still looks at all of `data.verses` (unchanged —
+  a verse detail page needs to open regardless of library membership);
+  `isInLibrary(id)` is the new, separate check for whether it's actually in
+  the user's practice queue.
 
-`findVerse` only ever looks at the library. Browse results are rendered from the
-corpus and marked "in your verses" when `findVerse(id)` hits — the same stable
-id (`verse_genesis_1_3`) means adding is idempotent and a re-parse of the corpus
-can never duplicate a verse the user already has.
+`addToLibrary(id)` is the one function both "Add" on a Browse verse card and
+the tap-to-select reader's "Add to library" button call — it copies a corpus
+verse into the overlay if it isn't in `data.verses` yet (same idempotent-by-id
+shortcut `addFromCorpus()` always used), then adds the id to
+`content.libraryVerseIds` if it isn't there already. `addFromCorpus()` itself
+is now a thin wrapper kept for its existing call sites/name.
 
 ### Derived, never stored twice
 Several things the UI shows are computed at render time rather than kept as
