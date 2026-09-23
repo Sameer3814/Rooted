@@ -29,9 +29,9 @@ data/verses.json — a flat array of Verse objects (DATA_MODEL.md §2):
 
 Usage
 -----
-    py pipeline/parse_books.py                      # genesis + psalms + exodus + ruth + leviticus + numbers + deuteronomy + joshua + judges + 1samuel + 2samuel + 1kings + 2kings + 1chronicles + 2chronicles (shipped set)
+    py pipeline/parse_books.py                      # all 66 books, canonical order (DEFAULT_BOOKS == BOOKS)
     py pipeline/parse_books.py --books genesis exodus
-    py pipeline/parse_books.py --all                # all 66 books
+    py pipeline/parse_books.py --all                # same as the default now — kept for explicitness
     py pipeline/parse_books.py --out data/verses.json --indent 2
 """
 
@@ -47,9 +47,6 @@ SOURCE_BASE = "https://raw.githubusercontent.com/TehShrike/world-english-bible/m
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".cache")
 DEFAULT_OUT = os.path.join(REPO_ROOT, "data", "verses.json")
-
-# The books currently shipped in data/verses.json.
-DEFAULT_BOOKS = ["genesis", "psalms", "exodus", "ruth", "leviticus", "numbers", "deuteronomy", "joshua", "judges", "1samuel", "2samuel", "1kings", "2kings", "1chronicles", "2chronicles", "ezra", "nehemiah", "esther", "job", "proverbs", "ecclesiastes", "songofsolomon", "isaiah", "jeremiah", "lamentations", "ezekiel", "daniel", "hosea", "joel", "amos", "obadiah", "jonah", "micah", "nahum", "habakkuk", "zephaniah", "haggai", "zechariah", "malachi", "matthew", "mark", "luke", "john", "acts", "romans", "1corinthians", "2corinthians", "galatians", "ephesians", "philippians", "colossians", "1thessalonians", "2thessalonians", "1timothy", "2timothy", "titus", "philemon", "hebrews", "james", "1peter", "2peter", "1john", "2john", "3john", "jude", "revelation"]
 
 # slug (== source filename stem, == the slug used in verse ids) -> display name
 BOOKS = {
@@ -77,6 +74,20 @@ BOOKS = {
     "2peter": "2 Peter", "1john": "1 John", "2john": "2 John",
     "3john": "3 John", "jude": "Jude", "revelation": "Revelation",
 }
+
+# Every book, in true canonical order — deliberately DERIVED from BOOKS'
+# own key order (verified canonical) rather than a separately hand-typed
+# list. A real bug lived here until 2026-09-23: an earlier hand-typed
+# DEFAULT_BOOKS had "psalms" and "ruth" spliced in near the front (an
+# artifact of this project's incremental curation history — those two
+# were curated ahead of the rest of the OT in an early session, and the
+# list was never resorted once "book order now canonical going forward"
+# became the rule for everything after). That shipped data/verses.json
+# with the same two books out of place, which silently broke anything
+# that assumed corpus order was canonical (e.g. the app's own chapter-
+# to-chapter navigation, item 155) — fixed by regenerating via `--all`,
+# which already iterated BOOKS' own correct order and was unaffected.
+DEFAULT_BOOKS = list(BOOKS)
 
 TEXT_TYPES = {"paragraph text", "line text"}
 

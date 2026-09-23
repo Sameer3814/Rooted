@@ -718,6 +718,23 @@ The schema was deliberately designed so all of the above can be added
   alone for H4210/psalm). Fixed by splitting on `;` only plus a hedge-
   word strip, then regenerated `data/lexicon_full.json`. `sw.js`
   bumped to `rooted-v151`. See DATA_MODEL.md §8, item 154.
+- **Chapter-to-chapter and verse-to-verse navigation, plus a real
+  canonical-order bug this surfaced — done (2026-09-23), same day.**
+  New `adjacentChapter()`/`adjacentVerse()` helpers, same "walk
+  canonical order, roll across a boundary" idea as the character/story
+  carousels. Browse's chapter reader and Verse Detail both gained a
+  labeled prev/next row; Verse Detail's `verse-nav` action deliberately
+  preserves `interlinearOpen` across taps (unlike plain `open-verse`),
+  since stepping through verses mid-lookup was the actual ask. Real bug
+  caught while simulating this: `data/verses.json`'s book order wasn't
+  canonical (Psalms/Ruth spliced in near the front, an artifact of this
+  project's incremental curation history) — traced to `pipeline/
+  parse_books.py`'s `DEFAULT_BOOKS` list, fixed by deriving it from the
+  already-canonical `BOOKS` dict (`list(BOOKS)`) instead of a
+  separately hand-typed list, and regenerating `data/verses.json` via
+  `--all` — verified zero content changes across all 31,098 verses,
+  order only. Also silently fixes Browse's own "all books" list order.
+  `sw.js` bumped to `rooted-v152`. See DATA_MODEL.md §8, item 155.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

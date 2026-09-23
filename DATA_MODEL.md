@@ -7379,6 +7379,56 @@ inventing a new principle:
       `shortDef`s.
     `sw.js` bumped to `rooted-v151`.
 
+155. **Chapter-to-chapter and verse-to-verse navigation, plus a real
+    canonical-order bug this surfaced and fixed — done (2026-09-23),
+    same day.** The owner asked for chapter back-and-forth in Browse,
+    and the same idea at verse level for the interlinear/lexicon.
+    - **`adjacentChapter(book, chapter, dir)`/`adjacentVerse(v, dir)`**
+      — new helpers near `buildCorpusIndex()`, same "walk canonical
+      order, roll across a boundary at either end" idea the character/
+      story carousels (items 102-104, 128) already established, just at
+      chapter/verse granularity. Both need `corpus`/`corpusIndex`
+      loaded.
+    - **Browse's chapter reader** gained a nav row above the reader
+      (`.chapter-nav-row`, new `chapter-nav` action) — labeled with the
+      target book+chapter, not a bare arrow, since crossing a book
+      boundary means "next" isn't obviously "chapter N+1".
+    - **Verse Detail** gained the same row (`renderVerseNavRow()`,
+      reused `.chapter-nav-row` styling), shown regardless of the
+      English/interlinear toggle state — moving verse-by-verse while
+      doing lexicon lookups was the actual ask. A new `verse-nav`
+      action (distinct from the existing `open-verse`) deliberately
+      does *not* reset `interlinearOpen`, so stepping to the next verse
+      stays in interlinear mode if that's where you were; it also
+      preserves the original `from` screen across the whole walk rather
+      than chaining through every verse visited (same reasoning as
+      `char-carousel-nav`/`story-carousel-nav`). `open-verse` and
+      `open-verse-interlinear` both now also call `loadCorpus()`, since
+      the nav row needs `corpus` loaded regardless of which screen sent
+      the user to Verse Detail (search results, a tag chip, a curated
+      library card — none of those previously guaranteed it).
+    - **A real, separate, pre-existing bug this surfaced**: simulating
+      `adjacentChapter()` against the real data showed Genesis 50's
+      "next" landing on Psalms 1, not Exodus 1 — `data/verses.json`'s
+      own book order wasn't canonical. Traced to `pipeline/
+      parse_books.py`'s `DEFAULT_BOOKS` list, which had `"psalms"` and
+      `"ruth"` spliced in near the front — an artifact of this
+      project's real incremental curation history (those two books
+      were curated ahead of the rest of the OT in an early session,
+      before "book order now canonical going forward" became the rule
+      for everything curated after — see the "Done" changelog's own
+      Leviticus entry). `data/verses.json` had been generated with this
+      buggy default ordering rather than `--all` (which iterates the
+      `BOOKS` dict's own key order — already genuinely canonical, and
+      unaffected). Fixed at the root: `DEFAULT_BOOKS` is now `list(BOOKS)`
+      instead of a separately hand-typed list, so the two can't drift
+      apart again; regenerated `data/verses.json` via `--all` and
+      diffed every one of its 31,098 verses by id against the prior
+      file first — zero content changes, only row order. This also
+      silently fixes Browse's own "all books" list, which read the same
+      out-of-order `corpusIndex` for its display order.
+    `sw.js` bumped to `rooted-v152`.
+
 ---
 
 ## 9. How the app reads this data

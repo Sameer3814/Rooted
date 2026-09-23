@@ -944,6 +944,16 @@
     padding:12px 4px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--ink);
   }
   .chapter-cell:active{border-color:var(--gold);}
+  /* Chapter-to-chapter nav row (item 155) — sits above the chapter
+     reader, same crumbs-adjacent placement as Story Detail's own
+     prev/next arrows. Book+chapter number as the button label rather
+     than a bare chevron, since crossing a book boundary means the
+     "next" tap isn't obviously "chapter N+1" any more. */
+  .chapter-nav-row{display:flex;justify-content:space-between;gap:8px;margin-bottom:12px;}
+  .chapter-nav-btn{background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);
+    padding:8px 12px;font-family:var(--font-sans);font-weight:500;font-size:13px;color:var(--ink-soft);
+    display:flex;align-items:center;gap:4px;white-space:nowrap;}
+  .chapter-nav-btn:active{border-color:var(--gold);}
   .result-count{font-size:12px;color:var(--ink-faint);margin-bottom:10px;}
   .card-actions{display:flex;justify-content:flex-end;margin-top:10px;}
   .in-library{font-size:12px;color:var(--sage-deep);display:inline-flex;align-items:center;gap:4px;}
@@ -2933,6 +2943,40 @@ function searchCorpus(query){
   }
   return {hits, total};
 }
+/* Chapter-to-chapter and verse-to-verse navigation (item 155) — both
+   walk canonical order and roll across a book boundary at either end
+   (chapter 1's "previous" is the prior book's last chapter; a book's
+   final chapter's "next" is the next book's chapter 1), the same
+   "walk the whole Bible in sequence" idea Timeline/the story carousel
+   (item 128) already use, just at chapter/verse granularity instead of
+   story granularity. Both need `corpusIndex`/`corpus` loaded — true
+   whenever Browse's chapter reader is on screen, and Verse Detail now
+   triggers loadCorpus() itself for the same reason (see
+   renderVerseDetail()). */
+function adjacentChapter(book, chapter, dir){
+  if(!corpusIndex) return null;
+  const bi = corpusIndex.findIndex(b=>b.book===book);
+  if(bi===-1) return null;
+  const chapters = corpusIndex[bi].chapters.map(c=>c.n);
+  const ci = chapters.indexOf(chapter);
+  if(ci===-1) return null;
+  if(chapters[ci+dir] !== undefined) return {book, chapter: chapters[ci+dir]};
+  const nextBook = corpusIndex[bi+dir];
+  if(!nextBook) return null;
+  const nextChapters = nextBook.chapters.map(c=>c.n);
+  return {book: nextBook.book, chapter: dir>0 ? nextChapters[0] : nextChapters[nextChapters.length-1]};
+}
+function adjacentVerse(v, dir){
+  if(!corpus) return null;
+  const inChapter = corpus.filter(x=>x.book===v.book && x.chapter===v.chapter).sort((a,b)=>a.verse-b.verse);
+  const i = inChapter.findIndex(x=>x.id===v.id);
+  if(i===-1) return null;
+  if(inChapter[i+dir]) return inChapter[i+dir];
+  const nextCh = adjacentChapter(v.book, v.chapter, dir);
+  if(!nextCh) return null;
+  const target = corpus.filter(x=>x.book===nextCh.book && x.chapter===nextCh.chapter).sort((a,b)=>a.verse-b.verse);
+  return dir>0 ? target[0] : target[target.length-1];
+}
 /* ---------- DISCOVER (hub) ----------
    The Discover pillar (4-Pillar nav, item 109) — Scripture reading,
    the canonical index, topic collections, and character/story
@@ -3017,8 +3061,14 @@ function renderBrowseResults(){
 
   if(browse.book && browse.chapter){
     const verses = corpus.filter(v => v.book===browse.book && v.chapter===browse.chapter);
+    const prevCh = adjacentChapter(browse.book, browse.chapter, -1);
+    const nextCh = adjacentChapter(browse.book, browse.chapter, 1);
     return `
       ${renderCrumbs()}
+      <div class="chapter-nav-row">
+        ${prevCh ? `<button class="chapter-nav-btn" data-action="chapter-nav" data-book="${esc(prevCh.book)}" data-n="${prevCh.chapter}"><i class="ti ti-chevron-left"></i> ${esc(prevCh.book)} ${prevCh.chapter}</button>` : '<span></span>'}
+        ${nextCh ? `<button class="chapter-nav-btn" data-action="chapter-nav" data-book="${esc(nextCh.book)}" data-n="${nextCh.chapter}">${esc(nextCh.book)} ${nextCh.chapter} <i class="ti ti-chevron-right"></i></button>` : '<span></span>'}
+      </div>
       ${renderChapterReader(verses)}
     `;
   }
@@ -3298,6 +3348,26 @@ function renderInterlinearBody(v){
     <p class="field-hint" style="margin-top:10px;">Tap a word to see its full Strong's entry.</p>
   `;
 }
+/* Verse Detail's own prev/next row (item 155) — walks one verse at a
+   time via adjacentVerse(), rolling across chapter/book boundaries.
+   Deliberately shown regardless of the English/interlinear toggle
+   state (verse_nav preserves whichever is currently on), since reading
+   or looking up words verse-by-verse is the exact use case this was
+   requested for. Returns nothing (not even empty buttons) until
+   corpus has loaded — corpusIndex-driven navigation on curated-only
+   data.verses would silently skip most verses, which reads as broken
+   rather than just "loading". */
+function renderVerseNavRow(v){
+  if(corpusStatus !== 'ready') return '';
+  const prevV = adjacentVerse(v, -1);
+  const nextV = adjacentVerse(v, 1);
+  if(!prevV && !nextV) return '';
+  return `
+    <div class="chapter-nav-row">
+      ${prevV ? `<button class="chapter-nav-btn" data-action="verse-nav" data-id="${prevV.id}"><i class="ti ti-chevron-left"></i> ${esc(prevV.reference)}</button>` : '<span></span>'}
+      ${nextV ? `<button class="chapter-nav-btn" data-action="verse-nav" data-id="${nextV.id}">${esc(nextV.reference)} <i class="ti ti-chevron-right"></i></button>` : '<span></span>'}
+    </div>`;
+}
 function renderVerseDetail(id){
   const v = findVerse(id);
   if(!v) return renderHome();
@@ -3320,6 +3390,7 @@ function renderVerseDetail(id){
       ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(verseText(v))}</div>`}
       ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
+    ${renderVerseNavRow(v)}
     <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
     ${isInLibrary(v.id)
       ? `<button class="btn block" data-action="remove-from-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('check',16)} In your library — remove</button>`
@@ -5586,7 +5657,7 @@ function onAction(e){
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
   else if(action==='go-settings') go('settings');
-  else if(action==='open-verse'){ interlinearOpen = false; go('verseDetail', {id, from: view}); }
+  else if(action==='open-verse'){ interlinearOpen = false; go('verseDetail', {id, from: view}); loadCorpus(); }
   else if(action==='open-verse-interlinear'){
     const v = findVerse(id) || (corpus && corpus.find(x=>x.id===id));
     selectedVerseIds = new Set();
@@ -5594,6 +5665,19 @@ function onAction(e){
     interlinearOpen = true;
     go('verseDetail', {id, from: view});
     if(v){ loadInterlinear(NT_BOOKS.has(v.book) ? 'NT' : 'OT'); loadLexiconFull(); }
+    loadCorpus();
+  }
+  else if(action==='verse-nav'){
+    // Walks to the adjacent verse (adjacentVerse(), item 155) without
+    // resetting interlinearOpen — unlike plain open-verse, moving
+    // between verses is exactly the point of being mid-interlinear-
+    // lookup, so that state should carry over, not reset per tap. The
+    // original entry point (`from`) is preserved rather than chained
+    // through each verse visited, same reasoning as the character/story
+    // carousels' own nav actions.
+    go('verseDetail', {id, from: view.params.from});
+    const v = findVerse(id);
+    if(v && interlinearOpen){ loadInterlinear(NT_BOOKS.has(v.book) ? 'NT' : 'OT'); loadLexiconFull(); }
   }
   else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
   else if(action==='start-practice-verse'){ if(!isInLibrary(id)) addToLibrary(id); startPractice([id]); }
@@ -5666,6 +5750,7 @@ function onAction(e){
   }
   else if(action==='browse-book'){ browse.book = id; browse.chapter = null; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
   else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='chapter-nav'){ browse.book = el.dataset.book; browse.chapter = +el.dataset.n; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); window.scrollTo(0,0); }
   else if(action==='browse-root'){ browse.book = null; browse.chapter = null; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
   else if(action==='add-from-corpus') addFromCorpus(id);
   else if(action==='select-verse'){
