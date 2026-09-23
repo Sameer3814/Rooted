@@ -1454,6 +1454,37 @@ async function loadLexiconFull(){
   }
   render();
 }
+/* Per-verse interlinear word data (item 151, batch 2) —
+   data/interlinear_ot.json (Hebrew, ~11MB) and data/interlinear_nt.json
+   (Greek, ~3.9MB), each a verseId -> [[originalText, [strongsIds]], ...]
+   map. Split in two and fetched independently — a reader working
+   through the Gospels never needs the 11MB Hebrew file, and vice versa
+   — rather than one combined file. Loads whichever one a given verse
+   actually needs, mirroring loadCorpus()/loadLexiconFull()'s own lazy,
+   never-precached shape. */
+async function loadInterlinear(testament){
+  const already = testament === 'OT' ? interlinearOT : interlinearNT;
+  if(already || interlinearStatus === 'loading') return;
+  interlinearStatus = 'loading';
+  render();
+  try{
+    const file = testament === 'OT' ? 'interlinear_ot.json' : 'interlinear_nt.json';
+    const res = await fetch('./data/' + file);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    if(testament === 'OT') interlinearOT = json; else interlinearNT = json;
+    interlinearStatus = 'ready';
+  }catch(e){
+    console.error('interlinear load failed', e);
+    interlinearStatus = 'error';
+  }
+  render();
+}
+function interlinearTokensFor(v){
+  const isNT = NT_BOOKS.has(v.book);
+  const map = isNT ? interlinearNT : interlinearOT;
+  return map ? (map[v.id] || null) : null;
+}
 /* Real generated character portraits (item 91) — a small, hand-curated
    batch of 25 major characters so far, out of 261 total. data/
    character_portraits.json is just a flat array of character ids that
@@ -1810,6 +1841,10 @@ let lexicon = {};        // seed-only: Strong's-id -> lexicon entry, data/lexico
 let lexiconQuery = '';   // search state for the Lexicon screen, mirrors peopleQuery/storiesQuery
 let lexiconFull = null;       // lazily-loaded full ~14,200-entry Strong's dictionary, data/lexicon_full.json — null until Lexicon is opened
 let lexiconFullStatus = 'idle'; // idle | loading | ready | error — mirrors corpusStatus's own shape
+let interlinearOT = null;     // lazily-loaded verseId -> [[text, [strongsIds]], ...] for the Hebrew OT, data/interlinear_ot.json (item 151)
+let interlinearNT = null;     // same shape for the Greek NT, data/interlinear_nt.json
+let interlinearStatus = 'idle'; // idle | loading | ready | error — covers whichever of the two is being fetched
+let interlinearOpen = false;  // Verse Detail's own toggle: show the original-language interlinear instead of the WEB/Telugu text
 let view = {screen:'home', params:{}};
 let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
@@ -3204,6 +3239,37 @@ function fmtDate(iso){
   if(isNaN(d)) return null;
   return d.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
 }
+/* Verse Detail's "Hebrew"/"Greek" toggle (item 151, batch 2) — replaces
+   the English/Telugu verse text with its own original-language words,
+   each tappable through to its Strong's lexicon entry
+   (findLexiconEntry(), item 150/151). Loading/error/missing states are
+   real, named cases, not silently blank: the interlinear data is a
+   separate ~99.4%-covering corpus from data/verses.json (different
+   source, different versification tradition here and there — see
+   parse_hebrew_interlinear.py's/parse_greek_interlinear.py's own
+   comments), so a small number of verses genuinely have no tagged
+   original-language data yet. */
+function renderInterlinearBody(v){
+  if(interlinearStatus === 'error') return `<p class="field-hint" style="margin:8px 0;">Couldn't load the original-language text.</p>`;
+  if(interlinearStatus === 'loading' || !interlinearTokensFor(v)){
+    if(interlinearStatus !== 'loading' && interlinearStatus !== 'error'){
+      return `<p class="field-hint" style="margin:8px 0;">No original-language text tagged for this verse yet.</p>`;
+    }
+    return `<p class="field-hint" style="margin:8px 0;"><i class="ti ti-loader"></i> Loading the original text...</p>`;
+  }
+  const tokens = interlinearTokensFor(v);
+  const isNT = NT_BOOKS.has(v.book);
+  return `
+    <div class="text" dir="${isNT?'ltr':'rtl'}" style="font-size:var(--text-xl);line-height:2;">
+      ${tokens.map(([text, strongsIds])=>{
+        const sid = strongsIds[0];
+        if(!sid) return `<span style="opacity:.65;">${esc(text)}</span> `;
+        return `<span class="tap" data-action="open-lexicon" data-id="${esc(sid)}" style="text-decoration:underline dotted;text-decoration-color:var(--ink-faint);cursor:pointer;">${esc(text)}</span> `;
+      }).join('')}
+    </div>
+    <p class="field-hint" style="margin-top:8px;">Tap a word to see its Strong's entry.</p>
+  `;
+}
 function renderVerseDetail(id){
   const v = findVerse(id);
   if(!v) return renderHome();
@@ -3212,14 +3278,18 @@ function renderVerseDetail(id){
   const p = getProgress(v.id);
   const next = fmtDate(p.nextReview);
   const statusLabel = masteryLabel(p.status);
+  const isNT = NT_BOOKS.has(v.book);
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
       <h2>${t('title_verse')}</h2>
     </div>
     <div class="card verse-card">
-      <div class="ref">${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</div>
-      <div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(verseText(v))}</div>
+      <div class="ref" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span>${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</span>
+        <button class="btn ${interlinearOpen?'primary':''}" data-action="toggle-interlinear" data-id="${v.id}" style="flex-shrink:0;padding:6px 12px;font-size:var(--text-xs);">${icon('languages',14)} ${isNT?'Greek':'Hebrew'}</button>
+      </div>
+      ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(verseText(v))}</div>`}
       ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
     <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
@@ -5488,7 +5558,7 @@ function onAction(e){
   else if(action==='go-add-verse') go('addVerse');
   else if(action==='go-add-character') go('addCharacter');
   else if(action==='go-settings') go('settings');
-  else if(action==='open-verse') go('verseDetail', {id, from: view});
+  else if(action==='open-verse'){ interlinearOpen = false; go('verseDetail', {id, from: view}); }
   else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
   else if(action==='start-practice-verse'){ if(!isInLibrary(id)) addToLibrary(id); startPractice([id]); }
   else if(action==='add-to-library-detail'){ addToLibrary(id); render(); }
@@ -5525,6 +5595,14 @@ function onAction(e){
   else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
   else if(action==='go-lexicon'){ go('lexicon'); loadLexiconFull(); }
   else if(action==='retry-lexicon'){ lexiconFullStatus = 'idle'; loadLexiconFull(); }
+  else if(action==='toggle-interlinear'){
+    interlinearOpen = !interlinearOpen;
+    if(interlinearOpen){
+      const v = findVerse(id);
+      if(v){ loadInterlinear(NT_BOOKS.has(v.book) ? 'NT' : 'OT'); loadLexiconFull(); }
+    }
+    render();
+  }
   else if(action==='open-lexicon'){ go('lexiconDetail', {id, from: view}); loadLexiconFull(); }
   else if(action==='lexicon-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('lexicon'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));

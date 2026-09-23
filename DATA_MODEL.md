@@ -7217,6 +7217,91 @@ inventing a new principle:
     next batch(es), not started in this one.
     `sw.js` bumped to `rooted-v148`.
 
+152. **The actual per-verse interlinear — done (2026-09-23), batch 2,
+    same session as item 151.** The piece item 151 flagged as
+    remaining. Two new source pipelines plus a new Verse Detail UI mode.
+    - **`pipeline/parse_hebrew_interlinear.py`** — downloads all 39
+      OSIS XML book files from `openscriptures/morphhb`'s `wlc/`
+      directory (the Westminster Leningrad Codex, Public Domain text,
+      tagged word-by-word with lemma/Strong's number/morphology, the
+      tagging itself CC BY 4.0 — verified directly against the file's
+      own `<work>` metadata before writing this comment) and parses
+      each `<verse>` element's `<w>` children into
+      `data/interlinear_ot.json` — 23,213 verses, 99.4% id overlap with
+      `data/verses.json`'s own OT (the same small, expected
+      versification-tradition gap item 147's Telugu source had, not a
+      parsing regression). Each `<w>`'s `lemma` attribute is one or
+      more `/`-separated parts — either a bare Strong's number
+      (`"7225"`), a number with a trailing homograph-sense letter
+      (`"1254 a"`, dropped when resolving against
+      `data/lexicon_full.json` since that dictionary isn't itself
+      homograph-split), or a bare single letter marking an inseparable
+      Hebrew prefix (conjunction/preposition/definite article/relative
+      pronoun — these have no Strong's number of their own in the
+      classic system, so they're simply not resolved rather than
+      guessed at). A real parsing bug caught before shipping: several
+      entries' own glosses contain literal `{curly braces}` as a cross-
+      reference convention (e.g. H2's own definition is literally
+      `"{father}"`), which broke a first attempt at finding the
+      dictionary object's own closing brace via a plain greedy regex —
+      fixed with a proper string-aware brace counter (tracks JSON
+      string/escape context, not just raw brace characters).
+    - **`pipeline/parse_greek_interlinear.py`** — downloads STEPBible's
+      two TAGNT files (Matthew-John, Acts-Revelation; CC BY 4.0,
+      verified) and parses their tab-separated data rows (the files
+      also contain a long license/field-description preamble and
+      repeated header rows per chapter, both skipped by the same
+      reference-pattern regex that finds real data rows) into
+      `data/interlinear_nt.json` — 7,909 verses, 99.4% overlap with
+      `data/verses.json`'s own NT. Each row's own reference column
+      doubles as a textual-variant flag (e.g. `"Mat.1.3#02=NKO"`); only
+      rows whose flag actually includes the Nestlé-Aland/critical-text
+      edition (starts with `N`/`n`, not `K`/`O` or a parenthesized
+      `(N)` meaning absent) are kept — verified against the source
+      file's own documented taxonomy table, not guessed, since that's
+      the tradition WEB (this app's English translation) and virtually
+      every modern translation follows; a KJV-only reading with no WEB
+      counterpart would have nothing real to align against anyway.
+      Strong's numbers here needed two normalizations before matching
+      `data/lexicon_full.json`: leading zeros stripped (`"G0011"` →
+      `"G11"`) and a trailing disambiguation letter dropped (`"G2384H"`
+      → `"G2384"`).
+    - **Both outputs use a compact `[text, [strongsIds]]` tuple per
+      word**, not a `{text:..., strongs:...}` object — the Hebrew OT
+      alone is ~305,000 word tokens, and the repeated key names cost
+      ~8MB in a first pass (22MB → 11MB once switched to tuples) for
+      no benefit a program reading this ever needs. The per-word
+      `morph` (grammar) code from both sources is dropped entirely for
+      the same reason — nothing in this batch's UI shows grammatical
+      parsing, only original text plus a tap-through to the lexicon;
+      re-derivable later from the same cached source files if a real
+      morphology feature is ever built. Verified end-to-end: every one
+      of the OT's 298,756 word→Strong's references resolves against
+      `data/lexicon_full.json` (100%); the NT's 137,324 references
+      resolve at 99.73% (368 unresolved — modern extended dStrong codes
+      the classic ~14,200-entry Strong's dictionary doesn't carry, a
+      real, small, documented gap rather than a bug).
+    - **Verse Detail's new Hebrew/Greek toggle** — a small button next
+      to the verse reference (`toggle-interlinear` action,
+      `interlinearOpen` state, reset to closed on `open-verse` so it
+      doesn't leak between verses) swaps the WEB/Telugu text for
+      `renderInterlinearBody()`: the verse's own original-language
+      words (`dir="rtl"` for Hebrew, `dir="ltr"` for Greek), each with
+      a dotted underline and tappable through to `open-lexicon` (the
+      merged curated-plus-full lexicon from item 151) when a Strong's
+      id resolved for it, plain text when it didn't (a grammatical
+      prefix, or one of the small number of untagged words). Real
+      loading/error/"not tagged yet" states, not silent blanks.
+      `loadInterlinear(testament)` fetches whichever of the two large
+      files (`interlinear_ot.json`/`interlinear_nt.json`) a given verse
+      actually needs — a reader in the Gospels never downloads the 11MB
+      Hebrew file, and vice versa.
+    - **With this, the "deep theological suite" gap named in Known Gaps
+      item 12 is closed** — both the lexicon dictionary (item 151) and
+      the per-verse interlinear (this item) now exist and are wired
+      together.
+    `sw.js` bumped to `rooted-v149`.
+
 ---
 
 ## 9. How the app reads this data
