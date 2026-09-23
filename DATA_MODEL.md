@@ -7337,6 +7337,48 @@ inventing a new principle:
       reader-shown verse.
     `sw.js` bumped to `rooted-v150`.
 
+154. **Per-word English glosses in the interlinear, plus a real
+    shortDef quality fix in the full dictionary — done (2026-09-23),
+    same day.** The owner asked to show the English meaning alongside
+    each Hebrew/Greek word so it's clear which original word lines up
+    with which sense — reasonable, since a bare original-language word
+    with no gloss tells a non-Hebrew/Greek reader nothing on its own.
+    - **`renderInterlinearBody()` rewritten** from a single flowing line
+      of original text into a `display:flex;flex-wrap:wrap` row of
+      stacked word pairs — the original word (still tappable through to
+      its lexicon entry) on top, a small gray English gloss directly
+      underneath, wrapping together as one unit so the pairing survives
+      line wraps. Neither source (`morphhb`/TAGNT, item 152) carries a
+      genuine per-word English translation of its own, so the gloss is
+      the word's own resolved Strong's entry `shortDef` — the exact
+      same merged curated-plus-full lookup (`lexiconEntry()`) the tap-
+      through already used, already loaded by the time the interlinear
+      renders, so this needed no new data or fetch. A word with no
+      resolved Strong's id (a bare grammatical prefix) just gets no
+      gloss line rather than a placeholder.
+    - **A real, separate quality bug this surfaced in item 151's
+      `first_clause()`** (the function deriving the full dictionary's
+      `shortDef` from `strongs_def`): it split on any `.` as a clause
+      boundary, which cut straight through internal abbreviations —
+      H3808/"not" (לֹא, the word appearing in Psalm 23:1's own "I shall
+      not want") came out as the mid-word fragment "not (the simple or
+      abs" because it split inside "abs." Also never skipped a leading
+      hedge word ("properly," "primarily,"), so H4210/"psalm" (Psalm
+      23:1's very first word) came out as just "properly" — a hedge
+      word, not a gloss with any real content. Fixed by splitting on
+      `;` only (Strong's own definitions are semicolon-separated sense
+      lists, not `.`-delimited ones) and stripping a small set of
+      leading hedge words before taking the first clause
+      (`HEDGE_RE`) — H3808 now reads "not (the simple or abs.
+      negation)" in full, H4210 now reads "instrumental music". Re-ran
+      `parse_strongs_dictionary.py` to regenerate `data/
+      lexicon_full.json` with the fix; spot-checked the full 14,197-
+      entry set afterward for any other pathologically short results
+      (59 entries under 4 characters, all legitimately short real words
+      like "ten"/"us"/"new" — not truncation artifacts) and zero empty
+      `shortDef`s.
+    `sw.js` bumped to `rooted-v151`.
+
 ---
 
 ## 9. How the app reads this data

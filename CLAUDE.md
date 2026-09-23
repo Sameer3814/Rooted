@@ -706,6 +706,18 @@ The schema was deliberately designed so all of the above can be added
   so it would have silently failed for most verses anyway — now falls
   back to `corpus`. `sw.js` bumped to `rooted-v150`. See DATA_MODEL.md
   §8, item 153.
+- **Per-word English glosses in the interlinear — done (2026-09-23),
+  same day.** The owner asked to see which English word lines up with
+  which Hebrew/Greek one. `renderInterlinearBody()` now stacks each
+  original word over a small gray gloss (its resolved Strong's entry's
+  `shortDef` — neither source carries a real per-word translation of
+  its own), wrapping together so pairs survive line wraps. Also fixed a
+  real quality bug this surfaced in item 151's `shortDef` generation:
+  it split on any `.`, breaking mid-abbreviation ("not (the simple or
+  abs" for H3808), and never skipped leading hedge words ("properly"
+  alone for H4210/psalm). Fixed by splitting on `;` only plus a hedge-
+  word strip, then regenerated `data/lexicon_full.json`. `sw.js`
+  bumped to `rooted-v151`. See DATA_MODEL.md §8, item 154.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

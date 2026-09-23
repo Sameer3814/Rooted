@@ -90,14 +90,31 @@ def strip_html(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
+# Strong's own definitions are semicolon-separated sense lists
+# ("not (the simple or abs. negation); by implication, no; ..."), so
+# splitting on ";" (not "," or ".") is what actually finds a clause
+# boundary — a first pass that split on any "." broke on internal
+# abbreviation periods like "abs." and "i.e.", truncating mid-word
+# ("not (the simple or abs"). Many entries also open with a bare hedge
+# word before the real content ("properly, instrumental music" for
+# H4210/mizmor, a psalm) — worth stripping so the gloss leads with
+# something substantive ("instrumental music") rather than "properly".
+HEDGE_RE = re.compile(r"^(?:properly|primarily|literally|figuratively|prop|lit)\.?\s*,\s*", re.IGNORECASE)
+
+
 def first_clause(s, limit=60):
     if not s:
         return ""
     s = strip_html(s)
-    cut = re.split(r"[;,.]", s, maxsplit=1)[0].strip()
-    if len(cut) > limit:
-        cut = cut[:limit].rsplit(" ", 1)[0] + "…"
-    return cut or s[:limit]
+    clauses = [c.strip() for c in re.split(r";", s) if c.strip()] or [s]
+    clause = HEDGE_RE.sub("", clauses[0]).strip()
+    if not clause and len(clauses) > 1:
+        clause = HEDGE_RE.sub("", clauses[1]).strip()
+    if not clause:
+        clause = s
+    if len(clause) > limit:
+        clause = clause[:limit].rsplit(" ", 1)[0].rstrip(",;: ") + "…"
+    return clause.rstrip(",;: ") or s[:limit]
 
 
 def parse_language(raw_text, var_name, language):

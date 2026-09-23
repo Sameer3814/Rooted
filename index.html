@@ -3270,14 +3270,32 @@ function renderInterlinearBody(v){
   const tokens = interlinearTokensFor(v);
   const isNT = NT_BOOKS.has(v.book);
   return `
-    <div class="text" dir="${isNT?'ltr':'rtl'}" style="font-size:var(--text-xl);line-height:2;">
+    <div dir="${isNT?'ltr':'rtl'}" style="display:flex;flex-wrap:wrap;gap:2px 4px;margin-top:4px;">
       ${tokens.map(([text, strongsIds])=>{
         const sid = strongsIds[0];
-        if(!sid) return `<span style="opacity:.65;">${esc(text)}</span> `;
-        return `<span class="tap" data-action="open-lexicon" data-id="${esc(sid)}" style="text-decoration:underline dotted;text-decoration-color:var(--ink-faint);cursor:pointer;">${esc(text)}</span> `;
+        // The source text/data (item 151) carries no per-word English
+        // gloss of its own — the word's own resolved Strong's entry
+        // (lexiconEntry(), the merged curated+full dictionary already
+        // loaded alongside this) doubles as one, shown stacked directly
+        // under the original word so it's clear which English sense
+        // lines up with which Hebrew/Greek word, the standard
+        // interlinear layout. A word with no resolved Strong's id (a
+        // bare grammatical prefix — conjunction/article/etc., see
+        // parse_hebrew_interlinear.py's own comment) just gets no gloss
+        // line rather than a blank placeholder.
+        const entry = sid ? lexiconEntry(sid) : null;
+        const gloss = entry && entry.shortDef;
+        const wordSpan = sid
+          ? `<span class="tap" data-action="open-lexicon" data-id="${esc(sid)}" style="text-decoration:underline dotted;text-decoration-color:var(--ink-faint);cursor:pointer;">${esc(text)}</span>`
+          : `<span style="opacity:.65;">${esc(text)}</span>`;
+        return `
+          <span style="display:inline-flex;flex-direction:column;align-items:center;min-width:0;">
+            <span style="font-size:var(--text-lg);line-height:1.5;white-space:nowrap;">${wordSpan}</span>
+            <span style="font-size:10px;color:var(--ink-faint);white-space:nowrap;">${gloss ? esc(gloss) : ' '}</span>
+          </span>`;
       }).join('')}
     </div>
-    <p class="field-hint" style="margin-top:8px;">Tap a word to see its Strong's entry.</p>
+    <p class="field-hint" style="margin-top:10px;">Tap a word to see its full Strong's entry.</p>
   `;
 }
 function renderVerseDetail(id){
