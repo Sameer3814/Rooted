@@ -7429,6 +7429,26 @@ inventing a new principle:
       out-of-order `corpusIndex` for its display order.
     `sw.js` bumped to `rooted-v152`.
 
+156. **Chapter nav moved from a top row to floating buttons — done
+    (2026-09-23), same day.** The owner sent a screenshot of Psalm
+    119 (176 verses) with the mid-page text circled: the top-of-page
+    nav row from item 155 scrolled out of reach on any chapter longer
+    than one screen, making it useless for exactly the long chapters
+    where jumping to the next one matters most. Replaced (for the
+    chapter reader only — Verse Detail's own row stays as a top row,
+    a short, mostly-static page that never has this problem) with two
+    small circular buttons (`.chapter-float-btn`), `position:fixed` to
+    the viewport rather than the page, pinned to the screen's own
+    left/right edges just above the bottom nav bar — reachable at any
+    scroll position. Deliberately placed at the edges rather than
+    centered like `.reader-toolbar`, so the two coexist without
+    overlapping even when both are showing at once (a verse selected
+    near a chapter boundary). Rendered by `renderChapterReader()`
+    itself now (computing `adjacentChapter()` from the verses it was
+    already given) rather than by its caller, so the nav travels with
+    the reader wherever it's used.
+    `sw.js` bumped to `rooted-v153`.
+
 ---
 
 ## 9. How the app reads this data

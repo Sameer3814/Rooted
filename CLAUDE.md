@@ -735,6 +735,15 @@ The schema was deliberately designed so all of the above can be added
   `--all` — verified zero content changes across all 31,098 verses,
   order only. Also silently fixes Browse's own "all books" list order.
   `sw.js` bumped to `rooted-v152`. See DATA_MODEL.md §8, item 155.
+- **Chapter nav moved from a top row to floating buttons — done
+  (2026-09-23), same day.** The owner circled Psalm 119's mid-page text
+  in a screenshot: item 155's top-of-page nav row scrolled out of reach
+  on any chapter longer than one screen. Replaced (chapter reader only
+  — Verse Detail's own row stays put, a short page with no such
+  problem) with two small `position:fixed` circular buttons pinned to
+  the screen's own left/right edges, always reachable regardless of
+  scroll. `sw.js` bumped to `rooted-v153`. See DATA_MODEL.md §8, item
+  156.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

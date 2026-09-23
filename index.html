@@ -944,16 +944,34 @@
     padding:12px 4px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--ink);
   }
   .chapter-cell:active{border-color:var(--gold);}
-  /* Chapter-to-chapter nav row (item 155) — sits above the chapter
-     reader, same crumbs-adjacent placement as Story Detail's own
-     prev/next arrows. Book+chapter number as the button label rather
-     than a bare chevron, since crossing a book boundary means the
-     "next" tap isn't obviously "chapter N+1" any more. */
+  /* Verse Detail's own prev/next row (item 155) — a short, mostly-
+     static page, so a top-of-card row reads fine there; unlike the
+     chapter reader below, nothing pushes it out of reach on scroll. */
   .chapter-nav-row{display:flex;justify-content:space-between;gap:8px;margin-bottom:12px;}
   .chapter-nav-btn{background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);
     padding:8px 12px;font-family:var(--font-sans);font-weight:500;font-size:13px;color:var(--ink-soft);
     display:flex;align-items:center;gap:4px;white-space:nowrap;}
   .chapter-nav-btn:active{border-color:var(--gold);}
+  /* Chapter reader's own prev/next (item 155, revised the same day) —
+     a top-of-page row got scrolled out of reach on any chapter longer
+     than one screen (Psalm 119's 176 verses, flagged directly). Two
+     small floating circular buttons, fixed to the viewport instead of
+     the page, so they stay reachable at any scroll position — same
+     "always-visible fixed control" idea as .reader-toolbar just below,
+     but pinned to the screen's own left/right edges rather than
+     centered, so the two never overlap even when both are showing at
+     once (a verse selected *and* a chapter boundary nearby). */
+  .chapter-float-btn{
+    position:fixed;bottom:calc(104px + env(safe-area-inset-bottom));z-index:999;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(26,26,26,.85);border:1px solid rgba(255,255,255,.12);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    display:flex;align-items:center;justify-content:center;color:#F2F2F2;font-size:18px;
+    box-shadow:var(--shadow-nav);
+  }
+  .chapter-float-btn:active{background:rgba(26,26,26,.95);}
+  .chapter-float-prev{left:16px;}
+  .chapter-float-next{right:16px;}
   .result-count{font-size:12px;color:var(--ink-faint);margin-bottom:10px;}
   .card-actions{display:flex;justify-content:flex-end;margin-top:10px;}
   .in-library{font-size:12px;color:var(--sage-deep);display:inline-flex;align-items:center;gap:4px;}
@@ -3061,14 +3079,8 @@ function renderBrowseResults(){
 
   if(browse.book && browse.chapter){
     const verses = corpus.filter(v => v.book===browse.book && v.chapter===browse.chapter);
-    const prevCh = adjacentChapter(browse.book, browse.chapter, -1);
-    const nextCh = adjacentChapter(browse.book, browse.chapter, 1);
     return `
       ${renderCrumbs()}
-      <div class="chapter-nav-row">
-        ${prevCh ? `<button class="chapter-nav-btn" data-action="chapter-nav" data-book="${esc(prevCh.book)}" data-n="${prevCh.chapter}"><i class="ti ti-chevron-left"></i> ${esc(prevCh.book)} ${prevCh.chapter}</button>` : '<span></span>'}
-        ${nextCh ? `<button class="chapter-nav-btn" data-action="chapter-nav" data-book="${esc(nextCh.book)}" data-n="${nextCh.chapter}">${esc(nextCh.book)} ${nextCh.chapter} <i class="ti ti-chevron-right"></i></button>` : '<span></span>'}
-      </div>
       ${renderChapterReader(verses)}
     `;
   }
@@ -3148,6 +3160,10 @@ function addFromCorpus(id){
    request — and opens renderReaderToolbar() acting on the whole
    selection at once. */
 function renderChapterReader(verses){
+  const book = verses[0] && verses[0].book;
+  const chapter = verses[0] && verses[0].chapter;
+  const prevCh = book ? adjacentChapter(book, chapter, -1) : null;
+  const nextCh = book ? adjacentChapter(book, chapter, 1) : null;
   return `
     <div class="chapter-reader">
       ${verses.map(v=>{
@@ -3160,6 +3176,8 @@ function renderChapterReader(verses){
     </div>
     ${selectedVerseIds.size ? renderReaderToolbar() : ''}
     ${readerToast ? `<div class="reader-toast">${esc(readerToast)}</div>` : ''}
+    ${prevCh ? `<button class="chapter-float-btn chapter-float-prev" data-action="chapter-nav" data-book="${esc(prevCh.book)}" data-n="${prevCh.chapter}" aria-label="Previous chapter: ${esc(prevCh.book)} ${prevCh.chapter}"><i class="ti ti-chevron-left"></i></button>` : ''}
+    ${nextCh ? `<button class="chapter-float-btn chapter-float-next" data-action="chapter-nav" data-book="${esc(nextCh.book)}" data-n="${nextCh.chapter}" aria-label="Next chapter: ${esc(nextCh.book)} ${nextCh.chapter}"><i class="ti ti-chevron-right"></i></button>` : ''}
   `;
 }
 /* Two states, not one screen: the normal action row (Copy/Highlight/
