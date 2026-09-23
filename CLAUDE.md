@@ -657,6 +657,23 @@ The schema was deliberately designed so all of the above can be added
   verse text — no tap-a-word interlinear overlay exists yet, since
   that's exactly the larger effort scoped out. `sw.js` bumped to
   `rooted-v147`. See DATA_MODEL.md §8, item 150.
+- **Lexicon expanded to the full ~14,200-entry Strong's dictionary —
+  done (2026-09-23), batch 1 of finishing the interlinear feature.**
+  `pipeline/parse_strongs_dictionary.py` parses the OpenScriptures
+  re-encoding of Strong's public-domain Hebrew/Greek dictionaries
+  (`github.com/openscriptures/strongs`, verified CC BY-SA on the JSON
+  itself, same attribution + share-alike shape as the Telugu Bible
+  source) into `data/lexicon_full.json` — 14,197 entries, lazily loaded
+  the first time Lexicon opens (mirrors `loadCorpus()`'s exact shape,
+  not precached). Item 150's 39 curated entries stay as a richer
+  overlay on top (`lexiconEntry()`), not replaced. **Still not done**:
+  the actual per-verse interlinear (tap a word in a verse, see its
+  original-language Strong's entry) — needs a second source pipeline
+  (`openscriptures/morphhb` for Hebrew OT, `STEPBible/STEPBible-Data`'s
+  TAGNT for Greek NT, both verified real/CC BY 4.0 but not yet
+  downloaded) plus a new verse-detail UI mode. Planned as the next
+  batch. `sw.js` bumped to `rooted-v148`. See DATA_MODEL.md §8, item
+  151.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1876,25 +1893,32 @@ hand-curate all the content before building.
     Architecture committed 2026-09-16 (item 109); Timeline and Family
     Tree shipped the same day (item 110, in a proper `renderStudy()`
     hub alongside Patterns — see the "Done" bullet above). A Lexicon
-    card joined the hub 2026-09-22 (item 150 — see the "Done" bullet
-    above), covering the dictionary half of this item. One real feature
-    is still needed to fully match the "deep theological suite" framing
-    the owner specified:
+    card joined the hub 2026-09-22 (item 150), expanded to the full
+    ~14,200-entry Strong's dictionary 2026-09-23 (item 151 — see both
+    "Done" bullets above), covering the dictionary half of this item.
+    One real feature is still needed to fully match the "deep
+    theological suite" framing the owner specified:
     - **A true per-verse interlinear** — tapping a word in a verse to
       see its Hebrew/Greek original and Strong's entry inline. The
-      lexicon *dictionary* itself now exists (`data/lexicon_seed.json`,
-      item 150, 39 entries, browsable/searchable on Study) and
+      lexicon *dictionary* itself is now the real, full ~14,200-entry
+      Strong's Hebrew/Greek dictionary (`data/lexicon_full.json`, item
+      151, lazily loaded, browsable/searchable on Study) with 39 richer
+      curated highlights overlaid on top (item 150), and
       `data/word_of_the_day.json` (item 90) still covers 13 curated
-      words editorially on Home — but neither is tied to individual
-      words inside verse text. A real interlinear needs a second full-
-      Bible source-text pipeline (an openly-licensed Strong's-tagged
-      Hebrew OT and Greek NT — Strong's numbers tag the *original*
-      words, not WEB's English translation, so there's no shortcut
-      through the existing corpus) plus full lexicon coverage
-      (thousands of entries, not dozens), parsed and tagged per verse
-      across the whole Bible. A genuinely large new pipeline project,
-      not a small schema addition — scoped out of item 150 for exactly
-      this reason, confirmed with the owner before building.
+      words editorially on Home — but none of these are tied to individual
+      words inside verse text. Full lexicon coverage is no longer the
+      blocker (item 151 closed that gap) — what's left is a second
+      full-Bible source-text pipeline: an openly-licensed Strong's-
+      tagged Hebrew OT (`openscriptures/morphhb`, CC BY 4.0) and Greek
+      NT (`STEPBible/STEPBible-Data`'s TAGNT, CC BY 4.0) — both
+      verified real and correctly licensed, neither downloaded/parsed
+      yet — parsed per word per verse across the whole Bible and
+      cross-referenced against `data/lexicon_full.json`, plus a new
+      verse-detail UI mode to actually show the original-language text
+      inline. Strong's numbers tag the *original* words, not WEB's
+      English translation, so there's no shortcut through the existing
+      English corpus. Planned as the next batch(es) of item 151, not
+      started yet.
     - **Commentaries** — theological/historical commentary text tied to
       verses, stories, or characters. No entity for this exists in
       DATA_MODEL.md at all yet; needs its own schema design (most

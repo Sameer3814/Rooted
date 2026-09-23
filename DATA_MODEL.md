@@ -7162,6 +7162,61 @@ inventing a new principle:
       one linked verse each, just generalized.
     `sw.js` bumped to `rooted-v147`.
 
+151. **Lexicon expanded to the full ~14,200-entry Strong's dictionary —
+    done (2026-09-23), batch 1 of finishing the interlinear feature.**
+    The owner asked to keep going on item 150 in batches. This batch:
+    the *dictionary* half, not the per-verse tagging half (that's the
+    harder remaining piece — see the follow-up note below).
+    - **`pipeline/parse_strongs_dictionary.py`** — downloads and parses
+      the OpenScriptures re-encoding of James Strong's public-domain
+      1890/1894 Hebrew and Greek dictionaries
+      (`github.com/openscriptures/strongs`, verified via direct fetch:
+      the JSON itself is CC BY-SA — a real, different situation from
+      the underlying public-domain text, the same attribution +
+      share-alike shape item 147's Telugu source already established)
+      into `data/lexicon_full.json` — 14,197 entries (8,674 Hebrew,
+      5,523 Greek). Each source file is a `.js` file assigning a bare
+      object literal to a variable rather than standalone JSON; parsed
+      via string-aware brace-counting (not a naive regex — several
+      entries, like H2's own gloss "{father}", contain literal braces
+      inside their string values, which broke a first regex-only
+      attempt). `shortDef` is derived from `strongs_def`'s own first
+      clause, not `kjv_def`'s — `kjv_def` just lists every King James
+      rendering (often alphabetized, e.g. H430/Elohim's first listed
+      rendering is "angels"), not a meaningful one-line summary.
+    - **Seed-plus-overlay, not a replacement** — `data/lexicon_seed.json`
+      (item 150's 39 hand-curated entries, with richer fields the raw
+      dictionary doesn't carry: `occurrences`, `type`, a real linked
+      `exampleVerseId`) stays as-is, still loaded at boot. New
+      `lexiconEntry(id)` merges the full dictionary's entry (if any)
+      with the curated one (if any) by Strong's id, curated fields
+      winning — same seed-over-corpus shape as `data.verses` vs
+      `corpus` elsewhere in this file.
+    - **Lazy-loaded, not precached** — `loadLexiconFull()` mirrors
+      `loadCorpus()`'s exact shape (`lexiconFullStatus`:
+      idle/loading/ready/error, fired on `go-lexicon`/`open-lexicon`,
+      not at boot) since the full file is 3.7MB, the same "don't force
+      every visitor to download the whole thing" reasoning
+      `data/verses.json` already established. `sw.js`'s `ASSETS` list
+      is untouched — the runtime cache still picks it up after first
+      load, same as the corpus.
+    - **Browsing vs. searching** — with no query, the Lexicon screen
+      still shows only the 39 curated highlights grouped by language
+      (browsing all 14,197 entries ungrouped isn't useful); typing a
+      search now matches against the full merged set once it's loaded,
+      capped at `SEARCH_LIMIT` (60, the same cap Browse's own verse
+      search uses) rather than rendering thousands of rows.
+    **Still not done — the actual per-verse interlinear** (tapping a
+    word inside a verse to see its Hebrew/Greek original and Strong's
+    entry inline). That's the harder remaining piece named in item 150
+    and Known Gaps item 12: a second source pipeline
+    (`openscriptures/morphhb` for the Hebrew OT, `STEPBible/
+    STEPBible-Data`'s TAGNT for the Greek NT — both verified real and
+    correctly licensed, CC BY 4.0, but neither downloaded/parsed yet)
+    plus a new verse-detail UI mode to actually show it. Planned as the
+    next batch(es), not started in this one.
+    `sw.js` bumped to `rooted-v148`.
+
 ---
 
 ## 9. How the app reads this data

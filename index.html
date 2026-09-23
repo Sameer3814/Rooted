@@ -1431,6 +1431,29 @@ async function loadLexiconData(){
   }catch(e){ /* the Lexicon screen just won't render */ }
   return {};
 }
+/* The full ~14,200-entry Strong's Hebrew/Greek dictionary
+   (data/lexicon_full.json, pipeline/parse_strongs_dictionary.py) —
+   lazily fetched the first time the Lexicon screen opens, same
+   loadCorpus()/corpusStatus shape as the full English verse corpus
+   (never precached by sw.js, for the same reason). lexicon_seed.json's
+   39 curated entries stay loaded at boot and are overlaid on top of
+   this at lookup time (lexiconEntry()) — richer, hand-picked fields
+   win where both exist. */
+async function loadLexiconFull(){
+  if(lexiconFullStatus === 'loading' || lexiconFullStatus === 'ready') return;
+  lexiconFullStatus = 'loading';
+  render();
+  try{
+    const res = await fetch('./data/lexicon_full.json');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    lexiconFull = await res.json();
+    lexiconFullStatus = 'ready';
+  }catch(e){
+    console.error('lexicon load failed', e);
+    lexiconFullStatus = 'error';
+  }
+  render();
+}
 /* Real generated character portraits (item 91) — a small, hand-curated
    batch of 25 major characters so far, out of 261 total. data/
    character_portraits.json is just a flat array of character ids that
@@ -1783,8 +1806,10 @@ let factDrawerOpen = null; // fact id whose detail sheet is open, or null — se
 let characterPortraits = new Set(); // seed-only: character ids with a real portrait (item 91)
 let storyIllustrations = new Set(); // seed-only: story ids with a real generated illustration (item 125)
 let teVerseById = new Map();   // verseId -> Telugu verse object, lazily loaded (item 147) — empty until Telugu is actually selected
-let lexicon = {};        // seed-only: Strong's-id -> lexicon entry, data/lexicon_seed.json (item 150)
+let lexicon = {};        // seed-only: Strong's-id -> lexicon entry, data/lexicon_seed.json (item 150) — 39 curated highlights, loaded at boot
 let lexiconQuery = '';   // search state for the Lexicon screen, mirrors peopleQuery/storiesQuery
+let lexiconFull = null;       // lazily-loaded full ~14,200-entry Strong's dictionary, data/lexicon_full.json — null until Lexicon is opened
+let lexiconFullStatus = 'idle'; // idle | loading | ready | error — mirrors corpusStatus's own shape
 let view = {screen:'home', params:{}};
 let scrollPositions = {};   // screen(+id) -> last scrollY, so going back restores the list's scroll instead of jumping to top
 let session = null; // active practice session
@@ -4003,29 +4028,44 @@ function renderStudy(){
       <div class="char-row"><div class="avatar"><i class="ti ti-affiliate"></i></div><div><h3>Family Tree</h3><p class="field-hint">Explore how a person connects to their family.</p></div></div>
     </div>
     <div class="card tap" data-action="go-lexicon">
-      <div class="char-row"><div class="avatar"><i class="ti ti-language"></i></div><div><h3>${t('title_lexicon')}</h3><p class="field-hint">${Object.keys(lexicon).length} Hebrew and Greek words, straight from Strong's Concordance.</p></div></div>
+      <div class="char-row"><div class="avatar"><i class="ti ti-language"></i></div><div><h3>${t('title_lexicon')}</h3><p class="field-hint">14,000+ Hebrew and Greek words, straight from Strong's Concordance.</p></div></div>
     </div>
   `;
 }
 
 /* ---------- LEXICON (item 150) ----------
    A standalone, searchable Strong's-id-keyed dictionary
-   (data/lexicon_seed.json) — search by lemma/transliteration/gloss,
-   filter by language. Deliberately NOT wired to per-word verse text —
-   see loadLexiconData()'s comment for why that's a separate, much
-   larger project. Same debounced-search shape as People/Topics/Stories
-   (renderXResults()/refreshXResults() pair, own #lexicon-results
-   subtree, own lexiconQuery state). */
-function lexiconEntries(){
-  return Object.values(lexicon).sort((a,b)=>a.translit.localeCompare(b.translit));
+   (data/lexicon_seed.json, 39 curated highlights, plus
+   data/lexicon_full.json, ~14,200 entries lazily loaded on open, item
+   150) — search by lemma/transliteration/gloss/Strong's-id, browse the
+   curated highlights when there's no query. Deliberately NOT wired to
+   per-word verse text — see loadLexiconFull()'s comment for why a real
+   interlinear is a separate, much larger project. Same debounced-search
+   shape as People/Topics/Stories (renderXResults()/refreshXResults()
+   pair, own #lexicon-results subtree, own lexiconQuery state). */
+/* Merges the 39 curated highlights (lexicon, richer fields: occurrences,
+   type, exampleVerseId) over the full ~14,200-entry dictionary
+   (lexiconFull, lazy) by Strong's id — same seed-plus-overlay shape as
+   data/starter-pack.json vs data/verses.json elsewhere in this app.
+   Before lexiconFull has loaded, this still returns the 39 curated
+   entries (a real, if partial, result) rather than nothing. */
+function lexiconEntry(id){
+  const base = lexiconFull && lexiconFull[id];
+  const curated = lexicon[id];
+  if(!base && !curated) return null;
+  return Object.assign({}, base || {}, curated || {});
 }
-function findLexiconEntry(id){ return lexicon[id] || null; }
+function lexiconEntries(){
+  const ids = new Set(Object.keys(lexicon));
+  if(lexiconFull) Object.keys(lexiconFull).forEach(id=>ids.add(id));
+  return [...ids].map(lexiconEntry).sort((a,b)=>a.translit.localeCompare(b.translit));
+}
+function findLexiconEntry(id){ return lexiconEntry(id); }
 function renderLexicon(){
-  const entries = lexiconEntries();
-  if(!entries.length) return `<div class="topbar"><h1>${t('title_lexicon')}</h1></div><div class="empty"><i class="ti ti-language"></i><p>No lexicon data loaded.</p></div>`;
+  const total = lexiconFull ? Object.keys(lexiconFull).length : Object.keys(lexicon).length;
   return `
     <div class="topbar"><h1>${t('title_lexicon')}</h1></div>
-    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up.</p>
+    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">${lexiconFull ? `${total.toLocaleString()} Hebrew and Greek words, straight from Strong's Concordance.` : "A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up."}</p>
     <div class="search-wrap">
       <i class="ti ti-search"></i>
       <input type="text" id="lexicon-search" value="${esc(lexiconQuery)}" placeholder="Search by word, transliteration, or meaning..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -4035,19 +4075,35 @@ function renderLexicon(){
 }
 function renderLexiconResults(){
   const q = lexiconQuery.trim().toLowerCase();
-  let entries = lexiconEntries();
   if(q){
-    entries = entries.filter(w=>
-      w.translit.toLowerCase().includes(q) || w.lemma.includes(lexiconQuery.trim()) ||
-      w.shortDef.toLowerCase().includes(q) || w.definition.toLowerCase().includes(q) ||
-      w.id.toLowerCase() === q
-    );
-    if(!entries.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No words match "${esc(lexiconQuery)}".</p></div>`;
-    return `<div class="result-count">${entries.length} match${entries.length===1?'':'es'}</div>${entries.map(renderLexiconRow).join('')}`;
+    if(lexiconFullStatus === 'loading' && !lexiconQuery.trim().match(/^[hg]\d+$/i)){
+      return `<div class="empty"><i class="ti ti-loader"></i><p>Still loading the full dictionary — searching what's here so far.</p></div>` + renderLexiconSearchHits(q);
+    }
+    return renderLexiconSearchHits(q);
   }
+  if(lexiconFullStatus === 'error' && !lexiconFull) return `<div class="empty"><i class="ti ti-alert-triangle"></i><p>Couldn't load the full dictionary — showing curated highlights only.</p><button class="btn cta" data-action="retry-lexicon">Try again</button></div>` + renderLexiconGrouped();
+  if(lexiconFullStatus !== 'ready') return `<div class="empty"><i class="ti ti-loader"></i><p>Loading the full dictionary...</p></div>` + renderLexiconGrouped();
+  return renderLexiconGrouped();
+}
+function renderLexiconSearchHits(q){
+  const entries = lexiconEntries().filter(w=>
+    w.translit.toLowerCase().includes(q) || w.lemma.includes(lexiconQuery.trim()) ||
+    (w.shortDef||'').toLowerCase().includes(q) || (w.definition||'').toLowerCase().includes(q) ||
+    w.id.toLowerCase() === q
+  );
+  if(!entries.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No words match "${esc(lexiconQuery)}".</p></div>`;
+  return `<div class="result-count">${entries.length} match${entries.length===1?'':'es'}</div>${entries.slice(0, SEARCH_LIMIT).map(renderLexiconRow).join('')}`;
+}
+function renderLexiconGrouped(){
+  // No query yet, or the full dictionary isn't loaded: just show the 39
+  // curated highlights grouped by language, same as before item 150's
+  // full-dictionary expansion — browsing all 14,200 entries ungrouped
+  // isn't useful, search is how the full set gets found.
+  const entries = Object.keys(lexicon).map(lexiconEntry).sort((a,b)=>a.translit.localeCompare(b.translit));
   const hebrew = entries.filter(w=>w.language==='Hebrew');
   const greek = entries.filter(w=>w.language==='Greek');
   return `
+    <div class="section-label">Highlights</div>
     ${hebrew.length ? `<div class="section-label">Hebrew <span style="color:var(--ink-faint);">${hebrew.length}</span></div>${hebrew.map(renderLexiconRow).join('')}` : ''}
     ${greek.length ? `<div class="section-label">Greek <span style="color:var(--ink-faint);">${greek.length}</span></div>${greek.map(renderLexiconRow).join('')}` : ''}
   `;
@@ -4059,7 +4115,7 @@ function renderLexiconRow(w){
         <div class="avatar"><i class="ti ti-language"></i></div>
         <div>
           <h3>${esc(w.translit)} <span class="field-hint">${esc(w.lemma)}</span></h3>
-          <p class="field-hint">${esc(w.shortDef)} · ${esc(w.id)}</p>
+          <p class="field-hint">${w.shortDef ? esc(w.shortDef) + ' · ' : ''}${esc(w.id)}</p>
         </div>
       </div>
     </div>`;
@@ -4068,18 +4124,24 @@ function renderLexiconDetail(id){
   const w = findLexiconEntry(id);
   if(!w) return renderLexicon();
   const ev = w.exampleVerseId ? findVerse(w.exampleVerseId) : null;
+  // Full-dictionary-only entries (item 150's ~14,200-entry expansion)
+  // lack the 39 curated highlights' richer fields — type/occurrences
+  // don't exist in Strong's own raw dictionary, and Greek entries
+  // carry no pronunciation at all in the source. Each is shown only
+  // when actually present rather than rendering an empty/undefined gap.
+  const meta = [w.language, w.id, w.type].filter(Boolean).join(' · ');
   return `
     <div class="screen-head">
       <button class="back-btn" data-action="lexicon-back"><i class="ti ti-arrow-left"></i></button>
       <h2>${t('title_lexicon')}</h2>
     </div>
     <div class="card">
-      <div class="field-hint">${esc(w.language)} · ${esc(w.id)} · ${esc(w.type)}</div>
+      <div class="field-hint">${esc(meta)}</div>
       <h2 style="margin:6px 0 2px;">${esc(w.lemma)}</h2>
-      <p style="color:var(--ink-soft);margin-bottom:10px;">${esc(w.translit)} <span class="field-hint">(${esc(w.pronunciation)})</span></p>
+      <p style="color:var(--ink-soft);margin-bottom:10px;">${esc(w.translit)}${w.pronunciation ? ` <span class="field-hint">(${esc(w.pronunciation)})</span>` : ''}</p>
       <p>${esc(w.definition)}</p>
-      <div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>
-      <div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>
+      ${w.occurrences ? `<div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>` : ''}
+      ${w.origin ? `<div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>` : ''}
     </div>
     ${ev ? `
       <div class="section-label">Example</div>
@@ -5461,8 +5523,9 @@ function onAction(e){
   else if(action==='family-tree-nav') go('familyTree', {id, from: {screen: 'familyTree', params: view.params}});
   else if(action==='family-tree-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('familyTree'); }
   else if(action==='motif-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('motifs'); }
-  else if(action==='go-lexicon') go('lexicon');
-  else if(action==='open-lexicon') go('lexiconDetail', {id, from: view});
+  else if(action==='go-lexicon'){ go('lexicon'); loadLexiconFull(); }
+  else if(action==='retry-lexicon'){ lexiconFullStatus = 'idle'; loadLexiconFull(); }
+  else if(action==='open-lexicon'){ go('lexiconDetail', {id, from: view}); loadLexiconFull(); }
   else if(action==='lexicon-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('lexicon'); }
   else if(action==='start-practice') startPractice(practiceQueue(dueVerses()));
   else if(action==='start-practice-topic') startPractice(practiceQueue(data.verses.filter(v=>v.topicIds.includes(id))));
