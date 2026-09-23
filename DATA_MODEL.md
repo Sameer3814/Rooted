@@ -7302,6 +7302,41 @@ inventing a new principle:
       together.
     `sw.js` bumped to `rooted-v149`.
 
+153. **Fixed: the interlinear toggle was unreachable from the actual
+    reading screen — done (2026-09-23), same day.** The owner reported
+    "I'm not seeing the Verse Detail feature" right after item 152
+    shipped. Real bug, not a deploy-lag false alarm (verified the
+    production site was already serving the new code): item 152's
+    Hebrew/Greek toggle only exists on `renderVerseDetail()`, reachable
+    from search results and a few tag-chip links — but the app's actual
+    primary reading surface, the continuous YouVersion-style chapter
+    reader (`renderChapterReader()`, item 148), is a completely separate
+    render path that never linked to Verse Detail at all. Someone
+    reading a chapter the normal way had no route to the new feature
+    whatsoever. Two fixes:
+    - **A new "Original" button in the reader's own tap-to-select
+      toolbar** (`renderReaderToolbar()`), shown only when exactly one
+      verse is selected (the interlinear is inherently per-verse) —
+      `open-verse-interlinear` clears the selection, sets
+      `interlinearOpen = true` before navigating, and kicks off
+      `loadInterlinear()`/`loadLexiconFull()` immediately so the toggle
+      is already open and loading by the time Verse Detail renders,
+      rather than landing on the plain English text first.
+    - **A real, separate, pre-existing gap this surfaced**: `findVerse()`
+      only ever searched `data.verses` — the ~1,812-verse curated set —
+      never the full lazily-loaded `corpus` the chapter reader actually
+      draws from. Since only curated verses are topic-tagged and most
+      chapters are read straight through, this meant the very first
+      real caller trying to open Verse Detail from the reader (the new
+      "Original" button) would silently 404 into `renderHome()` for the
+      vast majority of verses. Fixed at the source — `findVerse()` now
+      falls back to `corpus` when a verse isn't in the curated set
+      (`corpus` is guaranteed already loaded by the time the reader is
+      on screen). This isn't scoped to the interlinear feature; it's a
+      correctness fix for any future code that calls `findVerse()` on a
+      reader-shown verse.
+    `sw.js` bumped to `rooted-v150`.
+
 ---
 
 ## 9. How the app reads this data

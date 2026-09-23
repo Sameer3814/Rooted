@@ -1872,7 +1872,16 @@ let homeLimit = 25;   // Practice's landing state lists this many verses before 
 let practiceFilter = 'all';   // 'all' | 'due' | 'mastered' — Practice screen's sticky filter tabs
 
 /* ---------- helpers ---------- */
-function findVerse(id){ return data.verses.find(v=>v.id===id); }
+/* Falls back to the lazily-loaded full corpus when a verse isn't in
+   the curated set — only ~1,812 of the Bible's 31,098 verses are
+   curated (data.verses), but the chapter reader (renderChapterReader,
+   item 148) shows every verse in a chapter regardless, so a plain
+   data.verses-only lookup silently failed for the vast majority of
+   verses whenever something tried to open Verse Detail from there
+   (item 151's new reader-toolbar "Original" button was the first real
+   caller to expose this — corpus is guaranteed loaded by the time the
+   reader is on screen, since loadCorpus() already ran to render it). */
+function findVerse(id){ return data.verses.find(v=>v.id===id) || (corpus && corpus.find(v=>v.id===id)); }
 function findTopic(id){ return data.topics.find(t=>t.id===id); }
 function findChar(id){ return data.characters.find(c=>c.id===id); }
 function topicVerseCount(id){ return data.verses.filter(v=>v.topicIds.includes(id)).length; }
@@ -3128,6 +3137,7 @@ function renderReaderToolbar(){
       <button data-action="copy-verse-selection">${icon('copy',18)}<span>Copy${count>1?` (${count})`:''}</span></button>
       <button data-action="open-highlight-palette">${icon('highlight',18)}<span>Highlight</span></button>
       <button data-action="add-to-library-selection" ${allInLib?'disabled':''}>${icon(allInLib?'check':'plus',18)}<span>${allInLib ? 'Added' : 'Add'}</span></button>
+      ${count===1 ? `<button data-action="open-verse-interlinear" data-id="${ids[0]}">${icon('languages',18)}<span>Original</span></button>` : ''}
       <button data-action="clear-verse-selection" class="reader-toolbar-close" aria-label="close"><i class="ti ti-x"></i></button>
     </div>`;
 }
@@ -5559,6 +5569,14 @@ function onAction(e){
   else if(action==='go-add-character') go('addCharacter');
   else if(action==='go-settings') go('settings');
   else if(action==='open-verse'){ interlinearOpen = false; go('verseDetail', {id, from: view}); }
+  else if(action==='open-verse-interlinear'){
+    const v = findVerse(id) || (corpus && corpus.find(x=>x.id===id));
+    selectedVerseIds = new Set();
+    readerPaletteOpen = false;
+    interlinearOpen = true;
+    go('verseDetail', {id, from: view});
+    if(v){ loadInterlinear(NT_BOOKS.has(v.book) ? 'NT' : 'OT'); loadLexiconFull(); }
+  }
   else if(action==='verse-back'){ const f = view.params.from; if(f && f.screen) go(f.screen, f.params); else go('home'); }
   else if(action==='start-practice-verse'){ if(!isInLibrary(id)) addToLibrary(id); startPractice([id]); }
   else if(action==='add-to-library-detail'){ addToLibrary(id); render(); }

@@ -693,6 +693,19 @@ The schema was deliberately designed so all of the above can be added
   Known Gaps item 12 — both halves (dictionary + interlinear) now
   exist. `sw.js` bumped to `rooted-v149`. See DATA_MODEL.md §8, item
   152.
+- **Fixed: the interlinear toggle was unreachable from the actual
+  reading screen — done (2026-09-23), same day.** The owner reported
+  not seeing it right after item 152 shipped. Real bug: the toggle only
+  existed on `renderVerseDetail()`, but the app's actual primary
+  reading surface — the continuous chapter reader (item 148) — is a
+  separate render path that never linked to Verse Detail at all. Fixed
+  with a new "Original" button in the reader's own tap-to-select
+  toolbar (shown for a single selection) plus a real underlying bug
+  this exposed: `findVerse()` only searched the curated ~1,812-verse
+  set, never the full lazily-loaded corpus the reader actually shows,
+  so it would have silently failed for most verses anyway — now falls
+  back to `corpus`. `sw.js` bumped to `rooted-v150`. See DATA_MODEL.md
+  §8, item 153.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
