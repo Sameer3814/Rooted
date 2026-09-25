@@ -7497,6 +7497,90 @@ inventing a new principle:
       missing nicety for mouse/trackpad users.
     `sw.js` bumped to `rooted-v154`.
 
+158. **Practice landing overhaul: "Memory Arena" — interactive circuit
+    hero, collapsible mode tray, Verse Vault retention bar + Quick Peek —
+    done (2026-09-25).** The owner sent a detailed visual/interaction
+    spec for a gamified redesign. Two real conflicts with this project's
+    own standing rules were resolved directly with the owner before
+    building, not silently overridden or silently ignored:
+    - **Color.** The spec's hero/progress-bar/CTA used a warm bronze
+      palette (`#C69255`, gradients) — the *exact* palette that had been
+      deliberately removed from these same components, twice, in items
+      145-146, under the "black and white only, app-wide" standing rule.
+      **Owner's call: keep black-and-white.** Color is reserved only for
+      the new retention bar's high/due tiers, which reuse this app's
+      existing, already-sanctioned correct/wrong signal colors
+      (`#10B981`/`#EF4444`, the same hexes already used across all five
+      challenge types' check states) — not a new exception, a reuse of
+      an existing one. The bar's middle "fading" tier uses neutral
+      `var(--gold)` (white) instead of the spec's bronze, since no
+      existing sanctioned use of that color exists to reuse.
+    - **"Circuit" semantics.** The spec's 3-step "Daily Memory Circuit"
+      read like a new session mechanic (each due verse drilled through 3
+      challenge types back-to-back). **Owner's call: a relabel, not a
+      new mechanic.** The CTA (`start-practice`, unchanged action) still
+      starts today's normal single-mode session exactly as before; the
+      3 step pills (`renderCircuitSteps()`) are a cosmetic preview of
+      the exercise-mode picker's own real top 3 tiles in their actual
+      declared order (`CHALLENGE_TILE_META`: Tap Builder / First-Letter
+      / Vanish — not the spec's arbitrarily-named three), with whichever
+      one is actually selected (`settings.challengeTypeId`) shown active
+      if it's among those three, none lit otherwise — grounded in real
+      state, not a fabricated progress indicator.
+    - Also fixed silently, same standing rule already covering it: the
+      spec's literal `⚡`/`▶`/`▾` characters became this app's existing
+      icon system (`icon('zap',12)`, Tabler `ti-player-play`/
+      `ti-chevron-down`) — this project already has a documented
+      no-raw-emoji convention (item 107, item 139) with an SVG icon
+      system built specifically to avoid it.
+    - **A real scoping finding from the code, not the spec**:
+      `renderVerseCard(v)` turned out to be shared by three different
+      screens (the Practice verse list, Lexicon Detail's example verse,
+      Motif Detail's verse instances) — a retention bar and obscured
+      text only make sense on "your library," not an illustrative single
+      verse elsewhere. Built a **separate** `renderVaultCard(v)` used
+      only at the one real Practice-landing call site instead of editing
+      the shared function — verified afterward that the other two
+      callers still render through the untouched original, full text, no
+      retention bar.
+    - **`verseRetentionPct(v)`** — a new 0-100 heuristic (not a stored
+      field; derived at render time, same "derive, don't persist"
+      pattern as `practiceCountsByDay()` elsewhere) since this app's
+      `VerseProgress` schema has no existing numeric strength score, only
+      a 4-stage status ladder. A base value per status tier (new/
+      learning/review/mastered → 15/45/70/95), pulled down into the
+      "needs review" band once `nextReview` has actually passed — an
+      honest heuristic, documented as such, not a precise spaced-
+      repetition calculation.
+    - **Quick Peek** — verse text is `filter:blur(6px)` by default,
+      revealed via `filter:blur(0)` on a `.peek` class. New
+      `wireVerseVaultPeek()` reuses Progressive Vanish's exact "Hold to
+      Peek" technique (item 115 — a plain CSS class toggled directly on
+      `pointerdown`/`pointerup`/`pointercancel`/`pointerleave`, entirely
+      outside `interact()`/`render()` so there's no visible delay on a
+      live gesture) but looped over every `.vault-card` on screen rather
+      than one fixed element pair, since this list can show many verses
+      at once. Called from the app's existing central post-render wiring
+      block, alongside `wireProgressiveVanish()`. **Known, accepted
+      tradeoff, not silently glossed over**: the card's existing
+      `open-verse` tap-to-navigate action is untouched — a quick tap
+      still peeks-then-navigates on release exactly as before Quick Peek
+      existed, and a long hold-then-release will also still navigate
+      afterward (the click fires on release regardless of hold
+      duration). No gesture-disambiguation was added to suppress that,
+      since the spec didn't ask for it and it would add real complexity
+      to a browsing screen, not a quiz screen.
+    - **Exercise tray**: the existing 2x3 `renderChallengeGrid()` (tile
+      markup and `set-challenge` action both unchanged) is now collapsed
+      by default behind a new `renderChallengeTray()` wrapper and a
+      "Targeted Drills" section label — new session-only state
+      `practiceModesExpanded`, new `toggle-practice-modes` action. Tiles
+      gained a press-spring effect (`transform:translateY(-2px)` on
+      `:active`, `cubic-bezier(.175,.885,.32,1.275)`) — motion only, no
+      color change, so this doesn't touch the black-and-white rule at
+      all.
+    `sw.js` bumped to `rooted-v155`.
+
 ---
 
 ## 9. How the app reads this data

@@ -217,6 +217,29 @@
   .mastery-bar{position:absolute;top:14px;right:16px;display:flex;gap:3px;}
   .mastery-seg{width:10px;height:4px;border-radius:2px;background:var(--surface-sunken);}
   .mastery-seg.filled{background:var(--sage);}
+  /* Verse Vault card additions (item 158) — layered on top of the shared
+     .verse-card rules above via renderVaultCard(), not a change to them
+     (renderVerseCard's other callers — Lexicon Detail, Motif Detail — are
+     unaffected). Retention-bar colors reuse this app's existing, already-
+     sanctioned correct/wrong greens/reds (#10B981/#EF4444), not a new color
+     exception; the middle "fading" tier is neutral --gold (white), not the
+     bronze this request originally specified — see DATA_MODEL.md §8, item
+     158 for why. */
+  .verse-retention-track{height:4px;background:var(--surface-sunken);border-radius:100px;overflow:hidden;margin-top:10px;}
+  .verse-retention-fill{height:100%;border-radius:100px;transition:width .3s ease;}
+  /* "Quick Peek": text is blurred by default, sharp on press-and-hold —
+     wireVerseVaultPeek() toggles .peek per-card, the same "plain CSS class
+     flip outside interact()/render()" technique wireProgressiveVanish()
+     already established, just looped over every card on screen instead of
+     one fixed pair (this list can show many verses at once). */
+  .vault-peek-area{position:relative;}
+  .vault-text{filter:blur(6px);transition:filter .2s ease;user-select:none;}
+  .vault-card.peek .vault-text{filter:blur(0);}
+  .vault-peek-hint{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;
+    font-size:12px;font-weight:600;color:var(--ink-soft);pointer-events:none;
+  }
+  .vault-card.peek .vault-peek-hint{display:none;}
   .verse-card .ref{font-size:12px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em;margin-bottom:6px;padding-right:52px;}
   /* Scripture text (Home, Verse Details, Practice Cards) — text-base by
      default (compact list/chapter-reading cards); Verse Detail's own
@@ -1096,7 +1119,22 @@
   .practice-progress-label{font-size:12px;color:#9C9C9C;letter-spacing:.05em;font-weight:600;}
   .practice-progress-count{font-size:14px;color:#F2F2F2;font-weight:600;}
   .practice-progress-track{height:8px;background:#232323;border-radius:100px;overflow:hidden;margin:8px 0 20px;}
-  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#F2F2F2,#FFFFFF);border-radius:100px;transition:width .3s ease;}
+  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#F2F2F2,#FFFFFF);border-radius:100px;transition:width .4s cubic-bezier(.34,1.56,.64,1);}
+  /* "Memory Arena" hero card (item 158) — a visual/interaction redesign of
+     the existing daily-goal bar, deliberately kept black-and-white per the
+     app's standing color rule (see DATA_MODEL.md §8, item 158 for the
+     owner's own confirmed resolution — this reused request explicitly
+     asked for a warm bronze palette that had been deliberately removed
+     from these exact components, twice, in items 145-146). The badge/
+     steps below are cosmetic labeling over the same underlying single-
+     mode session (`start-practice`, unchanged) — not a new 3-step
+     mechanic. */
+  .circuit-badge{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold-deep);display:flex;align-items:center;gap:5px;margin-bottom:6px;}
+  .circuit-subtitle{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
+  .circuit-steps{display:flex;align-items:center;gap:6px;margin:14px 0 4px;}
+  .circuit-step{flex:1;text-align:center;font-size:11px;font-weight:600;color:var(--ink-faint);background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);padding:8px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .circuit-step-active{color:var(--gold-deep);border-color:var(--gold-wash);}
+  .circuit-step-arrow{color:var(--ink-faint);font-size:12px;flex-shrink:0;}
 
   /* ---------- Practice hero: 2x3 exercise-mode grid (item 120) — replaced
      the horizontally-scrolling .segmented challenge-type picker. Its own
@@ -1104,8 +1142,17 @@
   .mode-tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
   .mode-tile{
     background:#1A1A1A;border:1px solid #2A2A2A;border-radius:14px;
-    padding:12px 14px;text-align:left;cursor:pointer;transition:all .2s ease;
+    padding:12px 14px;text-align:left;cursor:pointer;
+    transition:background .2s ease,border-color .2s ease,transform .2s cubic-bezier(.175,.885,.32,1.275);
     min-height:44px;
+  }
+  .mode-tile:active{transform:translateY(-2px);}
+  /* "Targeted Drills" tray toggle (item 158) — plain text button, no new
+     color; the grid it reveals/hides (renderChallengeGrid) is unchanged. */
+  .modes-tray-toggle{
+    background:none;border:none;color:var(--ink-soft);font-size:13px;font-weight:600;
+    font-family:var(--font-sans);cursor:pointer;padding:4px 0 14px;
+    display:flex;align-items:center;gap:4px;
   }
   .mode-tile .app-icon{color:#9C9C9C;width:18px;height:18px;display:block;}
   .mode-tile-title{font-size:14px;font-weight:600;color:#F2F2F2;margin-top:6px;}
@@ -1925,6 +1972,7 @@ let timelineDifficulty = 'normal';
 const SEARCH_LIMIT = 60;
 let homeLimit = 25;   // Practice's landing state lists this many verses before "Show all" (moved off Home in the v4 redesign)
 let practiceFilter = 'all';   // 'all' | 'due' | 'mastered' — Practice screen's sticky filter tabs
+let practiceModesExpanded = false;   // "Targeted Drills" tray toggle (item 158) — session-only, not persisted
 
 /* ---------- helpers ---------- */
 /* Falls back to the lazily-loaded full corpus when a verse isn't in
@@ -1944,6 +1992,20 @@ function isDue(v){
   const nr = getProgress(v.id).nextReview;
   if(!nr) return true;
   return new Date(nr) <= new Date();
+}
+/* A rough 0-100 "retention" readout for the Verse Vault card (item 158) —
+   purely derived at render time, same as isDue() above, not a new stored
+   field on VerseProgress. There's no real spaced-repetition strength score
+   in this app's data model to draw from, so this is a heuristic: a base
+   value per mastery tier, pulled down into the "needs review" band once
+   nextReview has actually passed. It's meant to read as "how fresh does
+   this feel," not a precise memory-strength calculation. */
+const RETENTION_BASE_BY_STATUS = {new:15, learning:45, review:70, mastered:95};
+function verseRetentionPct(v){
+  const p = getProgress(v.id);
+  const base = RETENTION_BASE_BY_STATUS[p.status] ?? 15;
+  if(isDue(v)) return Math.min(base, 25);
+  return base;
 }
 /* Due verses, most-overdue first, then ones already in progress, then new.
    Finishing what you've started beats piling on more. */
@@ -3293,6 +3355,17 @@ function renderChallengeGrid(){
       </div>
     </div>`;
 }
+/* Collapsible wrapper around the existing tile grid (item 158) — the grid
+   itself, tile markup, and `set-challenge` action are all unchanged; this
+   just gates whether it's shown by default. Collapsed by default so the
+   circuit hero above isn't immediately followed by a wall of 6 tiles. */
+function renderChallengeTray(){
+  return `
+    <button class="modes-tray-toggle" data-action="toggle-practice-modes">
+      All Exercise Modes <i class="ti ${practiceModesExpanded?'ti-chevron-up':'ti-chevron-down'}"></i>
+    </button>
+    ${practiceModesExpanded ? renderChallengeGrid() : ''}`;
+}
 /* How many of today's daily goal have been practiced so far — a linear
    bar (2026-09-17, item 120; a circular ring before that), meant to feel
    like progress happening today specifically, not a running total. */
@@ -3323,6 +3396,31 @@ function renderVerseCard(v){
         ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--pill">#${esc(hashtagify(t.name))}</span>`:'';}).join('')}
         ${dueTag}
       </div>
+    </div>`;
+}
+/* "Verse Vault" card (item 158) — a SEPARATE function from renderVerseCard
+   above, not an edit to it: that function is also used by Lexicon Detail's
+   example verse and Motif Detail's verse instances, where a retention bar
+   and obscured text make no sense (an illustrative single verse, not "your
+   library"). This one is used only by the Practice landing verse list. */
+function renderVaultCard(v){
+  const status = getProgress(v.id).status;
+  const dueTag = isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '';
+  const pct = verseRetentionPct(v);
+  const retentionColor = pct > 80 ? '#10B981' : pct < 30 ? '#EF4444' : 'var(--gold)';
+  return `
+    <div class="card tap verse-card vault-card" data-action="open-verse" data-id="${v.id}">
+      ${renderMasteryBar(status)}
+      <div class="ref">${esc(v.reference)}</div>
+      <div class="vault-peek-area">
+        <div class="text vault-text">${esc(verseText(v))}</div>
+        <div class="vault-peek-hint"><i class="ti ti-eye"></i> Hold to peek</div>
+      </div>
+      <div class="tag-row">
+        ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--pill">#${esc(hashtagify(t.name))}</span>`:'';}).join('')}
+        ${dueTag}
+      </div>
+      <div class="verse-retention-track"><div class="verse-retention-fill" style="width:${pct}%;background:${retentionColor};"></div></div>
     </div>`;
 }
 /* lowercase, no-space slug for the soft hashtag-style topic pills on verse
@@ -4024,6 +4122,24 @@ function wireProgressiveVanish(){
   btn.addEventListener('pointerup', hide);
   btn.addEventListener('pointercancel', hide);
   btn.addEventListener('pointerleave', hide);
+}
+/* Verse Vault's "Quick Peek" (item 158) — the same plain-CSS-class,
+   outside-interact()/render() technique as wireProgressiveVanish() above,
+   just looped over every card currently on screen instead of one fixed
+   pair, since the Practice landing list can show many verses at once.
+   Doesn't call stopPropagation/preventDefault on the card itself — a quick
+   tap (or a hold-then-release) still fires the card's own existing
+   `open-verse` click navigation afterward, exactly as before Quick Peek
+   existed; this only adds the blur toggle on top. */
+function wireVerseVaultPeek(){
+  document.querySelectorAll('.vault-card').forEach(card=>{
+    const show = () => card.classList.add('peek');
+    const hide = () => card.classList.remove('peek');
+    card.addEventListener('pointerdown', show);
+    card.addEventListener('pointerup', hide);
+    card.addEventListener('pointercancel', hide);
+    card.addEventListener('pointerleave', hide);
+  });
 }
 /* Clause Connect's grip-handle drag reordering — pointer events dragging
    real DOM nodes, the same technique wireTimelineDrag() already uses
@@ -5391,16 +5507,37 @@ function renderSparks(n){
 // due-today stats, the daily-goal ring, the challenge-type picker, and the
 // full verse library. Home now only fronts Verse of the Day and mission
 // content; this is where the actual memorization workflow lives.
-/* ---------- Practice hero card: goal ring + mode selector + CTA ---------- */
+/* ---------- Practice hero card: "Memory Arena" circuit + mode tray + CTA
+   (item 158) ---------- */
+/* The 3 step pills are a cosmetic preview of the exercise-mode picker's own
+   real top 3 tiles, in their real declared order (CHALLENGE_TILE_META) — not
+   a new 3-step session mechanic. The current one lights up if it's actually
+   selected (settings.challengeTypeId); otherwise none does, since it isn't
+   tracking real per-stage progress that doesn't exist. See DATA_MODEL.md §8,
+   item 158 for why this is a relabel, not new session logic. */
+function renderCircuitSteps(){
+  const steps = Object.entries(CHALLENGE_TILE_META).slice(0,3);
+  return `
+    <div class="circuit-steps">
+      ${steps.map(([id,meta],i)=>`
+        ${i>0 ? '<i class="ti ti-arrow-right circuit-step-arrow"></i>' : ''}
+        <div class="circuit-step${settings.challengeTypeId===id?' circuit-step-active':''}">${i+1}. ${esc(meta.label)}</div>
+      `).join('')}
+    </div>`;
+}
 function renderPracticeHero(due){
   const session_size = Math.min(due.length, settings.dailyGoal || 10);
   if(!due.length) return '';
   return `
-    <div class="practice-hero-card">
+    <div class="practice-hero-card practice-circuit-hero">
+      <div class="circuit-badge">${icon('zap',12)} TODAY'S CIRCUIT</div>
+      <div class="circuit-subtitle">A quick memory drill tailored to today's due verses.</div>
       ${renderPracticeProgressBar()}
-      ${renderChallengeGrid()}
-      <button class="btn primary block" data-action="start-practice">${icon('sparkles',16)} Start Practice Session (${session_size} Verse${session_size===1?'':'s'})</button>
-    </div>`;
+      ${renderCircuitSteps()}
+      <button class="btn primary block" data-action="start-practice" style="margin-top:14px;"><i class="ti ti-player-play"></i> Start Today's Circuit (${session_size} Verse${session_size===1?'':'s'})</button>
+    </div>
+    <div class="section-label">Targeted Drills</div>
+    ${renderChallengeTray()}`;
 }
 /* ---------- compact single-line stats strip, replaces the old 4-box stat-row ---------- */
 function renderPracticeStatsStrip(){
@@ -5444,7 +5581,7 @@ function renderPracticeLanding(){
     <div class="section-label">${t('practice_your_verses')} <button class="tap" data-action="go-add" title="Add a verse or person" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;display:inline-flex;align-items:center;"><i class="ti ti-plus" style="font-size:18px;"></i></button></div>
     ${renderPracticeFilterTabs()}
     ${verses.length
-      ? verses.slice(0, homeLimit).map(renderVerseCard).join('') +
+      ? verses.slice(0, homeLimit).map(renderVaultCard).join('') +
         (verses.length > homeLimit
           ? `<button class="btn block" data-action="show-all-verses">Show all ${verses.length}</button>`
           : '')
@@ -5644,6 +5781,7 @@ function bindEvents(root){
   wireFamilyTreePanZoom();
   wireFirstLetterSprint();
   wireProgressiveVanish();
+  wireVerseVaultPeek();
   wireClauseConnect();
 }
 function refreshFamilyTreePickerResults(){
@@ -5780,6 +5918,7 @@ function onAction(e){
   else if(action==='practice-interact') practiceInteract(el);
   else if(action==='focus-sprint-input') focusSprintInput();
   else if(action==='set-challenge'){ settings.challengeTypeId = id; saveSettings(); render(); }
+  else if(action==='toggle-practice-modes'){ practiceModesExpanded = !practiceModesExpanded; render(); }
   else if(action==='set-daily-goal'){ settings.dailyGoal = +id; saveSettings(); render(); }
   else if(action==='set-language'){
     settings.language = id;

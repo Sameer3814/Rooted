@@ -762,6 +762,23 @@ The schema was deliberately designed so all of the above can be added
   after both base rules instead. A real, larger redesign (sidebar nav,
   full multi-column layouts) stays a separate future project — see Known
   Gaps. `sw.js` bumped to `rooted-v154`. See DATA_MODEL.md §8, item 157.
+- **Practice landing overhaul: "Memory Arena" — done (2026-09-25).** The
+  owner sent a detailed gamified-redesign spec. Two conflicts with
+  standing rules resolved directly with the owner first: the spec's
+  bronze palette was the exact one removed from these same components
+  twice before (items 145-146) — kept black-and-white, with the new
+  retention bar reusing this app's existing sanctioned correct/wrong
+  colors (`#10B981`/`#EF4444`) rather than a new exception; the spec's
+  3-step "circuit" read like a new session mechanic — kept as a
+  cosmetic relabel of the existing single-mode session, no new
+  mechanic. A real scoping finding from the code (not the spec):
+  `renderVerseCard()` is shared by two unrelated screens (Lexicon
+  Detail, Motif Detail) besides Practice, so the retention bar/Quick
+  Peek landed in a new `renderVaultCard()` instead of editing the
+  shared function. Quick Peek reuses Progressive Vanish's exact "Hold
+  to Peek" CSS-class-toggle technique (item 115), looped over every
+  visible card. `sw.js` bumped to `rooted-v155`. See DATA_MODEL.md §8,
+  item 158.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
