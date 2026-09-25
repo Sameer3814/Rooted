@@ -15,6 +15,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
   :root{
+    /* Responsive layout, light pass (item 157) — a single source of truth
+       for the reading column's width, widened at the 700px breakpoint
+       below rather than staying pinned to phone width on iPad/PC. */
+    --app-max-width:480px;
     /* v3 visual system (2026-09-10) — modern dark theme, inspired by (not
        copied from) YouVersion: a near-black ground so accent colors and
        card surfaces pop, replacing the v2 warm cream/storybook look
@@ -98,6 +102,21 @@
     --font-sans:'Inter',sans-serif;
     --font-display:'Fraunces',serif;
   }
+  /* Responsive layout, light pass (item 157) — the app was built phone-
+     width-only until now (a fixed 480px column, centered, everything
+     else inheriting it). Above 700px (roughly iPad-portrait and up) the
+     reading column widens instead of sitting stranded in empty space on
+     a tablet/PC screen. --app-max-width is the single source of truth
+     .app/.navbar/.fact-drawer all read from — nothing else needed a
+     hardcoded-width fix (verified: every other position:fixed element in
+     this file is already edge-anchored or content-sized, not centered
+     against a fixed column width). A real per-breakpoint redesign
+     (sidebar nav, multi-column Browse/Topics/People) is a separate,
+     larger project — this pass only widens what's already here.
+     See DATA_MODEL.md §8, item 157. */
+  @media (min-width: 700px){
+    :root{ --app-max-width:700px; }
+  }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -140,7 +159,7 @@
      pointercancel instead of pointerup, silently swallowing the
      swipe-back gesture wired in wireSwipeBack() below before it ever
      fires. Real bug, not theoretical — caught by direct device testing. */
-  .app{max-width:480px;margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
+  .app{max-width:var(--app-max-width);margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
   .topbar .brand i{font-size:25px;color:var(--gold-deep);}
@@ -408,7 +427,7 @@
   }
   @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
   .fact-drawer{
-    position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:480px;margin:0 auto;
+    position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:var(--app-max-width);margin:0 auto;
     background:var(--paper-raised);border:1px solid rgba(255,255,255,.08);border-bottom:none;
     border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);
     padding:10px 20px calc(20px + env(safe-area-inset-bottom));
@@ -501,7 +520,7 @@
      exactly the spec's own 24px. */
   .navbar{
     position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
-    width:calc(100% - 32px);max-width:400px;height:68px;
+    width:calc(100% - 32px);max-width:calc(var(--app-max-width) - 80px);height:68px;
     background:rgba(26,26,26,.65) !important;
     -webkit-backdrop-filter:blur(24px) saturate(180%) !important;backdrop-filter:blur(24px) saturate(180%) !important;
     border:1px solid rgba(255,255,255,.12);
@@ -561,6 +580,14 @@
 
   /* topics grid — colorful per-topic cards (v3, YouVersion-inspired) */
   .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+  /* Part of the item 157 responsive pass — placed after both base rules
+     (not up with the --app-max-width breakpoint near :root) since an
+     earlier-in-source @media block of equal specificity would otherwise
+     lose to these two unconditional rules regardless of viewport width;
+     source order, not media-query position, decides the cascade here. */
+  @media (min-width: 700px){
+    .people-grid,.topic-grid{ grid-template-columns:1fr 1fr 1fr; }
+  }
   .topic-card{
     position:relative;overflow:hidden;border:none;text-align:left;
     border-radius:var(--radius-card);padding:14px;min-height:104px;

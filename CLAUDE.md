@@ -744,6 +744,24 @@ The schema was deliberately designed so all of the above can be added
   the screen's own left/right edges, always reachable regardless of
   scroll. `sw.js` bumped to `rooted-v153`. See DATA_MODEL.md §8, item
   156.
+- **Responsive layout, light pass — iPad/PC compatibility, done
+  (2026-09-25).** The app was phone-width-only (`.app{max-width:480px}`,
+  everything else inheriting it) — already ran fine on iPad/PC but sat
+  stranded as a narrow strip on anything wider. New `--app-max-width`
+  custom property (`.app`/`.fact-drawer` read it directly, `.navbar`
+  reads `calc(var(--app-max-width) - 80px)` to preserve its original
+  inset-pill proportions), one `@media (min-width: 700px)` breakpoint
+  raising it to 700px and bumping `.people-grid`/`.topic-grid` to 3
+  columns, and `manifest.json`'s `"orientation": "portrait"` removed (it
+  would've locked an installed iPad PWA out of landscape). A real
+  cascade-ordering bug caught before shipping: the grid-column override
+  first landed near `:root` for locality, which put it *earlier* in the
+  stylesheet than `.people-grid`/`.topic-grid`'s own base rules — at
+  equal specificity the later, unconditional rule would've silently won
+  at every width regardless of the media query; moved the override to
+  after both base rules instead. A real, larger redesign (sidebar nav,
+  full multi-column layouts) stays a separate future project — see Known
+  Gaps. `sw.js` bumped to `rooted-v154`. See DATA_MODEL.md §8, item 157.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1987,6 +2005,26 @@ hand-curate all the content before building.
     connection" graph (not just family) is still a real, separate
     possible feature, but Family Tree covers the specific ask that
     prompted this item.
+13. **A real per-breakpoint responsive redesign, and a keyboard/mouse
+    equivalent for swipe-to-go-back.** Item 157 (2026-09-25) was
+    deliberately scoped as a "light pass" — the reading column widens
+    on iPad/PC (`--app-max-width`, one breakpoint) rather than sitting
+    stranded at phone width, but the app's actual *shape* is unchanged.
+    Two real pieces are still unbuilt:
+    - **A sidebar nav for tablet/desktop** instead of the bottom pill
+      bar — `.navbar` currently assumes "4 items, bottom of a phone"
+      (fixed pill shape, active-state logic tied to that exact DOM
+      shape); this is a structural markup/CSS/JS change, not a width
+      tweak, and would touch global chrome every screen sits inside.
+    - **Full multi-column layouts** beyond the one 2-column-to-3-column
+      bump item 157 already made to `.people-grid`/`.topic-grid` — e.g.
+      a genuinely different Browse/Story-list layout on a wide screen,
+      not just "the same phone layout, wider."
+    - **Swipe-to-go-back** (item 103) is touch-event-only with no
+      keyboard/mouse equivalent — confirmed via direct code search, not
+      assumed. Not a hard blocker (`.back-btn` is already the generic
+      *visible* control everywhere swipe-back works), but a real gap
+      for anyone navigating by mouse/trackpad on iPad/PC.
 
 **Done (2026-09-03):** content/user-state storage split + `progress`
 removed from seed files (`DATA_MODEL.md` §8.1); structured

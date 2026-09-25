@@ -7449,6 +7449,54 @@ inventing a new principle:
     the reader wherever it's used.
     `sw.js` bumped to `rooted-v153`.
 
+157. **Responsive layout, light pass — iPad/PC compatibility — done
+    (2026-09-25).** The app was built phone-width-only from day one: a
+    fixed `.app{max-width:480px}` column, centered, with everything else
+    inheriting it. It already *ran* correctly on iPad/PC (nothing
+    load-bearing was mobile-only), but visually sat stranded as a narrow
+    strip with empty space on both sides on anything wider than a phone.
+    Explored the actual scope first rather than guessing: only 3
+    hardcoded width numbers existed in the whole file (`.app` 480px,
+    `.fact-drawer` 480px — a separate fixed-position bottom sheet — and
+    `.navbar` 400px, the bottom pill nav), all three centered via
+    `left:50%;transform:translateX(-50%)`; every other `position:fixed`
+    element (`.chapter-float-btn`, `.reader-toolbar`, `.reader-toast`,
+    `.sprint-hidden-input`, `.fact-drawer-backdrop`) was already edge-
+    anchored or content-sized, nothing to touch; zero existing
+    breakpoints to conflict with; none of the app's 72 `render*`
+    functions needed touching, since they all just inherit whatever
+    width `.app` gives them.
+    - **New `--app-max-width` custom property**, `.app`/`.fact-drawer`
+      both read from it directly; `.navbar` reads
+      `calc(var(--app-max-width) - 80px)` to preserve its original
+      "narrower pill inset within the content column" relationship
+      (480-80=400, the original value, so phone width is unchanged).
+    - **One new breakpoint**, `@media (min-width: 700px)`, raises
+      `--app-max-width` to 700px (roughly iPad-portrait and up) and
+      bumps `.people-grid`/`.topic-grid` from 2 to 3 columns — a real,
+      if small, ordering bug caught before shipping: the grid override
+      first landed near `:root` (for locality with the width token) but
+      that put it *earlier* in the stylesheet than `.people-grid`/
+      `.topic-grid`'s own unconditional base rules, so the later,
+      equal-specificity, always-applying rule would have silently won
+      at every viewport width regardless of the media query. Moved the
+      override to directly after both base rules instead — source
+      order, not a media query's position in the file, decides the
+      cascade when specificity ties.
+    - **`manifest.json`'s `"orientation": "portrait"` removed** — it
+      would have locked an installed iPad PWA out of landscape for no
+      real reason.
+    - **Deliberately out of scope, flagged rather than silently
+      limited**: a real per-breakpoint redesign (a sidebar nav instead
+      of the bottom pill on desktop/tablet, full multi-column Browse/
+      People layouts beyond the 3-column bump above) is a separate,
+      larger project — see Known Gaps. Also flagged: swipe-to-go-back
+      (item 103) is touch-only with no keyboard/mouse equivalent today;
+      not a hard blocker for desktop use since `.back-btn` is already
+      the generic *visible* control everywhere swipe-back works, just a
+      missing nicety for mouse/trackpad users.
+    `sw.js` bumped to `rooted-v154`.
+
 ---
 
 ## 9. How the app reads this data
