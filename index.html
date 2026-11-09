@@ -1181,6 +1181,50 @@
   .sp-week-day .sp-day-dot{width:32px;height:32px;border-radius:50%;background:#ff9600;display:grid;place-items:center;color:#fff;}
   .sp-streak-footer{margin-top:14px;padding-top:12px;border-top:2px solid var(--sp-line);font:700 14.5px/1.45 Figtree;color:var(--sp-sub);text-align:center;}
 
+  /* ---------- Shepherd's Path: in-progress session chrome (Phase 2,
+     item 161) — restyles the surrounding header/mascot/feedback-sheet
+     chrome around each exercise; the exercise's own markup
+     (renderChallengeBody(), unchanged) still renders in the app's usual
+     dark palette regardless of this screen's own light/dark toggle — a
+     deliberate, flagged seam, not an oversight (see DATA_MODEL.md §8,
+     item 161). ---------- */
+  .sp-session-screen{min-height:70vh;padding-top:18px;padding-bottom:24px;box-sizing:border-box;font-family:'Figtree',sans-serif;}
+  .sp-session-header{display:flex;align-items:center;gap:14px;padding:0 4px;}
+  .sp-session-close{width:32px;height:32px;flex:none;border:0;background:none;color:var(--sp-lockic);display:grid;place-items:center;cursor:pointer;padding:0;}
+  .sp-session-progress-track{flex:1;height:16px;border-radius:8px;background:var(--sp-line);overflow:hidden;}
+  .sp-session-progress-fill{height:100%;border-radius:8px;background:var(--sp-cta);transition:width .5s cubic-bezier(.3,1.4,.5,1);}
+  .sp-session-hearts{flex:none;display:flex;align-items:center;gap:5px;font:900 16px Figtree;color:#f0474d;}
+  .sp-session-combo-row{height:24px;padding:6px 4px 0;box-sizing:border-box;}
+  .sp-combo-line{display:inline-flex;align-items:center;gap:4px;font:900 12.5px Figtree;letter-spacing:.06em;color:#f08a00;animation:spPop .3s both;}
+  .sp-session-body{padding:4px 4px 16px;}
+  .sp-new-tag{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font:900 12.5px Figtree;letter-spacing:.06em;color:var(--sp-acc);}
+  .sp-session-heading{font:400 25px/1.15 'Young Serif';color:var(--sp-ink);}
+  .sp-session-mascot-row{display:flex;align-items:flex-end;gap:10px;margin:16px 0 20px;}
+  .sp-session-mascot{flex:none;width:72px;height:72px;}
+  .sp-session-bubble{position:relative;flex:1;padding:12px 14px;border-radius:18px;border:2px solid var(--sp-line);background:var(--sp-surface);}
+  .sp-bubble-tail{position:absolute;left:-8px;bottom:18px;width:12px;height:12px;background:var(--sp-surface);border-left:2px solid var(--sp-line);border-bottom:2px solid var(--sp-line);transform:rotate(45deg);}
+  .sp-bubble-serif{font:400 18px/1.45 Newsreader,Georgia,serif;color:var(--sp-ink);}
+  .sp-bubble-plain{font:800 16px/1.35 Figtree;color:var(--sp-ink);}
+  .sp-session-footer{padding:0 4px;}
+  .sp-feedback-sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:20px 20px 32px;animation:spSheetUp .28s cubic-bezier(.2,.8,.2,1) both;}
+  @keyframes spSheetUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  .sp-feedback-sheet.sp-good{background:#dcf3d3;}
+  .sp-feedback-sheet.sp-bad{background:#ffe0d9;}
+  .sp-feedback-row{display:flex;align-items:center;gap:12px;}
+  .sp-feedback-icon{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;background:#fff;animation:spPop .35s .08s both;}
+  .sp-feedback-sheet.sp-good .sp-feedback-icon{color:#2f7a22;}
+  .sp-feedback-sheet.sp-bad .sp-feedback-icon{color:#b8331f;}
+  .sp-feedback-title{font:400 23px 'Young Serif';}
+  .sp-feedback-sheet.sp-good .sp-feedback-title{color:#2f7a22;}
+  .sp-feedback-sheet.sp-bad .sp-feedback-title{color:#b8331f;}
+  .sp-feedback-sub{margin-top:8px;font:800 14.5px Figtree;}
+  .sp-feedback-sheet.sp-good .sp-feedback-sub{color:#2f7a22;}
+  .sp-feedback-sheet.sp-bad .sp-feedback-sub{color:#b8331f;}
+  .sp-feedback-btn{margin-top:16px;width:100%;height:54px;border:0;border-radius:16px;font:900 16px Figtree;letter-spacing:.05em;cursor:pointer;}
+  .sp-feedback-sheet.sp-good .sp-feedback-btn{background:#58c043;color:#14300d;box-shadow:0 5px 0 #43a033;}
+  .sp-feedback-sheet.sp-bad .sp-feedback-btn{background:#ff5a5f;color:#fff;box-shadow:0 5px 0 #d93d42;}
+  .sp-feedback-btn:active{transform:translateY(4px);}
+
   /* ---------- session-complete celebration ---------- */
   @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
   @keyframes bounceIn{0%{opacity:0;transform:scale(.3);}55%{opacity:1;transform:scale(1.15);}100%{transform:scale(1);}}
@@ -1204,7 +1248,8 @@
   @media (prefers-reduced-motion: reduce){
     .btn, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
     .complete-card, .complete-icon, .spark, .complete-stat,
-    .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star{
+    .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
+    .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn{
       animation: none !important;
       transition: none !important;
     }
@@ -5455,7 +5500,7 @@ function startShepherdLesson(verseId){
     }),
     index: 0,
     results: [],
-    shepherd: { kind: 'lesson', verseId, applied: false }
+    shepherd: { kind: 'lesson', verseId, applied: false, startHearts: settings.hearts == null ? 5 : settings.hearts }
   };
   go('practice');
 }
@@ -5472,9 +5517,23 @@ function startShepherdReview(){
     }),
     index: 0,
     results: [],
-    shepherd: { kind: 'review', verseId: null, applied: false }
+    shepherd: { kind: 'review', verseId: null, applied: false, startHearts: settings.hearts == null ? 5 : settings.hearts }
   };
   go('practice');
+}
+/* Live combo for the in-progress Shepherd session screen (Phase 2, item
+   161) — the trailing streak of correct answers at the end of
+   session.results, which already includes the just-checked current item
+   (checkPractice()/practiceInteractWith() push to results before the
+   user taps Continue) — no separate combo counter to keep in sync. */
+function shepherdLiveCombo(){
+  if(!session) return 0;
+  let combo = 0;
+  for(let i = session.results.length - 1; i >= 0; i--){
+    if(session.results[i].allCorrect) combo++;
+    else break;
+  }
+  return combo;
 }
 /* Applies the economy side-effects (XP, hearts) exactly once per
    finished Shepherd session — guarded by shepherd.applied since the
@@ -5785,8 +5844,31 @@ function renderPractice(){
   const type = challengeType(item.challengeTypeId);
   const v = findVerse(item.verseId);
   const st = item.state;
+  if(session.shepherd) return renderShepherdSession(item, type, v, st);
   const progressPct = Math.round((session.index / session.queue.length) * 100);
   const lastOne = session.index + 1 >= session.queue.length;
+  const body = renderChallengeBody(item, type, v, st);
+  return `
+    <div class="screen-head">
+      <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
+      <h2>Practice</h2>
+      <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ink-faint);">${session.index + 1} of ${session.queue.length}</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
+    ${st.checked && !body.isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
+    ${body.bodyHtml}
+    ${st.checked
+      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
+      : body.footerHtml}
+  `;
+}
+/* Shared between the generic session screen above and Shepherd's Path's
+   own session chrome (renderShepherdSession(), item 161) — the actual
+   per-ChallengeType exercise markup and its Check/controls button,
+   unchanged either way. Keeping this one function is what let Phase 2
+   restyle the chrome around the exercise without touching any
+   ChallengeType's own build/render/check code. */
+function renderChallengeBody(item, type, v, st){
   const isTapBuilder = type.id === 'challenge_tap_builder';
   const isSprint = type.id === 'challenge_first_letter_sprint';
   const isVanish = type.id === 'challenge_progressive_vanish';
@@ -5804,29 +5886,74 @@ function renderPractice(){
     : isVanish
     ? `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:#F2F2F2;font-weight:600;">Stage ${Math.min(st.currentStage, st.totalStages)} of ${st.totalStages}</span></div>`
     : `<div class="ref" style="font-size:12px;color:var(--gold-deep);font-weight:600;margin-bottom:10px;">${esc(v.reference)} <span style="color:var(--ink-faint);font-weight:500;">· ${esc(type.name)}</span></div>`;
+  const bodyHtml = (isTapBuilder || isSprint || isVanish || isClauseConnect || isReferenceMatch)
+    ? `${refLine}${type.render(st)}`
+    : `<div class="card">${refLine}<div class="practice-verse">${type.render(st)}</div></div>`;
+  const footerHtml = type.controls
+    ? type.controls(st)
+    : `<button class="btn primary block${isTapBuilder ? ' tap-builder-check' : ''}" data-action="check-practice"${canCheck ? '' : ' disabled'}>${isTapBuilder ? 'Check Answer' : 'Check'}</button>`;
+  return { isTapBuilder, isSprint, isVanish, isClauseConnect, isReferenceMatch, canCheck, bodyHtml, footerHtml };
+}
+/* ---------- Shepherd's Path: in-progress lesson/review session chrome
+   (Phase 2, item 161) ---------- */
+const SHEPHERD_EXERCISE_META = {
+  challenge_progressive_vanish: { heading: 'Progressive Vanish', bubble: 'Watch the words fade, then recall them.' },
+  challenge_tap_builder: { heading: 'Build the verse', bubble: 'Tap the tiles in the right order.' },
+  challenge_clause_connect: { heading: 'Put the phrases in order', bubble: 'Drag or tap to reorder the clauses.' },
+  challenge_first_letter_sprint: { heading: 'Type the first letter of each word', bubble: 'Race the clock — type each first letter to reveal it.' },
+  challenge_reference_match: { heading: 'Where is this verse found?', bubble: '' }
+};
+function renderShepherdSession(item, type, v, st){
+  const total = session.queue.length;
+  const lastOne = session.index + 1 >= total;
+  const pct = Math.round((session.index + (st.checked ? 1 : 0)) / total * 100);
+  const startHearts = session.shepherd.startHearts == null ? 5 : session.shepherd.startHearts;
+  const wrongSoFar = session.results.filter(r => !r.allCorrect).length;
+  const liveHearts = Math.max(0, startHearts - wrongSoFar);
+  const combo = shepherdLiveCombo();
+  const isDark = settings.practiceTheme !== 'light';
+  const mood = !st.checked ? 'calm' : (st.allCorrect ? 'cheer' : 'sad');
+  const body = renderChallengeBody(item, type, v, st);
+  const meta = SHEPHERD_EXERCISE_META[type.id] || { heading: type.name, bubble: '' };
+  const isRef = type.id === 'challenge_reference_match';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
-      <h2>Practice</h2>
-      <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ink-faint);">${session.index + 1} of ${session.queue.length}</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
-    ${st.checked && !isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${isTapBuilder || isSprint || isVanish || isClauseConnect || isReferenceMatch ? `
-      ${refLine}
-      ${type.render(st)}
-    ` : `
-      <div class="card">
-        ${refLine}
-        <div class="practice-verse">${type.render(st)}</div>
+    <div class="shepherd-screen sp-session-screen" data-sp-theme="${isDark ? 'dark' : 'light'}">
+      <div class="sp-session-header">
+        <button class="sp-session-close tap" data-action="exit-practice"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <div class="sp-session-progress-track"><div class="sp-session-progress-fill" style="width:${pct}%"></div></div>
+        <div class="sp-session-hearts"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.7a4.8 4.8 0 0 1 8.5 3.1C20.5 15.7 12 21 12 21z" fill="#ff5a5f"/></svg>${liveHearts}</div>
       </div>
-    `}
-    ${st.checked
-      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
-      : type.controls
-      ? type.controls(st)
-      : `<button class="btn primary block${isTapBuilder ? ' tap-builder-check' : ''}" data-action="check-practice"${canCheck ? '' : ' disabled'}>${isTapBuilder ? 'Check Answer' : 'Check'}</button>`}
-  `;
+      <div class="sp-session-combo-row">${combo >= 2 ? `<div class="sp-combo-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ff9600"><path d="M12 2c1.2 3.6 5.5 6.2 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.2 1-3.8 2.2-4.9.1 1.6 1 2.7 2.1 2.7-.9-3.2.1-6.3 1.2-9.1z"/></svg>${combo} IN A ROW</div>` : ''}</div>
+      <div class="sp-session-body">
+        ${session.shepherd.kind === 'lesson' && session.index === 0 ? `<div class="sp-new-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/></svg>NEW VERSE</div>` : ''}
+        <div class="sp-session-heading">${esc(meta.heading)}</div>
+        <div class="sp-session-mascot-row">
+          <div class="sp-session-mascot">${lambSvg(mood, 72)}</div>
+          <div class="sp-session-bubble">
+            <div class="sp-bubble-tail"></div>
+            ${isRef ? `<div class="sp-bubble-serif">“${esc(verseText(v))}”</div>` : `<div class="sp-bubble-plain">${esc(meta.bubble)}</div>`}
+          </div>
+        </div>
+        ${body.bodyHtml}
+      </div>
+      <div class="sp-session-footer">${st.checked ? '' : body.footerHtml}</div>
+      ${st.checked ? renderShepherdFeedbackSheet(st, combo, lastOne) : ''}
+    </div>`;
+}
+function renderShepherdFeedbackSheet(st, combo, lastOne){
+  const ok = !!st.allCorrect;
+  const praise = ['Amazing!', 'Nice!', 'Wonderful!', 'Great job!', 'You got it!'];
+  const title = ok ? praise[session.index % praise.length] : 'Not quite';
+  const sub = ok ? (combo >= 3 ? combo + ' in a row. You’re on fire.' : 'Nice work.') : 'Keep going — you’ll get the next one.';
+  const icon = ok
+    ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>`
+    : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>`;
+  return `
+    <div class="sp-feedback-sheet ${ok ? 'sp-good' : 'sp-bad'}">
+      <div class="sp-feedback-row"><div class="sp-feedback-icon">${icon}</div><div class="sp-feedback-title">${esc(title)}</div></div>
+      <div class="sp-feedback-sub">${esc(sub)}</div>
+      <button class="sp-feedback-btn tap" data-action="next-practice">${ok ? (lastOne ? 'FINISH' : 'CONTINUE') : 'GOT IT'}</button>
+    </div>`;
 }
 
 /* ---------- form save handlers ---------- */

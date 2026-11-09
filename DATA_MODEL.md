@@ -7750,15 +7750,79 @@ inventing a new principle:
       yet, so those two legacy entry points are stuck on whatever the
       stored default is (`challenge_tap_builder`) until a future pass
       gives Settings its own picker, if that's still wanted.
-    `sw.js` bumped to `rooted-v157`. **Not done yet (Phase 2/3,
-    deliberately out of scope for this pass)**: the Lesson/session
-    screen's own visual rebuild (lamb + speech bubble, live hearts,
-    combo counter, the slide-up feedback sheet, the tap-tile/first-
-    letter/reference-match visual treatments from the handoff) — the
-    session screen today is still the old plain challenge-type UI, just
-    fed a Shepherd-built queue; confetti on the complete screen; hearts
-    regen/lockout; a real Settings challenge-type picker if still
-    wanted.
+    `sw.js` bumped to `rooted-v157`. **Not done yet, now done in item
+    161 below**: the Lesson/session screen's own visual rebuild. **Still
+    not done**: confetti on the complete screen, hearts regen/lockout, a
+    real Settings challenge-type picker if still wanted.
+
+161. **"Shepherd's Path" — Practice tab rebuild, Phase 2 (in-progress
+    lesson/review session chrome) — done (2026-11-09), same day as item
+    160.** Restyles the session screen's surrounding chrome — header,
+    mascot + speech bubble, live hearts, combo counter, and the slide-up
+    feedback sheet — to match the handoff, **without touching any
+    ChallengeType's own build/render/check/score code**, continuing item
+    160's "reuse the engine" principle.
+    - **A real refactor, not a copy-paste fork**: the old generic
+      session screen's exercise-body/footer logic (the `isTapBuilder`/
+      `isSprint`/.../`refLine`/Check-button block) was pulled out of
+      `renderPractice()` into a new shared `renderChallengeBody(item,
+      type, v, st)`, used by *both* the still-unchanged generic session
+      screen (the two legacy, non-Shepherd callers of `startPractice()`
+      — Verse Detail's "Practice this verse," Topic Detail's "Practice
+      this topic") and the new `renderShepherdSession()`. One function,
+      two different chrome wrappers around it.
+    - **Live hearts**, not just the finish-time deduction item 160
+      shipped: `session.shepherd.startHearts` is captured at
+      `startShepherdLesson()`/`startShepherdReview()` time (the
+      pre-session `settings.hearts` value), and the header shows
+      `max(0, startHearts - wrongSoFar)`, where `wrongSoFar` reads
+      `session.results` directly — no new counter to keep in sync, since
+      `checkPractice()`/`practiceInteractWith()` already push a result
+      the instant an item is graded, before the user even taps
+      Continue. `finishShepherdSession()` (item 160) still does the
+      real, persisted `settings.hearts` deduction once at the end; this
+      is purely a live, derived preview of where that's heading.
+    - **Live combo**, same "derive from `session.results`, don't track
+      separately" approach: `shepherdLiveCombo()` counts the trailing
+      run of `allCorrect:true` results from the end of the array — which
+      already includes the just-checked current item for the same
+      reason hearts do.
+    - **Per-type heading/bubble text is a static lookup
+      (`SHEPHERD_EXERCISE_META`)**, not stage-aware like the handoff's
+      own Vanish copy (which changes across its read/hide/grade stages)
+      — deliberately not reaching into each ChallengeType's own private
+      state shape beyond what the file's existing `isVanish`/`isSprint`/
+      etc. flags (now inside `renderChallengeBody`) already safely read.
+      Reference Match's bubble shows the real verse quote (serif,
+      matching the handoff); every other type gets a one-line
+      instruction. The mascot's mood is driven by `st.checked`/
+      `st.allCorrect` (calm → cheer/sad), reusing item 160's `lambSvg()`
+      as-is.
+    - **"NEW VERSE" tag** only shows for an actual lesson's first
+      exercise (`session.shepherd.kind==='lesson' && session.index===0`)
+      — review sessions never show it, since every review verse was
+      already learned. The handoff's second tag state, "PREVIOUS
+      MISTAKE," has no equivalent here: this engine's
+      `advancePractice()` has never re-queued a wrong item (unlike the
+      prototype's own `next()`), so there's nothing to tag — not
+      implemented, not faked.
+    - **A deliberate, flagged visual seam, not an oversight**: the
+      exercise body itself (`renderChallengeBody()`'s output — tap
+      tiles, letter bars, clause cards, reference options) still renders
+      in this app's one standard dark palette regardless of the
+      Shepherd screen's own light/dark toggle, since none of those
+      five ChallengeTypes' own CSS was touched. Only the chrome around
+      them is theme-aware.
+    - **The feedback sheet's "+XP" is qualitative, not a number**,
+      unlike the handoff's own literal "+3 XP" per answer — this app's
+      real XP is awarded once, at session completion
+      (`finishShepherdSession()`, item 160), not per exercise, so
+      printing a believable-looking per-answer XP figure here would
+      misstate the actual economy. Shows combo-based encouragement
+      text instead.
+    `sw.js` bumped to `rooted-v158`. **Still not done (Phase 3)**:
+    confetti on the complete screen, hearts regen/lockout, a real
+    Settings challenge-type picker if still wanted.
 
 ---
 

@@ -73,9 +73,16 @@ The schema was deliberately designed so all of the above can be added
   real ChallengeTypes — Tap Builder, First-Letter Sprint, Progressive
   Vanish, Clause Connect, Reference Match (items 113/114/115/118/119)
   — now in a fixed 5-exercise-per-lesson sequence rather than a user-
-  picked single mode for a whole queue; the session/complete/streak
-  screens' own visual rebuild is Phase 2/3, not yet done — see item 160
-  for the full scope and known gaps. Add Verse/Add Character is now
+  picked single mode for a whole queue. The in-progress session screen
+  got its own matching rebuild the same day (Phase 2, item 161) — lamb
+  mascot + speech bubble, live hearts, live combo counter, slide-up
+  feedback sheet — while every ChallengeType's own exercise markup
+  (tiles, letter bars, clause cards, reference options) stays exactly
+  as it was, untouched, still rendering in the app's one standard dark
+  palette regardless of this screen's own toggle (a flagged, deliberate
+  seam, not a bug). Confetti and hearts regen/lockout are still Phase 3,
+  not yet done — see items 160-161 for the full scope and known gaps.
+  Add Verse/Add Character is now
   reached via the path's own end-of-path "+" node), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
@@ -828,6 +835,22 @@ The schema was deliberately designed so all of the above can be added
   done yet. `sw.js` bumped to `rooted-v157`. See DATA_MODEL.md §8, item
   160 for the full scope, every deliberate simplification, and what's
   still outstanding.
+- **"Shepherd's Path" Phase 2: in-progress session screen rebuild —
+  done (2026-11-09), same day as Phase 1.** Restyled the session
+  screen's chrome (header, lamb + speech bubble, live hearts, live
+  combo counter, slide-up feedback sheet) around each exercise, without
+  touching any ChallengeType's own code. Real refactor: the old generic
+  session screen's exercise-body/footer logic was pulled into a new
+  shared `renderChallengeBody()`, used by both the unchanged legacy
+  session screen (Verse/Topic Detail's own "Practice this" buttons) and
+  the new `renderShepherdSession()`. Live hearts/combo are both derived
+  from `session.results` (no new counters to keep in sync) — hearts
+  read `session.shepherd.startHearts` minus wrong answers so far; the
+  real, persisted deduction still only happens once, at completion
+  (item 160's `finishShepherdSession()`). Feedback-sheet XP is
+  qualitative text, not a fabricated per-answer number, since real XP
+  is session-level. `sw.js` bumped to `rooted-v158`. See DATA_MODEL.md
+  §8, item 161.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
