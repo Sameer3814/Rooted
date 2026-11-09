@@ -779,6 +779,19 @@ The schema was deliberately designed so all of the above can be added
   to Peek" CSS-class-toggle technique (item 115), looped over every
   visible card. `sw.js` bumped to `rooted-v155`. See DATA_MODEL.md §8,
   item 158.
+- **Practice hero/mode-tile/Verse-Vault: bronze palette restored —
+  done (2026-11-09).** The owner re-sent the same hex-exact bronze spec
+  item 158 had declined, this time as a deliberate, specific override —
+  the standing black-and-white rule's own "unless I specifically tell
+  you" clause. Changed, all scoped to Practice-only classes (no shared
+  tokens or global `.btn.primary` touched): the circuit hero's
+  background/border/glow, the daily-goal progress fill, the circuit
+  hero's own CTA, the mode tiles' icon frame and active state, and a
+  new color-coded `.retention-pill` (mastered/due/review) on each Verse
+  Vault card. Family Tree's own bronze identity and the sanctioned
+  correct/wrong colors are unaffected; every other screen's
+  black-and-white rule is unchanged. `sw.js` bumped to `rooted-v156`.
+  See DATA_MODEL.md §8, item 159.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

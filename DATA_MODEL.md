@@ -7581,6 +7581,30 @@ inventing a new principle:
       all.
     `sw.js` bumped to `rooted-v155`.
 
+159. **Practice hero/mode-tile/Verse-Vault retention: bronze palette
+    restored — done (2026-11-09).** The owner sent the exact same
+    hex-exact bronze spec (`#C69255`/`#E5B475` gradients, glowing
+    progress-bar/CTA/mode-tile-active/retention-pill treatments) that
+    item 158 had deliberately declined in favor of black-and-white a
+    second time — this time taken as the deliberate, specific override
+    the standing "black and white only... unless I specifically tell
+    you" rule always allowed, not silently re-applied or silently
+    re-declined. Changed, all scoped to Practice-only classes (no shared
+    `--gold`/`--sage` tokens or global `.btn.primary` touched):
+    `.practice-hero-card` (gradient background, bronze border/glow),
+    `.circuit-badge`/`.circuit-step-active` (bronze text), the daily-goal
+    progress fill (bronze gradient + glow shadow), `.practice-circuit-
+    hero .btn.primary` (bronze CTA, scoped selector so the shared button
+    token elsewhere is untouched), `.mode-tile` (new bronze icon-frame
+    via `.mode-tile-icon-frame`, bronze active-state border/background),
+    and a new `.retention-pill` (mastered/due/review, green/bronze/red)
+    added to `renderVaultCard()`'s tag row alongside the existing
+    retention bar — whose own fill color now also uses bronze for the
+    middle "due" tier instead of neutral white. Family Tree's own
+    pre-existing bronze identity (item 111) and the still-sanctioned
+    correct/wrong green/red are both unaffected; every other screen's
+    black-and-white rule stays as-is. `sw.js` bumped to `rooted-v156`.
+
 ---
 
 ## 9. How the app reads this data

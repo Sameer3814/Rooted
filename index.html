@@ -220,13 +220,16 @@
   /* Verse Vault card additions (item 158) — layered on top of the shared
      .verse-card rules above via renderVaultCard(), not a change to them
      (renderVerseCard's other callers — Lexicon Detail, Motif Detail — are
-     unaffected). Retention-bar colors reuse this app's existing, already-
-     sanctioned correct/wrong greens/reds (#10B981/#EF4444), not a new color
-     exception; the middle "fading" tier is neutral --gold (white), not the
-     bronze this request originally specified — see DATA_MODEL.md §8, item
-     158 for why. */
+     unaffected). Retention-bar/pill colors: green/red reuse this app's
+     existing sanctioned correct/wrong hexes; the middle "due" tier uses the
+     bronze #C69255 per the owner's 2026-11-09 direct hex-exact re-request
+     (see the practice-hero-card note above for the full history). */
   .verse-retention-track{height:4px;background:var(--surface-sunken);border-radius:100px;overflow:hidden;margin-top:10px;}
   .verse-retention-fill{height:100%;border-radius:100px;transition:width .3s ease;}
+  .retention-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
+  .retention-pill.mastered{color:#10B981;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);}
+  .retention-pill.due{color:#C69255;background:rgba(198,146,85,.12);border:1px solid rgba(198,146,85,.25);}
+  .retention-pill.review{color:#EF4444;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);}
   /* "Quick Peek": text is blurred by default, sharp on press-and-hold —
      wireVerseVaultPeek() toggles .peek per-card, the same "plain CSS class
      flip outside interact()/render()" technique wireProgressiveVanish()
@@ -1109,41 +1112,45 @@
   .hero-nav-btn:active{transform:translateY(-50%) scale(.9);}
 
   /* ---------- Practice hero: linear daily-goal progress bar (2026-09-17,
-     item 120) — replaced the earlier circular goal ring (owner: "replace
-     the circular SVG progress ring with a full-width linear progress bar
-     container"). Exact spec values; scoped to its own classes rather than
-     the shared --gold/--sage tokens, same reasoning as every other
-     hex-exact challenge-type palette this session. ---------- */
+     item 120) — replaced the earlier circular goal ring. Bronze palette
+     restored (2026-11-09, owner's direct, explicit, hex-exact re-request
+     of the exact "obsidian/bronze" scheme items 145-146 and item 158 had
+     deliberately removed from this exact card twice before) — a real,
+     scoped, named exception to the app's standing black-and-white rule,
+     specific to this card only; see DATA_MODEL.md §8 item 158's note and
+     this pass's own changelog entry for the full history. ---------- */
   .practice-progress-container{margin-bottom:4px;}
   .practice-progress-row{display:flex;align-items:baseline;justify-content:space-between;}
   .practice-progress-label{font-size:12px;color:#9C9C9C;letter-spacing:.05em;font-weight:600;}
-  .practice-progress-count{font-size:14px;color:#F2F2F2;font-weight:600;}
-  .practice-progress-track{height:8px;background:#232323;border-radius:100px;overflow:hidden;margin:8px 0 20px;}
-  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#F2F2F2,#FFFFFF);border-radius:100px;transition:width .4s cubic-bezier(.34,1.56,.64,1);}
-  /* "Memory Arena" hero card (item 158) — a visual/interaction redesign of
-     the existing daily-goal bar, deliberately kept black-and-white per the
-     app's standing color rule (see DATA_MODEL.md §8, item 158 for the
-     owner's own confirmed resolution — this reused request explicitly
-     asked for a warm bronze palette that had been deliberately removed
-     from these exact components, twice, in items 145-146). The badge/
-     steps below are cosmetic labeling over the same underlying single-
-     mode session (`start-practice`, unchanged) — not a new 3-step
-     mechanic. */
-  .circuit-badge{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold-deep);display:flex;align-items:center;gap:5px;margin-bottom:6px;}
+  .practice-progress-count{font-size:13px;color:#F5F2ED;font-weight:600;}
+  .practice-progress-track{height:8px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;margin:14px 0 18px;}
+  .practice-progress-fill{height:100%;background:linear-gradient(90deg,#C69255 0%,#E5B475 100%);border-radius:100px;box-shadow:0 0 14px rgba(198,146,85,.4);transition:width .4s ease;}
+  /* "Memory Arena" hero card (item 158) — badge/steps below are cosmetic
+     labeling over the same underlying single-mode session
+     (`start-practice`, unchanged), not a new 3-step mechanic. */
+  .circuit-badge{font-size:11px;font-weight:700;letter-spacing:.08em;color:#C69255;display:flex;align-items:center;gap:5px;margin-bottom:6px;}
   .circuit-subtitle{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
   .circuit-steps{display:flex;align-items:center;gap:6px;margin:14px 0 4px;}
   .circuit-step{flex:1;text-align:center;font-size:11px;font-weight:600;color:var(--ink-faint);background:var(--surface-sunken);border:1px solid transparent;border-radius:var(--radius-ctl);padding:8px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .circuit-step-active{color:var(--gold-deep);border-color:var(--gold-wash);}
+  .circuit-step-active{color:#C69255;border-color:rgba(198,146,85,.35);}
   .circuit-step-arrow{color:var(--ink-faint);font-size:12px;flex-shrink:0;}
+  /* Scoped to the circuit hero's own CTA only — not a change to the shared
+     .btn.primary token used everywhere else in the app. */
+  .practice-circuit-hero .btn.primary{
+    background:#C69255 !important;color:#141210 !important;
+    box-shadow:0 6px 20px rgba(198,146,85,.25);
+  }
+  .practice-circuit-hero .btn.primary:active{transform:scale(.97);}
 
-  /* ---------- Practice hero: 2x3 exercise-mode grid (item 120) — replaced
-     the horizontally-scrolling .segmented challenge-type picker. Its own
-     scoped palette, same reasoning as the progress bar above. ---------- */
+  /* ---------- Practice hero: 2x3 exercise-mode grid (item 120), restyled
+     into "TARGETED DRILLS" tiles with a bronze icon frame and active state
+     (2026-11-09, owner's direct hex-exact re-request — see the progress-bar
+     note above). ---------- */
   .mode-tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
   .mode-tile{
-    background:#1A1A1A;border:1px solid #2A2A2A;border-radius:14px;
-    padding:12px 14px;text-align:left;cursor:pointer;
-    transition:background .2s ease,border-color .2s ease,transform .2s cubic-bezier(.175,.885,.32,1.275);
+    background:#1C1917;border:1px solid #2E2925;border-radius:16px;
+    padding:14px 12px;text-align:left;cursor:pointer;
+    transition:transform .15s cubic-bezier(.175,.885,.32,1.275),border-color .15s ease,background .15s ease;
     min-height:44px;
   }
   .mode-tile:active{transform:translateY(-2px);}
@@ -1154,18 +1161,22 @@
     font-family:var(--font-sans);cursor:pointer;padding:4px 0 14px;
     display:flex;align-items:center;gap:4px;
   }
-  .mode-tile .app-icon{color:#9C9C9C;width:18px;height:18px;display:block;}
+  .mode-tile .app-icon{color:#C69255;width:18px;height:18px;display:block;}
+  .mode-tile-icon-frame{width:32px;height:32px;border-radius:10px;background:rgba(198,146,85,.12);display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
   .mode-tile-title{font-size:14px;font-weight:600;color:#F2F2F2;margin-top:6px;}
   .mode-tile-subtext{font-size:11px;color:#9C9C9C;margin-top:2px;}
-  /* Reverted from item 121's bronze active-tile treatment the same day
-     ("our theme for the app is black and white") — back to the shared
-     --gold-deep/--gold-wash tokens (white) instead of a scoped bronze
-     exception, matching the nav's own reversal above. */
-  .mode-tile.active-mode-tile{border:1.5px solid var(--gold-deep);background:var(--gold-wash);}
-  .mode-tile.active-mode-tile .app-icon{color:var(--gold-deep);}
+  .mode-tile.active-mode-tile{border-color:#C69255 !important;background:rgba(198,146,85,.15) !important;transform:scale(1.02);}
+  .mode-tile.active-mode-tile .app-icon{color:#C69255;}
 
-  /* ---------- Practice screen: hero card, compact stats strip, filter tabs ---------- */
-  .practice-hero-card{background:var(--paper-raised);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:20px 16px 16px;margin-bottom:16px;}
+  /* ---------- Practice screen: hero card, compact stats strip, filter tabs
+     — "Daily Circuit" hero restyled with a warm bronze glow (2026-11-09,
+     same re-request as above). ---------- */
+  .practice-hero-card{
+    background:linear-gradient(135deg,rgba(198,146,85,.14) 0%,rgba(28,25,23,.95) 100%);
+    border:1px solid rgba(198,146,85,.35);border-radius:24px;
+    padding:24px 20px;box-shadow:0 16px 36px rgba(0,0,0,.45);
+    position:relative;overflow:hidden;margin-bottom:16px;
+  }
   .practice-stats-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--surface-sunken);border-radius:var(--radius-ctl);padding:10px 14px;margin-bottom:20px;font-size:var(--text-sm);color:var(--ink-soft);}
   .practice-stats-strip .stat-sep{color:var(--ink-faint);}
   .practice-stats-strip strong{color:var(--ink);font-weight:700;}
@@ -3339,7 +3350,7 @@ function renderChallengeGrid(){
     const active = settings.challengeTypeId === t.id ? ' active-mode-tile' : '';
     return `
       <div class="mode-tile${active}" data-action="set-challenge" data-id="${t.id}">
-        ${icon(meta.icon, 18)}
+        <div class="mode-tile-icon-frame">${icon(meta.icon, 18)}</div>
         <div class="mode-tile-title">${esc(meta.label)}</div>
         <div class="mode-tile-subtext">${esc(meta.subtext)}</div>
       </div>`;
@@ -3349,7 +3360,7 @@ function renderChallengeGrid(){
     <div class="mode-tile-grid">
       ${tiles}
       <div class="mode-tile${mixActive}" data-action="set-challenge" data-id="${MIX_MATCH_ID}">
-        ${icon('sparkles', 18)}
+        <div class="mode-tile-icon-frame">${icon('sparkles', 18)}</div>
         <div class="mode-tile-title">Mix &amp; Match</div>
         <div class="mode-tile-subtext">Random drill mix</div>
       </div>
@@ -3407,7 +3418,9 @@ function renderVaultCard(v){
   const status = getProgress(v.id).status;
   const dueTag = isDue(v) ? '<span class="tag tag--gold">Due today</span>' : '';
   const pct = verseRetentionPct(v);
-  const retentionColor = pct > 80 ? '#10B981' : pct < 30 ? '#EF4444' : 'var(--gold)';
+  const tier = pct > 80 ? 'mastered' : pct < 30 ? 'review' : 'due';
+  const retentionColor = tier === 'mastered' ? '#10B981' : tier === 'review' ? '#EF4444' : '#C69255';
+  const tierLabel = tier === 'mastered' ? 'Mastered' : tier === 'review' ? 'Needs review' : 'Fading';
   return `
     <div class="card tap verse-card vault-card" data-action="open-verse" data-id="${v.id}">
       ${renderMasteryBar(status)}
@@ -3418,6 +3431,7 @@ function renderVaultCard(v){
       </div>
       <div class="tag-row">
         ${v.topicIds.map(tid=>{const t=findTopic(tid); return t?`<span class="tag tag--pill">#${esc(hashtagify(t.name))}</span>`:'';}).join('')}
+        <span class="retention-pill ${tier}">${tierLabel}</span>
         ${dueTag}
       </div>
       <div class="verse-retention-track"><div class="verse-retention-fill" style="width:${pct}%;background:${retentionColor};"></div></div>
