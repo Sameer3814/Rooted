@@ -1121,9 +1121,18 @@
   }
   .shepherd-backdrop{position:absolute;left:0;right:0;top:0;height:460px;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,var(--sp-sky1) 0%,var(--sp-sky2) 34%,var(--sp-ground) 72%);}
   .shepherd-backdrop .sp-sun{position:absolute;top:60px;right:24px;width:64px;height:64px;border-radius:50%;background:#ffe2b8;box-shadow:0 0 70px 24px rgba(255,190,130,.5);}
+  .shepherd-backdrop .sp-sun-glow{position:absolute;top:-20px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,190,130,.8),rgba(255,190,130,0));}
   .shepherd-backdrop .sp-moon{position:absolute;top:56px;right:32px;width:56px;height:56px;border-radius:50%;background:#f6eccb;box-shadow:0 0 50px 14px rgba(246,236,203,.22);overflow:hidden;}
   .shepherd-backdrop .sp-moon::after{content:'';position:absolute;left:17px;top:-8px;width:54px;height:54px;border-radius:50%;background:var(--sp-sky1);}
   .shepherd-backdrop .sp-star{position:absolute;border-radius:50%;background:#fff6dc;animation:spTwinkle ease-in-out infinite;}
+  /* Drifting clouds (light mode only) — left out of the first Phase 1
+     pass as pure decoration, added back per direct owner feedback that
+     the backdrop read as empty without them. */
+  .sp-cloud-wrap{position:absolute;left:0;}
+  .sp-cloud-wrap.sp-cloud-1{top:70px;animation:spDrift 42s linear infinite;}
+  .sp-cloud-wrap.sp-cloud-2{top:160px;opacity:.8;animation:spDrift 60s -30s linear infinite;}
+  .sp-cloud{position:absolute;border-radius:50%;background:rgba(255,255,255,.85);}
+  @keyframes spDrift{from{transform:translateX(-160px);}to{transform:translateX(440px);}}
   @keyframes spTwinkle{0%,100%{opacity:.25;}50%{opacity:1;}}
   .shepherd-backdrop .sp-hill1{position:absolute;left:-45%;width:125%;bottom:-30px;height:430px;border-radius:50%;background:var(--sp-hill1);}
   .shepherd-backdrop .sp-hill2{position:absolute;right:-55%;width:130%;bottom:-70px;height:450px;border-radius:50%;background:var(--sp-hill2);}
@@ -1236,7 +1245,12 @@
   .sp-bubble-serif{font:400 18px/1.45 Newsreader,Georgia,serif;color:var(--sp-ink);}
   .sp-bubble-plain{font:800 16px/1.35 Figtree;color:var(--sp-ink);}
   .sp-session-footer{padding:0 4px;}
-  .sp-feedback-sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:20px 20px 32px;animation:spSheetUp .28s cubic-bezier(.2,.8,.2,1) both;}
+  /* z-index must clear the floating pill nav (.navbar, z-index:1000) —
+     at the old z-index:30 the nav sat on top of this sheet and hid its
+     own CONTINUE/GOT IT button entirely (owner screenshot, 2026-11-09).
+     Extra bottom padding also clears env(safe-area-inset-bottom), same
+     as .navbar's own handling, now that this sheet fully covers it. */
+  .sp-feedback-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1001;padding:20px 20px calc(32px + env(safe-area-inset-bottom));animation:spSheetUp .28s cubic-bezier(.2,.8,.2,1) both;}
   @keyframes spSheetUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
   .sp-feedback-sheet.sp-good{background:#dcf3d3;}
   .sp-feedback-sheet.sp-bad{background:#ffe0d9;}
@@ -1254,6 +1268,58 @@
   .sp-feedback-sheet.sp-good .sp-feedback-btn{background:#58c043;color:#14300d;box-shadow:0 5px 0 #43a033;}
   .sp-feedback-sheet.sp-bad .sp-feedback-btn{background:#ff5a5f;color:#fff;box-shadow:0 5px 0 #d93d42;}
   .sp-feedback-btn:active{transform:translateY(4px);}
+  /* Theme every ChallengeType's own exercise markup when it renders
+     inside a Shepherd session — none of their own unscoped rules above
+     are touched (the legacy, non-Shepherd session screen still looks
+     exactly as it did), these are pure additions at `.sp-session-screen
+     <selector>` so they only apply here. Fixes the "exercise still
+     looks like the old dark app" gap flagged (and deliberately
+     deferred) in item 161 — now actually closed, per direct owner
+     feedback (2026-11-09) rather than left as a seam. Correct/wrong
+     green/red (#10B981/#EF4444) are left exactly as-is everywhere —
+     the app's own sanctioned functional colors, not part of this
+     theming pass. */
+  .sp-session-screen .ref{color:var(--sp-acc) !important;}
+  .sp-session-screen .target-sentence-box,
+  .sp-session-screen .sprint-text-box,
+  .sp-session-screen .vanish-text-box,
+  .sp-session-screen .match-prompt-card{
+    background:var(--sp-surface) !important;border-color:var(--sp-line) !important;color:var(--sp-ink) !important;
+  }
+  .sp-session-screen .tap-slot{border-bottom-color:var(--sp-ink);color:var(--sp-ink);}
+  .sp-session-screen .tap-slot.tap-slot-filled{color:var(--sp-ink);}
+  .sp-session-screen .word-bank-grid .tap-tile,
+  .sp-session-screen .match-option-card{
+    background:var(--sp-soft) !important;border-color:var(--sp-line) !important;color:var(--sp-ink) !important;
+  }
+  .sp-session-screen .tap-tile:active{background:var(--sp-line) !important;}
+  .sp-session-screen .practice-hint{color:var(--sp-sub);}
+  .sp-session-screen .sprint-word.sprint-done{color:var(--sp-ink);}
+  .sp-session-screen .sprint-word.sprint-active{color:var(--sp-ink);border-bottom-color:var(--sp-ink);}
+  .sp-session-screen .sprint-word.sprint-future{color:var(--sp-sub);}
+  .sp-session-screen .sprint-toast{background:var(--sp-tint);border-color:var(--sp-acc);color:var(--sp-ink);}
+  .sp-session-screen .vanish-blank{border-bottom-color:var(--sp-ink);}
+  .sp-session-screen .vanish-text-box.peek-all .vanish-blank{color:var(--sp-ink) !important;}
+  .sp-session-screen .vanish-peek-btn{border-color:var(--sp-line);color:var(--sp-ink);background:var(--sp-surface);}
+  .sp-session-screen .clause-instruction{color:var(--sp-sub);}
+  .sp-session-screen .clause-card{background:var(--sp-surface) !important;border-color:var(--sp-line) !important;}
+  .sp-session-screen .clause-grip{color:var(--sp-sub);}
+  .sp-session-screen .clause-text{color:var(--sp-ink);}
+  .sp-session-screen .clause-card.clause-dragging,
+  .sp-session-screen .clause-card.clause-selected{border-color:var(--sp-acc) !important;background:var(--sp-tint) !important;}
+  /* Check/continue-style controls (Tap Builder/Vanish/Clause Connect's
+     own data-action="check-practice" button, plus the generic Check
+     button renderChallengeBody() falls back to for Progressive Vanish/
+     Reference Match) get the handoff's own bronze CTA instead of the
+     app's white default, matching every other primary action on this
+     screen. */
+  .sp-session-screen .tap-builder-check,
+  .sp-session-screen .vanish-next-btn,
+  .sp-session-screen .clause-check-btn,
+  .sp-session-screen .btn.primary{
+    background:var(--sp-cta) !important;color:var(--sp-ctaink) !important;
+    box-shadow:0 5px 0 var(--sp-ctad) !important;
+  }
 
   /* ---------- session-complete celebration ---------- */
   @keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
@@ -1280,7 +1346,7 @@
     .complete-card, .complete-icon, .spark, .complete-stat,
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
     .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
-    .sp-confetti-piece{
+    .sp-confetti-piece, .sp-cloud-wrap{
       animation: none !important;
       transition: none !important;
     }
@@ -5675,6 +5741,29 @@ function shepherdStarsHtml(){
   }
   return out;
 }
+function shepherdCloudHtml(size){
+  if(size === 'lg') return `<div class="sp-cloud-wrap sp-cloud-1"><div style="position:relative;width:110px;height:40px;">
+    <div class="sp-cloud" style="left:0;bottom:0;width:110px;height:24px;border-radius:12px;"></div>
+    <div class="sp-cloud" style="left:20px;bottom:8px;width:46px;height:38px;"></div>
+    <div class="sp-cloud" style="left:52px;bottom:6px;width:38px;height:30px;"></div>
+  </div></div>`;
+  return `<div class="sp-cloud-wrap sp-cloud-2"><div style="position:relative;width:80px;height:30px;">
+    <div class="sp-cloud" style="left:0;bottom:0;width:80px;height:18px;border-radius:9px;"></div>
+    <div class="sp-cloud" style="left:16px;bottom:6px;width:34px;height:28px;"></div>
+  </div></div>`;
+}
+/* Shared sky/hills backdrop (Phase 1 built it only for the Path screen;
+   the session/complete/streak screens never got it at all — owner
+   screenshot, 2026-11-09 — so this is now one function all four
+   Shepherd screens call, instead of four near-duplicate inline blocks. */
+function shepherdBackdropHtml(isDark){
+  return `<div class="shepherd-backdrop">
+    ${isDark
+      ? shepherdStarsHtml() + '<div class="sp-moon"></div>'
+      : '<div class="sp-sun-glow"></div><div class="sp-sun"></div>' + shepherdCloudHtml('lg') + shepherdCloudHtml('sm')}
+    <div class="sp-hill1"></div><div class="sp-hill2"></div>
+  </div>`;
+}
 const SHEPHERD_CONFETTI_COLORS = ['#ffc22e', '#58c043', '#2a97dc', '#ee5a72', '#8b5cf0', '#ff9600'];
 function shepherdConfetti(n){
   n = n || 36;
@@ -5817,10 +5906,7 @@ function renderShepherdPath(){
   const streak = computeStreak(), gems = settings.gems || 0, hearts = settings.hearts == null ? 5 : settings.hearts, dueCount = due.size;
   return `
     <div class="shepherd-screen" data-sp-theme="${isDark ? 'dark' : 'light'}">
-      <div class="shepherd-backdrop">
-        ${isDark ? shepherdStarsHtml() + '<div class="sp-moon"></div>' : '<div class="sp-sun"></div>'}
-        <div class="sp-hill1"></div><div class="sp-hill2"></div>
-      </div>
+      ${shepherdBackdropHtml(isDark)}
       <div class="shepherd-topbar">
         <div class="sp-pill sp-streak"><svg width="22" height="22" viewBox="0 0 24 24" fill="#ff9600"><path d="M12 2c1.2 3.6 5.5 6.2 5.5 11.3a5.5 5.5 0 0 1-11 0c0-2.2 1-3.8 2.2-4.9.1 1.6 1 2.7 2.1 2.7-.9-3.2.1-6.3 1.2-9.1z"/></svg>${streak}</div>
         <div class="sp-pill sp-gems"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6.5 3h11l4 6L12 21 2.5 9z" fill="#3eb2f5"/></svg>${gems}</div>
@@ -5842,6 +5928,7 @@ function renderShepherdComplete(){
   const isDark = settings.practiceTheme !== 'light';
   return `
     <div class="shepherd-screen sp-complete-screen" data-sp-theme="${isDark ? 'dark' : 'light'}">
+      ${shepherdBackdropHtml(isDark)}
       <div style="position:relative;width:150px;height:150px;">${lambSvg('cheer', 150)}<div class="sp-confetti">${shepherdConfetti()}</div></div>
       <div class="sp-complete-title">${esc(title)}</div>
       <div class="sp-complete-sub">${esc(sub)}</div>
@@ -5870,6 +5957,7 @@ function renderShepherdStreak(){
   }
   return `
     <div class="shepherd-screen sp-complete-screen" data-sp-theme="${isDark ? 'dark' : 'light'}" style="padding-top:80px;">
+      ${shepherdBackdropHtml(isDark)}
       <div class="sp-streak-flame"><svg width="120" height="136" viewBox="0 0 24 27"><path d="M12 1c1.6 4.6 7.4 8 7.4 14.8a7.4 7.4 0 0 1-14.8 0c0-3 1.3-5.1 3-6.6.1 2.1 1.3 3.6 2.8 3.6C9.2 8.5 10.5 4.6 12 1z" fill="#ff9600"/><path d="M12 13c.9 2.3 3.4 3.6 3.4 6.6a3.4 3.4 0 0 1-6.8 0c0-1.5.8-2.4 1.6-3 0 .9.5 1.4 1.1 1.4-.4-1.8.1-3.5.7-5z" fill="#ffd34d"/></svg></div>
       <div class="sp-streak-num">${streak}</div>
       <div class="sp-streak-label">day streak!</div>
@@ -6007,7 +6095,8 @@ function renderShepherdSession(item, type, v, st){
   const isRef = type.id === 'challenge_reference_match';
   return `
     <div class="shepherd-screen sp-session-screen" data-sp-theme="${isDark ? 'dark' : 'light'}">
-      <div class="sp-session-header">
+      ${shepherdBackdropHtml(isDark)}
+      <div class="sp-session-header" style="position:relative;">
         <button class="sp-session-close tap" data-action="exit-practice"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         <div class="sp-session-progress-track"><div class="sp-session-progress-fill" style="width:${pct}%"></div></div>
         <div class="sp-session-hearts"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.7a4.8 4.8 0 0 1 8.5 3.1C20.5 15.7 12 21 12 21z" fill="#ff5a5f"/></svg>${liveHearts}</div>

@@ -7915,6 +7915,46 @@ inventing a new principle:
     if one is still wanted now that the mode-tile grid is gone (see
     item 160).
 
+164. **"Shepherd's Path" fixes, round 2 — done (2026-11-09), owner
+    screenshot of the in-progress Tap Builder session.** Three real
+    bugs:
+    - **The sky/hills/sun/moon backdrop was never built for the
+      session, complete, or streak screens at all** — only the Path
+      screen ever got it; the other three just showed `.shepherd-
+      screen`'s own flat `--sp-ground` fill (or, for complete/streak,
+      their own plain radial-gradient with none of the decorative
+      pieces), which read as "no background" against the Path screen's
+      richer one. Extracted the backdrop into a shared
+      `shepherdBackdropHtml(isDark)` (plus `shepherdCloudHtml()`), now
+      called by all four screens instead of one inline block that only
+      Path had. Also added the drifting clouds (light mode) that
+      Phase 1 had deliberately left out as pure decoration — reversed
+      per this direct feedback that the backdrop reads empty without
+      them.
+    - **Every ChallengeType's own exercise markup still rendered in the
+      app's one standard dark palette inside a Shepherd session** —
+      exactly the seam items 160/161 flagged and deliberately deferred,
+      now actually closed rather than left open. New
+      `.sp-session-screen <selector>` overrides (box backgrounds,
+      tiles, borders, secondary text, the Check/primary button) for
+      all five ChallengeTypes' CSS — Tap Builder, First-Letter Sprint,
+      Progressive Vanish, Clause Connect, Reference Match — layered on
+      top of their existing unscoped rules, which stay completely
+      unchanged for the legacy, non-Shepherd session screen. Correct/
+      wrong green/red (`#10B981`/`#EF4444`) were left exactly as they
+      were everywhere — not part of this theming pass.
+    - **The floating pill nav (`.navbar`, `z-index:1000`) sat on top of
+      the feedback sheet** (`.sp-feedback-sheet`, `z-index:30`),
+      visually hiding its own CONTINUE/GOT IT button behind the nav's
+      blurred glass — what the owner's screenshot shows as a maroon-
+      tinted bar where the button should be (the nav's dark blur over
+      the sheet's own pink/green fill). Bumped the sheet's z-index to
+      `1001` (above the nav) and added `env(safe-area-inset-bottom)` to
+      its own bottom padding, same handling `.navbar` already has — the
+      nav is now fully covered while the sheet is showing, which is the
+      correct behavior for a full-screen bottom-sheet overlay.
+    `sw.js` bumped to `rooted-v161`.
+
 ---
 
 ## 9. How the app reads this data

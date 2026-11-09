@@ -884,6 +884,21 @@ The schema was deliberately designed so all of the above can be added
   bumped to `rooted-v160`. See DATA_MODEL.md §8, item 163. The only
   deliberately-deferred piece left from the whole project is a real
   Settings challenge-type picker, if still wanted.
+- **"Shepherd's Path" fixes, round 2 — done (2026-11-09), from an
+  owner screenshot of an in-progress Tap Builder session.** Three real
+  bugs: the sky/hills/sun/moon backdrop (plus light-mode drifting
+  clouds, deliberately left out in Phase 1, now added back) was never
+  built for the session/complete/streak screens at all, only Path —
+  extracted into a shared `shepherdBackdropHtml()` all four screens now
+  call; every ChallengeType's own exercise markup still rendered in the
+  app's standard dark palette inside a Shepherd session (the seam items
+  160/161 flagged and deferred) — new `.sp-session-screen`-scoped
+  overrides theme all five ChallengeTypes' CSS without touching their
+  unscoped rules, so the legacy session screen is unaffected; and the
+  floating pill nav (`z-index:1000`) sat on top of the feedback sheet
+  (`z-index:30`), hiding its own CONTINUE/GOT IT button — bumped to
+  `1001`. `sw.js` bumped to `rooted-v161`. See DATA_MODEL.md §8, item
+  164.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
