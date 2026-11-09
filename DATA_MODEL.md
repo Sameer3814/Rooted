@@ -606,6 +606,17 @@ note).
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
 - `activeDepth` — planned (§4).
+- `hearts`, `gems`, `xp`, `chestsOpened`, `practiceTheme`,
+  `lastStreakScreenDate` — live (2026-11-09, item 160). "Shepherd's
+  Path" economy state — `hearts` (default 5, -1 per wrong lesson/review
+  answer, not yet regenerated), `gems` (default 0, +20 per chest opened),
+  `xp` (default 0, +15/+10 per lesson, +3-per-correct per review),
+  `chestsOpened` (array of chest ids), `practiceTheme` (`'light'|'dark'`,
+  default `'dark'`, scoped to the Shepherd Path/complete/streak screens
+  only — see "Visual direction" in CLAUDE.md), `lastStreakScreenDate`
+  (an ISO date string gating the streak screen to once per calendar
+  day). Rides the same settings sync/export/import pipeline as every
+  other field here for free.
 
 ### 7.1 Cloud sync — *live* (optional, opt-in)
 
@@ -7604,6 +7615,150 @@ inventing a new principle:
     pre-existing bronze identity (item 111) and the still-sanctioned
     correct/wrong green/red are both unaffected; every other screen's
     black-and-white rule stays as-is. `sw.js` bumped to `rooted-v156`.
+
+160. **"Shepherd's Path" — Practice tab rebuild, Phase 1 (Path landing
+    screen) — done (2026-11-09).** The owner designed a full gamified
+    redesign externally (`design_handoff_practice_tab_v3/`, "Claude
+    design") and asked to review and bring it in. This **replaces the
+    "Memory Arena" landing (items 158-159) entirely** — the bronze hero/
+    mode-tile-grid/stats-strip/filter-tabs CSS and their render
+    functions (`renderPracticeHero`, `renderChallengeGrid`/`Tray`,
+    `renderPracticeProgressBar`, `renderVaultCard`, `verseRetentionPct`,
+    `wireVerseVaultPeek`, `filteredPracticeVerses`, etc.) were deleted,
+    not left dead, per this project's "delete code you're certain is
+    unused" rule. Given the scope (a Duolingo-style winding path, units/
+    lessons/chests, hearts, gems, XP, a day-streak screen, a light/dark
+    theme toggle, 3 new Google Fonts, and a fixed 5-exercise lesson
+    sequence) the owner explicitly chose **full mechanics, not a visual
+    skin**, a scoped **light/dark toggle** (a real, named exception to
+    the app's otherwise dark-only standing design, see below), the **new
+    fonts**, and a **phased build** — this is Phase 1 (the Path landing
+    screen); the Lesson/session screen's own visual rebuild (mascot
+    mood, speech bubble, live hearts, combo counter, feedback sheet) and
+    full XP/streak polish are Phase 2/3, not yet done.
+
+    - **Fonts.** Young Serif (display), Figtree (UI, 600-900), Newsreader
+      (scripture quotes) added to the existing Google Fonts `<link>`
+      alongside Inter/Fraunces — scoped to `.shepherd-*` classes only;
+      every other screen is untouched.
+    - **Color — a new, separate standing exception from item 159's (now
+      deleted) bronze one.** `.shepherd-screen` carries its own `--sp-*`
+      token set (not `--paper`/`--ink`), switched between the design's
+      full light ("dawn meadow") and dark ("night pasture") palettes via
+      `data-sp-theme`, toggled per-user by a new `settings.practiceTheme`
+      (`'light'|'dark'`, default `'dark'` to match the rest of the app at
+      first launch) — a real, user-facing light/dark pair, unlike
+      anything else in this app. Scoped entirely to the Shepherd Path/
+      complete/streak screens; every other screen's black-and-white rule
+      is unaffected.
+    - **Units, derived not stored** (`shepherdUnits()`) — "derive from
+      verse tags/collections" per the handoff's own README, since this
+      app has no generic "collection" entity: groups the user's practice
+      library (`libraryVerses()`) by each verse's first `topicId`, in
+      first-seen order (verses with no topic fall into one trailing
+      "Your Verses" catch-all), cycling through 3 hard-coded unit hues
+      (meadow teal/terracotta/dusk plum, matching the handoff exactly).
+      A chest is inserted after every 2 lesson stops, a trophy at each
+      unit's end — same shape as the design's hand-authored `UNITS`.
+    - **"Done"/"current"/"due," derived, not new state.** A stop is
+      "done" when `getProgress(v.id).status !== 'new'` (first practice
+      attempt already bumps it off `'new'` — see `recordPractice()`),
+      "due" reuses the existing `isDue()`, and "current" is simply the
+      first not-done verse across every unit in order
+      (`shepherdCurrent()`). No new per-verse flag was added — reusing
+      the existing mastery ladder avoids a second, parallel "done"
+      concept that could drift from it.
+    - **The lesson itself reuses the existing ChallengeType session
+      engine wholesale, not a new grading system.** The design's fixed
+      5-exercise sequence (vanish → tap → clause → first-letter →
+      reference) maps 1:1 onto 5 of this app's already-real
+      ChallengeTypes — `startShepherdLesson(verseId)` just builds a
+      5-item `session.queue`, one item per type, for one verse, and lets
+      the existing build()/interact()/check()/`recordPractice()` pipeline
+      run exactly as it always has (this is also why Phase 1 needed zero
+      changes to that engine). A review session
+      (`startShepherdReview()`) mirrors this for every due verse, one
+      random type each from `tap`/`first-letter`/`clause`/`reference`
+      (design spec: review skips Vanish). A completed Shepherd session
+      is tagged `session.shepherd = {kind, verseId, applied}` so
+      `renderPractice()` can route its completion to the new
+      `renderShepherdComplete()` screen instead of the old generic
+      "Session complete" card — which **still exists, unchanged**, for
+      the two other, non-Shepherd callers of `startPractice()` (Verse
+      Detail's "Practice this verse," Topic Detail's "Practice this
+      topic").
+    - **Economy — real new persisted fields on `settings`** (synced/
+      exported/backed-up for free, since they ride the same
+      `Object.assign({...defaults}, loaded)` pattern every other setting
+      already does, rather than a new parallel storage key):
+      `hearts` (default 5), `gems` (default 0), `xp` (default 0),
+      `chestsOpened` (id array), `practiceTheme`, `lastStreakScreenDate`
+      (gates showing the streak screen to once per calendar day).
+      `finishShepherdSession()` applies XP (+15 lesson/flawless, +10
+      lesson/imperfect, +3-per-correct review) and hearts (-1 per wrong
+      answer, floored at 0) exactly once per finished session, guarded
+      by `session.shepherd.applied` so a background re-render (sync,
+      a timer) can't double-charge it. **Known, deliberately deferred
+      gap**: hearts are never regenerated, and reaching 0 hearts doesn't
+      yet lock anything — the design's "hearts system" toggle and any
+      real lockout/regen logic is Phase 2/3 scope, flagged here rather
+      than faked.
+    - **The streak screen reuses real data, not a fabricated week.**
+      `renderShepherdStreak()`'s 7-day row reads the same
+      `practiceCountsByDay()`/`localDayKey()` this app's streak counter
+      already derives from (Known Gaps item 8's old heatmap data
+      source) — every checked day is a real day with recorded practice,
+      not a cosmetic "all 7 checked" placeholder.
+    - **Chests/gems** are real: `settings.chestsOpened`/`settings.gems`
+      persist through the same settings pipeline; a chest becomes
+      reachable once every lesson before it (across the *whole path*,
+      not just its own unit — matching the design's own single running
+      `allBefore` flag) is done.
+    - **The lamb mascot** (`lambSvg(mood, size)`) is a direct, faithful
+      port of the handoff's `Lamb.dc.html` — same shapes, same three
+      mood states (calm/cheer/sad) — as a plain template-string SVG
+      function rather than a component, matching this file's own
+      architecture.
+    - **Deliberate Phase 1 simplifications, flagged, not silent**: no
+      drifting clouds/stars-with-real-randomness/fireflies decor (a
+      small fixed star field stands in for dark-mode sky dressing;
+      light-mode clouds were dropped entirely as pure decoration); the
+      popover's pointer arrow is fixed at row-center rather than
+      tracking each stop's own horizontal offset; best-combo on the
+      complete screen is computed for real from `session.results`
+      (longest consecutive-correct run) rather than left as a stub.
+      None of these affect correctness, only polish — candidates for a
+      later pass, not Phase 2/3's actual scope.
+    - **A real layout bug caught and fixed before shipping**: the
+      popover was first nested inside the same `translateX`-shifted
+      wrapper as the stop button itself, which (confirmed against the
+      handoff's own markup — the popover is a *sibling* of that
+      wrapper, not a child) would have clipped its `left:0;right:0` to
+      the ~70px node width instead of the full row. Fixed by moving it
+      out to be a direct sibling of `.sp-stop-shift` inside
+      `.sp-stop-row`.
+    - **Entry points preserved**: the handoff's own end-of-path dashed
+      "+" node now opens this app's existing Add hub (`go-add` →
+      `renderAddMenu()`, Add Verse **and** Add Character) rather than
+      jumping straight to Add Verse only, since that hub is what the
+      4-Pillar nav's own "+" next to "Your verses" used to open (item
+      109) before this rebuild removed that section entirely.
+    - **Settings picker removed, not replaced — a known, flagged gap.**
+      The mode-tile grid was also the only UI for changing
+      `settings.challengeTypeId` (the default type `start-practice-verse`/
+      `start-practice-topic` fall back to); no replacement picker exists
+      yet, so those two legacy entry points are stuck on whatever the
+      stored default is (`challenge_tap_builder`) until a future pass
+      gives Settings its own picker, if that's still wanted.
+    `sw.js` bumped to `rooted-v157`. **Not done yet (Phase 2/3,
+    deliberately out of scope for this pass)**: the Lesson/session
+    screen's own visual rebuild (lamb + speech bubble, live hearts,
+    combo counter, the slide-up feedback sheet, the tap-tile/first-
+    letter/reference-match visual treatments from the handoff) — the
+    session screen today is still the old plain challenge-type UI, just
+    fed a Shepherd-built queue; confetti on the complete screen; hearts
+    regen/lockout; a real Settings challenge-type picker if still
+    wanted.
 
 ---
 

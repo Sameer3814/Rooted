@@ -62,15 +62,21 @@ The schema was deliberately designed so all of the above can be added
   and one practice link when verses are due; "This Day in Church
   History" was retired and deleted the same day as the reorder — see
   item 117; no progress dashboard, no practice session UI — see items
-  78 and 82), **Practice** (due-today stats, a linear daily-goal
-  progress bar, a 2x3 exercise-mode grid, the full verse library, and
-  five real challenge types plus a "Mix & Match" random-per-verse mode
-  — Tap Builder, First-Letter Sprint, Progressive Vanish, Clause
-  Connect, and Reference Match (items 113/114/115/118/119/120) — the
-  original four (fill-in-blank, scramble, progressive reveal, verse
-  ladder) were fully retired 2026-09-17, item 114; also the entry point
-  for Add Verse/Add Character, via a small
-  `+` next to "Your verses"), **Discover** (hub tab — Read the
+  78 and 82), **Practice** ("Shepherd's Path" as of 2026-11-09, item
+  160, Phase 1 — a Duolingo-style winding path landing screen: the
+  user's own library grouped into color-coded units by topic, lesson/
+  chest/trophy stops, a lamb mascot, hearts/gems/XP pills, a theme
+  toggle (the one screen in the app with a real light/dark pair — see
+  "Visual direction"), and a Review FAB for due verses; replaced the
+  short-lived "Memory Arena" landing (items 158-159, including its
+  bronze palette) entirely. Tapping a stop still runs the same five
+  real ChallengeTypes — Tap Builder, First-Letter Sprint, Progressive
+  Vanish, Clause Connect, Reference Match (items 113/114/115/118/119)
+  — now in a fixed 5-exercise-per-lesson sequence rather than a user-
+  picked single mode for a whole queue; the session/complete/streak
+  screens' own visual rebuild is Phase 2/3, not yet done — see item 160
+  for the full scope and known gaps. Add Verse/Add Character is now
+  reached via the path's own end-of-path "+" node), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
   badges), Stories list, Story detail (related stories, pattern badges)
@@ -792,6 +798,36 @@ The schema was deliberately designed so all of the above can be added
   correct/wrong colors are unaffected; every other screen's
   black-and-white rule is unchanged. `sw.js` bumped to `rooted-v156`.
   See DATA_MODEL.md §8, item 159.
+- **"Shepherd's Path" — Practice tab rebuild, Phase 1 — done
+  (2026-11-09), supersedes the item above.** The owner designed a full
+  gamified redesign externally (`design_handoff_practice_tab_v3/`) and
+  asked to bring it in — a Duolingo-style winding path (units/lessons/
+  chests/trophies), hearts, gems, XP, a lamb mascot, a day-streak
+  screen, and a real light/dark theme toggle, built as the owner's
+  explicit full-mechanics choice (not a visual skin) in phases (this is
+  Phase 1, the Path landing screen only). This **deleted** item 159's
+  just-restored bronze Memory Arena CSS/JS entirely, not left it dead —
+  `renderPracticeHero`, `renderChallengeGrid`/`Tray`,
+  `renderPracticeProgressBar`, `renderVaultCard`, `verseRetentionPct`,
+  `wireVerseVaultPeek`, `filteredPracticeVerses`, and their CSS are all
+  gone. New: `.shepherd-*` classes with their own `--sp-*` light/dark
+  token pair (a real, scoped exception to the app's otherwise dark-only
+  rule — see "Visual direction"); `shepherdUnits()` groups the user's
+  own library by topic (this app's nearest analog to the handoff's
+  "tags/collections"); a lesson is just a 5-item `session.queue` built
+  from 5 already-real ChallengeTypes in the handoff's fixed order
+  (vanish→tap→clause→first-letter→reference) — zero changes to the
+  existing build/check/grade engine; `settings` gained `hearts`/`gems`/
+  `xp`/`chestsOpened`/`practiceTheme`/`lastStreakScreenDate`, synced for
+  free through the existing settings pipeline. A real layout bug was
+  caught and fixed before shipping: the popover was first nested inside
+  the stop's own `translateX`-shifted wrapper (would have clipped it to
+  ~70px instead of the full row) — moved out to a sibling, matching the
+  handoff's own markup structure. Session/complete/streak screens'
+  visual rebuild, hearts regen/lockout, and confetti are Phase 2/3, not
+  done yet. `sw.js` bumped to `rooted-v157`. See DATA_MODEL.md §8, item
+  160 for the full scope, every deliberate simplification, and what's
+  still outstanding.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1452,6 +1488,18 @@ pass touched (nav, badges, streak, bronze challenge-type palettes)
 stays black-and-white; this exception is scoped to Topics only. Full
 writeup: DATA_MODEL.md §8, item 144.
 
+**A third standing exception, and a different kind than Topics' or
+Family Tree's: Practice's "Shepherd's Path" screens carry a full,
+real light/dark theme pair, done (2026-11-09).** Items 158-159's
+bronze Memory Arena palette was deleted outright, not kept — this
+isn't that exception continuing. `.shepherd-screen`'s own `--sp-*`
+tokens (light "dawn meadow" / dark "night pasture", full palettes,
+not a single accent swap) are scoped to the Path/complete/streak
+screens only, toggled per-user via `settings.practiceTheme`
+(`'light'|'dark'`) — this is the one place in the whole app with a
+real light-mode option at all, everywhere else stays the dark-only v3
+theme by design. Full writeup: DATA_MODEL.md §8, item 160.
+
 **Deliberately left alone — read as functional state, not decorative
 theme, and this app's own genuine correct/wrong or error signal, not a
 brand color choice**: `--danger`/`--danger-wash` (real form/validation
@@ -1497,14 +1545,19 @@ hand-curate all the content before building.
    order, item 118), and `challenge_reference_match` ("Reference Match"
    — 4-option multiple choice, quote↔reference, added 2026-09-17, item
    119, the first type whose wrong path also auto-advances via the new
-   `autoAdvanceMsWrong` interface field), with a picker (a 2x3 grid as
-   of item 120, was a horizontally-scrolling `.segmented` row before
-   that) persisted to `rooted-settings`. Next: matching/ordering
-   (`challenge_story_order`, `challenge_character_match`). A 6th
-   Practice-hero tile, **Mix & Match**, isn't a real `ChallengeType` at
-   all — a sentinel `challengeTypeId` (`MIX_MATCH_ID` = `'mix_match'`,
-   not a `CHALLENGE_TYPES` key) that resolves to a different random real
-   type per verse at session-build time. Adding it required each
+   `autoAdvanceMsWrong` interface field). **The 2x3 mode-tile picker
+   itself was removed 2026-11-09** when "Shepherd's Path" (item 160)
+   replaced the Practice landing screen — a lesson now always runs all
+   five types in a fixed sequence per verse instead of the user picking
+   one type for a whole queue, so there's currently no UI for changing
+   `settings.challengeTypeId` (still used as the fallback for Verse/
+   Topic Detail's own "Practice this verse/topic" buttons) — a known,
+   flagged gap, not an oversight; see item 160. Next: matching/ordering
+   (`challenge_story_order`, `challenge_character_match`). **Mix &
+   Match** isn't a real `ChallengeType` — a sentinel `challengeTypeId`
+   (`MIX_MATCH_ID` = `'mix_match'`, not a `CHALLENGE_TYPES` key) that
+   resolves to a different random real type per verse at session-build
+   time, still used by `start-practice-topic`. Adding it required each
    practice-queue item to carry its own `challengeTypeId` rather than
    the whole session sharing one — see item 120.
 2. ~~Real character portrait illustrations (currently icon placeholders).~~
