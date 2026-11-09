@@ -1097,7 +1097,14 @@
      theme depends on. Fonts: Young Serif (display), Figtree (UI, 600-900),
      Newsreader (scripture quotes) — loaded in <head> alongside Inter/
      Fraunces, used only inside this screen. */
-  .shepherd-screen{position:relative;margin:0 -18px;padding:0 18px 12px;background:var(--sp-ground);border-radius:0 0 28px 28px;overflow:hidden;font-family:'Figtree',sans-serif;}
+  /* Cancels .app's own top/left/right padding (20px/18px/18px) so the
+     sky backdrop reaches the true top of the screen instead of leaving
+     a dark gap above it (owner screenshot, 2026-11-09) — re-adds an
+     equivalent padding-top so the topbar pills land back where they
+     were; .sp-complete-screen/.sp-session-screen's own padding
+     overrides below are untouched (they already got this right,
+     having never carried the old padding:0 top value). */
+  .shepherd-screen{position:relative;margin:-20px -18px 0;padding:20px 18px 12px;background:var(--sp-ground);border-radius:0 0 28px 28px;overflow:hidden;font-family:'Figtree',sans-serif;}
   .shepherd-screen[data-sp-theme="light"]{
     --sp-bg:#fbf6ec;--sp-ground:#f4eedf;--sp-sky1:#ffd6b3;--sp-sky2:#fbe8d2;--sp-surface:#fffdf8;--sp-line:#e7dcc8;
     --sp-ink:#2e2a3d;--sp-sub:#6b6477;--sp-lock:#e7dcc8;--sp-lockd:#cfc1a8;--sp-lockic:#a0937c;--sp-soft:#fbf6ec;--sp-tint:#e2f2ed;
@@ -1124,7 +1131,14 @@
   .sp-pill{display:flex;align-items:center;gap:5px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--sp-glass);backdrop-filter:blur(10px);border:1.5px solid var(--sp-glassline);font:900 15px Figtree;}
   .sp-pill.sp-streak{color:#f08a00;} .sp-pill.sp-gems{color:#2b94d6;} .sp-pill.sp-hearts{color:#f0474d;}
   .sp-theme-btn{width:40px;height:40px;flex:none;padding:0;margin-left:auto;border-radius:50%;border:1.5px solid var(--sp-glassline);background:var(--sp-glass);backdrop-filter:blur(10px);color:var(--sp-ink);display:grid;place-items:center;cursor:pointer;}
-  .shepherd-scroll{position:relative;z-index:2;padding-bottom:24px;}
+  /* Bottom-to-top path (owner request, 2026-11-09): Unit 1 at the
+     bottom, climbing upward as units/stops advance, instead of the
+     usual top-to-bottom list — a plain CSS reversal of display order
+     only. Rows are still generated and appended in the same forward
+     logical order (Unit 1's own stops, in sequence, first) — no change
+     to any row's own index math, x-offset pattern, or trail-curve
+     direction; flex just displays that same DOM sequence bottom-up. */
+  .shepherd-scroll{position:relative;z-index:2;display:flex;flex-direction:column-reverse;padding:24px 0;}
   .sp-unit-header{margin:4px 0 26px;padding:16px 18px;border-radius:18px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .sp-unit-header .sp-unit-n{font:800 13px Figtree;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
   .sp-unit-header .sp-unit-title{font:400 22px/1.15 'Young Serif';margin-top:2px;}
@@ -2588,7 +2602,19 @@ function go(screen, params={}){
   scrollPositions[scrollKey(view)] = window.scrollY;
   view = {screen, params};
   render();
-  window.scrollTo(0, scrollPositions[scrollKey(view)] || 0);
+  const key = scrollKey(view);
+  // Shepherd's Path now climbs bottom-to-top (item 162) — a fresh,
+  // never-before-visited Practice screen would otherwise default to
+  // scrollY 0, landing on the *most advanced* unit instead of the
+  // player's actual current stop. Only fires the first time ever
+  // (scrollPositions[key] is still unset); every later visit already
+  // has a real saved position from the normal restore path below, even
+  // if that saved value happens to be 0.
+  if(screen === 'practice' && !session && scrollPositions[key] == null){
+    const el = document.getElementById('shepherd-current-stop');
+    if(el){ el.scrollIntoView({block: 'center'}); return; }
+  }
+  window.scrollTo(0, scrollPositions[key] || 0);
 }
 
 /* ---------- HOME ----------
@@ -5681,7 +5707,7 @@ function renderShepherdPath(){
           : `<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>`;
         nodeHtml = `
           ${c ? `<div class="sp-start-bubble"><div class="sp-start-bubble-inner" style="color:${u.c};">START</div></div><div class="sp-ring"></div>` : ''}
-          <button class="sp-node tap" style="background:${bg};box-shadow:0 7px 0 ${sh},${glow};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}">${icon}<div class="sp-sheen"></div></button>
+          <button class="sp-node tap"${c ? ' id="shepherd-current-stop"' : ''} style="background:${bg};box-shadow:0 7px 0 ${sh},${glow};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}">${icon}<div class="sp-sheen"></div></button>
           ${isDueNow ? `<div class="sp-due-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg></div>` : ''}`;
         reached = d;
         if(c) popoverHtml = shepherdPopover(u, v.reference, 'New verse · 5 exercises', 'START  +15 XP', 'sp-start-lesson', v.id);
@@ -5706,8 +5732,18 @@ function renderShepherdPath(){
 
       let trailHtml = '';
       if(i < u.items.length - 1){
+        // Path now climbs bottom-to-top (.shepherd-scroll is
+        // flex-direction:column-reverse) — the next stop (DOM-next, i+1)
+        // sits ABOVE this row on screen, not below, so the trail's own
+        // end point flips from 34px *past* this row's bottom (134) to
+        // 34px *short of* the next row's own top from this row's frame
+        // (-66 = -(100-34)); the control points stay the midpoint of
+        // start/end so the curve is still a smooth, symmetric S either
+        // way. Start (34, this row's own anchor) is unchanged — only
+        // which direction the curve reaches depends on layout.
         const nx = OFF[(i+1) % 8];
-        const d = 'M ' + (179+xN) + ' 34 C ' + (179+xN) + ' 84, ' + (179+nx) + ' 84, ' + (179+nx) + ' 134';
+        const startY = 34, endY = -66, ctrlY = (startY + endY) / 2;
+        const d = 'M ' + (179+xN) + ' ' + startY + ' C ' + (179+xN) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + endY;
         trailHtml = `<svg class="sp-trail"><path d="${d}" style="fill:none;stroke:${reached ? u.c : 'var(--sp-trail)'};stroke-width:7;stroke-linecap:round;stroke-dasharray:0 15;"/></svg>`;
       }
 

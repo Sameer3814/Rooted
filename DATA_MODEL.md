@@ -7824,6 +7824,49 @@ inventing a new principle:
     confetti on the complete screen, hearts regen/lockout, a real
     Settings challenge-type picker if still wanted.
 
+162. **"Shepherd's Path" fixes: backdrop reaches the true top of the
+    screen, path now climbs bottom-to-top — done (2026-11-09), owner
+    screenshot comparison against the handoff's own mockup.** Two real
+    bugs, both fixed before Phase 3:
+    - **Top-bleed.** `.shepherd-screen` sat inside `.app`'s own
+      `padding:20px 18px 8px`, leaving a dark gap above the sky
+      backdrop instead of reaching the screen's true top edge (the
+      handoff's own mockup shows the gradient running under its
+      simulated status bar). Fixed the same way as every other
+      full-bleed treatment in this app: `margin:-20px -18px 0` cancels
+      `.app`'s padding, with an equivalent `padding-top:20px` re-added
+      so the topbar pills land back where they visually were.
+      `.sp-complete-screen`/`.sp-session-screen`'s own padding overrides
+      were already fine and needed no change.
+    - **Path direction.** The owner asked for the path to climb
+      bottom-to-top (Unit 1 at the bottom, later units above — not the
+      top-to-bottom list it shipped with). `.shepherd-scroll` is now
+      `display:flex;flex-direction:column-reverse` — a pure display-
+      order reversal; `shepherdUnits()`/`shepherdRows()`'s own row
+      generation is completely unchanged, still built in the same
+      forward logical order. Two real consequences this surfaced, both
+      fixed:
+      - **The trail connectors would have pointed the wrong way.**
+        Worked through the actual geometry rather than guessing: in
+        `column-reverse`, the next DOM sibling (the next stop) ends up
+        *above* the current row, not below, so the curve's end
+        y-coordinate flips from `134` (34px past this row's own
+        bottom, reaching down into the next row) to `-66` (34px short
+        of the next row's own anchor, reaching up into it instead) —
+        derived from the actual row-height/anchor math, not a blind
+        mirror. Control points now compute as the start/end midpoint
+        generically instead of a hardcoded `84`, so the formula holds
+        for either direction.
+      - **A fresh, never-before-visited Practice screen would default
+        to `scrollY 0`**, which after the reversal shows the *most
+        advanced* unit first instead of the player's actual current
+        stop. Fixed in `go()`: the current lesson node now carries
+        `id="shepherd-current-stop"`, and entering Practice for the
+        first time ever (no saved scroll position for that screen yet)
+        scrolls it into view instead of defaulting to the top. Every
+        later visit uses the normal save/restore path unchanged.
+    `sw.js` bumped to `rooted-v159`.
+
 ---
 
 ## 9. How the app reads this data

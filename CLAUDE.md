@@ -851,6 +851,22 @@ The schema was deliberately designed so all of the above can be added
   qualitative text, not a fabricated per-answer number, since real XP
   is session-level. `sw.js` bumped to `rooted-v158`. See DATA_MODEL.md
   §8, item 161.
+- **"Shepherd's Path" fixes: top-bleed + bottom-to-top path — done
+  (2026-11-09), from an owner screenshot comparison against the
+  handoff's own mockup.** The sky backdrop now reaches the true top of
+  the screen (`.shepherd-screen` cancels `.app`'s own padding via
+  negative margin, same technique as every other full-bleed treatment
+  here) instead of leaving a dark gap above it. The path itself now
+  climbs bottom-to-top (`.shepherd-scroll` is `flex-direction:
+  column-reverse`) — Unit 1 at the bottom, later units above — which
+  needed two real follow-on fixes, not just the CSS flip: the trail
+  connectors' end y-coordinate recomputed from the actual reversed-
+  stacking geometry (next stop now sits above, not below), and a new
+  `id="shepherd-current-stop"` + a one-time branch in `go()` so a
+  fresh Practice visit scrolls to the player's actual current stop
+  instead of defaulting to scrollY 0 (which, post-reversal, would show
+  the most advanced unit first). `sw.js` bumped to `rooted-v159`. See
+  DATA_MODEL.md §8, item 162.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
