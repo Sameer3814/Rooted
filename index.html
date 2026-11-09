@@ -1122,14 +1122,14 @@
     --sp-ink:#2e2a3d;--sp-sub:#6b6477;--sp-lock:#e7dcc8;--sp-lockd:#cfc1a8;--sp-lockic:#a0937c;--sp-soft:#fbf6ec;--sp-tint:#e2f2ed;
     --sp-cta:#ff7a50;--sp-ctad:#d9572f;--sp-ctaink:#3a1203;--sp-ctat:#c94f28;--sp-acc:#2f9a82;--sp-accd:#1f7563;--sp-accl:#8fd0bf;
     --sp-ring:#e7dcc8;--sp-glass:rgba(255,253,248,.72);--sp-glassline:rgba(120,100,70,.16);
-    --sp-hill1:#dbe7c6;--sp-hill2:#c9ddb0;--sp-trail:#ddd0b8;
+    --sp-hill1:#dbe7c6;--sp-hill2:#c9ddb0;--sp-trail:#ddd0b8;--sp-deco1:#a6c78a;--sp-petal:#f5a3b5;
   }
   .shepherd-screen[data-sp-theme="dark"]{
     --sp-bg:#120f1f;--sp-ground:#14112a;--sp-sky1:#1e2554;--sp-sky2:#181638;--sp-surface:#1f1a35;--sp-line:#30294a;
     --sp-ink:#f3eefc;--sp-sub:#aaa2c3;--sp-lock:#282243;--sp-lockd:#1a1631;--sp-lockic:#655d88;--sp-soft:#1f1a35;--sp-tint:#15302b;
     --sp-cta:#ff8a5e;--sp-ctad:#c9552f;--sp-ctaink:#2a0d02;--sp-ctat:#ff9c76;--sp-acc:#56c9ab;--sp-accd:#7ddcc3;--sp-accl:#2c7a68;
     --sp-ring:#30294a;--sp-glass:rgba(26,22,48,.72);--sp-glassline:rgba(255,255,255,.09);
-    --sp-hill1:#1c2246;--sp-hill2:#171b3a;--sp-trail:#322b52;
+    --sp-hill1:#1c2246;--sp-hill2:#171b3a;--sp-trail:#322b52;--sp-deco1:#2c3c5a;--sp-petal:#6b5aa0;
   }
   .shepherd-backdrop{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,var(--sp-sky1) 0%,var(--sp-sky2) 34%,var(--sp-ground) 72%);}
   .shepherd-backdrop .sp-sun{position:absolute;top:60px;right:24px;width:64px;height:64px;border-radius:50%;background:#ffe2b8;box-shadow:0 0 70px 24px rgba(255,190,130,.5);}
@@ -1146,28 +1146,47 @@
   .sp-cloud{position:absolute;border-radius:50%;background:rgba(255,255,255,.85);}
   @keyframes spDrift{from{transform:translateX(-160px);}to{transform:translateX(440px);}}
   @keyframes spTwinkle{0%,100%{opacity:.25;}50%{opacity:1;}}
-  .shepherd-backdrop .sp-hill1{position:absolute;left:-45%;width:125%;bottom:-30px;height:430px;border-radius:50%;background:var(--sp-hill1);}
-  .shepherd-backdrop .sp-hill2{position:absolute;right:-55%;width:130%;bottom:-70px;height:450px;border-radius:50%;background:var(--sp-hill2);}
+  /* bottom:-200px/-260px are the handoff's own original offsets — this
+     app's first pass used -30px/-70px, tuned (wrongly) for the old
+     460px-tall backdrop slice; now that the backdrop fills the whole
+     screen (item 165), that made the hills' equator sit high up on
+     screen looking like two floating circles instead of a low
+     horizon (owner screenshot, 2026-11-09). Restored to the real
+     source values, which assume a full-height backdrop. */
+  .shepherd-backdrop .sp-hill1{position:absolute;left:-45%;width:125%;bottom:-200px;height:430px;border-radius:50%;background:var(--sp-hill1);}
+  .shepherd-backdrop .sp-hill2{position:absolute;right:-55%;width:130%;bottom:-260px;height:450px;border-radius:50%;background:var(--sp-hill2);}
   .shepherd-topbar{position:relative;z-index:3;flex:none;display:flex;align-items:center;gap:8px;padding:20px 18px 10px;}
   .sp-pill{display:flex;align-items:center;gap:5px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--sp-glass);backdrop-filter:blur(10px);border:1.5px solid var(--sp-glassline);font:900 15px Figtree;}
   .sp-pill.sp-streak{color:#f08a00;} .sp-pill.sp-gems{color:#2b94d6;} .sp-pill.sp-hearts{color:#f0474d;}
   .sp-theme-btn{width:40px;height:40px;flex:none;padding:0;margin-left:auto;border-radius:50%;border:1.5px solid var(--sp-glassline);background:var(--sp-glass);backdrop-filter:blur(10px);color:var(--sp-ink);display:grid;place-items:center;cursor:pointer;}
-  /* Reverted the bottom-to-top (column-reverse) experiment — a fresh,
-     unambiguous reference screenshot from the owner (2026-11-09) showed
-     the intended order is normal top-to-bottom after all (Unit 1 at
-     top, later units reached by scrolling down into the hills); the
-     earlier "bottom to top" phrasing turned out to describe this
-     screen's real bug — the topbar/backdrop scrolling away with the
-     rest of the page — not the unit/stop order. Now the one internally-
-     scrolling region within the fixed .shepherd-screen (see above);
-     the topbar stays put above it. */
-  .shepherd-scroll{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 24px;}
+  /* Bottom-to-top path, re-confirmed (2026-11-09): reverted once in
+     item 165 on a misread of a reference screenshot, then explicitly
+     re-confirmed wanted ("I like the path from bottom to up") once the
+     *actual* bug behind that whole back-and-forth — the topbar/backdrop
+     scrolling away with the page — was fixed structurally (item 165's
+     fixed-viewport rebuild, kept as-is here). Unit 1 at the bottom,
+     later units reached by scrolling up. Row generation/index math is
+     still the same forward order (Unit 1's own items first) — this is
+     purely a display-order flip; see the trail-curve math below, which
+     has to account for "next" now being above, not below. This is now
+     the one internally-scrolling region within the fixed
+     .shepherd-screen; the topbar stays put above it regardless. */
+  .shepherd-scroll{position:relative;z-index:2;display:flex;flex-direction:column-reverse;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 24px;}
   .sp-unit-header{margin:4px 0 26px;padding:16px 18px;border-radius:18px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .sp-unit-header .sp-unit-n{font:800 13px Figtree;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
   .sp-unit-header .sp-unit-title{font:400 22px/1.15 'Young Serif';margin-top:2px;}
   .sp-unit-header .sp-unit-prog{flex:none;padding:8px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.4);font:900 14px Figtree;}
   .sp-unit-header + .sp-unit-header{margin-top:40px;}
   .sp-stop-row{position:relative;height:100px;display:flex;justify-content:center;}
+  /* Grass/flower/firefly decor on the side of each stop opposite the
+     node itself, skipped on the mascot row — left out of Phase 1 as
+     pure decoration, added back per direct owner feedback that the
+     backdrop reads empty without it. */
+  .sp-decor{position:absolute;pointer-events:none;}
+  .sp-tuft{top:30px;margin-left:-20px;}
+  .sp-flower{top:18px;margin-left:-13px;}
+  .sp-firefly{top:20px;width:40px;height:40px;margin-left:-20px;}
+  .sp-firefly-dot{position:absolute;border-radius:50%;background:#ffe9a3;animation:spTwinkle ease-in-out infinite;}
   .sp-stop-row.sp-open{z-index:6;}
   .sp-trail{position:absolute;left:50%;top:0;margin-left:-179px;width:358px;height:100px;overflow:visible;pointer-events:none;}
   .sp-stop-shift{position:relative;}
@@ -1176,7 +1195,7 @@
   .sp-node .sp-sheen{position:absolute;left:14px;top:7px;width:18px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);transform:rotate(-25deg);}
   .sp-ring{position:absolute;left:-11px;top:-11px;width:92px;height:92px;border-radius:32px;border:6px solid var(--sp-ring);box-sizing:border-box;}
   .sp-start-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);width:90px;margin-left:-45px;display:flex;justify-content:center;pointer-events:none;z-index:2;animation:spBob 1.6s ease-in-out infinite;}
-  .sp-start-bubble-inner{position:relative;padding:8px 13px;border-radius:12px;background:var(--sp-surface);border:2px solid var(--sp-line);font:900 14px Figtree;letter-spacing:.04em;}
+  .sp-start-bubble-inner{position:relative;padding:8px 13px;border-radius:12px;background:var(--sp-surface);border:2px solid var(--sp-line);font:900 14px Figtree;letter-spacing:.04em;color:#000;}
   .sp-start-bubble-inner::after{content:'';position:absolute;left:50%;bottom:-7px;width:10px;height:10px;margin-left:-6px;background:var(--sp-surface);border-right:2px solid var(--sp-line);border-bottom:2px solid var(--sp-line);transform:rotate(45deg);}
   @keyframes spBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
   .sp-due-badge{position:absolute;top:-6px;right:-8px;width:26px;height:26px;border-radius:50%;background:var(--sp-cta);border:3px solid var(--sp-ground);display:grid;place-items:center;color:var(--sp-ctaink);pointer-events:none;}
@@ -1360,7 +1379,7 @@
     .complete-card, .complete-icon, .spark, .complete-stat,
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
     .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
-    .sp-confetti-piece, .sp-cloud-wrap{
+    .sp-confetti-piece, .sp-cloud-wrap, .sp-firefly-dot{
       animation: none !important;
       transition: none !important;
     }
@@ -5755,6 +5774,16 @@ function shepherdStarsHtml(){
   }
   return out;
 }
+function shepherdTuftSvg(){
+  return `<svg width="40" height="28" viewBox="0 0 40 28"><path d="M5 28Q7 15 2 6q10 8 11 22zM15 28q1-16 5-26 3 12 2 26zM24 28q3-14 13-20-6 9-6 20z" fill="var(--sp-deco1)"/></svg>`;
+}
+function shepherdFlowerSvg(){
+  return `<svg width="26" height="36" viewBox="0 0 26 36"><path d="M13 16v20" stroke="var(--sp-deco1)" stroke-width="2.5"/><g fill="var(--sp-petal)"><circle cx="13" cy="6" r="5"/><circle cx="20" cy="11" r="5"/><circle cx="6" cy="11" r="5"/><circle cx="9" cy="18" r="5"/><circle cx="17" cy="18" r="5"/></g><circle cx="13" cy="12.5" r="3.5" fill="#ffd27a"/></svg>`;
+}
+function shepherdFireflyHtml(){
+  return `<div class="sp-firefly-dot" style="left:4px;top:8px;width:6px;height:6px;box-shadow:0 0 12px 4px rgba(255,214,110,.55);animation-duration:2.4s;"></div>
+    <div class="sp-firefly-dot" style="left:28px;top:26px;width:5px;height:5px;box-shadow:0 0 10px 3px rgba(255,214,110,.5);animation-duration:3.1s;animation-delay:.8s;"></div>`;
+}
 function shepherdCloudHtml(size){
   if(size === 'lg') return `<div class="sp-cloud-wrap sp-cloud-1"><div style="position:relative;width:110px;height:40px;">
     <div class="sp-cloud" style="left:0;bottom:0;width:110px;height:24px;border-radius:12px;"></div>
@@ -5799,7 +5828,7 @@ function shepherdPopover(u, title, sub, btnLabel, btnAction, btnId){
   return `<div class="sp-popover" style="background:${u.d};color:#fff;" data-action="sp-noop">
     <div class="sp-pop-title">${esc(title)}</div>
     <div class="sp-pop-sub">${esc(sub)}</div>
-    <button class="sp-pop-btn tap" style="background:#fff;color:${u.d};" data-action="${btnAction}" data-id="${esc(btnId)}">${esc(btnLabel)}</button>
+    <button class="sp-pop-btn tap" style="background:#fff;color:#000;" data-action="${btnAction}" data-id="${esc(btnId)}">${esc(btnLabel)}</button>
   </div>`;
 }
 function shepherdLockedPopover(title, sub){
@@ -5860,7 +5889,7 @@ function renderShepherdPath(){
           ? `<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/></svg>`
           : `<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>`;
         nodeHtml = `
-          ${c ? `<div class="sp-start-bubble"><div class="sp-start-bubble-inner" style="color:${u.c};">START</div></div><div class="sp-ring"></div>` : ''}
+          ${c ? `<div class="sp-start-bubble"><div class="sp-start-bubble-inner">START</div></div><div class="sp-ring"></div>` : ''}
           <button class="sp-node tap"${c ? ' id="shepherd-current-stop"' : ''} style="background:${bg};box-shadow:0 7px 0 ${sh},${glow};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}">${icon}<div class="sp-sheen"></div></button>
           ${isDueNow ? `<div class="sp-due-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg></div>` : ''}`;
         reached = d;
@@ -5888,13 +5917,37 @@ function renderShepherdPath(){
 
       let trailHtml = '';
       if(i < u.items.length - 1){
+        // .shepherd-scroll climbs bottom-to-top (flex-direction:
+        // column-reverse) — the next stop (DOM-next, i+1) sits ABOVE
+        // this row on screen, not below, so the curve's end y flips
+        // from 34px *past* this row's own bottom (134) to 34px *short
+        // of* the next row's own anchor from this row's frame
+        // (-66 = -(100-34)); control points stay the start/end
+        // midpoint so it's still a smooth, symmetric S either way.
         const nx = OFF[(i+1) % 8];
-        const d = 'M ' + (179+xN) + ' 34 C ' + (179+xN) + ' 84, ' + (179+nx) + ' 84, ' + (179+nx) + ' 134';
+        const startY = 34, endY = -66, ctrlY = (startY + endY) / 2;
+        const d = 'M ' + (179+xN) + ' ' + startY + ' C ' + (179+xN) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + endY;
         trailHtml = `<svg class="sp-trail"><path d="${d}" style="fill:none;stroke:${reached ? u.c : 'var(--sp-trail)'};stroke-width:7;stroke-linecap:round;stroke-dasharray:0 15;"/></svg>`;
+      }
+
+      // Grass/flower/firefly decor on the side opposite the node,
+      // skipped on the mascot's own row — same alternating pattern as
+      // the handoff (['tuft','flower','none','tuft','none'], cycling
+      // by stop index + a per-unit offset so it doesn't repeat
+      // identically unit to unit).
+      let decorHtml = '';
+      if(!mascotHere){
+        const dx = xN <= 0 ? xN + 122 : xN - 122;
+        const kind = ['tuft', 'flower', 'none', 'tuft', 'none'][(i + u.n * 2) % 5];
+        if(kind === 'tuft') decorHtml = `<div class="sp-decor sp-tuft" style="left:calc(50% + ${dx}px);">${shepherdTuftSvg()}</div>`;
+        else if(kind === 'flower') decorHtml = isDark
+          ? `<div class="sp-decor sp-firefly" style="left:calc(50% + ${dx}px);">${shepherdFireflyHtml()}</div>`
+          : `<div class="sp-decor sp-flower" style="left:calc(50% + ${dx}px);">${shepherdFlowerSvg()}</div>`;
       }
 
       rowsHtml += `<div class="sp-stop-row${open ? ' sp-open' : ''}">
         ${trailHtml}
+        ${decorHtml}
         <div class="sp-stop-shift" style="transform:translateX(${xN}px);">${nodeHtml}</div>
         ${mascotHere ? `<div class="sp-mascot" style="left:calc(50% + ${mx}px);margin-left:-40px;">${lambSvg('calm', 80)}</div>` : ''}
         ${open ? popoverHtml : ''}

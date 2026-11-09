@@ -8021,6 +8021,53 @@ inventing a new principle:
       scene's own stable bounds instead of a scrolling page.
     `sw.js` bumped to `rooted-v162`.
 
+166. **"Shepherd's Path" fixes, round 3 — done (2026-11-09), same
+    day.** Owner re-confirmed the bottom-to-top direction ("I like the
+    path from bottom to up") — item 165's revert was itself wrong; the
+    real fix was always the fixed-viewport rebuild (kept), not the
+    direction. Re-applied `.shepherd-scroll`'s `flex-direction:
+    column-reverse` and the reversed trail-curve math (`endY:-66`) on
+    top of item 165's now-correct fixed-viewport architecture.
+    - **Grass/flower/firefly decor, left out of Phase 1 as pure
+      decoration, added back**: `shepherdTuftSvg()`/
+      `shepherdFlowerSvg()`/`shepherdFireflyHtml()`, same alternating
+      pattern as the handoff (`['tuft','flower','none','tuft','none']`
+      cycling by stop index + unit number), rendered on the side
+      opposite each stop's own node, skipped on the mascot's row.
+      Needed two new tokens this app's `--sp-*` set never actually
+      picked up from the handoff's own token table —
+      `--sp-deco1`/`--sp-petal` — added to both themes.
+    - **Hills were "two big circles," not a horizon**: their
+      `bottom:-30px/-70px` offsets were tuned for the old Phase-1
+      460px-tall backdrop slice; now that the backdrop fills the whole
+      screen (item 165), that put each hill's equator high up on
+      screen instead of low. Restored the handoff's own real source
+      values (`bottom:-200px/-260px`), which assume exactly this kind
+      of full-height backdrop.
+    - **The "Start" button (the floating label above the current stop,
+      and the popover's own `START +15 XP` CTA) is now plain black
+      text**, not the per-unit accent color (`u.c`/`u.d`) it used
+      before.
+    - **Verified by actually running the render functions in Node**
+      (not just reading the code), after the owner's screenshot showed
+      a session screen missing its heading/mascot/verse text entirely:
+      `renderShepherdSession()` and `renderShepherdPath()` both produce
+      fully correct output when invoked directly — the heading, "NEW
+      VERSE" tag, mascot, verse text, and footer controls are all
+      present in the generated HTML. The most likely explanation is a
+      stale service-worker cache serving an in-between version from
+      the rapid sequence of pushes that day, not a real rendering bug
+      — `sw.js`'s cache name was bumped again here regardless, to force
+      a fresh fetch.
+    - **Left open, not fixed**: the bottom nav reading as olive/tinted
+      against the colorful backdrop (its own translucent blur picking
+      up whatever's behind it) — this is the nav's existing, shared,
+      app-wide styling, not something scoped to Shepherd screens, and
+      the report wasn't specific enough to safely change global nav
+      CSS without risking every other screen. Flagged for a follow-up
+      with a concrete reference if it's still wanted.
+    `sw.js` bumped to `rooted-v163`.
+
 ---
 
 ## 9. How the app reads this data

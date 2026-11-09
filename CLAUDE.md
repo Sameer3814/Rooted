@@ -85,10 +85,11 @@ The schema was deliberately designed so all of the above can be added
   in Phase 3 (item 163). The whole thing was rebuilt again as a fixed,
   self-contained full-viewport scene with its own internal scroll
   (item 165, 2026-11-09) — the topbar/backdrop no longer scroll away
-  with the path, and the unit/stop order is normal top-to-bottom
-  (Unit 1 first), reverting item 162's bottom-to-top experiment, which
-  turned out to have solved the wrong problem. See items 160-165 for
-  the full history. Add Verse/Add Character is now
+  with the path — and the path itself **climbs bottom-to-top, confirmed
+  as the owner's actual preference** (item 166; item 165's own revert
+  of this direction, on the way to finding the real fix, was itself
+  corrected the same day). See items 160-166 for the full history. Add
+  Verse/Add Character is now
   reached via the path's own end-of-path "+" node), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
@@ -935,6 +936,28 @@ The schema was deliberately designed so all of the above can be added
   is also fixed, as a side effect of the same restructure, not a
   separate change. `sw.js` bumped to `rooted-v162`. See DATA_MODEL.md
   §8, item 165.
+- **"Shepherd's Path" fixes, round 3 — done (2026-11-09), same day.**
+  Owner re-confirmed bottom-to-top ("I like the path from bottom to
+  up") — item 165's revert of that direction was itself the mistake;
+  re-applied `column-reverse` and the reversed trail math on top of
+  item 165's now-correct fixed-viewport rebuild, which is what actually
+  needed fixing. Added the grass/flower/firefly decor left out of
+  Phase 1 (two new tokens, `--sp-deco1`/`--sp-petal`, that the app's
+  `--sp-*` set had never actually picked up from the handoff). Restored
+  the hills' real source offsets (`-200px/-260px`) — the Phase 1 values
+  were tuned for the old 460px backdrop slice and, now that the
+  backdrop fills the whole screen, made the hills read as two floating
+  circles instead of a horizon. The Start button (floating label +
+  popover CTA) is now plain black, not the per-unit accent color.
+  Verified `renderShepherdSession()`/`renderShepherdPath()` by actually
+  running them in Node after a screenshot showed a session screen
+  missing its heading/mascot/verse text — both produce fully correct
+  output, so that was most likely a stale service-worker cache from the
+  rapid sequence of pushes, not a real bug; `sw.js` bumped regardless
+  to force a fresh fetch (`rooted-v163`). Left open: the bottom nav
+  reading olive-tinted against the colorful backdrop — shared, app-wide
+  nav styling, not safe to change from a non-specific report. See
+  DATA_MODEL.md §8, item 166.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
