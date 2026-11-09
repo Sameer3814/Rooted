@@ -867,6 +867,23 @@ The schema was deliberately designed so all of the above can be added
   instead of defaulting to scrollY 0 (which, post-reversal, would show
   the most advanced unit first). `sw.js` bumped to `rooted-v159`. See
   DATA_MODEL.md §8, item 162.
+- **"Shepherd's Path" Phase 3: confetti + hearts regen/lockout — done
+  (2026-11-09), closes out the project.** A real colorful confetti
+  burst (`shepherdConfetti()`, the handoff's own 6-color palette,
+  CSS-only) behind the cheering lamb on the complete screen — a
+  genuinely separate function from the app's existing white/gold
+  `renderSparks()`, since that one's palette is tied to the standing
+  black-and-white rule elsewhere. Also fixed the same day: item 162's
+  top-bleed fix never actually reached the complete/streak screens,
+  since `.sp-complete-screen`'s own `margin` shorthand silently
+  overrode it. Hearts now regenerate to 5 once per calendar day
+  (`heartsRegenIfNeeded()`, a new `settings.heartsResetDate`, same
+  shape as `lastStreakScreenDate`) and genuinely lock out starting a
+  new lesson/review at 0 — a toast, plus the Path screen's own popover
+  showing the locked state before the tap, not just after. `sw.js`
+  bumped to `rooted-v160`. See DATA_MODEL.md §8, item 163. The only
+  deliberately-deferred piece left from the whole project is a real
+  Settings challenge-type picker, if still wanted.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

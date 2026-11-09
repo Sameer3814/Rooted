@@ -1175,7 +1175,11 @@
   .sp-review-badge{min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:11px;background:#f0474d;color:#fff;font:900 12.5px/22px Figtree;}
   .sp-toast{position:fixed;left:50%;top:70px;z-index:25;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:14px;background:var(--sp-surface);border:2px solid var(--sp-line);box-shadow:0 4px 0 var(--sp-line);font:900 15px Figtree;color:var(--sp-ink);white-space:nowrap;animation:spPop .3s both;}
   /* ---------- Shepherd's Path: lesson complete / streak screens (item 160) ---------- */
-  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);margin:0 -18px;padding:48px 22px 32px;border-radius:0 0 28px 28px;display:flex;flex-direction:column;align-items:center;min-height:70vh;box-sizing:border-box;font-family:'Figtree',sans-serif;}
+  /* margin-top matches .shepherd-screen's own top-bleed fix (same
+     -20px cancel of .app's padding) — this rule's own margin shorthand
+     would otherwise reset it back to 0, since it comes later in the
+     cascade at equal specificity. */
+  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);margin:-20px -18px 0;padding:48px 22px 32px;border-radius:0 0 28px 28px;display:flex;flex-direction:column;align-items:center;min-height:70vh;box-sizing:border-box;font-family:'Figtree',sans-serif;}
   .sp-complete-title{font:400 32px 'Young Serif';color:var(--sp-ctat);margin-top:20px;text-align:center;}
   .sp-complete-sub{font:700 16px/1.45 Figtree;color:var(--sp-sub);margin-top:6px;max-width:300px;text-align:center;}
   .sp-stat-grid{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;}
@@ -1184,6 +1188,18 @@
   .sp-stat-value{background:var(--sp-surface);border-radius:14px;padding:14px 4px;display:flex;align-items:center;justify-content:center;gap:5px;font:400 22px 'Young Serif';}
   .sp-complete-cta{width:100%;height:54px;border:0;border-radius:16px;background:var(--sp-cta);color:var(--sp-ctaink);box-shadow:0 5px 0 var(--sp-ctad);font:900 16px Figtree;letter-spacing:.05em;cursor:pointer;margin-top:auto;}
   .sp-complete-cta:active{transform:translateY(4px);}
+  /* Confetti burst (Phase 3, item 163) — real color, a scoped Shepherd-
+     only exception same as the rest of this screen's palette; not the
+     app's own white/gold .spark burst (renderSparks(), the generic
+     session-complete card's confetti), which stays monochrome under
+     the standing black-and-white rule. */
+  .sp-confetti{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;}
+  .sp-confetti-piece{position:absolute;left:0;top:0;animation:spBurst ease-out both;}
+  @keyframes spBurst{
+    0%{opacity:1;transform:translate(0,0) scale(.4);}
+    12%{opacity:1;}
+    100%{opacity:0;transform:translate(var(--dx),calc(var(--dy) + 80px)) rotate(var(--rot));}
+  }
   .sp-streak-flame{margin-top:10px;}
   .sp-streak-num{font:400 72px/1 'Young Serif';color:#f08a00;margin-top:8px;}
   .sp-streak-label{font:400 26px 'Young Serif';color:#f08a00;margin-top:2px;}
@@ -1263,7 +1279,8 @@
     .btn, .navitem, .card.tap, .list-row.tap, .chapter-cell, .back-btn, .topic-card,
     .complete-card, .complete-icon, .spark, .complete-stat,
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
-    .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn{
+    .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
+    .sp-confetti-piece{
       animation: none !important;
       transition: none !important;
     }
@@ -1412,7 +1429,7 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null}, remote.settings || {});
+          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           if(!content.libraryVerseIds) content.libraryVerseIds = data.verses.map(v=>v.id);
@@ -1512,7 +1529,7 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null}, bundle.settings);
+    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null}, bundle.settings);
     if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
@@ -1995,7 +2012,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -5514,9 +5531,24 @@ function shepherdAllDoneBefore(units, unitIndex, verseId){
   }
   return true;
 }
+/* Hearts regen (Phase 3, item 163) — the simplest honest rule that
+   doesn't need a background timer: a full reset to 5 once per calendar
+   day, the same "derive against today's date key" shape
+   lastStreakScreenDate already uses. Checked lazily, from
+   renderShepherdPath() (the screen a player always passes through
+   before starting anything), not on a schedule. */
+function heartsRegenIfNeeded(){
+  const today = localDayKey(new Date());
+  if(settings.heartsResetDate !== today){
+    settings.hearts = 5;
+    settings.heartsResetDate = today;
+    saveSettings();
+  }
+}
 function startShepherdLesson(verseId){
   const v = findVerse(verseId);
   if(!v) return;
+  if((settings.hearts || 0) <= 0){ showShepherdToast('Out of hearts — come back tomorrow'); return; }
   shepherdSel = null;
   session = {
     challengeTypeId: null,
@@ -5533,6 +5565,7 @@ function startShepherdLesson(verseId){
 function startShepherdReview(){
   const ids = dueVerses().map(v=>v.id).filter(id=>findVerse(id));
   if(!ids.length) return;
+  if((settings.hearts || 0) <= 0){ showShepherdToast('Out of hearts — come back tomorrow'); return; }
   shepherdSel = null;
   session = {
     challengeTypeId: null,
@@ -5642,6 +5675,23 @@ function shepherdStarsHtml(){
   }
   return out;
 }
+const SHEPHERD_CONFETTI_COLORS = ['#ffc22e', '#58c043', '#2a97dc', '#ee5a72', '#8b5cf0', '#ff9600'];
+function shepherdConfetti(n){
+  n = n || 36;
+  let out = '';
+  for(let i=0;i<n;i++){
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 90 + Math.random() * 130;
+    const dx = (Math.cos(angle) * dist).toFixed(1);
+    const dy = (Math.sin(angle) * dist - 30).toFixed(1);
+    const rot = (Math.random() * 720 - 360).toFixed(0);
+    const color = SHEPHERD_CONFETTI_COLORS[i % SHEPHERD_CONFETTI_COLORS.length];
+    const w = i % 3 ? 8 : 7, h = i % 3 ? 13 : 7, radius = i % 3 ? 2 : 99;
+    const dur = (1.2 + Math.random() * .8).toFixed(2), delay = (.1 + Math.random() * .25).toFixed(2);
+    out += `<span class="sp-confetti-piece" style="width:${w}px;height:${h}px;border-radius:${radius}px;background:${color};--dx:${dx}px;--dy:${dy}px;--rot:${rot}deg;animation-duration:${dur}s;animation-delay:${delay}s;"></span>`;
+  }
+  return out;
+}
 function shepherdPopover(u, title, sub, btnLabel, btnAction, btnId){
   return `<div class="sp-popover" style="background:${u.d};color:#fff;" data-action="sp-noop">
     <div class="sp-pop-title">${esc(title)}</div>
@@ -5669,6 +5719,7 @@ function shepherdSimplePopover(bg, title, sub){
    live from the user's own library grouped by topic (shepherdUnits()),
    never stored — same "derive, don't persist" discipline as streaks. */
 function renderShepherdPath(){
+  heartsRegenIfNeeded();
   const units = shepherdUnits();
   if(!units.length){
     return `<div class="empty" style="padding-top:80px;"><i class="ti ti-leaf"></i><p>No verses yet.</p>
@@ -5710,7 +5761,9 @@ function renderShepherdPath(){
           <button class="sp-node tap"${c ? ' id="shepherd-current-stop"' : ''} style="background:${bg};box-shadow:0 7px 0 ${sh},${glow};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}">${icon}<div class="sp-sheen"></div></button>
           ${isDueNow ? `<div class="sp-due-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg></div>` : ''}`;
         reached = d;
-        if(c) popoverHtml = shepherdPopover(u, v.reference, 'New verse · 5 exercises', 'START  +15 XP', 'sp-start-lesson', v.id);
+        const outOfHearts = (settings.hearts || 0) <= 0;
+        if(outOfHearts && (c || d)) popoverHtml = shepherdLockedPopover(v.reference, "You're out of hearts — come back tomorrow to keep going.");
+        else if(c) popoverHtml = shepherdPopover(u, v.reference, 'New verse · 5 exercises', 'START  +15 XP', 'sp-start-lesson', v.id);
         else if(d) popoverHtml = shepherdPopover(u, v.reference, isDueNow ? 'This one is fading. A quick review will lock it back in.' : verseText(v).split(' ').slice(0,8).join(' ') + ' …', isDueNow ? 'REVIEW  +5 XP' : 'PRACTICE AGAIN  +5 XP', 'sp-start-lesson', v.id);
         else popoverHtml = shepherdLockedPopover(v.reference, 'Finish the stops above to unlock this verse.');
         allBefore = allBefore && d;
@@ -5789,7 +5842,7 @@ function renderShepherdComplete(){
   const isDark = settings.practiceTheme !== 'light';
   return `
     <div class="shepherd-screen sp-complete-screen" data-sp-theme="${isDark ? 'dark' : 'light'}">
-      <div style="width:150px;height:150px;">${lambSvg('cheer', 150)}</div>
+      <div style="position:relative;width:150px;height:150px;">${lambSvg('cheer', 150)}<div class="sp-confetti">${shepherdConfetti()}</div></div>
       <div class="sp-complete-title">${esc(title)}</div>
       <div class="sp-complete-sub">${esc(sub)}</div>
       <div class="sp-stat-grid">
@@ -6552,7 +6605,7 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   if(settings.language === 'te') loadTeVerses(); // don't block first paint — verseText() falls back to English until this resolves
 

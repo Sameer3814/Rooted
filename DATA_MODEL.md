@@ -607,16 +607,21 @@ note).
   input, so an invalid or extreme value is never possible.
 - `activeDepth` — planned (§4).
 - `hearts`, `gems`, `xp`, `chestsOpened`, `practiceTheme`,
-  `lastStreakScreenDate` — live (2026-11-09, item 160). "Shepherd's
-  Path" economy state — `hearts` (default 5, -1 per wrong lesson/review
-  answer, not yet regenerated), `gems` (default 0, +20 per chest opened),
-  `xp` (default 0, +15/+10 per lesson, +3-per-correct per review),
-  `chestsOpened` (array of chest ids), `practiceTheme` (`'light'|'dark'`,
-  default `'dark'`, scoped to the Shepherd Path/complete/streak screens
-  only — see "Visual direction" in CLAUDE.md), `lastStreakScreenDate`
-  (an ISO date string gating the streak screen to once per calendar
-  day). Rides the same settings sync/export/import pipeline as every
-  other field here for free.
+  `lastStreakScreenDate`, `heartsResetDate` — live (2026-11-09, items
+  160 and 163). "Shepherd's Path" economy state — `hearts` (default 5,
+  -1 per wrong lesson/review answer, reset to 5 once per calendar day
+  via `heartsResetDate`, item 163 — at 0, starting a new lesson/review
+  is blocked with a toast and the Path screen's own popover shows a
+  locked state instead of Start/Review), `gems` (default 0, +20 per
+  chest opened), `xp` (default 0, +15/+10 per lesson, +3-per-correct
+  per review), `chestsOpened` (array of chest ids), `practiceTheme`
+  (`'light'|'dark'`, default `'dark'`, scoped to the Shepherd Path/
+  complete/streak screens only — see "Visual direction" in CLAUDE.md),
+  `lastStreakScreenDate` (an ISO date string gating the streak screen
+  to once per calendar day), `heartsResetDate` (an ISO date string —
+  the last calendar day hearts were reset to 5). Rides the same
+  settings sync/export/import pipeline as every other field here for
+  free.
 
 ### 7.1 Cloud sync — *live* (optional, opt-in)
 
@@ -7866,6 +7871,49 @@ inventing a new principle:
         scrolls it into view instead of defaulting to the top. Every
         later visit uses the normal save/restore path unchanged.
     `sw.js` bumped to `rooted-v159`.
+
+163. **"Shepherd's Path" Phase 3: confetti + hearts regen/lockout —
+    done (2026-11-09), same day.** Closes out the last two items from
+    the Phase 1/2 known-gaps list (a real Settings challenge-type
+    picker remains deliberately out of scope — see item 160).
+    - **Confetti** on the complete screen — `shepherdConfetti()`, a
+      real 6-color burst (`#ffc22e`/`#58c043`/`#2a97dc`/`#ee5a72`/
+      `#8b5cf0`/`#ff9600`, matching the handoff's own palette exactly)
+      positioned behind the cheering lamb, CSS-only (`@keyframes
+      spBurst`, randomized angle/distance/rotation per piece, no
+      `<canvas>`) — the same "no per-frame JS for a decorative
+      flourish" reasoning as the app's existing `renderSparks()`, just
+      a genuinely separate, colorful function rather than reusing that
+      one, since `renderSparks()`'s white/gold palette is tied to the
+      app's own black-and-white rule elsewhere and shouldn't quietly
+      gain color. Also fixed, found while wiring this up: item 162's
+      top-bleed fix never actually reached the complete/streak screens
+      — `.sp-complete-screen` sets its own `margin` shorthand, which
+      silently overrode `.shepherd-screen`'s `-20px` top value back to
+      `0` (equal specificity, later rule wins). Fixed the same way.
+    - **Hearts regen** — the simplest rule that needs no background
+      timer: a full reset to 5 once per calendar day
+      (`heartsRegenIfNeeded()`, called from `renderShepherdPath()`,
+      the screen every Shepherd flow passes through before starting
+      anything), tracked by a new `settings.heartsResetDate` — the same
+      "derive against today's date key" shape `lastStreakScreenDate`
+      already uses, not a new pattern.
+    - **Lockout** — `startShepherdLesson()`/`startShepherdReview()` both
+      refuse to start a new session at 0 hearts (a toast, "Out of
+      hearts — come back tomorrow"), and the Path screen's own popover
+      shows the same message (via `shepherdLockedPopover()`) in place
+      of the normal START/REVIEW button for the current or any done-
+      but-practice-again-eligible stop — so the lockout is visible
+      *before* the tap, not only discovered after. The Review FAB
+      itself wasn't given a separate disabled state — tapping it at 0
+      hearts still reaches the same guard and toast in
+      `startShepherdReview()`, one source of truth rather than
+      duplicating the check into every render path.
+    `sw.js` bumped to `rooted-v160`. **This closes out Phase 3** — the
+    only remaining, still-deliberately-deferred item from the whole
+    "Shepherd's Path" project is a real Settings challenge-type picker,
+    if one is still wanted now that the mode-tile grid is gone (see
+    item 160).
 
 ---
 
