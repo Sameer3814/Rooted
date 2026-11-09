@@ -1097,14 +1097,26 @@
      theme depends on. Fonts: Young Serif (display), Figtree (UI, 600-900),
      Newsreader (scripture quotes) — loaded in <head> alongside Inter/
      Fraunces, used only inside this screen. */
-  /* Cancels .app's own top/left/right padding (20px/18px/18px) so the
-     sky backdrop reaches the true top of the screen instead of leaving
-     a dark gap above it (owner screenshot, 2026-11-09) — re-adds an
-     equivalent padding-top so the topbar pills land back where they
-     were; .sp-complete-screen/.sp-session-screen's own padding
-     overrides below are untouched (they already got this right,
-     having never carried the old padding:0 top value). */
-  .shepherd-screen{position:relative;margin:-20px -18px 0;padding:20px 18px 12px;background:var(--sp-ground);border-radius:0 0 28px 28px;overflow:hidden;font-family:'Figtree',sans-serif;}
+  /* Rewritten as a fixed, full-viewport "scene" (owner screenshot,
+     2026-11-09) rather than normal scrolling page content — the
+     previous card-with-negative-margins approach (still scrolling with
+     the rest of the page) meant the topbar (streak/gems/hearts) and
+     the sky backdrop scrolled away entirely once the path got long
+     enough to need scrolling, and left a real gap/bleed at both the
+     top and bottom edges. Mirrors .navbar's own proven
+     position:fixed;left:50%;transform:translateX(-50%) centering
+     trick, so it works at the 700px breakpoint too. The backdrop now
+     fills the *whole* screen (not a 460px slice), the topbar is a
+     non-scrolling flex:none header, and only .shepherd-scroll (or,
+     for the session screen, .sp-session-body) scrolls internally —
+     see those rules below. No more border-radius: this is now a true
+     full-bleed scene, not a card sitting in the page's own padding. */
+  .shepherd-screen{
+    position:fixed;left:50%;top:0;transform:translateX(-50%);
+    width:100%;max-width:var(--app-max-width);height:100%;height:100dvh;
+    margin:0;padding:0;background:var(--sp-ground);overflow:hidden;
+    display:flex;flex-direction:column;z-index:5;font-family:'Figtree',sans-serif;
+  }
   .shepherd-screen[data-sp-theme="light"]{
     --sp-bg:#fbf6ec;--sp-ground:#f4eedf;--sp-sky1:#ffd6b3;--sp-sky2:#fbe8d2;--sp-surface:#fffdf8;--sp-line:#e7dcc8;
     --sp-ink:#2e2a3d;--sp-sub:#6b6477;--sp-lock:#e7dcc8;--sp-lockd:#cfc1a8;--sp-lockic:#a0937c;--sp-soft:#fbf6ec;--sp-tint:#e2f2ed;
@@ -1119,7 +1131,7 @@
     --sp-ring:#30294a;--sp-glass:rgba(26,22,48,.72);--sp-glassline:rgba(255,255,255,.09);
     --sp-hill1:#1c2246;--sp-hill2:#171b3a;--sp-trail:#322b52;
   }
-  .shepherd-backdrop{position:absolute;left:0;right:0;top:0;height:460px;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,var(--sp-sky1) 0%,var(--sp-sky2) 34%,var(--sp-ground) 72%);}
+  .shepherd-backdrop{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,var(--sp-sky1) 0%,var(--sp-sky2) 34%,var(--sp-ground) 72%);}
   .shepherd-backdrop .sp-sun{position:absolute;top:60px;right:24px;width:64px;height:64px;border-radius:50%;background:#ffe2b8;box-shadow:0 0 70px 24px rgba(255,190,130,.5);}
   .shepherd-backdrop .sp-sun-glow{position:absolute;top:-20px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,190,130,.8),rgba(255,190,130,0));}
   .shepherd-backdrop .sp-moon{position:absolute;top:56px;right:32px;width:56px;height:56px;border-radius:50%;background:#f6eccb;box-shadow:0 0 50px 14px rgba(246,236,203,.22);overflow:hidden;}
@@ -1136,18 +1148,20 @@
   @keyframes spTwinkle{0%,100%{opacity:.25;}50%{opacity:1;}}
   .shepherd-backdrop .sp-hill1{position:absolute;left:-45%;width:125%;bottom:-30px;height:430px;border-radius:50%;background:var(--sp-hill1);}
   .shepherd-backdrop .sp-hill2{position:absolute;right:-55%;width:130%;bottom:-70px;height:450px;border-radius:50%;background:var(--sp-hill2);}
-  .shepherd-topbar{position:relative;z-index:3;display:flex;align-items:center;gap:8px;padding:14px 0 10px;}
+  .shepherd-topbar{position:relative;z-index:3;flex:none;display:flex;align-items:center;gap:8px;padding:20px 18px 10px;}
   .sp-pill{display:flex;align-items:center;gap:5px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--sp-glass);backdrop-filter:blur(10px);border:1.5px solid var(--sp-glassline);font:900 15px Figtree;}
   .sp-pill.sp-streak{color:#f08a00;} .sp-pill.sp-gems{color:#2b94d6;} .sp-pill.sp-hearts{color:#f0474d;}
   .sp-theme-btn{width:40px;height:40px;flex:none;padding:0;margin-left:auto;border-radius:50%;border:1.5px solid var(--sp-glassline);background:var(--sp-glass);backdrop-filter:blur(10px);color:var(--sp-ink);display:grid;place-items:center;cursor:pointer;}
-  /* Bottom-to-top path (owner request, 2026-11-09): Unit 1 at the
-     bottom, climbing upward as units/stops advance, instead of the
-     usual top-to-bottom list — a plain CSS reversal of display order
-     only. Rows are still generated and appended in the same forward
-     logical order (Unit 1's own stops, in sequence, first) — no change
-     to any row's own index math, x-offset pattern, or trail-curve
-     direction; flex just displays that same DOM sequence bottom-up. */
-  .shepherd-scroll{position:relative;z-index:2;display:flex;flex-direction:column-reverse;padding:24px 0;}
+  /* Reverted the bottom-to-top (column-reverse) experiment — a fresh,
+     unambiguous reference screenshot from the owner (2026-11-09) showed
+     the intended order is normal top-to-bottom after all (Unit 1 at
+     top, later units reached by scrolling down into the hills); the
+     earlier "bottom to top" phrasing turned out to describe this
+     screen's real bug — the topbar/backdrop scrolling away with the
+     rest of the page — not the unit/stop order. Now the one internally-
+     scrolling region within the fixed .shepherd-screen (see above);
+     the topbar stays put above it. */
+  .shepherd-scroll{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 24px;}
   .sp-unit-header{margin:4px 0 26px;padding:16px 18px;border-radius:18px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .sp-unit-header .sp-unit-n{font:800 13px Figtree;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
   .sp-unit-header .sp-unit-title{font:400 22px/1.15 'Young Serif';margin-top:2px;}
@@ -1184,11 +1198,7 @@
   .sp-review-badge{min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:11px;background:#f0474d;color:#fff;font:900 12.5px/22px Figtree;}
   .sp-toast{position:fixed;left:50%;top:70px;z-index:25;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:14px;background:var(--sp-surface);border:2px solid var(--sp-line);box-shadow:0 4px 0 var(--sp-line);font:900 15px Figtree;color:var(--sp-ink);white-space:nowrap;animation:spPop .3s both;}
   /* ---------- Shepherd's Path: lesson complete / streak screens (item 160) ---------- */
-  /* margin-top matches .shepherd-screen's own top-bleed fix (same
-     -20px cancel of .app's padding) — this rule's own margin shorthand
-     would otherwise reset it back to 0, since it comes later in the
-     cascade at equal specificity. */
-  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);margin:-20px -18px 0;padding:48px 22px 32px;border-radius:0 0 28px 28px;display:flex;flex-direction:column;align-items:center;min-height:70vh;box-sizing:border-box;font-family:'Figtree',sans-serif;}
+  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);padding:48px 22px 32px;align-items:center;overflow-y:auto;box-sizing:border-box;}
   .sp-complete-title{font:400 32px 'Young Serif';color:var(--sp-ctat);margin-top:20px;text-align:center;}
   .sp-complete-sub{font:700 16px/1.45 Figtree;color:var(--sp-sub);margin-top:6px;max-width:300px;text-align:center;}
   .sp-stat-grid{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;}
@@ -1227,15 +1237,19 @@
      dark palette regardless of this screen's own light/dark toggle — a
      deliberate, flagged seam, not an oversight (see DATA_MODEL.md §8,
      item 161). ---------- */
-  .sp-session-screen{min-height:70vh;padding-top:18px;padding-bottom:24px;box-sizing:border-box;font-family:'Figtree',sans-serif;}
-  .sp-session-header{display:flex;align-items:center;gap:14px;padding:0 4px;}
+  .sp-session-screen{padding-top:18px;box-sizing:border-box;}
+  .sp-session-header{flex:none;display:flex;align-items:center;gap:14px;padding:0 18px;}
   .sp-session-close{width:32px;height:32px;flex:none;border:0;background:none;color:var(--sp-lockic);display:grid;place-items:center;cursor:pointer;padding:0;}
   .sp-session-progress-track{flex:1;height:16px;border-radius:8px;background:var(--sp-line);overflow:hidden;}
   .sp-session-progress-fill{height:100%;border-radius:8px;background:var(--sp-cta);transition:width .5s cubic-bezier(.3,1.4,.5,1);}
   .sp-session-hearts{flex:none;display:flex;align-items:center;gap:5px;font:900 16px Figtree;color:#f0474d;}
-  .sp-session-combo-row{height:24px;padding:6px 4px 0;box-sizing:border-box;}
+  .sp-session-combo-row{flex:none;height:24px;padding:6px 18px 0;box-sizing:border-box;}
   .sp-combo-line{display:inline-flex;align-items:center;gap:4px;font:900 12.5px Figtree;letter-spacing:.06em;color:#f08a00;animation:spPop .3s both;}
-  .sp-session-body{padding:4px 4px 16px;}
+  /* The only internally-scrolling part of the session screen (item
+     165) — header/combo-row above and the Check/controls footer below
+     both stay flex:none, always visible, same reasoning as the Path
+     screen's topbar. */
+  .sp-session-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 16px;}
   .sp-new-tag{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font:900 12.5px Figtree;letter-spacing:.06em;color:var(--sp-acc);}
   .sp-session-heading{font:400 25px/1.15 'Young Serif';color:var(--sp-ink);}
   .sp-session-mascot-row{display:flex;align-items:flex-end;gap:10px;margin:16px 0 20px;}
@@ -1244,7 +1258,7 @@
   .sp-bubble-tail{position:absolute;left:-8px;bottom:18px;width:12px;height:12px;background:var(--sp-surface);border-left:2px solid var(--sp-line);border-bottom:2px solid var(--sp-line);transform:rotate(45deg);}
   .sp-bubble-serif{font:400 18px/1.45 Newsreader,Georgia,serif;color:var(--sp-ink);}
   .sp-bubble-plain{font:800 16px/1.35 Figtree;color:var(--sp-ink);}
-  .sp-session-footer{padding:0 4px;}
+  .sp-session-footer{flex:none;padding:12px 18px calc(16px + env(safe-area-inset-bottom));}
   /* z-index must clear the floating pill nav (.navbar, z-index:1000) —
      at the old z-index:30 the nav sat on top of this sheet and hid its
      own CONTINUE/GOT IT button entirely (owner screenshot, 2026-11-09).
@@ -2685,19 +2699,19 @@ function go(screen, params={}){
   scrollPositions[scrollKey(view)] = window.scrollY;
   view = {screen, params};
   render();
-  const key = scrollKey(view);
-  // Shepherd's Path now climbs bottom-to-top (item 162) — a fresh,
-  // never-before-visited Practice screen would otherwise default to
-  // scrollY 0, landing on the *most advanced* unit instead of the
-  // player's actual current stop. Only fires the first time ever
-  // (scrollPositions[key] is still unset); every later visit already
-  // has a real saved position from the normal restore path below, even
-  // if that saved value happens to be 0.
-  if(screen === 'practice' && !session && scrollPositions[key] == null){
+  // Shepherd's Path (and the session/complete/streak screens with it)
+  // is now a fixed, full-viewport scene with its own internal scroll
+  // region (item 165) — the page/window itself no longer scrolls at
+  // all while on Practice, so the normal window.scrollTo restore below
+  // doesn't apply there. Instead, jump the current stop into view
+  // inside .shepherd-scroll every time Practice is actually navigated
+  // to (not on every background render() — those don't call go()).
+  if(screen === 'practice' && !session){
     const el = document.getElementById('shepherd-current-stop');
-    if(el){ el.scrollIntoView({block: 'center'}); return; }
+    if(el){ el.scrollIntoView({block: 'center'}); }
+    return;
   }
-  window.scrollTo(0, scrollPositions[key] || 0);
+  window.scrollTo(0, scrollPositions[scrollKey(view)] || 0);
 }
 
 /* ---------- HOME ----------
@@ -5874,18 +5888,8 @@ function renderShepherdPath(){
 
       let trailHtml = '';
       if(i < u.items.length - 1){
-        // Path now climbs bottom-to-top (.shepherd-scroll is
-        // flex-direction:column-reverse) — the next stop (DOM-next, i+1)
-        // sits ABOVE this row on screen, not below, so the trail's own
-        // end point flips from 34px *past* this row's bottom (134) to
-        // 34px *short of* the next row's own top from this row's frame
-        // (-66 = -(100-34)); the control points stay the midpoint of
-        // start/end so the curve is still a smooth, symmetric S either
-        // way. Start (34, this row's own anchor) is unchanged — only
-        // which direction the curve reaches depends on layout.
         const nx = OFF[(i+1) % 8];
-        const startY = 34, endY = -66, ctrlY = (startY + endY) / 2;
-        const d = 'M ' + (179+xN) + ' ' + startY + ' C ' + (179+xN) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + ctrlY + ', ' + (179+nx) + ' ' + endY;
+        const d = 'M ' + (179+xN) + ' 34 C ' + (179+xN) + ' 84, ' + (179+nx) + ' 84, ' + (179+nx) + ' 134';
         trailHtml = `<svg class="sp-trail"><path d="${d}" style="fill:none;stroke:${reached ? u.c : 'var(--sp-trail)'};stroke-width:7;stroke-linecap:round;stroke-dasharray:0 15;"/></svg>`;
       }
 
@@ -6115,9 +6119,16 @@ function renderShepherdSession(item, type, v, st){
         ${body.bodyHtml}
       </div>
       <div class="sp-session-footer">${st.checked ? '' : body.footerHtml}</div>
-      ${st.checked ? renderShepherdFeedbackSheet(st, combo, lastOne) : ''}
-    </div>`;
+    </div>
+    ${st.checked ? renderShepherdFeedbackSheet(st, combo, lastOne) : ''}`;
 }
+/* The feedback sheet above is deliberately returned as a SIBLING of
+   .shepherd-screen, not nested inside it — .shepherd-screen is
+   position:fixed with its own z-index (item 165), which makes it a
+   real stacking context: no z-index on a descendant, however high, can
+   ever out-rank .navbar (z-index:1000) from inside it. Sibling-level,
+   the sheet's z-index:1001 compares directly against .navbar's and
+   correctly wins — see renderShepherdFeedbackSheet() below. */
 function renderShepherdFeedbackSheet(st, combo, lastOne){
   const ok = !!st.allCorrect;
   const praise = ['Amazing!', 'Nice!', 'Wonderful!', 'Great job!', 'You got it!'];

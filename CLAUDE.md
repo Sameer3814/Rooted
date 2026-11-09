@@ -79,10 +79,16 @@ The schema was deliberately designed so all of the above can be added
   feedback sheet — while every ChallengeType's own exercise markup
   (tiles, letter bars, clause cards, reference options) stays exactly
   as it was, untouched, still rendering in the app's one standard dark
-  palette regardless of this screen's own toggle (a flagged, deliberate
-  seam, not a bug). Confetti and hearts regen/lockout are still Phase 3,
-  not yet done — see items 160-161 for the full scope and known gaps.
-  Add Verse/Add Character is now
+  palette regardless of this screen's own toggle — **since actually
+  themed in item 164, now consistent with the rest of the screen in
+  both light and dark mode.** Confetti and hearts regen/lockout shipped
+  in Phase 3 (item 163). The whole thing was rebuilt again as a fixed,
+  self-contained full-viewport scene with its own internal scroll
+  (item 165, 2026-11-09) — the topbar/backdrop no longer scroll away
+  with the path, and the unit/stop order is normal top-to-bottom
+  (Unit 1 first), reverting item 162's bottom-to-top experiment, which
+  turned out to have solved the wrong problem. See items 160-165 for
+  the full history. Add Verse/Add Character is now
   reached via the path's own end-of-path "+" node), **Discover** (hub tab — Read the
   Bible/Browse, Verse detail, Topics, Topic detail, People grouped by
   era, Character detail (life timeline, family, stories, pattern
@@ -853,7 +859,11 @@ The schema was deliberately designed so all of the above can be added
   §8, item 161.
 - **"Shepherd's Path" fixes: top-bleed + bottom-to-top path — done
   (2026-11-09), from an owner screenshot comparison against the
-  handoff's own mockup.** The sky backdrop now reaches the true top of
+  handoff's own mockup. The bottom-to-top reversal below was itself
+  reverted the same day, in item 165 further down — it turned out to
+  misdiagnose the real bug (the topbar/backdrop scrolling away), not
+  fix a genuine ordering problem; kept here as history, not current
+  behavior.** The sky backdrop now reaches the true top of
   the screen (`.shepherd-screen` cancels `.app`'s own padding via
   negative margin, same technique as every other full-bleed treatment
   here) instead of leaving a dark gap above it. The path itself now
@@ -899,6 +909,32 @@ The schema was deliberately designed so all of the above can be added
   (`z-index:30`), hiding its own CONTINUE/GOT IT button — bumped to
   `1001`. `sw.js` bumped to `rooted-v161`. See DATA_MODEL.md §8, item
   164.
+- **"Shepherd's Path" rebuilt as a fixed, self-contained scene — done
+  (2026-11-09), from a fresh owner screenshot plus an unambiguous
+  reference image.** The real root cause behind both this round's and
+  item 162's reports: every Shepherd screen scrolled as normal page
+  content, so the topbar (streak/gems/hearts) and the sky backdrop
+  scrolled away entirely — item 162's "bottom-to-top" fix had
+  misdiagnosed this as an ordering problem and solved the wrong thing.
+  Reverted that reversal entirely (and its trail-curve math) back to
+  normal top-to-bottom order, matching both the fresh reference image
+  and the original handoff's own prototype. Fixed the real cause
+  structurally: `.shepherd-screen` is now `position:fixed`, full-
+  viewport (`height:100dvh`), centered the same way `.navbar` already
+  proves out — no longer a card scrolling with the page, so there's no
+  more gap at either edge regardless of scroll position (closes the
+  "bleed at the bottom" report too). The backdrop now fills the whole
+  screen and stays visible; the topbar is a non-scrolling header;
+  only `.shepherd-scroll` (Path) / `.sp-session-body` (session) scrolls
+  internally. Caught a real stacking-context bug while verifying item
+  164's feedback-sheet z-index fix still held: a `position:fixed`
+  ancestor with its own `z-index` is a genuine stacking context, so no
+  descendant z-index can out-rank a sibling like `.navbar` from inside
+  it — fixed by returning the feedback sheet as a sibling of
+  `.shepherd-screen`, not nested inside it. The Review FAB's placement
+  is also fixed, as a side effect of the same restructure, not a
+  separate change. `sw.js` bumped to `rooted-v162`. See DATA_MODEL.md
+  §8, item 165.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

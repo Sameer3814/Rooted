@@ -7955,6 +7955,72 @@ inventing a new principle:
       correct behavior for a full-screen bottom-sheet overlay.
     `sw.js` bumped to `rooted-v161`.
 
+165. **"Shepherd's Path" rebuilt as a fixed, self-contained scene,
+    with its own internal scroll — done (2026-11-09), owner screenshots
+    plus a fresh, unambiguous reference image.** The real root cause
+    behind both this round's and item 162's complaints: every Shepherd
+    screen scrolled as normal page content (the whole document/body),
+    which meant the topbar (streak/gems/hearts) and the sky backdrop
+    scrolled away entirely once the path was tall enough to need
+    scrolling — not fixed in place the way the reference design always
+    showed them. Item 162's "bottom-to-top" fix addressed a
+    *misreading* of that same complaint (reversing unit/stop order)
+    rather than the actual bug; this pass reverts that entirely and
+    fixes the real cause structurally:
+    - **`.shepherd-screen` is now `position:fixed`, full-viewport
+      (`height:100dvh`), centered the same way `.navbar` already
+      proves out (`left:50%;transform:translateX(-50%);max-width:var(
+      --app-max-width)`)** — not a card living in `.app`'s own padding
+      and scrolling with the rest of the page. No more border-radius
+      (a full-bleed scene has no reason to round its corners against
+      the real viewport edge). This single change is also what closes
+      out the "bleed at the bottom of the screen" report — there's no
+      longer any gap for `body`'s own background to show through,
+      top or bottom, regardless of scroll position, because the scene
+      always exactly fills the viewport.
+    - **The backdrop fills the whole screen** (`inset:0`, not a 460px
+      slice) and is always visible, since it's a fixed sibling layer,
+      not scrolling content.
+    - **The topbar is a non-scrolling header** (`flex:none`); **only
+      `.shepherd-scroll` scrolls internally** (`flex:1;min-height:0;
+      overflow-y:auto`) — so streak/gems/hearts stay on screen no
+      matter how far into the path you've scrolled, closing the "I
+      need to scroll all the way up" report directly. The session
+      screen got the same treatment (header/combo-row and the Check/
+      controls footer both `flex:none`; only `.sp-session-body`
+      scrolls).
+    - **Reverted item 162's unit/stop order reversal and its trail-
+      curve math** back to normal top-to-bottom (Unit 1 first/top,
+      later units reached by scrolling down into the hills) — the new
+      reference screenshot shows this unambiguously, and matches the
+      original handoff's own prototype order, which was never actually
+      reversed in the source design.
+    - **`go()`'s scroll-to-current-stop logic simplified**: Practice no
+      longer uses `window.scrollTo`/`scrollPositions` at all (there's
+      nothing at the window level to scroll — the fixed scene owns its
+      own internal scroll instead), so entering Practice always calls
+      `scrollIntoView()` on the current stop within `.shepherd-scroll`,
+      not just the first time ever.
+    - **A real stacking-context bug caught while verifying the feedback
+      sheet's earlier z-index fix (item 164) still worked**: `.shepherd-
+      screen` being `position:fixed` with its own `z-index:5` makes it
+      a genuine CSS stacking context — no z-index on a *descendant*,
+      however high, can out-rank a *sibling* of `.shepherd-screen`
+      like `.navbar` (`z-index:1000`) from inside it. Fixed by
+      returning the feedback sheet as a sibling of `.shepherd-screen`
+      in `renderShepherdSession()`'s own output (both are top-level
+      children of `#app`), not nested inside it — at that level its
+      `z-index:1001` correctly compares against `.navbar`'s again.
+    - **Why the Review FAB's placement is also fixed as a side
+      effect, not a separate change**: it was already `position:fixed`
+      with `bottom:104px`, but while the page itself scrolled, nothing
+      guaranteed the nav sat exactly where the FAB expected — now that
+      `.shepherd-screen` has a `transform` (for centering), it
+      establishes the containing block for its own `position:fixed`
+      descendants, so the FAB's coordinates resolve against the fixed
+      scene's own stable bounds instead of a scrolling page.
+    `sw.js` bumped to `rooted-v162`.
+
 ---
 
 ## 9. How the app reads this data
