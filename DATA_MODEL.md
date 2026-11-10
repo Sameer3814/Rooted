@@ -8306,14 +8306,16 @@ inventing a new principle:
       card/row function they call) got restyled. Content, data, and
       every `data-action` navigation target are untouched — this is
       visuals only, per the handoff's own note. Explicitly left alone:
-      the shared global `.navbar` (rendered once outside `#app` and
-      shared by every screen including Practice — restyling it would
-      change Practice too, out of scope, and it now sits over a lighter
-      background than it was designed for on these three screens, a
-      known, flagged inconsistency rather than a silent one); Practice/
-      Shepherd's Path itself (already has its own `--sp-*` tokens, zero
-      overlap by design — a second token set, `--ht-*`, was added
-      rather than reusing or extending `--sp-*`); Settings, Browse,
+      the shared global `.navbar` at the time (rendered once outside
+      `#app` and shared by every screen including Practice — restyling
+      it would change Practice too, out of scope for this pass; it sat
+      over a lighter background than it was designed for on these three
+      screens, a known, flagged inconsistency rather than a silent one
+      — **fixed the same day, see item 171**, which also restyled the
+      nav bar itself); Practice/Shepherd's Path's own screens
+      (already has its own `--sp-*` tokens, zero overlap by design — a
+      second token set, `--ht-*`, was added rather than reusing or
+      extending `--sp-*`); Settings, Browse,
       Topic/Character/Story/Verse Detail, and Study's own sub-screens
       (Patterns/Timeline/Family Tree/Lexicon — only Study's hub nav-row
       screen is restyled, not what those rows link to); and Unreached of
@@ -8339,6 +8341,9 @@ inventing a new principle:
       Newsreader (Verse of the Day's quote text, already loaded).
       Figtree's weight list was widened to include 500 (previously
       600-900 only) to match the handoff's own body-text weight.
+      **Superseded the same day — see item 171**: Young Serif was
+      swapped for Baloo 2 (Practice's own display font) and dropped
+      from the font link entirely.
     - **Shared classes** (`.hds-card`, `.hds-card-title`, `.hds-card-
       body`, `.hds-eyebrow`, `.hds-nav-row`/`.hds-nav-tile`, `.hds-img-
       hero`, `.hds-btn-light`, `.hds-btn-plum`, `.hds-row-card`/`.hds-
@@ -8413,6 +8418,51 @@ inventing a new principle:
       toggle button, and no stacking/paint bugs on the new Study decor
       layer or the procession animation.
     `sw.js` bumped to `rooted-v167`.
+171. **Shepherd theme follow-up: global nav bar restyle + font
+    consistency with Practice — done (2026-11-10), same day.** Two
+    direct owner requests after seeing item 170 on-device: "fix the Nav
+    bar as per the shepherd design" and "let's use the same font we
+    used in the practice tab."
+    - **Nav bar**: `.navbar` — rendered once outside `#app`, shared by
+      every screen in the app — is rebuilt to the handoff's own flush,
+      edge-to-edge tab-bar spec (height 84 + safe-area, `border-top`
+      instead of an all-around border, 4-column grid, active item a
+      solid `--ht-tint` pill with a `--ht-accl` border and `--ht-acc`
+      text/icon), replacing the floating glassmorphism capsule from
+      item 124 (2026-09-17) — a real, flagged reversal of that decision,
+      not a silent one, consistent with this nav's whole history of
+      reversals. Since `.navbar` sits outside the `.hds-theme`-wrapped
+      screen content and can't inherit its scoped `--ht-*` variables,
+      it carries its own light-value defaults plus a
+      `.navbar[data-theme="dark"]` override block, and `render()` sets
+      `.navbar`'s `data-theme` attribute directly on every call (right
+      alongside the existing `.navitem` active-class loop). A real
+      follow-up bug caught by testing, not guessed: the bar initially
+      always followed `settings.homeTheme`, which read visibly
+      disconnected sitting under Practice's own separately-themed
+      `settings.practiceTheme` "night pasture" backdrop (confirmed via
+      a Playwright screenshot before fixing) — fixed by having the
+      theme-attribute logic read `settings.practiceTheme` specifically
+      while `view.screen === 'practice'` and `settings.homeTheme`
+      everywhere else, so the one shared nav bar still honors whichever
+      theme setting actually governs the screen under it.
+    - **Font**: item 170's Young Serif (headings/card titles across
+      `.hds-title`/`.hds-card-title`/`.hds-nav-row-title`, the Story of
+      the Day hero titles, and the Lexicon tile's "אΩ" glyph) is
+      replaced with Baloo 2 — the same display font Practice's own
+      "Shepherd's Path" already settled on (item 169, "clean and
+      playful" over an elegant serif) — for visual consistency between
+      the two halves of the Shepherd theme now that both are live.
+      Weight dropped from 400 to 600 to match Baloo 2's actually-loaded
+      weight list (500;600;700;800 — the same weight-availability bug
+      fixed once already for Practice in item 169). Young Serif is now
+      unreferenced anywhere in the file and was dropped from the Google
+      Fonts `<link>` entirely, rather than left loaded and unused.
+    - Verified with the isolated Playwright setup: both Home themes,
+      Discover, and Practice (confirming the nav bar now reads correctly
+      against Practice's own dark backdrop, not just Home/Discover's
+      lighter one).
+    `sw.js` bumped to `rooted-v168`.
 
 ---
 

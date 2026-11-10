@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Young+Serif&family=Figtree:wght@500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <!-- Baloo 2/Figtree/Newsreader: "Shepherd's Path" Practice redesign only (2026-11-09, design_handoff_practice_tab_v3) — scoped to .shepherd-* classes, not app-wide; every other screen still uses Inter/Fraunces above. Baloo 2 replaced the handoff's own Young Serif (2026-11-10, owner: "clean and playful" over the original elegant-serif look). -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
@@ -505,55 +505,52 @@
   textarea{min-height:80px;resize:vertical;font-family:'Inter',sans-serif;font-size:15px;line-height:1.5;}
   input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
 
-  /* nav — floating glassmorphism capsule (2026-09-17, precise re-spec
-     of the last two same-day passes). Exact spec values throughout;
-     `.floating-nav-container`/`.bottom-nav`/`.nav-item` named in the
-     request don't exist in this file — applied to the real `.navbar`/
-     `.navitem` markup instead. Centering switched from the previous
-     pass's `left/right:16px;margin:0 auto` to this spec's own
-     `left:50%;transform:translateX(-50%)` + fixed `width`/`max-width`,
-     a fixed `height:68px` replacing the old content-driven height, and
-     `saturate(180%)` added alongside the existing blur.
-     env(safe-area-inset-bottom) is layered into `bottom` (not `padding`,
-     since this spec gives a single fixed `bottom:24px` rather than a
-     padding shorthand) so the pill still clears a notched phone's home
-     indicator — on a non-notched device that's a no-op addition to
-     exactly the spec's own 24px. */
+  /* nav — Shepherd-theme flush tab bar (2026-11-10, owner: "fix the Nav
+     bar as per the shepherd design"). Replaces the floating glassmorphism
+     capsule (item 124, 2026-09-17) with the design_handoff_shepherd_theme
+     spec's own flat, edge-to-edge bar — a real reversal of that decision,
+     flagged here rather than silent, same as every earlier nav reversal
+     in this file's history. `.navbar` sits outside #app in the static
+     HTML shell (never re-rendered), so it can't inherit the `.hds-theme`
+     scoped --ht-* custom properties Home/Discover/Study set further down
+     the DOM — it carries its own light-theme --ht-* copies as defaults
+     and a `[data-theme="dark"]` override block instead, exactly mirroring
+     `.hds-theme`'s own light/dark pair. `render()` sets `.navbar`'s own
+     `data-theme` from `settings.homeTheme` on every call (see the
+     `document.querySelectorAll('.navitem')` loop) so the bar follows the
+     same manual toggle Home/Discover/Study already use — not
+     `settings.practiceTheme`, which is a separate, independent setting;
+     the bar will read light/dark against Practice's own backdrop too,
+     same as it always rendered one fixed dark glass style regardless of
+     screen before this change. */
   .navbar{
-    position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
-    width:calc(100% - 32px);max-width:calc(var(--app-max-width) - 80px);height:68px;
-    background:rgba(26,26,26,.65) !important;
-    -webkit-backdrop-filter:blur(24px) saturate(180%) !important;backdrop-filter:blur(24px) saturate(180%) !important;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:100px;
-    padding:6px 12px;
-    display:flex;align-items:center;justify-content:space-around;
+    position:fixed;left:0;right:0;bottom:0;
+    height:calc(84px + env(safe-area-inset-bottom));
+    padding:8px 14px calc(22px + env(safe-area-inset-bottom));
+    box-sizing:border-box;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
     z-index:1000;
-    box-shadow:var(--shadow-nav);
+    border-top:1.5px solid var(--ht-glassline);
+    background:var(--ht-glass) !important;
+    -webkit-backdrop-filter:blur(16px) saturate(180%) !important;backdrop-filter:blur(16px) saturate(180%) !important;
+    --ht-glass:rgba(255,253,248,.78);--ht-glassline:rgba(120,100,70,.16);
+    --ht-tint:#e2f2ed;--ht-acc:#2f9a82;--ht-accl:#8fd0bf;--ht-lockic:#a0937c;
   }
-  /* The active state highlights the WHOLE tab (icon + label together,
-     full pill height) — a real structural change from the previous two
-     passes' small icon-only chip (`.dot`), matching this spec's own
-     "Active Item" block naming the button itself, not a child element.
-     `.dot` is kept in the markup purely as a flex-centering wrapper
-     around the icon now; it never carries its own background here. */
+  .navbar[data-theme="dark"]{
+    --ht-glass:rgba(26,22,48,.78);--ht-glassline:rgba(255,255,255,.09);
+    --ht-tint:#15302b;--ht-acc:#56c9ab;--ht-accl:#2c7a68;--ht-lockic:#7a72a0;
+  }
   .navbar .navitem{
-    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;height:100%;background:transparent;color:#9C9C9C;border:none;
-    border-radius:100px;cursor:pointer;transition:all .2s ease;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;height:100%;padding:4px 0;box-sizing:border-box;background:transparent;color:var(--ht-lockic);
+    border:2px solid transparent;border-radius:14px;cursor:pointer;transition:all .2s ease;
   }
   .navbar .navitem .dot{display:flex;align-items:center;justify-content:center;}
-  /* Tabler's icon-font glyphs (this app's existing nav-icon system —
-     see item 107) don't have literal SVG stroke/fill properties the way
-     the spec's own icon markup implies; `color` on the glyph is this
-     system's equivalent, sized to match the given 22px. Not swapping
-     the whole nav to inline-SVG icons for this — a much bigger change
-     than a color-and-size fix, and unasked for. */
-  .navbar .navitem i{font-size:22px;color:#9C9C9C;}
-  .navbar .navitem span{font-size:11px;font-weight:500;}
-  .navbar .navitem.active{background:rgba(255,255,255,.14) !important;color:#FFFFFF !important;}
-  .navbar .navitem.active i{color:#FFFFFF !important;}
-  .navbar .navitem.active span{color:#FFFFFF !important;font-weight:600;font-size:11px;}
+  .navbar .navitem i{font-size:22px;color:var(--ht-lockic);}
+  .navbar .navitem span{font-size:11px;font-weight:800;font-family:'Figtree',sans-serif;}
+  .navbar .navitem.active{background:var(--ht-tint) !important;border:2px solid var(--ht-accl) !important;color:var(--ht-acc) !important;}
+  .navbar .navitem.active i{color:var(--ht-acc) !important;}
+  .navbar .navitem.active span{color:var(--ht-acc) !important;font-weight:900;}
 
   /* avatar */
   .avatar{
@@ -1479,10 +1476,10 @@
   .hds-theme-toggle{position:relative;z-index:2;width:42px;height:42px;flex:none;border-radius:50%;border:1.5px solid var(--ht-glassline);background:var(--ht-glass);backdrop-filter:blur(10px);display:grid;place-items:center;color:var(--ht-ink);cursor:pointer;}
   .hds-theme-toggle:active{transform:translateY(2px);}
   .hds-content{position:relative;z-index:1;padding-top:20px;display:flex;flex-direction:column;gap:16px;}
-  .hds-title{font:400 30px/1.1 'Young Serif',serif;color:var(--ht-ink);padding:4px 2px 0;}
+  .hds-title{font:600 30px/1.1 'Baloo 2',sans-serif;color:var(--ht-ink);padding:4px 2px 0;}
   .hds-eyebrow{display:flex;align-items:center;gap:6px;font:900 12px 'Figtree',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
   .hds-card{padding:16px;border-radius:22px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);}
-  .hds-card-title{font:400 20px/1.2 'Young Serif',serif;color:var(--ht-ink);}
+  .hds-card-title{font:600 20px/1.2 'Baloo 2',sans-serif;color:var(--ht-ink);}
   .hds-card-body{font:700 14px/1.45 'Figtree',sans-serif;color:var(--ht-sub);}
   .hds-tap{cursor:pointer;transition:transform .08s ease;}
   .hds-tap:active{transform:translateY(2px);}
@@ -1511,7 +1508,7 @@
   /* Discover/Study nav rows */
   .hds-nav-row{display:flex;gap:14px;align-items:center;}
   .hds-nav-tile{width:52px;height:52px;flex:none;border-radius:16px;display:grid;place-items:center;color:#fff;}
-  .hds-nav-row-title{font:400 19px 'Young Serif',serif;color:var(--ht-ink);}
+  .hds-nav-row-title{font:600 19px 'Baloo 2',sans-serif;color:var(--ht-ink);}
   .hds-nav-row-desc{font:700 14px/1.4 'Figtree',sans-serif;color:var(--ht-sub);}
   .hds-chev{flex:none;color:var(--ht-lockic);}
   /* Discover: Person of the Day + drifting cloud */
@@ -2880,6 +2877,16 @@ function render(){
     const group = NAV_GROUPS[b.dataset.nav] || [b.dataset.nav];
     b.classList.toggle('active', group.includes(view.screen));
   });
+  // On Practice, follow settings.practiceTheme (Shepherd's Path's own
+  // toggle) instead of settings.homeTheme — Practice's backdrop is its
+  // own always-dark-leaning "night pasture"/"dawn meadow" scene (item
+  // 160), and a flush bar following the wrong setting read visibly
+  // disconnected from it in testing (owner report, 2026-11-10).
+  const navbarEl = document.querySelector('.navbar');
+  if(navbarEl){
+    const navTheme = view.screen === 'practice' ? settings.practiceTheme : settings.homeTheme;
+    navbarEl.dataset.theme = navTheme === 'dark' ? 'dark' : 'light';
+  }
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
@@ -3268,7 +3275,7 @@ function renderStoryOfTheDayCard(){
       <div class="hds-img-hero-overlay"></div>
       <div class="hds-img-hero-body">
         <div class="hds-eyebrow" style="color:#ffd9c7;">${uiIcon('book')} Story of the Day</div>
-        <div style="font:400 20px 'Young Serif',serif;color:#fff;">${esc(s.title)}</div>
+        <div style="font:600 20px 'Baloo 2',sans-serif;color:#fff;">${esc(s.title)}</div>
       </div>
     </div>`;
 }
@@ -3547,7 +3554,7 @@ function renderDiscoverFeaturedToday(){
       <div class="hds-img-hero-overlay"></div>
       <div class="hds-img-hero-body">
         <div class="hds-votd-pill" style="color:var(--ht-terrad);">${uiIcon('book')} Story of the Day</div>
-        <div style="font:400 22px/1.2 'Young Serif',serif;color:#fff;margin-top:6px;">${esc(s.title)}</div>
+        <div style="font:600 22px/1.2 'Baloo 2',sans-serif;color:#fff;margin-top:6px;">${esc(s.title)}</div>
         <div style="font:700 14px 'Figtree',sans-serif;color:#ffe2d4;">${esc(s.primaryReference)}</div>
       </div>
     </div>` : ''}
@@ -4722,7 +4729,7 @@ function renderStudy(){
           <i class="ti ti-chevron-right hds-chev"></i>
         </div>
         <div class="hds-card hds-tap hds-nav-row" data-action="go-lexicon">
-          <div class="hds-nav-tile" style="background:#ff7a50;box-shadow:0 4px 0 #d9572f;color:#3a1203;font:400 20px 'Young Serif',serif;">&#1488;&Omega;</div>
+          <div class="hds-nav-tile" style="background:#ff7a50;box-shadow:0 4px 0 #d9572f;color:#3a1203;font:600 20px 'Baloo 2',sans-serif;">&#1488;&Omega;</div>
           <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">${t('title_lexicon')}</div><div class="hds-nav-row-desc">14,000+ Hebrew and Greek words, straight from Strong's Concordance.</div></div>
           <i class="ti ti-chevron-right hds-chev"></i>
         </div>

@@ -1041,12 +1041,29 @@ The schema was deliberately designed so all of the above can be added
   against a prototyping framework this app doesn't use), Discover's
   featured-today section and nav rows, and Study's nav rows plus a hill/
   lamb decorative scene (reusing Shepherd's Path's own `lambSvg()`
-  mascot verbatim) were all restyled. Deliberately untouched: the shared
-  global `.navbar` (out of scope — restyling it would affect Practice
-  too), Practice/Settings/Browse/detail screens, and Study's own sub-
-  screens. Verified with the isolated Playwright setup across both
-  themes on all three screens. `sw.js` bumped to `rooted-v167`. See
-  DATA_MODEL.md §8, item 170.
+  mascot verbatim) were all restyled. Deliberately untouched at the
+  time: the shared global `.navbar` (restyling it would affect Practice
+  too) and Practice/Settings/Browse/detail screens. Verified with the
+  isolated Playwright setup across both themes on all three screens.
+  `sw.js` bumped to `rooted-v167`. See DATA_MODEL.md §8, item 170.
+- **Shepherd theme follow-up: nav bar restyle + font match with
+  Practice — done (2026-11-10), same day.** Two direct owner requests
+  after seeing the above on-device. The shared global `.navbar` — left
+  alone above as out of scope — is now rebuilt to the handoff's own
+  flush, edge-to-edge tab-bar spec (replacing the floating
+  glassmorphism capsule from item 124, a real flagged reversal), reading
+  `--ht-*` tokens it carries itself (it sits outside `.hds-theme`'s
+  scope) and following `settings.homeTheme` everywhere except Practice,
+  where it follows `settings.practiceTheme` instead — a real bug caught
+  by testing: the bar read visibly disconnected sitting under Practice's
+  own separately-themed backdrop before this fix. Item 170's newly-added
+  Young Serif heading font is replaced with Baloo 2 — the same display
+  font Practice's own Shepherd's Path already uses (item 169) — for
+  consistency between the theme's two halves; Young Serif is now
+  unreferenced and dropped from the font `<link>` entirely. Verified
+  with the isolated Playwright setup, including Practice's own screen to
+  confirm the nav bar now reads correctly against its darker backdrop.
+  `sw.js` bumped to `rooted-v168`. See DATA_MODEL.md §8, item 171.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1715,9 +1732,10 @@ isn't that exception continuing. `.shepherd-screen`'s own `--sp-*`
 tokens (light "dawn meadow" / dark "night pasture", full palettes,
 not a single accent swap) are scoped to the Path/complete/streak
 screens only, toggled per-user via `settings.practiceTheme`
-(`'light'|'dark'`) — this is the one place in the whole app with a
-real light-mode option at all, everywhere else stays the dark-only v3
-theme by design. Full writeup: DATA_MODEL.md §8, item 160.
+(`'light'|'dark'`) — at the time this was the one place in the whole
+app with a real light-mode option at all; a second one was added the
+next day (below), everywhere else still stays the dark-only v3 theme
+by design. Full writeup: DATA_MODEL.md §8, item 160.
 
 **A fourth standing exception: Home, Discover, and Study carry the
 "Shepherd theme" — a full, real light/dark pair of their own, done
@@ -1726,9 +1744,15 @@ separate token set (`--ht-*`, not `--sp-*`) and a separate toggle
 (`settings.homeTheme`, next to Home's settings gear) — explicitly asked
 for, not a silent extension of Practice's own theme. Scoped to these
 three screens' own hub content only, under a `.hds-theme` wrapper;
-Practice itself, the shared nav bar, Settings, Browse, and every detail
-screen are untouched and stay exactly as this section otherwise
-describes. Full writeup: DATA_MODEL.md §8, item 170.
+Practice itself, Settings, Browse, and every detail screen are
+untouched and stay exactly as this section otherwise describes. The
+shared global `.navbar` was initially left alone too, then restyled the
+same day to the Shepherd design's own flush tab-bar spec (a real,
+flagged reversal of item 124's floating capsule) — it now reads
+`settings.practiceTheme` while on Practice and `settings.homeTheme`
+everywhere else, so the one shared bar still matches whichever theme
+setting actually governs the screen under it. Full writeup:
+DATA_MODEL.md §8, items 170-171.
 
 **Deliberately left alone — read as functional state, not decorative
 theme, and this app's own genuine correct/wrong or error signal, not a
