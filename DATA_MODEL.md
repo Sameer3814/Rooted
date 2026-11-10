@@ -8134,6 +8134,60 @@ inventing a new principle:
       trusting the fix by inspection alone.
     `sw.js` bumped to `rooted-v164`.
 
+168. **"Shepherd's Path" fixes, round 5 — a real scroll-engine swap, an
+    auto-advance race condition, and two smaller bugs, all found and
+    re-verified with the same Playwright setup — done (2026-11-10).**
+    - **Frozen scrolling on real mobile browsers.** Item 165/166 built
+      the bottom-to-top path using `flex-direction:column-reverse` on
+      the scroll container. That combination with `overflow-y:auto` is
+      a real, well-documented cross-browser touch-scrolling footgun —
+      confirmed directly here, not assumed: a headless-browser test
+      found the container's `scrollTop` starting at a *negative* value
+      and refusing to move under a synthetic touch gesture, the
+      classic symptom. Fixed by abandoning `column-reverse` entirely:
+      `renderShepherdPath()` now builds every header/row/end-node into
+      an array in the exact same forward logical order as before (so
+      no row's own x-offset/trail-curve math changed), then reverses
+      *that array* once before joining into the final HTML string —
+      the same bottom-to-top visual result, achieved through plain,
+      maximally-compatible block scrolling instead of a flex quirk.
+      `.shepherd-scroll`/`.sp-session-body`/`.sp-complete-screen` all
+      got an explicit `touch-action:pan-y` too, removing any ambiguity
+      about what they inherit. Re-verified: `scrollTop` now starts at
+      a normal positive value and increments correctly under a wheel
+      scroll.
+    - **A real auto-advance race, which also explains "landing on
+      Discover."** Several ChallengeTypes (Tap Builder, Progressive
+      Vanish, Reference Match, …) have an `autoAdvanceMs`/
+      `autoAdvanceMsWrong` timer in the shared engine that fires
+      `advancePractice()` automatically after a correct (or, for
+      Reference Match, a readable-delay wrong) answer — by design, for
+      the *legacy* session screen. Inside a Shepherd session this
+      timer was firing *underneath* the feedback sheet's own always-
+      visible Continue/Got It button, advancing the screen while the
+      player's tap was still in flight toward that button — landing it
+      on whatever was now under their finger instead, which on a
+      finished lesson could be the bottom nav's own Discover tab. All
+      three call sites (`checkPractice()`, `practiceInteractWith()`,
+      and First-Letter Sprint's own keystroke-finalize path) now check
+      `session.shepherd` and suppress the timer entirely there — the
+      feedback sheet's own button is the only way to advance, matching
+      the handoff's own prototype (which never had a timer-based
+      auto-advance at all, only the sheet's explicit tap).
+    - **"Hold to Peek" shown with nothing to peek at.** Progressive
+      Vanish's `controls()` always rendered the peek button, even at
+      stage 0 where the full verse is already on screen and there's
+      nothing hidden — now only shown once `state.currentStage > 0`.
+      A real fix to the shared ChallengeType, so the legacy session
+      screen gets the same correction.
+    - **Heading text running under the backdrop's moon/sun.** A real,
+      directly-screenshotted overlap: Reference Match's two-line
+      heading ("Where is this verse found?") had its `?` landing
+      directly on the moon. `.sp-session-heading` now has `max-width:
+      calc(100% - 56px)`, wrapping earlier so it never reaches that
+      corner.
+    `sw.js` bumped to `rooted-v165`.
+
 ---
 
 ## 9. How the app reads this data

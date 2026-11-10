@@ -979,6 +979,24 @@ The schema was deliberately designed so all of the above can be added
   crowded. Every fix was re-verified with a fresh screenshot, not
   just inspected. `sw.js` bumped to `rooted-v164`. See DATA_MODEL.md
   §8, item 167.
+- **"Shepherd's Path" fixes, round 5 — done (2026-11-10).** Frozen
+  scrolling on real mobile browsers traced to a real, well-documented
+  footgun: `flex-direction:column-reverse` + `overflow-y:auto` (used
+  since item 165 to achieve the bottom-to-top path) — confirmed
+  directly via a headless-browser test that found an inverted/negative
+  `scrollTop`. Replaced with reversing the actual row array in
+  `renderShepherdPath()` once, before joining — same visual result,
+  plain reliable block scrolling underneath. Also fixed a real auto-
+  advance race that also explains "landing on Discover after a
+  session": several ChallengeTypes' `autoAdvanceMs` timer was firing
+  underneath the feedback sheet's own Continue/Got It button inside a
+  Shepherd session, advancing the screen mid-tap; all three call sites
+  now suppress it when `session.shepherd` is set, matching the
+  handoff's own design (explicit tap only). Progressive Vanish's "Hold
+  to Peek" no longer shows at stage 0, when there's nothing vanished
+  yet to peek at. A real heading/moon-icon overlap on Reference Match
+  ("Where is this verse found?") fixed with a max-width. `sw.js`
+  bumped to `rooted-v165`. See DATA_MODEL.md §8, item 168.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

@@ -1159,26 +1159,27 @@
   .sp-pill{display:flex;align-items:center;gap:5px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--sp-glass);backdrop-filter:blur(10px);border:1.5px solid var(--sp-glassline);font:900 15px Figtree;}
   .sp-pill.sp-streak{color:#f08a00;} .sp-pill.sp-gems{color:#2b94d6;} .sp-pill.sp-hearts{color:#f0474d;}
   .sp-theme-btn{width:40px;height:40px;flex:none;padding:0;margin-left:auto;border-radius:50%;border:1.5px solid var(--sp-glassline);background:var(--sp-glass);backdrop-filter:blur(10px);color:var(--sp-ink);display:grid;place-items:center;cursor:pointer;}
-  /* Bottom-to-top path, re-confirmed (2026-11-09): reverted once in
-     item 165 on a misread of a reference screenshot, then explicitly
-     re-confirmed wanted ("I like the path from bottom to up") once the
-     *actual* bug behind that whole back-and-forth — the topbar/backdrop
-     scrolling away with the page — was fixed structurally (item 165's
-     fixed-viewport rebuild, kept as-is here). Unit 1 at the bottom,
-     later units reached by scrolling up. Row generation/index math is
-     still the same forward order (Unit 1's own items first) — this is
-     purely a display-order flip; see the trail-curve math below, which
-     has to account for "next" now being above, not below. This is now
-     the one internally-scrolling region within the fixed
-     .shepherd-screen; the topbar stays put above it regardless. */
-  /* Bottom padding clears the floating pill nav AND the Review FAB
-     (.navbar occupies roughly the screen's own bottom ~100px; the FAB
-     sits above that) — without enough of it, Unit 1 (the bottom-most
-     content once the path climbs upward) renders crushed behind the
-     nav, and scrollIntoView() on the current stop can't actually
-     center it since there's no scroll room below it (verified with a
-     real screenshot, item 167). */
-  .shepherd-scroll{position:relative;z-index:2;display:flex;flex-direction:column-reverse;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 170px;}
+  /* Bottom-to-top path, re-confirmed (2026-11-09, "I like the path from
+     bottom to up"). item 165 had implemented this via flex-direction:
+     column-reverse on this scrolling container — on real mobile
+     browsers that combination (column-reverse + overflow-y:auto) is a
+     known, well-documented touch-scroll footgun; directly confirmed
+     here too via a headless-browser test that found an inverted/
+     negative scrollTop on this exact element (item 168, 2026-11-10).
+     Switched to reversing the actual row ORDER in the HTML itself
+     (renderShepherdPath() builds each header/row/end-node in the same
+     forward logical order as always, into an array, then reverses
+     *that array* once before joining) — so this is now a completely
+     plain, maximally-compatible block-scrolling container, no
+     flex-direction trickery for the browser's touch/scroll engine to
+     get wrong. Bottom padding clears the floating pill nav AND the
+     Review FAB (.navbar occupies roughly the screen's own bottom
+     ~100px; the FAB sits above that) — without enough of it, Unit 1
+     (the bottom-most content once the path climbs upward) renders
+     crushed behind the nav, and scrollIntoView() on the current stop
+     can't actually center it since there's no scroll room below it
+     (verified with a real screenshot, item 167). */
+  .shepherd-scroll{position:relative;z-index:2;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;flex:1;min-height:0;padding:18px 18px 170px;}
   .sp-unit-header{margin:4px 0 26px;padding:16px 18px;border-radius:18px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .sp-unit-header .sp-unit-n{font:800 13px Figtree;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
   .sp-unit-header .sp-unit-title{font:400 22px/1.15 'Young Serif';margin-top:2px;}
@@ -1230,7 +1231,7 @@
      visually intercepts every tap on it (confirmed with a real
      headless-browser click — Playwright's own click simulation
      reported ".navitem" catching the pointer event, item 167). */
-  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);padding:48px 22px calc(110px + env(safe-area-inset-bottom));align-items:center;overflow-y:auto;box-sizing:border-box;}
+  .sp-complete-screen{background:radial-gradient(130% 55% at 50% 0%,var(--sp-sky1),var(--sp-ground) 75%);padding:48px 22px calc(110px + env(safe-area-inset-bottom));align-items:center;overflow-y:auto;touch-action:pan-y;box-sizing:border-box;}
   /* Every other direct child needs its own stacking position so it
      paints above .shepherd-backdrop (position:absolute, z-index:auto)
      — a plain static box paints BEFORE a position:absolute sibling
@@ -1299,9 +1300,13 @@
      165) — header/combo-row above and the Check/controls footer below
      both stay flex:none, always visible, same reasoning as the Path
      screen's topbar. */
-  .sp-session-body{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 16px;}
+  .sp-session-body{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:4px 18px 16px;}
   .sp-new-tag{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font:900 12.5px Figtree;letter-spacing:.06em;color:var(--sp-acc);}
-  .sp-session-heading{font:400 25px/1.15 'Young Serif';color:var(--sp-ink);}
+  /* max-width keeps a 2-line heading (e.g. "Type the first letter of
+     each word") from running under the sun/moon in the backdrop's
+     top-right corner — caught visually with a real screenshot, item
+     168. */
+  .sp-session-heading{font:400 25px/1.15 'Young Serif';color:var(--sp-ink);max-width:calc(100% - 56px);}
   .sp-session-mascot-row{display:flex;align-items:flex-end;gap:10px;margin:16px 0 20px;}
   .sp-session-mascot{flex:none;width:72px;height:72px;}
   .sp-session-bubble{position:relative;flex:1;padding:12px 14px;border-radius:18px;border:2px solid var(--sp-line);background:var(--sp-surface);}
@@ -4216,7 +4221,10 @@ function wireFirstLetterSprint(){
       });
       recordPractice(item.verseId, !!item.state.allCorrect, item.challengeTypeId);
       clearInterval(sprintTimerInterval);
-      if(item.state.allCorrect && type.autoAdvanceMs){
+      // Shepherd sessions always wait for an explicit tap on the
+      // feedback sheet's own Continue/Got It button — see the note by
+      // checkPractice()'s own autoAdvanceMs guard below for why.
+      if(!session.shepherd && item.state.allCorrect && type.autoAdvanceMs){
         setTimeout(()=>{
           if(!session || session.queue[session.index] !== item) return;
           advancePractice();
@@ -5278,9 +5286,14 @@ const CHALLENGE_TYPES = {
     // "advance a stage" or, once fully vanished, "finish."
     controls(state){
       const isFinal = state.currentStage >= state.totalStages;
+      // "Hold to Peek" only makes sense once something's actually
+      // vanished — at stage 0 the full verse is already on screen, so
+      // showing a button to reveal it is a dead, confusing control
+      // (owner report, 2026-11-10).
+      const showPeek = state.currentStage > 0;
       return `
         <div class="vanish-controls">
-          <button class="btn vanish-peek-btn" id="vanish-peek-btn" type="button"><i class="ti ti-eye"></i> Hold to Peek</button>
+          ${showPeek ? `<button class="btn vanish-peek-btn" id="vanish-peek-btn" type="button"><i class="ti ti-eye"></i> Hold to Peek</button>` : ''}
           <button class="btn primary block vanish-next-btn" data-action="practice-interact" data-${isFinal ? 'complete' : 'next-stage'}="1">
             ${isFinal ? `<i class="ti ti-sparkles"></i> I Recited It Perfectly!` : `Next Step (Remove 20%) <i class="ti ti-arrow-right"></i>`}
           </button>
@@ -5898,13 +5911,25 @@ function renderShepherdPath(){
   const due = new Set(dueVerses().map(v=>v.id));
   const isDark = settings.practiceTheme !== 'light';
   const OFF = [0,-62,-86,-62,0,62,86,62];
-  let allBefore = true, mascotShown = false, rowsHtml = '';
+  // Bottom-to-top (owner-confirmed, item 168) is now achieved by
+  // reversing the actual DOM/string order, NOT CSS flex-direction:
+  // column-reverse — that combination with overflow-y:auto is a real,
+  // well-documented cross-browser touch-scrolling footgun (confirmed
+  // directly: a headless-browser test found an inverted/negative
+  // scrollTop on this exact container). Each header/row/end-node is
+  // still built in the same forward logical order as before (so every
+  // row's own x-offset/trail-curve math is unchanged), just collected
+  // into an array and reversed once at the end instead of relying on
+  // the browser to do it visually — plain, maximally-compatible block
+  // scrolling underneath.
+  let allBefore = true, mascotShown = false;
+  const rowPieces = [];
 
   units.forEach(u=>{
-    rowsHtml += `<div class="sp-unit-header" style="background:${u.c};box-shadow:0 5px 0 ${u.d};">
+    rowPieces.push(`<div class="sp-unit-header" style="background:${u.c};box-shadow:0 5px 0 ${u.d};">
       <div><div class="sp-unit-n">UNIT ${u.n}</div><div class="sp-unit-title">${esc(u.title)}</div></div>
       <div class="sp-unit-prog">${u.verses.filter(shepherdDone).length}/${u.verses.length}</div>
-    </div>`;
+    </div>`);
     u.items.forEach((it, i)=>{
       const xN = OFF[i % 8];
       const key = u.n + '-' + it;
@@ -5982,20 +6007,21 @@ function renderShepherdPath(){
           : `<div class="sp-decor sp-flower" style="left:calc(50% + ${dx}px);">${shepherdFlowerSvg()}</div>`;
       }
 
-      rowsHtml += `<div class="sp-stop-row${open ? ' sp-open' : ''}">
+      rowPieces.push(`<div class="sp-stop-row${open ? ' sp-open' : ''}">
         ${trailHtml}
         ${decorHtml}
         <div class="sp-stop-shift" style="transform:translateX(${xN}px);">${nodeHtml}</div>
         ${mascotHere ? `<div class="sp-mascot" style="left:calc(50% + ${mx}px);margin-left:-40px;">${lambSvg('calm', 80)}</div>` : ''}
         ${open ? popoverHtml : ''}
-      </div>`;
+      </div>`);
     });
   });
 
-  rowsHtml += `<div class="sp-end-node">
+  rowPieces.push(`<div class="sp-end-node">
     <button class="sp-end-add tap" data-action="go-add"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
     <div style="font:700 15px/1.4 Figtree;color:var(--sp-sub);max-width:230px;">Add a verse to grow your path</div>
-  </div>`;
+  </div>`);
+  const rowsHtml = rowPieces.slice().reverse().join('');
 
   const streak = computeStreak(), gems = settings.gems || 0, hearts = settings.hearts == null ? 5 : settings.hearts, dueCount = due.size;
   return `
@@ -6582,7 +6608,7 @@ function practiceInteractWith(ds){
       score: type.score(item.state)
     });
     recordPractice(item.verseId, !!item.state.allCorrect, item.challengeTypeId);
-    const advanceMs = item.state.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong;
+    const advanceMs = session.shepherd ? null : (item.state.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong);
     if(advanceMs){
       setTimeout(()=>{
         if(!session || session.queue[session.index] !== item) return;
@@ -6614,7 +6640,14 @@ function checkPractice(){
   // giving the user time to actually read the revealed correct answer
   // first. Still guarded so it can't double-advance if they tap Continue
   // themselves before the timer fires, or exit practice entirely.
-  const advanceMs = summary.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong;
+  // Shepherd sessions suppress this entirely (owner report, 2026-11-10):
+  // the feedback sheet's own Continue/Got It button is a deliberate,
+  // always-explicit confirmation there, matching the handoff's own
+  // design (its prototype has no auto-advance at all, only the sheet's
+  // own tap) — firing the generic engine's timer underneath it was
+  // advancing mid-tap, which is what was landing taps meant for that
+  // button onto the bottom nav instead.
+  const advanceMs = session.shepherd ? null : (summary.allCorrect ? type.autoAdvanceMs : type.autoAdvanceMsWrong);
   if(advanceMs){
     setTimeout(()=>{
       if(!session || session.queue[session.index] !== item) return;
