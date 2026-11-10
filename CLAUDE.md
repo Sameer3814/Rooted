@@ -1064,6 +1064,46 @@ The schema was deliberately designed so all of the above can be added
   with the isolated Playwright setup, including Practice's own screen to
   confirm the nav bar now reads correctly against its darker backdrop.
   `sw.js` bumped to `rooted-v168`. See DATA_MODEL.md §8, item 171.
+  (Same day, undocumented until item 172: `body`'s own reserved bottom
+  padding for the nav bar bled the app's old dark color through beneath
+  Home/Discover/Study — fixed by mirroring the current `.hds-theme`
+  ground color onto `body` on those screens. `sw.js` → `rooted-v169`.)
+- **Shepherd theme extended to Browse, Topics, People, and Stories —
+  done (2026-11-10), same day, per a third design handoff
+  (`design_handoff_shepherd_pages`).** Items 170-171 only restyled
+  Discover's own hub (Featured Today + 3 nav rows); this is what
+  those rows actually open. Every one of Browse (book list → chapter
+  grid → reader with its selection toolbar), `renderBookPeople`,
+  Topics, People, and Stories now wraps its own output in the existing
+  `.hds-theme` shell. Since several of their actual row/card components
+  (`.list-row`, `.chapter-cell`, `.topic-card`, `.people-grid-card`,
+  `.story-list-card`, `.section-label`, `.search-wrap`, etc.) are
+  shared with out-of-scope screens (Character/Story Detail, Motif
+  Detail, Lexicon, Timeline), every visual change to them is a
+  `.hds-theme <class>` descendant CSS override rather than an edit to
+  the base class — it only takes effect where a screen actually wraps
+  its output in `.hds-theme`, so nothing bleeds into a screen this pass
+  didn't touch. New `--ht-terrat`/`--ht-plumt` tint tokens back era tag
+  pills on People (plum) and Stories (terracotta), reusing the already-
+  existing `Era.approxRange` field. Browse's book list is now one
+  ledge-bordered grouped card; its reader gained a real header card
+  ("{Book} {Chapter}" + a "WEB" tag) and switched its body to
+  Newsreader, with a tint-background + dotted-underline treatment for a
+  selected verse; the selection toolbar is restyled with zero change to
+  any `data-action`. Topics keeps its real per-topic colors
+  (`TOPIC_PALETTE`, item 144) — only the card shape/type changed, not
+  the handoff's own smaller 5-color sample cycle. A deliberate,
+  flagged deviation: the chapter prev/next floating buttons stay
+  structurally separate from the selection toolbar (always visible,
+  not folded into it), since the handoff's static mockup only shows
+  them together while a verse is selected — matching that literally
+  would have made chapter navigation disappear the rest of the time, a
+  real regression. The handoff's reference-line book icon on Stories
+  was skipped since `renderStoryCard()` is shared with Character
+  Detail's own "Stories" section. Verified with the isolated Playwright
+  setup across both themes, including the reader's toolbar actions and
+  the body-bleed fix extended to all five of these screens. `sw.js`
+  bumped to `rooted-v170`. See DATA_MODEL.md §8, item 172.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

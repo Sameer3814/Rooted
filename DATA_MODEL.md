@@ -8463,6 +8463,116 @@ inventing a new principle:
       against Practice's own dark backdrop, not just Home/Discover's
       lighter one).
     `sw.js` bumped to `rooted-v168`.
+    (Undocumented until now, folded into item 172 below: the same day,
+    `body`'s own fixed 120px bottom padding — reserved clearance for the
+    now-flush nav bar, styled with the app's shared dark `--paper` —
+    was found bleeding through as a visible strip beneath Home/Discover/
+    Study, since that padding sits outside `.hds-theme`'s own box. Fixed
+    by mirroring `.hds-theme`'s current ground color onto `body.style.
+    background` directly whenever `view.screen` is one of a tracked
+    `HDS_SCREENS` list, clearing it everywhere else. `sw.js` bumped to
+    `rooted-v169`.)
+172. **Shepherd theme extended to the Discover sub-pages — Browse,
+    Topics, People, Stories — done (2026-11-10), same day, per a third
+    design handoff (`design_handoff_shepherd_pages`).** Items 170-171
+    only restyled Discover's own hub screen (its "Featured Today"
+    section + 3 nav rows); this is what those rows — plus People's and
+    Stories' own existing search/era-grouping, already live since items
+    102/140/143 — actually look like once opened.
+    - **Scope and a real derisking strategy**: Browse (book list →
+      chapter grid → verse reader with its selection toolbar),
+      `renderBookPeople` ("People in {book}"), Topics, People, and
+      Stories all now wrap their own output in the existing
+      `.hds-theme` shell (same `--ht-*` tokens, same `settings.
+      homeTheme` toggle as items 170-171). But several of the actual
+      row/card components these screens render — `.list-row`,
+      `.chapter-cell`, `.topic-card`, `.people-grid-card` (via
+      `renderCharacterGrid`/`renderCharacterRow`), `.story-list-card`
+      (via `renderStoryCard`), `.section-label`, `.search-wrap`,
+      `.back-btn`, `.empty`, `.result-count` — are SHARED functions
+      also used by screens this pass explicitly does not touch
+      (Character/Story Detail's own family/stories/alongside lists,
+      Motif Detail's mixed feed, Lexicon, Timeline). Rather than fork
+      or duplicate any of these functions, every visual change to a
+      shared component is a `.hds-theme <existing-class>` descendant
+      CSS override, never an edit to the base class — it only takes
+      effect where a render function actually wraps its own output in
+      `.hds-theme`, so an out-of-scope screen reusing the same shared
+      class (e.g. Character Detail's "Appears alongside" via
+      `renderCharacterGrid`) keeps rendering in the app's original dark
+      theme with zero risk of bleed. `renderChapterReader()`/
+      `renderReaderToolbar()`/`renderCrumbs()` have only one call site
+      each (all inside Browse), so those got real markup additions
+      instead (a header/translation-tag wrapper card, see below) — safe
+      since nothing outside Browse could be affected either way.
+    - **New tokens**: `--ht-terrat`/`--ht-plumt` (soft tint pairs for
+      era tag pills), added to both the existing light block and its
+      `[data-theme="dark"]` override, extending items 170-171's token
+      set rather than starting a second one.
+    - **Browse**: the book list is now one `.hds-list-card` (radius 22,
+      ledge border) wrapping hairline-divided rows, instead of a bare
+      flat list. The chapter grid is a real 5-column layout of ledge-
+      bordered tiles. "People in {book}" is now a plum `.hds-nav-row`/
+      `.hds-nav-tile` (reusing items 170's own nav-row component
+      verbatim, not a new one). The reader gained a real card wrapper
+      (`.hds-reader-card`/`.hds-reader-head`) showing "{Book} {Chapter}"
+      in Baloo 2 next to a "WEB" translation tag, its body switched to
+      Newsreader 19px/1.7 (the first screen besides Home's Verse-of-
+      the-Day to use that font for actual reading text), verse numbers
+      recolored `--ht-terra`, and a selected verse now gets a
+      `--ht-tint` background + dotted `--ht-acc` bottom border (its
+      number switching to `--ht-acc`) instead of the app's default
+      plain dotted underline. The selection toolbar (Copy/Highlight/
+      Add/Original) is restyled to the handoff's own ledge-card look
+      with zero change to any of its `data-action`s.
+    - **A deliberate, flagged deviation from the handoff's own mockup**:
+      the handoff shows the prev/next chapter-nav buttons flanking the
+      selection toolbar, visible only while a verse is selected. This
+      app's existing `.chapter-float-btn`s are always visible
+      regardless of selection (item 155/156's own fix for exactly this
+      — chapter nav shouldn't disappear). Folding them into the toolbar
+      row the way the mockup shows would have been a real behavior
+      regression the mockup's own static nature wouldn't have surfaced,
+      so they stay structurally separate, just restyled to match.
+    - **Topics**: card shape/typography restyled (height 118, a
+      translucent decorative corner circle, 55%-opacity icon, Baloo 2
+      title) but the actual background color on each card is still
+      `topicColor()`/`TOPIC_PALETTE` (item 144's own standing black-
+      and-white exception) — explicitly NOT swapped for the handoff's
+      own smaller 5-color sample cycle (`teal/terra/plum/meadow/
+      apricot`), which was only ever that prototype's placeholder data.
+      No per-topic "dark ledge" shade exists in the data, so the drop
+      shadow is a flat semi-transparent black rather than a true darker
+      tint of each topic's own hue — a deliberate, flagged
+      approximation, not an oversight.
+    - **People**: era header rows now show a tag pill (`--ht-plumt`/
+      `--ht-plum`, e.g. "the beginning") next to the era name, reusing
+      `Era.approxRange`, already-existing data — no schema change.
+      Photo cards restyled (ledge border, Baloo 2 name, Figtree role,
+      168px fixed-height portrait instead of a 1:1 aspect box).
+    - **Stories**: era header rows get the same pill treatment in
+      terracotta (`--ht-terrat`/`--ht-terra`) instead of plum, via a new
+      `.hds-era-label.hds-era-terra` vs. `.hds-era-plum` modifier on an
+      otherwise-identical markup shape. Cards restyled (radius 24,
+      ledge border, Baloo 2 title, 2-line-clamped Figtree summary). The
+      handoff's own reference-line book icon was deliberately omitted —
+      `renderStoryCard()` is shared with Character Detail's own
+      "Stories" section (out of scope), so adding an icon there would
+      have meant editing that shared markup; only colors/type changed
+      instead, a real, flagged fidelity trade-off for the same
+      reason as the topic-card ledge-shadow approximation above.
+    - `HDS_SCREENS` (the body-background-bleed fix two bullets up) is
+      extended to include `browse`/`bookPeople`/`topics`/`characters`/
+      `stories`, so none of these five screens gets the dark-color
+      bleed strip either.
+    - **Verified with the isolated Playwright setup**: Browse's book
+      list, its chapter grid, the reader with and without a verse
+      selected (toolbar actions confirmed still wired), Topics (real
+      per-topic colors confirmed, not a generic cycle), People (era
+      pill, photo grid), and Stories (era pill, cover cards) — all in
+      both light and dark, zero console errors, no body-bleed
+      regression on any of the five.
+    `sw.js` bumped to `rooted-v170`.
 
 ---
 
