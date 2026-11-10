@@ -2887,6 +2887,22 @@ function render(){
     const navTheme = view.screen === 'practice' ? settings.practiceTheme : settings.homeTheme;
     navbarEl.dataset.theme = navTheme === 'dark' ? 'dark' : 'light';
   }
+  // `body` has its own fixed 120px bottom padding (clearance for the
+  // fixed nav bar) styled with the app's shared dark `--paper` — that
+  // padding sits outside `.hds-theme`'s own box, so its background
+  // can't reach it, and the old dark color bled through as a visible
+  // strip beneath Home/Discover/Study (owner screenshot, 2026-11-10).
+  // Practice doesn't show this since `.shepherd-screen` is a full-
+  // viewport fixed overlay that covers this area itself. Fixed by
+  // mirroring the current .hds-theme ground color onto `body` directly
+  // whenever one of these three screens is showing, and clearing it
+  // (back to the default --paper) everywhere else.
+  const HDS_SCREENS = ['home', 'discover', 'study'];
+  if(HDS_SCREENS.includes(view.screen)){
+    document.body.style.background = settings.homeTheme === 'dark' ? '#14112a' : '#f4eedf';
+  }else{
+    document.body.style.background = '';
+  }
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
