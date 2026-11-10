@@ -997,6 +997,32 @@ The schema was deliberately designed so all of the above can be added
   yet to peek at. A real heading/moon-icon overlap on Reference Match
   ("Where is this verse found?") fixed with a max-width. `sw.js`
   bumped to `rooted-v165`. See DATA_MODEL.md §8, item 168.
+- **"Shepherd's Path" round 6 — scroll-reset bug, Review FAB rebuilt,
+  a font swap, and a real economy pass — done (2026-11-10).** The
+  biggest batch of feedback on this feature yet. Fixed a real bug
+  behind "tapping an exercise scrolls to the top": `render()` always
+  replaces `app.innerHTML` wholesale, creating brand-new scroll
+  containers on *every* render, including in-place updates like
+  opening a popover — now captures and restores `scrollTop` across the
+  swap. The Review FAB, "awkwardly placed" again even after last
+  round's fix, turned out to be inherent to any floating overlay over
+  scrollable content — replaced with a non-scrolling banner between
+  the topbar and the path that can't collide with anything by
+  construction. That same banner then hit a *second* instance of item
+  167's stacking bug (a plain static child painting behind the
+  backdrop) — fixed, plus a defensive blanket rule so a future child
+  can't reintroduce it. Young Serif swapped for Baloo 2 ("clean and
+  playful" per the owner). The dotted trail's zigzag amplitude reduced
+  (62-86px → 42-58px) after it was regularly sweeping through due-
+  badges. A real economy pass: found that only 2 of 5 ChallengeTypes
+  could ever cost a heart (the other three let you retry until
+  correct, by design) — Progressive Vanish gained a real "Missed Some"
+  option, Clause Connect/Sprint now flag a capped one-mistake-per-
+  exercise; chests give a random 10-30 gems instead of a fixed 20;
+  trophies are a one-time +50 gem claim; gems can refill hearts for 50;
+  XP drives a real level shown in the topbar and on the complete
+  screen. `sw.js` bumped to `rooted-v166`. See DATA_MODEL.md §8, item
+  169.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

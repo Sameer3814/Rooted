@@ -606,15 +606,23 @@ note).
   (`renderGoalCard()`, §8.31) — a chip set rather than a free-typed number
   input, so an invalid or extreme value is never possible.
 - `activeDepth` — planned (§4).
-- `hearts`, `gems`, `xp`, `chestsOpened`, `practiceTheme`,
-  `lastStreakScreenDate`, `heartsResetDate` — live (2026-11-09, items
-  160 and 163). "Shepherd's Path" economy state — `hearts` (default 5,
-  -1 per wrong lesson/review answer, reset to 5 once per calendar day
-  via `heartsResetDate`, item 163 — at 0, starting a new lesson/review
-  is blocked with a toast and the Path screen's own popover shows a
-  locked state instead of Start/Review), `gems` (default 0, +20 per
-  chest opened), `xp` (default 0, +15/+10 per lesson, +3-per-correct
-  per review), `chestsOpened` (array of chest ids), `practiceTheme`
+- `hearts`, `gems`, `xp`, `chestsOpened`, `trophiesClaimed`,
+  `practiceTheme`, `lastStreakScreenDate`, `heartsResetDate` — live
+  (2026-11-09/10, items 160, 163, 169). "Shepherd's Path" economy state
+  — `hearts` (default 5, -1 per real mistake across a lesson/review,
+  item 169 unified what counts as a "real mistake" across all five
+  ChallengeTypes — see item 169's own writeup; reset to 5 once per
+  calendar day via `heartsResetDate`, item 163; at 0, starting a new
+  lesson/review is blocked, with a popover offering to spend 50 gems
+  for a full refill, item 169, or come back tomorrow), `gems` (default
+  0, a real random amount 10-30 per chest opened, +50 per trophy
+  claimed, -50 to refill hearts — item 169; previously earned with no
+  spend at all), `xp` (default 0, +15/+10 per lesson, +3-per-correct
+  per review; drives `shepherdLevel(xp)` — 100 XP/level flat, shown as
+  a topbar pill and a complete-screen "LEVEL UP!" badge, item 169 —
+  previously accumulated with no visible purpose), `chestsOpened` /
+  `trophiesClaimed` (id arrays — a trophy's +50 gems can only be
+  claimed once per unit, same shape as chests), `practiceTheme`
   (`'light'|'dark'`, default `'dark'`, scoped to the Shepherd Path/
   complete/streak screens only — see "Visual direction" in CLAUDE.md),
   `lastStreakScreenDate` (an ISO date string gating the streak screen
@@ -8187,6 +8195,101 @@ inventing a new principle:
       calc(100% - 56px)`, wrapping earlier so it never reaches that
       corner.
     `sw.js` bumped to `rooted-v165`.
+
+169. **"Shepherd's Path" round 6 — scroll-reset bug, Review FAB
+    restructure, a font swap, a real economy pass (XP/gems/hearts/
+    trophies), and a second instance of item 167's stacking bug — done
+    (2026-11-10).** The biggest single batch of owner feedback on this
+    feature yet.
+    - **Tapping a stop reset scroll to the top.** Real root cause: `render()`
+      always replaces `app.innerHTML` wholesale, so Shepherd's own scroll
+      containers (`.shepherd-scroll`, `.sp-session-body`) are brand-new
+      DOM nodes on *every* render — including an in-place update like
+      opening a popover or toggling the theme, which have nothing to do
+      with navigation. `render()` now captures either container's
+      `scrollTop` before the swap and restores it onto the freshly-
+      rendered equivalent after. `go()`'s own scroll-to-current-stop
+      logic was pulled into a shared `shepherdScrollToCurrent()`, now
+      also called from `sp-after-complete`/`sp-go-path` (which return to
+      the Path screen without going through `go()` at all) so every path
+      back to Path finds the real current stop consistently.
+    - **Verified the fix with Playwright, including a false positive
+      worth recording**: an element-handle `.click()` on an off-screen
+      locked node made it LOOK like scroll was still resetting, because
+      Playwright's own actionability checks scroll a target into view
+      before clicking it — a real user's tap never does that. Re-tested
+      with a raw coordinate click (`page.mouse.click()`) on an
+      already-visible node instead, which confirmed the real fix holds.
+    - **The Review FAB restructured, not just repositioned** — "awkwardly
+      placed" (a repeat complaint even after hiding it under an open
+      popover last round) turned out to be inherent to ANY floating
+      overlay positioned over scrollable content: whatever's scrolled
+      underneath it will eventually collide. Replaced with
+      `.sp-review-banner`, a non-scrolling flex row between the topbar
+      and the scroll area — it can't overlap anything by construction,
+      not by z-index/visibility tuning.
+    - **A second real instance of item 167's stacking bug**, caught by
+      Playwright after the banner rendered invisible despite
+      `getBoundingClientRect()` confirming correct position/size: the
+      new `.sp-review-banner` is a plain static flex child, which
+      CSS2.1 paints *behind* `.shepherd-backdrop` (`position:absolute`,
+      `z-index:auto`) regardless of DOM order — the exact bug class
+      from item 167, just recurring on an element added after that
+      fix. Fixed directly, and also added a defensive blanket rule,
+      `.shepherd-screen > *:not(.shepherd-backdrop){position:relative;
+      z-index:2;}`, so a *future* direct child can't reintroduce this
+      without the same safeguard (the complete/streak screens already
+      had an equivalent blanket rule from item 165; the Path screen's
+      own children were each individually, fragilely safe until now).
+    - **Font swap** — Young Serif (an elegant, classic serif) replaced
+      with **Baloo 2** (rounded, bold, "clean and playful" per the
+      owner's own words) across every Shepherd heading/number. Figtree
+      and Newsreader (scripture quotes) are unchanged.
+    - **Dotted trail crossing through node badges** — the zigzag offset
+      pattern (`[0,-62,-86,-62,0,62,86,62]`, taken verbatim from the
+      handoff) swings up to 86px between consecutive stops; for the
+      common case of a single-verse unit (verse stop straight into its
+      own trophy, only 2 items apart) that full swing made the dotted
+      curve regularly sweep right through the verse's own due-badge.
+      Reduced to a gentler `[0,-42,-58,-42,0,42,58,42]` — same winding-
+      path character, much less badge/trail collision, confirmed with a
+      screenshot closely matching the owner's own reported case before
+      and after.
+    - **A real economy pass** — the owner asked for genuine purpose
+      behind XP, gems, and trophies, and for hearts to apply
+      consistently:
+      - **Hearts previously only worked for 2 of 5 exercise types.**
+        Root cause, found by actually reading every ChallengeType's own
+        grading path: Progressive Vanish, Clause Connect, and First-
+        Letter Sprint are all "retry until you get it right" by design
+        — only Tap Builder and Reference Match could ever finalize as
+        genuinely wrong, matching "only a couple of them are using the
+        hearts" exactly. Progressive Vanish gained a real second
+        self-grade option ("Missed Some," alongside "Got It!") — it
+        previously had no wrong path at all. Clause Connect and
+        First-Letter Sprint now call a new `shepherdFlagMistake()` the
+        first time they register a wrong sub-attempt, capped at once
+        per exercise (so a few fumbled keystrokes can't drain hearts
+        faster than any other exercise type costs). `finishShepherdSession()`
+        now deducts hearts from this unified mistake count instead of
+        only `session.results`' wrong entries.
+      - **Gems now buy something**: a flat refill-to-5 for 50 gems,
+        offered directly in the hearts-locked popover (replacing a
+        dead-end "come back tomorrow" with a real alternative when
+        affordable) — the one well-established thing a Duolingo-style
+        gem currency is for.
+      - **Chests give a random reward** (`[10,15,20,25,30]`), not a
+        fixed 20 every time.
+      - **Trophies are a one-time gem claim** (+50), tracked the same
+        way chests already track which ones were opened
+        (`settings.trophiesClaimed`) — previously just a "NICE"
+        acknowledgement with nothing behind it.
+      - **XP now does something**: `shepherdLevel(xp)` — 100 XP per
+        level, flat — shown as a compact "Lv N" pill in the topbar
+        (fits alongside the existing three without crowding, confirmed
+        with a screenshot) and a "LEVEL UP!" badge on the complete
+        screen when a session actually crosses a threshold.
+    `sw.js` bumped to `rooted-v166`.
 
 ---
 
