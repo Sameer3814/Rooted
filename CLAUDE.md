@@ -1104,6 +1104,39 @@ The schema was deliberately designed so all of the above can be added
   setup across both themes, including the reader's toolbar actions and
   the body-bleed fix extended to all five of these screens. `sw.js`
   bumped to `rooted-v170`. See DATA_MODEL.md §8, item 172.
+- **Shepherd theme extended to every remaining screen — done
+  (2026-11-10), same day.** Direct owner request: "Can you apply the
+  same theme in every single page of the app?" No mockup exists for any
+  of this (unlike items 170/172) — confirmed with the owner first: use
+  design judgment extending the established tokens/classes, and keep
+  Family Tree's own standing bronze exception (item 111) exactly as-is.
+  Restyled: Settings, Verse Detail (+ interlinear), Topic Detail
+  (per-topic coloring preserved — see below), Character Detail (+
+  carousel/timeline/family), the character Timeline Game, Story Detail,
+  Lexicon, the whole-Bible Timeline, Family Tree (chrome only — its
+  node-graph itself is rendered as a sibling *outside* `.hds-theme`,
+  structurally unreachable by this pass, not just unstyled), Motifs,
+  and the three Add screens. One new generic CSS block gives `.card`,
+  `.btn`, `.segmented`, headings, `.tag` variants, `.hero`, `.timeline`,
+  and `.verse-card` a `.hds-theme`-scoped override each — the same
+  derisking strategy as item 172, now covering components used
+  everywhere including Shepherd's Path, which stays untouched since it
+  never wraps in `.hds-theme`. Topic Detail's per-topic color mechanism
+  (`topicAccentVars()`, item 144) is explicitly preserved via a more
+  specific `.topic-detail-scope` override that wins back the cascade.
+  The legacy (non-Shepherd) practice session screen reached from
+  Verse/Topic Detail's "Practice this" buttons got its own chrome
+  themed, with zero edits to the shared `renderChallengeBody()`/
+  ChallengeType code — same boundary Shepherd's Path's own session
+  chrome already respects. Two real bugs found and fixed along the way:
+  Browse's search-result verse cards were never themed by item 172 at
+  all (fixed for free by the new generic rule), and the legacy session
+  screen shares `view.screen==='practice'` with Shepherd's Path, so the
+  body-background-bleed fix's screen list missed it — fixed with a
+  dedicated `session.shepherd` check. Verified with the isolated
+  Playwright setup across every screen above plus a full regression
+  pass on items 170/172's own screens (zero visual change). `sw.js`
+  bumped to `rooted-v171`. See DATA_MODEL.md §8, item 173.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1782,17 +1815,24 @@ by design. Full writeup: DATA_MODEL.md §8, item 160.
 (2026-11-10).** Same idea as Shepherd's Path's exception above but a
 separate token set (`--ht-*`, not `--sp-*`) and a separate toggle
 (`settings.homeTheme`, next to Home's settings gear) — explicitly asked
-for, not a silent extension of Practice's own theme. Scoped to these
-three screens' own hub content only, under a `.hds-theme` wrapper;
-Practice itself, Settings, Browse, and every detail screen are
-untouched and stay exactly as this section otherwise describes. The
-shared global `.navbar` was initially left alone too, then restyled the
-same day to the Shepherd design's own flush tab-bar spec (a real,
-flagged reversal of item 124's floating capsule) — it now reads
-`settings.practiceTheme` while on Practice and `settings.homeTheme`
-everywhere else, so the one shared bar still matches whichever theme
-setting actually governs the screen under it. Full writeup:
-DATA_MODEL.md §8, items 170-171.
+for, not a silent extension of Practice's own theme. Scoped under a
+`.hds-theme` wrapper, originally applied just to Home/Discover/Study's
+own hub content (item 170), then extended the same day to Browse/
+Topics/People/Stories (item 172) and, in a later pass the same day, to
+literally every other screen in the app — Settings, Verse/Character/
+Story/Topic Detail, Lexicon, Timeline, Motifs, the Add screens, and
+Family Tree's own page chrome (item 173) — making this theme, not the
+original dark-only v3 theme, the app's actual default skin everywhere
+except Practice/Shepherd's Path itself (its own separate `--sp-*`
+exception, above) and Family Tree's node-graph content (still bronze,
+a standing exception of its own, item 111 — explicitly reconfirmed
+when item 173 asked, not assumed). The shared global `.navbar` was
+initially left alone too, then restyled the same day to the Shepherd
+design's own flush tab-bar spec (a real, flagged reversal of item 124's
+floating capsule) — it now reads `settings.practiceTheme` while on
+Practice and `settings.homeTheme` everywhere else, so the one shared
+bar still matches whichever theme setting actually governs the screen
+under it. Full writeup: DATA_MODEL.md §8, items 170-173.
 
 **Deliberately left alone — read as functional state, not decorative
 theme, and this app's own genuine correct/wrong or error signal, not a

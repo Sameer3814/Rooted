@@ -8573,6 +8573,119 @@ inventing a new principle:
       both light and dark, zero console errors, no body-bleed
       regression on any of the five.
     `sw.js` bumped to `rooted-v170`.
+173. **Shepherd theme extended to every remaining screen in the app —
+    done (2026-11-10), same day.** The owner asked directly: "Can you
+    apply the same theme in every single page of the app?" No design
+    handoff exists for any of this (unlike items 170/172, which each
+    ported a literal mockup) — two scope questions were confirmed with
+    the owner first: (1) use design judgment, extending the established
+    `--ht-*` tokens/`.hds-*` classes rather than inventing a new visual
+    language, for every screen with no mockup; (2) Family Tree's own
+    standing bronze-accent exception (item 111) survives this pass —
+    only its page chrome gets reskinned, its node-graph content stays
+    bronze, by explicit instruction, not by default.
+    - **Screens restyled**: Settings (+ its 5 card helpers), Verse
+      Detail (+ interlinear toggle, verse nav row), Topic Detail,
+      Character Detail (+ portrait carousel, "Their life" timeline,
+      family/stories/alongside sections), the per-character Timeline
+      Game (a life-event drag puzzle, found reachable from Character
+      Detail and brought into scope the same way), Story Detail (+
+      story carousel, moments, related stories), Lexicon (list +
+      detail), the whole-Bible Timeline, Family Tree (chrome only — see
+      below), Motifs + Motif Detail, and the three Add screens (menu,
+      new verse, new person). Content, data, and every `data-action`
+      are untouched — visuals only, same discipline as every prior
+      pass.
+    - **A real derisking strategy, this time at app-wide scale**: almost
+      none of these screens' own components are screen-exclusive —
+      `.card`, `.btn`/`.btn.primary`, `.segmented`, `h1`/`h2`/`h3`,
+      `.stat-card`, `.avatar`, `.tag`/`.tag--gold`/`.tag--sage`/
+      `.tag--tan`/`.tag--pill`, `.hero`, `.timeline`/`.tl-item`, and
+      `.verse-card` are all used by dozens of call sites across the
+      whole app, including Shepherd's Path. Rather than edit any shared
+      base rule, one new CSS block (a continuation of item 172's own
+      `.hds-theme <existing-class>` derisking strategy) adds a generic
+      descendant override for each of these under `.hds-theme` — it
+      only ever takes effect where a render function actually wraps its
+      own output in `.hds-theme`, so Shepherd's Path (which never does)
+      can't be touched even by accident, confirmed by a full regression
+      pass over Home/Browse/Topics/Stories after this landed (zero
+      visual change, zero console errors). This single generic block is
+      most of what made restyling eleven-plus screens in one pass
+      tractable at all — each screen then only needed its own render
+      function wrapped in `.hds-theme`, plus a handful of
+      screen-specific fixes (below), not a bespoke CSS pass each.
+    - **A real, pre-existing bug fixed as a side effect**: Browse's own
+      search-result verse cards (`renderCorpusVerseCard()`) were never
+      themed by item 172 at all — a genuine gap, not a deliberate
+      exclusion (item 172's own writeup never mentions `.verse-card`).
+      The new generic `.hds-theme .verse-card` rule fixes it for free,
+      since Browse already wraps its own output in `.hds-theme`.
+    - **Topic Detail's standing per-topic exception (item 144),
+      preserved exactly**: `topicAccentVars()` still re-points
+      `--gold`/`--gold-wash`/`--gold-deep`/`--gold-shadow` to the
+      topic's own hue, same as always. The new generic
+      `.hds-theme .btn.primary`/`.tag--gold` rules would otherwise have
+      overridden that with this pass's own flat `--ht-acc`/`--ht-terrat`
+      — fixed by wrapping Topic Detail's content in an additional
+      `.topic-detail-scope` class and adding two MORE specific rules
+      (`.hds-theme .topic-detail-scope .btn.primary` /
+      `.tag--gold`) that read `--gold`/`--gold-wash` again, winning the
+      cascade only on that one page. Verified: the per-topic-colored
+      "Practice this topic" button and "DUE TODAY"/Related-Topics tags
+      still show the topic's own hue in both themes.
+    - **Family Tree — chrome vs. bronze content, exactly as confirmed**:
+      `renderFamilyTree()`'s header (back button, name, search icon),
+      its hint text, and its empty state are now wrapped in
+      `.hds-theme`. `.tree-viewport`/`.tree-canvas`/`.tree-node-card`/
+      `.tree-legend`/`.tree-avatar` (the actual node-graph, item 111) are
+      rendered as **siblings outside** that wrapper, not nested inside
+      it at all — not just unstyled-by-override, structurally
+      unreachable by any of this pass's CSS. The result is a deliberate,
+      visible seam (a warm bronze tree box sitting on a Shepherd-themed
+      page) rather than a bug; the tree's own hint text
+      ("Drag to pan...") was kept paired with the tree itself, outside
+      `.hds-theme`, rather than re-themed, since re-coloring just that
+      one line while the box beneath it stays bronze would read as a
+      worse mismatch, not a better one.
+    - **The `renderChallengeBody()` boundary, found and respected**:
+      Verse/Topic Detail's "Practice this verse/topic" buttons lead into
+      `renderPractice()`'s own **legacy, non-Shepherd session screen** —
+      structurally distinct from `renderShepherdSession()`/
+      `renderShepherdComplete()` (Shepherd's Path returns early via
+      `if(session.shepherd) return renderShepherdSession(...)` before
+      ever reaching this code). Only this legacy screen's own chrome
+      (header, progress bar, result banner, complete-card) is wrapped in
+      `.hds-theme` — `renderChallengeBody()` itself and every
+      `ChallengeType`'s own `render()`/`interact()` output
+      (`body.bodyHtml`/`body.footerHtml`) are passed through completely
+      unedited, exactly as Shepherd's Path's own session chrome already
+      does for the same shared function (items 161/164). One hardcoded
+      inline style this exposed (`renderChallengeBody()`'s own `.ref`
+      line reads `var(--gold-deep)`, white, meant for the app's dark-
+      only v3 theme, unreadable on this theme's light surfaces) was
+      fixed the same way Shepherd's Path already fixed the identical
+      problem — a CSS override (`.hds-theme .ref`), not an edit to that
+      shared function's code.
+    - **A second real bug this surfaced, fixed alongside**: the body-
+      background-bleed fix (two bullets up in items 170/172's own
+      history) keys off `view.screen`, but the legacy session screen
+      shares `view.screen==='practice'` with Shepherd's Path, which is
+      deliberately excluded from that fix (its own `.shepherd-screen` is
+      a full-viewport fixed overlay that already covers the area). The
+      legacy screen is normal in-flow content like every other screen
+      here, so it hit the exact same bleed bug — confirmed via a
+      Playwright screenshot showing a solid black strip beneath it.
+      Fixed with a dedicated `isLegacyPracticeScreen` check
+      (`view.screen==='practice' && !(session && session.shepherd)`)
+      alongside the existing `HDS_SCREENS` list.
+    - **Verified with the isolated Playwright setup**: every screen
+      above, in both themes where applicable (Settings, Character
+      Detail, Topic Detail, Family Tree), plus the legacy practice
+      session and its "DUE TODAY" tag tested via Lexicon Detail's
+      example-verse card — zero console errors, zero visual regression
+      on the five screens items 170/172 already themed.
+    `sw.js` bumped to `rooted-v171`.
 
 ---
 

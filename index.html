@@ -1663,6 +1663,109 @@
   .hds-theme .story-card-ref{font:900 12px 'Figtree',sans-serif;letter-spacing:.04em;color:var(--ht-terra);}
   .hds-theme .story-card-excerpt{font:700 14px/1.45 'Figtree',sans-serif;color:var(--ht-sub);}
 
+  /* Shepherd theme, pass 3 (item 173) — extends the same `.hds-theme`
+     shell to every remaining screen (Settings, Verse/Character/Story/
+     Topic Detail, Lexicon, Timeline, Motifs, Family Tree's own chrome,
+     the Add screens). No design handoff exists for any of these — this
+     whole block is original work, extending the established tokens/
+     conventions rather than inventing a new visual language.
+     These components (.card, .btn, .segmented, h1/h2/h3, .stat-card,
+     .avatar, .tag variants, form controls, .hero, .timeline/.tl-item,
+     .chapter-nav-row) are used EVERYWHERE, including by Shepherd's Path
+     and other out-of-scope surfaces, so every rule here is still a
+     `.hds-theme <existing-class>` descendant override (item 172's own
+     derisking strategy, continued) — none of this can bleed into a
+     screen that never wraps its own output in `.hds-theme`. */
+  .hds-theme .card{background:var(--ht-surface);border:2px solid var(--ht-line);border-radius:22px;box-shadow:0 4px 0 var(--ht-line);}
+  .hds-theme .card.tap:active{transform:translateY(2px);box-shadow:0 2px 0 var(--ht-line);}
+  .hds-theme .btn{background:var(--ht-surface);color:var(--ht-ink);border:2px solid var(--ht-line);box-shadow:0 3px 0 var(--ht-line);border-radius:14px;font-family:'Figtree',sans-serif;font-weight:700;}
+  .hds-theme .btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ht-line);}
+  .hds-theme .btn.primary{background:var(--ht-acc);color:#fff;border-color:transparent;box-shadow:0 4px 0 rgba(0,0,0,.25);}
+  .hds-theme .btn.primary:active{box-shadow:0 2px 0 rgba(0,0,0,.25);}
+  .hds-theme .btn.ghost{background:transparent;border-color:transparent;box-shadow:none;color:var(--ht-sub);}
+  .hds-theme .btn.sage{background:var(--ht-acc);color:#fff;border-color:transparent;}
+  .hds-theme .btn:disabled{opacity:.5;}
+  .hds-theme .segmented{background:var(--ht-tint);border-radius:14px;}
+  .hds-theme .segmented button{color:var(--ht-sub);font-family:'Figtree',sans-serif;font-weight:700;border-radius:11px;}
+  .hds-theme .segmented button.active{background:var(--ht-surface);color:var(--ht-acc);box-shadow:0 2px 0 var(--ht-line);}
+  .hds-theme h1, .hds-theme h2, .hds-theme h3{font-family:'Baloo 2',sans-serif;font-weight:600;color:var(--ht-ink);}
+  .hds-theme p{color:var(--ht-sub);}
+  .hds-theme .stat-card{background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 3px 0 var(--ht-line);border-radius:16px;}
+  .hds-theme .stat-card .num{font-family:'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-theme .stat-card .label{color:var(--ht-sub);}
+  .hds-theme .avatar, .hds-theme .list-avatar{background:var(--ht-tint);color:var(--ht-acc);}
+  .hds-theme .char-row h3{font-family:'Baloo 2',sans-serif;}
+  .hds-theme .meta, .hds-theme .char-row .meta{color:var(--ht-sub);}
+  .hds-theme .tag{font-family:'Figtree',sans-serif;}
+  .hds-theme .tag--gold{background:var(--ht-terrat);color:var(--ht-terrad);}
+  .hds-theme .tag--sage{background:var(--ht-tint);color:var(--ht-acc);}
+  .hds-theme .tag--tan{background:var(--ht-line);color:var(--ht-sub);}
+  .hds-theme .tag--pill{background:var(--ht-tint);color:var(--ht-acc);}
+  .hds-theme .in-library{color:var(--ht-acc);}
+  .hds-theme label{color:var(--ht-sub);font-family:'Figtree',sans-serif;}
+  .hds-theme input[type=text], .hds-theme textarea, .hds-theme select{
+    background:var(--ht-surface);border:2px solid var(--ht-line);color:var(--ht-ink);font-family:'Figtree',sans-serif;
+  }
+  .hds-theme .err{color:#ff5c5c;}
+  /* .verse-card .text/.ref are shared by Browse's own search results
+     (a real pre-existing gap: item 172 themed the chapter reader and
+     card shapes but never this one, so Browse's search-result verse
+     cards still rendered in the app's old dark theme — fixed here as a
+     side effect of this generic rule, not a separate pass), Verse
+     Detail, Lexicon Detail's example verse, and Motif Detail's mixed
+     feed. */
+  .hds-theme .verse-card .text{color:var(--ht-ink);font-family:'Figtree',sans-serif;}
+  .hds-theme .verse-card .ref{color:var(--ht-terra);}
+  .hds-theme .mastery-seg.filled{background:var(--ht-acc);}
+  /* Character/Story Detail hero card + portrait carousel chrome. The
+     carousel's own prev/next chips (.hero-nav-btn, .carousel-prev/next)
+     sit directly on a photo, not the page background, so they read
+     fine unchanged in either theme and are left alone. */
+  .hds-theme .hero{background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);}
+  .hds-theme .hero-avatar{background:var(--ht-tint);color:var(--ht-acc);}
+  .hds-theme .hero .era, .hds-theme .hero p.summary{color:var(--ht-sub);}
+  .hds-theme .story-title-card{background:var(--ht-surface);}
+  /* "Their life" / whole-Bible Timeline — same .timeline/.tl-item shape
+     either way. */
+  .hds-theme .tl-title{font-family:'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-theme .tl-ref{color:var(--ht-terra);}
+  .hds-theme .tl-age, .hds-theme .tl-desc{color:var(--ht-sub);}
+  .hds-theme .chapter-nav-row .chapter-nav-btn{background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 3px 0 var(--ht-line);color:var(--ht-ink);}
+  /* Topic Detail keeps its own standing per-topic color exception
+     (topicAccentVars(), item 144) completely intact — its Practice
+     button and Related Topics tags must keep reading the page's own
+     reassigned --gold/--gold-wash/--gold-deep/--gold-shadow variables,
+     not this pass's generic --ht-acc/--ht-terrat ones. These two rules
+     are more specific (two classes vs. the generic one above) so they
+     win the cascade only inside a page wrapped in .topic-detail-scope,
+     restoring the exact pre-existing per-topic look while still getting
+     this pass's shape/font treatment everywhere else on the page. */
+  .hds-theme .topic-detail-scope .btn.primary{background:var(--gold);color:#fff;box-shadow:0 4px 0 var(--gold-shadow);}
+  .hds-theme .topic-detail-scope .tag--gold{background:var(--gold-wash);color:var(--gold-deep);}
+  .hds-theme .topic-detail-hero{box-shadow:0 5px 0 rgba(0,0,0,.25);}
+  .hds-theme .topic-detail-hero h1, .hds-theme .topic-detail-hero p{color:#fff;}
+  /* Timeline game (a character's own life-order drag puzzle) */
+  .hds-theme .tl-drag-item{background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 3px 0 var(--ht-line);color:var(--ht-ink);}
+  .hds-theme .tl-drag-handle{color:var(--ht-lockic);}
+  .hds-theme .tl-drag-check{color:var(--ht-acc);}
+  .hds-theme .tl-drag-item.tl-drag-correct{border-color:var(--ht-acc);background:var(--ht-tint);box-shadow:0 0 0 1px var(--ht-acc);}
+  .hds-theme .result-banner.good{background:var(--ht-tint);color:var(--ht-acc);}
+  /* Legacy (non-Shepherd) session screen chrome — reached from Verse/
+     Topic Detail's own "Practice this" buttons; renderChallengeBody()
+     itself stays completely unedited (see that function's own comment). */
+  .hds-theme .progress-track{background:var(--ht-line);}
+  .hds-theme .progress-fill{background:var(--ht-acc);}
+  .hds-theme .complete-icon{color:var(--ht-acc);}
+  .hds-theme .complete-stat{background:var(--ht-tint);}
+  .hds-theme .complete-stat .lbl{color:var(--ht-sub);}
+  .hds-theme .spark{background:var(--spark-color,var(--ht-acc));}
+  /* renderChallengeBody()'s own inline `.ref` line hardcodes
+     var(--gold-deep) (white, meant for the app's dark-only v3 theme) —
+     unreadable on this theme's light surfaces. A CSS override, not an
+     edit to that shared function's code, same precedent as Shepherd's
+     Path's own identical fix (`.sp-session-screen .ref`, item 164). */
+  .hds-theme .ref{color:var(--ht-terra) !important;}
+
   /* Respect a real accessibility signal over the fun — every animation
      above is decorative, none of it gates functionality, so disabling it
      costs nothing. */
@@ -3011,9 +3114,21 @@ function render(){
   // whenever one of these three screens is showing, and clearing it
   // (back to the default --paper) everywhere else.
   // Extended (item 172) to cover the Discover sub-pages this pass
-  // restyled too — same bleed risk, same fix.
-  const HDS_SCREENS = ['home', 'discover', 'study', 'browse', 'bookPeople', 'topics', 'characters', 'stories'];
-  if(HDS_SCREENS.includes(view.screen)){
+  // restyled too — same bleed risk, same fix. Extended again (item 173)
+  // to cover every other screen this pass themed. `practice` is
+  // deliberately NOT in this list — Shepherd's Path's own
+  // `.shepherd-screen` is a full-viewport fixed overlay that already
+  // covers this area itself — EXCEPT the legacy (non-Shepherd) session
+  // screen reached from Verse/Topic Detail's "Practice this" buttons,
+  // which shares `view.screen==='practice'` with Shepherd's Path but is
+  // normal in-flow content like every other screen here, so it hit the
+  // exact same bleed bug (owner screenshot, 2026-11-10) until this
+  // dedicated check was added.
+  const HDS_SCREENS = ['home', 'discover', 'study', 'browse', 'bookPeople', 'topics', 'characters', 'stories',
+    'settings', 'unreachedDetail', 'verseDetail', 'topicDetail', 'characterDetail', 'timelineGame', 'storyDetail',
+    'lexicon', 'lexiconDetail', 'timeline', 'familyTree', 'motifs', 'motifDetail', 'add', 'addVerse', 'addCharacter'];
+  const isLegacyPracticeScreen = view.screen === 'practice' && !(session && session.shepherd);
+  if(HDS_SCREENS.includes(view.screen) || isLegacyPracticeScreen){
     document.body.style.background = settings.homeTheme === 'dark' ? '#14112a' : '#f4eedf';
   }else{
     document.body.style.background = '';
@@ -3460,22 +3575,27 @@ function renderUnreachedCard(){
 function renderUnreachedDetail(){
   const d = unreachedOfDay.data;
   if(!d) return renderHome();
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    ${d.photoUrl ? `<img class="unreached-full-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" onerror="this.remove()">` : ''}
-    <div class="topbar"><h1>${esc(d.name)}</h1></div>
-    <div class="discovery-label" style="margin-bottom:16px;"><i class="ti ti-world"></i> Unreached of the Day, from Joshua Project</div>
-    <div class="stat-row">
-      ${d.population ? `<div class="stat-card"><div class="num">${d.population.toLocaleString()}</div><div class="label">population</div></div>` : ''}
-      ${d.percentEvangelical!=null ? `<div class="stat-card"><div class="num">${d.percentEvangelical}%</div><div class="label">evangelical</div></div>` : ''}
-      ${d.percentAdherent!=null ? `<div class="stat-card"><div class="num">${d.percentAdherent}%</div><div class="label">christian adherent</div></div>` : ''}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <button class="back-btn" data-action="go-home" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+        ${d.photoUrl ? `<img class="unreached-full-photo" src="${esc(d.photoUrl)}" alt="${esc(d.name)}" onerror="this.remove()">` : ''}
+        <div class="topbar"><h1>${esc(d.name)}</h1></div>
+        <div class="discovery-label" style="margin-bottom:16px;color:var(--ht-terra);"><i class="ti ti-world"></i> Unreached of the Day, from Joshua Project</div>
+        <div class="stat-row">
+          ${d.population ? `<div class="stat-card"><div class="num">${d.population.toLocaleString()}</div><div class="label">population</div></div>` : ''}
+          ${d.percentEvangelical!=null ? `<div class="stat-card"><div class="num">${d.percentEvangelical}%</div><div class="label">evangelical</div></div>` : ''}
+          ${d.percentAdherent!=null ? `<div class="stat-card"><div class="num">${d.percentAdherent}%</div><div class="label">christian adherent</div></div>` : ''}
+        </div>
+        <div class="card">
+          ${d.country ? `<div class="char-row" style="justify-content:space-between;"><span class="meta">Country</span><span>${esc(d.country)}</span></div>` : ''}
+          ${d.religion ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary religion</span><span>${esc(d.religion)}</span></div>` : ''}
+          ${d.language ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary language</span><span>${esc(d.language)}</span></div>` : ''}
+        </div>
+        <p style="margin-top:16px;line-height:1.55;">Joshua Project features a different unreached people group here each day — one still without a self-sustaining, indigenous church-planting movement of their own. A moment of prayer for the ${esc(d.name)} today is the whole point of this card.</p>
+      </div>
     </div>
-    <div class="card">
-      ${d.country ? `<div class="char-row" style="justify-content:space-between;"><span class="meta">Country</span><span>${esc(d.country)}</span></div>` : ''}
-      ${d.religion ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary religion</span><span>${esc(d.religion)}</span></div>` : ''}
-      ${d.language ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Primary language</span><span>${esc(d.language)}</span></div>` : ''}
-    </div>
-    <p style="color:var(--ink-soft);margin-top:16px;line-height:1.55;">Joshua Project features a different unreached people group here each day — one still without a self-sustaining, indigenous church-planting movement of their own. A moment of prayer for the ${esc(d.name)} today is the whole point of this card.</p>
   `;
 }
 function renderAccountBar(){
@@ -3567,16 +3687,21 @@ function renderSoundCard(){
     </div>`;
 }
 function renderSettings(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
-      <h2>${t('title_settings')}</h2>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+          <h2>${t('title_settings')}</h2>
+        </div>
+        ${renderAccountBar()}
+        ${renderLanguageCard()}
+        ${renderGoalCard()}
+        ${renderSoundCard()}
+        ${renderDataCard()}
+      </div>
     </div>
-    ${renderAccountBar()}
-    ${renderLanguageCard()}
-    ${renderGoalCard()}
-    ${renderSoundCard()}
-    ${renderDataCard()}
   `;
 }
 /* ---------- BROWSE (full corpus) ---------- */
@@ -4042,35 +4167,40 @@ function renderVerseDetail(id){
   const next = fmtDate(p.nextReview);
   const statusLabel = masteryLabel(p.status);
   const isNT = NT_BOOKS.has(v.book);
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>${t('title_verse')}</h2>
-    </div>
-    <div class="card verse-card">
-      <div class="ref" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <span>${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</span>
-        <button class="btn ${interlinearOpen?'primary':''}" data-action="toggle-interlinear" data-id="${v.id}" style="flex-shrink:0;padding:6px 12px;font-size:var(--text-xs);">${icon('languages',14)} ${isNT?'Greek':'Hebrew'}</button>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
+          <h2>${t('title_verse')}</h2>
+        </div>
+        <div class="card verse-card">
+          <div class="ref" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span>${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</span>
+            <button class="btn ${interlinearOpen?'primary':''}" data-action="toggle-interlinear" data-id="${v.id}" style="flex-shrink:0;padding:6px 12px;font-size:var(--text-xs);">${icon('languages',14)} ${isNT?'Greek':'Hebrew'}</button>
+          </div>
+          ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text" style="font-size:var(--text-xl);line-height:1.5;font-family:'Newsreader',Georgia,serif;">${esc(verseText(v))}</div>`}
+          ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+        </div>
+        ${renderVerseNavRow(v)}
+        <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
+        ${isInLibrary(v.id)
+          ? `<button class="btn block" data-action="remove-from-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('check',16)} In your library — remove</button>`
+          : `<button class="btn block" data-action="add-to-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('plus',16)} Add to library</button>`}
+        <div class="section-label">Progress</div>
+        <div class="card">
+          <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
+          <div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Times reviewed</span><span>${p.timesReviewed}</span></div>
+          ${next ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Next review</span><span>${esc(next)}</span></div>` : ''}
+        </div>
+        ${chars.length ? `<div class="section-label">People</div>${chars.map(c=>`
+          <div class="card tap" data-action="open-character" data-id="${c.id}">
+            <div class="char-row"><div class="avatar">${charAvatarInner(c)}</div><div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div></div></div>
+          </div>`).join('')}` : ''}
+        ${renderMotifBadges(motifsFor('verse', id))}
       </div>
-      ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text" style="font-size:var(--text-xl);line-height:1.45;">${esc(verseText(v))}</div>`}
-      ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
     </div>
-    ${renderVerseNavRow(v)}
-    <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
-    ${isInLibrary(v.id)
-      ? `<button class="btn block" data-action="remove-from-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('check',16)} In your library — remove</button>`
-      : `<button class="btn block" data-action="add-to-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('plus',16)} Add to library</button>`}
-    <div class="section-label">Progress</div>
-    <div class="card">
-      <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
-      <div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Times reviewed</span><span>${p.timesReviewed}</span></div>
-      ${next ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Next review</span><span>${esc(next)}</span></div>` : ''}
-    </div>
-    ${chars.length ? `<div class="section-label">People</div>${chars.map(c=>`
-      <div class="card tap" data-action="open-character" data-id="${c.id}">
-        <div class="char-row"><div class="avatar">${charAvatarInner(c)}</div><div><h3>${esc(c.name)}</h3><div class="meta">${esc((c.roles||[]).join(', '))}${c.era? ' · '+esc(c.era):''}</div></div></div>
-      </div>`).join('')}` : ''}
-    ${renderMotifBadges(motifsFor('verse', id))}
   `;
 }
 
@@ -4183,22 +4313,29 @@ function renderTopicDetail(id){
   const verses = data.verses.filter(v=>v.topicIds.includes(id));
   const related = (t.relatedTopicIds||[]).map(findTopic).filter(Boolean);
   const color = topicColor(id);
+  const isDark = settings.homeTheme === 'dark';
   // The whole page is wrapped in a scope that overrides the gold/action
   // accent role to this topic's own color (see topicAccentVars) — sage
   // (mastery) and tan (metadata) tags on the verse cards below are untouched,
   // so "Mastered"/"Due today" still read the same everywhere in the app.
+  // `.topic-detail-scope` is also what lets the Shepherd-theme CSS
+  // (item 173) know to keep reading --gold/--gold-wash here instead of
+  // its own generic --ht-acc/--ht-terrat, preserving this exact,
+  // standing per-topic exception (item 144) untouched.
   return `
-    <div style="${topicAccentVars(id)}">
-      <div class="topic-detail-hero" style="background:${color};">
-        <button class="back-btn" data-action="back-to-topics" style="background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.18);color:#fff;"><i class="ti ti-arrow-left"></i></button>
-        <i class="ti ${topicIcon(id)} topic-detail-hero-icon"></i>
-        <h1>${esc(t.name)}</h1>
-        ${t.description ? `<p>${esc(t.description)}</p>` : ''}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content topic-detail-scope" style="padding-top:0;${topicAccentVars(id)}">
+        <div class="topic-detail-hero" style="background:${color};">
+          <button class="back-btn" data-action="back-to-topics" style="background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.18);color:#fff;"><i class="ti ti-arrow-left"></i></button>
+          <i class="ti ${topicIcon(id)} topic-detail-hero-icon"></i>
+          <h1>${esc(t.name)}</h1>
+          ${t.description ? `<p>${esc(t.description)}</p>` : ''}
+        </div>
+        ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}">${icon('sparkles',16)} Practice this topic</button>` : ''}
+        <div class="section-label">Verses</div>
+        ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
+        ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--gold tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
       </div>
-      ${verses.length ? `<button class="btn primary block" data-action="start-practice-topic" data-id="${id}">${icon('sparkles',16)} Practice this topic</button>` : ''}
-      <div class="section-label">Verses</div>
-      ${verses.length ? verses.map(renderVerseCard).join('') : `<div class="empty"><i class="ti ti-book-2"></i><p>No verses tagged yet.</p></div>`}
-      ${related.length ? `<div class="section-label">Related topics</div><div class="tag-row">${related.map(rt=>`<span class="tag tag--gold tap" data-action="open-topic" data-id="${rt.id}" style="cursor:pointer;">${esc(rt.name)}</span>`).join('')}</div>` : ''}
     </div>
   `;
 }
@@ -4306,47 +4443,52 @@ function renderCharacterDetail(id){
   const sameEra = data.characters.filter(o=>o.id!==id && o.eraId===c.eraId && !alsoWith.some(a=>a.id===o.id));
   const prevChar = adjacentCharacter(id, -1);
   const nextChar = adjacentCharacter(id, 1);
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <button class="back-btn" data-action="character-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    <div class="hero-photo-wrap">
-      ${charPortraitUrl(c.id) ? `<img class="hero-photo" src="${esc(charPortraitUrl(c.id))}" alt="${esc(c.name)}">` : ''}
-      ${prevChar ? `<button class="hero-nav-btn hero-nav-prev" data-action="char-carousel-nav" data-id="${prevChar.id}" aria-label="Previous person"><i class="ti ti-chevron-left"></i></button>` : ''}
-      ${nextChar ? `<button class="hero-nav-btn hero-nav-next" data-action="char-carousel-nav" data-id="${nextChar.id}" aria-label="Next person"><i class="ti ti-chevron-right"></i></button>` : ''}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <button class="back-btn" data-action="character-back" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+        <div class="hero-photo-wrap">
+          ${charPortraitUrl(c.id) ? `<img class="hero-photo" src="${esc(charPortraitUrl(c.id))}" alt="${esc(c.name)}">` : ''}
+          ${prevChar ? `<button class="hero-nav-btn hero-nav-prev" data-action="char-carousel-nav" data-id="${prevChar.id}" aria-label="Previous person"><i class="ti ti-chevron-left"></i></button>` : ''}
+          ${nextChar ? `<button class="hero-nav-btn hero-nav-next" data-action="char-carousel-nav" data-id="${nextChar.id}" aria-label="Next person"><i class="ti ti-chevron-right"></i></button>` : ''}
+        </div>
+        <div class="hero">
+          ${charPortraitUrl(c.id) ? '' : `<div class="hero-avatar">${charIconHTML(c.roles, 30)}</div>`}
+          <h1>${esc(c.name)}</h1>
+          <div class="tags">${(c.roles||[]).map(r=>`<span class="tag tag--tan">${esc(r)}</span>`).join('')}</div>
+          ${c.eraId ? `<div class="era"><i class="ti ti-clock" style="font-size:13px;"></i> ${esc(eraName(c.eraId))}</div>` : ''}
+          <p class="summary">${esc(c.summary||'')}</p>
+        </div>
+
+        ${timeline.length ? `
+          <div class="section-label">Their life <span>${timeline.length} moments</span></div>
+          ${timeline.length >= 3 ? `<button class="btn block" style="width:100%;margin-bottom:12px;" data-action="start-timeline-game" data-id="${id}"><i class="ti ti-arrows-shuffle"></i> Put their life in order</button>` : ''}
+          <div class="timeline">
+            ${timeline.map(e=>`
+              <div class="tl-item${e.storyId ? ' tap' : ''}"${e.storyId ? ` data-action="open-story" data-id="${e.storyId}"` : ''}>
+                <div class="tl-title">${esc(e.title)}</div>
+                <div class="tl-ref">${esc(e.reference)}${e.ageApprox ? ` <span class="tl-age">· aged about ${e.ageApprox}</span>` : ''}</div>
+                <div class="tl-desc">${esc(e.description)}</div>
+              </div>`).join('')}
+          </div>` : ''}
+
+        ${family.length ? `<div class="section-label">Family</div>
+          ${family.map(x=>`
+            <div class="card tap" data-action="open-character" data-id="${x.who.id}">
+              <div class="char-row">
+                <div class="avatar">${charAvatarInner(x.who)}</div>
+                <div><h3>${esc(x.who.name)}</h3><div class="meta">${esc(c.name)} is the ${esc(x.type)} ${esc(x.who.name)}</div></div>
+              </div>
+            </div>`).join('')}` : ''}
+
+        ${stories.length ? `<div class="section-label">Stories</div>${stories.map(renderStoryCard).join('')}` : ''}
+        ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+        ${renderMotifBadges(motifsFor('character', id))}
+        ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${renderCharacterGrid(alsoWith)}` : ''}
+        ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${renderCharacterGrid(sameEra)}` : ''}
+      </div>
     </div>
-    <div class="hero">
-      ${charPortraitUrl(c.id) ? '' : `<div class="hero-avatar">${charIconHTML(c.roles, 30)}</div>`}
-      <h1>${esc(c.name)}</h1>
-      <div class="tags">${(c.roles||[]).map(r=>`<span class="tag tag--tan">${esc(r)}</span>`).join('')}</div>
-      ${c.eraId ? `<div class="era"><i class="ti ti-clock" style="font-size:13px;"></i> ${esc(eraName(c.eraId))}</div>` : ''}
-      <p class="summary">${esc(c.summary||'')}</p>
-    </div>
-
-    ${timeline.length ? `
-      <div class="section-label">Their life <span style="color:var(--ink-faint);">${timeline.length} moments</span></div>
-      ${timeline.length >= 3 ? `<button class="btn block" style="width:100%;margin-bottom:12px;" data-action="start-timeline-game" data-id="${id}"><i class="ti ti-arrows-shuffle"></i> Put their life in order</button>` : ''}
-      <div class="timeline">
-        ${timeline.map(e=>`
-          <div class="tl-item${e.storyId ? ' tap' : ''}"${e.storyId ? ` data-action="open-story" data-id="${e.storyId}"` : ''}>
-            <div class="tl-title">${esc(e.title)}</div>
-            <div class="tl-ref">${esc(e.reference)}${e.ageApprox ? ` <span class="tl-age">· aged about ${e.ageApprox}</span>` : ''}</div>
-            <div class="tl-desc">${esc(e.description)}</div>
-          </div>`).join('')}
-      </div>` : ''}
-
-    ${family.length ? `<div class="section-label">Family</div>
-      ${family.map(x=>`
-        <div class="card tap" data-action="open-character" data-id="${x.who.id}">
-          <div class="char-row">
-            <div class="avatar">${charAvatarInner(x.who)}</div>
-            <div><h3>${esc(x.who.name)}</h3><div class="meta">${esc(c.name)} is the ${esc(x.type)} ${esc(x.who.name)}</div></div>
-          </div>
-        </div>`).join('')}` : ''}
-
-    ${stories.length ? `<div class="section-label">Stories</div>${stories.map(renderStoryCard).join('')}` : ''}
-    ${verses.length ? `<div class="section-label">Key verses</div>${verses.map(renderVerseCard).join('')}` : ''}
-    ${renderMotifBadges(motifsFor('character', id))}
-    ${alsoWith.length ? `<div class="section-label">Appears alongside</div>${renderCharacterGrid(alsoWith)}` : ''}
-    ${sameEra.length ? `<div class="section-label">Also in ${esc(eraName(c.eraId))}</div>${renderCharacterGrid(sameEra)}` : ''}
   `;
 }
 
@@ -4399,38 +4541,43 @@ function renderTimelineGame(){
   const c = findChar(g.characterId);
   const byId = {};
   g.events.forEach(e=>{ byId[e.id] = e; });
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <button class="back-btn" data-action="open-character" data-id="${g.characterId}" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
-    <div class="topbar"><h1>Put their life in order</h1></div>
-    <p style="color:var(--ink-soft);margin-bottom:14px;">Drag ${c ? esc(c.name) : 'these'} moments into the order they actually happened.</p>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
-      <div class="segmented" style="flex:1;margin-bottom:0;">
-        ${Object.keys(TIMELINE_DIFFICULTIES).map(d=>`<button class="${timelineDifficulty===d?'active':''}" data-action="set-timeline-difficulty" data-id="${d}">${d[0].toUpperCase()+d.slice(1)} · ${TIMELINE_DIFFICULTIES[d]}</button>`).join('')}
-      </div>
-      <button class="btn" style="flex-shrink:0;" data-action="reshuffle-timeline-game" data-id="${g.characterId}" title="Reshuffle"><i class="ti ti-refresh"></i></button>
-    </div>
-    <div class="tl-drag-track" id="tl-drag-track">
-      ${g.order.map((id,i)=>{
-        const e = byId[id];
-        const locked = g.lockedIds.has(id);
-        const wrong = g.checked && !locked;
-        const cls = locked ? 'tl-drag-correct' : wrong ? 'tl-drag-wrong' : '';
-        return `<div class="tl-drag-item ${cls}" data-id="${id}"${locked ? '' : ' data-draggable="1"'}>
-          ${locked ? '<i class="ti ti-check tl-drag-check"></i>' : '<span class="tl-drag-handle"><i class="ti ti-grip-vertical"></i></span>'}
-          <div class="tl-drag-body">
-            <div class="tl-title">${esc(e.title)}</div>
-            ${(g.checked || locked) ? `<div class="tl-ref">${esc(e.reference)}</div>` : ''}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <button class="back-btn" data-action="open-character" data-id="${g.characterId}" style="margin-bottom:14px;"><i class="ti ti-arrow-left"></i></button>
+        <div class="topbar"><h1>Put their life in order</h1></div>
+        <p style="margin-bottom:14px;">Drag ${c ? esc(c.name) : 'these'} moments into the order they actually happened.</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
+          <div class="segmented" style="flex:1;margin-bottom:0;">
+            ${Object.keys(TIMELINE_DIFFICULTIES).map(d=>`<button class="${timelineDifficulty===d?'active':''}" data-action="set-timeline-difficulty" data-id="${d}">${d[0].toUpperCase()+d.slice(1)} · ${TIMELINE_DIFFICULTIES[d]}</button>`).join('')}
           </div>
-        </div>`;
-      }).join('')}
+          <button class="btn" style="flex-shrink:0;" data-action="reshuffle-timeline-game" data-id="${g.characterId}" title="Reshuffle"><i class="ti ti-refresh"></i></button>
+        </div>
+        <div class="tl-drag-track" id="tl-drag-track">
+          ${g.order.map((id,i)=>{
+            const e = byId[id];
+            const locked = g.lockedIds.has(id);
+            const wrong = g.checked && !locked;
+            const cls = locked ? 'tl-drag-correct' : wrong ? 'tl-drag-wrong' : '';
+            return `<div class="tl-drag-item ${cls}" data-id="${id}"${locked ? '' : ' data-draggable="1"'}>
+              ${locked ? '<i class="ti ti-check tl-drag-check"></i>' : '<span class="tl-drag-handle"><i class="ti ti-grip-vertical"></i></span>'}
+              <div class="tl-drag-body">
+                <div class="tl-title">${esc(e.title)}</div>
+                ${(g.checked || locked) ? `<div class="tl-ref">${esc(e.reference)}</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+        ${g.allCorrect ? `
+          <div class="result-banner good" style="margin-top:16px;"><i class="ti ti-confetti"></i> That's the right order — nice work!</div>
+          <button class="btn primary block" data-action="open-character" data-id="${g.characterId}">Back to ${c ? esc(c.name) : 'profile'}</button>
+        ` : `
+          <button class="btn primary block" style="margin-top:16px;" data-action="check-timeline-order"><i class="ti ti-check"></i> Check order</button>
+          ${g.checked ? `<button class="btn block" style="margin-top:8px;width:100%;" data-action="reset-timeline-order">Shuffle the rest</button>` : ''}
+        `}
+      </div>
     </div>
-    ${g.allCorrect ? `
-      <div class="result-banner good" style="margin-top:16px;"><i class="ti ti-confetti"></i> That's the right order — nice work!</div>
-      <button class="btn primary block" data-action="open-character" data-id="${g.characterId}">Back to ${c ? esc(c.name) : 'profile'}</button>
-    ` : `
-      <button class="btn primary block" style="margin-top:16px;" data-action="check-timeline-order"><i class="ti ti-check"></i> Check order</button>
-      ${g.checked ? `<button class="btn block" style="margin-top:8px;width:100%;" data-action="reset-timeline-order">Shuffle the rest</button>` : ''}
-    `}
   `;
 }
 function checkTimelineOrder(){
@@ -4783,39 +4930,44 @@ function renderStoryDetail(id){
   const illustration = storyIllustrationUrl(s.id) || placeholderArt(s.id);
   const prevStory = adjacentStory(id, -1);
   const nextStory = adjacentStory(id, 1);
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="story-hero-container">
-      <img class="story-hero-img" src="${illustration}" alt="">
-      <button class="back-btn story-hero-back" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
-      ${prevStory ? `<button class="carousel-prev" data-action="story-carousel-nav" data-id="${prevStory.id}" aria-label="Previous story"><i class="ti ti-chevron-left"></i></button>` : ''}
-      ${nextStory ? `<button class="carousel-next" data-action="story-carousel-nav" data-id="${nextStory.id}" aria-label="Next story"><i class="ti ti-chevron-right"></i></button>` : ''}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="story-hero-container">
+          <img class="story-hero-img" src="${illustration}" alt="">
+          <button class="back-btn story-hero-back" data-action="story-back"><i class="ti ti-arrow-left"></i></button>
+          ${prevStory ? `<button class="carousel-prev" data-action="story-carousel-nav" data-id="${prevStory.id}" aria-label="Previous story"><i class="ti ti-chevron-left"></i></button>` : ''}
+          ${nextStory ? `<button class="carousel-next" data-action="story-carousel-nav" data-id="${nextStory.id}" aria-label="Next story"><i class="ti ti-chevron-right"></i></button>` : ''}
+        </div>
+        <div class="hero story-title-card">
+          <h1 style="font-size:24px;">${esc(s.title)}</h1>
+          ${topics.length ? `<div class="tags">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+          <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
+          <p class="summary">${esc(s.summary)}</p>
+        </div>
+        ${chars.length ? `<div class="section-label">Who's in it</div>${renderCharacterGrid(chars)}` : ''}
+        ${moments.length ? `<div class="section-label">Moments</div>
+          <div class="timeline">
+            ${moments.map(e=>{
+              const who = findChar(e.characterId);
+              return `<div class="tl-item">
+                <div class="tl-title">${esc(e.title)}</div>
+                <div class="tl-ref">${who ? esc(who.name) + ' · ' : ''}${esc(e.reference)}</div>
+                <div class="tl-desc">${esc(e.description)}</div>
+              </div>`;
+            }).join('')}
+          </div>` : ''}
+        ${verses.length ? `<div class="section-label">Verses</div>${verses.map(renderVerseCard).join('')}` : ''}
+        ${renderMotifBadges(motifsFor('story', id))}
+        ${related.length ? `<div class="section-label">Related stories</div>${related.map(r=>`
+          <div class="card tap" data-action="open-story" data-id="${r.story.id}">
+            <div class="tag tag--tan" style="margin-bottom:6px;display:inline-block;">${esc(r.type)}</div>
+            <h3>${esc(r.story.title)}</h3>
+            <div class="ref" style="margin-top:3px;color:var(--ht-terra);">${esc(r.story.primaryReference)}</div>
+          </div>`).join('')}` : ''}
+      </div>
     </div>
-    <div class="hero story-title-card">
-      <h1 style="font-size:24px;">${esc(s.title)}</h1>
-      ${topics.length ? `<div class="tags">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
-      <div class="era"><i class="ti ti-bookmark" style="font-size:13px;"></i> ${esc(s.primaryReference)}${era ? ` · ${esc(era.name)}` : ''}</div>
-      <p class="summary">${esc(s.summary)}</p>
-    </div>
-    ${chars.length ? `<div class="section-label">Who's in it</div>${renderCharacterGrid(chars)}` : ''}
-    ${moments.length ? `<div class="section-label">Moments</div>
-      <div class="timeline">
-        ${moments.map(e=>{
-          const who = findChar(e.characterId);
-          return `<div class="tl-item">
-            <div class="tl-title">${esc(e.title)}</div>
-            <div class="tl-ref">${who ? esc(who.name) + ' · ' : ''}${esc(e.reference)}</div>
-            <div class="tl-desc">${esc(e.description)}</div>
-          </div>`;
-        }).join('')}
-      </div>` : ''}
-    ${verses.length ? `<div class="section-label">Verses</div>${verses.map(renderVerseCard).join('')}` : ''}
-    ${renderMotifBadges(motifsFor('story', id))}
-    ${related.length ? `<div class="section-label">Related stories</div>${related.map(r=>`
-      <div class="card tap" data-action="open-story" data-id="${r.story.id}">
-        <div class="tag tag--tan" style="margin-bottom:6px;display:inline-block;">${esc(r.type)}</div>
-        <h3>${esc(r.story.title)}</h3>
-        <div class="ref" style="margin-top:3px;">${esc(r.story.primaryReference)}</div>
-      </div>`).join('')}` : ''}
   `;
 }
 
@@ -4939,14 +5091,19 @@ function lexiconEntries(){
 function findLexiconEntry(id){ return lexiconEntry(id); }
 function renderLexicon(){
   const total = lexiconFull ? Object.keys(lexiconFull).length : Object.keys(lexicon).length;
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="topbar"><h1>${t('title_lexicon')}</h1></div>
-    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">${lexiconFull ? `${total.toLocaleString()} Hebrew and Greek words, straight from Strong's Concordance.` : "A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up."}</p>
-    <div class="search-wrap">
-      <i class="ti ti-search"></i>
-      <input type="text" id="lexicon-search" value="${esc(lexiconQuery)}" placeholder="Search by word, transliteration, or meaning..." autocomplete="off" autocorrect="off" spellcheck="false">
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="topbar"><h1>${t('title_lexicon')}</h1></div>
+        <p style="margin-bottom:16px;line-height:1.5;">${lexiconFull ? `${total.toLocaleString()} Hebrew and Greek words, straight from Strong's Concordance.` : "A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up."}</p>
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" id="lexicon-search" value="${esc(lexiconQuery)}" placeholder="Search by word, transliteration, or meaning..." autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+        <div id="lexicon-results">${renderLexiconResults()}</div>
+      </div>
     </div>
-    <div id="lexicon-results">${renderLexiconResults()}</div>
   `;
 }
 function renderLexiconResults(){
@@ -5006,23 +5163,28 @@ function renderLexiconDetail(id){
   // carry no pronunciation at all in the source. Each is shown only
   // when actually present rather than rendering an empty/undefined gap.
   const meta = [w.language, w.id, w.type].filter(Boolean).join(' · ');
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="lexicon-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>${t('title_lexicon')}</h2>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="lexicon-back"><i class="ti ti-arrow-left"></i></button>
+          <h2>${t('title_lexicon')}</h2>
+        </div>
+        <div class="card">
+          <div class="field-hint">${esc(meta)}</div>
+          <h2 style="margin:6px 0 2px;">${esc(w.lemma)}</h2>
+          <p style="margin-bottom:10px;">${esc(w.translit)}${w.pronunciation ? ` <span class="field-hint">(${esc(w.pronunciation)})</span>` : ''}</p>
+          <p>${esc(w.definition)}</p>
+          ${w.occurrences ? `<div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>` : ''}
+          ${w.origin ? `<div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>` : ''}
+        </div>
+        ${ev ? `
+          <div class="section-label">Example</div>
+          ${renderVerseCard(ev)}
+        ` : ''}
+      </div>
     </div>
-    <div class="card">
-      <div class="field-hint">${esc(meta)}</div>
-      <h2 style="margin:6px 0 2px;">${esc(w.lemma)}</h2>
-      <p style="color:var(--ink-soft);margin-bottom:10px;">${esc(w.translit)}${w.pronunciation ? ` <span class="field-hint">(${esc(w.pronunciation)})</span>` : ''}</p>
-      <p>${esc(w.definition)}</p>
-      ${w.occurrences ? `<div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>` : ''}
-      ${w.origin ? `<div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>` : ''}
-    </div>
-    ${ev ? `
-      <div class="section-label">Example</div>
-      ${renderVerseCard(ev)}
-    ` : ''}
   `;
 }
 
@@ -5034,25 +5196,30 @@ function renderLexiconDetail(id){
    CSS as that per-character view for visual consistency. Built entirely
    from lore.eras/lore.stories, already curated — no new data. */
 function renderTimeline(){
-  if(!lore.eras.length) return `<div class="topbar"><h1>Timeline</h1></div><div class="empty"><i class="ti ti-timeline"></i><p>No timeline data loaded.</p></div>`;
+  const isDark = settings.homeTheme === 'dark';
+  if(!lore.eras.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}"><div class="hds-content" style="padding-top:0;"><div class="topbar"><h1>Timeline</h1></div><div class="empty"><i class="ti ti-timeline"></i><p>No timeline data loaded.</p></div></div></div>`;
   const eras = [...lore.eras].sort((a,b)=>(a.order||0)-(b.order||0));
   return `
-    <div class="topbar"><h1>Timeline</h1></div>
-    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">Every era of the Bible's story, in order, from Creation to Revelation.</p>
-    ${eras.map(era=>{
-      const stories = lore.stories.filter(s=>s.eraId===era.id).sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
-      if(!stories.length) return '';
-      return `
-        <div class="section-label">${esc(era.name)} <span style="color:var(--ink-faint);">${esc(era.approxRange||'')}</span></div>
-        <div class="timeline">
-          ${stories.map(s=>`
-            <div class="tl-item tap" data-action="open-story" data-id="${s.id}">
-              <div class="tl-title">${esc(s.title)}</div>
-              <div class="tl-ref">${esc(s.primaryReference)}</div>
-              <div class="tl-desc">${esc(s.summary)}</div>
-            </div>`).join('')}
-        </div>`;
-    }).join('')}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="topbar"><h1>Timeline</h1></div>
+        <p style="margin-bottom:16px;line-height:1.5;">Every era of the Bible's story, in order, from Creation to Revelation.</p>
+        ${eras.map(era=>{
+          const stories = lore.stories.filter(s=>s.eraId===era.id).sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
+          if(!stories.length) return '';
+          return `
+            <div class="section-label">${esc(era.name)} <span>${esc(era.approxRange||'')}</span></div>
+            <div class="timeline">
+              ${stories.map(s=>`
+                <div class="tl-item tap" data-action="open-story" data-id="${s.id}">
+                  <div class="tl-title">${esc(s.title)}</div>
+                  <div class="tl-ref">${esc(s.primaryReference)}</div>
+                  <div class="tl-desc">${esc(s.summary)}</div>
+                </div>`).join('')}
+            </div>`;
+        }).join('')}
+      </div>
+    </div>
   `;
 }
 
@@ -5142,13 +5309,18 @@ function relationshipToAnchor(member, anchor){
   return gen > 0 ? `${gen}-generation descendant of ${anchor.name}` : `${-gen}-generation ancestor of ${anchor.name}`;
 }
 function renderFamilyTreePicker(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="topbar"><h1>Family Tree</h1></div>
-    <div class="search-wrap">
-      <i class="ti ti-search"></i>
-      <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search a family by name..." autocomplete="off" autocorrect="off" spellcheck="false">
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="topbar"><h1>Family Tree</h1></div>
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search a family by name..." autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+        <div id="family-tree-picker-results">${renderFamilyTreePickerResults()}</div>
+      </div>
     </div>
-    <div id="family-tree-picker-results">${renderFamilyTreePickerResults()}</div>
   `;
 }
 function renderFamilyCard(anchor, opts){
@@ -5257,11 +5429,25 @@ function renderFamilyTree(id){
         </div>
       </div>`;
   }).join('');
+  // Only the page chrome (header, hint text, empty state) is wrapped in
+  // `.hds-theme` here — per the owner's explicit confirmed decision,
+  // `.tree-viewport`/`.tree-canvas`/`.tree-node-card`/`.tree-legend`
+  // (the bronze node-graph itself, item 111) are rendered completely
+  // untouched, not nested inside `.hds-theme` at all, so none of this
+  // pass's CSS can reach them even by accident. The result is a
+  // deliberate, visible contrast — a warm bronze tree sitting on a
+  // Shepherd-themed page — not a bug.
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="family-tree-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>${esc(c.name)}'s Family</h2>
-      <button class="back-btn" data-action="go-family-tree" style="margin-left:auto;" title="Search for someone else"><i class="ti ti-search"></i></button>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="family-tree-back"><i class="ti ti-arrow-left"></i></button>
+          <h2>${esc(c.name)}'s Family</h2>
+          <button class="back-btn" data-action="go-family-tree" style="margin-left:auto;" title="Search for someone else"><i class="ti ti-search"></i></button>
+        </div>
+        ${edges.length ? '' : `<div class="empty"><i class="ti ti-affiliate"></i><p>No family relationships curated for ${esc(c.name)} yet.</p></div>`}
+      </div>
     </div>
     ${edges.length ? `
       <div class="tree-viewport" id="family-tree-viewport">
@@ -5276,7 +5462,7 @@ function renderFamilyTree(id){
         </div>
       </div>
       <p class="field-hint" style="margin-top:10px;">Drag to pan, pinch or scroll to zoom, tap anyone to re-center on them.</p>
-    ` : `<div class="empty"><i class="ti ti-affiliate"></i><p>No family relationships curated for ${esc(c.name)} yet.</p></div>`}
+    ` : ''}
   `;
 }
 
@@ -5305,91 +5491,116 @@ function renderMotifCard(m){
    stays an honest, working Patterns screen rather than padding the tab
    with placeholder cards for features that don't exist. */
 function renderMotifs(){
-  if(!motifs.length) return `<div class="topbar"><h1>Patterns</h1></div><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div>`;
+  const isDark = settings.homeTheme === 'dark';
+  if(!motifs.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}"><div class="hds-content" style="padding-top:0;"><div class="topbar"><h1>Patterns</h1></div><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div></div></div>`;
   return `
-    <div class="topbar"><h1>Patterns</h1></div>
-    <p style="color:var(--ink-soft);margin-bottom:16px;line-height:1.5;">Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.</p>
-    ${motifs.map(renderMotifCard).join('')}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="topbar"><h1>Patterns</h1></div>
+        <p style="margin-bottom:16px;line-height:1.5;">Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.</p>
+        ${motifs.map(renderMotifCard).join('')}
+      </div>
+    </div>
   `;
 }
 function renderMotifDetail(id){
   const m = findMotif(id);
   if(!m) return renderMotifs();
   const instances = motifInstances(id);
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="motif-back"><i class="ti ti-arrow-left"></i></button>
-      <h2>Pattern</h2>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="motif-back"><i class="ti ti-arrow-left"></i></button>
+          <h2>Pattern</h2>
+        </div>
+        <div class="card">
+          <h2 style="margin-bottom:8px;"><i class="ti ti-sparkles" style="color:var(--ht-acc);font-size:20px;vertical-align:-2px;"></i> ${esc(m.name)}</h2>
+          <p>${esc(m.description)}</p>
+          ${m.exampleReferences && m.exampleReferences.length ? `<div class="field-hint" style="margin-top:10px;">${m.exampleReferences.map(esc).join(' · ')}</div>` : ''}
+        </div>
+        <div class="section-label">Where it shows up <span>${instances.length}</span></div>
+        ${instances.map(x=>{
+          if(x.entityType==='story') return renderStoryCard(x.entity);
+          if(x.entityType==='character') return renderCharacterRow(x.entity);
+          if(x.entityType==='verse') return renderVerseCard(x.entity);
+          return '';
+        }).join('')}
+      </div>
     </div>
-    <div class="card">
-      <h2 style="margin-bottom:8px;"><i class="ti ti-sparkles" style="color:var(--gold-deep);font-size:20px;vertical-align:-2px;"></i> ${esc(m.name)}</h2>
-      <p style="color:var(--ink-soft);">${esc(m.description)}</p>
-      ${m.exampleReferences && m.exampleReferences.length ? `<div class="field-hint" style="margin-top:10px;">${m.exampleReferences.map(esc).join(' · ')}</div>` : ''}
-    </div>
-    <div class="section-label">Where it shows up <span style="color:var(--ink-faint);">${instances.length}</span></div>
-    ${instances.map(x=>{
-      if(x.entityType==='story') return renderStoryCard(x.entity);
-      if(x.entityType==='character') return renderCharacterRow(x.entity);
-      if(x.entityType==='verse') return renderVerseCard(x.entity);
-      return '';
-    }).join('')}
   `;
 }
 
 /* ---------- ADD ---------- */
 function renderAddMenu(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="go-practice"><i class="ti ti-arrow-left"></i></button>
-      <h2>Add</h2>
-    </div>
-    <div class="card tap" data-action="go-browse">
-      <div class="char-row"><div class="avatar"><i class="ti ti-search"></i></div><div><h3>Find a verse</h3><p class="field-hint">Search or browse the full Bible and add it to your verses.</p></div></div>
-    </div>
-    <div class="card tap" data-action="go-add-verse">
-      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Type a verse in yourself and tag its topics.</p></div></div>
-    </div>
-    <div class="card tap" data-action="go-add-character">
-      <div class="char-row"><div class="avatar"><i class="ti ti-user-plus"></i></div><div><h3>New person</h3><p class="field-hint">Add a biblical character to explore later.</p></div></div>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="go-practice"><i class="ti ti-arrow-left"></i></button>
+          <h2>Add</h2>
+        </div>
+        <div class="card tap" data-action="go-browse">
+          <div class="char-row"><div class="avatar"><i class="ti ti-search"></i></div><div><h3>Find a verse</h3><p class="field-hint">Search or browse the full Bible and add it to your verses.</p></div></div>
+        </div>
+        <div class="card tap" data-action="go-add-verse">
+          <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Type a verse in yourself and tag its topics.</p></div></div>
+        </div>
+        <div class="card tap" data-action="go-add-character">
+          <div class="char-row"><div class="avatar"><i class="ti ti-user-plus"></i></div><div><h3>New person</h3><p class="field-hint">Add a biblical character to explore later.</p></div></div>
+        </div>
+      </div>
     </div>
   `;
 }
 function renderAddVerse(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
-      <h2>New verse</h2>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+          <h2>New verse</h2>
+        </div>
+        <form id="verse-form">
+          <label for="f-ref">Reference</label>
+          <input type="text" id="f-ref" placeholder="Psalm 23:1">
+          <label for="f-text">Verse text</label>
+          <textarea id="f-text" placeholder="The Lord is my shepherd..."></textarea>
+          <label for="f-topics">Topics <span class="field-hint">(comma separated)</span></label>
+          <input type="text" id="f-topics" placeholder="peace, trust">
+          <div id="form-err" class="err"></div>
+          <button type="submit" class="btn primary block" style="margin-top:18px;">Save verse</button>
+        </form>
+      </div>
     </div>
-    <form id="verse-form">
-      <label for="f-ref">Reference</label>
-      <input type="text" id="f-ref" placeholder="Psalm 23:1">
-      <label for="f-text">Verse text</label>
-      <textarea id="f-text" placeholder="The Lord is my shepherd..."></textarea>
-      <label for="f-topics">Topics <span class="field-hint">(comma separated)</span></label>
-      <input type="text" id="f-topics" placeholder="peace, trust">
-      <div id="form-err" class="err"></div>
-      <button type="submit" class="btn primary block" style="margin-top:18px;">Save verse</button>
-    </form>
   `;
 }
 function renderAddCharacter(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
-      <h2>New person</h2>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="go-home"><i class="ti ti-arrow-left"></i></button>
+          <h2>New person</h2>
+        </div>
+        <form id="char-form">
+          <label for="c-name">Name</label>
+          <input type="text" id="c-name" placeholder="Deborah">
+          <label for="c-roles">Roles <span class="field-hint">(comma separated)</span></label>
+          <input type="text" id="c-roles" placeholder="judge, prophetess">
+          <label for="c-era">Era</label>
+          <input type="text" id="c-era" placeholder="Judges">
+          <label for="c-summary">Summary</label>
+          <textarea id="c-summary" placeholder="What they're known for..."></textarea>
+          <div id="cform-err" class="err"></div>
+          <button type="submit" class="btn primary block" style="margin-top:18px;">Save person</button>
+        </form>
+      </div>
     </div>
-    <form id="char-form">
-      <label for="c-name">Name</label>
-      <input type="text" id="c-name" placeholder="Deborah">
-      <label for="c-roles">Roles <span class="field-hint">(comma separated)</span></label>
-      <input type="text" id="c-roles" placeholder="judge, prophetess">
-      <label for="c-era">Era</label>
-      <input type="text" id="c-era" placeholder="Judges">
-      <label for="c-summary">Summary</label>
-      <textarea id="c-summary" placeholder="What they're known for..."></textarea>
-      <div id="cform-err" class="err"></div>
-      <button type="submit" class="btn primary block" style="margin-top:18px;">Save person</button>
-    </form>
   `;
 }
 
@@ -6627,18 +6838,23 @@ function renderPractice(){
     const total = results.length;
     const correct = results.filter(r => r.allCorrect).length;
     const streak = computeStreak();
+    const isDark = settings.homeTheme === 'dark';
     return `
-      <div class="topbar"><h1>Session complete</h1></div>
-      <div class="card complete-card">
-        <div class="sparks">${renderSparks(14)}</div>
-        <i class="ti ti-confetti complete-icon"></i>
-        <h2 style="margin-top:10px;">${correct} / ${total} correct</h2>
-        <div class="complete-stats">
-          <div class="complete-stat" style="animation-delay:.12s;"><div class="num">${total}</div><div class="lbl">Verses reviewed</div></div>
-          <div class="complete-stat" style="animation-delay:.26s;"><div class="num">${streak}</div><div class="lbl">Day streak</div></div>
+      <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+        <div class="hds-content" style="padding-top:0;">
+          <div class="topbar"><h1>Session complete</h1></div>
+          <div class="card complete-card">
+            <div class="sparks">${renderSparks(14)}</div>
+            <i class="ti ti-confetti complete-icon"></i>
+            <h2 style="margin-top:10px;">${correct} / ${total} correct</h2>
+            <div class="complete-stats">
+              <div class="complete-stat" style="animation-delay:.12s;"><div class="num">${total}</div><div class="lbl">Verses reviewed</div></div>
+              <div class="complete-stat" style="animation-delay:.26s;"><div class="num">${streak}</div><div class="lbl">Day streak</div></div>
+            </div>
+            <p style="margin-top:14px;">Next review dates have been updated.</p>
+            <button class="btn primary block" style="margin-top:18px;" data-action="exit-practice">Done</button>
+          </div>
         </div>
-        <p style="color:var(--ink-soft);margin-top:14px;">Next review dates have been updated.</p>
-        <button class="btn primary block" style="margin-top:18px;" data-action="exit-practice">Done</button>
       </div>
     `;
   }
@@ -6650,18 +6866,33 @@ function renderPractice(){
   const progressPct = Math.round((session.index / session.queue.length) * 100);
   const lastOne = session.index + 1 >= session.queue.length;
   const body = renderChallengeBody(item, type, v, st);
+  // This is the legacy, non-Shepherd session screen only — reached from
+  // Verse/Topic Detail's own "Practice this verse/topic" buttons
+  // (`session.shepherd` is falsy here; Shepherd's Path returns above via
+  // `renderShepherdSession()` and is never reached past this point).
+  // Only this screen's own chrome (header, progress bar, result banner)
+  // is wrapped in `.hds-theme` — `renderChallengeBody()` and every
+  // ChallengeType's own render()/interact() output (`body.bodyHtml`/
+  // `body.footerHtml`) are passed through completely unedited, exactly
+  // as Shepherd's Path's own session screen already does for the same
+  // shared function (item 161/164).
+  const isDark2 = settings.homeTheme === 'dark';
   return `
-    <div class="screen-head">
-      <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
-      <h2>Practice</h2>
-      <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ink-faint);">${session.index + 1} of ${session.queue.length}</span>
+    <div class="hds-theme" data-theme="${isDark2 ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:0;">
+        <div class="screen-head">
+          <button class="back-btn" data-action="exit-practice"><i class="ti ti-x"></i></button>
+          <h2>Practice</h2>
+          <span style="margin-left:auto;font-size:var(--text-sm);color:var(--ht-sub);">${session.index + 1} of ${session.queue.length}</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
+        ${st.checked && !body.isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
+        ${body.bodyHtml}
+        ${st.checked
+          ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
+          : body.footerHtml}
+      </div>
     </div>
-    <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
-    ${st.checked && !body.isSprint ? `<div class="result-banner ${st.allCorrect?'good':'bad'}"><i class="ti ${st.allCorrect?'ti-check':'ti-refresh'}"></i>${st.allCorrect ? 'Nice, got it!' : 'Close — review this one again soon.'}</div>` : ''}
-    ${body.bodyHtml}
-    ${st.checked
-      ? `<button class="btn primary block" data-action="next-practice"><i class="ti ti-arrow-right"></i> ${lastOne ? 'Finish' : 'Continue'}</button>`
-      : body.footerHtml}
   `;
 }
 /* Shared between the generic session screen above and Shepherd's Path's
