@@ -8291,6 +8291,129 @@ inventing a new principle:
         screen when a session actually crosses a threshold.
     `sw.js` bumped to `rooted-v166`.
 
+170. **"Shepherd theme" restyle of Home, Discover, and Study — done
+    (2026-11-10).** The owner supplied a second design handoff
+    (`design_handoff_practice_tab_v3/design_handoff_shepherd_theme/`)
+    asking for the rest of the app's front-door tabs to share Shepherd's
+    Path's own visual family — warm parchment ground, sky-gradient
+    header, chunky "ledge"-shadow storybook cards, each section keyed to
+    a color (teal/terracotta/plum/orange) — and asked for it explicitly,
+    so this is a third, separately-scoped standing exception to "black
+    and white only" (CLAUDE.md), same footing as Topics, Family Tree, and
+    Shepherd's Path itself.
+    - **Scope, deliberately**: only Home, Discover, and Study's own hub
+      screen (`renderHome`, `renderDiscover`, `renderStudy`, and every
+      card/row function they call) got restyled. Content, data, and
+      every `data-action` navigation target are untouched — this is
+      visuals only, per the handoff's own note. Explicitly left alone:
+      the shared global `.navbar` (rendered once outside `#app` and
+      shared by every screen including Practice — restyling it would
+      change Practice too, out of scope, and it now sits over a lighter
+      background than it was designed for on these three screens, a
+      known, flagged inconsistency rather than a silent one); Practice/
+      Shepherd's Path itself (already has its own `--sp-*` tokens, zero
+      overlap by design — a second token set, `--ht-*`, was added
+      rather than reusing or extending `--sp-*`); Settings, Browse,
+      Topic/Character/Story/Verse Detail, and Study's own sub-screens
+      (Patterns/Timeline/Family Tree/Lexicon — only Study's hub nav-row
+      screen is restyled, not what those rows link to); and Unreached of
+      the Day's own full-screen detail page (reached from Home's card,
+      not named in the handoff, left in its old styling).
+    - **Tokens**: `--ht-ground/sky1/sky2/surface/line/ink/sub/lockic/
+      tint/acc/accl/glass/glassline/hill1/hill2/cloud/deco1/petal/sun/
+      sunglow/terra/terrad/plum/plumd`, scoped under a `.hds-theme`
+      wrapper div (each of the three screens' own render functions wraps
+      its whole output in one) with light values as the base and a
+      `.hds-theme[data-theme="dark"]` override block, exact hex values
+      from the handoff's own token table.
+    - **A real, visible light/dark toggle** — not a `prefers-color-
+      scheme` media query. `settings.homeTheme` (`'light'|'dark'`,
+      default `'light'`), a tappable moon/sun button in Home's header
+      row next to the existing settings gear, same precedent as
+      Shepherd's Path's own `settings.practiceTheme` toggle. Discover
+      and Study read the same single global setting (no per-screen
+      toggle), since all three screens share one `.hds-theme` token set.
+    - **Fonts**: Young Serif (headings/card titles — newly added to the
+      `<head>` font link, alongside the existing Figtree/Newsreader/
+      Baloo 2/Inter/Fraunces already loaded for other screens) and
+      Newsreader (Verse of the Day's quote text, already loaded).
+      Figtree's weight list was widened to include 500 (previously
+      600-900 only) to match the handoff's own body-text weight.
+    - **Shared classes** (`.hds-card`, `.hds-card-title`, `.hds-card-
+      body`, `.hds-eyebrow`, `.hds-nav-row`/`.hds-nav-tile`, `.hds-img-
+      hero`, `.hds-btn-light`, `.hds-btn-plum`, `.hds-row-card`/`.hds-
+      row-thumb`, `.hds-person-card`/`.hds-person-portrait`) replace the
+      old `.card`/`.discovery-card`/`.word-card`/`.fact-of-the-day-card`/
+      `.discover-featured-*` classes in these three screens' own
+      templates — the old classes are left in the stylesheet unused
+      rather than deleted, since nothing else in the app still
+      references them and a future full removal pass can confirm that
+      cleanly later.
+    - **Home**: header (Young Serif greeting, subtitle, theme toggle +
+      settings gear), VOTD hero (h380, overlay gradient, Newsreader
+      quote, "Read chapter" light button — all the existing `votdRemote`
+      /`votdImage`/local-fallback logic is unchanged, only the markup/
+      classes around it), Unreached of the Day (terra eyebrow, 96×96
+      ledge-shadow portrait), Biblical Fact of the Day (plum eyebrow,
+      Young Serif title, a real "Read more" plum button alongside the
+      existing green Verified Source badge — previously just the badge
+      with a `data-action` on the whole card), Story of the Day
+      (terracotta image hero). Word of the Day and the practice-due
+      nudge weren't in the handoff's explicit card list — judgment call:
+      restyled them into the same `.hds-card` look for visual
+      consistency rather than leaving two cards in the app's old dark
+      theme, which would read as unfinished.
+    - **Procession animation**: a genuinely new `renderHomeProcession()`
+      (lambs + Jesus with a crook walking left to right along a ground
+      line, with a floating heart), rendered as plain template-string
+      SVG/CSS — the handoff's own `lamb()`/`procession()` methods are
+      written against a prototyping framework (`DCLogic`/
+      `React.createElement`) this plain-vanilla-JS app doesn't have, so
+      the visual was re-derived rather than ported, deliberately lower-
+      fidelity than the handoff's own gradient-shaded vector figures
+      (flat-color shapes here) — reasonable for a one-shot decorative
+      animation, not a core screen element. "Plays once per Home visit,
+      replays on re-tapping Home while already on Home" needed zero new
+      state: `renderHome()` is called fresh every time Home is
+      (re)rendered, so a brand-new `.hds-procession` DOM node — and
+      therefore a freshly-restarted CSS animation — is created each
+      time for free. Respects `prefers-reduced-motion` (skipped
+      entirely when set, checked live via `matchMedia` rather than a
+      CSS-only override, since the element needs to not exist at all,
+      not just stop animating).
+    - **Discover**: title, one slow drifting cloud (light mode only,
+      `hdsDrift` keyframe), Story of the Day hero, Person of the Day
+      card (circular portrait, plum ring), then the nav rows — Read the
+      Bible (teal), Topics (terracotta), People (plum). A fourth row,
+      Stories, already existed in this app's Discover screen before this
+      pass and isn't in the handoff's own 3-row spec; kept (removing a
+      real feature wasn't asked for) and given a 4th color, orange,
+      cycling the same four tile colors Study's own 4 rows use.
+    - **Study**: title, 4 nav rows (Patterns plum, Timeline teal, Family
+      Tree terracotta, Lexicon orange with the "אΩ" glyph), then a hill/
+      lamb decorative scene. Built as an **in-flow block at the end of
+      the scrollable content**, not the handoff's own `position:fixed`
+      bottom layer behind scrolling content — a deliberate fidelity
+      trade-off: Study is a normal scrolling screen (unlike Practice's
+      fixed-viewport Shepherd's Path scene), and a fixed decorative layer
+      behind scrollable content is exactly the setup that produced the
+      `position:absolute;z-index:auto`-paints-behind-static-content
+      stacking bug twice already on Practice (items 167, 169) — not
+      worth re-risking a third time for a decorative scene. The lamb
+      mascot reuses the existing `lambSvg('calm', 110)` from Shepherd's
+      Path verbatim (no new art needed — Lamb.dc.html's own SVG wasn't
+      ported); the grass tuft and flower are small new inline SVGs using
+      `--ht-deco1`/`--ht-petal` (not the existing `shepherdTuftSvg()`/
+      `shepherdFlowerSvg()`, which read `--sp-*` tokens that don't exist
+      inside `.hds-theme`).
+    - **Verified with the isolated Playwright setup** (screenshots at
+      390×844, both themes, all three screens, including a scrolled
+      view of Home's lower cards and Study's hillscape) — confirmed no
+      console errors, correct light/dark token switching via the real
+      toggle button, and no stacking/paint bugs on the new Study decor
+      layer or the procession animation.
+    `sw.js` bumped to `rooted-v167`.
+
 ---
 
 ## 9. How the app reads this data

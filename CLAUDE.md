@@ -1023,6 +1023,30 @@ The schema was deliberately designed so all of the above can be added
   XP drives a real level shown in the topbar and on the complete
   screen. `sw.js` bumped to `rooted-v166`. See DATA_MODEL.md §8, item
   169.
+- **"Shepherd theme" restyle of Home, Discover, and Study — done
+  (2026-11-10).** A second design handoff asked for these three tabs'
+  own hub screens (content/navigation unchanged, visuals only) to share
+  Shepherd's Path's visual family — warm parchment ground, sky-gradient
+  header, chunky ledge-shadow cards, per-section color key — a third,
+  separately-scoped standing exception to black-and-white, same footing
+  as Topics/Family Tree/Shepherd's Path. New `--ht-*` token set (own
+  light/dark pair, zero overlap with Practice's `--sp-*`) scoped under a
+  `.hds-theme` wrapper, plus a real tappable light/dark toggle next to
+  Home's settings gear (`settings.homeTheme`, same precedent as
+  Shepherd's Path's own theme toggle) — Discover and Study read the same
+  global setting. Young Serif added to the font stack for headings.
+  Home's header/VOTD hero/Unreached/Fact/Story-of-the-Day cards, a new
+  one-shot "Jesus and the lambs" procession animation (re-derived as
+  plain SVG/CSS, not ported — the handoff's own figures are written
+  against a prototyping framework this app doesn't use), Discover's
+  featured-today section and nav rows, and Study's nav rows plus a hill/
+  lamb decorative scene (reusing Shepherd's Path's own `lambSvg()`
+  mascot verbatim) were all restyled. Deliberately untouched: the shared
+  global `.navbar` (out of scope — restyling it would affect Practice
+  too), Practice/Settings/Browse/detail screens, and Study's own sub-
+  screens. Verified with the isolated Playwright setup across both
+  themes on all three screens. `sw.js` bumped to `rooted-v167`. See
+  DATA_MODEL.md §8, item 170.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1694,6 +1718,17 @@ screens only, toggled per-user via `settings.practiceTheme`
 (`'light'|'dark'`) — this is the one place in the whole app with a
 real light-mode option at all, everywhere else stays the dark-only v3
 theme by design. Full writeup: DATA_MODEL.md §8, item 160.
+
+**A fourth standing exception: Home, Discover, and Study carry the
+"Shepherd theme" — a full, real light/dark pair of their own, done
+(2026-11-10).** Same idea as Shepherd's Path's exception above but a
+separate token set (`--ht-*`, not `--sp-*`) and a separate toggle
+(`settings.homeTheme`, next to Home's settings gear) — explicitly asked
+for, not a silent extension of Practice's own theme. Scoped to these
+three screens' own hub content only, under a `.hds-theme` wrapper;
+Practice itself, the shared nav bar, Settings, Browse, and every detail
+screen are untouched and stay exactly as this section otherwise
+describes. Full writeup: DATA_MODEL.md §8, item 170.
 
 **Deliberately left alone — read as functional state, not decorative
 theme, and this app's own genuine correct/wrong or error signal, not a

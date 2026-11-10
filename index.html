@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Young+Serif&family=Figtree:wght@500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <!-- Baloo 2/Figtree/Newsreader: "Shepherd's Path" Practice redesign only (2026-11-09, design_handoff_practice_tab_v3) — scoped to .shepherd-* classes, not app-wide; every other screen still uses Inter/Fraunces above. Baloo 2 replaced the handoff's own Young Serif (2026-11-10, owner: "clean and playful" over the original elegant-serif look). -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
@@ -1437,6 +1437,122 @@
   .complete-stat .num{font-family:'Inter',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.01em;}
   .complete-stat .lbl{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 
+  /* ---------- "Shepherd theme" for Home/Discover/Study (item 170) ----------
+     A second, separate restyle from Practice's own Shepherd's Path
+     (--sp-*, items 160-169) — same design family (warm parchment,
+     sky-gradient header, chunky "ledge"-shadow storybook cards, a
+     per-section color key), different token set (--ht-*) so neither
+     screen's tokens can bleed into the other's. Deliberately NOT
+     applied to: the shared global `.navbar` (rendered once outside
+     #app and shared by every screen including Practice — restyling it
+     here would change Practice too, out of scope), Settings, Browse,
+     Topic/Character/Story/Verse Detail, or Study's own sub-screens
+     (Patterns/Timeline/Family Tree/Lexicon — only Study's hub nav-row
+     screen is restyled, not what those rows link to). A real, named
+     standing exception to "black and white only" (CLAUDE.md), same
+     footing as Topics/Family Tree/Shepherd's Path.
+     Light/dark toggled explicitly via settings.homeTheme and a
+     data-theme attribute — same precedent as .shepherd-screen's own
+     settings.practiceTheme toggle, not a prefers-color-scheme media
+     query — so there's one real, visible, tappable toggle button
+     rather than following the OS silently. */
+  .hds-theme{
+    --ht-ground:#f4eedf;--ht-sky1:#ffd6b3;--ht-sky2:#fbe8d2;--ht-surface:#fffdf8;--ht-line:#e7dcc8;
+    --ht-ink:#2e2a3d;--ht-sub:#6b6477;--ht-lockic:#a0937c;--ht-tint:#e2f2ed;--ht-acc:#2f9a82;--ht-accl:#8fd0bf;
+    --ht-glass:rgba(255,253,248,.78);--ht-glassline:rgba(120,100,70,.16);
+    --ht-hill1:#dbe7c6;--ht-hill2:#c9ddb0;--ht-cloud:rgba(255,255,255,.85);--ht-deco1:#a6c78a;--ht-petal:#f5a3b5;
+    --ht-sun:#ffe2b8;--ht-sunglow:rgba(255,190,130,.45);
+    --ht-terra:#c4502a;--ht-terrad:#a8441f;--ht-plum:#7a5cc4;--ht-plumd:#5a3fa0;
+    background:var(--ht-ground);color:var(--ht-ink);font-family:'Figtree',sans-serif;
+    margin:-20px -18px 0;padding:0 18px 110px;position:relative;
+  }
+  .hds-theme[data-theme="dark"]{
+    --ht-ground:#14112a;--ht-sky1:#1e2554;--ht-sky2:#181638;--ht-surface:#1f1a35;--ht-line:#30294a;
+    --ht-ink:#f3eefc;--ht-sub:#aaa2c3;--ht-lockic:#7a72a0;--ht-tint:#15302b;--ht-acc:#56c9ab;--ht-accl:#2c7a68;
+    --ht-glass:rgba(26,22,48,.78);--ht-glassline:rgba(255,255,255,.09);
+    --ht-hill1:#1c2246;--ht-hill2:#171b3a;--ht-cloud:rgba(255,255,255,.06);--ht-deco1:#2c3c5a;--ht-petal:#6b5aa0;
+    --ht-sun:#f6eccb;--ht-sunglow:rgba(246,236,203,.2);
+    --ht-terra:#ff9a76;--ht-terrad:#7a2e14;--ht-plum:#b49cff;--ht-plumd:#5a3fa0;
+  }
+  .hds-sky{position:absolute;top:0;left:0;right:0;height:300px;z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--ht-sky1),var(--ht-sky2) 55%,var(--ht-ground));}
+  .hds-sun{position:absolute;top:30px;right:12px;width:52px;height:52px;border-radius:50%;background:var(--ht-sun);box-shadow:0 0 50px 16px var(--ht-sunglow);z-index:0;pointer-events:none;}
+  .hds-theme-toggle{position:relative;z-index:2;width:42px;height:42px;flex:none;border-radius:50%;border:1.5px solid var(--ht-glassline);background:var(--ht-glass);backdrop-filter:blur(10px);display:grid;place-items:center;color:var(--ht-ink);cursor:pointer;}
+  .hds-theme-toggle:active{transform:translateY(2px);}
+  .hds-content{position:relative;z-index:1;padding-top:20px;display:flex;flex-direction:column;gap:16px;}
+  .hds-title{font:400 30px/1.1 'Young Serif',serif;color:var(--ht-ink);padding:4px 2px 0;}
+  .hds-eyebrow{display:flex;align-items:center;gap:6px;font:900 12px 'Figtree',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+  .hds-card{padding:16px;border-radius:22px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);}
+  .hds-card-title{font:400 20px/1.2 'Young Serif',serif;color:var(--ht-ink);}
+  .hds-card-body{font:700 14px/1.45 'Figtree',sans-serif;color:var(--ht-sub);}
+  .hds-tap{cursor:pointer;transition:transform .08s ease;}
+  .hds-tap:active{transform:translateY(2px);}
+  .hds-btn-light{align-self:flex-start;height:48px;padding:0 18px 0 14px;border-radius:16px;background:#fffdf8;color:#1f7563;box-shadow:0 4px 0 rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;font:900 15px 'Figtree',sans-serif;cursor:pointer;}
+  .hds-btn-light:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25);}
+  .hds-btn-plum{align-self:flex-start;margin-top:4px;height:40px;padding:0 14px;border-radius:13px;border:2px solid var(--ht-plumd);background:var(--ht-plum);color:#fff;box-shadow:0 3px 0 var(--ht-plumd);display:flex;align-items:center;font:900 14px 'Figtree',sans-serif;cursor:pointer;}
+  .hds-btn-plum:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ht-plumd);}
+  /* VOTD hero (Home) */
+  .hds-votd-hero{position:relative;height:380px;border-radius:26px;overflow:hidden;background:#2f9a82;box-shadow:0 6px 0 #1f7563;background-size:cover;background-position:center;}
+  .hds-votd-hero:active{transform:translateY(2px);box-shadow:0 4px 0 #1f7563;}
+  .hds-votd-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,30,28,.55),rgba(20,30,28,.15) 45%,rgba(20,30,28,.7));pointer-events:none;}
+  .hds-votd-body{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;gap:12px;}
+  .hds-votd-pill{align-self:flex-start;display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:rgba(255,253,248,.92);font:900 12px 'Figtree',sans-serif;letter-spacing:.06em;color:#1f7563;}
+  .hds-votd-text{font:500 25px/1.32 'Newsreader',Georgia,serif;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.3);}
+  .hds-votd-ref{font:800 14px 'Figtree',sans-serif;color:#fff;}
+  .hds-votd-attrib{font:600 11px 'Figtree',sans-serif;color:rgba(255,255,255,.75);}
+  .hds-votd-attrib a{color:#fff;}
+  /* Unreached-of-the-day row card */
+  .hds-row-card{display:flex;gap:14px;align-items:center;}
+  .hds-row-thumb{position:relative;width:96px;height:96px;flex:none;border-radius:22px;overflow:hidden;box-shadow:0 4px 0 var(--ht-terrad);}
+  .hds-row-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  /* Story-of-the-day / Discover featured-story image heroes */
+  .hds-img-hero{position:relative;border-radius:22px;overflow:hidden;background-size:cover;background-position:center;}
+  .hds-img-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(40,15,5,.75));pointer-events:none;}
+  .hds-img-hero-body{position:absolute;left:16px;right:16px;bottom:14px;display:flex;flex-direction:column;gap:4px;pointer-events:none;}
+  /* Discover/Study nav rows */
+  .hds-nav-row{display:flex;gap:14px;align-items:center;}
+  .hds-nav-tile{width:52px;height:52px;flex:none;border-radius:16px;display:grid;place-items:center;color:#fff;}
+  .hds-nav-row-title{font:400 19px 'Young Serif',serif;color:var(--ht-ink);}
+  .hds-nav-row-desc{font:700 14px/1.4 'Figtree',sans-serif;color:var(--ht-sub);}
+  .hds-chev{flex:none;color:var(--ht-lockic);}
+  /* Discover: Person of the Day + drifting cloud */
+  .hds-person-card{display:flex;gap:14px;align-items:center;padding:14px;}
+  .hds-person-portrait{position:relative;width:64px;height:64px;flex:none;border-radius:50%;overflow:hidden;border:3px solid var(--ht-plum);background:var(--ht-tint);display:grid;place-items:center;color:var(--ht-plum);}
+  .hds-person-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hds-cloud-wrap{position:absolute;left:0;top:40px;z-index:0;pointer-events:none;animation:hdsDrift 50s linear infinite;}
+  .hds-cloud{position:absolute;border-radius:50%;background:var(--ht-cloud);}
+  @keyframes hdsDrift{from{transform:translateX(-160px);}to{transform:translateX(440px);}}
+  /* Study: hill/lamb decorative scene — a simplified, in-flow version
+     of the handoff's fixed bottom scene (a position:fixed decorative
+     layer behind scrollable content would re-risk the exact
+     z-index:auto-paints-behind-static-content stacking bug items
+     167/169 already hit twice on Practice's own fixed-viewport scene;
+     Study is a normal scrolling screen, so this sits in the document
+     flow after the nav rows instead — same art, lower structural risk,
+     a deliberate fidelity trade-off). */
+  .hds-hillscape{position:relative;height:200px;margin:8px -18px -110px;overflow:hidden;}
+  .hds-hill1{position:absolute;left:-45%;width:125%;bottom:-200px;height:430px;border-radius:50%;background:var(--ht-hill1);}
+  .hds-hill2{position:absolute;right:-55%;width:130%;bottom:-260px;height:450px;border-radius:50%;background:var(--ht-hill2);}
+  .hds-hillscape .hds-deco1{position:absolute;left:14%;bottom:110px;}
+  .hds-hillscape .hds-deco2{position:absolute;right:16%;bottom:90px;}
+  .hds-lamb{position:absolute;left:50%;bottom:40px;margin-left:-55px;animation:hdsBob 2.6s ease-in-out infinite;}
+  @keyframes hdsBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+  /* Home: one-shot "Jesus and the lambs" procession, item 170. Recreated
+     from scratch on every renderHome() call, which is exactly what
+     makes it "replay every time Home is (re)visited" for free — a
+     fresh DOM node always restarts its own CSS animation, no extra
+     state needed. Lower-fidelity than the handoff's own gradient-
+     shaded vector figures (simple flat-color SVG shapes here) —
+     intentional, it's one decorative animation, not a core screen
+     element. */
+  .hds-procession{position:absolute;left:0;right:0;bottom:-16px;height:120px;z-index:0;pointer-events:none;overflow:hidden;}
+  .hds-procession-ground{position:absolute;left:0;right:0;bottom:0;height:30px;background:var(--ht-tint);border-radius:50% 50% 0 0/18px 18px 0 0;opacity:.6;}
+  .hds-procession-walk{position:absolute;left:0;bottom:10px;width:220px;height:90px;animation:hdsWalk 9s linear 1 both;}
+  @keyframes hdsWalk{from{transform:translateX(-240px);}to{transform:translateX(420px);}}
+  .hds-procession-lamb{position:absolute;bottom:0;animation:hdsHop .42s ease-in-out infinite;}
+  @keyframes hdsHop{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  .hds-procession-heart{position:absolute;left:150px;bottom:60px;font:900 16px 'Figtree',sans-serif;color:#e0697a;animation:hdsHeart 1.6s ease-out infinite;}
+  @keyframes hdsHeart{0%{opacity:0;transform:translateY(4px) scale(.6);}30%{opacity:1;}100%{opacity:0;transform:translateY(-22px) scale(1);}}
+
   /* Respect a real accessibility signal over the fun — every animation
      above is decorative, none of it gates functionality, so disabling it
      costs nothing. */
@@ -1445,10 +1561,12 @@
     .complete-card, .complete-icon, .spark, .complete-stat,
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
     .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
-    .sp-confetti-piece, .sp-cloud-wrap, .sp-firefly-dot{
+    .sp-confetti-piece, .sp-cloud-wrap, .sp-firefly-dot,
+    .hds-cloud-wrap, .hds-lamb, .hds-procession-walk, .hds-procession-lamb, .hds-procession-heart{
       animation: none !important;
       transition: none !important;
     }
+    .hds-procession{display:none;}
   }
 </style>
 </head>
@@ -1594,7 +1712,7 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, remote.settings || {});
+          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           if(!content.libraryVerseIds) content.libraryVerseIds = data.verses.map(v=>v.id);
@@ -1694,7 +1812,7 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, bundle.settings);
+    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, bundle.settings);
     if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
@@ -2177,7 +2295,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -2863,33 +2981,68 @@ function placeholderArt(seed, hueBase){
 function renderHomeHeader(){
   const streak = computeStreak();
   return `
-    <div class="home-greet-row">
-      <div>
-        <div class="home-greet">${greeting()}</div>
-        <div class="home-greet-sub">Let's spend some time in the Word today.</div>
+    <div style="display:flex;align-items:flex-start;gap:12px;">
+      <div style="flex:1;position:relative;z-index:2;">
+        <div class="hds-title">${greeting()}</div>
+        <div class="hds-card-body" style="margin-top:4px;">Let's spend some time in the Word today.</div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;">
+      <div style="display:flex;align-items:center;gap:8px;position:relative;z-index:2;">
         ${streak > 0 ? `<div class="streak-badge">${icon('flame',16)} ${streak} day${streak===1?'':'s'}</div>` : ''}
-        <button class="back-btn home-settings-btn" data-action="go-settings"><i class="ti ti-settings"></i></button>
+        <button class="hds-theme-toggle" data-action="hds-toggle-theme" aria-label="Toggle theme">${settings.homeTheme === 'dark' ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>'}</button>
+        <button class="hds-theme-toggle" data-action="go-settings" aria-label="Settings"><i class="ti ti-settings"></i></button>
       </div>
     </div>`;
+}
+// Recreated fresh on every renderHome() call — a brand-new DOM node
+// always restarts its own CSS animation (hdsWalk/hdsHop), which is what
+// makes the procession "play once per Home visit, replay on re-tapping
+// Home while already on Home" for free, with zero persisted state.
+function renderHomeProcession(){
+  const lamb = (w,left,delay,extra)=>`<div class="hds-procession-lamb" style="left:${left}px;width:${w}px;height:${w*.82}px;animation-delay:${delay}s;">
+    <svg viewBox="0 0 40 32" width="100%" height="100%"><ellipse cx="20" cy="30" rx="13" ry="1.6" fill="rgba(0,0,0,.12)"/>
+    <rect x="9" y="20" width="3" height="8" rx="1.4" fill="#4a3f5c"/><rect x="28" y="20" width="3" height="8" rx="1.4" fill="#4a3f5c"/>
+    <circle cx="14" cy="14" r="10" fill="#f3ebdd"/><circle cx="26" cy="14" r="10" fill="#f3ebdd"/><circle cx="20" cy="12" r="11" fill="#fffdf8"/>
+    <circle cx="33" cy="12" r="6.5" fill="#f8eee2"/><circle cx="35" cy="10.6" r=".9" fill="#2b2228"/>
+    ${extra || ''}</svg></div>`;
+  const jesus = `<div class="hds-procession-lamb" style="left:176px;width:26px;height:78px;animation:hdsStep .84s ease-in-out infinite;">
+    <svg viewBox="0 0 26 78" width="100%" height="100%"><ellipse cx="13" cy="76" rx="9" ry="1.6" fill="rgba(0,0,0,.12)"/>
+    <path d="M9 14q4-2 8 0l2 44H7z" fill="#f7f2e7"/><path d="M8 20q4-1.6 10 0l2 38H6z" fill="#c8603c"/>
+    <circle cx="13" cy="7" r="6.5" fill="#6e472b"/><circle cx="13" cy="9" r="4.4" fill="#d4a47c"/>
+    <path d="M22 44V8q0-6-5-6" stroke="#7a4c2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>`;
+  return `<div class="hds-procession"><div class="hds-procession-ground"></div>
+    <div class="hds-procession-walk">
+      ${lamb(26,0,.1)}
+      ${lamb(30,42,.25)}
+      ${lamb(36,90,0,`<path d="M27 15q3 3 7 1.6l.4 2.2q-4 1.8-7.6-1.2z" fill="#f2a65a"/>`)}
+      <div class="hds-procession-heart" style="animation-delay:.6s;">&#9829;</div>
+      ${jesus}
+    </div></div>
+    <style>@keyframes hdsStep{0%,100%{transform:translateY(0) rotate(0);}25%{transform:translateY(-2px) rotate(1.5deg);}75%{transform:translateY(-2px) rotate(-1.5deg);}}</style>`;
 }
 function renderHome(){
   loadVotdRemote(); loadVotdImage(); // fire-and-forget; no-op once status leaves 'idle'
   loadUnreachedOfDay();
+  const isDark = settings.homeTheme === 'dark';
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Order (2026-09-17, owner's explicit request): VOTD, then Unreached
   // of the Day, then the Fact of the Day, then Story of the Day. Word of
   // the Day wasn't named in that request — kept, not dropped, just moved
   // after the four explicitly-ordered cards rather than guessed into a
   // specific slot among them.
   return `
-    ${renderHomeHeader()}
-    ${renderVerseOfTheDayCard()}
-    ${renderUnreachedCard()}
-    ${renderFactOfTheDayCard()}
-    ${renderStoryOfTheDayCard()}
-    ${renderWordOfTheDayCard()}
-    ${renderPracticeNudge()}
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-sky"></div><div class="hds-sun"></div>
+      <div class="hds-content">
+        ${renderHomeHeader()}
+        ${renderVerseOfTheDayCard()}
+        ${renderUnreachedCard()}
+        ${renderFactOfTheDayCard()}
+        ${renderStoryOfTheDayCard()}
+        ${renderWordOfTheDayCard()}
+        ${renderPracticeNudge()}
+      </div>
+      ${reducedMotion ? '' : renderHomeProcession()}
+    </div>
     ${renderFactDrawer()}
   `;
 }
@@ -2960,12 +3113,16 @@ function renderVerseOfTheDayCard(){
   // for — a YouVersion-sourced verse has no corresponding local id.
   const tapAttrs = (!remote && local) ? ` data-action="open-verse" data-id="${local.id}"` : '';
   return `
-    <div class="card votd-hero${(!remote && local) ? ' tap' : ''}" style="background-image:url('${esc(bgUrl)}');"${tapAttrs}>
-      <div class="votd-label">${icon('sun',14)} Verse of the Day</div>
-      <div class="votd-text">${esc(text)}</div>
-      <div class="votd-ref">${esc(ref)}</div>
-      ${(!remote && local) ? `<div class="votd-action"><i class="ti ti-book"></i> Read chapter</div>` : ''}
-      ${img ? `<div class="votd-attribution">Photo by <a href="${esc(img.photographerUrl)}" target="_blank" rel="noopener">${esc(img.photographerName)}</a> on <a href="https://unsplash.com/?utm_source=rooted_app&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>` : ''}
+    <div class="hds-votd-hero${(!remote && local) ? ' hds-tap' : ''}" style="background-image:url('${esc(bgUrl)}');"${tapAttrs}>
+      <div class="hds-votd-overlay"></div>
+      <div class="hds-votd-body">
+        <div class="hds-votd-pill">${icon('sun',14)} Verse of the Day</div>
+        <div class="hds-votd-text">&ldquo;${esc(text)}&rdquo;</div>
+        <div class="hds-votd-ref">${esc(ref)}</div>
+        <div style="flex:1;"></div>
+        ${(!remote && local) ? `<div class="hds-btn-light"><i class="ti ti-book"></i> Read chapter</div>` : ''}
+        ${img ? `<div class="hds-votd-attrib">Photo by <a href="${esc(img.photographerUrl)}" target="_blank" rel="noopener">${esc(img.photographerName)}</a> on <a href="https://unsplash.com/?utm_source=rooted_app&amp;utm_medium=referral" target="_blank" rel="noopener">Unsplash</a></div>` : ''}
+      </div>
     </div>`;
 }
 /* Word of the Day — a curated Hebrew/Greek word from data/word_of_the_day.json
@@ -2986,16 +3143,16 @@ function renderWordOfTheDayCard(){
   if(!w) return '';
   const chips = (w.verseIds||[]).map(findVerse).filter(Boolean);
   return `
-    <div class="card word-card">
-      <div class="word-eyebrow">${icon('languages',14)} Word of the Day</div>
-      <div class="word-head">
-        <span class="word-script">${esc(w.word)}</span>
-        <span class="word-translit">${esc(w.transliteration)}</span>
+    <div class="hds-card">
+      <div class="hds-eyebrow" style="color:var(--ht-acc);">${icon('languages',14)} Word of the Day</div>
+      <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;">
+        <span class="hds-card-title" style="font-size:26px;">${esc(w.word)}</span>
+        <span class="hds-card-body">${esc(w.transliteration)}</span>
       </div>
-      <div class="word-strongs">${esc(w.transliteration)} &middot; ${esc(w.strongs)}</div>
-      <div class="word-meaning">${esc(w.meaning)}</div>
-      <p class="word-summary">${esc(w.summary)}</p>
-      ${chips.length ? `<div class="tag-row">${chips.map(v=>`<span class="tag tag--tan tap" data-action="open-verse" data-id="${v.id}" style="cursor:pointer;">${esc(v.reference)}</span>`).join('')}</div>` : ''}
+      <div class="hds-card-body" style="margin-top:2px;">${esc(w.transliteration)} &middot; ${esc(w.strongs)}</div>
+      <div class="hds-card-title" style="font-size:16px;margin-top:6px;">${esc(w.meaning)}</div>
+      <p class="hds-card-body">${esc(w.summary)}</p>
+      ${chips.length ? `<div class="tag-row">${chips.map(v=>`<span class="tag tag--tan hds-tap" data-action="open-verse" data-id="${v.id}" style="cursor:pointer;">${esc(v.reference)}</span>`).join('')}</div>` : ''}
     </div>`;
 }
 /* Biblical Fact of the Day — data/daily_facts.json (item 116), same
@@ -3030,11 +3187,14 @@ function renderFactOfTheDayCard(){
   if(!f) return '';
   const preview = f.fact.length > 110 ? f.fact.slice(0, 109) + '…' : f.fact;
   return `
-    <div class="card fact-of-the-day-card tap" data-action="open-fact-drawer" data-id="${esc(f.id)}">
-      <div class="word-eyebrow">${uiIcon('sparkle')} Biblical Fact of the Day</div>
-      <h3>${esc(f.title)}</h3>
-      <p class="fact-preview">${esc(preview)}</p>
-      <span class="fact-verified-badge">${uiIcon('shield')} Verified Source</span>
+    <div class="hds-card hds-tap" data-action="open-fact-drawer" data-id="${esc(f.id)}">
+      <div class="hds-eyebrow" style="color:var(--ht-plum);"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/></svg> Biblical Fact of the Day</div>
+      <div class="hds-card-title" style="margin-top:6px;">${esc(f.title)}</div>
+      <p class="hds-card-body">${esc(preview)}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        <span style="display:flex;align-items:center;gap:4px;font:800 11px 'Figtree',sans-serif;color:#10B981;">${uiIcon('shield')} Verified Source</span>
+        <div class="hds-btn-plum">Read more</div>
+      </div>
     </div>`;
 }
 /* Resolves a fact's one optional CTA to whatever it actually links to —
@@ -3057,20 +3217,20 @@ function renderFactDrawer(){
   const link = factLinkTarget(f);
   return `
     <div class="fact-drawer-backdrop" data-action="close-fact-drawer"></div>
-    <div class="fact-drawer">
-      <div class="fact-drawer-handle"></div>
+    <div class="fact-drawer hds-theme" data-theme="${settings.homeTheme === 'dark' ? 'dark' : 'light'}" style="background:var(--ht-surface);color:var(--ht-ink);">
+      <div class="fact-drawer-handle" style="background:var(--ht-line);"></div>
       <div class="fact-drawer-head">
         <span class="tag tag--tan">${esc(f.category)}</span>
-        <button class="back-btn" data-action="close-fact-drawer" aria-label="Close"><i class="ti ti-x"></i></button>
+        <button class="hds-theme-toggle" data-action="close-fact-drawer" aria-label="Close"><i class="ti ti-x"></i></button>
       </div>
-      <h2 class="fact-drawer-title">${esc(f.title)}</h2>
-      <p class="fact-drawer-text">${esc(f.fact)}</p>
-      <div class="fact-drawer-ref"><i class="ti ti-book-2"></i> ${esc(f.scriptureRef)}</div>
-      <div class="fact-drawer-sources">
-        <div class="fact-drawer-sources-label">${uiIcon('shield')} Source Validation</div>
-        ${(f.sources || []).map(s => `<div class="fact-drawer-source"><strong>${esc(s.name)}</strong> — ${esc(s.citation)}</div>`).join('')}
+      <h2 class="hds-card-title" style="font-size:24px;">${esc(f.title)}</h2>
+      <p class="hds-card-body">${esc(f.fact)}</p>
+      <div class="fact-drawer-ref" style="color:var(--ht-terra);"><i class="ti ti-book-2"></i> ${esc(f.scriptureRef)}</div>
+      <div class="fact-drawer-sources" style="border-color:var(--ht-line);">
+        <div class="fact-drawer-sources-label" style="color:#10B981;">${uiIcon('shield')} Source Validation</div>
+        ${(f.sources || []).map(s => `<div class="fact-drawer-source hds-card-body"><strong style="color:var(--ht-ink);">${esc(s.name)}</strong> — ${esc(s.citation)}</div>`).join('')}
       </div>
-      ${link ? `<button class="btn primary block" data-action="${link.action}" data-id="${esc(link.id)}">${esc(link.label)} <i class="ti ti-arrow-right"></i></button>` : ''}
+      ${link ? `<button class="hds-btn-plum" style="width:100%;justify-content:center;" data-action="${link.action}" data-id="${esc(link.id)}">${esc(link.label)} <i class="ti ti-arrow-right"></i></button>` : ''}
     </div>`;
 }
 /* Story of the Day — one of the app's curated Stories, date-seeded the
@@ -3102,16 +3262,13 @@ function characterOfTheDay(){
 function renderStoryOfTheDayCard(){
   const s = storyOfTheDay();
   if(!s) return '';
+  const cover = storyIllustrationUrl(s.id) || 'media/home/story-placeholder.jpg';
   return `
-    <div class="card discovery-card tap" data-action="open-story" data-id="${s.id}">
-      <div class="discovery-card-inner">
-        <div class="discovery-text">
-          <div class="discovery-label">${uiIcon('book')} Story of the Day</div>
-          <h3>${esc(s.title)}</h3>
-          <div class="discovery-meta">${esc(s.primaryReference)}</div>
-          <div class="discovery-sub">${esc((s.summary||'').slice(0,90))}${(s.summary||'').length>90?'…':''}</div>
-        </div>
-        <div class="discovery-thumb-box"><img class="discovery-thumb" src="${storyIllustrationUrl(s.id) || 'media/home/story-placeholder.jpg'}" alt=""></div>
+    <div class="hds-img-hero hds-tap" data-action="open-story" data-id="${s.id}" style="height:180px;background-image:url('${esc(cover)}');box-shadow:0 5px 0 var(--ht-terrad);">
+      <div class="hds-img-hero-overlay"></div>
+      <div class="hds-img-hero-body">
+        <div class="hds-eyebrow" style="color:#ffd9c7;">${uiIcon('book')} Story of the Day</div>
+        <div style="font:400 20px 'Young Serif',serif;color:#fff;">${esc(s.title)}</div>
       </div>
     </div>`;
 }
@@ -3122,7 +3279,10 @@ function renderPracticeNudge(){
   const n = dueVerses().length;
   if(!n) return '';
   const goal = Math.min(n, settings.dailyGoal || 10);
-  return `<div class="practice-nudge tap" data-action="go-practice">Practice ${goal} of ${n} due verse${n===1?'':'s'} <i class="ti ti-arrow-right"></i></div>`;
+  return `<div class="hds-card hds-tap" data-action="go-practice" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+    <span class="hds-card-title" style="font-size:16px;">Practice ${goal} of ${n} due verse${n===1?'':'s'}</span>
+    <i class="ti ti-arrow-right" style="color:var(--ht-acc);"></i>
+  </div>`;
 }
 /* Unreached of the Day — proxied through api/unreached-of-the-day (see that
    file for why: keeping the Joshua Project API key server-side, and
@@ -3150,16 +3310,13 @@ function renderUnreachedCard(){
   if(status !== 'ready' || !d || !d.name) return '';
   const thumb = d.photoUrl || placeholderArt(d.name, 205);
   return `
-    <div class="card discovery-card tap" data-action="open-unreached">
-      <div class="discovery-card-inner">
-        <div class="discovery-text">
-          <div class="discovery-label"><i class="ti ti-world"></i> Unreached of the Day</div>
-          <h3>${esc(d.name)}</h3>
-          <div class="discovery-meta">${[d.country, d.religion].filter(Boolean).map(esc).join(' · ')}</div>
-          ${d.population ? `<div class="discovery-sub">${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}</div>` : ''}
-        </div>
-        <div class="discovery-thumb-box"><img class="discovery-thumb" src="${esc(thumb)}" alt="${esc(d.name)}" loading="lazy" onerror="this.src='${placeholderArt(d.name, 205)}'"></div>
+    <div class="hds-card hds-tap hds-row-card" data-action="open-unreached">
+      <div style="flex:1;min-width:0;">
+        <div class="hds-eyebrow" style="color:var(--ht-terra);"><i class="ti ti-world"></i> Unreached of the Day</div>
+        <div class="hds-card-title" style="margin-top:6px;">${esc(d.name)}</div>
+        <div class="hds-card-body">${[d.country, d.religion].filter(Boolean).map(esc).join(' · ')}${d.population ? `<br>${d.population.toLocaleString()} people${d.percentEvangelical!=null ? `, ${d.percentEvangelical}% evangelical` : ''}` : ''}</div>
       </div>
+      <div class="hds-row-thumb"><img src="${esc(thumb)}" alt="${esc(d.name)}" loading="lazy" onerror="this.src='${placeholderArt(d.name, 205)}'"></div>
     </div>`;
 }
 function renderUnreachedDetail(){
@@ -3384,39 +3541,61 @@ function renderDiscoverFeaturedToday(){
   const era = c ? findEra(c.eraId) : null;
   const portrait = c ? charPortraitUrl(c.id) : null;
   return `
-    <div class="section-label">Featured Today</div>
+    <div class="hds-card-body" style="font:900 12px 'Figtree',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ht-sub);padding:0 2px;">Featured Today</div>
     ${s ? `
-    <div class="discover-featured-story tap" data-action="open-story" data-id="${s.id}" style="background-image:url('${esc(cover)}');">
-      <div class="discover-featured-story-eyebrow">${uiIcon('book')} Story of the Day</div>
-      <div class="discover-featured-story-title">${esc(s.title)}</div>
-      <div class="discover-featured-story-ref">${esc(s.primaryReference)}</div>
+    <div class="hds-img-hero hds-tap" data-action="open-story" data-id="${s.id}" style="height:200px;background-image:url('${esc(cover)}');box-shadow:0 6px 0 var(--ht-terrad);">
+      <div class="hds-img-hero-overlay"></div>
+      <div class="hds-img-hero-body">
+        <div class="hds-votd-pill" style="color:var(--ht-terrad);">${uiIcon('book')} Story of the Day</div>
+        <div style="font:400 22px/1.2 'Young Serif',serif;color:#fff;margin-top:6px;">${esc(s.title)}</div>
+        <div style="font:700 14px 'Figtree',sans-serif;color:#ffe2d4;">${esc(s.primaryReference)}</div>
+      </div>
     </div>` : ''}
     ${c ? `
-    <div class="discover-featured-person tap" data-action="open-character" data-id="${c.id}">
-      ${portrait ? `<img class="discover-featured-person-avatar" src="${esc(portrait)}" alt="">` : `<div class="discover-featured-person-avatar">${charIconHTML(c.roles, 26)}</div>`}
-      <div>
-        <div class="discover-featured-person-eyebrow">${uiIcon('person')} Person of the Day</div>
-        <div class="discover-featured-person-name">${esc(c.name)}</div>
-        <div class="discover-featured-person-meta">${[era ? era.name : null, (c.roles||[])[0]].filter(Boolean).map(esc).join(' · ')}</div>
+    <div class="hds-card hds-tap hds-person-card" data-action="open-character" data-id="${c.id}">
+      <div class="hds-person-portrait">${portrait ? `<img src="${esc(portrait)}" alt="">` : charIconHTML(c.roles, 26)}</div>
+      <div style="min-width:0;">
+        <div class="hds-eyebrow" style="color:var(--ht-plum);">${uiIcon('person')} Person of the Day</div>
+        <div class="hds-card-title" style="margin-top:2px;">${esc(c.name)}</div>
+        <div class="hds-card-body">${[era ? era.name : null, (c.roles||[])[0]].filter(Boolean).map(esc).join(' · ')}</div>
       </div>
     </div>` : ''}
   `;
 }
 function renderDiscover(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="topbar"><h1>${t('title_discover')}</h1></div>
-    ${renderDiscoverFeaturedToday()}
-    <div class="card tap" data-action="go-browse">
-      <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>Read the Bible</h3><p class="field-hint">Search or browse the full 66-book text, book by book.</p></div></div>
-    </div>
-    <div class="card tap" data-action="open-topics">
-      <div class="char-row"><div class="avatar"><i class="ti ti-tags"></i></div><div><h3>Topics</h3><p class="field-hint">${data.topics.length} topics to practice and explore, linked to related themes.</p></div></div>
-    </div>
-    <div class="card tap" data-action="open-characters">
-      <div class="char-row"><div class="avatar"><i class="ti ti-users"></i></div><div><h3>People</h3><p class="field-hint">${data.characters.length} characters across ${lore.eras.length} eras, grouped by era.</p></div></div>
-    </div>
-    <div class="card tap" data-action="open-stories">
-      <div class="char-row"><div class="avatar"><i class="ti ti-book"></i></div><div><h3>Stories</h3><p class="field-hint">${lore.stories.length} episodes across the whole Bible.</p></div></div>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-sky" style="height:300px;"></div>
+      ${isDark ? '' : `<div class="hds-cloud-wrap"><div style="position:relative;width:110px;height:40px;">
+        <div class="hds-cloud" style="left:0;bottom:0;width:110px;height:24px;border-radius:12px;"></div>
+        <div class="hds-cloud" style="left:20px;bottom:8px;width:46px;height:38px;"></div>
+        <div class="hds-cloud" style="left:52px;bottom:6px;width:38px;height:30px;"></div>
+      </div></div>`}
+      <div class="hds-content">
+        <div class="hds-title">${t('title_discover')}</div>
+        ${renderDiscoverFeaturedToday()}
+        <div class="hds-card hds-tap hds-nav-row" data-action="go-browse">
+          <div class="hds-nav-tile" style="background:#2f9a82;box-shadow:0 4px 0 #1f7563;"><i class="ti ti-book-2" style="font-size:26px;"></i></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Read the Bible</div><div class="hds-nav-row-desc">Search or browse the full 66-book text, book by book.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="open-topics">
+          <div class="hds-nav-tile" style="background:#d2603a;box-shadow:0 4px 0 #a8441f;"><i class="ti ti-tags" style="font-size:26px;"></i></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Topics</div><div class="hds-nav-row-desc">${data.topics.length} topics to practice and explore, linked to related themes.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="open-characters">
+          <div class="hds-nav-tile" style="background:#7a5cc4;box-shadow:0 4px 0 #5a3fa0;"><i class="ti ti-users" style="font-size:26px;"></i></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">People</div><div class="hds-nav-row-desc">${data.characters.length} characters across ${lore.eras.length} eras, grouped by era.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="open-stories">
+          <div class="hds-nav-tile" style="background:#ff7a50;box-shadow:0 4px 0 #d9572f;"><i class="ti ti-book" style="font-size:26px;"></i></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Stories</div><div class="hds-nav-row-desc">${lore.stories.length} episodes across the whole Bible.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -4520,19 +4699,40 @@ function renderStoriesResults(){
    Timeline, the Connection entity for Family Tree — see item 110),
    Study gets a proper hub, same shape as Discover's. */
 function renderStudy(){
+  const isDark = settings.homeTheme === 'dark';
   return `
-    <div class="topbar"><h1>${t('title_study')}</h1></div>
-    <div class="card tap" data-action="go-motifs">
-      <div class="char-row"><div class="avatar"><i class="ti ti-sparkles"></i></div><div><h3>Patterns</h3><p class="field-hint">${motifs.length} recurring motifs across these stories.</p></div></div>
-    </div>
-    <div class="card tap" data-action="go-timeline">
-      <div class="char-row"><div class="avatar"><i class="ti ti-timeline"></i></div><div><h3>Timeline</h3><p class="field-hint">The whole Bible in order, era by era.</p></div></div>
-    </div>
-    <div class="card tap" data-action="go-family-tree">
-      <div class="char-row"><div class="avatar"><i class="ti ti-affiliate"></i></div><div><h3>Family Tree</h3><p class="field-hint">Explore how a person connects to their family.</p></div></div>
-    </div>
-    <div class="card tap" data-action="go-lexicon">
-      <div class="char-row"><div class="avatar"><i class="ti ti-language"></i></div><div><h3>${t('title_lexicon')}</h3><p class="field-hint">14,000+ Hebrew and Greek words, straight from Strong's Concordance.</p></div></div>
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-sky" style="height:100%;background:linear-gradient(180deg,var(--ht-sky1) 0%,var(--ht-sky2) 30%,var(--ht-ground) 62%);"></div>
+      <div class="hds-sun" style="top:44px;right:16px;"></div>
+      <div class="hds-content">
+        <div class="hds-title">${t('title_study')}</div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="go-motifs">
+          <div class="hds-nav-tile" style="background:#7a5cc4;box-shadow:0 4px 0 #5a3fa0;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8zM18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9z"/></svg></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Patterns</div><div class="hds-nav-row-desc">${motifs.length} recurring motifs across these stories.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="go-timeline">
+          <div class="hds-nav-tile" style="background:#2f9a82;box-shadow:0 4px 0 #1f7563;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 4 4-7 5 5"/></svg></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Timeline</div><div class="hds-nav-row-desc">The whole Bible in order, era by era.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="go-family-tree">
+          <div class="hds-nav-tile" style="background:#d2603a;box-shadow:0 4px 0 #a8441f;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="6" cy="6" r="2.6" fill="currentColor"/><circle cx="18" cy="6" r="2.6" fill="currentColor"/><circle cx="12" cy="18" r="2.6" fill="currentColor"/><path d="M6 8.6v2.4h12V8.6M12 11v4.4"/></svg></div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">Family Tree</div><div class="hds-nav-row-desc">Explore how a person connects to their family.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-card hds-tap hds-nav-row" data-action="go-lexicon">
+          <div class="hds-nav-tile" style="background:#ff7a50;box-shadow:0 4px 0 #d9572f;color:#3a1203;font:400 20px 'Young Serif',serif;">&#1488;&Omega;</div>
+          <div style="flex:1;min-width:0;"><div class="hds-nav-row-title">${t('title_lexicon')}</div><div class="hds-nav-row-desc">14,000+ Hebrew and Greek words, straight from Strong's Concordance.</div></div>
+          <i class="ti ti-chevron-right hds-chev"></i>
+        </div>
+        <div class="hds-hillscape">
+          <div class="hds-hill1"></div><div class="hds-hill2"></div>
+          <div class="hds-deco1"><svg width="40" height="28" viewBox="0 0 40 28"><path d="M5 28Q7 15 2 6q10 8 11 22zM15 28q1-16 5-26 3 12 2 26zM24 28q3-14 13-20-6 9-6 20z" fill="var(--ht-deco1)"/></svg></div>
+          <div class="hds-deco2"><svg width="26" height="36" viewBox="0 0 26 36"><path d="M13 16v20" stroke="var(--ht-deco1)" stroke-width="2.5"/><g fill="var(--ht-petal)"><circle cx="13" cy="6" r="5"/><circle cx="20" cy="11" r="5"/><circle cx="6" cy="11" r="5"/><circle cx="9" cy="18" r="5"/><circle cx="17" cy="18" r="5"/></g><circle cx="13" cy="12.5" r="3.5" fill="#ffd27a"/></svg></div>
+          <div class="hds-lamb">${lambSvg('calm', 110)}</div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -6594,6 +6794,7 @@ function onAction(e){
     }
   }
   else if(action==='sp-toggle-theme'){ settings.practiceTheme = settings.practiceTheme === 'light' ? 'dark' : 'light'; saveSettings(); render(); }
+  else if(action==='hds-toggle-theme'){ settings.homeTheme = settings.homeTheme === 'light' ? 'dark' : 'light'; saveSettings(); render(); }
   else if(action==='sp-after-complete'){
     session = null;
     const today = localDayKey(new Date());
@@ -6982,7 +7183,7 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   if(settings.language === 'te') loadTeVerses(); // don't block first paint — verseText() falls back to English until this resolves
 
