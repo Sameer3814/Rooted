@@ -958,6 +958,27 @@ The schema was deliberately designed so all of the above can be added
   reading olive-tinted against the colorful backdrop — shared, app-wide
   nav styling, not safe to change from a non-specific report. See
   DATA_MODEL.md §8, item 166.
+- **"Shepherd's Path": a real rendering bug found via actual browser
+  testing — done (2026-11-10).** Set up an isolated Playwright +
+  headless Chromium install in this session's own scratchpad (nothing
+  added to this repo or installed system-wide) after item 166's
+  Node-level check missed a real bug that only a real browser's paint
+  order could surface: `.shepherd-backdrop` is `position:absolute;
+  z-index:auto`, which per CSS2.1's actual stacking rules paints
+  *after* plain static content regardless of DOM order — silently
+  hiding the session screen's heading/tag/mascot/verse text behind
+  the backdrop, exactly matching the owner's original screenshot.
+  Fixed by giving the session screen's header/body/footer (and, via
+  one generic `:not()` rule, the complete/streak screens' own
+  children) explicit `position:relative;z-index:2`. The same testing
+  pass also caught two more real bugs: Unit 1 crushed behind the
+  floating nav once the path climbs upward (not enough bottom padding
+  for `.shepherd-scroll`), and the complete screen's own CONTINUE
+  button sitting exactly where the nav floats — Playwright's click
+  simulation showed it was **genuinely unclickable**, not just
+  crowded. Every fix was re-verified with a fresh screenshot, not
+  just inspected. `sw.js` bumped to `rooted-v164`. See DATA_MODEL.md
+  §8, item 167.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

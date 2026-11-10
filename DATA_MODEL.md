@@ -8068,6 +8068,72 @@ inventing a new principle:
       with a concrete reference if it's still wanted.
     `sw.js` bumped to `rooted-v163`.
 
+167. **"Shepherd's Path": a real rendering bug found and fixed, this
+    time verified with an actual headless browser, not just reading
+    the code or running render functions in Node — done (2026-11-09/
+    10).** The owner asked whether this session could access and test
+    the live site directly; it couldn't (no browser/GUI tool in this
+    environment), so a fully isolated Playwright + headless Chromium
+    install was set up in the session's own scratchpad directory —
+    nothing added to this repo, nothing installed system-wide or in
+    the user's normal browser-cache location (`PLAYWRIGHT_BROWSERS_PATH`
+    pointed at a scratchpad subfolder). That testing immediately found
+    what item 166's Node-level check had missed:
+    - **The real bug**: `.shepherd-backdrop` is `position:absolute`
+      with `z-index:auto`. Per CSS2.1's actual painting order
+      (Appendix E.2), a positioned element at stack level 0 paints
+      *after* plain in-flow static boxes, regardless of DOM source
+      order — so the backdrop was silently painting on top of the
+      session screen's header/body/footer content (all plain static
+      flex items), hiding the heading, "NEW VERSE" tag, mascot, and
+      verse text entirely, exactly matching the owner's original
+      screenshot. `renderShepherdSession()`'s output string was always
+      correct (confirmed in item 166 by running it directly) — the
+      bug was purely a paint-order one, invisible to a Node-level
+      string check and to reading `getComputedStyle`/
+      `getBoundingClientRect` in isolation (both reported correct
+      values even while nothing was actually visible on screen,
+      because neither reflects paint/stacking order). The Path
+      screen never had this problem because `.shepherd-topbar`/
+      `.shepherd-scroll` already carried explicit `position:relative`
+      + `z-index` from the start, by what turns out to have been
+      a lucky accident of how Phase 1 was written, not a deliberate
+      guard against this class of bug.
+    - **The fix**: `.sp-session-header`/`.sp-session-combo-row`/
+      `.sp-session-body`/`.sp-session-footer` each got an explicit
+      `position:relative;z-index:2`. For the complete/streak screens,
+      used one generic rule instead of naming each child —
+      `.sp-complete-screen > *:not(.shepherd-backdrop){position:
+      relative;z-index:2;}` — so any future child added there is safe
+      by default rather than needing the same fix rediscovered again.
+    - **Two more real bugs the same testing pass caught**, both
+      genuine padding-insufficiency against the floating pill nav
+      (`.navbar`, `position:fixed`, occupying roughly the screen's own
+      bottom ~100px regardless of what's rendered under it): the
+      Path screen's bottom-most content (Unit 1, now that the path
+      climbs upward) was rendering crushed behind the nav, with not
+      enough scroll room for `scrollIntoView()` to properly center the
+      current stop either — fixed by increasing `.shepherd-scroll`'s
+      bottom padding; and the complete screen's own CONTINUE button
+      (pushed to the bottom via `margin-top:auto`) sat exactly where
+      the nav floats — Playwright's own click simulation reported the
+      nav's `.navitem` intercepting the pointer event, i.e. this
+      button was **genuinely unclickable**, not just visually crowded.
+      Fixed the same way as the session footer, via bottom padding.
+    - **One more overlap fixed by observation, not a reported bug**:
+      the Review FAB rendered on top of an open stop popover's own
+      button. Hidden the FAB entirely while a popover is open
+      (`shepherdSel` truthy) rather than fighting the z-index, since
+      a popover is the more deliberate, focused action in that moment.
+    - **Every fix was re-verified with a fresh screenshot after
+      applying it**, including driving an actual exercise to a wrong
+      answer (to see the feedback sheet, which is still a sibling of
+      `.shepherd-screen` per item 165 — confirmed still correctly
+      covering the nav) and forcing a session to its finished state to
+      screenshot the complete and streak screens directly, rather than
+      trusting the fix by inspection alone.
+    `sw.js` bumped to `rooted-v164`.
+
 ---
 
 ## 9. How the app reads this data
