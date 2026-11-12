@@ -1602,6 +1602,21 @@
   .hds-theme .chapter-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
   .hds-theme .chapter-cell{height:52px;padding:0;border-radius:16px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 3px 0 var(--ht-line);font:800 17px 'Figtree',sans-serif;color:var(--ht-ink);}
   .hds-theme .chapter-cell:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ht-line);border-color:var(--ht-accl);color:var(--ht-acc);}
+  /* "Add chapters" (item 174) — reuses the chapter grid in a toggle-
+     select mode rather than a separate picker component. */
+  .hds-theme .chapter-cell-selected{background:var(--ht-acc);border-color:var(--ht-accl);color:#fff;box-shadow:0 3px 0 var(--ht-accl);}
+  .hds-theme .chapter-cell-added{background:var(--ht-tint);border-color:var(--ht-line);color:var(--ht-lockic);box-shadow:none;cursor:default;}
+  .add-journey-bar{
+    position:fixed;left:16px;right:16px;max-width:calc(var(--app-max-width) - 32px);margin:0 auto;
+    bottom:calc(100px + env(safe-area-inset-bottom));z-index:1001;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 16px;border-radius:20px;
+    background:var(--ht-surface);border:2px solid var(--ht-line);
+    box-shadow:0 4px 0 var(--ht-line),0 12px 30px -10px rgba(40,30,10,.35);
+  }
+  .add-journey-bar-label{font:700 14px 'Figtree',sans-serif;color:var(--ht-ink);}
+  .add-journey-bar button{flex:none;height:42px;padding:0 16px;border-radius:13px;border:2px solid var(--ht-accl);background:var(--ht-acc);color:#fff;font:900 14px 'Figtree',sans-serif;box-shadow:0 3px 0 var(--ht-accl);cursor:pointer;}
+  .add-journey-bar button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ht-accl);}
   /* Browse: reader card (Newsreader body, Baloo 2 header, --ht-terra
      verse numbers, a --ht-tint + dotted --ht-acc underline for a
      selected verse instead of the app's default plain dotted
@@ -2280,9 +2295,20 @@ function libraryVerses(){
    added) without being *in the library* yet, so this only ever needs to
    touch content.libraryVerseIds, plus copy the verse into the overlay
    the one time it isn't part of data.verses at all yet (a fresh corpus
-   verse the user has never interacted with before). */
+   verse the user has never interacted with before).
+   Real bug fixed here (item 174): this guard used to read `!findVerse
+   (verseId)`, but findVerse() was changed in item 153 to also fall back
+   to `corpus` — so for ANY verse already present in the lazily-loaded
+   full corpus (i.e. nearly every verse in the Bible), findVerse() always
+   returned truthy and this branch never ran, silently skipping the copy
+   into data.verses/content.verses. The verse id still landed in
+   content.libraryVerseIds, so it looked added, but libraryVerses()
+   filters data.verses by those ids — so it never actually showed up
+   anywhere in Practice. Checking `data.verses` directly (not findVerse)
+   is what this comment always described; the implementation had just
+   quietly drifted out of sync with it. */
 function addToLibrary(verseId){
-  if(!findVerse(verseId)){
+  if(!data.verses.find(v => v.id === verseId)){
     // Same shape addFromCorpus() already builds — a fresh corpus verse
     // the user has never touched before needs copying into the overlay
     // (and data.verses directly, same shortcut addFromCorpus() uses
@@ -2542,6 +2568,15 @@ let browse = {q:'', book:null, chapter:null};
 let selectedVerseIds = new Set(); // reader-mode multi-select (item 149) — which verses the Copy/Highlight/Add toolbar acts on
 let readerPaletteOpen = false;    // toolbar sub-state: showing the highlight color swatches instead of the action row
 let readerToast = null;      // transient confirmation text ("Copied", "Added to library") shown after a toolbar action
+/* "Add chapters" (item 174) — reuses Browse's own book-list/chapter-grid
+   screens rather than a parallel picker. addJourneyMode switches the
+   chapter grid from "tap a chapter to read it" to "tap a chapter to
+   toggle it for bulk-adding to the practice library"; addJourneySelectedChapters
+   holds `${book}|${chapterNumber}` keys for whatever's currently toggled
+   on. Both reset on confirm, on cancel, and on leaving Browse any other
+   way, so a stray toggle never lingers into a normal Browse visit. */
+let addJourneyMode = false;
+let addJourneySelectedChapters = new Set();
 let peopleQuery = '';
 let topicsQuery = '';
 let storiesQuery = '';
@@ -3176,6 +3211,12 @@ function shepherdScrollToCurrent(){
 }
 function go(screen, params={}){
   scrollPositions[scrollKey(view)] = window.scrollY;
+  // "Add chapters" mode (item 174) only makes sense while actually on
+  // Browse — leaving Browse by any route (the explicit cancel button,
+  // confirming, a swipe-back, tapping into "People in {book}", a bottom-
+  // nav tab) should never leave it silently active in the background for
+  // a later, unrelated Browse visit to stumble into.
+  if(screen !== 'browse'){ addJourneyMode = false; addJourneySelectedChapters = new Set(); }
   view = {screen, params};
   render();
   // Shepherd's Path (and the session/complete/streak screens with it)
@@ -3868,7 +3909,12 @@ function renderBrowse(){
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
       <div class="hds-sky" style="height:260px;"></div><div class="hds-sun" style="top:64px;right:30px;width:50px;height:50px;"></div>
       <div class="hds-content">
-        <div class="hds-title">Browse</div>
+        ${addJourneyMode ? `
+          <div class="screen-head" style="margin-bottom:6px;">
+            <button class="back-btn" data-action="exit-add-journey"><i class="ti ti-arrow-left"></i></button>
+            <h2 style="margin:0;">Add chapters</h2>
+          </div>
+        ` : `<div class="hds-title">Browse</div>`}
         <div class="search-wrap">
           <i class="ti ti-search"></i>
           <input type="text" id="browse-search" value="${esc(browse.q)}" placeholder="Search all ${corpus ? corpus.length.toLocaleString() : ''} verses..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -3902,6 +3948,29 @@ function renderBrowseResults(){
   if(browse.book){
     const entry = corpusIndex.find(b => b.book===browse.book);
     const peopleCount = charactersInBook(browse.book).length;
+    if(addJourneyMode){
+      const lib = libraryVerseIds();
+      return `
+        ${renderCrumbs()}
+        <div style="font:900 12px 'Figtree',sans-serif;letter-spacing:.08em;color:var(--ht-sub);padding:6px 2px 0;">TAP A CHAPTER TO ADD IT</div>
+        <div class="chapter-grid">
+          ${entry.chapters.map(c=>{
+            const key = `${browse.book}|${c.n}`;
+            const selected = addJourneySelectedChapters.has(key);
+            // A chapter only counts as "already added" once every one of
+            // its verses is already in the library — a partially-added
+            // chapter (e.g. one verse added earlier from a search result)
+            // still shows as a normal, tappable chapter.
+            const already = !selected && corpus.filter(v=>v.book===browse.book && v.chapter===c.n).every(v=>lib.has(v.id));
+            const cls = ['chapter-cell'];
+            if(selected) cls.push('chapter-cell-selected');
+            if(already) cls.push('chapter-cell-added');
+            return `<button class="${cls.join(' ')}" ${already?'':'data-action="toggle-add-chapter"'} data-n="${c.n}" ${already?'disabled':''} aria-label="Chapter ${c.n}${already?' (already in your journey)':selected?' (selected)':''}">${already?'<i class="ti ti-check"></i>':c.n}</button>`;
+          }).join('')}
+        </div>
+        ${renderAddJourneyBar()}
+      `;
+    }
     return `
       ${renderCrumbs()}
       ${peopleCount ? `
@@ -3924,6 +3993,26 @@ function renderBrowseResults(){
       <div><div class="name">${esc(b.book)}</div><div class="meta">${b.chapters.length} chapters · ${b.count.toLocaleString()} verses</div></div>
       <i class="ti ti-chevron-right chev"></i>
     </div>`).join('')}</div>`;
+}
+/* Sticky confirm bar for "Add chapters" (item 174) — only rendered while
+   >=1 chapter is toggled on. Verse totals come from corpusIndex's own
+   per-chapter counts (already computed by buildCorpusIndex()), not a
+   fresh corpus scan. */
+function renderAddJourneyBar(){
+  if(!addJourneySelectedChapters.size) return '';
+  const entry = corpusIndex.find(b => b.book===browse.book);
+  let totalVerses = 0;
+  addJourneySelectedChapters.forEach(key=>{
+    const n = +key.split('|')[1];
+    const ch = entry.chapters.find(c=>c.n===n);
+    if(ch) totalVerses += ch.count;
+  });
+  const n = addJourneySelectedChapters.size;
+  return `
+    <div class="add-journey-bar">
+      <span class="add-journey-bar-label">${n} chapter${n===1?'':'s'} &middot; ${totalVerses} verse${totalVerses===1?'':'s'}</span>
+      <button data-action="confirm-add-chapters">Add to journey</button>
+    </div>`;
 }
 function renderCrumbs(){
   return `<div class="crumbs">
@@ -5545,6 +5634,9 @@ function renderAddMenu(){
         <div class="card tap" data-action="go-browse">
           <div class="char-row"><div class="avatar"><i class="ti ti-search"></i></div><div><h3>Find a verse</h3><p class="field-hint">Search or browse the full Bible and add it to your verses.</p></div></div>
         </div>
+        <div class="card tap" data-action="go-add-chapters">
+          <div class="char-row"><div class="avatar"><i class="ti ti-books"></i></div><div><h3>Add chapters</h3><p class="field-hint">Pick specific chapters to add to your journey.</p></div></div>
+        </div>
         <div class="card tap" data-action="go-add-verse">
           <div class="char-row"><div class="avatar"><i class="ti ti-book-2"></i></div><div><h3>New verse</h3><p class="field-hint">Type a verse in yourself and tag its topics.</p></div></div>
         </div>
@@ -6298,19 +6390,29 @@ function shepherdDone(v){ return getProgress(v.id).status !== 'new'; }
    README) — this app's closest analog to a tag is Topic, so group the
    user's own practice library by each verse's first topicId, in order of
    first appearance (stable, no dependency on the Topic table's own
-   order). Verses with no topic land in one trailing "Your Verses"
-   catch-all unit rather than being dropped. */
+   order). Verses with no topic used to all land in one trailing "Your
+   Verses" catch-all unit — a real problem once "Add chapters" (item 174)
+   made bulk-adding a whole untagged chapter easy, since every chapter
+   added this way would've piled into that same single undifferentiated
+   bucket. Fixed by grouping untagged verses per book+chapter instead —
+   `chbucket_` is a synthetic key, safe against ever colliding with a
+   real topic id (those are all `topic_*`) — so "Genesis 1" and "Psalm
+   23" each become their own recognizable unit on the path. Every one of
+   the 10 DEFAULT_LIBRARY_IDS starter verses is topic-tagged (verified
+   against data/starter-pack.json), so this only changes behavior for
+   verses that genuinely have no topic — unaffected otherwise. */
 function shepherdUnits(){
   const lib = libraryVerses();
-  const order = [];      // topic key order, first-seen
-  const groups = {};     // topic key -> verse[]
+  const order = [];      // group key order, first-seen
+  const groups = {};     // group key -> verse[]
   lib.forEach(v=>{
-    const key = v.topicIds[0] || '_none';
+    const key = v.topicIds[0] || `chbucket_${v.book}_${v.chapter}`;
     if(!groups[key]){ groups[key] = []; order.push(key); }
     groups[key].push(v);
   });
   return order.map((key, i)=>{
-    const topic = key !== '_none' ? findTopic(key) : null;
+    const isChapterBucket = key.startsWith('chbucket_');
+    const topic = isChapterBucket ? null : findTopic(key);
     const color = SHEPHERD_UNIT_COLORS[i % SHEPHERD_UNIT_COLORS.length];
     const verses = groups[key];
     // Insert a chest after every 2 lesson stops, a trophy at unit end —
@@ -6321,7 +6423,8 @@ function shepherdUnits(){
       if((vi + 1) % 2 === 0 && vi + 1 < verses.length) items.push('c' + i + '-' + items.length);
     });
     items.push('t' + i);
-    return { n: i + 1, title: topic ? topic.name : 'Your Verses', c: color.c, d: color.d, verses, items };
+    const title = topic ? topic.name : (isChapterBucket ? `${verses[0].book} ${verses[0].chapter}` : 'Your Verses');
+    return { n: i + 1, title, c: color.c, d: color.d, verses, items };
   });
 }
 function shepherdCurrent(units){
@@ -7216,6 +7319,8 @@ function onAction(e){
   else if(action==='fact-link-motif'){ factDrawerOpen = null; go('motifDetail', {id, from: view}); }
   else if(action==='fact-link-verse'){ factDrawerOpen = null; go('verseDetail', {id, from: view}); }
   else if(action==='go-browse'){ go('browse'); loadCorpus(); }
+  else if(action==='go-add-chapters'){ addJourneyMode = true; addJourneySelectedChapters = new Set(); go('browse'); loadCorpus(); }
+  else if(action==='exit-add-journey') go('add');
   else if(action==='open-topics') go('topics');
   else if(action==='open-characters') go('characters');
   else if(action==='go-add') go('add');
@@ -7313,6 +7418,28 @@ function onAction(e){
   else if(action==='browse-chapter'){ browse.chapter = +el.dataset.n; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
   else if(action==='chapter-nav'){ browse.book = el.dataset.book; browse.chapter = +el.dataset.n; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); window.scrollTo(0,0); }
   else if(action==='browse-root'){ browse.book = null; browse.chapter = null; selectedVerseIds = new Set(); readerPaletteOpen = false; refreshBrowseResults(); }
+  else if(action==='toggle-add-chapter'){
+    const key = `${browse.book}|${el.dataset.n}`;
+    if(addJourneySelectedChapters.has(key)) addJourneySelectedChapters.delete(key);
+    else addJourneySelectedChapters.add(key);
+    refreshBrowseResults();
+  }
+  else if(action==='confirm-add-chapters'){
+    const keys = [...addJourneySelectedChapters];
+    let chapterCount = 0, verseCount = 0;
+    keys.forEach(key=>{
+      const [book, chStr] = key.split('|');
+      const chapter = +chStr;
+      const verses = corpus.filter(v => v.book===book && v.chapter===chapter);
+      if(!verses.length) return;
+      chapterCount++;
+      verses.forEach(v=>{ if(!isInLibrary(v.id)){ addToLibrary(v.id); verseCount++; } });
+    });
+    addJourneyMode = false;
+    addJourneySelectedChapters = new Set();
+    go('practice');
+    showShepherdToast(chapterCount ? `Added ${chapterCount} chapter${chapterCount===1?'':'s'} to your journey` : 'Nothing to add');
+  }
   else if(action==='add-from-corpus') addFromCorpus(id);
   else if(action==='select-verse'){
     if(selectedVerseIds.has(id)) selectedVerseIds.delete(id); else selectedVerseIds.add(id);

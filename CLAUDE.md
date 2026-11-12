@@ -1137,6 +1137,38 @@ The schema was deliberately designed so all of the above can be added
   Playwright setup across every screen above plus a full regression
   pass on items 170/172's own screens (zero visual change). `sw.js`
   bumped to `rooted-v171`. See DATA_MODEL.md §8, item 173.
+- **"Add chapters" — a customizable Practice journey — done
+  (2026-11-12).** Owner: "I want the practice tab to be customizable
+  where if I want to memorize some specific verses or books users should
+  be able to add them to their journey." Confirmed scope first: "add a
+  book" means picking specific chapters (not dumping hundreds/thousands
+  of verses in at once), and the entry point should live inside Practice
+  itself, not just Browse's existing single-verse Add flow. A 4th card on
+  Practice's "+" menu, "Add chapters," puts Browse's own Shepherd-themed
+  chapter grid into a multi-select mode (`addJourneyMode`) — tap chapters
+  to toggle them, a sticky bar shows the running chapter/verse count, and
+  confirming bulk-adds every verse in every selected chapter to the
+  practice library, deduped, with a toast and a hop back to Practice
+  where they now show up as real path units. Already-fully-added chapters
+  render disabled with a checkmark. Required a real fix to
+  `shepherdUnits()`: every untagged verse used to collapse into one
+  shared "Your Verses" bucket, which would've made a bulk chapter-add
+  indistinguishable mush — now untagged verses group per book+chapter
+  instead, so "Genesis 1" and "Genesis 2" show as their own units (topic-
+  tagged verses, including all 10 default starter verses, are
+  unaffected). Caught and fixed a real pre-existing bug along the way,
+  not introduced by this feature but badly exposed by it: `addToLibrary
+  ()`'s guard for copying a new verse into `data.verses` checked
+  `findVerse()`, which item 153 had already changed to fall back to the
+  full corpus — so the guard silently never ran for almost any verse,
+  meaning an added verse could sit in `content.libraryVerseIds` while
+  never actually appearing anywhere in Practice. Likely already affected
+  single-verse Browse adds too; fixed by checking `data.verses` directly.
+  Verified with the isolated Playwright setup — the full add flow with
+  real library/unit checks (not just a screenshot), the already-added
+  state, the cancel path, and a Browse-search regression check, in both
+  themes. `sw.js` bumped to `rooted-v172`. See DATA_MODEL.md §8, item
+  174.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

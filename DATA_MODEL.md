@@ -8686,6 +8686,96 @@ inventing a new principle:
       example-verse card — zero console errors, zero visual regression
       on the five screens items 170/172 already themed.
     `sw.js` bumped to `rooted-v171`.
+174. **"Add chapters" — a customizable Practice journey — done
+    (2026-11-12).** Owner's request: "I want the practice tab to be
+    customizable where if I want to memorize some specific verses or
+    books users should be able to add them to their journey." Two scope
+    questions confirmed first: "add a book" means picking specific
+    chapters, not dumping an entire book in at once (Psalms alone is
+    2,461 verses); and the entry point should live inside Practice
+    itself, not just rely on Browse's existing single-verse Add flow.
+    - **The real gap this closed**: single-verse adding already worked
+      (Browse's reader tap-to-select → Add, item 149) and flowed straight
+      into Shepherd's Path, since `shepherdUnits()` already builds the
+      path from `content.libraryVerseIds`. What didn't exist was any way
+      to add more than one verse at a time, or a Practice-native entry
+      point — and `shepherdUnits()` itself had a real problem waiting for
+      exactly this feature: every untagged verse (anything outside the
+      curated ~1,812) fell into one shared `'_none'` → "Your Verses"
+      bucket, which would have made bulk-adding a whole chapter dump
+      indistinguishably into that same pile.
+    - **`shepherdUnits()` fix**: untagged verses now group by
+      `chbucket_${book}_${chapter}` instead of a single `'_none'` key —
+      a synthetic key, safe against ever colliding with a real topic id
+      (those are all `topic_*`) — so "Genesis 1" and "Genesis 2" (say)
+      each become their own distinct, correctly-titled unit on the path,
+      using the exact same `"${book} ${chapter}"` format the Browse
+      reader's own header already uses. Topic-tagged verses are
+      completely unaffected — this only changes the untagged fallback
+      path. Verified against `data/starter-pack.json` that all 10
+      `DEFAULT_LIBRARY_IDS` starter verses are topic-tagged, so a fresh
+      install's path is unaffected by this change.
+    - **New entry point**: a 4th card on Practice's existing "+" menu
+      (`renderAddMenu()`), "Add chapters" — "Pick specific chapters to
+      add to your journey."
+    - **Chapter multi-select, built by extending Browse, not duplicating
+      it**: a module-level `addJourneyMode` flag (default `false`) plus
+      `addJourneySelectedChapters` (a `Set` of `"${book}|${chapterNum}"`
+      keys) switch Browse's existing Shepherd-themed chapter grid
+      (items 172-173) from "tap a chapter to read it" into "tap a
+      chapter to toggle it for bulk-adding" — same component, no second
+      picker screen. A chapter already fully in the library (every one
+      of its verses already added, checked against the real corpus, not
+      estimated) renders disabled with a checkmark rather than being
+      selectable again — a deliberate judgment call to avoid a
+      meaningless re-add, not a literal spec requirement. Once ≥1
+      chapter is selected, a new sticky `renderAddJourneyBar()` appears
+      ("N chapters · M verses · Add to journey"), its verse count read
+      straight from `corpusIndex`'s own precomputed per-chapter counts
+      (`buildCorpusIndex()`), not a fresh corpus scan. Confirming bulk-
+      adds every verse in every selected chapter via the existing
+      `addToLibrary()` (deduped — a verse already in the library is
+      silently skipped, never double-counted), shows a toast via the
+      existing `showShepherdToast()`, and routes to Practice, where the
+      new chapter(s) now show as their own labeled units. A back button
+      appears on Browse specifically while `addJourneyMode` is on
+      (`exit-add-journey`, routing back to the "+" menu); `go()` itself
+      resets `addJourneyMode`/`addJourneySelectedChapters` on navigating
+      to *any* screen other than `'browse'` — a deliberately broader
+      safety net than just "the cancel button," so the mode can never be
+      left silently active in the background for a later, unrelated
+      Browse visit to stumble into (e.g. via "People in {book}" or a
+      bottom-nav tap), and so leaving without confirming always leaves
+      the library genuinely untouched.
+    - **A real pre-existing bug found and fixed along the way, not
+      introduced by this feature but badly exposed by it**:
+      `addToLibrary()`'s own guard for "copy a never-seen corpus verse
+      into `data.verses`" read `if(!findVerse(verseId))` — but item 153
+      (2026-09-23) had changed `findVerse()` to also fall back to
+      `corpus`, so for any verse already present in the full 31,098-verse
+      corpus (effectively every verse in the Bible), `findVerse()` always
+      returned truthy and this branch silently never ran. The verse id
+      still landed in `content.libraryVerseIds`, so it *looked* added,
+      but `libraryVerses()` filters `data.verses` by those ids — so an
+      added verse that wasn't already part of the curated set would
+      never actually appear anywhere in Practice. This almost certainly
+      already silently affected single-verse adds from Browse search
+      results for any non-curated verse before this fix, not just this
+      new bulk flow — caught here because adding 56 verses at once made
+      the gap impossible to miss in testing (0 of them showed up in
+      `shepherdUnits()` on the first pass). Fixed by checking
+      `data.verses` directly instead of `findVerse()`, matching what the
+      function's own existing comment already said it should do.
+    - **Verified with the isolated Playwright setup**: the full flow
+      (Practice → + → Add chapters → pick Genesis 1 & 2 → confirm →
+      both appear as real, correctly-counted units on the path, with
+      `content.libraryVerseIds` and `data.verses` both verified
+      directly, not just the rendered screenshot), the already-added
+      checkmark state on revisit, the cancel path leaving the library
+      untouched, and a regression check confirming Browse's existing
+      single-verse search → Add flow still works. Checked in both
+      themes.
+    `sw.js` bumped to `rooted-v172`.
 
 ---
 
