@@ -8776,6 +8776,57 @@ inventing a new principle:
       single-verse search → Add flow still works. Checked in both
       themes.
     `sw.js` bumped to `rooted-v172`.
+175. **Topics content-quality pass: Fear/Peace re-curated for context, new
+    "Anxiety" topic added — done (2026-11-12).** Owner's report: opening
+    Fear or Peace surfaced verses that only matched on keyword ("afraid,"
+    "peace"), not on actually being encouraging — e.g. Genesis 34:30
+    (Jacob's own fearful lament to his sons after Shechem), Esther 3:13
+    (the text of the decree to annihilate the Jews), Acts 5:5 (Ananias
+    struck dead), and Matthew 26:63 ("Jesus held his peace," meaning he
+    stayed silent — a different sense of "peace" entirely). This is the
+    exact failure mode `tag_verses.py`'s own design note already warns
+    about ("keyword matching can't read metaphor") — these had evidently
+    slipped past hand-curation anyway. Fixed by re-reading every verse in
+    both topics against its real surrounding context, not its keyword
+    alone:
+    - **`topic_fear`**: 16 removed — either narrative description of
+      someone's fear with no reassurance attached (Numbers 13:31/33, the
+      spies' unbelief; 1 Samuel 21:1, Ahimelech trembling; 1 Samuel 27:1,
+      David's despair; John 9:22, the parents' fear of the Pharisees),
+      someone else being named as fearsome (Genesis 26:16, Numbers 22:6),
+      or a once-removed/unrelated sense of "feared" (Ezra 3:3/4:4,
+      1 Kings 18:7/18:12, 1 Kings 19:4 — Elijah's own death wish, kept
+      only under `topic_sorrow`). What remains is every verse actually
+      offering reassurance against fear ("don't be afraid," "I will
+      strengthen you," etc.) — 33 verses, all genuinely encouraging.
+    - **`topic_peace`**: 9 removed on the same basis — Matthew 26:52/26:63
+      (unrelated senses: a rebuke about swords, "held his peace" meaning
+      silence), farewell-blessing uses with no comfort content (1 Samuel
+      20:42, 2 Kings 6:23), Numbers 25:12 (a reward covenant, not comfort),
+      Judges 3:30/Isaiah 11:6 (scene-setting/future-vision, not personal
+      peace), Proverbs 17:22 (about a cheerful heart, not peace), Luke
+      2:29 (Simeon's readiness for death, a different comfort than
+      anxiety). 25 verses remain.
+    - **New `topic_anxiety`** ("What to do with worry, and who to hand it
+      to."), added rather than just folding into Fear/Peace, per the
+      owner's own framing of this as a distinct, specific need —
+      confirmed directly rather than assumed (AskUserQuestion). 16 curated
+      verses: the owner's own two named examples (John 14:27, 1 Peter
+      5:6-7 — 5:6 newly curated, 5:7 already existed under `topic_trust`
+      and keeps that tag too, multi-topic tagging being this schema's
+      existing norm, item 2's §8.9) plus Philippians 4:6-7, Matthew 6:34
+      and 11:28-30, Psalms 55:22 and 94:19, Proverbs 12:25 (the one WEB
+      verse that names "anxiety" directly, newly curated), and Luke
+      10:40-42 (Martha and Mary) — **moved** out of `topic_peace`, not
+      duplicated, since Jesus's own line to Martha ("you are anxious and
+      troubled") is a far more exact fit here than under Peace. `TOPIC_
+      ICONS` gets a `ti-wind` entry; color is automatic (the existing
+      hash-based `topicColor()`, item 62-64 — no lookup-table change
+      needed there). All edits went through the normal pipeline
+      discipline — `pipeline/curation/starter_pack.json`, then
+      `pipeline/build_starter_pack.py --check` before actually writing —
+      not a direct edit to the generated `data/starter-pack.json`.
+    `sw.js` bumped to `rooted-v173`.
 
 ---
 

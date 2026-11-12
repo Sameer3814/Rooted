@@ -933,7 +933,8 @@
         "topic_fear",
         "topic_peace",
         "topic_refuge",
-        "topic_strength"
+        "topic_strength",
+        "topic_anxiety"
       ],
       "characterIds": []
     },
@@ -2536,20 +2537,6 @@
       ]
     },
     {
-      "id": "verse_numbers_13_31",
-      "topicIds": [
-        "topic_fear"
-      ],
-      "characterIds": []
-    },
-    {
-      "id": "verse_numbers_13_33",
-      "topicIds": [
-        "topic_fear"
-      ],
-      "characterIds": []
-    },
-    {
       "id": "verse_numbers_14_9",
       "topicIds": [
         "topic_trust",
@@ -3087,7 +3074,6 @@
     {
       "id": "verse_judges_3_30",
       "topicIds": [
-        "topic_peace",
         "topic_deliverance"
       ],
       "characterIds": []
@@ -3607,8 +3593,7 @@
     {
       "id": "verse_1samuel_20_42",
       "topicIds": [
-        "topic_covenant",
-        "topic_peace"
+        "topic_covenant"
       ],
       "characterIds": [
         "char_jonathan",
@@ -4320,8 +4305,7 @@
     {
       "id": "verse_1kings_19_4",
       "topicIds": [
-        "topic_sorrow",
-        "topic_fear"
+        "topic_sorrow"
       ],
       "characterIds": [
         "char_elijah"
@@ -4577,9 +4561,7 @@
     },
     {
       "id": "verse_2kings_6_23",
-      "topicIds": [
-        "topic_peace"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_elisha"
       ]
@@ -5354,7 +5336,6 @@
     {
       "id": "verse_ezra_3_3",
       "topicIds": [
-        "topic_fear",
         "topic_worship"
       ],
       "characterIds": [
@@ -5374,13 +5355,6 @@
       "id": "verse_ezra_3_12",
       "topicIds": [
         "topic_sorrow"
-      ],
-      "characterIds": []
-    },
-    {
-      "id": "verse_ezra_4_4",
-      "topicIds": [
-        "topic_fear"
       ],
       "characterIds": []
     },
@@ -5704,9 +5678,7 @@
     },
     {
       "id": "verse_esther_3_13",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_haman"
       ]
@@ -5725,8 +5697,7 @@
     {
       "id": "verse_esther_4_16",
       "topicIds": [
-        "topic_trust",
-        "topic_fear"
+        "topic_trust"
       ],
       "characterIds": [
         "char_esther"
@@ -6103,13 +6074,6 @@
       "characterIds": []
     },
     {
-      "id": "verse_proverbs_17_22",
-      "topicIds": [
-        "topic_peace"
-      ],
-      "characterIds": []
-    },
-    {
       "id": "verse_proverbs_18_10",
       "topicIds": [
         "topic_refuge"
@@ -6403,13 +6367,6 @@
       "characterIds": []
     },
     {
-      "id": "verse_isaiah_11_6",
-      "topicIds": [
-        "topic_peace"
-      ],
-      "characterIds": []
-    },
-    {
       "id": "verse_isaiah_12_2",
       "topicIds": [
         "topic_trust"
@@ -6484,7 +6441,8 @@
       "id": "verse_isaiah_41_10",
       "topicIds": [
         "topic_fear",
-        "topic_strength"
+        "topic_strength",
+        "topic_anxiety"
       ],
       "characterIds": []
     },
@@ -7755,7 +7713,6 @@
     {
       "id": "verse_luke_2_29",
       "topicIds": [
-        "topic_peace",
         "topic_waiting"
       ],
       "characterIds": []
@@ -8626,7 +8583,8 @@
     {
       "id": "verse_john_14_27",
       "topicIds": [
-        "topic_peace"
+        "topic_peace",
+        "topic_anxiety"
       ],
       "characterIds": [
         "char_jesus"
@@ -8698,9 +8656,7 @@
     },
     {
       "id": "verse_matthew_26_52",
-      "topicIds": [
-        "topic_peace"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_jesus"
       ]
@@ -8714,9 +8670,7 @@
     },
     {
       "id": "verse_matthew_26_63",
-      "topicIds": [
-        "topic_peace"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_jesus",
         "char_caiaphas"
@@ -9928,14 +9882,16 @@
     {
       "id": "verse_philippians_4_6",
       "topicIds": [
-        "topic_prayer"
+        "topic_prayer",
+        "topic_anxiety"
       ],
       "characterIds": []
     },
     {
       "id": "verse_philippians_4_7",
       "topicIds": [
-        "topic_peace"
+        "topic_peace",
+        "topic_anxiety"
       ],
       "characterIds": []
     },
@@ -10363,7 +10319,8 @@
     {
       "id": "verse_1peter_5_7",
       "topicIds": [
-        "topic_trust"
+        "topic_trust",
+        "topic_anxiety"
       ],
       "characterIds": []
     },
@@ -11481,9 +11438,7 @@
     },
     {
       "id": "verse_genesis_34_30",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_jacob",
         "char_simeon",
@@ -11874,9 +11829,7 @@
     },
     {
       "id": "verse_1samuel_21_1",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_ahimelech"
       ]
@@ -11932,13 +11885,6 @@
     {
       "id": "verse_1samuel_21_13",
       "topicIds": [],
-      "characterIds": []
-    },
-    {
-      "id": "verse_1samuel_27_1",
-      "topicIds": [
-        "topic_fear"
-      ],
       "characterIds": []
     },
     {
@@ -12081,8 +12027,7 @@
     {
       "id": "verse_numbers_25_12",
       "topicIds": [
-        "topic_covenant",
-        "topic_peace"
+        "topic_covenant"
       ],
       "characterIds": [
         "char_phinehas"
@@ -12472,13 +12417,6 @@
       ]
     },
     {
-      "id": "verse_john_9_22",
-      "topicIds": [
-        "topic_fear"
-      ],
-      "characterIds": []
-    },
-    {
       "id": "verse_john_9_25",
       "topicIds": [
         "topic_faith",
@@ -12672,9 +12610,7 @@
     },
     {
       "id": "verse_1kings_18_7",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_obadiah"
       ]
@@ -12682,7 +12618,6 @@
     {
       "id": "verse_1kings_18_12",
       "topicIds": [
-        "topic_fear",
         "topic_faithfulness"
       ],
       "characterIds": [
@@ -12808,8 +12743,7 @@
     {
       "id": "verse_acts_5_5",
       "topicIds": [
-        "topic_justice",
-        "topic_fear"
+        "topic_justice"
       ],
       "characterIds": [
         "char_ananias"
@@ -13065,9 +12999,7 @@
     },
     {
       "id": "verse_genesis_26_16",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_abimelech_king_of_gerar"
       ]
@@ -13088,9 +13020,7 @@
     },
     {
       "id": "verse_numbers_22_6",
-      "topicIds": [
-        "topic_fear"
-      ],
+      "topicIds": [],
       "characterIds": [
         "char_balak"
       ]
@@ -13441,7 +13371,7 @@
     {
       "id": "verse_luke_10_40",
       "topicIds": [
-        "topic_peace"
+        "topic_anxiety"
       ],
       "characterIds": [
         "char_martha"
@@ -13450,7 +13380,7 @@
     {
       "id": "verse_luke_10_41",
       "topicIds": [
-        "topic_peace"
+        "topic_anxiety"
       ],
       "characterIds": [
         "char_martha"
@@ -13459,7 +13389,7 @@
     {
       "id": "verse_luke_10_42",
       "topicIds": [
-        "topic_peace"
+        "topic_anxiety"
       ],
       "characterIds": [
         "char_mary_of_bethany"
@@ -14550,6 +14480,72 @@
       "id": "verse_judges_21_25",
       "topicIds": [],
       "characterIds": []
+    },
+    {
+      "id": "verse_psalms_55_22",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": [
+        "char_david"
+      ]
+    },
+    {
+      "id": "verse_psalms_94_19",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_proverbs_12_25",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": []
+    },
+    {
+      "id": "verse_matthew_6_34",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_11_28",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_11_29",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_matthew_11_30",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": [
+        "char_jesus"
+      ]
+    },
+    {
+      "id": "verse_1peter_5_6",
+      "topicIds": [
+        "topic_anxiety"
+      ],
+      "characterIds": []
     }
   ],
   "topics": [
@@ -14636,7 +14632,8 @@
         "topic_refuge",
         "topic_trust",
         "topic_peace",
-        "topic_strength"
+        "topic_strength",
+        "topic_anxiety"
       ]
     },
     {
@@ -14698,7 +14695,8 @@
       "relatedTopicIds": [
         "topic_trust",
         "topic_refuge",
-        "topic_fear"
+        "topic_fear",
+        "topic_anxiety"
       ]
     },
     {
@@ -14800,7 +14798,8 @@
         "topic_faith",
         "topic_refuge",
         "topic_waiting",
-        "topic_peace"
+        "topic_peace",
+        "topic_anxiety"
       ]
     },
     {
@@ -14948,6 +14947,17 @@
       "relatedTopicIds": [
         "topic_love",
         "topic_faithfulness"
+      ]
+    },
+    {
+      "id": "topic_anxiety",
+      "name": "Anxiety",
+      "description": "What to do with worry, and who to hand it to.",
+      "relatedTopicIds": [
+        "topic_fear",
+        "topic_peace",
+        "topic_trust",
+        "topic_refuge"
       ]
     }
   ],

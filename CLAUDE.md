@@ -1169,6 +1169,25 @@ The schema was deliberately designed so all of the above can be added
   state, the cancel path, and a Browse-search regression check, in both
   themes. `sw.js` bumped to `rooted-v172`. See DATA_MODEL.md §8, item
   174.
+- **Topics content-quality pass: Fear/Peace re-curated for context, new
+  "Anxiety" topic — done (2026-11-12).** Owner's report: Fear and Peace
+  were surfacing verses that only matched a keyword ("afraid," "peace"),
+  not verses that were actually encouraging — e.g. Genesis 34:30 (Jacob's
+  own fearful lament), Esther 3:13 (the decree to kill the Jews), and
+  Matthew 26:63 ("Jesus held his peace," i.e. stayed silent — an unrelated
+  sense of the word). Re-read every verse in both topics against its real
+  context: 16 removed from Fear, 9 from Peace, leaving 33 and 25
+  genuinely-reassuring verses respectively. Added a new `topic_anxiety`
+  ("What to do with worry, and who to hand it to") with 16 verses,
+  including the owner's own named examples (John 14:27, 1 Peter 5:6-7)
+  plus Philippians 4:6-7, Matthew 6:34/11:28-30, Psalms 55:22/94:19,
+  Proverbs 12:25, and Luke 10:40-42 (Martha and Mary) — moved out of
+  Peace, not duplicated, since Jesus's own line to Martha ("you are
+  anxious and troubled") fits Anxiety far better. All edits went through
+  the normal curation pipeline (`pipeline/curation/starter_pack.json` →
+  `build_starter_pack.py`), not a direct edit to the generated
+  `data/starter-pack.json`. `sw.js` bumped to `rooted-v173`. See
+  DATA_MODEL.md §8, item 175.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
