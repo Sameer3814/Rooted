@@ -9158,6 +9158,75 @@ inventing a new principle:
     concrete example before building, rather than guessing a second
     time. `sw.js` bumped to `rooted-v181`.
 
+180. **Real sub-chapter units — Shepherd's Path splits a long chapter
+    into its own real sections instead of one unit per whole chapter —
+    done (2026-11-13), same day, second follow-up to item 178.** Owner:
+    "I want to break down each unit by sections of a particular
+    chapter. For example, Romans chapter 1 has 2 sections in the
+    bible. We'll make each section 1 unit and for the chapter which
+    doesn't have sections but are very long we'll try to split them
+    into half or more based on their size." This app has no licensed
+    source for a study-Bible's own editorial section headings (and the
+    owner's own "2 sections" example is one such scheme's count, not a
+    fact about the WEB text itself) — rather than guess at or fabricate
+    heading text, used the WEB translation's own **real** literary
+    paragraph breaks instead, which the source JSON already marks
+    ("paragraph start" entries `parse_books.py` reads but doesn't keep)
+    — verified against Romans 1 directly: 5 real paragraph breaks (at
+    verses 1, 8, 13, 22, 26), not the 2 the owner's example named, but
+    genuinely present in the source text, not invented.
+    - New `pipeline/parse_chapter_sections.py` (same source/cache as
+      `parse_books.py`) → `data/chapter_sections.json`, a flat object
+      keyed `"{book}|{chapter}"` → the ascending verse numbers where
+      each real paragraph starts (e.g. `"Romans|1": [1,8,13,22,26]`).
+      1,189 chapter entries (the whole Bible); 310 of them have no
+      internal paragraph break at all and just get `[1]` — mostly short
+      Psalms, correctly not padded to look like more structure than the
+      text has. Loaded at boot (`loadChapterSections()`, ~90KB,
+      precached in `sw.js`), same treatment as `motifs.json`/
+      `connections.json`.
+    - `shepherdUnits()` (item 178/179's own home) restructured into two
+      passes: a coarse pass (topic, or one whole chapter — unchanged
+      from before) producing natural add-order, then an expansion pass,
+      `chapterSubUnits()`, that only touches chapter-bucket groups —
+      splits by the real paragraph boundaries above when more than one
+      exists, otherwise treats the whole chapter as one section. Either
+      way, a new size cap, `SHEPHERD_MAX_SECTION_SIZE` (15 verses),
+      applies on top — this is the owner's own explicit fallback
+      ("split them into half or more based on their size") and also
+      catches a real paragraph that's still long on its own. Verified
+      directly: Romans 1 (32 verses) → 5 real sections, none needing a
+      further size split (7/5/9/4/7 verses each); Psalm 119 (176
+      verses, zero real paragraph breaks in the source) → 12
+      size-based chunks of ~15; Philemon 1 (8 real paragraph breaks in
+      just 25 verses, several of them a single verse) → 8 small real
+      sections, left as-is rather than imposing an artificial minimum
+      size, since they're genuinely how the source text's own
+      paragraphs fall.
+    - A multi-section chapter's sub-units get their own stable keys
+      (`${chbucketKey}#0`, `#1`, ...) rather than sharing the whole
+      chapter's key, so item 179's reorder/remove screen
+      (`renderManageUnits()`) already works on individual sections with
+      no changes needed there — a user can push "Romans 1 (1-7)" ahead
+      of "Romans 1 (8-12)," or remove just one section, independently.
+    - **A known, not-yet-fixed side effect of item 179's own reorder
+      feature, surfaced (not caused) by this pass**: chest/trophy
+      "opened"/"claimed" state (`settings.chestsOpened`/
+      `trophiesClaimed`) is keyed by each unit's *positional* index in
+      the array `shepherdUnits()` returns (`'c' + i + '-' + ...`,
+      `'t' + i`), not by the unit's own stable `key`. Reordering units
+      changes which unit occupies a given position, so a previously-
+      opened chest's reward state could attach to a different unit
+      after a reorder. Pre-existing as of item 179 (reordering didn't
+      exist before it to expose this); flagged here rather than
+      silently left for whoever hits it next — a real fix would key
+      chests/trophies off each unit's own `key` instead of its
+      position.
+    - `pipeline/README.md` gained a matching section for the new
+      script, and `py pipeline/parse_chapter_sections.py --check`
+      confirms `data/chapter_sections.json` is reproducible from the
+      same cached source every time. `sw.js` bumped to `rooted-v182`.
+
 ---
 
 ## 9. How the app reads this data

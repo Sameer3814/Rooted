@@ -1,4 +1,4 @@
-const CACHE = 'rooted-v181';
+const CACHE = 'rooted-v182';
 // data/verses.json (~8MB, the entire 66-book Bible) is deliberately NOT precached — it's fetched lazily
 // the first time Browse is opened, and the runtime cache below picks it up then. Character
 // portraits (data/character_portraits.json + media/characters/*.jpg, item 91) get the same
@@ -9,9 +9,11 @@ const CACHE = 'rooted-v181';
 // data/interlinear_nt.json (~3.9MB, item 151 batch 2) are lazy per-testament too — fetched
 // only when a Verse Detail's Hebrew/Greek toggle is actually opened.
 // starter-pack.json, stories.json, motifs.json, connections.json, word_of_the_day.json,
-// daily_facts.json (item 116), and lexicon_seed.json (item 150) all load at boot, so they
-// belong here. church_history.json was removed (item 117, the whole feature was retired)
-// — no longer precached.
+// daily_facts.json (item 116), lexicon_seed.json (item 150), and chapter_sections.json
+// (item 180 follow-up, ~90KB — real WEB paragraph-break data Shepherd's Path uses to split
+// a long added chapter into real sub-chapter units) all load at boot, so they belong here.
+// church_history.json was removed (item 117, the whole feature was retired) — no longer
+// precached.
 // The two Home placeholder photos (item 83) render on every Home visit, so they're worth
 // precaching too.
 const ASSETS = ['./', './index.html', './manifest.json', './icon.png',
@@ -20,6 +22,7 @@ const ASSETS = ['./', './index.html', './manifest.json', './icon.png',
                 './data/word_of_the_day.json',
                 './data/daily_facts.json',
                 './data/lexicon_seed.json',
+                './data/chapter_sections.json',
                 './media/home/votd-placeholder.jpg', './media/home/story-placeholder.jpg'];
 
 self.addEventListener('install', e=>{

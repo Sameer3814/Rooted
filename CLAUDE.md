@@ -1374,6 +1374,29 @@ The schema was deliberately designed so all of the above can be added
   `removeFromLibrary()` over every verse in that unit, behind a
   `confirm()`. `sw.js` bumped to `rooted-v181`. See DATA_MODEL.md §8,
   item 179.
+- **Real sub-chapter units — a long chapter splits into its own real
+  sections instead of one unit per whole chapter — done (2026-11-13),
+  second follow-up to the item above.** No licensed source exists for
+  a study-Bible's own editorial section headings, so rather than guess
+  at those, used the WEB translation's own real literary paragraph
+  breaks instead — present in the source JSON `parse_books.py` already
+  reads but previously discarded. New `pipeline/parse_chapter_sections.
+  py` → `data/chapter_sections.json` (loaded at boot, ~90KB, 1,189
+  chapter entries) records each chapter's real paragraph-start verse
+  numbers. `shepherdUnits()` now splits a chapter-bucket unit along
+  those boundaries via `chapterSubUnits()`, with a size cap
+  (`SHEPHERD_MAX_SECTION_SIZE`, 15 verses) applied on top for a single
+  real paragraph that's still long on its own, or a chapter with no
+  internal paragraph break at all (e.g. Psalm 119 → 12 size-based
+  chunks). Each sub-section gets its own stable key
+  (`${chbucketKey}#0`, `#1`, ...), so item 179's reorder/remove screen
+  already works on individual sections with no changes needed there.
+  **Known side effect, flagged not fixed**: chest/trophy reward state
+  is keyed by each unit's positional index, not its own stable key, so
+  reordering units (item 179) can misattach a previously-opened chest's
+  state after the fact — pre-existing as of item 179, just surfaced by
+  this pass. `sw.js` bumped to `rooted-v182`. See DATA_MODEL.md §8,
+  item 180.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

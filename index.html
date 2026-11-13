@@ -2250,6 +2250,22 @@ async function loadMotifs(){
   }catch(e){ /* Motifs screens just won't render */ }
   return [];
 }
+/* Real paragraph-break boundaries from the WEB source itself (item 180
+   follow-up, "I want to break down each unit by sections of a particular
+   chapter"), keyed "{book}|{chapter}" -> ascending verse numbers where a
+   new paragraph starts (pipeline/parse_chapter_sections.py). Deliberately
+   the WEB translation's own real paragraph structure, not an invented or
+   guessed heading scheme — this app has no licensed source for a study-
+   Bible's own section headings, and the standing "curated, not invented"
+   rule applies here too. Falls back to {} (shepherdUnits() then falls
+   back to its own pure size-based split) if the fetch fails. */
+async function loadChapterSections(){
+  try{
+    const res = await fetch('./data/chapter_sections.json');
+    if(res.ok) return await res.json();
+  }catch(e){ /* shepherdUnits() falls back to a pure size-based split */ }
+  return {};
+}
 
 /* Word of the Day (Hebrew/Greek) and This Day in Church History — small,
    static reference datasets for two new Home cards (DATA_MODEL.md §8,
@@ -2704,6 +2720,7 @@ let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
 let motifs = [];  // seed-only: recurring biblical patterns (DATA_MODEL.md §2)
+let chapterSections = {};  // seed-only: real WEB paragraph-start boundaries, "{book}|{chapter}" -> [verse,...] (item 180 follow-up)
 let wordsOfTheDay = [];    // seed-only: curated Hebrew/Greek words (item 89)
 let dailyFacts = [];       // seed-only: curated + verified Bible facts (item 116)
 let factDrawerOpen = null; // fact id whose detail sheet is open, or null — see renderFactDrawer()
@@ -6825,31 +6842,87 @@ function shepherdDone(v){ return getProgress(v.id).status !== 'new'; }
    keys), set by `renderManageUnits()`'s up/down controls — any key
    present there wins its position, any key not yet placed (a unit that
    didn't exist the last time the user reordered) falls after all
-   placed ones, in its own natural add-order. */
+   placed ones, in its own natural add-order.
+   Sub-chapter sections (owner request, 2026-11-13: "I want to break
+   down each unit by sections of a particular chapter... for the
+   chapter which doesn't have sections but are very long we'll try to
+   split them into half or more based on their size") — a chapter
+   bucket no longer becomes exactly one unit; `chapterSubUnits()` below
+   splits it into one unit per real WEB paragraph (`chapterSections`,
+   `pipeline/parse_chapter_sections.py` — the translation's own actual
+   paragraph breaks, not an invented/guessed heading scheme), then
+   applies a pure size cap (`SHEPHERD_MAX_SECTION_SIZE`) on top of
+   each resulting piece, so a single very long real paragraph (or a
+   chapter with no internal paragraph break at all, e.g. Psalm 119)
+   still gets cut down to lesson-sized units. A multi-section chapter's
+   sub-units get their own stable keys (`${chbucketKey}#0`, `#1`, ...)
+   so they can be individually reordered or removed via
+   `renderManageUnits()`, same as any other unit. */
+const SHEPHERD_MAX_SECTION_SIZE = 15;
+function splitBySize(verses, maxSize){
+  if(verses.length <= maxSize) return [verses];
+  const parts = Math.ceil(verses.length / maxSize);
+  const per = Math.ceil(verses.length / parts);
+  const out = [];
+  for(let i = 0; i < verses.length; i += per) out.push(verses.slice(i, i + per));
+  return out;
+}
+function chapterSubUnits(verses){
+  // verses: every library verse of one book+chapter, already sorted ascending by verse.
+  const starts = chapterSections[`${verses[0].book}|${verses[0].chapter}`];
+  const sections = (starts && starts.length > 1)
+    ? starts.map((start, i) => {
+        const end = i + 1 < starts.length ? starts[i + 1] : Infinity;
+        return verses.filter(v => v.verse >= start && v.verse < end);
+      }).filter(g => g.length)
+    : [verses];
+  return sections.flatMap(g => splitBySize(g, SHEPHERD_MAX_SECTION_SIZE));
+}
 function shepherdUnits(){
   const idOrder = content.libraryVerseIds || [];
-  const byId = {};
-  libraryVerses().forEach(v=>{ byId[v.id] = v; });
-  const order = [];      // group key order, first-seen (natural add-order)
-  const groups = {};     // group key -> verse[]
+  const byId = {}, canonicalIndex = {};
+  libraryVerses().forEach((v, i)=>{ byId[v.id] = v; canonicalIndex[v.id] = i; });
+
+  // Coarse grouping — one topic, or one whole chapter — in natural add-order.
+  const coarseOrder = [];
+  const coarseGroups = {};
   idOrder.forEach(id=>{
     const v = byId[id];
     if(!v) return; // defensive: an id that no longer resolves to a real verse
     const key = v.topicIds[0] || `chbucket_${v.book}_${v.chapter}`;
-    if(!groups[key]){ groups[key] = []; order.push(key); }
-    groups[key].push(v);
+    if(!coarseGroups[key]){ coarseGroups[key] = []; coarseOrder.push(key); }
+    coarseGroups[key].push(v);
   });
-  const manual = (content.unitOrder || []).filter(k => groups[k]);
-  if(manual.length){
-    const manualSet = new Set(manual);
-    order.length = 0;
-    order.push(...manual, ...Object.keys(groups).filter(k => !manualSet.has(k)));
-  }
-  return order.map((key, i)=>{
-    const isChapterBucket = key.startsWith('chbucket_');
-    const topic = isChapterBucket ? null : findTopic(key);
+
+  // Expand each coarse group into its real final unit(s) — a topic group
+  // stays one unit; a chapter bucket splits per chapterSubUnits() above.
+  const raw = []; // {key, title, verses}[], in natural add-order
+  coarseOrder.forEach(key=>{
+    const verses = coarseGroups[key].slice().sort((a, b) => canonicalIndex[a.id] - canonicalIndex[b.id]);
+    if(!key.startsWith('chbucket_')){
+      const topic = findTopic(key);
+      raw.push({ key, title: topic ? topic.name : 'Your Verses', verses });
+      return;
+    }
+    const subUnits = chapterSubUnits(verses);
+    const chapterLabel = `${verses[0].book} ${verses[0].chapter}`;
+    subUnits.forEach((sub, i)=>{
+      const subKey = subUnits.length > 1 ? `${key}#${i}` : key;
+      const title = subUnits.length > 1 ? `${chapterLabel} (${sub[0].verse}-${sub[sub.length - 1].verse})` : chapterLabel;
+      raw.push({ key: subKey, title, verses: sub });
+    });
+  });
+
+  const byKey = {};
+  raw.forEach(u => { byKey[u.key] = u; });
+  const manual = (content.unitOrder || []).filter(k => byKey[k]);
+  const ordered = manual.length
+    ? [...manual.map(k => byKey[k]), ...raw.filter(u => !new Set(manual).has(u.key))]
+    : raw;
+
+  return ordered.map((u, i)=>{
     const color = SHEPHERD_UNIT_COLORS[i % SHEPHERD_UNIT_COLORS.length];
-    const verses = groups[key];
+    const verses = u.verses;
     // Insert a chest after every 2 lesson stops, a trophy at unit end —
     // same shape as the design's hard-coded UNITS.items.
     const items = [];
@@ -6858,8 +6931,7 @@ function shepherdUnits(){
       if((vi + 1) % 2 === 0 && vi + 1 < verses.length) items.push('c' + i + '-' + items.length);
     });
     items.push('t' + i);
-    const title = topic ? topic.name : (isChapterBucket ? `${verses[0].book} ${verses[0].chapter}` : 'Your Verses');
-    return { n: i + 1, key, title, c: color.c, d: color.d, verses, items };
+    return { n: i + 1, key: u.key, title: u.title, c: color.c, d: color.d, verses, items };
   });
 }
 function shepherdCurrent(units){
@@ -8248,6 +8320,7 @@ async function migrateLegacy(seedContent){
   lore = await loadStories();
   connections = await loadConnections();
   motifs = await loadMotifs();
+  chapterSections = await loadChapterSections();
   wordsOfTheDay = await loadWordOfTheDayData();
   dailyFacts = await loadDailyFactsData();
   lexicon = await loadLexiconData();

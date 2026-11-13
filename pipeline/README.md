@@ -26,6 +26,23 @@ Use `--source-dir DIR` to parse from a local copy instead of the network.
 Book slugs match the source filenames and the slug inside verse ids —
 `genesis` → `verse_genesis_1_1`, `songofsolomon`, `1samuel`, and so on.
 
+### `parse_chapter_sections.py` — WEB source → `data/chapter_sections.json`
+Same source/cache as `parse_books.py`, but reads the "paragraph start"
+markers instead of the verse text — the WEB translation's own real
+literary paragraph breaks, used by Shepherd's Path (item 180 follow-up)
+to split a long added chapter into real sub-chapter units rather than one
+unit per whole chapter. Not an invented/guessed study-Bible heading scheme
+— there's no licensed source for one, and this project doesn't fabricate
+content it can't verify (see CLAUDE.md). A chapter with no internal
+paragraph break at all (several Psalms) just gets `[1]`; the app's own
+`SHEPHERD_MAX_SECTION_SIZE` size-based fallback handles those.
+
+```sh
+py pipeline/parse_chapter_sections.py              # all 66 books
+py pipeline/parse_chapter_sections.py --books romans
+py pipeline/parse_chapter_sections.py --check       # dry run, exit 1 if the output would change
+```
+
 ### `build_starter_pack.py` — curation + corpus → `data/starter-pack.json`
 Takes `curation/starter_pack.json` (verse ids + their topic/character links,
 plus the full Topic and Character records) and joins it against
