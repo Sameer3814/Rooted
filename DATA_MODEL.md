@@ -9066,6 +9066,32 @@ inventing a new principle:
     owner's own reference usage example), since Home's sky previously
     had no clouds in either theme. `sw.js` bumped to `rooted-v179`.
 
+178. **Daily-goal picker added to Shepherd's Path's own topbar — done
+    (2026-11-13).** Owner request: set `settings.dailyGoal` right from
+    the Practice tab instead of needing Settings for it (where item 31's
+    original 5/10/15/20/25 segmented picker, `renderGoalCard()`, still
+    lives untouched — both now write the same setting, so changing it
+    in either place keeps the other in sync). A new `.sp-pill.sp-goal`
+    button joins the existing streak/gems/hearts/level pills in
+    `renderShepherdPath()`'s topbar — a bullseye icon + the current
+    goal number — opening `shepherdGoalPopover()` (the same
+    `DAILY_GOAL_OPTIONS` array, restyled to this screen's own card/
+    button tokens) below it on tap. A new one-shot action,
+    `sp-set-daily-goal`, writes the setting and closes the popover —
+    deliberately a separate action from Settings' own `set-daily-goal`
+    (same write, `settings.dailyGoal = +id`) rather than reusing it
+    directly, so it gets the `sp-*`-prefix `stopPropagation` treatment
+    every other in-popover action on this screen already relies on
+    (`onAction()`, ~line 7645) — without it, the click would also
+    bubble into the topbar's own `sp-dismiss` listener on the stale
+    pre-render element tree and immediately re-close what it just
+    opened. `shepherd-topbar` itself gained `data-action="sp-dismiss"`
+    (it had none before) so tapping blank topbar space closes an open
+    goal popover the same way tapping the path area already closes a
+    stop's popover; `sp-dismiss`'s own handler now checks and clears
+    both `shepherdSel` and the new `shepherdGoalPickerOpen` flag. `sw.js`
+    bumped to `rooted-v180`.
+
 ---
 
 ## 9. How the app reads this data
