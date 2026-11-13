@@ -9227,6 +9227,45 @@ inventing a new principle:
       confirms `data/chapter_sections.json` is reproducible from the
       same cached source every time. `sw.js` bumped to `rooted-v182`.
 
+181. **Treasure chests fixed: a real, confirmed-by-simulation bug let
+    the same chest be opened for gems repeatedly — done (2026-11-13),
+    same day, closes the "known side effect" item 180 flagged.** Owner:
+    "Let's fix the treasure chest feature." Two bugs, same root cause —
+    chest/trophy reward state was never keyed consistently:
+    - **The actual bug** (pre-existing since the chest/trophy feature's
+      original build, not introduced by items 179/180): the chest's
+      "ready" button and the trophy popover's "Claim" button both used
+      `key` — the combined `unitNumber + '-' + itemId` identity every
+      *other* stop/button here uses to open/close its own popover — as
+      the value written into `settings.chestsOpened`/`trophiesClaimed`.
+      But the `opened`/`claimed` checks that decide whether to show
+      "ready" at all have always compared against the bare item id
+      (`it`) alone. Those two never matched, so `opened`/`claimed`
+      could never become `true` from the stored value — `ready` stayed
+      `true` forever, letting the same chest (or trophy) be tapped
+      again and again for repeated gems. Verified directly with a
+      Node simulation of the render→open→re-render cycle before and
+      after the fix — before: `{opened:false, ready:true}` on every
+      pass; after: `{opened:true, ready:false}` from the second render
+      on. Fixed by having only the actual reward-granting buttons (the
+      chest's ready state, the trophy popover's claim button) use the
+      bare `it`/`itemId` instead of `key` — every other button that
+      only toggles a popover keeps `key` unchanged.
+    - **The identity-stability half** item 180 already flagged as a
+      known gap: chest/trophy item ids are now built from each unit's
+      own stable `key` (`'c-' + u.key + '-' + n'`, `'t-' + u.key'`)
+      instead of the unit's positional index `i` in `shepherdUnits()`'s
+      output — so reordering units (item 179) can no longer reattach a
+      previously-opened chest's state to whatever different unit now
+      sits in that position. Both fixes landed together since they're
+      the same underlying "chest/trophy identity" concern.
+    - No migration needed for any pre-existing `chestsOpened`/
+      `trophiesClaimed` entries — every one of them was already a
+      combined-`key`-format string that the `opened`/`claimed` checks
+      never actually matched even before this fix, so they were already
+      inert; they're simply orphaned garbage now, not lost real state.
+    `sw.js` bumped to `rooted-v183`.
+
 ---
 
 ## 9. How the app reads this data

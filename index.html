@@ -6924,13 +6924,20 @@ function shepherdUnits(){
     const color = SHEPHERD_UNIT_COLORS[i % SHEPHERD_UNIT_COLORS.length];
     const verses = u.verses;
     // Insert a chest after every 2 lesson stops, a trophy at unit end —
-    // same shape as the design's hard-coded UNITS.items.
+    // same shape as the design's hard-coded UNITS.items. Chest/trophy
+    // ids are keyed off the unit's own stable `key` (2026-11-13 fix),
+    // not its positional index `i` — a positional id meant reordering
+    // units (item 179) could silently reattach an already-opened
+    // chest's reward state to whatever different unit now sits in that
+    // same position. `key` already can't collide across units (it's
+    // either a unique topic id or a unique chbucket/section key), so
+    // "c-" + key + "-" + a running count is unique within a unit too.
     const items = [];
     verses.forEach((v, vi)=>{
       items.push(v.id);
-      if((vi + 1) % 2 === 0 && vi + 1 < verses.length) items.push('c' + i + '-' + items.length);
+      if((vi + 1) % 2 === 0 && vi + 1 < verses.length) items.push('c-' + u.key + '-' + items.length);
     });
-    items.push('t' + i);
+    items.push('t-' + u.key);
     return { n: i + 1, key: u.key, title: u.title, c: color.c, d: color.d, verses, items };
   });
 }
@@ -7203,14 +7210,20 @@ function shepherdHeartsLockedPopover(title){
    now a one-time gem claim per unit, tracked the same way chests
    already track which ones have been opened. */
 const SHEPHERD_TROPHY_REWARD = 50;
-function shepherdTrophyPopover(u, key, claimed){
+// `itemId` is the trophy's own bare, stable item id (e.g. "t-topic_fear")
+// — must match what trophiesClaimed stores and what the "claimed" check
+// above reads, NOT the combined unit-number + item-id popover identity
+// (`key`) used everywhere else to open/close this popover. Those two
+// were conflated here until 2026-11-13, so a claimed trophy could never
+// actually register as claimed.
+function shepherdTrophyPopover(u, itemId, claimed){
   const title = 'Unit ' + u.n + ' complete';
   const sub = 'Every verse in ' + esc(u.title) + ' is in your memory.';
   if(claimed) return shepherdSimplePopover(u.d, title, sub);
   return `<div class="sp-popover" style="background:${u.d};color:#fff;" data-action="sp-noop">
     <div class="sp-pop-title">${esc(title)}</div>
     <div class="sp-pop-sub">${sub}</div>
-    <button class="sp-pop-btn tap" style="background:#fff;color:${u.d};" data-action="sp-claim-trophy" data-id="${esc(key)}"><svg width="15" height="15" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path d="M6.5 3h11l4 6L12 21 2.5 9z" fill="currentColor"/></svg>Claim ${SHEPHERD_TROPHY_REWARD} gems</button>
+    <button class="sp-pop-btn tap" style="background:#fff;color:${u.d};" data-action="sp-claim-trophy" data-id="${esc(itemId)}"><svg width="15" height="15" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path d="M6.5 3h11l4 6L12 21 2.5 9z" fill="currentColor"/></svg>Claim ${SHEPHERD_TROPHY_REWARD} gems</button>
   </div>`;
 }
 /* ---------- Shepherd's Path: the Practice tab landing screen (item 160) ----------
@@ -7287,7 +7300,19 @@ function renderShepherdPath(){
       } else if(it[0] === 'c'){
         const opened = (settings.chestsOpened || []).includes(it);
         const ready = allBefore && !opened;
-        nodeHtml = `<button class="sp-chest-btn${ready ? ' sp-ready' : ''} tap" data-action="${ready ? 'sp-open-chest' : (opened ? 'sp-chest-opened' : 'sp-toggle-stop')}" data-id="${esc(key)}">${shepherdChestSvg(ready, opened)}</button>`;
+        // Real bug, fixed 2026-11-13: the ready button used to carry the
+        // same combined popover identity (`key`, unit-number + item id)
+        // every other stop/button here uses for sp-toggle-stop — but
+        // sp-open-chest stores whatever `data-id` it's given straight
+        // into settings.chestsOpened, while the `opened` check above has
+        // always compared against the bare item id (`it`). Those never
+        // matched, so a chest could never actually register as opened —
+        // `ready` stayed true forever and the same chest could be
+        // re-tapped for repeated gems. Only the ready-state button needs
+        // the fix (it's the only one that fires sp-open-chest); the
+        // other two states keep `key` since they still just toggle the
+        // stop's own popover.
+        nodeHtml = `<button class="sp-chest-btn${ready ? ' sp-ready' : ''} tap" data-action="${ready ? 'sp-open-chest' : (opened ? 'sp-chest-opened' : 'sp-toggle-stop')}" data-id="${esc(ready ? it : key)}">${shepherdChestSvg(ready, opened)}</button>`;
         reached = opened;
         if(!ready && !opened) popoverHtml = shepherdLockedPopover('Treasure chest', 'Reach this chest to open it and earn gems.');
       } else {
@@ -7296,8 +7321,12 @@ function renderShepherdPath(){
         const bg = allDone ? 'var(--sp-cta)' : 'var(--sp-lock)', sh = allDone ? 'var(--sp-ctad)' : 'var(--sp-lockd)', ic = allDone ? '#fff' : 'var(--sp-lockic)';
         nodeHtml = `<button class="sp-node tap" style="background:${bg};box-shadow:0 7px 0 ${sh};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M7 3h10v3h3a1 1 0 0 1 1 1v1a5 5 0 0 1-4.6 5A5 5 0 0 1 13 15.9V18h3v3H8v-3h3v-2.1A5 5 0 0 1 7.6 13 5 5 0 0 1 3 8V7a1 1 0 0 1 1-1h3zm10 5v3a3 3 0 0 0 2-3zM7 8H5a3 3 0 0 0 2 3z"/></svg></button>`;
         reached = allDone;
+        // Same bug as the chest's ready button, same fix: the claim
+        // button inside the popover needs the bare item id (`it`), not
+        // the combined `key` — only this trophy's own popover-open
+        // button (above) still uses `key`.
         popoverHtml = allDone
-          ? shepherdTrophyPopover(u, key, claimed)
+          ? shepherdTrophyPopover(u, it, claimed)
           : shepherdLockedPopover('Unit ' + u.n + ' trophy', 'Learn every verse in this unit to earn it.');
       }
 

@@ -1397,6 +1397,23 @@ The schema was deliberately designed so all of the above can be added
   state after the fact — pre-existing as of item 179, just surfaced by
   this pass. `sw.js` bumped to `rooted-v182`. See DATA_MODEL.md §8,
   item 180.
+- **Treasure chests fixed: a real bug let the same chest be opened for
+  gems repeatedly — done (2026-11-13), closes item 180's own flagged
+  gap.** The chest's "ready" button and the trophy popover's "Claim"
+  button both wrote `key` (the combined unit-number + item-id popover
+  identity every *other* button here uses) into `settings.chestsOpened`
+  /`trophiesClaimed`, but the `opened`/`claimed` checks that gate
+  "ready" have always compared against the bare item id alone — the two
+  never matched, so a chest/trophy could never register as opened and
+  stayed re-tappable forever. Verified with a Node simulation of the
+  render→open→re-render cycle before and after. Fixed by having only
+  the actual reward-granting buttons use the bare item id; every other
+  popover-toggle button is unchanged. Chest/trophy item ids are also
+  now built from each unit's own stable `key` instead of its positional
+  index, closing item 180's flagged reorder-attribution gap at the same
+  time. No migration needed — old stored entries were already inert
+  under the bug, not real lost state. `sw.js` bumped to `rooted-v183`.
+  See DATA_MODEL.md §8, item 181.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
