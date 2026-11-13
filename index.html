@@ -161,59 +161,39 @@
      swipe-back gesture wired in wireSwipeBack() below before it ever
      fires. Real bug, not theoretical — caught by direct device testing. */
   .app{max-width:var(--app-max-width);margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
-  /* Ambient night-sky decoration (owner request, 2026-11-13): small
-     twinkling stars + the occasional falling star, shown only while the
-     active theme for the current screen is dark. Lives as one fixed,
-     pointer-events:none layer appended directly to `body` once at boot
-     (`ensureStarField()`), never touched by render()'s own
-     app.innerHTML replacement — the same "build once, sync a class/style
-     per render instead of rebuilding" approach item 162's scroll-restore
-     fix and the navbar's own theme sync (render(), ~line 3248) already
-     use. Visibility is a plain `display` toggle driven by the same
-     dark/light determination `render()` already computes per screen,
-     not a separate theme concept.
-     Sits ABOVE `.app`, not behind it (a first real pass tried z-index:-1
-     relying on `body`'s background showing through gaps, but almost
-     every screen's `.hds-content` establishes its own stacking context
-     at z-index:1 with cards that tile the full viewport, so that layer
-     was never actually visible — confirmed, not guessed, by reading
-     `.hds-content`'s own CSS, ~line 1507). `z-index:1100` clears the
-     floating nav (1000/1001) and the Shepherd feedback sheet (1001) so
-     it's always on top; `mix-blend-mode:screen` means it only adds
-     light rather than painting an opaque layer over content — a star
-     brightens a dark background and is barely visible against a
-     light/white one, which is also why it's gated to dark mode only
-     rather than relying on the blend mode alone to hide it. */
-  #star-field{position:fixed;inset:0;z-index:1100;pointer-events:none;overflow:hidden;display:none;mix-blend-mode:screen;}
-  #star-field .star{position:absolute;background:#fff8e1;border-radius:50%;animation:starTwinkle ease-in-out infinite;}
+  /* Home's night-sky decoration (owner request, 2026-11-13; narrowed to
+     Home-only + confined to the sky itself same day after feedback — a
+     first, app-wide pass lived as a fixed full-page overlay and showed
+     stars spilling onto the grass/ground below the sky). Lives inside
+     renderHome()'s own `.hds-sky` region — `.home-sky-stars` matches
+     that region's exact bounds (`height:300px`, `overflow:hidden`) so
+     nothing paints below it, and sits at the same `z-index:0` as
+     `.hds-sky`/`.hds-sun`, behind `.hds-content` (`z-index:1`) —
+     recreated fresh on every renderHome() call, same precedent as the
+     clouds/plants elsewhere in this header. The ambient `.home-star`
+     twinkle runs continuously whenever Home is dark; the 2
+     `.home-shooting-star` elements only render at all when
+     `renderHomeSkyStars()` is called with `playFalling:true` — set only
+     by the `hds-toggle-theme` action handler on the exact light→dark
+     transition (a one-shot `homeStarsBurstPending` flag, consumed by
+     the next renderHome() call), not on every incidental render while
+     already dark. `starFall linear 1` (not `infinite`) is what makes a
+     batch play through once instead of looping. Dimmer than the first
+     pass's app-wide version, per owner feedback — lower trail-gradient
+     alpha and a smaller, softer glow on `.home-head`. */
+  .home-sky-stars{position:absolute;top:0;left:0;right:0;height:300px;overflow:hidden;pointer-events:none;z-index:0;}
+  .home-star{position:absolute;background:#fff8e1;border-radius:50%;animation:starTwinkle ease-in-out infinite;}
   @keyframes starTwinkle{0%,100%{opacity:.25;}50%{opacity:1;}}
-  /* Falling star: an outer div set to the fall angle via `transform:rotate()`,
-     holding a `.trail` that slides/fades along that rotated axis
-     (`starFall`) with a bright glowing `.head` fixed at its leading edge —
-     the recipe matches the owner's own supplied reference exactly
-     (keyframe curve, trail gradient stops, head size/glow), not a
-     reinterpretation.
-     `starFall linear 1` (not `infinite`, owner request, 2026-11-13) —
-     falling stars play once, not on a loop. The `.shooting-star`
-     batch lives in its own `#falling-stars` child, regenerated with
-     fresh randomized positions/angles/timing by `replayFallingStars()`
-     every time `go()` actually navigates to a screen (not on every
-     background `render()`, which also fires for in-place updates like
-     opening a popover) — a CSS animation only (re)plays when its
-     element is freshly inserted, so replacing that one child's
-     innerHTML is what makes it "fire once per page open" rather than
-     once ever. The ambient twinkling `.star` field is untouched by
-     this — still continuous, per the original ask. */
-  #star-field .shooting-star{position:absolute;width:0;height:0;pointer-events:none;}
-  #star-field .trail{position:absolute;left:0;top:-1px;width:84px;height:2px;border-radius:2px;opacity:0;
-    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,248,225,.9));animation:starFall linear 1;}
-  #star-field .head{position:absolute;right:-2px;top:-1.5px;width:5px;height:5px;border-radius:50%;
-    background:#fffbe9;box-shadow:0 0 8px 3px rgba(255,240,200,.7);}
+  .home-shooting-star{position:absolute;width:0;height:0;pointer-events:none;}
+  .home-trail{position:absolute;left:0;top:-1px;width:64px;height:1.5px;border-radius:2px;opacity:0;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,248,225,.5));animation:starFall linear 1;}
+  .home-head{position:absolute;right:-1.5px;top:-1px;width:3px;height:3px;border-radius:50%;
+    background:#fff6da;box-shadow:0 0 4px 1.5px rgba(255,240,200,.35);}
   @keyframes starFall{
     0%{transform:translateX(0);opacity:0;}
     2%{opacity:1;}
-    12%{transform:translateX(190px);opacity:0;}
-    100%{transform:translateX(190px);opacity:0;}
+    12%{transform:translateX(150px);opacity:0;}
+    100%{transform:translateX(150px);opacity:0;}
   }
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
@@ -3277,52 +3257,40 @@ const NAV_GROUPS = {
   discover: ['discover', 'browse', 'topics', 'characters', 'stories', 'bookPeople'],
   study: ['study', 'motifs', 'timeline', 'familyTree'],
 };
-// Builds the night-sky overlay once and leaves it alone — render() only
-// ever toggles its display, never regenerates or re-parents it, so the
-// randomized star positions stay stable across every re-render instead
-// of visibly reshuffling on every tap.
-// A fresh batch of randomized falling stars, played once (CSS `starFall
-// linear 1`). Small positive delays (not the ambient field's negative
-// "already mid-cycle" trick) so a batch starts staggered right when the
-// host element is (re)built, instead of all firing on the same frame.
-function shootingStarsHtml(){
-  let html = '';
-  for(let i=0;i<5;i++){
-    const top = (Math.random()*60).toFixed(2);
-    const left = (Math.random()*70).toFixed(2);
-    const deg = (Math.random()*14+22).toFixed(1);
-    const dur = (Math.random()*8+12).toFixed(2);
-    const delay = (Math.random()*1.5).toFixed(2);
-    html += `<div class="shooting-star" style="top:${top}%;left:${left}%;transform:rotate(${deg}deg);"><span class="trail" style="animation-duration:${dur}s;animation-delay:${delay}s;"><span class="head"></span></span></div>`;
-  }
-  return html;
-}
+// Set true, for exactly one renderHome() call, by the hds-toggle-theme
+// action handler on the light→dark transition — the signal
+// renderHomeSkyStars() reads to decide whether this call includes the
+// 2-falling-star burst. Left false otherwise, including every other
+// render() while Home is already dark, so the burst is a one-shot tied
+// to "just switched to dark," not a per-render thing.
+let homeStarsBurstPending = false;
 
-function ensureStarField(){
-  if(document.getElementById('star-field')) return;
-  const el = document.createElement('div');
-  el.id = 'star-field';
-  el.setAttribute('aria-hidden', 'true');
-  let html = '';
-  for(let i=0;i<70;i++){
-    const size = (Math.random()*1.8+1).toFixed(1);
-    const top = (Math.random()*100).toFixed(2);
-    const left = (Math.random()*100).toFixed(2);
+// Home's own sky-header decoration (owner request, 2026-11-13; narrowed
+// to Home + confined to the sky itself after feedback — see the CSS
+// comment above `.home-sky-stars`). Recreated fresh on every
+// renderHome() call, same as this header's clouds/plants.
+function renderHomeSkyStars(playFalling){
+  let dots = '';
+  for(let i=0;i<18;i++){
+    const size = (Math.random()*1.6+1).toFixed(1);
+    const top = (Math.random()*78).toFixed(2);
+    const left = (Math.random()*96).toFixed(2);
     const dur = (Math.random()*3+2.5).toFixed(2);
     const delay = (Math.random()*5).toFixed(2);
-    html += `<span class="star" style="width:${size}px;height:${size}px;top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
+    dots += `<span class="home-star" style="width:${size}px;height:${size}px;top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
   }
-  html += `<div id="falling-stars">${shootingStarsHtml()}</div>`;
-  el.innerHTML = html;
-  document.body.insertBefore(el, document.body.firstChild);
-}
-
-// Called from go() on every real navigation (not on background render()
-// calls, which also fire for in-place updates) so the falling-star burst
-// re-triggers once per page opened, rather than once ever at boot.
-function replayFallingStars(){
-  const host = document.getElementById('falling-stars');
-  if(host) host.innerHTML = shootingStarsHtml();
+  let falling = '';
+  if(playFalling){
+    for(let i=0;i<2;i++){
+      const top = (Math.random()*35).toFixed(2);
+      const left = (Math.random()*55).toFixed(2);
+      const deg = (Math.random()*14+22).toFixed(1);
+      const dur = (Math.random()*4+8).toFixed(2);
+      const delay = (i*0.6).toFixed(2);
+      falling += `<div class="home-shooting-star" style="top:${top}%;left:${left}%;transform:rotate(${deg}deg);"><span class="home-trail" style="animation-duration:${dur}s;animation-delay:${delay}s;"><span class="home-head"></span></span></div>`;
+    }
+  }
+  return `<div class="home-sky-stars">${dots}${falling}</div>`;
 }
 
 function render(){
@@ -3377,19 +3345,11 @@ function render(){
     'settings', 'unreachedDetail', 'verseDetail', 'topicDetail', 'characterDetail', 'timelineGame', 'storyDetail',
     'lexicon', 'lexiconDetail', 'timeline', 'familyTree', 'motifs', 'motifDetail', 'add', 'addVerse', 'addCharacter'];
   const isLegacyPracticeScreen = view.screen === 'practice' && !(session && session.shepherd);
-  let isDarkNow;
   if(HDS_SCREENS.includes(view.screen) || isLegacyPracticeScreen){
-    isDarkNow = settings.homeTheme === 'dark';
-    document.body.style.background = isDarkNow ? '#14112a' : '#f4eedf';
+    document.body.style.background = settings.homeTheme === 'dark' ? '#14112a' : '#f4eedf';
   }else{
-    // Shepherd's Path's own full-viewport scene (practice w/ session.shepherd)
-    // follows its own practiceTheme toggle, not homeTheme — same split the
-    // navbar theme sync above already makes.
-    isDarkNow = view.screen === 'practice' ? settings.practiceTheme !== 'light' : true;
     document.body.style.background = '';
   }
-  const starField = document.getElementById('star-field');
-  if(starField) starField.style.display = isDarkNow ? 'block' : 'none';
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
@@ -3441,7 +3401,6 @@ function go(screen, params={}){
   if(screen !== 'browse'){ addJourneyMode = false; addJourneySelectedChapters = new Set(); }
   view = {screen, params};
   render();
-  replayFallingStars();
   // Shepherd's Path (and the session/complete/streak screens with it)
   // is now a fixed, full-viewport scene with its own internal scroll
   // region (item 165) — the page/window itself no longer scrolls at
@@ -3541,6 +3500,11 @@ function renderHome(){
   loadUnreachedOfDay();
   const isDark = settings.homeTheme === 'dark';
   const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Falling-star burst is a one-shot tied to the light→dark toggle
+  // (homeStarsBurstPending, set by the hds-toggle-theme action handler)
+  // — consumed here so it never fires again until the next toggle.
+  const playFallingStars = isDark && homeStarsBurstPending;
+  homeStarsBurstPending = false;
   // Order (2026-09-17, owner's explicit request): VOTD, then Unreached
   // of the Day, then the Fact of the Day, then Story of the Day. Word of
   // the Day wasn't named in that request — kept, not dropped, just moved
@@ -3549,6 +3513,8 @@ function renderHome(){
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
       <div class="hds-sky"></div><div class="hds-sun"></div>
+      ${hdsCloud(56,110,46,8)}${hdsCloud(140,72,62,40)}
+      ${isDark ? renderHomeSkyStars(playFallingStars) : ''}
       <div class="hds-content">
         ${renderHomeHeader()}
         ${renderVerseOfTheDayCard()}
@@ -5341,12 +5307,22 @@ function renderStoriesResults(){
    (item 172's plain backdrop, still used as-is by Browse/Topics/
    People/Stories, untouched here) since this header has real content
    of its own rather than acting as a pure CSS backdrop behind
-   .hds-content. Clouds are skipped in dark mode, same precedent
-   renderDiscover() already set (--ht-cloud's dark value is close to
-   invisible, not worth rendering). */
+   .hds-content.
+   Dark mode (2026-11-13, owner-supplied reference recipe — a real
+   change, not the original "skip in dark mode" call noted here until
+   now): soft blurred radial-gradient puffs instead of the light mode's
+   solid pill+circle shape, since --ht-cloud's own dark value reads as
+   close to invisible at full opacity. Reuses .hds-cloud-wrap/hdsDrift
+   for positioning/animation either way — only the inner shape and the
+   wrapper's own size/blur differ per theme. */
 function hdsCloud(top, w, dur, delay){
-  if(settings.homeTheme === 'dark') return '';
   const s = w/110;
+  if(settings.homeTheme === 'dark'){
+    const puff = (l,b,pw,ph,a) => `<div style="position:absolute;left:${Math.round(l*s)}px;bottom:${Math.round(b*s)}px;width:${Math.round(pw*s)}px;height:${Math.round(ph*s)}px;border-radius:50%;background:radial-gradient(ellipse at 50% 35%, rgba(196,204,236,${a}) 0%, rgba(120,128,180,${(a*.55).toFixed(2)}) 45%, rgba(60,66,120,0) 72%);"></div>`;
+    return `<div class="hds-cloud-wrap" style="top:${Math.round(top-10*s)}px;width:${Math.round(w*1.5)}px;height:${Math.round(60*s)}px;filter:blur(${Math.max(3,Math.round(5*s))}px);animation-duration:${(dur*1.4).toFixed(1)}s;animation-delay:-${delay}s;">
+      ${puff(0,4,90,26,.22)}${puff(30,12,70,34,.28)}${puff(70,6,96,30,.2)}${puff(110,10,50,22,.16)}${puff(48,20,40,22,.32)}
+    </div>`;
+  }
   return `<div class="hds-cloud-wrap" style="top:${top}px;animation-duration:${dur}s;animation-delay:-${delay}s;">
     <div style="position:relative;width:${w}px;height:${Math.round(40*s)}px;">
       <div class="hds-cloud" style="left:0;bottom:0;width:${w}px;height:${Math.round(22*s)}px;border-radius:999px;"></div>
@@ -7703,7 +7679,12 @@ function onAction(e){
     }
   }
   else if(action==='sp-toggle-theme'){ settings.practiceTheme = settings.practiceTheme === 'light' ? 'dark' : 'light'; saveSettings(); render(); }
-  else if(action==='hds-toggle-theme'){ settings.homeTheme = settings.homeTheme === 'light' ? 'dark' : 'light'; saveSettings(); render(); }
+  else if(action==='hds-toggle-theme'){
+    const switchingToDark = settings.homeTheme !== 'dark';
+    settings.homeTheme = settings.homeTheme === 'light' ? 'dark' : 'light';
+    if(view.screen === 'home' && switchingToDark) homeStarsBurstPending = true;
+    saveSettings(); render();
+  }
   else if(action==='sp-after-complete'){
     session = null;
     const today = localDayKey(new Date());
@@ -8143,7 +8124,6 @@ async function migrateLegacy(seedContent){
   lexicon = await loadLexiconData();
   characterPortraits = await loadCharacterPortraits();
   storyIllustrations = await loadStoryIllustrations();
-  ensureStarField();
   render();
   applyNavLabels();
 

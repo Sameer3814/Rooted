@@ -9009,8 +9009,62 @@ inventing a new principle:
     time `go()` actually navigates to a screen — deliberately wired into
     `go()`, not the much more frequent `render()`, since `render()` also
     fires for in-place updates (opening a popover, toggling a theme)
-    that aren't a "page opened" in the sense meant here. `sw.js` bumped
-    to `rooted-v178`.
+    that aren't a "page opened" in the sense meant here.
+
+    **Narrowed to Home + confined to the sky, same day, after the owner
+    looked at it live.** Feedback: the ambient twinkle and falling stars
+    should only show on Home, only 2 falling stars at a time (down from
+    5), dimmer, actually inside the sky art rather than spilling onto
+    the grass/ground below it, and — the other half of the same
+    report — the owner's earlier-supplied cloud recipe (above) hadn't
+    actually been visible at all.
+
+    The app-wide `#star-field` overlay (`ensureStarField()`,
+    `replayFallingStars()`, the `go()`/`render()` wiring, all of it) was
+    removed outright, not left dead — the whole mechanism depended on
+    sitting in front of every screen's content, which is exactly what
+    made "confined to the sky" impossible to satisfy app-wide. Rebuilt
+    scoped to `renderHome()` alone: a new `.home-sky-stars` div matches
+    `.hds-sky`'s own bounds exactly (`height:300px;overflow:hidden`) so
+    nothing can paint below it, sitting at the same `z-index:0` as
+    `.hds-sky`/`.hds-sun` (behind `.hds-content`'s `z-index:1`, same
+    stacking-context fact this item's first fix already established).
+    `renderHomeSkyStars(playFalling)` builds 18 ambient `.home-star`
+    dots (continuous, whenever Home is dark) plus, only when
+    `playFalling` is true, exactly 2 `.home-shooting-star` elements —
+    dimmer than the first pass (`.home-trail`'s gradient alpha `.9→.5`,
+    `.home-head`'s glow `0 0 8px 3px/.7 → 0 0 4px 1.5px/.35`, head size
+    `5px→3px`). "Only when we change to dark mode" (not every Home
+    visit, not every background render while already dark) is a real
+    one-shot flag, `homeStarsBurstPending` — set `true` only by
+    `hds-toggle-theme`'s action handler on the exact light→dark
+    transition (checked against the setting's value *before* flipping
+    it, and only while `view.screen==='home'`), read and immediately
+    reset to `false` by the very next `renderHome()` call. This
+    replaces the previous `go()`-driven "once per navigation" design
+    entirely — scope changed from "every page" to "this one triggering
+    event on this one screen," so the old general mechanism no longer
+    applied.
+
+    **The other half of the report — clouds**: `hdsCloud()`'s original
+    item-176 behavior returned `''` outright in dark mode (`--ht-cloud`
+    reads close to invisible there), which is why *no* screen's clouds
+    were ever visible in dark mode, Home included — not a regression
+    from this pass, a pre-existing gap this pass finally closed using
+    the owner's own supplied dark-mode recipe: soft blurred
+    radial-gradient puffs (5 overlapping `radial-gradient(ellipse ...)`
+    circles under a `filter:blur()` wrapper) in place of light mode's
+    solid pill+circle shape, reusing the exact same
+    `.hds-cloud-wrap`/`hdsDrift` positioning/animation either theme
+    already had — only the inner shape, and the wrapper's own size/blur,
+    differ per theme. This is a shared-function fix, so every other
+    `hdsCloud()` caller (Study sub-pages, the "detail page" sky pattern)
+    gets real dark-mode clouds for the first time too, not just Home —
+    flagged as a side effect, not hidden. `renderHome()`'s own header
+    gained two calls it never had before this pass at all (`hdsCloud
+    (56,110,46,8)`, `hdsCloud(140,72,62,40)` — the sizes/timing from the
+    owner's own reference usage example), since Home's sky previously
+    had no clouds in either theme. `sw.js` bumped to `rooted-v179`.
 
 ---
 

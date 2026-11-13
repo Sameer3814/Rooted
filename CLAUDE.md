@@ -1322,8 +1322,28 @@ The schema was deliberately designed so all of the above can be added
   `replayFallingStars()` regenerates that child with a fresh randomized
   batch every time `go()` actually navigates (not on every background
   `render()`, which also fires for in-place updates like opening a
-  popover). `sw.js` bumped to `rooted-v178`. See DATA_MODEL.md §8, item
-  177.
+  popover). **Narrowed to Home + confined to the sky, same day**, after
+  the owner looked at it live: the app-wide `#star-field` overlay was
+  removed outright (it depended on sitting in front of every screen's
+  content, which made "confined to the sky" impossible app-wide) and
+  rebuilt scoped to `renderHome()` alone — a new `.home-sky-stars` div
+  matching `.hds-sky`'s own bounds (`height:300px;overflow:hidden`),
+  18 ambient `.home-star` dots (continuous whenever Home is dark), and
+  exactly 2 dimmer `.home-shooting-star` elements (down from 5) that
+  only render when a new one-shot flag, `homeStarsBurstPending`, is
+  true — set only by `hds-toggle-theme`'s handler on the exact
+  light→dark transition, consumed by the very next `renderHome()` call.
+  Also fixed the other half of the same report: `hdsCloud()` had
+  returned `''` outright in dark mode since item 176, so no screen's
+  clouds (Home's included — it never called `hdsCloud()` at all before
+  this pass) were ever visible in dark mode. Added the owner's own
+  supplied dark-mode recipe — soft blurred radial-gradient puffs in
+  place of light mode's solid pill+circle shape, same
+  `.hds-cloud-wrap`/`hdsDrift` positioning either way — which, as a
+  shared-function fix, also gives Study sub-pages' and the "detail
+  page" sky pattern's own `hdsCloud()` calls real dark-mode clouds for
+  the first time. `sw.js` bumped to `rooted-v179`. See DATA_MODEL.md
+  §8, item 177.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
