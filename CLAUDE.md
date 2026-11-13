@@ -1414,6 +1414,13 @@ The schema was deliberately designed so all of the above can be added
   time. No migration needed — old stored entries were already inert
   under the bug, not real lost state. `sw.js` bumped to `rooted-v183`.
   See DATA_MODEL.md §8, item 181.
+- **Empty-path state routes to the generic Add menu, not straight to
+  "New verse" — done (2026-11-13).** Deleting every unit (e.g. via
+  "Edit your path"'s remove-unit) used to land the Path's empty state
+  directly on the single-verse add form. Its CTA now uses the same
+  `go-add` action the path's own end-of-path "+" node already uses,
+  landing on the generic Add menu (verse/chapters/character) instead.
+  `sw.js` bumped to `rooted-v184`. See DATA_MODEL.md §8, item 182.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

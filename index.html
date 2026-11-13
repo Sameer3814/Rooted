@@ -7235,8 +7235,14 @@ function renderShepherdPath(){
   heartsRegenIfNeeded();
   const units = shepherdUnits();
   if(!units.length){
+    // Routes to the generic Add menu (verse/chapters/character), not
+    // straight to the single-verse form — owner report, 2026-11-13:
+    // emptying the path (e.g. via "Edit your path"'s remove-unit,
+    // item 179) landed on "New verse" specifically, when "Add" (the
+    // same end-of-path "+" node already uses, data-action="go-add")
+    // is the right generic entry point once there's nothing left.
     return `<div class="empty" style="padding-top:80px;"><i class="ti ti-leaf"></i><p>No verses yet.</p>
-      <button class="btn primary cta" data-action="go-add-verse">Add your first verse</button></div>`;
+      <button class="btn primary cta" data-action="go-add">Add</button></div>`;
   }
   const cur = shepherdCurrent(units);
   const due = new Set(dueVerses().map(v=>v.id));

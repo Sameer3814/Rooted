@@ -9266,6 +9266,20 @@ inventing a new principle:
       inert; they're simply orphaned garbage now, not lost real state.
     `sw.js` bumped to `rooted-v183`.
 
+182. **Empty-path state routes to the generic Add menu, not straight to
+    "New verse" — done (2026-11-13).** Owner: after deleting every unit
+    (e.g. via item 179's "Edit your path" remove-unit, now that it's
+    actually possible to empty the whole library that way), the Path's
+    own empty state landed directly on the single-verse add form,
+    rather than letting the owner pick verse/chapter/character. The
+    empty state's CTA (`renderShepherdPath()`) switched from
+    `data-action="go-add-verse"` (→ `addVerse`, the one-verse form) to
+    `data-action="go-add"` (→ `add`, `renderAddMenu()`) — the exact
+    same action the path's own end-of-path "+" node already uses once
+    there's at least one unit, so an emptied path and a path the owner
+    is just starting now land on the same entry point either way.
+    `sw.js` bumped to `rooted-v184`.
+
 ---
 
 ## 9. How the app reads this data
