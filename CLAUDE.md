@@ -1291,18 +1291,22 @@ The schema was deliberately designed so all of the above can be added
   (`ensureStarField()`), built once at boot and appended to `body`
   directly — never rebuilt by `render()`'s own `app.innerHTML` swap, so
   the randomized star positions stay stable across every re-render.
-  `z-index:-1` with no background of its own means it's only visible
-  through `body`'s own background color, which already is this app's
-  single theme signal per screen (same mechanism as the body-background
-  bleed fix, items 145/172/173) — reused directly rather than inventing
-  a second theme concept. Visibility toggles alongside that same block
+  Visibility toggles alongside the existing body-background-bleed block
   in `render()`: follows `settings.homeTheme` for every HDS-themed
   screen (and the legacy practice session, which already reads
   `homeTheme` there too), `settings.practiceTheme` for Shepherd's
   Path's own full-viewport scene, defaulting to dark for anything
   outside both — matching `body`'s own un-overridden `var(--paper)`
-  background. `sw.js` bumped to `rooted-v175`. See DATA_MODEL.md §8,
-  item 177.
+  background. **Real bug, same day**: the first version sat *behind*
+  `.app` (`z-index:-1`), invisible in practice — `.hds-content` (used
+  on nearly every screen) establishes its own stacking context at
+  `z-index:1` with cards that tile close to the full viewport, leaving
+  almost no exposed `body` background for it to show through. Fixed by
+  moving the layer *above* `.app` (`z-index:1100`, clearing the nav/
+  feedback-sheet's own `1000`/`1001`) with `mix-blend-mode:screen`, so
+  it adds light rather than covering content — visible against dark
+  backgrounds, barely noticeable against light ones. `sw.js` bumped to
+  `rooted-v176`. See DATA_MODEL.md §8, item 177.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

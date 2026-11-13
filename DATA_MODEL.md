@@ -8951,24 +8951,32 @@ inventing a new principle:
     once, sync a class/style per render" approach as the navbar's own
     theme sync and item 162's scroll-restore fix, so the randomized star
     layout stays stable across every re-render instead of reshuffling on
-    every tap. `z-index:-1` with no background of its own means it
-    paints behind `.app` (itself unstyled/transparent) and shows through
-    wherever `body`'s own background color is already visible — the
-    120px bottom nav-clearance strip, page-edge gutters on wide screens,
-    and any space below short content — reusing the exact same
-    "`body`'s background color is the single source of truth for this
-    screen's theme" mechanism the body-background-bleed fix (items
-    145/172/173) already established, rather than inventing a second
-    theme concept. Visibility is a plain `display` toggle computed right
-    alongside that existing block in `render()`: `settings.homeTheme ===
-    'dark'` for every HDS-themed screen (plus the legacy, non-Shepherd
-    practice session, which already follows `homeTheme` there too),
-    `settings.practiceTheme !== 'light'` for Shepherd's Path's own
-    full-viewport scene, and `true` as the default for any screen
-    outside both lists (`body`'s own un-overridden background is
-    `var(--paper)`, the original v3 dark theme, so that fallback is
-    already correct rather than a guess). `sw.js` bumped to
-    `rooted-v175`.
+    every tap. Visibility is a plain `display` toggle computed right
+    alongside the existing body-background-bleed block in `render()`:
+    `settings.homeTheme === 'dark'` for every HDS-themed screen (plus
+    the legacy, non-Shepherd practice session, which already follows
+    `homeTheme` there too), `settings.practiceTheme !== 'light'` for
+    Shepherd's Path's own full-viewport scene, and `true` as the default
+    for any screen outside both lists (`body`'s own un-overridden
+    background is `var(--paper)`, the original v3 dark theme, so that
+    fallback is already correct rather than a guess).
+
+    **Real bug, same day:** the first version put the layer *behind*
+    `.app` (`z-index:-1`, relying on `body`'s background color showing
+    through) — invisible in practice, confirmed by the owner after a
+    hard refresh and incognito test. Reading `.hds-content`'s own CSS
+    (~line 1507) showed why: it's `position:relative;z-index:1`,
+    establishing its own stacking context above the root, and its cards
+    tile close to the full viewport on almost every screen — there's
+    essentially no exposed `body` background left for a `z-index:-1`
+    layer to show through. Fixed by moving the layer *above* `.app`
+    instead (`z-index:1100`, clearing the floating nav and Shepherd
+    feedback sheet's own `1000`/`1001`) with `mix-blend-mode:screen`, so
+    it adds light rather than painting an opaque layer over content —
+    visible against a dark background, barely noticeable against a
+    light one (which is also why dark-mode gating stays in place rather
+    than leaning on the blend mode alone). `sw.js` bumped to
+    `rooted-v176`.
 
 ---
 
