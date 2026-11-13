@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-<!-- Baloo 2/Figtree/Newsreader: "Shepherd's Path" Practice redesign only (2026-11-09, design_handoff_practice_tab_v3) — scoped to .shepherd-* classes, not app-wide; every other screen still uses Inter/Fraunces above. Baloo 2 replaced the handoff's own Young Serif (2026-11-10, owner: "clean and playful" over the original elegant-serif look). -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Noto+Serif+Hebrew:wght@500;600&display=swap" rel="stylesheet">
+<!-- Baloo 2/Figtree/Newsreader: "Shepherd's Path" Practice redesign only (2026-11-09, design_handoff_practice_tab_v3) — scoped to .shepherd-* classes, not app-wide; every other screen still uses Inter/Fraunces above. Baloo 2 replaced the handoff's own Young Serif (2026-11-10, owner: "clean and playful" over the original elegant-serif look). Noto Serif Hebrew added item 176 (Study sub-pages scenic rebuild) for the Lexicon tile letter / hero word glyph. -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
   :root{
@@ -1460,7 +1460,7 @@
     --ht-hill1:#dbe7c6;--ht-hill2:#c9ddb0;--ht-cloud:rgba(255,255,255,.85);--ht-deco1:#a6c78a;--ht-petal:#f5a3b5;
     --ht-sun:#ffe2b8;--ht-sunglow:rgba(255,190,130,.45);
     --ht-terra:#c4502a;--ht-terrad:#a8441f;--ht-plum:#7a5cc4;--ht-plumd:#5a3fa0;
-    --ht-terrat:#fbe3d8;--ht-plumt:#ece6fa;
+    --ht-terrat:#fbe3d8;--ht-plumt:#ece6fa;--ht-apr:#b85f1e;--ht-aprt:#fde6cf;
     background:var(--ht-ground);color:var(--ht-ink);font-family:'Figtree',sans-serif;
     margin:-20px -18px 0;padding:0 18px 110px;position:relative;
   }
@@ -1471,7 +1471,7 @@
     --ht-hill1:#1c2246;--ht-hill2:#171b3a;--ht-cloud:rgba(255,255,255,.06);--ht-deco1:#2c3c5a;--ht-petal:#6b5aa0;
     --ht-sun:#f6eccb;--ht-sunglow:rgba(246,236,203,.2);
     --ht-terra:#ff9a76;--ht-terrad:#7a2e14;--ht-plum:#b49cff;--ht-plumd:#5a3fa0;
-    --ht-terrat:#3a1f24;--ht-plumt:#2a2250;
+    --ht-terrat:#3a1f24;--ht-plumt:#2a2250;--ht-apr:#ffb97a;--ht-aprt:#3a2a1c;
   }
   .hds-sky{position:absolute;top:0;left:0;right:0;height:300px;z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--ht-sky1),var(--ht-sky2) 55%,var(--ht-ground));}
   .hds-sun{position:absolute;top:30px;right:12px;width:52px;height:52px;border-radius:50%;background:var(--ht-sun);box-shadow:0 0 50px 16px var(--ht-sunglow);z-index:0;pointer-events:none;}
@@ -1551,6 +1551,118 @@
   @keyframes hdsHop{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
   .hds-procession-heart{position:absolute;left:150px;bottom:60px;font:900 16px 'Figtree',sans-serif;color:#e0697a;animation:hdsHeart 1.6s ease-out infinite;}
   @keyframes hdsHeart{0%{opacity:0;transform:translateY(4px) scale(.6);}30%{opacity:1;}100%{opacity:0;transform:translateY(-22px) scale(1);}}
+
+  /* Study sub-pages — Patterns, Timeline, Family Tree, Lexicon — item
+     176, design_handoff_practice_tab_v3's "Study sub-pages" spec
+     (Timeline Shepherd.dc.html / Study Pages Shepherd.dc.html). Item
+     173 only gave these screens the generic `.hds-theme <existing-
+     class>` chrome pass (same treatment as every other leftover
+     screen); this gives the four list screens their own real scenic
+     header (sun/hills/fade/clouds/swaying plants with the title+intro
+     living inside the scene, not above it) plus page-specific card
+     redesigns. Family Tree's own SVG node-graph (item 111, bronze,
+     untouched) and Verse/Lexicon-entry's shared structure get the
+     lighter "detail page" treatment (a fixed 260px sky + one cloud)
+     instead, per the spec's own split between the two patterns. */
+  .hds-scenic-header{position:relative;overflow:hidden;margin:0 -18px;background:linear-gradient(180deg,var(--ht-sky1),var(--ht-sky2) 70%);}
+  .hds-scenic-sun{position:absolute;border-radius:50%;background:var(--ht-sun);box-shadow:0 0 50px 16px var(--ht-sunglow);}
+  .hds-scenic-hill1{position:absolute;left:-30%;width:110%;height:240px;border-radius:50%;background:var(--ht-hill1);}
+  .hds-scenic-hill2{position:absolute;right:-40%;width:120%;height:250px;border-radius:50%;background:var(--ht-hill2);}
+  .hds-scenic-fade{position:absolute;left:0;right:0;bottom:-1px;height:40px;background:linear-gradient(180deg,transparent,var(--ht-ground));}
+  .hds-scenic-text{position:relative;padding:62px 22px 0;display:flex;flex-direction:column;gap:10px;}
+  .hds-scenic-title{font:600 32px/1.1 'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-scenic-intro{font:700 15px/1.5 'Figtree',sans-serif;color:var(--ht-sub);max-width:290px;}
+  .hds-scenic-plant{position:absolute;transform-origin:50% 100%;animation:hdsSway 4s ease-in-out infinite;pointer-events:none;}
+  @keyframes hdsSway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+
+  /* Patterns cards */
+  .hds-pattern-card{display:flex;flex-direction:column;gap:8px;}
+  .hds-pattern-row{display:flex;align-items:flex-start;gap:12px;}
+  .hds-pattern-tile{width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;color:#fff;}
+  .hds-pattern-title{flex:1;min-width:0;font:600 20px/1.2 'Baloo 2',sans-serif;color:var(--ht-ink);padding-top:2px;}
+  .hds-pattern-desc{font:700 14px/1.5 'Figtree',sans-serif;color:var(--ht-sub);}
+  .hds-pattern-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:4px;}
+  .hds-pattern-pill{display:flex;align-items:center;gap:8px;padding:5px 11px 5px 7px;border-radius:999px;font:900 12px 'Figtree',sans-serif;letter-spacing:.06em;}
+  .hds-pattern-dots{display:flex;gap:3px;}
+  .hds-pattern-dots i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+  /* Timeline (whole-Bible) — brand-new markup/classes, deliberately NOT
+     sharing `.timeline`/`.tl-item` with Character Detail's "Their
+     life" section (item 173 themed those as shared), since this
+     screen's numbered-node/dotted-trail redesign is specific to this
+     page only. */
+  .hds-tl-era-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:22px;background:#d2603a;box-shadow:0 5px 0 #a8441f;color:#fff;margin-bottom:4px;}
+  .hds-tl-era-icon{width:44px;height:44px;flex:none;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;}
+  .hds-tl-era-eyebrow{font:900 11px 'Figtree',sans-serif;letter-spacing:.08em;color:#ffe2d4;}
+  .hds-tl-era-title{font:600 20px/1.2 'Baloo 2',sans-serif;}
+  .hds-tl-trail{position:relative;display:flex;flex-direction:column;gap:18px;padding-left:46px;margin:0 0 16px;}
+  .hds-tl-trail::before{content:'';position:absolute;left:18px;top:18px;bottom:30px;width:0;border-left:4px dotted var(--ht-line);}
+  .hds-tl-row{position:relative;}
+  .hds-tl-node{position:absolute;left:-46px;top:12px;width:40px;height:40px;border-radius:50%;border:3px solid var(--ht-ground);box-sizing:border-box;display:grid;place-items:center;font:900 15px 'Figtree',sans-serif;color:#fff;}
+  .hds-tl-event-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px 16px;border-radius:22px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);cursor:pointer;}
+  .hds-tl-event-card:active{transform:translateY(2px);box-shadow:0 2px 0 var(--ht-line);}
+  .hds-tl-event-ref{display:flex;align-items:center;gap:6px;font:900 12px 'Figtree',sans-serif;letter-spacing:.03em;color:var(--ht-terra);}
+  .hds-tl-event-title{font:600 20px/1.2 'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-tl-event-desc{font:700 14px/1.5 'Figtree',sans-serif;color:var(--ht-sub);}
+
+  /* Family Tree picker — family rows. Only used by renderFamilyCard()
+     (the picker/search results); the actual node-graph screen keeps
+     its untouched bronze palette, see the big comment above. */
+  .hds-family-row{display:flex;align-items:center;gap:14px;padding:12px 14px 12px 12px;border-radius:22px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);}
+  .hds-family-portrait{position:relative;width:56px;height:56px;flex:none;border-radius:17px;overflow:hidden;display:grid;place-items:center;color:var(--ht-ink);}
+  .hds-family-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hds-family-name{font:600 19px 'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-family-sub{font:700 14px 'Figtree',sans-serif;color:var(--ht-sub);}
+
+  /* Lexicon list */
+  .hds-lex-highlights-title{font:600 22px 'Baloo 2',sans-serif;color:var(--ht-ink);padding:8px 2px 0;}
+  .hds-lex-group-eyebrow{display:flex;align-items:center;justify-content:space-between;padding:0 2px;}
+  .hds-lex-group-eyebrow span:first-child{font:900 12px 'Figtree',sans-serif;letter-spacing:.08em;color:var(--ht-sub);}
+  .hds-lex-count-pill{padding:3px 9px;border-radius:999px;background:var(--ht-aprt);color:var(--ht-apr);font:900 12px 'Figtree',sans-serif;}
+  .hds-lex-group-card{display:flex;flex-direction:column;border-radius:22px;background:var(--ht-surface);border:2px solid var(--ht-line);box-shadow:0 4px 0 var(--ht-line);overflow:hidden;}
+  .hds-lex-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+  .hds-lex-row + .hds-lex-row{border-top:1.5px solid var(--ht-line);}
+  .hds-lex-row:active{background:var(--ht-tint);}
+  .hds-lex-tile{width:48px;height:48px;flex:none;border-radius:15px;background:#ff7a50;box-shadow:0 3px 0 #d9572f;display:grid;place-items:center;font:600 24px 'Noto Serif Hebrew',serif;color:#3a1203;}
+  .hds-lex-row-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  .hds-lex-row-head{display:flex;align-items:baseline;gap:8px;}
+  .hds-lex-row-name{font:600 18px 'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-lex-row-heb{font:500 17px 'Noto Serif Hebrew',serif;color:var(--ht-sub);}
+  .hds-lex-row-gloss{font:700 13px 'Figtree',sans-serif;color:var(--ht-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hds-lex-row-badge{flex:none;padding:4px 8px;border-radius:8px;background:var(--ht-ground);border:1.5px solid var(--ht-line);font:800 11px 'Figtree',sans-serif;color:var(--ht-sub);}
+
+  /* Lexicon entry + Verse — "detail page" pattern: a fixed 260px sky
+     (reuses the existing .hds-sky, just a shorter height) + one cloud,
+     a plain back-btn+title header, then page-specific cards below. */
+  .hds-lex-hero{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:18px 20px 20px;border-radius:24px;background:#ff7a50;box-shadow:0 6px 0 #d9572f;color:#3a1203;}
+  .hds-lex-hero-circle{position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.14);}
+  .hds-lex-hero-tags{position:relative;display:flex;gap:6px;flex-wrap:wrap;}
+  .hds-lex-hero-tags span{padding:4px 10px;border-radius:999px;background:rgba(255,253,248,.9);font:900 12px 'Figtree',sans-serif;letter-spacing:.04em;color:#a8441f;}
+  .hds-lex-hero-word{position:relative;font:600 54px/1.3 'Noto Serif Hebrew',serif;padding-top:4px;}
+  .hds-lex-hero-translit{position:relative;display:flex;align-items:baseline;gap:8px;font:600 24px 'Baloo 2',sans-serif;}
+  .hds-lex-hero-pron{font:800 15px 'Figtree',sans-serif;opacity:.8;}
+  .hds-lex-def-card{display:flex;flex-direction:column;gap:12px;}
+  .hds-lex-def-lead{font:600 20px/1.35 'Baloo 2',sans-serif;color:var(--ht-ink);}
+  .hds-lex-occ-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--ht-tint);}
+  .hds-lex-occ-num{font:600 26px 'Baloo 2',sans-serif;color:var(--ht-acc);}
+  .hds-lex-occ-label{font:800 14px 'Figtree',sans-serif;color:var(--ht-ink);}
+  .hds-lex-def-full{font:700 14px/1.55 'Figtree',sans-serif;color:var(--ht-sub);}
+  .hds-lex-def-origin{font:700 13px/1.5 'Figtree',sans-serif;color:var(--ht-sub);font-style:italic;}
+
+  /* Verse Detail's own hero card — scoped additions on top of the
+     already-shared `.card.verse-card`/`.text`/`.ref` (item 173's
+     generic rule, still used as-is by Browse search results, Lexicon
+     Detail's example verse, and Motif Detail's feed). `.hds-verse-hero`
+     is an EXTRA class added only by renderVerseDetail() itself, so
+     these overrides can't reach any other `.verse-card` call site. */
+  /* Four classes (vs. the generic `.hds-theme .verse-card .text` rule's
+     three, item 173) so this wins the cascade regardless of which rule
+     happens to come later in the stylesheet — this font override must
+     not depend on source order. */
+  .hds-theme .verse-card.hds-verse-hero .text{font:400 25px/1.4 'Newsreader',Georgia,serif;}
+  .hds-verse-topic-pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:var(--ht-plumt);color:var(--ht-plum);font:900 12px 'Figtree',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+  .hds-sprout-tile{position:relative;width:56px;height:56px;flex:none;border-radius:18px;background:var(--ht-tint);overflow:hidden;}
+  .hds-sprout-tile .hds-scenic-plant{position:absolute;left:13px;top:10px;animation-delay:0s;}
 
   /* Discover sub-pages (Browse, Topics, People, Stories) — item 172,
      design_handoff_shepherd_pages. These reuse items 170/171's --ht-*
@@ -1790,7 +1902,7 @@
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
     .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
     .sp-confetti-piece, .sp-cloud-wrap, .sp-firefly-dot,
-    .hds-cloud-wrap, .hds-lamb, .hds-procession-walk, .hds-procession-lamb, .hds-procession-heart{
+    .hds-cloud-wrap, .hds-lamb, .hds-scenic-plant, .hds-procession-walk, .hds-procession-lamb, .hds-procession-heart{
       animation: none !important;
       transition: none !important;
     }
@@ -4259,18 +4371,20 @@ function renderVerseDetail(id){
   const isDark = settings.homeTheme === 'dark';
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-sky" style="height:260px;"></div>
+      ${hdsCloud(112,90,52,34)}
       <div class="hds-content" style="padding-top:0;">
         <div class="screen-head">
           <button class="back-btn" data-action="verse-back"><i class="ti ti-arrow-left"></i></button>
           <h2>${t('title_verse')}</h2>
         </div>
-        <div class="card verse-card">
+        <div class="card verse-card hds-verse-hero">
           <div class="ref" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
             <span>${esc(v.reference)}${verseTranslationLabel(v)? ' · '+esc(verseTranslationLabel(v)):''}</span>
             <button class="btn ${interlinearOpen?'primary':''}" data-action="toggle-interlinear" data-id="${v.id}" style="flex-shrink:0;padding:6px 12px;font-size:var(--text-xs);">${icon('languages',14)} ${isNT?'Greek':'Hebrew'}</button>
           </div>
-          ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text" style="font-size:var(--text-xl);line-height:1.5;font-family:'Newsreader',Georgia,serif;">${esc(verseText(v))}</div>`}
-          ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="tag tag--tan tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
+          ${interlinearOpen ? renderInterlinearBody(v) : `<div class="text">${esc(verseText(v))}</div>`}
+          ${topics.length ? `<div class="tag-row">${topics.map(t=>`<span class="hds-verse-topic-pill tap" data-action="open-topic" data-id="${t.id}" style="cursor:pointer;">${esc(t.name)}</span>`).join('')}</div>` : ''}
         </div>
         ${renderVerseNavRow(v)}
         <button class="btn primary block" data-action="start-practice-verse" data-id="${v.id}">${icon('sparkles',16)} Practice this verse</button>
@@ -4279,9 +4393,14 @@ function renderVerseDetail(id){
           : `<button class="btn block" data-action="add-to-library-detail" data-id="${v.id}" style="margin-top:8px;">${icon('plus',16)} Add to library</button>`}
         <div class="section-label">Progress</div>
         <div class="card">
-          <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
-          <div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Times reviewed</span><span>${p.timesReviewed}</span></div>
-          ${next ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Next review</span><span>${esc(next)}</span></div>` : ''}
+          <div class="char-row">
+            <div class="hds-sprout-tile">${hdsPlant('position:relative;', 30, false, 0)}</div>
+            <div style="flex:1;">
+              <div class="char-row" style="justify-content:space-between;"><span class="meta">Status</span><span>${esc(statusLabel)}</span></div>
+              <div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Times reviewed</span><span>${p.timesReviewed}</span></div>
+              ${next ? `<div class="char-row" style="justify-content:space-between;margin-top:8px;"><span class="meta">Next review</span><span>${esc(next)}</span></div>` : ''}
+            </div>
+          </div>
         </div>
         ${chars.length ? `<div class="section-label">People</div>${chars.map(c=>`
           <div class="card tap" data-action="open-character" data-id="${c.id}">
@@ -5102,6 +5221,89 @@ function renderStoriesResults(){
   }).join('');
 }
 
+/* ---------- STUDY SUB-PAGES: scenic header + decor helpers (item 176) ----------
+   Shared by Patterns/Timeline/Family-Tree-picker/Lexicon-list — the
+   four screens design_handoff_practice_tab_v3's "Study sub-pages" spec
+   covers with a real scenic header (sun, two hill ellipses, a fade to
+   ground, drifting clouds, swaying plants, title+intro living inside
+   the scene). Deliberately separate markup from .hds-sky/.hds-title
+   (item 172's plain backdrop, still used as-is by Browse/Topics/
+   People/Stories, untouched here) since this header has real content
+   of its own rather than acting as a pure CSS backdrop behind
+   .hds-content. Clouds are skipped in dark mode, same precedent
+   renderDiscover() already set (--ht-cloud's dark value is close to
+   invisible, not worth rendering). */
+function hdsCloud(top, w, dur, delay){
+  if(settings.homeTheme === 'dark') return '';
+  const s = w/110;
+  return `<div class="hds-cloud-wrap" style="top:${top}px;animation-duration:${dur}s;animation-delay:-${delay}s;">
+    <div style="position:relative;width:${w}px;height:${Math.round(40*s)}px;">
+      <div class="hds-cloud" style="left:0;bottom:0;width:${w}px;height:${Math.round(22*s)}px;border-radius:999px;"></div>
+      <div class="hds-cloud" style="left:${Math.round(18*s)}px;bottom:${Math.round(8*s)}px;width:${Math.round(40*s)}px;height:${Math.round(32*s)}px;"></div>
+      <div class="hds-cloud" style="left:${Math.round(48*s)}px;bottom:${Math.round(6*s)}px;width:${Math.round(34*s)}px;height:${Math.round(26*s)}px;"></div>
+    </div>
+  </div>`;
+}
+/* A leaf sprig (+ optional 5-petal flower), swaying ±3deg — the exact
+   SVG path already used by Study hub's static .hds-deco1/.hds-deco2
+   (renderStudy(), below), just with the sway animation on and its own
+   positioning passed in by the caller (header plants are absolute;
+   Timeline's between-card plants and the Verse Detail sprout nest it
+   inside an already-positioned wrapper via `position:relative`). */
+function hdsPlant(posCss, size, flower, delaySeed){
+  return `<div class="hds-scenic-plant" style="${posCss}width:${size}px;height:${size}px;animation-delay:-${((delaySeed||0)%4)+0.2}s;">
+    <svg viewBox="0 0 30 30" width="100%" height="100%">
+      <path d="M15 30C14 22 9 17 4 15c5 0 9 4 11 9 0-8 2-14 6-18-2 6-3 13-3 24z" fill="var(--ht-deco1)"></path>
+      ${flower ? `<g>${[0,72,144,216,288].map(a=>`<ellipse cx="21" cy="5" rx="2.2" ry="3.4" fill="var(--ht-petal)" transform="rotate(${a} 21 8.5)"></ellipse>`).join('')}<circle cx="21" cy="8.5" r="2" fill="#ffd27a"></circle></g>` : ''}
+    </svg>
+  </div>`;
+}
+/* The three plants spec'd "along the hill line (left 16 & 44, right
+   22)" for every scenic header. */
+function hdsHeaderPlants(){
+  return [
+    hdsPlant('left:16px;bottom:12px;', 28, true, 0),
+    hdsPlant('left:44px;bottom:8px;', 20, false, 1.3),
+    hdsPlant('right:22px;bottom:16px;', 26, true, 2.1),
+  ].join('');
+}
+/* opts: {title, intro, height, sunTop, sunRight, sunSize, hill1Bottom,
+   hill2Bottom, clouds:[[top,width,durationS,delayS], ...]}. All
+   per-screen numbers below are pulled directly from Timeline
+   Shepherd.dc.html / Study Pages Shepherd.dc.html, not guessed. */
+function hdsScenicHeader(opts){
+  const clouds = (opts.clouds||[]).map(c=>hdsCloud(c[0],c[1],c[2],c[3])).join('');
+  return `
+    <div class="hds-scenic-header" style="height:${opts.height}px;">
+      <div class="hds-scenic-sun" style="top:${opts.sunTop}px;right:${opts.sunRight}px;width:${opts.sunSize}px;height:${opts.sunSize}px;"></div>
+      ${clouds}
+      <div class="hds-scenic-hill1" style="bottom:${opts.hill1Bottom}px;"></div>
+      <div class="hds-scenic-hill2" style="bottom:${opts.hill2Bottom}px;"></div>
+      <div class="hds-scenic-fade"></div>
+      ${hdsHeaderPlants()}
+      <div class="hds-scenic-text">
+        <div class="hds-scenic-title">${esc(opts.title)}</div>
+        ${opts.intro ? `<div class="hds-scenic-intro">${esc(opts.intro)}</div>` : ''}
+      </div>
+    </div>`;
+}
+/* Cycles a stable 3-color tile palette (teal/terracotta/plum, the same
+   trio the Study hub's own nav tiles already use) by a hash of the
+   entity's own id — same "hash a stable id into a small fixed palette"
+   shape as topicColor() (items 62-64), just a 3-entry palette instead
+   of TOPIC_PALETTE's 12, since that's what this spec calls for
+   (Patterns cards, Family Tree portrait rings). */
+const HDS_TILE_COLORS = [
+  ['#2f9a82','#1f7563','var(--ht-tint)','var(--ht-acc)'],
+  ['#d2603a','#a8441f','var(--ht-terrat)','var(--ht-terra)'],
+  ['#7a5cc4','#5a3fa0','var(--ht-plumt)','var(--ht-plum)'],
+];
+function hdsCycleIndex(id, n){
+  let h = 0;
+  for(let i=0;i<id.length;i++) h = (h*31 + id.charCodeAt(i)) >>> 0;
+  return h % n;
+}
+
 /* ---------- STUDY (hub) ----------
    The Study pillar's real root screen (item 109 named it a "deep
    theological suite" but originally shipped routing straight to
@@ -5178,14 +5380,17 @@ function lexiconEntries(){
   return [...ids].map(lexiconEntry).sort((a,b)=>a.translit.localeCompare(b.translit));
 }
 function findLexiconEntry(id){ return lexiconEntry(id); }
+/* Scenic-header values (height 250, sun top66/right30/52, hills
+   -165/-190, two clouds) are Study Pages Shepherd.dc.html's own
+   "Lexicon" frame, item 176. */
 function renderLexicon(){
   const total = lexiconFull ? Object.keys(lexiconFull).length : Object.keys(lexicon).length;
   const isDark = settings.homeTheme === 'dark';
+  const intro = lexiconFull ? `${total.toLocaleString()} Hebrew and Greek words, straight from Strong's Concordance.` : "A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up.";
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
-      <div class="hds-content" style="padding-top:0;">
-        <div class="topbar"><h1>${t('title_lexicon')}</h1></div>
-        <p style="margin-bottom:16px;line-height:1.5;">${lexiconFull ? `${total.toLocaleString()} Hebrew and Greek words, straight from Strong's Concordance.` : "A hand-picked set of key Hebrew and Greek words, with their Strong's number, definition, and where they show up."}</p>
+      ${hdsScenicHeader({title:t('title_lexicon'), intro, height:250, sunTop:66, sunRight:30, sunSize:52, hill1Bottom:-165, hill2Bottom:-190, clouds:[[60,104,48,30],[150,66,60,12]]})}
+      <div class="hds-content" style="padding-top:4px;">
         <div class="search-wrap">
           <i class="ti ti-search"></i>
           <input type="text" id="lexicon-search" value="${esc(lexiconQuery)}" placeholder="Search by word, transliteration, or meaning..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -5214,7 +5419,7 @@ function renderLexiconSearchHits(q){
     w.id.toLowerCase() === q
   );
   if(!entries.length) return `<div class="empty"><i class="ti ti-mood-empty"></i><p>No words match "${esc(lexiconQuery)}".</p></div>`;
-  return `<div class="result-count">${entries.length} match${entries.length===1?'':'es'}</div>${entries.slice(0, SEARCH_LIMIT).map(renderLexiconRow).join('')}`;
+  return `<div class="result-count">${entries.length} match${entries.length===1?'':'es'}</div><div class="hds-lex-group-card">${entries.slice(0, SEARCH_LIMIT).map(renderLexiconRow).join('')}</div>`;
 }
 function renderLexiconGrouped(){
   // No query yet, or the full dictionary isn't loaded: just show the 39
@@ -5225,23 +5430,37 @@ function renderLexiconGrouped(){
   const hebrew = entries.filter(w=>w.language==='Hebrew');
   const greek = entries.filter(w=>w.language==='Greek');
   return `
-    <div class="section-label">Highlights</div>
-    ${hebrew.length ? `<div class="section-label">Hebrew <span style="color:var(--ink-faint);">${hebrew.length}</span></div>${hebrew.map(renderLexiconRow).join('')}` : ''}
-    ${greek.length ? `<div class="section-label">Greek <span style="color:var(--ink-faint);">${greek.length}</span></div>${greek.map(renderLexiconRow).join('')}` : ''}
+    <div class="hds-lex-highlights-title">Highlights</div>
+    ${hebrew.length ? `
+      <div class="hds-lex-group-eyebrow"><span>HEBREW</span><span class="hds-lex-count-pill">${hebrew.length}</span></div>
+      <div class="hds-lex-group-card">${hebrew.map(renderLexiconRow).join('')}</div>
+    ` : ''}
+    ${greek.length ? `
+      <div class="hds-lex-group-eyebrow"><span>GREEK</span><span class="hds-lex-count-pill">${greek.length}</span></div>
+      <div class="hds-lex-group-card">${greek.map(renderLexiconRow).join('')}</div>
+    ` : ''}
   `;
 }
 function renderLexiconRow(w){
+  const letter = (w.lemma||w.translit||'?').trim().charAt(0) || '?';
   return `
-    <div class="card tap" data-action="open-lexicon" data-id="${w.id}">
-      <div class="char-row">
-        <div class="avatar"><i class="ti ti-language"></i></div>
-        <div>
-          <h3>${esc(w.translit)} <span class="field-hint">${esc(w.lemma)}</span></h3>
-          <p class="field-hint">${w.shortDef ? esc(w.shortDef) + ' · ' : ''}${esc(w.id)}</p>
+    <div class="hds-lex-row tap" data-action="open-lexicon" data-id="${w.id}">
+      <div class="hds-lex-tile">${esc(letter)}</div>
+      <div class="hds-lex-row-body">
+        <div class="hds-lex-row-head">
+          <span class="hds-lex-row-name">${esc(w.translit)}</span>
+          <span class="hds-lex-row-heb" dir="${w.language==='Hebrew'?'rtl':'ltr'}">${esc(w.lemma)}</span>
         </div>
+        <div class="hds-lex-row-gloss">${esc(w.shortDef||'')}</div>
       </div>
+      <div class="hds-lex-row-badge">${esc(w.id)}</div>
     </div>`;
 }
+/* "Detail page" pattern (item 176) — a fixed 260px .hds-sky + one
+   cloud behind a plain back-btn+title header, then an orange hero card
+   (tag pills, the Hebrew/Greek word itself, transliteration +
+   pronunciation) and a definition card, per Study Pages Shepherd.dc.html's
+   "Lexicon entry" frame. */
 function renderLexiconDetail(id){
   const w = findLexiconEntry(id);
   if(!w) return renderLexicon();
@@ -5251,25 +5470,34 @@ function renderLexiconDetail(id){
   // don't exist in Strong's own raw dictionary, and Greek entries
   // carry no pronunciation at all in the source. Each is shown only
   // when actually present rather than rendering an empty/undefined gap.
-  const meta = [w.language, w.id, w.type].filter(Boolean).join(' · ');
+  const tags = [w.language, w.id, w.type].filter(Boolean);
   const isDark = settings.homeTheme === 'dark';
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-sky" style="height:260px;"></div>
+      ${hdsCloud(110,90,52,18)}
       <div class="hds-content" style="padding-top:0;">
         <div class="screen-head">
           <button class="back-btn" data-action="lexicon-back"><i class="ti ti-arrow-left"></i></button>
           <h2>${t('title_lexicon')}</h2>
         </div>
-        <div class="card">
-          <div class="field-hint">${esc(meta)}</div>
-          <h2 style="margin:6px 0 2px;">${esc(w.lemma)}</h2>
-          <p style="margin-bottom:10px;">${esc(w.translit)}${w.pronunciation ? ` <span class="field-hint">(${esc(w.pronunciation)})</span>` : ''}</p>
-          <p>${esc(w.definition)}</p>
-          ${w.occurrences ? `<div class="field-hint" style="margin-top:10px;">${w.occurrences} occurrence${w.occurrences===1?'':'s'} in Scripture</div>` : ''}
-          ${w.origin ? `<div class="field-hint" style="margin-top:6px;">${esc(w.origin)}</div>` : ''}
+        <div class="hds-lex-hero">
+          <div class="hds-lex-hero-circle"></div>
+          <div class="hds-lex-hero-tags">${tags.map(tg=>`<span>${esc(tg)}</span>`).join('')}</div>
+          <div class="hds-lex-hero-word" dir="${w.language==='Hebrew'?'rtl':'ltr'}">${esc(w.lemma)}</div>
+          <div class="hds-lex-hero-translit">
+            <span>${esc(w.translit)}</span>
+            ${w.pronunciation ? `<span class="hds-lex-hero-pron">(${esc(w.pronunciation)})</span>` : ''}
+          </div>
+        </div>
+        <div class="hds-card hds-lex-def-card">
+          ${w.shortDef ? `<div class="hds-lex-def-lead">${esc(w.shortDef)}</div>` : ''}
+          ${w.occurrences ? `<div class="hds-lex-occ-row"><div class="hds-lex-occ-num">${w.occurrences}</div><div class="hds-lex-occ-label">occurrence${w.occurrences===1?'':'s'} in Scripture</div></div>` : ''}
+          ${w.definition ? `<div class="hds-lex-def-full">${esc(w.definition)}</div>` : ''}
+          ${w.origin ? `<div class="hds-lex-def-origin">${esc(w.origin)}</div>` : ''}
         </div>
         ${ev ? `
-          <div class="section-label">Example</div>
+          <div class="hds-scenic-title" style="font-size:22px;padding:6px 2px 0;">Example</div>
           ${renderVerseCard(ev)}
         ` : ''}
       </div>
@@ -5281,30 +5509,64 @@ function renderLexiconDetail(id){
    Distinct from characterTimeline()/the per-character "Their life"
    section on Character Detail (that one's a single person's own
    LifeEvents) — this is every Era in canonical order, each showing its
-   Stories in canonicalOrder, using the exact same .timeline/.tl-item
-   CSS as that per-character view for visual consistency. Built entirely
-   from lore.eras/lore.stories, already curated — no new data. */
+   Stories in canonicalOrder. Built entirely from lore.eras/lore.stories,
+   already curated — no new data.
+   Item 176 rebuilt this screen's own markup around Timeline
+   Shepherd.dc.html's vertical-dotted-trail design (numbered nodes
+   cycling teal/meadow/terracotta/plum, event cards, plants in the
+   gaps between cards) — deliberately brand-new `.hds-tl-*` classes
+   rather than reusing `.timeline`/`.tl-item`, so Character Detail's
+   "Their life" section (which still uses those, themed generically by
+   item 173) is completely unaffected by this page-specific rebuild. */
 function renderTimeline(){
   const isDark = settings.homeTheme === 'dark';
-  if(!lore.eras.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}"><div class="hds-content" style="padding-top:0;"><div class="topbar"><h1>Timeline</h1></div><div class="empty"><i class="ti ti-timeline"></i><p>No timeline data loaded.</p></div></div></div>`;
+  const header = hdsScenicHeader({
+    title:'Timeline',
+    intro:"Every era of the Bible's story, in order, from Creation to Revelation.",
+    height:300, sunTop:70, sunRight:34, sunSize:56, hill1Bottom:-150, hill2Bottom:-175,
+    clouds:[[58,110,46,8],[128,74,62,40]],
+  });
+  if(!lore.eras.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}">${header}<div class="hds-content" style="padding-top:4px;"><div class="empty"><i class="ti ti-timeline"></i><p>No timeline data loaded.</p></div></div></div>`;
   const eras = [...lore.eras].sort((a,b)=>(a.order||0)-(b.order||0));
+  // Teal / meadow-green / terracotta / plum, cycling every 4th node,
+  // matching NODES in Timeline Shepherd.dc.html exactly.
+  const NODES = [['#2f9a82','#1f7563'],['#4f9a5a','#3a7a44'],['#d2603a','#a8441f'],['#7a5cc4','#5a3fa0']];
+  const eraIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor"></circle><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"></path></svg>`;
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
-      <div class="hds-content" style="padding-top:0;">
-        <div class="topbar"><h1>Timeline</h1></div>
-        <p style="margin-bottom:16px;line-height:1.5;">Every era of the Bible's story, in order, from Creation to Revelation.</p>
+      ${header}
+      <div class="hds-content" style="padding-top:4px;">
         ${eras.map(era=>{
           const stories = lore.stories.filter(s=>s.eraId===era.id).sort((a,b)=>(a.canonicalOrder||0)-(b.canonicalOrder||0));
           if(!stories.length) return '';
           return `
-            <div class="section-label">${esc(era.name)} <span>${esc(era.approxRange||'')}</span></div>
-            <div class="timeline">
-              ${stories.map(s=>`
-                <div class="tl-item tap" data-action="open-story" data-id="${s.id}">
-                  <div class="tl-title">${esc(s.title)}</div>
-                  <div class="tl-ref">${esc(s.primaryReference)}</div>
-                  <div class="tl-desc">${esc(s.summary)}</div>
-                </div>`).join('')}
+            <div class="hds-tl-era-card">
+              <div class="hds-tl-era-icon">${eraIcon}</div>
+              <div style="flex:1;min-width:0;">
+                <div class="hds-tl-era-eyebrow">${esc((era.approxRange||era.name||'').toUpperCase())}</div>
+                <div class="hds-tl-era-title">${esc(era.name)}</div>
+              </div>
+            </div>
+            <div class="hds-tl-trail">
+              ${stories.map((s,i)=>{
+                const col = NODES[i % 4];
+                // Plants sit in the gap ABOVE a row (between it and the
+                // previous card), same box the mockup's own e.plant uses
+                // (40px wide, centered, well above the node at top:12 so
+                // it never overlaps it) — skipped on the era's first
+                // event, which has no gap above it to sit in.
+                const plant = i > 0 ? `<div style="position:absolute;left:-46px;top:-22px;width:40px;height:22px;display:flex;justify-content:center;pointer-events:none;">${hdsPlant('position:relative;', 20, i%2===1, i)}</div>` : '';
+                return `
+                  <div class="hds-tl-row">
+                    ${plant}
+                    <div class="hds-tl-node" style="background:${col[0]};box-shadow:0 4px 0 ${col[1]};">${i+1}</div>
+                    <div class="hds-tl-event-card hds-tap" data-action="open-story" data-id="${s.id}">
+                      <div class="hds-tl-event-ref"><i class="ti ti-bookmark"></i>${esc(s.primaryReference)}</div>
+                      <div class="hds-tl-event-title">${esc(s.title)}</div>
+                      <div class="hds-tl-event-desc">${esc(s.summary)}</div>
+                    </div>
+                  </div>`;
+              }).join('')}
             </div>`;
         }).join('')}
       </div>
@@ -5397,12 +5659,17 @@ function relationshipToAnchor(member, anchor){
   if(gen === -2) return `Grandparent of ${anchor.name}`;
   return gen > 0 ? `${gen}-generation descendant of ${anchor.name}` : `${-gen}-generation ancestor of ${anchor.name}`;
 }
+/* Scenic-header values (height 200, sun top66/right30/52, hills
+   -170/-195, one cloud) are Study Pages Shepherd.dc.html's own "Family
+   Tree" frame, item 176 — the title-only header (no intro line inside
+   the scene; the explainer paragraph stays below, in the content
+   area, matching that file exactly). */
 function renderFamilyTreePicker(){
   const isDark = settings.homeTheme === 'dark';
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
-      <div class="hds-content" style="padding-top:0;">
-        <div class="topbar"><h1>Family Tree</h1></div>
+      ${hdsScenicHeader({title:'Family Tree', height:200, sunTop:66, sunRight:30, sunSize:52, hill1Bottom:-170, hill2Bottom:-195, clouds:[[58,96,50,22]]})}
+      <div class="hds-content" style="padding-top:4px;">
         <div class="search-wrap">
           <i class="ti ti-search"></i>
           <input type="text" id="family-tree-search" value="${esc(familyTreeQuery)}" placeholder="Search a family by name..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -5412,18 +5679,23 @@ function renderFamilyTreePicker(){
     </div>
   `;
 }
+/* Family row — 56px portrait with a 3px ring cycling the same
+   teal/terracotta/plum trio as Patterns cards (hdsCycleIndex), per
+   Study Pages Shepherd.dc.html's "Family Tree" family-row spec. Only
+   used by this picker — the node-graph screen's own bronze palette
+   (item 111) is untouched. */
 function renderFamilyCard(anchor, opts){
   opts = opts || {};
+  const col = HDS_TILE_COLORS[hdsCycleIndex(anchor.id, 3)];
   return `
-    <div class="card tap" data-action="open-family-tree" data-id="${opts.openId || anchor.id}">
-      <div class="char-row">
-        <div class="avatar">${charAvatarInner(anchor)}</div>
-        <div>
-          <h3>${esc(opts.label || familyLineageLabel(anchor))}</h3>
-          <p class="field-hint">${esc((anchor.roles||[])[0]||'')}</p>
-          ${opts.badge ? `<span class="tag tag--tan" style="margin-top:6px;display:inline-block;">Matches: ${esc(opts.badge)}</span>` : ''}
-        </div>
+    <div class="hds-family-row hds-tap" data-action="open-family-tree" data-id="${opts.openId || anchor.id}">
+      <div class="hds-family-portrait" style="box-shadow:0 0 0 3px ${col[0]};background:${col[2]};">${charAvatarInner(anchor)}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="hds-family-name">${esc(opts.label || familyLineageLabel(anchor))}</div>
+        <div class="hds-family-sub">${esc((anchor.roles||[])[0]||'')}</div>
+        ${opts.badge ? `<span class="tag tag--tan" style="margin-top:6px;display:inline-block;">Matches: ${esc(opts.badge)}</span>` : ''}
       </div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ht-lockic)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"></circle><circle cx="6" cy="19" r="2.2"></circle><circle cx="18" cy="19" r="2.2"></circle><path d="M12 7.2V12M6 16.8V12h12v4.8"></path></svg>
     </div>`;
 }
 function renderFamilyTreePickerResults(){
@@ -5452,7 +5724,7 @@ function renderFamilyTreePickerResults(){
     `;
   }
   return `
-    <p style="color:var(--ink-soft);margin-bottom:14px;line-height:1.5;">Explore how a well-known figure connects to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app. Only people with a curated family are listed here.</p>
+    <p style="color:var(--ht-sub);margin-bottom:14px;line-height:1.5;">Explore how a well-known figure connects to their family — parents, spouses, siblings, and children, drawn from every relationship curated in this app. Only people with a curated family are listed here.</p>
     ${lineages
       .sort((a,b)=> (findEra(a.anchor.eraId)?.order||0) - (findEra(b.anchor.eraId)?.order||0))
       .map(lin=>renderFamilyCard(lin.anchor))
@@ -5563,13 +5835,25 @@ function renderMotifBadges(list){
       ${list.map(m=>`<span class="tag tag--gold tap" data-action="open-motif" data-id="${m.id}" style="cursor:pointer;"><i class="ti ti-sparkles" style="font-size:12px;vertical-align:-1px;"></i> ${esc(m.name)}</span>`).join('')}
     </div>`;
 }
-function renderMotifCard(m){
+function renderMotifCard(m, i){
   const count = motifInstances(m.id).length;
+  const col = HDS_TILE_COLORS[hdsCycleIndex(m.id, 3)];
+  const dots = Array.from({length:Math.min(count,8)}, ()=>`<i style="background:${col[3]};"></i>`).join('');
   return `
-    <div class="card tap" data-action="open-motif" data-id="${m.id}">
-      <h3>${esc(m.name)}</h3>
-      <p class="field-hint" style="margin-top:6px;line-height:1.5;">${esc(m.description)}</p>
-      <div class="tag-row"><span class="tag tag--tan">${count} instance${count===1?'':'s'}</span></div>
+    <div class="hds-card hds-tap hds-pattern-card" data-action="open-motif" data-id="${m.id}">
+      <div class="hds-pattern-row">
+        <div class="hds-pattern-tile" style="background:${col[0]};box-shadow:0 4px 0 ${col[1]};">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 12c2.5-5 5.5-5 9 0s6.5 5 9 0"></path><circle cx="3.5" cy="12" r="1.6" fill="currentColor"></circle><circle cx="20.5" cy="12" r="1.6" fill="currentColor"></circle></svg>
+        </div>
+        <div class="hds-pattern-title">${esc(m.name)}</div>
+      </div>
+      <div class="hds-pattern-desc">${esc(m.description)}</div>
+      <div class="hds-pattern-footer">
+        <div class="hds-pattern-pill" style="background:${col[2]};color:${col[3]};">
+          <span class="hds-pattern-dots">${dots}</span>${count} INSTANCE${count===1?'':'S'}
+        </div>
+        <i class="ti ti-chevron-right hds-chev"></i>
+      </div>
     </div>`;
 }
 /* Study's root screen (4-Pillar nav, item 109) — Patterns is the only
@@ -5578,16 +5862,24 @@ function renderMotifCard(m){
    Study views, and interlinear/Strong's, interactive connection graphs,
    and commentaries are none of them built yet (see Known Gaps). This
    stays an honest, working Patterns screen rather than padding the tab
-   with placeholder cards for features that don't exist. */
+   with placeholder cards for features that don't exist.
+   Scenic-header values (height 290, sun top66/right30/52, hills
+   -160/-185, two clouds) are Study Pages Shepherd.dc.html's own
+   "Patterns" frame, item 176. */
 function renderMotifs(){
   const isDark = settings.homeTheme === 'dark';
-  if(!motifs.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}"><div class="hds-content" style="padding-top:0;"><div class="topbar"><h1>Patterns</h1></div><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div></div></div>`;
+  const header = hdsScenicHeader({
+    title:'Patterns',
+    intro:'Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.',
+    height:290, sunTop:66, sunRight:30, sunSize:52, hill1Bottom:-160, hill2Bottom:-185,
+    clouds:[[56,110,46,8],[140,72,62,40]],
+  });
+  if(!motifs.length) return `<div class="hds-theme" data-theme="${isDark?'dark':'light'}">${header}<div class="hds-content" style="padding-top:4px;"><div class="empty"><i class="ti ti-sparkles"></i><p>No patterns loaded.</p></div></div></div>`;
   return `
     <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
-      <div class="hds-content" style="padding-top:0;">
-        <div class="topbar"><h1>Patterns</h1></div>
-        <p style="margin-bottom:16px;line-height:1.5;">Recurring shapes that show up again and again across these stories — once you notice one, you start seeing it everywhere.</p>
-        ${motifs.map(renderMotifCard).join('')}
+      ${header}
+      <div class="hds-content" style="padding-top:4px;">
+        ${motifs.map((m,i)=>renderMotifCard(m,i)).join('')}
       </div>
     </div>
   `;

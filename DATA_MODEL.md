@@ -8827,6 +8827,117 @@ inventing a new principle:
       `pipeline/build_starter_pack.py --check` before actually writing —
       not a direct edit to the generated `data/starter-pack.json`.
     `sw.js` bumped to `rooted-v173`.
+176. **Study sub-pages get their own real scenic header + card redesign
+    — Patterns, Timeline, the Family Tree picker, and Lexicon's list
+    screen — done (2026-11-13).** Item 173's pass gave these four
+    screens (plus Family Tree's node-graph detail, Lexicon entry, and
+    Verse Detail) only the generic `.hds-theme <existing-class>` chrome
+    treatment it gave every other leftover screen — no scenic header
+    (sun/hills/clouds/plants), no page-specific card shape. The owner
+    sent a screenshot of the plain Patterns screen alongside
+    `design_handoff_practice_tab_v3/design_handoff/Study Pages
+    Shepherd.dc.html` ("This is how the new design looks"), surfacing
+    the gap directly.
+    - **New shared helpers**: `hdsScenicHeader(opts)` builds the whole
+      header (sky gradient, sun, two hill ellipses, a 40px fade to
+      `--ht-ground`, 1-2 drifting clouds, three swaying plants, then
+      the page's own title+intro living inside the scene) from
+      per-screen numbers pulled directly from `Timeline Shepherd.dc.html`
+      / `Study Pages Shepherd.dc.html` — height, sun position, hill
+      offsets, cloud timing — not guessed. `hdsCloud()` reuses the
+      existing `.hds-cloud-wrap`/`.hds-cloud`/`hdsDrift` pair Discover
+      already built (item 172), including that screen's own "skip in
+      dark mode" precedent (`--ht-cloud`'s dark value is close to
+      invisible). `hdsPlant()` reuses the exact leaf-sprig-plus-flower
+      SVG path Study's hub screen (`renderStudy()`) already draws
+      statically, just with a new `hdsSway` keyframe (±3deg, 4s) turned
+      on and the position passed in by the caller. `HDS_TILE_COLORS`/
+      `hdsCycleIndex(id, n)` is a 3-color (teal/terracotta/plum) version
+      of `topicColor()`'s own "hash a stable id into a small fixed
+      palette" shape (items 62-64) — used by Patterns' icon tiles and
+      Family Tree's portrait rings.
+    - **Patterns** (`renderMotifCard()`/`renderMotifs()`): a 44px
+      colored icon tile, Baloo-2 title, description, and a footer pill
+      (tinted background, one 8px dot per instance — capped at 8, a
+      judgment call for motifs with many instances, not spec'd —
+      plus "N INSTANCES"), and a chevron.
+    - **Timeline** (`renderTimeline()`): rebuilt around brand-new
+      `.hds-tl-*` classes, deliberately NOT reusing `.timeline`/
+      `.tl-item` (which stay exactly as item 173 themed them, still
+      shared with Character Detail's own "Their life" section) — a
+      terracotta era-intro card (icon + eyebrow + title), then a
+      vertical dotted trail of numbered nodes cycling teal/meadow-
+      green/terracotta/plum with event cards beside them, and swaying
+      plants in the gaps between cards, never over a node. Caught a
+      real field-mapping error while building this: `Era.name` is the
+      short title-like phrase ("Creation and the first families") and
+      `Era.approxRange` is the short eyebrow phrase ("the beginning")
+      — `Era.summary` (a full paragraph) is neither, and was never
+      actually used by this screen before or after.
+    - **Family Tree**: only the picker changed
+      (`renderFamilyTreePicker()`/`renderFamilyCard()`) — a scenic
+      header (title only, no intro line inside the scene, matching the
+      mockup exactly) and a new `.hds-family-row` (56px portrait with a
+      3px ring cycling the teal/terracotta/plum trio, name, role,
+      trailing tree icon). `renderFamilyTree(id)` — the actual SVG
+      node-graph and its bronze palette (item 111) — is untouched, per
+      explicit instruction; confirmed by screenshot that it still
+      renders identically. Also fixed a real pre-existing bug found
+      along the way: the picker's own explainer paragraph hardcoded
+      `var(--ink-soft)`, a root-level dark-theme-only token with no
+      relationship to this screen's own light/dark pair — now reads
+      `var(--ht-sub)`.
+    - **Lexicon**: the list screen (`renderLexicon()`) gets the scenic
+      header; `renderLexiconGrouped()`/`renderLexiconSearchHits()`/
+      `renderLexiconRow()` rebuilt around a 48px orange tile holding
+      the word's first letter, transliteration + original-language
+      text, a gloss, and a Strong's-id badge, grouped into one bordered
+      card per language (and for search results, one card regardless
+      of language). New `--ht-apr`/`--ht-aprt` tokens (the README's own
+      "extra tokens" for this section) back the Hebrew-count pill.
+      Lexicon *entry* (`renderLexiconDetail()`) and Verse Detail
+      instead get the spec's separate "detail page" pattern — the
+      existing `.hds-sky` at a fixed 260px height plus one `hdsCloud()`
+      call, behind a plain back-btn header (this pattern needed no new
+      CSS at all for the sky itself, just reusing what item 172 already
+      built). Lexicon entry's hero is a new orange card (tag pills, the
+      word itself, transliteration + pronunciation) above a definition
+      card (lead gloss, an occurrences stat row, full definition).
+      `Noto Serif Hebrew` — missing from this app's Google Fonts
+      `<link>` entirely until now — was added for the Hebrew glyphs on
+      both the list tiles and the entry hero word.
+    - **Verse Detail** — the one genuinely shared screen touched in
+      this batch (also reached from Browse, Topics, and practice
+      flows) — got the same detail-page sky+cloud, plus two scoped,
+      additive changes instead of edits to shared classes: a new
+      `.hds-verse-hero` modifier class (added only by this render
+      function) overrides just `.verse-card .text`'s font to the
+      spec's Newsreader 25px, leaving item 173's generic
+      `.hds-theme .verse-card .text/.ref` rule exactly as Browse's
+      search results, Lexicon Detail's example verse, and Motif
+      Detail's feed still use it; and the topic tag switched from the
+      generic `.tag.tag--tan` to a new `.hds-verse-topic-pill` (plum),
+      scoped to this one call site, not a change to `.tag--tan` itself
+      anywhere else. The Progress card's 56px tile now holds a small
+      swaying sprout (`hdsPlant()`, no flower). Deliberately left
+      alone, flagged rather than silently skipped: the "Practice this
+      verse"/"Add to library" buttons stay on the already-correctly-
+      colored generic `.btn.primary`/`.btn` (item 173) instead of a new
+      scoped exact-hex ledge color, since those classes are shared
+      everywhere and the generic version already reads right (teal,
+      white text) in both themes.
+    - **Verified** with an isolated Playwright + headless Chromium
+      install in this session's own scratchpad (nothing added to the
+      repo or installed system-wide, matching items 167-169's own
+      precedent for this kind of check) — screenshotted Patterns,
+      Patterns detail, Timeline, the Family Tree picker and its
+      node-graph detail screen, Lexicon, Lexicon entry, and Verse
+      Detail, in both themes, via the app's own `go(screen, params)`
+      router rather than clicking through nav (more reliable for
+      reaching screens whose ids aren't known ahead of time). Zero
+      console/page errors; Family Tree's node-graph screen confirmed
+      unchanged, still rendering its bronze palette.
+    `sw.js` bumped to `rooted-v174`.
 
 ---
 
