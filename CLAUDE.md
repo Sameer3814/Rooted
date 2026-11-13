@@ -1344,17 +1344,6 @@ The schema was deliberately designed so all of the above can be added
   page" sky pattern's own `hdsCloud()` calls real dark-mode clouds for
   the first time. `sw.js` bumped to `rooted-v179`. See DATA_MODEL.md
   §8, item 177.
-- **Daily-goal picker added to Shepherd's Path's own topbar — done
-  (2026-11-13).** Owner request: set `settings.dailyGoal` from the
-  Practice tab directly, instead of needing Settings for it (item 31's
-  original 5/10/15/20/25 picker there is untouched — both now write
-  the same setting). A new `.sp-pill.sp-goal` button joins the topbar's
-  streak/gems/hearts/level pills, opening a small popover with the same
-  `DAILY_GOAL_OPTIONS` on tap. Its own action, `sp-set-daily-goal`, is
-  deliberately separate from Settings' `set-daily-goal` so it gets the
-  `sp-*`-prefix stopPropagation treatment every other in-popover action
-  on this screen relies on. `sw.js` bumped to `rooted-v180`. See
-  DATA_MODEL.md §8, item 178.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
