@@ -1305,8 +1305,17 @@ The schema was deliberately designed so all of the above can be added
   moving the layer *above* `.app` (`z-index:1100`, clearing the nav/
   feedback-sheet's own `1000`/`1001`) with `mix-blend-mode:screen`, so
   it adds light rather than covering content — visible against dark
-  backgrounds, barely noticeable against light ones. `sw.js` bumped to
-  `rooted-v176`. See DATA_MODEL.md §8, item 177.
+  backgrounds, barely noticeable against light ones. **Visual
+  refinement, same day**: the owner supplied a reference "sky"
+  implementation's exact keyframes/markup for the twinkle and fall —
+  adopted directly: a sharper `starTwinkle` curve, and the falling star
+  rebuilt into a rotated outer div holding a sliding/fading `.trail`
+  with a small glowing `.head` at its leading edge, star/head color
+  warmed slightly to match (`#fff8e1`/`#fffbe9`) — still effectively
+  white. Positions/angles/timing stay randomized across the full
+  viewport rather than the reference's own fixed layout, sized for a
+  small bounded sky container. `sw.js` bumped to `rooted-v177`. See
+  DATA_MODEL.md §8, item 177.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

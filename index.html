@@ -185,14 +185,24 @@
      light/white one, which is also why it's gated to dark mode only
      rather than relying on the blend mode alone to hide it. */
   #star-field{position:fixed;inset:0;z-index:1100;pointer-events:none;overflow:hidden;display:none;mix-blend-mode:screen;}
-  #star-field .star{position:absolute;background:#fff;border-radius:50%;animation:starTwinkle ease-in-out infinite;}
-  @keyframes starTwinkle{0%,100%{opacity:.1;}50%{opacity:.75;}}
-  #star-field .shooting-star{position:absolute;width:90px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));transform:rotate(-35deg);border-radius:2px;opacity:0;animation:starFall linear infinite;}
+  #star-field .star{position:absolute;background:#fff8e1;border-radius:50%;animation:starTwinkle ease-in-out infinite;}
+  @keyframes starTwinkle{0%,100%{opacity:.25;}50%{opacity:1;}}
+  /* Falling star: an outer div set to the fall angle via `transform:rotate()`,
+     holding a `.trail` that slides/fades along that rotated axis
+     (`starFall`) with a bright glowing `.head` fixed at its leading edge —
+     the recipe matches the owner's own supplied reference exactly
+     (keyframe curve, trail gradient stops, head size/glow), not a
+     reinterpretation. */
+  #star-field .shooting-star{position:absolute;width:0;height:0;pointer-events:none;}
+  #star-field .trail{position:absolute;left:0;top:-1px;width:84px;height:2px;border-radius:2px;opacity:0;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,248,225,.9));animation:starFall linear infinite;}
+  #star-field .head{position:absolute;right:-2px;top:-1.5px;width:5px;height:5px;border-radius:50%;
+    background:#fffbe9;box-shadow:0 0 8px 3px rgba(255,240,200,.7);}
   @keyframes starFall{
-    0%{opacity:0;transform:translate(0,0) rotate(-35deg);}
-    4%{opacity:1;}
-    18%{opacity:0;transform:translate(220px,160px) rotate(-35deg);}
-    100%{opacity:0;}
+    0%{transform:translateX(0);opacity:0;}
+    2%{opacity:1;}
+    12%{transform:translateX(190px);opacity:0;}
+    100%{transform:translateX(190px);opacity:0;}
   }
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
@@ -3274,12 +3284,13 @@ function ensureStarField(){
     const delay = (Math.random()*5).toFixed(2);
     html += `<span class="star" style="width:${size}px;height:${size}px;top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
   }
-  for(let i=0;i<4;i++){
-    const top = (Math.random()*45).toFixed(2);
-    const left = (Math.random()*65).toFixed(2);
-    const dur = (Math.random()*5+7).toFixed(2);
-    const delay = (Math.random()*25).toFixed(2);
-    html += `<span class="shooting-star" style="top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
+  for(let i=0;i<5;i++){
+    const top = (Math.random()*60).toFixed(2);
+    const left = (Math.random()*70).toFixed(2);
+    const deg = (Math.random()*14+22).toFixed(1);
+    const dur = (Math.random()*8+12).toFixed(2);
+    const delay = (Math.random()*20).toFixed(2);
+    html += `<div class="shooting-star" style="top:${top}%;left:${left}%;transform:rotate(${deg}deg);"><span class="trail" style="animation-duration:${dur}s;animation-delay:-${delay}s;"><span class="head"></span></span></div>`;
   }
   el.innerHTML = html;
   document.body.insertBefore(el, document.body.firstChild);

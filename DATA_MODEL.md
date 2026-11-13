@@ -8975,8 +8975,26 @@ inventing a new principle:
     it adds light rather than painting an opaque layer over content —
     visible against a dark background, barely noticeable against a
     light one (which is also why dark-mode gating stays in place rather
-    than leaning on the blend mode alone). `sw.js` bumped to
-    `rooted-v176`.
+    than leaning on the blend mode alone).
+
+    **Visual refinement, same day**: the owner supplied a reference
+    implementation (keyframes + markup from an existing "sky" component
+    elsewhere) for exactly how the twinkle and fall should look and
+    move. Adopted directly rather than re-derived — `starTwinkle`'s
+    curve (`0%,100%:.25 → 50%:1`, was a flatter `.1 → .75`) and the
+    falling star rebuilt from one flat gradient bar into the reference's
+    own structure: an outer div set to the fall angle via
+    `transform:rotate()`, holding a `.trail` that slides/fades along
+    that rotated axis (`starFall`, a `translateX` + opacity curve, not
+    the previous `translate()` diagonal) with a small glowing `.head`
+    (`box-shadow`-lit dot) fixed at its leading edge. Star/head color
+    warmed slightly (`#fff8e1`/`#fffbe9`, from pure `#fff`) to match the
+    reference exactly — still effectively white, not a real departure
+    from the standing black-and-white rule. `ensureStarField()` keeps
+    generating randomized positions/angles/timing across the full
+    viewport rather than the reference's own fixed 6-dot/2-fall layout,
+    since that layout was sized for a small bounded sky container and
+    this feature covers the whole page. `sw.js` bumped to `rooted-v177`.
 
 ---
 
