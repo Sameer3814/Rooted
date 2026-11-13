@@ -1286,6 +1286,23 @@ The schema was deliberately designed so all of the above can be added
     Tree's node-graph screen renders its bronze palette exactly as
     before (unreached by any of this pass's CSS). `sw.js` bumped to
     `rooted-v174`. See DATA_MODEL.md §8, item 176.
+- **Ambient night-sky decoration: twinkling + falling stars, app-wide in
+  dark mode — done (2026-11-13).** A single fixed `#star-field` overlay
+  (`ensureStarField()`), built once at boot and appended to `body`
+  directly — never rebuilt by `render()`'s own `app.innerHTML` swap, so
+  the randomized star positions stay stable across every re-render.
+  `z-index:-1` with no background of its own means it's only visible
+  through `body`'s own background color, which already is this app's
+  single theme signal per screen (same mechanism as the body-background
+  bleed fix, items 145/172/173) — reused directly rather than inventing
+  a second theme concept. Visibility toggles alongside that same block
+  in `render()`: follows `settings.homeTheme` for every HDS-themed
+  screen (and the legacy practice session, which already reads
+  `homeTheme` there too), `settings.practiceTheme` for Shepherd's
+  Path's own full-viewport scene, defaulting to dark for anything
+  outside both — matching `body`'s own un-overridden `var(--paper)`
+  background. `sw.js` bumped to `rooted-v175`. See DATA_MODEL.md §8,
+  item 177.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

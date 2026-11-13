@@ -161,6 +161,33 @@
      swipe-back gesture wired in wireSwipeBack() below before it ever
      fires. Real bug, not theoretical — caught by direct device testing. */
   .app{max-width:var(--app-max-width);margin:0 auto;padding:20px 18px 8px;touch-action:pan-y;}
+  /* Ambient night-sky decoration (owner request, 2026-11-13): small
+     twinkling stars + the occasional falling star, shown only while the
+     active theme for the current screen is dark. Lives as one fixed,
+     pointer-events:none layer appended directly to `body` once at boot
+     (`ensureStarField()`), never touched by render()'s own
+     app.innerHTML replacement — the same "build once, sync a class/style
+     per render instead of rebuilding" approach item 162's scroll-restore
+     fix and the navbar's own theme sync (render(), ~line 3248) already
+     use. `z-index:-1` + no background-color of its own means it paints
+     behind `.app` (itself unstyled/transparent) and shows through via
+     `body`'s own background — the 120px bottom nav-clearance strip,
+     page-edge gutters on wide screens, and any space below short
+     content — exactly where `body`'s background color is already the
+     single source of truth for the current screen's theme (see the
+     body-background-bleed sync right above `render()`'s own screen
+     dispatch). Visibility is a plain `display` toggle driven by that
+     same dark/light determination, not a separate theme concept. */
+  #star-field{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;display:none;}
+  #star-field .star{position:absolute;background:#fff;border-radius:50%;animation:starTwinkle ease-in-out infinite;}
+  @keyframes starTwinkle{0%,100%{opacity:.15;}50%{opacity:.95;}}
+  #star-field .shooting-star{position:absolute;width:90px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));transform:rotate(-35deg);border-radius:2px;opacity:0;animation:starFall linear infinite;}
+  @keyframes starFall{
+    0%{opacity:0;transform:translate(0,0) rotate(-35deg);}
+    4%{opacity:1;}
+    18%{opacity:0;transform:translate(220px,160px) rotate(-35deg);}
+    100%{opacity:0;}
+  }
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
   .topbar .brand{display:flex;align-items:center;gap:8px;}
   .topbar .brand i{font-size:25px;color:var(--gold-deep);}
@@ -3223,6 +3250,35 @@ const NAV_GROUPS = {
   discover: ['discover', 'browse', 'topics', 'characters', 'stories', 'bookPeople'],
   study: ['study', 'motifs', 'timeline', 'familyTree'],
 };
+// Builds the night-sky overlay once and leaves it alone — render() only
+// ever toggles its display, never regenerates or re-parents it, so the
+// randomized star positions stay stable across every re-render instead
+// of visibly reshuffling on every tap.
+function ensureStarField(){
+  if(document.getElementById('star-field')) return;
+  const el = document.createElement('div');
+  el.id = 'star-field';
+  el.setAttribute('aria-hidden', 'true');
+  let html = '';
+  for(let i=0;i<70;i++){
+    const size = (Math.random()*1.8+1).toFixed(1);
+    const top = (Math.random()*100).toFixed(2);
+    const left = (Math.random()*100).toFixed(2);
+    const dur = (Math.random()*3+2.5).toFixed(2);
+    const delay = (Math.random()*5).toFixed(2);
+    html += `<span class="star" style="width:${size}px;height:${size}px;top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
+  }
+  for(let i=0;i<4;i++){
+    const top = (Math.random()*45).toFixed(2);
+    const left = (Math.random()*65).toFixed(2);
+    const dur = (Math.random()*5+7).toFixed(2);
+    const delay = (Math.random()*25).toFixed(2);
+    html += `<span class="shooting-star" style="top:${top}%;left:${left}%;animation-duration:${dur}s;animation-delay:-${delay}s;"></span>`;
+  }
+  el.innerHTML = html;
+  document.body.insertBefore(el, document.body.firstChild);
+}
+
 function render(){
   const app = document.getElementById('app');
   // Shepherd's Path's own scroll containers (.shepherd-scroll on the
@@ -3275,11 +3331,19 @@ function render(){
     'settings', 'unreachedDetail', 'verseDetail', 'topicDetail', 'characterDetail', 'timelineGame', 'storyDetail',
     'lexicon', 'lexiconDetail', 'timeline', 'familyTree', 'motifs', 'motifDetail', 'add', 'addVerse', 'addCharacter'];
   const isLegacyPracticeScreen = view.screen === 'practice' && !(session && session.shepherd);
+  let isDarkNow;
   if(HDS_SCREENS.includes(view.screen) || isLegacyPracticeScreen){
-    document.body.style.background = settings.homeTheme === 'dark' ? '#14112a' : '#f4eedf';
+    isDarkNow = settings.homeTheme === 'dark';
+    document.body.style.background = isDarkNow ? '#14112a' : '#f4eedf';
   }else{
+    // Shepherd's Path's own full-viewport scene (practice w/ session.shepherd)
+    // follows its own practiceTheme toggle, not homeTheme — same split the
+    // navbar theme sync above already makes.
+    isDarkNow = view.screen === 'practice' ? settings.practiceTheme !== 'light' : true;
     document.body.style.background = '';
   }
+  const starField = document.getElementById('star-field');
+  if(starField) starField.style.display = isDarkNow ? 'block' : 'none';
   if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
@@ -8032,6 +8096,7 @@ async function migrateLegacy(seedContent){
   lexicon = await loadLexiconData();
   characterPortraits = await loadCharacterPortraits();
   storyIllustrations = await loadStoryIllustrations();
+  ensureStarField();
   render();
   applyNavLabels();
 

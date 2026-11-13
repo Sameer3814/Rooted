@@ -8939,6 +8939,37 @@ inventing a new principle:
       unchanged, still rendering its bronze palette.
     `sw.js` bumped to `rooted-v174`.
 
+177. **Ambient night-sky decoration — twinkling stars + falling stars,
+    app-wide in dark mode — done (2026-11-13).** Direct owner request:
+    "Can you add some stars and falling stars on every page when in
+    dark mode?" Built as one fixed, `pointer-events:none` `#star-field`
+    layer (70 twinkling `.star` dots via `starTwinkle`, 4 streaking
+    `.shooting-star` elements via `starFall`, each with randomized
+    position/size/timing) created once at boot by `ensureStarField()`
+    and appended directly to `body`, deliberately never touched by
+    `render()`'s own wholesale `app.innerHTML` replacement — same "build
+    once, sync a class/style per render" approach as the navbar's own
+    theme sync and item 162's scroll-restore fix, so the randomized star
+    layout stays stable across every re-render instead of reshuffling on
+    every tap. `z-index:-1` with no background of its own means it
+    paints behind `.app` (itself unstyled/transparent) and shows through
+    wherever `body`'s own background color is already visible — the
+    120px bottom nav-clearance strip, page-edge gutters on wide screens,
+    and any space below short content — reusing the exact same
+    "`body`'s background color is the single source of truth for this
+    screen's theme" mechanism the body-background-bleed fix (items
+    145/172/173) already established, rather than inventing a second
+    theme concept. Visibility is a plain `display` toggle computed right
+    alongside that existing block in `render()`: `settings.homeTheme ===
+    'dark'` for every HDS-themed screen (plus the legacy, non-Shepherd
+    practice session, which already follows `homeTheme` there too),
+    `settings.practiceTheme !== 'light'` for Shepherd's Path's own
+    full-viewport scene, and `true` as the default for any screen
+    outside both lists (`body`'s own un-overridden background is
+    `var(--paper)`, the original v3 dark theme, so that fallback is
+    already correct rather than a guess). `sw.js` bumped to
+    `rooted-v175`.
+
 ---
 
 ## 9. How the app reads this data
