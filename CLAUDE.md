@@ -1314,8 +1314,16 @@ The schema was deliberately designed so all of the above can be added
   warmed slightly to match (`#fff8e1`/`#fffbe9`) — still effectively
   white. Positions/angles/timing stay randomized across the full
   viewport rather than the reference's own fixed layout, sized for a
-  small bounded sky container. `sw.js` bumped to `rooted-v177`. See
-  DATA_MODEL.md §8, item 177.
+  small bounded sky container. **Behavior change, same day**: falling
+  stars now play once per page opened rather than looping continuously
+  (the ambient twinkling `.star` field still loops — not part of this
+  ask) — `.trail` changed to `starFall linear 1`, the shooting-star
+  batch lives in its own `#falling-stars` child, and a new
+  `replayFallingStars()` regenerates that child with a fresh randomized
+  batch every time `go()` actually navigates (not on every background
+  `render()`, which also fires for in-place updates like opening a
+  popover). `sw.js` bumped to `rooted-v178`. See DATA_MODEL.md §8, item
+  177.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

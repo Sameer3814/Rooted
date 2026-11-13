@@ -8994,7 +8994,23 @@ inventing a new principle:
     generating randomized positions/angles/timing across the full
     viewport rather than the reference's own fixed 6-dot/2-fall layout,
     since that layout was sized for a small bounded sky container and
-    this feature covers the whole page. `sw.js` bumped to `rooted-v177`.
+    this feature covers the whole page.
+
+    **Behavior change, same day**: owner asked for falling stars to
+    appear once per page opened, not loop continuously — the ambient
+    twinkling `.star` field stays as a continuous loop (not part of
+    this ask). The `.trail` animation changed from `starFall linear
+    infinite` to `starFall linear 1`, and the shooting-star batch moved
+    into its own `#falling-stars` child inside `#star-field`. A CSS
+    animation only (re)plays when its element is freshly inserted into
+    the DOM, so a new `replayFallingStars()` regenerates that one
+    child's `innerHTML` with a fresh randomized batch (new
+    `shootingStarsHtml()`, factored out of `ensureStarField()`) every
+    time `go()` actually navigates to a screen — deliberately wired into
+    `go()`, not the much more frequent `render()`, since `render()` also
+    fires for in-place updates (opening a popover, toggling a theme)
+    that aren't a "page opened" in the sense meant here. `sw.js` bumped
+    to `rooted-v178`.
 
 ---
 
