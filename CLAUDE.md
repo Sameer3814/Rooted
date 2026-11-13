@@ -1344,6 +1344,21 @@ The schema was deliberately designed so all of the above can be added
   page" sky pattern's own `hdsCloud()` calls real dark-mode clouds for
   the first time. `sw.js` bumped to `rooted-v179`. See DATA_MODEL.md
   §8, item 177.
+- **"Select whole book" in Add Chapters — done (2026-11-13).** A first
+  attempt at "let users set their own goal instead of the default"
+  (a numeric daily-goal picker on Shepherd's Path's own topbar) was
+  reverted outright — wrong read of the request ("my goal is to
+  memorize the entire book of Romans, so the units should be laid out
+  accordingly") and visually broken besides. The real ask turned out to
+  already be close to buildable: item 174's "Add chapters" flow plus
+  `shepherdUnits()`'s existing per-book+chapter grouping already
+  produces correctly-ordered "Romans 1" … "Romans 16" path units once
+  every chapter is added — the only real gap was that selecting a
+  16-chapter book one checkbox at a time doesn't scale. Added a "Select
+  all N" / "Clear selection" toggle next to Browse's add-chapters
+  chapter grid, reusing the exact same selection Set and confirm flow
+  item 174 already built. `sw.js` bumped to `rooted-v180`. See
+  DATA_MODEL.md §8, item 178.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

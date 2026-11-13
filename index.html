@@ -1752,6 +1752,12 @@
      select mode rather than a separate picker component. */
   .hds-theme .chapter-cell-selected{background:var(--ht-acc);border-color:var(--ht-accl);color:#fff;box-shadow:0 3px 0 var(--ht-accl);}
   .hds-theme .chapter-cell-added{background:var(--ht-tint);border-color:var(--ht-line);color:var(--ht-lockic);box-shadow:none;cursor:default;}
+  /* "Select whole book" (owner request, 2026-11-13) — a small pill next
+     to the "TAP A CHAPTER TO ADD IT" label, same role as the bar below
+     (confirming the bulk add) but scoped to one book's own chapter grid
+     rather than the whole-journey confirm action. */
+  .add-journey-whole-book{flex:none;height:30px;padding:0 12px;border-radius:999px;border:2px solid var(--ht-accl);background:var(--ht-tint);color:var(--ht-acc);font:800 12px 'Figtree',sans-serif;cursor:pointer;white-space:nowrap;}
+  .add-journey-whole-book:active{transform:translateY(1px);}
   .add-journey-bar{
     position:fixed;left:16px;right:16px;max-width:calc(var(--app-max-width) - 32px);margin:0 auto;
     bottom:calc(100px + env(safe-area-inset-bottom));z-index:1001;
@@ -4139,18 +4145,32 @@ function renderBrowseResults(){
     const peopleCount = charactersInBook(browse.book).length;
     if(addJourneyMode){
       const lib = libraryVerseIds();
+      // A chapter only counts as "already added" once every one of its
+      // verses is already in the library — a partially-added chapter
+      // (e.g. one verse added earlier from a search result) still shows
+      // as a normal, tappable chapter.
+      const chapterStates = entry.chapters.map(c=>{
+        const key = `${browse.book}|${c.n}`;
+        const selected = addJourneySelectedChapters.has(key);
+        const already = !selected && corpus.filter(v=>v.book===browse.book && v.chapter===c.n).every(v=>lib.has(v.id));
+        return {c, key, selected, already};
+      });
+      // "Select whole book" (owner request, 2026-11-13: "my goal is to
+      // memorize the entire book of Romans" — tapping every chapter's
+      // checkbox one at a time doesn't scale to a 16-chapter book).
+      // Toggles between selecting every not-yet-added chapter and
+      // clearing the selection, so it also works as a quick "clear" once
+      // the whole book is already selected.
+      const selectableCount = chapterStates.filter(s=>!s.already).length;
+      const allSelected = selectableCount > 0 && chapterStates.every(s=>s.already || s.selected);
       return `
         ${renderCrumbs()}
-        <div style="font:900 12px 'Figtree',sans-serif;letter-spacing:.08em;color:var(--ht-sub);padding:6px 2px 0;">TAP A CHAPTER TO ADD IT</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 2px 0;">
+          <div style="font:900 12px 'Figtree',sans-serif;letter-spacing:.08em;color:var(--ht-sub);">TAP A CHAPTER TO ADD IT</div>
+          ${selectableCount ? `<button class="add-journey-whole-book tap" data-action="toggle-add-whole-book" data-id="${esc(browse.book)}">${allSelected ? 'Clear selection' : `Select all ${entry.chapters.length}`}</button>` : ''}
+        </div>
         <div class="chapter-grid">
-          ${entry.chapters.map(c=>{
-            const key = `${browse.book}|${c.n}`;
-            const selected = addJourneySelectedChapters.has(key);
-            // A chapter only counts as "already added" once every one of
-            // its verses is already in the library — a partially-added
-            // chapter (e.g. one verse added earlier from a search result)
-            // still shows as a normal, tappable chapter.
-            const already = !selected && corpus.filter(v=>v.book===browse.book && v.chapter===c.n).every(v=>lib.has(v.id));
+          ${chapterStates.map(({c, key, selected, already})=>{
             const cls = ['chapter-cell'];
             if(selected) cls.push('chapter-cell-selected');
             if(already) cls.push('chapter-cell-added');
@@ -7806,6 +7826,18 @@ function onAction(e){
     const key = `${browse.book}|${el.dataset.n}`;
     if(addJourneySelectedChapters.has(key)) addJourneySelectedChapters.delete(key);
     else addJourneySelectedChapters.add(key);
+    refreshBrowseResults();
+  }
+  else if(action==='toggle-add-whole-book'){
+    const entry = corpusIndex.find(b => b.book === id);
+    if(!entry) return;
+    const lib = libraryVerseIds();
+    const selectable = entry.chapters
+      .map(c => ({ key: `${id}|${c.n}`, already: corpus.filter(v=>v.book===id && v.chapter===c.n).every(v=>lib.has(v.id)) }))
+      .filter(s => !s.already);
+    const allSelected = selectable.length > 0 && selectable.every(s => addJourneySelectedChapters.has(s.key));
+    if(allSelected) selectable.forEach(s => addJourneySelectedChapters.delete(s.key));
+    else selectable.forEach(s => addJourneySelectedChapters.add(s.key));
     refreshBrowseResults();
   }
   else if(action==='confirm-add-chapters'){

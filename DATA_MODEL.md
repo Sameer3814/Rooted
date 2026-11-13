@@ -9066,6 +9066,38 @@ inventing a new principle:
     owner's own reference usage example), since Home's sky previously
     had no clouds in either theme. `sw.js` bumped to `rooted-v179`.
 
+178. **"Select whole book" in Add Chapters — done (2026-11-13).** A
+    first attempt at "let users set their own goal instead of the
+    default" shipped as a numeric daily-goal picker on Shepherd's
+    Path's own topbar — wrong read of the request (the owner clarified:
+    "what I meant was instead of following the units that was set by
+    default I want to set them... my goal is to memorize the entire
+    book of Romans, so the units should be laid out accordingly") and,
+    separately, visually broken (the popover collided with the Review
+    banner below it) — **reverted outright**, not patched; Settings'
+    own pre-existing 5/10/15/20/25 picker (item 31) is untouched and is
+    once again the only way to change that particular setting.
+
+    The actual ask turned out to already be close to buildable on
+    existing architecture: item 174's "Add chapters" flow already lets
+    a user bulk-add specific chapters to their practice library, and
+    `shepherdUnits()` already groups untagged verses into one unit per
+    book+chapter (`chbucket_${book}_${chapter}`) in the corpus's own
+    canonical order — so adding every chapter of Romans already
+    produces 16 correctly-ordered "Romans 1" … "Romans 16" units on the
+    Path, exactly "laid out according to" that goal. The one real gap
+    was mechanical, not architectural: selecting a 16-chapter book one
+    checkbox at a time doesn't scale. Added a "Select all N" / "Clear
+    selection" toggle (`toggle-add-whole-book`) next to the existing
+    "TAP A CHAPTER TO ADD IT" label in Browse's add-chapters chapter
+    grid — selects every not-yet-added chapter of the book currently
+    being viewed in one tap (or clears the selection back down, once
+    every selectable chapter is already selected), reusing the exact
+    same `addJourneySelectedChapters` Set and `confirm-add-chapters`
+    confirm flow item 174 already built, so the bulk-add, dedup, and
+    "already in your journey" chapter-cell states all work unchanged.
+    `sw.js` bumped to `rooted-v180`.
+
 ---
 
 ## 9. How the app reads this data
