@@ -1359,6 +1359,21 @@ The schema was deliberately designed so all of the above can be added
   chapter grid, reusing the exact same selection Set and confirm flow
   item 174 already built. `sw.js` bumped to `rooted-v180`. See
   DATA_MODEL.md §8, item 178.
+- **"Edit your path" — reorder/remove whole Shepherd's Path units —
+  done (2026-11-13), same day, follow-up to the item above.** The real
+  complaint: the 10 default starter verses (all topic-tagged — "Peace,"
+  "Fear," etc.) always produced the path's first several units ahead of
+  anything added later, with no way to change that. Two fixes:
+  `shepherdUnits()`'s default ordering changed from canonical-Bible-
+  position to actual library add-order (`content.libraryVerseIds`'s own
+  array order, which `addToLibrary()`/"Add chapters" already append
+  to); and a real manual override, `content.unitOrder`, settable from a
+  new "Edit your path" screen (`renderManageUnits()`, reached via a new
+  icon button in the Path topbar) with up/down reorder and a remove
+  button per unit — remove bulk-calls the existing single-verse
+  `removeFromLibrary()` over every verse in that unit, behind a
+  `confirm()`. `sw.js` bumped to `rooted-v181`. See DATA_MODEL.md §8,
+  item 179.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

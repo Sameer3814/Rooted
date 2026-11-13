@@ -9098,6 +9098,66 @@ inventing a new principle:
     "already in your journey" chapter-cell states all work unchanged.
     `sw.js` bumped to `rooted-v180`.
 
+179. **"Edit your path" — reorder/remove whole Shepherd's Path units —
+    done (2026-11-13), same day, follow-up to item 178.** Item 178
+    fixed how easy it is to *add* a whole book, but the owner's actual
+    complaint went further: "when you click on practice tab, the first
+    unit is peace, the second unit is fear... I don't want to follow
+    these units, I want to set the units for myself... if I'm planning
+    to memorize the whole book of Romans, the first unit should be the
+    first chapter of Romans." The 10 `DEFAULT_LIBRARY_IDS` starter
+    verses are all topic-tagged (see `shepherdUnits()`'s own comment),
+    so on a fresh install they always produce the first several units,
+    ahead of anything added later — not a bug, but not something the
+    owner had any way to change.
+
+    Two real fixes:
+    - **Default ordering changed from canonical-Bible-position to
+      actual add-order.** `shepherdUnits()` used to build its
+      first-seen group order by walking `libraryVerses()`, which is
+      `data.verses` filtered down to library membership — i.e. sorted
+      by where each verse falls in the whole Bible, regardless of when
+      it was added. It now walks `content.libraryVerseIds` itself
+      (the array `addToLibrary()`/"Add chapters" already append to),
+      so whatever's already on the path stays ahead of whatever gets
+      added after it, by construction — not a fix specific to Romans,
+      a correct general default.
+    - **A real manual override, for when add-order still isn't what's
+      wanted** (e.g. the owner wants Romans *first*, ahead of the
+      starter verses that were already there). New `content.unitOrder`
+      — a plain array of unit keys (a topic id or a `chbucket_*` key,
+      the same keys `shepherdUnits()` already groups by) — and a new
+      screen, `renderManageUnits()` ("Edit your path," reached via a
+      new icon button in the Path topbar, `go-manage-units`), listing
+      every current unit with up/down controls
+      (`move-unit-up`/`move-unit-down`) and a remove button
+      (`remove-unit`). Moving a unit materializes the *current*
+      effective order (whatever `shepherdUnits()` already resolved —
+      natural add-order merged with any prior manual order) into
+      `content.unitOrder` before swapping, so the first reorder a user
+      ever does captures a complete, correct order rather than just the
+      one key moved. `shepherdUnits()` reads `content.unitOrder` back:
+      any key present there wins its position; any key not yet
+      placed (a unit created after the last reorder) falls after all
+      placed ones, in its own natural add-order — so a newly added
+      goal doesn't silently vanish from the order just because it
+      wasn't there the last time the owner reordered.
+    - **Removing a unit** bulk-calls the existing `removeFromLibrary()`
+      (item 2484's own single-verse remove, previously only reachable
+      one verse at a time from Verse Detail) over every verse in that
+      unit, behind a `confirm()` dialog — the same native-confirm
+      pattern the import-overwrite flow already established for a
+      destructive, irreversible local action — and drops the key from
+      `content.unitOrder` too, so a removed unit can't leave a stale
+      entry behind.
+
+    A first attempt at this same underlying ask (a numeric daily-goal
+    picker added to the Path topbar, then reverted — see item 178's own
+    opening paragraph) had already misread the request once; this pass
+    confirmed the real shape of the ask directly from the owner's own
+    concrete example before building, rather than guessing a second
+    time. `sw.js` bumped to `rooted-v181`.
+
 ---
 
 ## 9. How the app reads this data
