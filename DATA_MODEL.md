@@ -9280,6 +9280,57 @@ inventing a new principle:
     is just starting now land on the same entry point either way.
     `sw.js` bumped to `rooted-v184`.
 
+183. **Real spaced repetition for Shepherd's Path — tightened scheduling
+    + a required review gate — done (2026-11-14).** Owner: "every unit
+    has a few verses and they only appear once. In order to memorize
+    verses users need to practice them over and over again." The
+    scaffolding for this already existed (`recordPractice()`'s
+    `status`/`nextReview`/`history` ladder, `isDue()`/`dueVerses()`, the
+    "Review N due verses" banner, and a "PRACTICE AGAIN" replay popover
+    on any already-done stop) — the real bug was that it never produced
+    the repeated-over-time exposure the owner meant. Two fixes:
+    - **The actual root cause**: `recordPractice()` promoted a verse's
+      mastery stage (`new -> learning -> review -> mastered`, each with
+      a correspondingly longer `nextReview` gap, 3/7/14/21 days) on
+      EVERY call, and a single Shepherd lesson calls it 5 times back to
+      back — once per exercise type (`SHEPHERD_LESSON_SEQUENCE`), same
+      verse, same sitting. A brand-new verse answered correctly all 5
+      times in its very first lesson could walk all the way to
+      "mastered" with a 21-day gap before it would ever be shown again
+      — despite having been reviewed on exactly one day, not five.
+      Fixed with a day-gate: a correct answer only promotes the stage
+      (and reschedules `nextReview`) the first time that happens on a
+      given calendar day (new `VerseProgress.lastPromoteDay`); the rest
+      of that lesson's exercises still record history but can't promote
+      twice in one sitting. The ladder itself was also tightened —
+      `learning`/`review`/`mastered` gaps are now 1/3/14 days (was
+      3/7/14/21) — and a wrong answer is no longer day-gated at all: it
+      demotes one stage immediately (floored at `new`) and sets
+      `nextReview` to right now, so a slipping verse gets more reps, not
+      a same-length delay. Verified with a Node simulation: 5 correct
+      calls in one sitting now land at `learning`, due tomorrow — not
+      `mastered`, due in 3 weeks.
+    - **A required review gate on the path itself**, the owner's
+      explicit choice over a softer "surfaced but skippable" banner-only
+      option: a brand-new verse's "START" stop is blocked — its popover
+      becomes "REVIEW N DUE" (routing to `sp-start-review`, the existing
+      review-session flow) and its floating bubble reads "REVIEW FIRST"
+      instead of "START" — whenever `shepherdDueReviews().length > 0`.
+      New `shepherdDueReviews()` is deliberately NOT `dueVerses()` (used
+      by the separate, older practice flow's Home nudge): that one also
+      counts brand-new, never-attempted verses as "due" (a `null`
+      `nextReview` reads as due), which is the path's own forward
+      progress, not a review backlog — `shepherdDueReviews()` filters to
+      verses that are both `shepherdDone()` (already started once) and
+      `isDue()`. `startShepherdReview()` and the due-badge/banner `Set`
+      in `renderShepherdPath()` both switched to it too, so the gate,
+      the banner count, and the due badges on individual stops all agree
+      on the same number. Replaying an already-started verse (status
+      `!== 'new'`) is never gated, due or not — only the "start a new
+      verse I haven't begun yet" action is blocked, both in the popover
+      and defensively inside `startShepherdLesson()` itself.
+    `sw.js` bumped to `rooted-v185`.
+
 ---
 
 ## 9. How the app reads this data

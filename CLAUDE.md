@@ -1421,6 +1421,22 @@ The schema was deliberately designed so all of the above can be added
   `go-add` action the path's own end-of-path "+" node already uses,
   landing on the generic Add menu (verse/chapters/character) instead.
   `sw.js` bumped to `rooted-v184`. See DATA_MODEL.md §8, item 182.
+- **Real spaced repetition for Shepherd's Path — done (2026-11-14).**
+  Owner: verses were only coming up "once" instead of being practiced
+  "over and over" until actually memorized. Root cause: `recordPractice
+  ()` promoted a verse's mastery stage (and its review gap) on every one
+  of a single lesson's 5 back-to-back exercise calls, so a perfect
+  first lesson could reach "mastered" with a 3-week gap after being
+  reviewed on exactly one day. Fixed with a day-gate (`VerseProgress.
+  lastPromoteDay` — at most one promotion per calendar day, wrong
+  answers always demote immediately instead) plus a tighter 1/3/14-day
+  ladder. Also added a required review gate on the path itself (owner's
+  explicit choice over a softer skippable-banner option): starting a
+  brand-new verse is blocked while any previously-started verse is due
+  for review (new `shepherdDueReviews()`, deliberately distinct from
+  the legacy `dueVerses()` since that one also counts never-attempted
+  verses as "due"). `sw.js` bumped to `rooted-v185`. See DATA_MODEL.md
+  §8, item 183.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

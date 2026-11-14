@@ -2576,7 +2576,7 @@ function stripProgress(entity){
 
 /* ---------- practice progress ---------- */
 function defaultProgress(){
-  return {status:'new', timesReviewed:0, lastScore:null, lastPracticedAt:null, nextReview:null, history:[]};
+  return {status:'new', timesReviewed:0, lastScore:null, lastPracticedAt:null, nextReview:null, lastPromoteDay:null, history:[]};
 }
 function getProgress(verseId){ return progress[verseId] || defaultProgress(); }
 function normalizeProgress(p){
@@ -2586,6 +2586,7 @@ function normalizeProgress(p){
     lastScore: (p.lastScore === undefined ? null : p.lastScore),
     lastPracticedAt: p.lastPracticedAt || null,
     nextReview: p.nextReview || null,
+    lastPromoteDay: p.lastPromoteDay || null,
     history: Array.isArray(p.history) ? p.history : []
   };
 }
@@ -3257,21 +3258,41 @@ function sharesScenesWith(charId){
   return [...ids].map(findChar).filter(Boolean);
 }
 
-/* ---------- spaced repetition (simple) ---------- */
+/* ---------- spaced repetition ---------- */
+/* Tightened 2026-11-14 (owner report: "every unit has a few verses and
+   they only appear once" — real memorization needs repeated exposure
+   over SEPARATE days, not one sitting). The original ladder promoted a
+   verse one stage per CALL to recordPractice(), and a single Shepherd
+   lesson fires this 5 times back to back (once per exercise type, same
+   verse, same sitting) — so a brand-new verse could walk new -> learning
+   -> review -> mastered inside one 5-exercise lesson and land with a
+   14-21 day gap before ever coming up again, despite never having been
+   reviewed on a second day. Fix: a correct answer only promotes the
+   verse's stage (and reschedules nextReview) the FIRST time that happens
+   on a given calendar day (lastPromoteDay) — the rest of that lesson's
+   exercises still count as practice history, just can't promote twice in
+   one sitting. A wrong answer isn't day-gated at all: it always demotes
+   one stage immediately and makes the verse due again right away, so a
+   verse that's slipping gets more reps, not a same-length delay. */
+const SHEPHERD_STAGE_INTERVAL_DAYS = {learning:1, review:3, mastered:14};
 function recordPractice(verseId, correct, challengeTypeId){
   const p = progress[verseId] || defaultProgress();
   const now = new Date().toISOString();
+  const today = localDayKey(new Date());
   p.timesReviewed += 1;
   p.lastScore = correct;
   p.lastPracticedAt = now;
-  let nextDays;
-  if(!correct){ p.status='learning'; nextDays=1; }
-  else if(p.status==='new'){ p.status='learning'; nextDays=3; }
-  else if(p.status==='learning'){ p.status='review'; nextDays=7; }
-  else if(p.status==='review'){ p.status='mastered'; nextDays=14; }
-  else { nextDays=21; }
-  const d = new Date(); d.setDate(d.getDate()+nextDays);
-  p.nextReview = d.toISOString();
+  if(!correct){
+    const idx = MASTERY_STAGES.indexOf(p.status);
+    p.status = idx > 0 ? MASTERY_STAGES[idx - 1] : 'new';
+    p.nextReview = now;
+  } else if(p.lastPromoteDay !== today){
+    const idx = MASTERY_STAGES.indexOf(p.status);
+    if(idx >= 0 && idx < MASTERY_STAGES.length - 1) p.status = MASTERY_STAGES[idx + 1];
+    const d = new Date(); d.setDate(d.getDate() + (SHEPHERD_STAGE_INTERVAL_DAYS[p.status] || 14));
+    p.nextReview = d.toISOString();
+    p.lastPromoteDay = today;
+  }
   p.history.push({at:now, challengeTypeId: challengeTypeId || null, score: correct ? 1 : 0});
   progress[verseId] = p;
   saveProgress();
@@ -6815,6 +6836,16 @@ const SHEPHERD_LESSON_SEQUENCE = [
 // first / clause / ref) per due verse").
 const SHEPHERD_REVIEW_TYPES = ['challenge_tap_builder', 'challenge_first_letter_sprint', 'challenge_clause_connect', 'challenge_reference_match'];
 function shepherdDone(v){ return getProgress(v.id).status !== 'new'; }
+/* The real review backlog for Shepherd's Path — a previously-started
+   verse whose schedule says it's due again. Deliberately NOT dueVerses()
+   (used by the separate, older practice flow's Home nudge): that one
+   also counts brand-new, never-attempted verses as "due" (a null
+   nextReview reads as due), which are the path's own forward progress,
+   not a review. Backs both the "Review N due" banner/gate below and
+   startShepherdReview(). */
+function shepherdDueReviews(){
+  return libraryVerses().filter(v => shepherdDone(v) && isDue(v));
+}
 /* "In production, derive [units] from verse tags/collections" (handoff
    README) — this app's closest analog to a tag is Topic, so group the
    user's own practice library by each verse's first topicId, in order of
@@ -6973,6 +7004,16 @@ function startShepherdLesson(verseId){
   const v = findVerse(verseId);
   if(!v) return;
   if((settings.hearts || 0) <= 0){ showShepherdToast('Out of hearts — come back tomorrow'); return; }
+  // Required review gate (owner's explicit call, 2026-11-14): a brand-new
+  // verse (status still 'new', i.e. this is the path's forward "START"
+  // stop, not a replay/review of one already begun) can't be started
+  // while earlier verses are due for review — clear those first. Replay
+  // of an already-started verse (status !== 'new') is never gated, due
+  // or not, since that's just extra practice, not new ground.
+  if(getProgress(verseId).status === 'new' && shepherdDueReviews().length){
+    showShepherdToast('Clear your due reviews first');
+    return;
+  }
   shepherdSel = null;
   session = {
     challengeTypeId: null,
@@ -6987,7 +7028,7 @@ function startShepherdLesson(verseId){
   go('practice');
 }
 function startShepherdReview(){
-  const ids = dueVerses().map(v=>v.id).filter(id=>findVerse(id));
+  const ids = shepherdDueReviews().map(v=>v.id).filter(id=>findVerse(id));
   if(!ids.length) return;
   if((settings.hearts || 0) <= 0){ showShepherdToast('Out of hearts — come back tomorrow'); return; }
   shepherdSel = null;
@@ -7245,7 +7286,8 @@ function renderShepherdPath(){
       <button class="btn primary cta" data-action="go-add">Add</button></div>`;
   }
   const cur = shepherdCurrent(units);
-  const due = new Set(dueVerses().map(v=>v.id));
+  const due = new Set(shepherdDueReviews().map(v=>v.id));
+  const reviewGate = due.size > 0;
   const isDark = settings.practiceTheme !== 'light';
   // A gentler amplitude than the handoff's own [0,-62,-86,-62,0,62,86,62]
   // — the full swing between two consecutive items (most commonly a
@@ -7293,13 +7335,15 @@ function renderShepherdPath(){
           ? `<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/></svg>`
           : `<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>`;
         nodeHtml = `
-          ${c ? `<div class="sp-start-bubble"><div class="sp-start-bubble-inner">START</div></div><div class="sp-ring"></div>` : ''}
+          ${c ? `<div class="sp-start-bubble"><div class="sp-start-bubble-inner">${reviewGate ? 'REVIEW FIRST' : 'START'}</div></div><div class="sp-ring"></div>` : ''}
           <button class="sp-node tap"${c ? ' id="shepherd-current-stop"' : ''} style="background:${bg};box-shadow:0 7px 0 ${sh},${glow};color:${ic};" data-action="sp-toggle-stop" data-id="${esc(key)}">${icon}<div class="sp-sheen"></div></button>
           ${isDueNow ? `<div class="sp-due-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg></div>` : ''}`;
         reached = d;
         const outOfHearts = (settings.hearts || 0) <= 0;
         if(outOfHearts && (c || d)) popoverHtml = shepherdHeartsLockedPopover(v.reference);
-        else if(c) popoverHtml = shepherdPopover(u, v.reference, 'New verse · 5 exercises', 'START  +15 XP', 'sp-start-lesson', v.id);
+        else if(c) popoverHtml = reviewGate
+          ? shepherdPopover(u, v.reference, `${due.size} earlier verse${due.size===1?'':'s'} ${due.size===1?'needs':'need'} review before you can start this one.`, 'REVIEW ' + due.size + ' DUE', 'sp-start-review', '')
+          : shepherdPopover(u, v.reference, 'New verse · 5 exercises', 'START  +15 XP', 'sp-start-lesson', v.id);
         else if(d) popoverHtml = shepherdPopover(u, v.reference, isDueNow ? 'This one is fading. A quick review will lock it back in.' : verseText(v).split(' ').slice(0,8).join(' ') + ' …', isDueNow ? 'REVIEW  +5 XP' : 'PRACTICE AGAIN  +5 XP', 'sp-start-lesson', v.id);
         else popoverHtml = shepherdLockedPopover(v.reference, 'Finish the stops above to unlock this verse.');
         allBefore = allBefore && d;
