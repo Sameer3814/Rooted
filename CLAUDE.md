@@ -1435,8 +1435,11 @@ The schema was deliberately designed so all of the above can be added
   brand-new verse is blocked while any previously-started verse is due
   for review (new `shepherdDueReviews()`, deliberately distinct from
   the legacy `dueVerses()` since that one also counts never-attempted
-  verses as "due"). `sw.js` bumped to `rooted-v185`. See DATA_MODEL.md
-  §8, item 183.
+  verses as "due"). `sw.js` bumped to `rooted-v185`. **Follow-up, same
+  day**: the "Review N due verses" banner was removed outright, now
+  redundant since the gated "current" stop's own popover already offers
+  the same "REVIEW N DUE" action the moment anything is due. `sw.js`
+  bumped to `rooted-v186`. See DATA_MODEL.md §8, item 183.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen

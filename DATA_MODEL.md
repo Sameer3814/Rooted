@@ -9331,6 +9331,14 @@ inventing a new principle:
       and defensively inside `startShepherdLesson()` itself.
     `sw.js` bumped to `rooted-v185`.
 
+    **Follow-up, same day**: owner asked to remove the "Review N due
+    verses" banner itself — now redundant once the required gate above
+    exists, since the gated "current" stop's own popover already offers
+    "REVIEW N DUE" (routing to the same `sp-start-review` action) the
+    moment any review is due. Removed the banner markup, its now-unused
+    `dueCount` local, and the dead `.sp-review-banner`/`.sp-review-badge`
+    CSS. `sw.js` bumped to `rooted-v186`.
+
 ---
 
 ## 9. How the app reads this data
