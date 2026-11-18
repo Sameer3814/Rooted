@@ -5,16 +5,22 @@
  * whole content/progress/settings bundle — see index.html's pullAndMerge()
  * / pushToCloud() for the client half of this.
  *
- * Auth: Azure Static Web Apps' platform authentication runs in front of this
- * (staticwebapp.config.json restricts /api/* to the "authenticated" role),
- * and forwards the verified identity as the base64-encoded
- * x-ms-client-principal header. This function never trusts a userId from the
- * request body — only from that header, decoded server-side. That's also
- * why COSMOS_CONNECTION_STRING lives only here, as a Function App setting,
- * and is never shipped to the browser.
+ * Auth (switched 2026-11-16 from Azure Static Web Apps' built-in GitHub
+ * platform auth to Firebase Authentication — see the "Firebase
+ * Authentication" comment in index.html and DATA_MODEL.md §7.1 for why):
+ * the client sends a Firebase ID token as `Authorization: Bearer <token>`,
+ * which this function verifies itself via the Admin SDK
+ * (admin.auth().verifyIdToken) — it never trusts a userId from the request
+ * body. staticwebapp.config.json now leaves /api/* open at the platform
+ * level (SWA has no way to grant its "authenticated" role to a Firebase
+ * session), so this verification is the real, sole gate, not a backup
+ * behind SWA's own check the way the old x-ms-client-principal read was.
+ * FIREBASE_SERVICE_ACCOUNT_JSON (like COSMOS_CONNECTION_STRING) lives only
+ * here, as a Function App setting, never shipped to the browser.
  */
 const { app } = require('@azure/functions');
 const { CosmosClient } = require('@azure/cosmos');
+const admin = require('firebase-admin');
 
 const DB_NAME = 'RootedDB';
 const CONTAINER_NAME = 'UserData';
@@ -29,13 +35,25 @@ function getContainer() {
   return cachedContainer;
 }
 
-function getPrincipal(request) {
-  const header = request.headers.get('x-ms-client-principal');
-  if (!header) return null;
+function getFirebaseAuth() {
+  const json = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  if (!json) return null;
+  if (!admin.apps.length) {
+    admin.initializeApp({ credential: admin.credential.cert(JSON.parse(json)) });
+  }
+  return admin.auth();
+}
+
+async function getPrincipal(request) {
+  const header = request.headers.get('authorization') || request.headers.get('Authorization');
+  if (!header || !header.startsWith('Bearer ')) return null;
+  const token = header.slice('Bearer '.length).trim();
+  if (!token) return null;
+  const auth = getFirebaseAuth();
+  if (!auth) return null;
   try {
-    const decoded = Buffer.from(header, 'base64').toString('utf-8');
-    const principal = JSON.parse(decoded);
-    return principal && principal.userId ? principal : null;
+    const decoded = await auth.verifyIdToken(token);
+    return { userId: decoded.uid, identityProvider: 'firebase', email: decoded.email || null };
   } catch (e) {
     return null;
   }
@@ -44,9 +62,9 @@ function getPrincipal(request) {
 app.http('sync', {
   methods: ['GET', 'POST'],
   route: 'sync',
-  authLevel: 'anonymous', // platform-level auth (staticwebapp.config.json) gates this before it arrives; we still re-check the principal below in case the function is ever called directly.
+  authLevel: 'anonymous', // staticwebapp.config.json leaves /api/* open at the platform level now — verifyIdToken() below is the real gate, not a backup behind it.
   handler: async (request, context) => {
-    const principal = getPrincipal(request);
+    const principal = await getPrincipal(request);
     if (!principal) {
       return { status: 401, jsonBody: { error: 'Not signed in.' } };
     }

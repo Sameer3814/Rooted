@@ -1566,22 +1566,6 @@
   .hds-hillscape .hds-deco2{position:absolute;right:16%;bottom:90px;}
   .hds-lamb{position:absolute;left:50%;bottom:40px;margin-left:-55px;animation:hdsBob 2.6s ease-in-out infinite;}
   @keyframes hdsBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-  /* Home: one-shot "Jesus and the lambs" procession, item 170. Recreated
-     from scratch on every renderHome() call, which is exactly what
-     makes it "replay every time Home is (re)visited" for free — a
-     fresh DOM node always restarts its own CSS animation, no extra
-     state needed. Lower-fidelity than the handoff's own gradient-
-     shaded vector figures (simple flat-color SVG shapes here) —
-     intentional, it's one decorative animation, not a core screen
-     element. */
-  .hds-procession{position:absolute;left:0;right:0;bottom:-16px;height:120px;z-index:0;pointer-events:none;overflow:hidden;}
-  .hds-procession-ground{position:absolute;left:0;right:0;bottom:0;height:30px;background:var(--ht-tint);border-radius:50% 50% 0 0/18px 18px 0 0;opacity:.6;}
-  .hds-procession-walk{position:absolute;left:0;bottom:10px;width:220px;height:90px;animation:hdsWalk 9s linear 1 both;}
-  @keyframes hdsWalk{from{transform:translateX(-240px);}to{transform:translateX(420px);}}
-  .hds-procession-lamb{position:absolute;bottom:0;animation:hdsHop .42s ease-in-out infinite;}
-  @keyframes hdsHop{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-  .hds-procession-heart{position:absolute;left:150px;bottom:60px;font:900 16px 'Figtree',sans-serif;color:#e0697a;animation:hdsHeart 1.6s ease-out infinite;}
-  @keyframes hdsHeart{0%{opacity:0;transform:translateY(4px) scale(.6);}30%{opacity:1;}100%{opacity:0;transform:translateY(-22px) scale(1);}}
 
   /* Study sub-pages — Patterns, Timeline, Family Tree, Lexicon — item
      176, design_handoff_practice_tab_v3's "Study sub-pages" spec
@@ -1939,11 +1923,10 @@
     .sp-node, .sp-chest-btn, .sp-mascot, .sp-start-bubble, .sp-popover, .sp-star,
     .sp-session-progress-fill, .sp-combo-line, .sp-feedback-sheet, .sp-feedback-icon, .sp-feedback-btn,
     .sp-confetti-piece, .sp-cloud-wrap, .sp-firefly-dot,
-    .hds-cloud-wrap, .hds-lamb, .hds-scenic-plant, .hds-procession-walk, .hds-procession-lamb, .hds-procession-heart{
+    .hds-cloud-wrap, .hds-lamb, .hds-scenic-plant{
       animation: none !important;
       transition: none !important;
     }
-    .hds-procession{display:none;}
   }
 </style>
 </head>
@@ -1956,6 +1939,15 @@
   <button class="navitem" data-nav="discover"><span class="dot"><i class="ti ti-compass"></i></span><span>Discover</span></button>
   <button class="navitem" data-nav="study"><span class="dot"><i class="ti ti-sparkles"></i></span><span>Study</span></button>
 </nav>
+
+<!-- Firebase Authentication (2026-11-16) — the compat/namespaced SDK, not
+     the modular ESM build, since this whole app is one classic script
+     block with plain global functions, not an ES module graph. Replaces
+     Azure Static Web Apps' GitHub-only platform auth; see the "Firebase
+     Authentication" comment block in the main script below and
+     DATA_MODEL.md §7.1 for why. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
 <script>
 /* ---------- local-dev storage fallback ----------
@@ -2000,9 +1992,109 @@ const LEGACY_KEY    = 'rooted-app-data';   // pre-split single blob; migrated on
 
 let contentTimer = null, progressTimer = null, settingsTimer = null;
 let syncMeta = {updatedAt: null};    // local edit clock; compared against the cloud copy
-let account = null;                  // {userId, userDetails, identityProvider, userRoles} | null — from /.auth/me
+let account = null;                  // {userId, userDetails, identityProvider} | null — mirrors firebaseAuth.currentUser
 let syncStatus = 'idle';             // 'idle' | 'syncing' | 'synced' | 'error' — for the account bar
 let cloudPushTimer = null;
+let accountFormMode = 'signup';      // 'signin' | 'signup' — which form the signed-out account bar/onboarding screen shows; defaults to signup to nudge registration
+let accountFormError = null;         // last sign-in/sign-up/reset error (or confirmation) message, or null
+let onboardingShowForm = false;      // true once "Create free account" is tapped on the onboarding gate (item 185) — reveals the email/password form in place
+
+/* ---------- Firebase Authentication (2026-11-16) ----------
+   Replaces Azure Static Web Apps' built-in GitHub-only platform auth —
+   SWA has no email/password provider at all, and its cookie-based
+   /.auth/* login flow doesn't travel to the native app this project is
+   about to wrap with Capacitor (no shared browser session there). Firebase
+   Auth's SDK works identically on web and native, and its ID tokens travel
+   as a plain Authorization header instead of a platform cookie — see
+   api/src/functions/sync.js and staticwebapp.config.json for the server
+   half. GitHub sign-in is deliberately NOT carried over (owner's explicit
+   call) — email/password only.
+   firebaseConfig's values are public client identifiers (safe to ship),
+   unlike COSMOS_CONNECTION_STRING/FIREBASE_SERVICE_ACCOUNT_JSON, which stay
+   server-side only. Until the owner fills these in, firebaseAuth stays
+   null and the account bar/sync just fail quiet — same pattern this app
+   already uses for JOSHUA_PROJECT_API_KEY/UNSPLASH_ACCESS_KEY/
+   YOUVERSION_APP_KEY not being configured yet. */
+const firebaseConfig = {
+  apiKey: 'AIzaSyCR4NhFDIy_zFCcuf8T2Zb6h9nFrHyQ-3k',
+  authDomain: 'rooted-aaca3.firebaseapp.com',
+  projectId: 'rooted-aaca3',
+  appId: '1:774167895168:web:34a603e2bf8502d4cb5a65'
+};
+let firebaseAuth = null;
+try{
+  if(window.firebase && firebaseConfig.apiKey !== 'REPLACE_WITH_FIREBASE_API_KEY'){
+    firebase.initializeApp(firebaseConfig);
+    firebaseAuth = firebase.auth();
+  }
+}catch(e){ console.error('Firebase init failed', e); }
+function accountAuthErrorMessage(e){
+  const code = e && e.code;
+  if(code === 'auth/email-already-in-use') return 'That email already has an account — try signing in instead.';
+  if(code === 'auth/invalid-email') return "That email address doesn't look right.";
+  if(code === 'auth/weak-password') return 'Password should be at least 6 characters.';
+  if(code === 'auth/wrong-password' || code === 'auth/invalid-credential' || code === 'auth/invalid-login-credentials') return 'Wrong email or password.';
+  if(code === 'auth/user-not-found') return 'No account found for that email.';
+  if(code === 'auth/too-many-requests') return 'Too many attempts — try again in a bit.';
+  return (e && e.message) || 'Something went wrong — try again.';
+}
+// The account form renders inside #account-bar (Settings) OR as part of
+// the full-screen onboarding gate (item 185, no #account-bar in that DOM
+// at all) — refreshAccountBar()'s targeted subtree swap only works for the
+// former, so every form action routes its re-render through this instead.
+function refreshAccountUI(){
+  if(view.screen === 'onboarding') render();
+  else refreshAccountBar();
+}
+const PASSWORD_REQUIREMENTS_HINT = 'At least 8 characters, with an uppercase letter, a lowercase letter, and a number.';
+function isStrongPassword(pw){
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
+}
+async function submitAccountForm(){
+  if(!firebaseAuth){ accountFormError = "Sign-in isn't configured yet."; refreshAccountUI(); return; }
+  const email = ((document.getElementById('account-email') || {}).value || '').trim();
+  const password = (document.getElementById('account-password') || {}).value || '';
+  accountFormError = null;
+  if(accountFormMode === 'signup'){
+    const confirmPassword = (document.getElementById('account-password-confirm') || {}).value || '';
+    if(!isStrongPassword(password)){ accountFormError = PASSWORD_REQUIREMENTS_HINT; refreshAccountUI(); return; }
+    if(password !== confirmPassword){ accountFormError = "Passwords don't match."; refreshAccountUI(); return; }
+  }
+  try{
+    if(accountFormMode === 'signup'){
+      const cred = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+      // Firebase only checks email *format*, not deliverability — sending a
+      // verification email is the real check that it's a real inbox. Fire
+      // and forget: the signed-in account bar's own "Check your inbox to
+      // verify" reminder (renderAccountBar()) is what actually surfaces
+      // this, not a blocking gate here.
+      if(cred && cred.user) cred.user.sendEmailVerification().catch(()=>{});
+    } else {
+      await firebaseAuth.signInWithEmailAndPassword(email, password);
+    }
+    // onAuthStateChanged (wired in boot()) picks up the new session, sets
+    // `account`, and re-renders — nothing else to do here on success.
+  }catch(e){
+    accountFormError = accountAuthErrorMessage(e);
+    refreshAccountUI();
+  }
+}
+function sendAccountPasswordReset(){
+  if(!firebaseAuth){ accountFormError = "Sign-in isn't configured yet."; refreshAccountUI(); return; }
+  const email = (document.getElementById('account-email') || {}).value || '';
+  if(!email){ accountFormError = 'Enter your email above first.'; refreshAccountUI(); return; }
+  firebaseAuth.sendPasswordResetEmail(email).then(()=>{
+    accountFormError = 'Password reset email sent.';
+    refreshAccountUI();
+  }).catch(e=>{ accountFormError = accountAuthErrorMessage(e); refreshAccountUI(); });
+}
+function resendVerificationEmail(){
+  if(!firebaseAuth || !firebaseAuth.currentUser) return;
+  firebaseAuth.currentUser.sendEmailVerification().then(()=>{
+    accountFormError = 'Verification email sent.';
+    refreshAccountUI();
+  }).catch(e=>{ accountFormError = accountAuthErrorMessage(e); refreshAccountUI(); });
+}
 let suppressSyncTouch = false;       // true while pullAndMerge() is writing an *adopted* remote state locally, so that adoption doesn't get mistaken for a fresh local edit and immediately pushed back up
 function saveContent(){
   touchSyncMeta();
@@ -2048,22 +2140,15 @@ function scheduleCloudPush(){
   clearTimeout(cloudPushTimer);
   cloudPushTimer = setTimeout(pushToCloud, 1500);
 }
-async function loadAccount(){
-  try{
-    const res = await fetch('/.auth/me');
-    if(!res.ok) return null;
-    const body = await res.json();
-    return (body && body.clientPrincipal) || null;
-  }catch(e){ return null; }
-}
 async function pushToCloud(){
-  if(!account) return;
+  if(!account || !firebaseAuth || !firebaseAuth.currentUser) return;
   syncStatus = 'syncing';
   refreshAccountBar();
   try{
+    const token = await firebaseAuth.currentUser.getIdToken();
     const res = await fetch('/api/sync', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
       body: JSON.stringify({content, progress, settings, updatedAt: syncMeta.updatedAt})
     });
     syncStatus = res.ok ? 'synced' : 'error';
@@ -2074,11 +2159,12 @@ async function pushToCloud(){
   refreshAccountBar();
 }
 async function pullAndMerge(){
-  if(!account) return;
+  if(!account || !firebaseAuth || !firebaseAuth.currentUser) return;
   syncStatus = 'syncing';
   refreshAccountBar();
   try{
-    const res = await fetch('/api/sync');
+    const token = await firebaseAuth.currentUser.getIdToken();
+    const res = await fetch('/api/sync', {headers: {'Authorization': 'Bearer ' + token}});
     if(res.ok){
       const remote = await res.json();
       if(remote && remote.updatedAt){
@@ -2089,7 +2175,7 @@ async function pullAndMerge(){
           content = Object.assign(emptyOverlay(), remote.content || {});
           progress = {};
           for(const [id, p] of Object.entries(remote.progress || {})) progress[id] = normalizeProgress(p);
-          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, remote.settings || {});
+          settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[], onboardingDone:false}, remote.settings || {});
           if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
           data = mergeContent(seed, content);
           if(!content.libraryVerseIds) content.libraryVerseIds = data.verses.map(v=>v.id);
@@ -2189,7 +2275,7 @@ async function importFromFile(file){
     for(const [id, p] of Object.entries(bundle.progress)) progress[id] = normalizeProgress(p);
   }
   if('settings' in bundle){
-    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, bundle.settings);
+    settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[], onboardingDone:false}, bundle.settings);
     if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
   }
   saveContent(); saveProgress(); saveSettings();
@@ -2700,7 +2786,7 @@ function seedData(){
 let seed = null;               // raw seed content (starter-pack.json or seedData())
 let content = emptyOverlay();  // user overlay, persisted to rooted-content
 let progress = {};             // verseId -> VerseProgress, persisted to rooted-progress
-let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]};  // persisted to rooted-settings
+let settings = {challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[], onboardingDone:false};  // persisted to rooted-settings
 let data = null;               // seed + overlay, what the app renders
 let lore = {eras:[], stories:[], lifeEvents:[]};  // seed-only: eras, stories, life events
 let connections = [];  // seed-only: generic Connection edges (DATA_MODEL.md §2)
@@ -3305,6 +3391,12 @@ const NAV_GROUPS = {
 // render() while Home is already dark, so the burst is a one-shot tied
 // to "just switched to dark," not a per-render thing.
 let homeStarsBurstPending = false;
+// A second, session-only trigger for that same burst (owner request,
+// 2026-11-18): play it the first time Home actually renders after the
+// app loads, not just on a light→dark toggle. Plain in-memory flag, not
+// persisted settings — "first open" means first render this page load,
+// every time the app is opened, not a once-ever onboarding moment.
+let homeFirstOpenPending = true;
 
 // Home's own sky-header decoration (owner request, 2026-11-13; narrowed
 // to Home + confined to the sky itself after feedback — see the CSS
@@ -3360,6 +3452,9 @@ function render(){
   if(navbarEl){
     const navTheme = view.screen === 'practice' ? settings.practiceTheme : settings.homeTheme;
     navbarEl.dataset.theme = navTheme === 'dark' ? 'dark' : 'light';
+    // The onboarding gate (item 185) is a one-time, explicit-choice screen —
+    // the persistent bottom nav would let a tap route straight around it.
+    navbarEl.style.display = view.screen === 'onboarding' ? 'none' : '';
   }
   // `body` has its own fixed 120px bottom padding (clearance for the
   // fixed nav bar) styled with the app's shared dark `--paper` — that
@@ -3384,14 +3479,16 @@ function render(){
   // dedicated check was added.
   const HDS_SCREENS = ['home', 'discover', 'study', 'browse', 'bookPeople', 'topics', 'characters', 'stories',
     'settings', 'unreachedDetail', 'verseDetail', 'topicDetail', 'characterDetail', 'timelineGame', 'storyDetail',
-    'lexicon', 'lexiconDetail', 'timeline', 'familyTree', 'motifs', 'motifDetail', 'add', 'addVerse', 'addCharacter'];
+    'lexicon', 'lexiconDetail', 'timeline', 'familyTree', 'motifs', 'motifDetail', 'add', 'addVerse', 'addCharacter',
+    'onboarding'];
   const isLegacyPracticeScreen = view.screen === 'practice' && !(session && session.shepherd);
   if(HDS_SCREENS.includes(view.screen) || isLegacyPracticeScreen){
     document.body.style.background = settings.homeTheme === 'dark' ? '#14112a' : '#f4eedf';
   }else{
     document.body.style.background = '';
   }
-  if(view.screen==='home') app.innerHTML = renderHome();
+  if(view.screen==='onboarding') app.innerHTML = renderOnboarding();
+  else if(view.screen==='home') app.innerHTML = renderHome();
   else if(view.screen==='unreachedDetail') app.innerHTML = renderUnreachedDetail();
   else if(view.screen==='discover') app.innerHTML = renderDiscover();
   else if(view.screen==='browse') app.innerHTML = renderBrowse();
@@ -3510,42 +3607,18 @@ function renderHomeHeader(){
       </div>
     </div>`;
 }
-// Recreated fresh on every renderHome() call — a brand-new DOM node
-// always restarts its own CSS animation (hdsWalk/hdsHop), which is what
-// makes the procession "play once per Home visit, replay on re-tapping
-// Home while already on Home" for free, with zero persisted state.
-function renderHomeProcession(){
-  const lamb = (w,left,delay,extra)=>`<div class="hds-procession-lamb" style="left:${left}px;width:${w}px;height:${w*.82}px;animation-delay:${delay}s;">
-    <svg viewBox="0 0 40 32" width="100%" height="100%"><ellipse cx="20" cy="30" rx="13" ry="1.6" fill="rgba(0,0,0,.12)"/>
-    <rect x="9" y="20" width="3" height="8" rx="1.4" fill="#4a3f5c"/><rect x="28" y="20" width="3" height="8" rx="1.4" fill="#4a3f5c"/>
-    <circle cx="14" cy="14" r="10" fill="#f3ebdd"/><circle cx="26" cy="14" r="10" fill="#f3ebdd"/><circle cx="20" cy="12" r="11" fill="#fffdf8"/>
-    <circle cx="33" cy="12" r="6.5" fill="#f8eee2"/><circle cx="35" cy="10.6" r=".9" fill="#2b2228"/>
-    ${extra || ''}</svg></div>`;
-  const jesus = `<div class="hds-procession-lamb" style="left:176px;width:26px;height:78px;animation:hdsStep .84s ease-in-out infinite;">
-    <svg viewBox="0 0 26 78" width="100%" height="100%"><ellipse cx="13" cy="76" rx="9" ry="1.6" fill="rgba(0,0,0,.12)"/>
-    <path d="M9 14q4-2 8 0l2 44H7z" fill="#f7f2e7"/><path d="M8 20q4-1.6 10 0l2 38H6z" fill="#c8603c"/>
-    <circle cx="13" cy="7" r="6.5" fill="#6e472b"/><circle cx="13" cy="9" r="4.4" fill="#d4a47c"/>
-    <path d="M22 44V8q0-6-5-6" stroke="#7a4c2a" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>`;
-  return `<div class="hds-procession"><div class="hds-procession-ground"></div>
-    <div class="hds-procession-walk">
-      ${lamb(26,0,.1)}
-      ${lamb(30,42,.25)}
-      ${lamb(36,90,0,`<path d="M27 15q3 3 7 1.6l.4 2.2q-4 1.8-7.6-1.2z" fill="#f2a65a"/>`)}
-      <div class="hds-procession-heart" style="animation-delay:.6s;">&#9829;</div>
-      ${jesus}
-    </div></div>
-    <style>@keyframes hdsStep{0%,100%{transform:translateY(0) rotate(0);}25%{transform:translateY(-2px) rotate(1.5deg);}75%{transform:translateY(-2px) rotate(-1.5deg);}}</style>`;
-}
 function renderHome(){
   loadVotdRemote(); loadVotdImage(); // fire-and-forget; no-op once status leaves 'idle'
   loadUnreachedOfDay();
   const isDark = settings.homeTheme === 'dark';
-  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Falling-star burst is a one-shot tied to the light→dark toggle
-  // (homeStarsBurstPending, set by the hds-toggle-theme action handler)
-  // — consumed here so it never fires again until the next toggle.
-  const playFallingStars = isDark && homeStarsBurstPending;
+  // Falling-star burst is a one-shot tied to either the light→dark toggle
+  // (homeStarsBurstPending, set by the hds-toggle-theme action handler) or
+  // this being the first time Home has rendered since the app loaded
+  // (homeFirstOpenPending) — consumed here so neither fires again until
+  // its own next trigger (another toggle, or the next full app open).
+  const playFallingStars = isDark && (homeStarsBurstPending || homeFirstOpenPending);
   homeStarsBurstPending = false;
+  homeFirstOpenPending = false;
   // Order (2026-09-17, owner's explicit request): VOTD, then Unreached
   // of the Day, then the Fact of the Day, then Story of the Day. Word of
   // the Day wasn't named in that request — kept, not dropped, just moved
@@ -3565,7 +3638,6 @@ function renderHome(){
         ${renderWordOfTheDayCard()}
         ${renderPracticeNudge()}
       </div>
-      ${reducedMotion ? '' : renderHomeProcession()}
     </div>
     ${renderFactDrawer()}
   `;
@@ -3869,27 +3941,91 @@ function renderUnreachedDetail(){
     </div>
   `;
 }
+/* Shared by renderAccountBar()'s signed-out branch and renderOnboarding()
+   (item 185) — one email/password form, one validation path, so the
+   password-strength rule and the confirm-password check only live in one
+   place. */
+function renderAccountFormFields(mode){
+  const isSignup = mode === 'signup';
+  return `
+    <form id="account-form">
+      <label for="account-email">Email</label>
+      <input type="email" id="account-email" placeholder="you@example.com" autocomplete="email">
+      <label for="account-password">Password</label>
+      <input type="password" id="account-password" placeholder="••••••••" autocomplete="${isSignup ? 'new-password' : 'current-password'}">
+      ${isSignup ? `
+      <p class="field-hint" style="margin:4px 0 10px;">At least 8 characters, with an uppercase letter, a lowercase letter, and a number.</p>
+      <label for="account-password-confirm">Confirm password</label>
+      <input type="password" id="account-password-confirm" placeholder="••••••••" autocomplete="new-password">
+      ` : ''}
+      ${accountFormError ? `<div class="err">${esc(accountFormError)}</div>` : ''}
+      <button type="submit" class="btn primary block" style="margin-top:14px;">${isSignup ? 'Create account' : 'Sign in'}</button>
+    </form>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;">
+      <span class="field-hint tap" data-action="account-toggle-mode" style="cursor:pointer;">${isSignup ? 'Already have an account? Sign in' : 'New here? Create an account'}</span>
+      ${!isSignup ? `<span class="field-hint tap" data-action="account-forgot-password" style="cursor:pointer;">Forgot password?</span>` : ''}
+    </div>
+  `;
+}
+/* The one-time opening gate (item 185) shown instead of Home on a brand-new
+   install until the visitor either creates an account or explicitly
+   chooses to continue as a guest — see boot()'s isFreshInstall branch for
+   who actually sees this (never retroactively, for an existing user) and
+   the onAuthStateChanged handler for the auto-redirect once sign-up/sign-in
+   actually succeeds. */
+function renderOnboarding(){
+  const isDark = settings.homeTheme === 'dark';
+  return `
+    <div class="hds-theme" data-theme="${isDark ? 'dark' : 'light'}">
+      <div class="hds-content" style="padding-top:48px;min-height:100vh;box-sizing:border-box;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div class="avatar" style="width:60px;height:60px;margin:0 auto 14px;"><i class="ti ti-leaf" style="font-size:26px;"></i></div>
+          <h1 style="margin:0 0 8px;">Welcome to Rooted</h1>
+          <p class="field-hint" style="font-size:15px;">A Bible study companion for memorizing Scripture and exploring how it all connects.</p>
+        </div>
+        ${!onboardingShowForm ? `
+          <div class="card" style="margin-bottom:14px;">
+            <p style="margin:0;line-height:1.55;"><strong>Create a free account</strong> so your library, progress, and streak are backed up and follow you across devices.</p>
+          </div>
+          <button class="btn primary block" data-action="onboarding-show-form" style="margin-bottom:10px;">Create free account</button>
+          <button class="btn block" data-action="onboarding-continue-guest">Continue as guest</button>
+          <p class="field-hint" style="text-align:center;margin-top:16px;line-height:1.5;">As a guest, your progress is stored only on this device. If you clear your browser data or switch devices, it may be lost.</p>
+        ` : `
+          <div class="card">${renderAccountFormFields(accountFormMode)}</div>
+          <p class="field-hint" style="text-align:center;margin-top:16px;"><span class="tap" data-action="onboarding-continue-guest" style="cursor:pointer;text-decoration:underline;">Continue as guest instead</span></p>
+        `}
+      </div>
+    </div>
+  `;
+}
 function renderAccountBar(){
   if(!account){
+    const isSignup = accountFormMode === 'signup';
     return `
-    <div class="card" id="account-bar" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-      <div class="char-row">
+    <div class="card" id="account-bar">
+      <div class="char-row" style="margin-bottom:12px;">
         <div class="avatar"><i class="ti ti-cloud"></i></div>
-        <div><h3 style="margin:0;">Sync across devices</h3><p class="field-hint">Sign in to back up your progress and pick it up anywhere.</p></div>
+        <div><h3 style="margin:0;">Sync across devices</h3><p class="field-hint">${isSignup ? 'Create an account to back up your progress and pick it up anywhere.' : 'Sign in to back up your progress and pick it up anywhere.'}</p></div>
       </div>
-      <a class="btn" href="/.auth/login/github?post_login_redirect_uri=/"><i class="ti ti-brand-github"></i> Sign in</a>
+      ${renderAccountFormFields(accountFormMode)}
     </div>`;
   }
   const label = account.userDetails || 'your account';
   const statusText = syncStatus==='syncing' ? 'Syncing…' : syncStatus==='error' ? 'Sync failed — tap to retry' : 'Synced';
   const statusIcon = syncStatus==='syncing' ? 'ti-loader' : syncStatus==='error' ? 'ti-cloud-off' : 'ti-cloud-check';
+  const needsVerification = !!(firebaseAuth && firebaseAuth.currentUser && !firebaseAuth.currentUser.emailVerified);
   return `
-    <div class="card" id="account-bar" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-      <div class="char-row">
-        <div class="avatar"><i class="ti ${statusIcon}"></i></div>
-        <div><h3 style="margin:0;">${esc(label)}</h3><p class="field-hint" data-action="sync-now" style="cursor:pointer;">${esc(statusText)}</p></div>
+    <div class="card" id="account-bar">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div class="char-row">
+          <div class="avatar"><i class="ti ${statusIcon}"></i></div>
+          <div><h3 style="margin:0;">${esc(label)}</h3><p class="field-hint" data-action="sync-now" style="cursor:pointer;">${esc(statusText)}</p></div>
+        </div>
+        <button class="btn" data-action="account-sign-out">${t('btn_sign_out')}</button>
       </div>
-      <a class="btn" href="/.auth/logout?post_logout_redirect_uri=/">${t('btn_sign_out')}</a>
+      ${needsVerification ? `
+      <p class="field-hint" style="margin-top:12px;">Check your inbox to verify ${esc(label)}. <span class="tap" data-action="account-resend-verification" style="text-decoration:underline;cursor:pointer;">Resend email</span></p>
+      ` : ''}
     </div>`;
 }
 function renderDataCard(){
@@ -7752,6 +7888,12 @@ function bindEvents(root){
   (root || document).querySelectorAll('[data-action]').forEach(el=>{
     el.addEventListener('click', onAction);
   });
+  // The account form can re-render on its own via refreshAccountBar() (a
+  // root-scoped partial bind), so its submit listener is wired here, ahead
+  // of the "full bind only" guard below — unlike verse-form/char-form,
+  // which only ever render as part of a full page.
+  const af = (root || document).querySelector('#account-form');
+  if(af) af.addEventListener('submit', e=>{ e.preventDefault(); submitAccountForm(); });
   // A partial re-render only needs its own subtree wired up; the rest of the
   // page still has its listeners and would otherwise get duplicates.
   if(root) return;
@@ -8113,6 +8255,12 @@ function onAction(e){
   }
   else if(action==='retry-corpus'){ corpusStatus = 'idle'; loadCorpus(); }
   else if(action==='sync-now'){ if(account) pullAndMerge(); }
+  else if(action==='account-toggle-mode'){ accountFormMode = accountFormMode==='signup' ? 'signin' : 'signup'; accountFormError = null; refreshAccountUI(); }
+  else if(action==='account-forgot-password') sendAccountPasswordReset();
+  else if(action==='account-resend-verification') resendVerificationEmail();
+  else if(action==='account-sign-out'){ if(firebaseAuth) firebaseAuth.signOut(); }
+  else if(action==='onboarding-show-form'){ onboardingShowForm = true; accountFormMode = 'signup'; accountFormError = null; render(); }
+  else if(action==='onboarding-continue-guest'){ settings.onboardingDone = true; saveSettings(); accountFormError = null; onboardingShowForm = false; go('home'); }
   else if(action==='export-data') downloadExport();
   else if(action==='trigger-import'){ const inp = document.getElementById('import-file-input'); if(inp) inp.click(); }
 }
@@ -8360,8 +8508,18 @@ async function migrateLegacy(seedContent){
   for(const [id, p] of Object.entries(storedProgress || {})) progress[id] = normalizeProgress(p);
 
   const storedSettings = await loadStored(SETTINGS_KEY);
-  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[]}, storedSettings || {});
+  settings = Object.assign({challengeTypeId:'challenge_tap_builder', dailyGoal:10, soundEnabled:true, language:'en', hearts:5, gems:0, xp:0, chestsOpened:[], practiceTheme:'dark', homeTheme:'light', lastStreakScreenDate:null, heartsResetDate:null, trophiesClaimed:[], onboardingDone:false}, storedSettings || {});
   if(!CHALLENGE_TYPES[settings.challengeTypeId] && settings.challengeTypeId !== MIX_MATCH_ID) settings.challengeTypeId = 'challenge_tap_builder';
+  // The onboarding gate (item 185) only exists from today on — an existing
+  // user upgrading into this version has no opinion stored either way
+  // (storedSettings lacks the field entirely, same "absent vs explicit"
+  // distinction as content.libraryVerseIds above), so never show it to them
+  // retroactively. Only a genuine isFreshInstall gets the real `false`
+  // default from the literal above.
+  if(!isFreshInstall && storedSettings && typeof storedSettings.onboardingDone === 'undefined'){
+    settings.onboardingDone = true;
+    saveSettings();
+  }
   if(settings.language === 'te') loadTeVerses(); // don't block first paint — verseText() falls back to English until this resolves
 
   const storedSyncMeta = await loadStored(SYNC_META_KEY);
@@ -8388,14 +8546,28 @@ async function migrateLegacy(seedContent){
   lexicon = await loadLexiconData();
   characterPortraits = await loadCharacterPortraits();
   storyIllustrations = await loadStoryIllustrations();
+  if(!settings.onboardingDone) view = {screen: 'onboarding', params: {}};
   render();
   applyNavLabels();
 
   // Cloud sync is optional and never blocks first paint — the app is fully
-  // usable offline the instant the line above runs. This runs after, in the
-  // background, and only touches anything if the visitor is signed in.
-  account = await loadAccount();
-  if(account) await pullAndMerge();
+  // usable offline the instant the line above runs. The account bar always
+  // renders signed-out first; Firebase's own onAuthStateChanged (which also
+  // fires once immediately with whatever session it finds persisted from a
+  // previous visit) flips it and triggers pullAndMerge() in the background.
+  if(firebaseAuth){
+    firebaseAuth.onAuthStateChanged(async user=>{
+      account = user ? {userId: user.uid, userDetails: user.email, identityProvider: 'firebase'} : null;
+      accountFormError = null;
+      // Signing in satisfies the onboarding gate (item 185) just as much as
+      // explicitly choosing "Continue as guest" does — never leave a
+      // genuinely signed-in visitor stuck looking at the gate screen.
+      if(account && !settings.onboardingDone){ settings.onboardingDone = true; saveSettings(); }
+      if(account && view.screen === 'onboarding') go('home');
+      else refreshAccountBar();
+      if(account) await pullAndMerge();
+    });
+  }
 })();
 
 if('serviceWorker' in navigator){

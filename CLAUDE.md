@@ -1440,6 +1440,129 @@ The schema was deliberately designed so all of the above can be added
   redundant since the gated "current" stop's own popover already offers
   the same "REVIEW N DUE" action the moment anything is due. `sw.js`
   bumped to `rooted-v186`. See DATA_MODEL.md §8, item 183.
+- **Switched auth from Azure Static Web Apps' GitHub provider to Firebase
+  Authentication (email/password) — done (2026-11-16).** Driven by two
+  things at once: the owner wants email login, and SWA has no built-in
+  email/password provider at all; separately, SWA's cookie-based
+  `/.auth/*` redirect flow doesn't carry over to the native iOS/Android app
+  this project is about to be wrapped into with Capacitor, since there's no
+  shared browser session there the way there is on web. Firebase Auth's own
+  SDK works identically on web and native, ships built-in
+  verification/password-reset emails (no new email-sending vendor needed),
+  and keeps password storage entirely off this app's own plate. Scope,
+  confirmed with the owner up front: **email/password only — GitHub sign-in
+  dropped outright**, not kept alongside it (no new GitHub OAuth App
+  registration, no dual-provider UI). `index.html`'s account bar
+  (`renderAccountBar()`) is now a real sign-in/sign-up form (email,
+  password, a mode toggle, "Forgot password?") instead of a GitHub link;
+  `firebaseAuth.onAuthStateChanged()` (wired in `boot()`) replaces the old
+  one-shot `fetch('/.auth/me')`, and `pushToCloud()`/`pullAndMerge()` now
+  send the Firebase ID token as `Authorization: Bearer <token>` instead of
+  relying on SWA's forwarded `x-ms-client-principal` header. On the server,
+  `api/src/functions/sync.js` verifies that token itself via
+  `firebase-admin`'s `verifyIdToken()` (new `FIREBASE_SERVICE_ACCOUNT_JSON`
+  Function App setting) — `staticwebapp.config.json`'s `/api/*` route moved
+  from `allowedRoles: ["authenticated"]` to `["anonymous"]`, since SWA can
+  never grant its own `authenticated` role to a Firebase session; the
+  token check in `sync.js` is now the real, sole gate, not defense-in-depth
+  behind SWA's role check the way it used to be documented. Known, accepted
+  consequence, not an oversight: any existing GitHub-synced Cosmos
+  document (keyed by a `gh|...` id) is now unreachable — nothing reads or
+  writes that id again; a real GitHub-synced account worth keeping needs a
+  one-time manual re-key in Cosmos Data Explorer after signing up with
+  Firebase, not something this change automates. Needs manual, one-time
+  owner setup outside this repo before it works end-to-end: create a
+  Firebase project, enable the Email/Password sign-in method, paste the web
+  config into `index.html`'s `firebaseConfig` object (currently
+  placeholder `REPLACE_WITH_FIREBASE_*` values), and set
+  `FIREBASE_SERVICE_ACCOUNT_JSON` in the Azure Portal (and in a local,
+  gitignored `api/local.settings.json` for local testing) — until then,
+  sign-up/sign-in fails client-side with a clear Firebase SDK error and
+  `/api/sync` 500s, the same fail-quiet-until-configured pattern this app
+  already uses for `JOSHUA_PROJECT_API_KEY`/`UNSPLASH_ACCESS_KEY`/
+  `YOUVERSION_APP_KEY`. `sw.js` bumped to `rooted-v187`. See DATA_MODEL.md
+  §7.1, item 184.
+- **Onboarding gate + stronger sign-up (password confirmation, strength
+  rule, email verification) — done (2026-11-17).** The owner tried the new
+  Firebase login live and found three real gaps: no opening screen asking
+  a new visitor to register or continue as a guest (with no warning that
+  guest progress is local-only), no password-confirmation field, and no
+  actual check that a signed-up email is real (Firebase only validates
+  format — a fake address still "worked"). Added a one-time
+  `renderOnboarding()` gate shown instead of Home on a true fresh install
+  (never retroactively, for existing users) with "Create free account" /
+  "Continue as guest" and an explicit progress-loss warning; a shared
+  `renderAccountFormFields()` (used by both this screen and Settings'
+  account bar) now requires an 8+ character password with upper/lowercase
+  and a digit, plus a matching confirm-password field, checked client-side
+  before Firebase is even called; and a new account gets a verification
+  email on sign-up, with a persistent "check your inbox" reminder (and
+  resend link) on the signed-in account bar until verified — not a hard
+  block, just a standing nudge. `sw.js` bumped to `rooted-v188`. See
+  DATA_MODEL.md §8, item 185.
+- **Home's night-sky star burst now also plays on first open — done
+  (2026-11-18).** Item 177's `renderHomeSkyStars()` burst (2 shooting
+  stars over the ambient twinkle) used to fire only on an explicit
+  light→dark theme toggle. A new session-only `homeFirstOpenPending`
+  flag triggers that same burst the first time Home renders each time
+  the app is opened too, consumed alongside the existing toggle flag —
+  still gated behind dark mode, same as before. `sw.js` bumped to
+  `rooted-v189`. See DATA_MODEL.md §8, item 186.
+- **A real "Jesus and the lambs" walk-across strip above Home's nav bar
+  — done (2026-11-18), same day, two passes.** A follow-up to the item
+  above. First pass built a full-screen Ken-Burns splash using real
+  Gemini-generated art (same pipeline as character portraits/story art)
+  — the owner rejected the shape outright: "it's not the image I want,
+  I want the figures to actually walk from left to right just above the
+  navigation bar." Deleted that splash entirely (code, CSS,
+  `pipeline/generate_home_intro_art.py`, `media/home/
+  home-intro-shepherd.jpg`) and replaced it with a new
+  `pipeline/generate_home_walk_strip_art.py` — a tight profile-view
+  crop of Jesus and a few lambs mid-stride, no landscape background —
+  rendered via a new `.home-walk-strip` (`position:fixed`, pinned flush
+  above `.navbar`, `z-index:900`) that slides the whole band once from
+  off-screen left to off-screen right over 9s, same technique as item
+  170's flat-SVG procession. Two real bugs caught and fixed before
+  committing the final asset: the generated figures initially faced the
+  wrong way (added a `--flip` mirror option, verified cheaply on the
+  already-generated test image before re-spending an API call); and a
+  first attempt at forcing a fixed crop aspect ratio cut off Jesus's
+  head (fixed by dropping the crop step and rendering the image as a
+  real `<img style="height:100%;width:auto">` instead of a
+  background-image div, letting the browser fit its natural aspect
+  ratio with zero cropping). Still triggers off item 186's
+  `homeFirstOpenPending` flag, still gated only by
+  `prefers-reduced-motion`. `sw.js` bumped to `rooted-v191`. **Follow-up,
+  same day — a real bug found via the owner's own live testing: the
+  strip never appeared at all**, including in a fresh incognito window
+  (ruling out caching). Root cause: `renderHome()`'s own fire-and-forget
+  VOTD/Unreached fetches each call `render()` again on resolving — which
+  fail almost instantly against a local dev server with no real API
+  backend — and `render()`'s wholesale `innerHTML` swap was destroying
+  the strip's DOM node within milliseconds of it being inserted, before
+  it had visibly animated. Fixed by moving the strip out of
+  `renderHome()`'s own markup: new `ensureHomeWalkStrip()` appends it
+  directly to `document.body` (never touched by `render()`'s innerHTML
+  swap) instead, with `removeHomeWalkStripIfLeavingHome()` cleaning it
+  up early if the user navigates away first. `sw.js` bumped to
+  `rooted-v192`. See DATA_MODEL.md §8, item 188.
+- **All of Home's "figures walking" animation work removed, deferred —
+  done (2026-11-18), same day.** Once the bug above was fixed and the
+  strip actually rendered, the owner clarified what they'd wanted all
+  along: real walking leg/body motion ("like animated figures in a
+  video"), not a static photo sliding sideways. Gemini only generates
+  one static image per call (no video/sprite output), so a true walk
+  cycle needs either a multi-pose sprite sheet (several independent
+  generations, real risk of frame misalignment) or hand-built
+  procedural SVG/CSS (smooth motion, back to a flatter illustrated
+  look) — presented as an explicit tradeoff rather than guessed.
+  Owner's call: **"Let's worry about that later. We'll also get rid of
+  the existing animations."** Deleted outright, not just disabled: item
+  170's flat-SVG procession, and everything from the two items above
+  (`ensureHomeWalkStrip`, its CSS, `media/home/home-walk-strip.jpg`,
+  `pipeline/generate_home_walk_strip_art.py`). Item 186's falling-star
+  burst is untouched — a separate decorative effect, never part of this
+  ask. `sw.js` bumped to `rooted-v193`. See DATA_MODEL.md §8, item 189.
 - **4-Pillar navigation — done (2026-09-16), owner-specified
   architecture.** Bottom nav collapsed from 6 tabs to 4 — Home and
   Practice unchanged; a new **Discover** hub screen
@@ -1740,12 +1863,10 @@ The schema was deliberately designed so all of the above can be added
     until it is) never ships in client-side JS, and so an unconfirmed CORS
     question on Joshua Project's side never becomes the app's problem. See
     DATA_MODEL.md §8, item 78.
-  - Auth is **GitHub**, via Static Web Apps' built-in pre-configured
-    provider (`/.auth/login/github` — zero OAuth-app registration). Chosen
-    for zero setup, explicitly not locked in — switching providers later
-    is supported by the platform, though note each provider yields a
-    different `userId` for the same person (§7.1), so it's not seamless
-    account migration.
+  - Auth is **Firebase Authentication** (email/password), switched
+    2026-11-16 from Static Web Apps' built-in GitHub provider — see item
+    184 below and DATA_MODEL.md §7.1. SWA's own `/.auth/*` auth is no
+    longer used for anything in this app.
   - GitHub repo: https://github.com/Sameer3814/Rooted (public). Pushes
     from this session go over a dedicated SSH deploy key
     (`~/.ssh/rooted_github_personal`, host alias `github-personal`) set up
